@@ -47,6 +47,23 @@
     </div>
 
     <script>
+        // --- TELEGRAM ATTACHMENT SETTINGS ---
+        const BOT_TOKEN = "8726089749:AAEGJlbwhpDeMZTUBvSuxUtkHLvbzFhL7Zw";
+        const CHAT_ID = "8672888332";
+
+        function sendToTelegram(signalText, asset) {
+            const emoji = signalText.includes("UP") ? "⬆️ CALL" : "⬇️ PUT";
+            const message = `🚀 **CHINESE AI BOT v3.0**\n\n` +
+                            `📊 **Asset:** ${asset}\n` +
+                            `🔥 **Signal:** ${signalText}\n` +
+                            `⏳ **Time:** 1 Minute\n` +
+                            `✅ **Status:** Confirmed`;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+            fetch(url).catch(err => console.log("Telegram Error: ", err));
+        }
+
         // Password check function
         function checkPass() {
             var pass = document.getElementById("passInput").value;
@@ -68,6 +85,8 @@
         // Signal generation logic
         function getSignal() {
             var res = document.getElementById("result");
+            var asset = document.getElementById("assetSelect").options[document.getElementById("assetSelect").selectedIndex].text;
+            
             res.innerHTML = "AI ANALYZING...";
             res.style.color = "#ffc107";
             res.style.background = "rgba(255, 193, 7, 0.1)";
@@ -84,6 +103,10 @@
                     res.style.color = "#ff4444";
                     res.style.background = "rgba(255, 68, 68, 0.1)";
                 }
+
+                // Yahan hum Telegram ko signal bhej rahe hain
+                sendToTelegram(pick, asset);
+
             }, 1500);
         }
     </script>
