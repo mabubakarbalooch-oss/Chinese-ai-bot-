@@ -20,8 +20,7 @@
     <div id="loginSection">
         <div class="login-box">
             <h2 style="color:#ffc107; margin-top:0;">🔒 Bot Locked</h2>
-            <p style="font-size: 14px; color: #aaa;">Enter Password to access signals</p>
-            <input type="password" id="passInput" placeholder="Password yahan likhen">
+            <input type="password" id="passInput" placeholder="Password: Mybot786">
             <button onclick="checkPass()">UNLOCK BOT</button>
             <p id="error" style="color: #ff4444; display: none; margin-top: 10px;">❌ Ghalat Password!</p>
         </div>
@@ -35,7 +34,6 @@
             <option value="FX:EURUSD">EUR/USD</option>
             <option value="USDBRL">USD/BRL</option>
             <option value="USDMXN">USD/MXN</option>
-            <option value="FX:GBPUSD">GBP/USD</option>
         </select>
 
         <div id="chartContainer" style="background: #000; border-radius: 10px; overflow: hidden; border: 1px solid #333;">
@@ -47,66 +45,36 @@
     </div>
 
     <script>
-        // --- TELEGRAM ATTACHMENT SETTINGS ---
-        const BOT_TOKEN = "8726089749:AAEGJlbwhpDeMZTUBvSuxUtkHLvbzFhL7Zw";
-        const CHAT_ID = "8672888332";
-
-        function sendToTelegram(signalText, asset) {
-            const emoji = signalText.includes("UP") ? "⬆️ CALL" : "⬇️ PUT";
-            const message = `🚀 **CHINESE AI BOT v3.0**\n\n` +
-                            `📊 **Asset:** ${asset}\n` +
-                            `🔥 **Signal:** ${signalText}\n` +
-                            `⏳ **Time:** 1 Minute\n` +
-                            `✅ **Status:** Confirmed`;
-
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-
-            fetch(url).catch(err => console.log("Telegram Error: ", err));
-        }
-
-        // Password check function
         function checkPass() {
             var pass = document.getElementById("passInput").value;
             if(pass === "Mybot786") {
                 document.getElementById("loginSection").style.display = "none";
                 document.getElementById("botContent").style.display = "block";
-            } else {
-                document.getElementById("error").style.display = "block";
-            }
+            } else { document.getElementById("error").style.display = "block"; }
         }
 
-        // Update chart when currency changes
         function updateChart() {
             var pair = document.getElementById("assetSelect").value;
-            var url = "https://s.tradingview.com/widgetembed/?symbol=" + pair + "&interval=1&theme=dark";
-            document.getElementById("tv-frame").src = url;
+            document.getElementById("tv-frame").src = "https://s.tradingview.com/widgetembed/?symbol=" + pair + "&interval=1&theme=dark";
         }
 
-        // Signal generation logic
         function getSignal() {
             var res = document.getElementById("result");
             var asset = document.getElementById("assetSelect").options[document.getElementById("assetSelect").selectedIndex].text;
-            
             res.innerHTML = "AI ANALYZING...";
-            res.style.color = "#ffc107";
-            res.style.background = "rgba(255, 193, 7, 0.1)";
-
+            
             setTimeout(function() {
                 var sigs = ["↑ CALL (UP) 1 MIN", "↓ PUT (DOWN) 1 MIN"];
                 var pick = sigs[Math.floor(Math.random() * sigs.length)];
                 res.innerHTML = pick;
+                res.style.color = pick.includes("UP") ? "#00ff00" : "#ff4444";
+
+                // --- TELEGRAM ATTACHMENT ---
+                const token = "8726089749:AAEGJlbwhpDeMZTUBvSuxUtkHLvbzFhL7Zw";
+                const chatid = "8672888332";
+                const msg = "🚀 AI SIGNAL: " + asset + "\n🔥 " + pick;
+                fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}&text=${encodeURIComponent(msg)}`);
                 
-                if(pick.includes("UP")) {
-                    res.style.color = "#00ff00";
-                    res.style.background = "rgba(0, 255, 0, 0.1)";
-                } else {
-                    res.style.color = "#ff4444";
-                    res.style.background = "rgba(255, 68, 68, 0.1)";
-                }
-
-                // Yahan hum Telegram ko signal bhej rahe hain
-                sendToTelegram(pick, asset);
-
             }, 1500);
         }
     </script>
