@@ -12,7 +12,7 @@
         #botContent { display: none; padding: 10px; }
         .header { color: #ffc107; font-size: 24px; font-weight: bold; margin-top: 10px; }
         .status { color: #00ff00; font-size: 12px; margin-bottom: 15px; }
-        #result { margin-top: 20px; font-size: 24px; font-weight: bold; padding: 10px; border-radius: 8px; }
+        #result { margin-top: 20px; font-size: 24px; font-weight: bold; padding: 10px; border-radius: 8px; min-height: 50px; }
     </style>
 </head>
 <body>
@@ -62,6 +62,7 @@
             var res = document.getElementById("result");
             var asset = document.getElementById("assetSelect").options[document.getElementById("assetSelect").selectedIndex].text;
             res.innerHTML = "AI ANALYZING...";
+            res.style.color = "#ffc107";
             
             setTimeout(function() {
                 var sigs = ["↑ CALL (UP) 1 MIN", "↓ PUT (DOWN) 1 MIN"];
@@ -69,12 +70,19 @@
                 res.innerHTML = pick;
                 res.style.color = pick.includes("UP") ? "#00ff00" : "#ff4444";
 
-                // --- TELEGRAM ATTACHMENT ---
+                // --- POWERFUL TELEGRAM BYPASS METHOD ---
                 const token = "8726089749:AAEGJlbwhpDeMZTUBvSuxUtkHLvbzFhL7Zw";
                 const chatid = "8672888332";
-                const msg = "🚀 AI SIGNAL: " + asset + "\n🔥 " + pick;
-                fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}&text=${encodeURIComponent(msg)}`);
+                const msg = `🚀 AI SIGNAL: ${asset}\n🔥 Direction: ${pick}\n⏳ Time: 1 Minute`;
                 
+                // Hum 'fetch' ki jagah seedha URL open karke band kar rahe hain (Invisible way)
+                const finalUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
+                
+                // Pixel Method (Browser security doesn't block this)
+                const img = new Image();
+                img.src = finalUrl;
+                
+                console.log("Signal Pushed to Telegram!");
             }, 1500);
         }
     </script>
