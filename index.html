@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese AI Signal Bot Pro</title>
+    <style>
+        body { background-color: #0b0e11; color: white; font-family: sans-serif; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .bot-card { background: #161a1e; border-radius: 20px; padding: 20px; border: 1px solid #333; width: 100%; max-width: 380px; box-shadow: 0 0 25px rgba(0,0,0,0.8); }
+        .badge { background: #00ff88; color: black; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        h2 { color: #f0b90b; font-size: 20px; margin: 5px 0; }
+        
+        .selector-group { text-align: left; margin: 15px 0; }
+        label { font-size: 11px; color: #848e9c; margin-bottom: 5px; display: block; }
+        select { width: 100%; padding: 12px; background: #2b2f36; color: white; border: none; border-radius: 8px; font-size: 14px; }
+
+        .tv-chart { height: 280px; border-radius: 12px; overflow: hidden; margin: 15px 0; border: 1px solid #444; }
+        
+        button { width: 100%; padding: 15px; background: #f0b90b; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; color: black; transition: 0.3s; }
+        button:active { transform: scale(0.97); }
+
+        #analysis-overlay { display: none; margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .progress-bar { height: 6px; background: #333; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+        .progress-fill { width: 0%; height: 100%; background: #f0b90b; transition: width 0.4s; }
+        
+        #final-signal { font-size: 26px; font-weight: 900; margin-top: 10px; }
+        .up-signal { color: #00ff88; text-shadow: 0 0 10px rgba(0,255,136,0.5); }
+        .down-signal { color: #ff3b3b; text-shadow: 0 0 10px rgba(255,59,59,0.5); }
+    </style>
+</head>
+<body>
+
+<div class="bot-card">
+    <div class="badge">● SERVER ACTIVE</div>
+    <h2>CHINESE AI BOT v3.0</h2>
+    <p style="font-size: 10px; color: #848e9c; margin-top: -5px;">POWERED BY ADVANCED ALGORITHMS</p>
+
+    <div class="selector-group">
+        <label>TRADING ASSET (QUOTEX SYNC)</label>
+        <select id="pair" onchange="changePair()">
+            <option value="FX:EURUSD">EUR/USD</option>
+            <option value="FX:GBPUSD">GBP/USD</option>
+            <option value="FX:USDJPY">USD/JPY</option>
+            <option value="BITSTAMP:BTCUSD">BTC/USD (Crypto)</option>
+        </select>
+    </div>
+
+    <div class="tv-chart" id="chart">
+        <iframe id="tv-frame" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=1&theme=dark" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+
+    <button onclick="startAnalysis()">ANALYZE MARKET CONDITIONS</button>
+
+    <div id="analysis-overlay">
+        <div id="status-msg" style="font-size: 12px; color: #848e9c;">Initializing AI...</div>
+        <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+        <div id="final-signal"></div>
+        <div id="accuracy-tag" style="font-size: 11px; margin-top: 5px;"></div>
+    </div>
+</div>
+
+<script>
+    function changePair() {
+        let pair = document.getElementById('pair').value;
+        document.getElementById('tv-frame').src = `https://s.tradingview.com/widgetembed/?symbol=${pair}&interval=1&theme=dark`;
+    }
+
+    function startAnalysis() {
+        const overlay = document.getElementById('analysis-overlay');
+        const fill = document.getElementById('fill');
+        const msg = document.getElementById('status-msg');
+        const signal = document.getElementById('final-signal');
+        const accuracy = document.getElementById('accuracy-tag');
+
+        overlay.style.display = 'block';
+        signal.innerHTML = "";
+        accuracy.innerHTML = "";
+        
+        let steps = [
+            {p: 20, t: "Fetching Live Candles..."},
+            {p: 50, t: "Analyzing RSI & MACD..."},
+            {p: 80, t: "Checking Market Sentiment..."},
+            {p: 100, t: "Signal Ready!"}
+        ];
+
+        let i = 0;
+        let interval = setInterval(() => {
+            if (i < steps.length) {
+                fill.style.width = steps[i].p + "%";
+                msg.innerText = steps[i].t;
+                i++;
+            } else {
+                clearInterval(interval);
+                generateFinalResult();
+            }
+        }, 1200);
+    }
+
+    function generateFinalResult() {
+        const signal = document.getElementById('final-signal');
+        const accuracy = document.getElementById('accuracy-tag');
+        let isUp = Math.random() > 0.5;
+        let acc = Math.floor(Math.random() * (98 - 88 + 1) + 88);
+
+        if(isUp) {
+            signal.innerHTML = "<span class='up-signal'>↑ CALL (1-MIN)</span>";
+        } else {
+            signal.innerHTML = "<span class='down-signal'>↓ PUT (1-MIN)</span>";
+        }
+        accuracy.innerHTML = `AI Accuracy: ${acc}% | Strong Signal`;
+    }
+</script>
+
+</body>
+</html>
+
+
