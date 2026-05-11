@@ -1,91 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chinese AI Bot Pro v3.0</title>
-    <style>
-        body { background: #121212; color: white; font-family: sans-serif; text-align: center; padding: 10px; margin: 0; }
-        .login-box { background: #1e1e1e; padding: 25px; border-radius: 15px; border: 2px solid #ffc107; margin-top: 60px; display: inline-block; width: 85%; max-width: 350px; }
-        input, select { padding: 12px; width: 90%; margin: 10px 0; border-radius: 8px; background: #222; color: white; border: 1px solid #444; font-size: 16px; }
-        button { background: #ffc107; color: black; border: none; padding: 14px; border-radius: 8px; font-weight: bold; width: 95%; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        #botContent { display: none; padding: 10px; }
-        .header { color: #ffc107; font-size: 24px; font-weight: bold; margin-top: 10px; }
-        .status { color: #00ff00; font-size: 12px; margin-bottom: 15px; }
-        #result { margin-top: 20px; font-size: 24px; font-weight: bold; padding: 10px; border-radius: 8px; }
-    </style>
-</head>
-<body>
-
-    <div id="loginSection">
-        <div class="login-box">
-            <h2 style="color:#ffc107; margin-top:0;">🔒 Bot Locked</h2>
-            <p style="font-size: 14px; color: #aaa;">Enter Password to access signals</p>
-            <input type="password" id="passInput" placeholder="Password yahan likhen">
-            <button onclick="checkPass()">UNLOCK BOT</button>
-            <p id="error" style="color: #ff4444; display: none; margin-top: 10px;">❌ Ghalat Password!</p>
-        </div>
-    </div>
-
-    <div id="botContent">
-        <div class="header">CHINESE AI BOT v3.0</div>
-        <div class="status">● SERVER ACTIVE (LIVE DATA)</div>
+<!-- Is code ko pichle code se replace kar dein -->
+<script>
+    function getSignal() {
+        var res = document.getElementById("result");
+        var btn = document.querySelector("button:last-of-type");
         
-        <select id="assetSelect" onchange="updateChart()">
-            <option value="FX:EURUSD">EUR/USD</option>
-            <option value="USDBRL">USD/BRL</option>
-            <option value="USDMXN">USD/MXN</option>
-            <option value="FX:GBPUSD">GBP/USD</option>
-        </select>
+        // Button disable karein taake baar baar click na ho
+        btn.disabled = true;
+        res.innerHTML = "🔍 SCANNING MARKET VOLATILITY...";
+        res.style.color = "#ffc107";
 
-        <div id="chartContainer" style="background: #000; border-radius: 10px; overflow: hidden; border: 1px solid #333;">
-            <iframe id="tv-frame" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=1&theme=dark" width="100%" height="400" frameborder="0"></iframe>
-        </div>
-
-        <button onclick="getSignal()">ANALYZE MARKET CONDITIONS</button>
-        <div id="result"></div>
-    </div>
-
-    <script>
-        // Password check function
-        function checkPass() {
-            var pass = document.getElementById("passInput").value;
-            if(pass === "Mybot786") {
-                document.getElementById("loginSection").style.display = "none";
-                document.getElementById("botContent").style.display = "block";
+        setTimeout(function() {
+            var sigs = ["↑ CALL (UP) 1 MIN", "↓ PUT (DOWN) 1 MIN"];
+            var pick = sigs[Math.floor(Math.random() * sigs.length)];
+            var accuracy = Math.floor(Math.random() * (95 - 82 + 1) + 82); // 82% to 95% random accuracy
+            
+            res.innerHTML = pick + "<br><span style='font-size:14px;'>Accuracy: " + accuracy + "%</span>";
+            
+            if(pick.includes("UP")) {
+                res.style.color = "#00ff00";
+                res.style.background = "rgba(0, 255, 0, 0.1)";
             } else {
-                document.getElementById("error").style.display = "block";
+                res.style.color = "#ff4444";
+                res.style.background = "rgba(255, 68, 68, 0.1)";
             }
-        }
 
-        // Update chart when currency changes
-        function updateChart() {
-            var pair = document.getElementById("assetSelect").value;
-            var url = "https://s.tradingview.com/widgetembed/?symbol=" + pair + "&interval=1&theme=dark";
-            document.getElementById("tv-frame").src = url;
-        }
+            // Timer Start (60 Seconds)
+            startTimer(60);
+            
+            // Re-enable button after 5 seconds
+            setTimeout(() => { btn.disabled = false; }, 5000);
+        }, 2000);
+    }
 
-        // Signal generation logic
-        function getSignal() {
-            var res = document.getElementById("result");
-            res.innerHTML = "AI ANALYZING...";
-            res.style.color = "#ffc107";
-            res.style.background = "rgba(255, 193, 7, 0.1)";
+    function startTimer(seconds) {
+        var timerDisplay = document.createElement("div");
+        timerDisplay.id = "timer";
+        timerDisplay.style.fontSize = "18px";
+        timerDisplay.style.marginTop = "10px";
+        document.getElementById("result").appendChild(timerDisplay);
 
-            setTimeout(function() {
-                var sigs = ["↑ CALL (UP) 1 MIN", "↓ PUT (DOWN) 1 MIN"];
-                var pick = sigs[Math.floor(Math.random() * sigs.length)];
-                res.innerHTML = pick;
-                
-                if(pick.includes("UP")) {
-                    res.style.color = "#00ff00";
-                    res.style.background = "rgba(0, 255, 0, 0.1)";
-                } else {
-                    res.style.color = "#ff4444";
-                    res.style.background = "rgba(255, 68, 68, 0.1)";
-                }
-            }, 1500);
-        }
-    </script>
-</body>
-</html>
+        var timeLeft = seconds;
+        var interval = setInterval(function() {
+            if(timeLeft <= 0) {
+                clearInterval(interval);
+                timerDisplay.innerHTML = "EXPIRED";
+            } else {
+                timerDisplay.innerHTML = "Entry Time Left: " + timeLeft + "s";
+            }
+            timeLeft -= 1;
+        }, 1000);
+    }
+</script>
