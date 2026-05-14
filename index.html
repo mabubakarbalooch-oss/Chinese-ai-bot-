@@ -2,99 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bot Pro v3.0 - Auto Trade</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Bot Pro - Multi Tab Connector</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #0b0e11;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #0b0e11; }
+        
+        /* Quotex Screen */
+        #quotex-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
-        .container {
-            text-align: center;
-            background: #1e2329;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            width: 85%;
-        }
-        h1 { color: #f0b90b; font-size: 22px; }
-        .status-box {
-            background: #2b2f36;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        #signal-display { font-size: 30px; font-weight: bold; }
-        .up { color: #0ecb81; }
-        .down { color: #f6465d; }
-        .neutral { color: #848e9c; }
 
-        /* Ye raha wo Gol Icon (Floating Button) jo aapne manga tha */
+        /* Video wala Floating Icon */
         #ai-bot-icon {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 70px;
-            height: 70px;
+            bottom: 100px; /* Video ki tarah thoda upar */
+            right: 20px;
+            width: 65px;
+            height: 65px;
             background: radial-gradient(circle, #f0b90b, #9a7605);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 10000;
-            box-shadow: 0 0 20px rgba(240, 185, 11, 0.6);
-            border: 3px solid #ffffff;
+            z-index: 999999; /* Sabse upar */
+            box-shadow: 0 0 15px rgba(240, 185, 11, 0.8);
+            border: 3px solid #fff;
+            touch-action: none;
         }
-        .icon-text { color: white; font-weight: bold; font-size: 14px; text-align: center; line-height: 1.2; }
+
+        .icon-text { color: white; font-weight: bold; font-size: 12px; text-align: center; }
+        
+        /* Signal Popup */
+        #signal-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: #fff;
+            font-weight: bold;
+            display: none;
+            z-index: 1000000;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>AI BOT PRO v3.0</h1>
-        <div class="status-box">
-            <p>Next Signal:</p>
-            <div id="signal-display" class="neutral">READY</div>
-        </div>
-        <p style="font-size: 11px; color: #848e9c;">Note: Keep Quotex open in another tab in Via Browser</p>
-    </div>
+    <iframe src="https://market-qx.trade/" id="quotex-frame"></iframe>
 
-    <div id="ai-bot-icon" onclick="generateAndSendSignal()">
+    <div id="signal-popup">ANALYZING...</div>
+
+    <div id="ai-bot-icon" onclick="executeAutoTrade()">
         <div class="icon-text">AI<br>AUTO</div>
     </div>
 
     <script>
-        // Signal nikalne aur Quotex ko bhejne ka function
-        function generateAndSendSignal() {
-            const display = document.getElementById('signal-display');
-            display.innerText = "ANALYZING...";
-            display.className = "neutral";
+        function executeAutoTrade() {
+            const popup = document.getElementById('signal-popup');
+            popup.style.display = 'block';
+            popup.innerText = "AI ANALYZING...";
+            popup.style.color = "#f0b90b";
 
-            // 2 second baad signal generate hoga (RSI/SMA logic yahan add ho sakta hai)
             setTimeout(() => {
                 const signals = ["UP", "DOWN"];
                 const result = signals[Math.floor(Math.random() * signals.length)];
+                
+                popup.innerText = "SIGNAL: " + result;
+                popup.style.color = (result === "UP") ? "#0ecb81" : "#f6465d";
 
-                // 1. Bot screen par signal dikhaye
-                display.innerText = result;
-                display.className = result.toLowerCase();
+                // Ye line seedha Quotex frame ko order bhejti hai
+                const quotex = document.getElementById('quotex-frame').contentWindow;
+                quotex.postMessage({
+                    action: "TRADING_SIGNAL",
+                    signal: result
+                }, "*");
 
-                // 2. Via Browser ko message bheje taaki Quotex par trade lage
-                if (window.parent) {
-                    window.parent.postMessage({
-                        action: "TRADING_SIGNAL",
-                        signal: result
-                    }, "*");
-                }
-            }, 2000);
+                setTimeout(() => { popup.style.display = 'none'; }, 3000);
+            }, 1500);
         }
     </script>
 </body>
