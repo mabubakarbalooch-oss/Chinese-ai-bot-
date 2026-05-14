@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI TRADING BOT - ELITE PINK</title>
+    <title>TIGER AI TRADING BOT</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --pink: #ff007f;
-            --pink-glow: rgba(255, 0, 127, 0.4);
-            --bg-color: #080105;
-            --card-bg: rgba(15, 5, 10, 0.9);
-            --border: rgba(255, 0, 127, 0.2);
+            --tiger-orange: #ff6a00;
+            --bg-dark: #050103;
+            --glass-bg: rgba(20, 5, 12, 0.92);
+            --border-color: rgba(255, 0, 127, 0.3);
         }
 
         body { 
-            background: var(--bg-color);
+            background: var(--bg-dark);
             background-image: 
-                radial-gradient(circle at 0% 0%, rgba(255, 0, 127, 0.15) 0%, transparent 35%),
-                radial-gradient(circle at 100% 100%, rgba(255, 0, 127, 0.1) 0%, transparent 35%);
+                radial-gradient(circle at 50% -10%, rgba(255, 106, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 110%, rgba(255, 0, 127, 0.1) 0%, transparent 50%);
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -26,149 +26,152 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden;
         }
 
-        .container { width: 100%; max-width: 420px; padding: 15px; box-sizing: border-box; }
+        .container { width: 100%; max-width: 420px; padding: 15px; z-index: 10; }
 
         .bot-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(25px);
-            padding: 25px;
-            border-radius: 28px;
-            border: 1px solid var(--border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            padding: 30px 25px;
+            border-radius: 35px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
             text-align: center;
+            position: relative;
+        }
+
+        .tiger-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 15px var(--tiger-orange));
+            display: inline-block;
+            animation: breathe 3s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--tiger-orange)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px var(--pink)); }
         }
 
         .header-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 900;
-            letter-spacing: 2px;
-            color: var(--pink);
-            text-shadow: 0 0 15px var(--pink-glow);
-            margin-bottom: 15px;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, var(--tiger-orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
         }
 
         .status-badge {
-            background: rgba(255, 0, 127, 0.12);
-            color: var(--pink);
-            padding: 5px 14px;
+            background: rgba(255, 106, 0, 0.1);
+            color: var(--tiger-orange);
+            padding: 6px 16px;
             border-radius: 50px;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            gap: 8px;
+            border: 1px solid rgba(255, 106, 0, 0.2);
+            margin-bottom: 25px;
         }
 
-        .pulse { width: 6px; height: 6px; background: var(--pink); border-radius: 50%; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.3; transform: scale(1); } }
-
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { font-size: 10px; color: #888; margin-left: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .dot-live { width: 8px; height: 8px; background: var(--tiger-orange); border-radius: 50%; box-shadow: 0 0 10px var(--tiger-orange); }
 
         select {
             width: 100%;
-            padding: 14px;
-            border-radius: 14px;
-            background: #12050b;
+            padding: 15px;
+            border-radius: 16px;
+            background: #110408;
             color: #fff;
-            border: 1px solid var(--border);
-            font-size: 14px;
-            margin-top: 5px;
-            outline: none;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        #tv-frame { 
-            border-radius: 18px; 
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid var(--border-color);
             margin-bottom: 20px;
-            background: #000;
+            outline: none;
+            font-size: 14px;
         }
 
-        .btn-analyze {
-            background: linear-gradient(135deg, var(--pink), #b0005a);
+        #tv-frame { border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px; }
+
+        .btn-tiger {
+            background: linear-gradient(135deg, var(--tiger-orange), var(--pink));
             color: white;
             border: none;
-            padding: 18px;
-            border-radius: 16px;
-            font-weight: 700;
+            padding: 20px;
+            border-radius: 18px;
+            font-weight: 800;
             width: 100%;
             cursor: pointer;
-            transition: 0.3s;
             font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
+            font-size: 15px;
             letter-spacing: 1px;
-            box-shadow: 0 8px 20px rgba(255, 0, 127, 0.3);
+            transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(255, 0, 127, 0.3);
         }
 
-        .btn-analyze:active { transform: scale(0.97); }
+        .btn-tiger:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255, 0, 127, 0.5); }
 
         #result {
-            margin-top: 20px;
-            padding: 18px;
-            border-radius: 20px;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 22px;
             display: none;
             background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            animation: slideIn 0.5s ease-out;
+            border: 1px solid var(--border-color);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .signal-text { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; margin: 5px 0; }
+        .signal-text { font-family: 'Orbitron', sans-serif; font-size: 30px; font-weight: 900; margin: 0; }
 
-        .loader-bar { width: 100%; height: 4px; background: #1a0a12; border-radius: 10px; margin-top: 20px; display: none; overflow: hidden; }
-        .loader-progress { height: 100%; width: 0%; background: var(--pink); box-shadow: 0 0 10px var(--pink); transition: 2s linear; }
+        .loader-bar { width: 100%; height: 5px; background: #1a050d; border-radius: 10px; margin-top: 20px; display: none; overflow: hidden; }
+        .loader-progress { height: 100%; width: 0%; background: linear-gradient(to right, var(--tiger-orange), var(--pink)); transition: 2s linear; }
 
         .login-input {
-            width: 100%; padding: 16px; border-radius: 14px; background: #000; border: 1px solid var(--border); color: #fff;
-            text-align: center; font-size: 18px; margin-bottom: 15px; box-sizing: border-box; outline: none;
+            width: 100%; padding: 18px; border-radius: 16px; background: #000; border: 1px solid var(--border-color); color: #fff;
+            text-align: center; font-size: 20px; margin-bottom: 20px; box-sizing: border-box; outline: none;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- Login Screen -->
     <div id="loginSection" class="bot-card">
-        <div style="font-size: 35px; margin-bottom: 10px;">🔐</div>
-        <div class="header-title">ELITE ACCESS</div>
-        <input type="password" id="passInput" class="login-input" placeholder="PASSKEY">
-        <button class="btn-analyze" onclick="checkPass()">ACTIVATE AI</button>
+        <div class="tiger-icon">🐯</div>
+        <div class="header-title">TIGER AI LOGIN</div>
+        <input type="password" id="passInput" class="login-input" placeholder="ACCESS KEY">
+        <button class="btn-tiger" onclick="checkPass()">WAKE THE TIGER</button>
     </div>
 
+    <!-- Main Content -->
     <div id="botContent" style="display: none;">
         <div class="bot-card">
-            <div class="status-badge"><div class="pulse"></div> AI ANALYZER ACTIVE</div>
-            <div class="header-title">PREMIUM PANEL</div>
+            <div class="status-badge"><div class="dot-live"></div> TIGER MODE ACTIVE</div>
+            <div class="header-title">HUNTING SIGNALS</div>
             
-            <div class="input-group">
-                <label>Select Market Asset</label>
-                <select id="assetSelect" onchange="updateChart()">
-                    <option value="FX_IDC:USDBRL">USD/BRL (OTC)</option>
-                    <option value="FX_IDC:USDMXN">USD/MXN (OTC)</option>
-                    <option value="FX_IDC:USDINR">USD/INR (OTC)</option>
-                    <option value="FX:EURUSD">EUR/USD (OTC)</option>
-                    <option value="CRYPTOCAP:BTC">BITCOIN (Live)</option>
-                </select>
-            </div>
+            <select id="assetSelect" onchange="updateChart()">
+                <option value="FX_IDC:USDBRL">USD/BRL (OTC)</option>
+                <option value="FX_IDC:USDMXN">USD/MXN (OTC)</option>
+                <option value="FX_IDC:USDINR">USD/INR (OTC)</option>
+                <option value="FX:EURUSD">EUR/USD (OTC)</option>
+                <option value="CRYPTOCAP:BTC">BITCOIN (Live)</option>
+            </select>
 
             <iframe id="tv-frame" src="https://s.tradingview.com/widgetembed/?symbol=FX_IDC%3AUSDBRL&interval=1&theme=dark" width="100%" height="230" frameborder="0"></iframe>
 
-            <button id="analyzeBtn" class="btn-analyze" onclick="getSignal()">ANALYZE MARKET</button>
+            <button id="analyzeBtn" class="btn-tiger" onclick="getSignal()">HUNT FOR SIGNAL</button>
             
             <div id="loader" class="loader-bar"><div id="fill" class="loader-progress"></div></div>
 
             <div id="result">
                 <p id="sigText" class="signal-text"></p>
-                <div id="accBox" style="font-size: 14px; font-weight: bold; margin-top: 5px;"></div>
-                <div id="strat" style="font-size: 10px; color: #777; margin-top: 10px; letter-spacing: 1px;"></div>
+                <div id="accBox" style="font-size: 15px; font-weight: bold; margin-top: 8px;"></div>
+                <div id="strat" style="font-size: 10px; color: #888; margin-top: 10px; letter-spacing: 2px; text-transform: uppercase;"></div>
             </div>
         </div>
     </div>
@@ -180,7 +183,7 @@
             document.getElementById("loginSection").style.display = "none";
             document.getElementById("botContent").style.display = "block";
         } else {
-            alert("ACCESS DENIED!");
+            alert("KEY GALAT HAI!");
         }
     }
 
@@ -196,7 +199,7 @@
         const btn = document.getElementById("analyzeBtn");
 
         btn.disabled = true;
-        btn.innerText = "SCANNING...";
+        btn.innerText = "HUNTING...";
         res.style.display = "none";
         loader.style.display = "block";
         fill.style.width = "0%";
@@ -206,24 +209,24 @@
         setTimeout(function() {
             loader.style.display = "none";
             btn.disabled = false;
-            btn.innerText = "ANALYZE MARKET";
+            btn.innerText = "HUNT FOR SIGNAL";
             res.style.display = "block";
 
             const isUp = Math.random() > 0.5;
-            const signal = isUp ? "↑ CALL / BUY" : "↓ PUT / SELL";
+            const signal = isUp ? "↑ TIGER CALL" : "↓ TIGER PUT";
             const color = isUp ? "#00ff9d" : "#ff3131";
             
             const sigEl = document.getElementById("sigText");
             sigEl.innerText = signal;
             sigEl.style.color = color;
             
-            document.getElementById("accBox").innerText = `AI CONFIDENCE: ${(Math.random() * (99.1 - 94.2) + 94.2).toFixed(2)}%`;
+            document.getElementById("accBox").innerText = `HUNT ACCURACY: ${(Math.random() * (99.5 - 95.0) + 95.0).toFixed(2)}%`;
             document.getElementById("accBox").style.color = color;
-            document.getElementById("strat").innerText = isUp ? "ALGORITHM: BULLISH VOLUMETRIC SCAN" : "ALGORITHM: BEARISH BREAKOUT DETECTED";
+            document.getElementById("strat").innerText = "ALGO: PREDATOR-X SCAN";
             
-            res.style.borderColor = color + "55";
-            res.style.boxShadow = `0 0 20px ${color}22`;
-        }, 2000);
+            res.style.borderColor = color + "66";
+            res.style.boxShadow = `0 0 25px ${color}33`;
+        }, 2500);
     }
 </script>
 </body>
