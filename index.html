@@ -8,17 +8,17 @@
     <style>
         :root {
             --pink: #ff007f;
-            --pink-dark: #800040;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 0, 127, 0.25);
+            --pink-glow: rgba(255, 0, 127, 0.4);
             --bg-color: #080105;
+            --card-bg: rgba(15, 5, 10, 0.9);
+            --border: rgba(255, 0, 127, 0.2);
         }
 
         body { 
             background: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 0, 127, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.08) 0%, transparent 40%);
+                radial-gradient(circle at 0% 0%, rgba(255, 0, 127, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 100% 100%, rgba(255, 0, 127, 0.1) 0%, transparent 35%);
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -28,139 +28,147 @@
             min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 400px; padding: 20px; }
+        .container { width: 100%; max-width: 420px; padding: 15px; box-sizing: border-box; }
 
         .bot-card {
-            background: rgba(15, 5, 10, 0.8);
-            backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 24px;
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            padding: 25px;
+            border-radius: 28px;
             border: 1px solid var(--border);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             text-align: center;
         }
 
         .header-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 900;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: var(--pink);
-            text-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
-            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--pink-glow);
+            margin-bottom: 15px;
         }
 
         .status-badge {
-            background: rgba(255, 0, 127, 0.1);
+            background: rgba(255, 0, 127, 0.12);
             color: var(--pink);
-            padding: 6px 15px;
+            padding: 5px 14px;
             border-radius: 50px;
-            font-size: 10px;
-            font-weight: bold;
+            font-size: 9px;
+            font-weight: 800;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            border: 0.5px solid var(--border);
-            margin-bottom: 25px;
+            gap: 6px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
-        .pulse { width: 8px; height: 8px; background: var(--pink); border-radius: 50%; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+        .pulse { width: 6px; height: 6px; background: var(--pink); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.3; transform: scale(1); } }
+
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { font-size: 10px; color: #888; margin-left: 5px; text-transform: uppercase; letter-spacing: 1px; }
 
         select {
             width: 100%;
             padding: 14px;
-            border-radius: 12px;
-            background: #150a0f;
+            border-radius: 14px;
+            background: #12050b;
             color: #fff;
             border: 1px solid var(--border);
-            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            appearance: none;
+            margin-top: 5px;
+            outline: none;
             cursor: pointer;
-            margin-bottom: 15px;
+            transition: 0.3s;
         }
 
         #tv-frame { 
-            border-radius: 16px; 
-            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 18px; 
+            border: 1px solid rgba(255,255,255,0.08);
             margin-bottom: 20px;
+            background: #000;
         }
 
         .btn-analyze {
-            background: var(--pink);
+            background: linear-gradient(135deg, var(--pink), #b0005a);
             color: white;
             border: none;
-            padding: 16px;
-            border-radius: 14px;
+            padding: 18px;
+            border-radius: 16px;
             font-weight: 700;
             width: 100%;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s;
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
             letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.2);
+            box-shadow: 0 8px 20px rgba(255, 0, 127, 0.3);
         }
 
-        .btn-analyze:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(255, 0, 127, 0.4); }
+        .btn-analyze:active { transform: scale(0.97); }
 
         #result {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 18px;
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 20px;
             display: none;
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
-            animation: fadeIn 0.8s ease;
+            animation: slideIn 0.5s ease-out;
         }
 
-        @keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .signal-text { font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 900; }
+        .signal-text { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; margin: 5px 0; }
 
-        .loader-bar { width: 100%; height: 4px; background: #222; border-radius: 10px; margin-top: 20px; display: none; overflow: hidden; }
-        .loader-progress { height: 100%; width: 0%; background: var(--pink); transition: 2s linear; }
+        .loader-bar { width: 100%; height: 4px; background: #1a0a12; border-radius: 10px; margin-top: 20px; display: none; overflow: hidden; }
+        .loader-progress { height: 100%; width: 0%; background: var(--pink); box-shadow: 0 0 10px var(--pink); transition: 2s linear; }
 
         .login-input {
-            width: 100%; padding: 15px; border-radius: 12px; background: #000; border: 1px solid var(--border); color: #fff;
-            text-align: center; font-size: 18px; margin-bottom: 15px; box-sizing: border-box;
+            width: 100%; padding: 16px; border-radius: 14px; background: #000; border: 1px solid var(--border); color: #fff;
+            text-align: center; font-size: 18px; margin-bottom: 15px; box-sizing: border-box; outline: none;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Login Screen -->
     <div id="loginSection" class="bot-card">
-        <div style="font-size: 30px; margin-bottom: 10px;">👑</div>
+        <div style="font-size: 35px; margin-bottom: 10px;">🔐</div>
         <div class="header-title">ELITE ACCESS</div>
-        <input type="password" id="passInput" class="login-input" placeholder="ENTER ACCESS KEY">
-        <button class="btn-analyze" onclick="checkPass()">LOGIN SYSTEM</button>
+        <input type="password" id="passInput" class="login-input" placeholder="PASSKEY">
+        <button class="btn-analyze" onclick="checkPass()">ACTIVATE AI</button>
     </div>
 
-    <!-- Main Bot Content -->
     <div id="botContent" style="display: none;">
         <div class="bot-card">
-            <div class="status-badge"><div class="pulse"></div> SYSTEM LIVE</div>
-            <div class="header-title">ANALYZER</div>
+            <div class="status-badge"><div class="pulse"></div> AI ANALYZER ACTIVE</div>
+            <div class="header-title">PREMIUM PANEL</div>
             
-            <select id="assetSelect" onchange="updateChart()">
-                <option value="FX_IDC:USDBRL">USD/BRL (OTC)</option>
-                <option value="CRYPTOCAP:BTC">BITCOIN (Live)</option>
-                <option value="FX:EURUSD">EUR/USD (OTC)</option>
-            </select>
+            <div class="input-group">
+                <label>Select Market Asset</label>
+                <select id="assetSelect" onchange="updateChart()">
+                    <option value="FX_IDC:USDBRL">USD/BRL (OTC)</option>
+                    <option value="FX_IDC:USDMXN">USD/MXN (OTC)</option>
+                    <option value="FX_IDC:USDINR">USD/INR (OTC)</option>
+                    <option value="FX:EURUSD">EUR/USD (OTC)</option>
+                    <option value="CRYPTOCAP:BTC">BITCOIN (Live)</option>
+                </select>
+            </div>
 
-            <iframe id="tv-frame" src="https://s.tradingview.com/widgetembed/?symbol=FX_IDC%3AUSDBRL&interval=1&theme=dark" width="100%" height="220" frameborder="0"></iframe>
+            <iframe id="tv-frame" src="https://s.tradingview.com/widgetembed/?symbol=FX_IDC%3AUSDBRL&interval=1&theme=dark" width="100%" height="230" frameborder="0"></iframe>
 
-            <button id="analyzeBtn" class="btn-analyze" onclick="getSignal()">START ANALYSIS</button>
+            <button id="analyzeBtn" class="btn-analyze" onclick="getSignal()">ANALYZE MARKET</button>
             
             <div id="loader" class="loader-bar"><div id="fill" class="loader-progress"></div></div>
 
             <div id="result">
                 <p id="sigText" class="signal-text"></p>
-                <div id="accBox" style="font-size: 14px; margin-top: 5px; opacity: 0.8;"></div>
-                <div id="strat" style="font-size: 10px; color: #666; margin-top: 10px; text-transform: uppercase;"></div>
+                <div id="accBox" style="font-size: 14px; font-weight: bold; margin-top: 5px;"></div>
+                <div id="strat" style="font-size: 10px; color: #777; margin-top: 10px; letter-spacing: 1px;"></div>
             </div>
         </div>
     </div>
@@ -172,7 +180,7 @@
             document.getElementById("loginSection").style.display = "none";
             document.getElementById("botContent").style.display = "block";
         } else {
-            alert("WRONG KEY!");
+            alert("ACCESS DENIED!");
         }
     }
 
@@ -188,7 +196,7 @@
         const btn = document.getElementById("analyzeBtn");
 
         btn.disabled = true;
-        btn.innerText = "PROCESSING...";
+        btn.innerText = "SCANNING...";
         res.style.display = "none";
         loader.style.display = "block";
         fill.style.width = "0%";
@@ -198,21 +206,23 @@
         setTimeout(function() {
             loader.style.display = "none";
             btn.disabled = false;
-            btn.innerText = "START ANALYSIS";
+            btn.innerText = "ANALYZE MARKET";
             res.style.display = "block";
 
             const isUp = Math.random() > 0.5;
-            const signal = isUp ? "↑ CALL" : "↓ PUT";
+            const signal = isUp ? "↑ CALL / BUY" : "↓ PUT / SELL";
             const color = isUp ? "#00ff9d" : "#ff3131";
             
             const sigEl = document.getElementById("sigText");
             sigEl.innerText = signal;
             sigEl.style.color = color;
             
-            document.getElementById("accBox").innerText = `STRENGTH: ${(Math.random() * (99 - 94) + 94).toFixed(2)}%`;
-            document.getElementById("strat").innerText = isUp ? "Trend Support Confirmed" : "Resistance Rejection Noted";
+            document.getElementById("accBox").innerText = `AI CONFIDENCE: ${(Math.random() * (99.1 - 94.2) + 94.2).toFixed(2)}%`;
+            document.getElementById("accBox").style.color = color;
+            document.getElementById("strat").innerText = isUp ? "ALGORITHM: BULLISH VOLUMETRIC SCAN" : "ALGORITHM: BEARISH BREAKOUT DETECTED";
             
-            res.style.borderColor = color + "44";
+            res.style.borderColor = color + "55";
+            res.style.boxShadow = `0 0 20px ${color}22`;
         }, 2000);
     }
 </script>
