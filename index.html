@@ -1,51 +1,91 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>PAK AI TEST</title>
+function generateSignal(){
 
-<style>
+    const loader =
+    document.getElementById('loader');
 
-body{
-background:black;
-color:white;
-font-family:Arial;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-flex-direction:column;
+    const fill =
+    document.getElementById('fill');
+
+    const btn =
+    document.getElementById('scanBtn');
+
+    const result =
+    document.getElementById('resultBox');
+
+    btn.disabled=true;
+
+    btn.innerText='ANALYZING...';
+
+    result.style.display='none';
+
+    loader.style.display='block';
+
+    fill.style.width='0%';
+
+    setTimeout(()=>{
+
+        fill.style.width='100%';
+
+    },50);
+
+    setTimeout(()=>{
+
+        loader.style.display='none';
+
+        btn.disabled=false;
+
+        btn.innerText='SCAN MARKET';
+
+        let rsi =
+        Math.floor(Math.random()*100);
+
+        let signal='WAIT';
+
+        let color='#ffaa00';
+
+        let strategy='SIDEWAYS MARKET';
+
+        if(rsi < 40){
+
+            signal='↑ CALL';
+
+            color='#00ff9d';
+
+            strategy='BULLISH MOMENTUM';
+        }
+
+        else if(rsi > 60){
+
+            signal='↓ PUT';
+
+            color='#ff3131';
+
+            strategy='BEARISH MOMENTUM';
+        }
+
+        result.style.display='block';
+
+        document.getElementById('signalText')
+        .innerText=signal;
+
+        document.getElementById('signalText')
+        .style.color=color;
+
+        document.getElementById('accuracy')
+        .innerText=
+        'CONFIDENCE: 92%';
+
+        document.getElementById('accuracy')
+        .style.color=color;
+
+        document.getElementById('marketData')
+        .innerText=
+        `RSI VALUE: ${rsi}`;
+
+        document.getElementById('strategy')
+        .innerText=strategy;
+
+        result.style.borderColor=color;
+
+    },2500);
 }
-
-button{
-padding:15px 25px;
-font-size:20px;
-border:none;
-border-radius:10px;
-background:hotpink;
-color:white;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>PAK AI WORKING ✅</h1>
-
-<button onclick="test()">
-SCAN
-</button>
-
-<script>
-
-function test(){
-
-alert("BOT WORKING");
-
-}
-
-</script>
-
-</body>
-</html>
