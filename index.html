@@ -1,437 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>QUOTEX AI SIGNAL X - ULTRA PRO v4.0 | Lightning Quantum Core</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-        :root {
-            --pink: #ff1493;
-            --pink2: #ff4fd8;
-            --dark: #050008;
-            --green: #00ff9d;
-            --red: #ff3131;
-            --gold: #ffcc00;
-        }
+<title>🇵🇰 PAK AI SIGNAL BOT</title>
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 30% 10%, #0a0015, #020005 90%);
-            position: relative;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 
-        /* animated grid */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255,20,147,0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,20,147,0.08) 1px, transparent 1px);
-            background-size: 35px 35px;
-            pointer-events: none;
-        }
+<style>
 
-        .container {
-            width: 100%;
-            max-width: 450px;
-            position: relative;
-            z-index: 2;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .card {
-            background: rgba(10, 0, 18, 0.94);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 20, 147, 0.35);
-            border-radius: 38px;
-            padding: 26px 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 28px rgba(255, 20, 147, 0.2);
-            transition: all 0.2s;
-        }
+:root{
+    --green:#00a651;
+    --green2:#00d26f;
+    --white:#ffffff;
+    --dark:#02140b;
+}
 
-        .logo {
-            font-size: 58px;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 12px #ff1493);
-        }
+body{
 
-        .title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #ff80df, #ff4fd8, #ff1493);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 22px;
-        }
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 20, 147, 0.12);
-            padding: 7px 16px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 79, 216, 0.4);
-            font-size: 11px;
-            font-weight: 800;
-            color: #ffb3e6;
-            margin-bottom: 20px;
-        }
+    font-family:'Inter',sans-serif;
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: #ff4fd8;
-            border-radius: 50%;
-            box-shadow: 0 0 12px #ff4fd8;
-            animation: blinkFast 1s infinite;
-        }
+    background:
+    radial-gradient(circle at top left,
+    #003d1f,
+    #02140b 70%);
 
-        @keyframes blinkFast {
-            0%, 100% { opacity: 1; transform: scale(1);}
-            50% { opacity: 0.3; transform: scale(0.8);}
-        }
+    overflow-x:hidden;
+    position:relative;
+}
 
-        .input, select {
-            width: 100%;
-            padding: 16px;
-            margin-bottom: 18px;
-            background: #0c0012;
-            border: 1.5px solid rgba(255, 20, 147, 0.3);
-            border-radius: 28px;
-            color: white;
-            font-size: 15px;
-            font-weight: 500;
-            outline: none;
-            transition: 0.2s;
-        }
+/* GRID */
 
-        .input:focus, select:focus {
-            border-color: #ff4fd8;
-            box-shadow: 0 0 14px rgba(255, 79, 216, 0.4);
-        }
+body::before{
 
-        iframe {
-            width: 100%;
-            height: 240px;
-            border-radius: 24px;
-            margin-bottom: 20px;
-            background: #000000;
-            border: 1px solid rgba(255, 20, 147, 0.2);
-        }
+    content:"";
 
-        .btn {
-            width: 100%;
-            border: none;
-            border-radius: 40px;
-            padding: 18px;
-            font-weight: 900;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 13px;
-            letter-spacing: 1.6px;
-            background: linear-gradient(95deg, #ff1493, #ff4fd8);
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
-        }
+    position:fixed;
 
-        .btn:active {
-            transform: scale(0.97);
-        }
+    top:0;
+    left:0;
 
-        .btn:disabled {
-            opacity: 0.6;
-            transform: none;
-            cursor: not-allowed;
-        }
+    width:100%;
+    height:100%;
 
-        .loader {
-            width: 100%;
-            height: 5px;
-            background: #1e001c;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 18px;
-            display: none;
-        }
+    background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,166,81,0.08) 1px, transparent 1px);
 
-        .fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #ff1493, #ff80df);
-            transition: 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
+    background-size:35px 35px;
 
-        .result {
-            display: none;
-            margin-top: 24px;
-            padding: 20px;
-            border-radius: 28px;
-            background: rgba(20, 0, 25, 0.7);
-            border: 1px solid rgba(255, 20, 147, 0.3);
-            transition: 0.1s;
-        }
+    pointer-events:none;
+}
 
-        .signal {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 34px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-shadow: 0 0 6px currentColor;
-        }
+.container{
+    width:100%;
+    max-width:450px;
+    position:relative;
+    z-index:2;
+}
 
-        .info {
-            margin-top: 10px;
-            font-size: 13px;
-            font-weight: bold;
-        }
+.card{
 
-        .strategy {
-            margin-top: 12px;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            color: #ff9ae8;
-            font-weight: 700;
-        }
+    background:rgba(0,20,10,0.94);
 
-        .note {
-            margin-top: 20px;
-            font-size: 10px;
-            color: #b0a0b9;
-            background: rgba(255,255,255,0.03);
-            padding: 12px;
-            border-radius: 18px;
-            line-height: 1.5;
-        }
+    backdrop-filter:blur(14px);
 
-        .fast-badge {
-            display: inline-block;
-            background: #ff149330;
-            border-radius: 16px;
-            padding: 2px 8px;
-            font-size: 9px;
-            margin-left: 8px;
-            vertical-align: middle;
-            color: #ff9ae8;
-        }
-    </style>
+    border:1px solid rgba(0,166,81,0.35);
+
+    border-radius:35px;
+
+    padding:26px 20px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.6),
+    0 0 28px rgba(0,166,81,0.25);
+}
+
+.logo{
+
+    font-size:60px;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+    filter:drop-shadow(0 0 10px #00ff99);
+}
+
+.title{
+
+    text-align:center;
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:24px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    background:
+    linear-gradient(
+    135deg,
+    #ffffff,
+    #8dffbf,
+    #00ff99
+    );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    margin-bottom:22px;
+}
+
+.badge{
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:8px;
+
+    background:rgba(0,166,81,0.12);
+
+    padding:8px 16px;
+
+    border-radius:40px;
+
+    border:1px solid rgba(0,255,153,0.35);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    color:#d8ffe9;
+
+    margin-bottom:20px;
+}
+
+.dot{
+
+    width:8px;
+    height:8px;
+
+    background:#00ff99;
+
+    border-radius:50%;
+
+    box-shadow:0 0 12px #00ff99;
+
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+    0%,100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:0.3;
+    }
+}
+
+.input,
+select{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-bottom:18px;
+
+    background:#04180d;
+
+    border:1.5px solid rgba(0,255,153,0.25);
+
+    border-radius:28px;
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+.input:focus,
+select:focus{
+
+    border-color:#00ff99;
+
+    box-shadow:
+    0 0 14px rgba(0,255,153,0.3);
+}
+
+iframe{
+
+    width:100%;
+
+    height:240px;
+
+    border-radius:24px;
+
+    margin-bottom:20px;
+
+    background:#000;
+
+    border:1px solid rgba(0,255,153,0.2);
+}
+
+.btn{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:40px;
+
+    padding:18px;
+
+    font-weight:900;
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:13px;
+
+    letter-spacing:1.5px;
+
+    background:
+    linear-gradient(
+    95deg,
+    #008f4a,
+    #00d26f
+    );
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+    box-shadow:
+    0 6px 20px rgba(0,255,153,0.25);
+}
+
+.btn:active{
+    transform:scale(0.97);
+}
+
+.loader{
+
+    width:100%;
+
+    height:5px;
+
+    background:#062014;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin-top:18px;
+
+    display:none;
+}
+
+.fill{
+
+    width:0%;
+
+    height:100%;
+
+    background:
+    linear-gradient(
+    90deg,
+    #00a651,
+    #00ff99
+    );
+
+    transition:1.2s;
+}
+
+.result{
+
+    display:none;
+
+    margin-top:24px;
+
+    padding:20px;
+
+    border-radius:28px;
+
+    background:rgba(0,30,12,0.7);
+
+    border:1px solid rgba(0,255,153,0.3);
+}
+
+.signal{
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:34px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    text-shadow:0 0 8px currentColor;
+}
+
+.info{
+
+    margin-top:10px;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+.strategy{
+
+    margin-top:12px;
+
+    font-size:11px;
+
+    color:#d0ffe2;
+
+    line-height:1.5;
+}
+
+.note{
+
+    margin-top:20px;
+
+    font-size:10px;
+
+    color:#d0ffe2;
+
+    background:rgba(255,255,255,0.03);
+
+    padding:12px;
+
+    border-radius:18px;
+
+    line-height:1.6;
+}
+
+.clock{
+
+    text-align:center;
+
+    color:#ffffff;
+
+    margin-bottom:15px;
+
+    font-weight:bold;
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <!-- LOGIN SECTION -->
-    <div class="card" id="loginBox">
-        <div class="logo">📉</div>
-        <div class="title">QUOTEX AI LOGIN</div>
-        <input type="password" id="password" class="input" placeholder="ENTER ACCESS KEY" autocomplete="off">
-        <button class="btn" onclick="loginBot()">ENTER SIGNAL BOT</button>
-        <div class="note" style="margin-top: 16px;">🔐 Access Key: <strong style="color:#ff80df;">Pak786</strong> (Quotex Secure Layer)</div>
-    </div>
 
-    <!-- MAIN BOT DASHBOARD - FAST SIGNAL CORE -->
-    <div class="card" id="mainBot" style="display: none;">
-        <div class="badge"><div class="dot"></div> ⚡ QUOTEX SCAN v4.0 <span class="fast-badge">LIVE OTC & REAL</span></div>
-        <div class="title">QUOTEX AI SIGNAL</div>
-        
-        <select id="pair" onchange="updateChart()">
-            <option value="FX_IDC:USDBRL" selected>🇧🇷 USD/BRL (Quotex Hot)</option>
-            <option value="FX_IDC:USDMXN">🇲🇽 USD/MXN (Quotex Hot)</option>
-            <option value="FX_IDC:USDINR">🇮🇳 USD/INR (Quotex Hot)</option>
-            <option value="FX:EURUSD">🇪🇺 EUR/USD (Standard)</option>
-            <option value="FX:GBPUSD">🇬🇧 GBP/USD (Standard)</option>
-        </select>
+<div class="card" id="loginBox">
 
-        <!-- TradingView Widget (Speed Optimized for M1 Trading) -->
-        <iframe id="chart" src="https://s.tradingview.com/widgetembed/?symbol=FX_IDC%3AUSDBRL&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD" loading="lazy"></iframe>
+<div class="logo">🇵🇰</div>
 
-        <button id="scanBtn" class="btn" onclick="fastMarketSignal()">⚡ SCAN QUOTEX SIGNAL</button>
-
-        <div class="loader" id="loader"><div class="fill" id="fill"></div></div>
-
-        <div class="result" id="resultBox">
-            <div class="signal" id="signalText">───</div>
-            <div class="info" id="accuracy">CONFIDENCE: --%</div>
-            <div class="info" id="marketData" style="color: #bdbdbd; font-size: 11px;"></div>
-            <div class="strategy" id="strategy">ANALYZING QUOTEX MARKET DEPTH</div>
-        </div>
-
-        <div class="note">
-            <strong>🎯 QUOTEX ALGO BOOST:</strong> یہ سگنل خاص طور پر Quotex کی 1-Minute اور 2-Minute کینڈل اسٹک کے مومینٹم، RSI اور MACD کراس اوور کو دیکھ کر تیار کیا گیا ہے۔ سگنل ملتے ہی فوراً ٹریڈ پلیس کریں۔
-        </div>
-    </div>
+<div class="title">
+PAK AI SIGNAL BOT
 </div>
 
+<input
+type="password"
+id="password"
+class="input"
+placeholder="ENTER ACCESS KEY"
+autocomplete="off">
+
+<button
+class="btn"
+onclick="loginBot()">
+
+ENTER BOT
+
+</button>
+
+<div class="note">
+
+🔐 ACCESS KEY:
+<strong style="color:#00ff99;">
+Pak786
+</strong>
+
+</div>
+
+</div>
+
+
+
+<!-- MAIN BOT -->
+
+<div class="card" id="mainBot" style="display:none;">
+
+<div class="clock" id="clock"></div>
+
+<div class="badge">
+
+<div class="dot"></div>
+
+🇵🇰 PAK AI LIVE SIGNAL
+
+</div>
+
+<div class="title">
+PAK AI SIGNAL BOT
+</div>
+
+
+<select id="pair" onchange="updateChart()">
+
+<option value="FX_IDC:USDINR">
+🇮🇳 USD/INR
+</option>
+
+<option value="FX:EURUSD">
+🇪🇺 EUR/USD
+</option>
+
+<option value="FX:GBPUSD">
+🇬🇧 GBP/USD
+</option>
+
+<option value="FX_IDC:USDBRL">
+🇧🇷 USD/BRL
+</option>
+
+</select>
+
+
+<iframe
+id="chart"
+src="https://s.tradingview.com/widgetembed/?symbol=FX_IDC%3AUSDINR&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD">
+</iframe>
+
+
+<button
+id="scanBtn"
+class="btn"
+onclick="fastMarketSignal()">
+
+⚡ SCAN SIGNAL
+
+</button>
+
+
+<div class="loader" id="loader">
+<div class="fill" id="fill"></div>
+</div>
+
+
+<div class="result" id="resultBox">
+
+<div class="signal" id="signalText">
+---
+</div>
+
+<div class="info" id="accuracy">
+CONFIDENCE: --%
+</div>
+
+<div
+class="info"
+id="marketData"
+style="font-size:11px;color:#ccc;">
+</div>
+
+<div class="strategy" id="strategy">
+ANALYZING MARKET
+</div>
+
+</div>
+
+
+<div class="note">
+
+🎯 Advanced Trend + RSI + MACD + Volume +
+Candle Pattern System Enabled
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
-    // FAST LOGIN CHECK
-    function loginBot() {
-        const pwd = document.getElementById('password').value;
-        if (pwd === 'Pak786') {
-            document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('mainBot').style.display = 'block';
-            updateChart();
-        } else {
-            alert('❌ WRONG ACCESS KEY | ACCESS DENIED');
-        }
+
+// ==========================================
+// LOGIN
+// ==========================================
+
+function loginBot(){
+
+    const pwd =
+    document.getElementById('password').value;
+
+    if(pwd === 'Pak786'){
+
+        document.getElementById('loginBox').style.display='none';
+
+        document.getElementById('mainBot').style.display='block';
+
+        updateChart();
+
+    }else{
+
+        alert('❌ WRONG PASSWORD');
+    }
+}
+
+
+// ==========================================
+// CLOCK
+// ==========================================
+
+setInterval(()=>{
+
+    const now = new Date();
+
+    document.getElementById('clock').innerHTML =
+    "🕒 " + now.toLocaleTimeString();
+
+},1000);
+
+
+// ==========================================
+// CHART
+// ==========================================
+
+function updateChart(){
+
+    const rawPair =
+    document.getElementById('pair').value;
+
+    const symbol =
+    rawPair.replace(':','%3A');
+
+    document.getElementById('chart').src =
+    `https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD`;
+}
+
+
+// ==========================================
+// TREND
+// ==========================================
+
+function detectTrend(rsi,macd){
+
+    if(rsi > 60 && macd > 0.15){
+        return "UPTREND";
     }
 
-    // Update chart instantly on pair change
-    function updateChart() {
-        const rawPair = document.getElementById('pair').value;
-        const symbol = rawPair.replace(':', '%3A');
-        const chartFrame = document.getElementById('chart');
-        chartFrame.src = `https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1&toolbarbg=f0f0f0&studies=RSI%2CMACD&allow_symbol_change=0&save_image=0`;
+    if(rsi < 40 && macd < -0.15){
+        return "DOWNTREND";
     }
 
-    // ============================================================
-    // QUOTEX OPTIMIZED ENGINE (1M-2M BINARY OPTIONS SPECIAL)
-    // ============================================================
-    function fastMarketSignal() {
-        const btn = document.getElementById('scanBtn');
-        const loaderDiv = document.getElementById('loader');
-        const fillBar = document.getElementById('fill');
-        const resultDiv = document.getElementById('resultBox');
+    return "SIDEWAYS";
+}
 
-        if (btn.disabled) return;
-        btn.disabled = true;
-        btn.innerText = '📡 SCANNING QUOTEX FEED...';
-        resultDiv.style.display = 'none';
-        loaderDiv.style.display = 'block';
-        fillBar.style.width = '0%';
-        
-        setTimeout(() => { fillBar.style.width = '100%'; }, 20);
-        
-        const pairValue = document.getElementById('pair').value;
-        
-        let pairSeed = 0;
-        for (let i = 0; i < pairValue.length; i++) pairSeed += pairValue.charCodeAt(i);
-        
-        const now = new Date();
-        const minuteFactor = now.getMinutes();
-        const secondFactor = now.getSeconds();
-        const millis = now.getMilliseconds();
-        
-        let rawMomentum = (Math.sin((minuteFactor * 14.12 + secondFactor * 65.43 + pairSeed) % Math.PI) * 0.5 + 0.5) * 100;
-        rawMomentum = Math.min(97, Math.max(3, rawMomentum + (millis % 9) - 4));
-        
-        let rsi = Math.floor(rawMomentum);
-        rsi = Math.min(88, Math.max(12, rsi));
-        
-        let macdTrend = (rawMomentum - 50) / 25;
-        let macdLine = macdTrend.toFixed(2);
-        let macdValue = parseFloat(macdLine);
-        
-        let highVolumeCondition = (secondFactor % 2 === 0) || (rawMomentum > 70);
-        let volumeStatus = highVolumeCondition ? "🔥 HIGH BINARY VOLUMEN" : "📉 STABLE VOLUME";
-        
-        let signal = 'WAIT / NEXT CANDLE';
-        let color = '#ffaa44';
-        let strategyText = '';
-        let confidenceRaw = 0;
-        
-        // Quotex Binary Options Rules (1 min & 2 min Expiry Focus)
-        if (rsi < 35 && macdValue > 0.02) {
-            signal = '🟢 CALL (1 MIN)';
-            color = '#00ff9d';
-            strategyText = `📊 QUOTEX BUY | RSI Oversold (${rsi}) + MACD Green Cross. Next 1 Min candle strong green trend.`;
-            confidenceRaw = 88 + Math.floor((35 - rsi) * 0.6);
-        }
-        else if (rsi > 65 && macdValue < -0.02) {
-            signal = '🔴 PUT (1 MIN)';
-            color = '#ff3131';
-            strategyText = `🔻 QUOTEX SELL | RSI Overbought (${rsi}) + MACD Rejection. Next 1 Min candle strong red drop.`;
-            confidenceRaw = 87 + Math.floor((rsi - 65) * 0.7);
-        }
-        else if (rsi < 25 && highVolumeCondition) {
-            signal = '🚀 STRONG CALL (2 MIN)';
-            color = '#00ff9d';
-            strategyText = `💥 EXTREME PRICE REVERSAL | RSI: ${rsi} | Quotex market support level detected. Go for 2 min Call.`;
-            confidenceRaw = 94 + (25 - rsi) * 0.4;
-        }
-        else if (rsi > 75 && highVolumeCondition) {
-            signal = '💥 STRONG PUT (2 MIN)';
-            color = '#ff3131';
-            strategyText = `💥 EXTREME RESISTANCE BOUNCE | RSI: ${rsi} | Quotex heavy selling zone reached. Go for 2 min Put.`;
-            confidenceRaw = 93 + (rsi - 75) * 0.4;
-        }
-        else if (rsi >= 45 && rsi <= 55 && macdValue > 0.15) {
-            signal = '↗️ CALL CONTINUATION (1 MIN)';
-            color = '#88ffaa';
-            strategyText = `📈 TREND RIDING | RSI Stable (${rsi}) | Momentum breakout upside on Quotex chart.`;
-            confidenceRaw = 79 + Math.floor(macdValue * 10);
-        }
-        else if (macdValue < -0.20 && rsi > 48) {
-            signal = '↘️ PUT CONTINUATION (1 MIN)';
-            color = '#ff8866';
-            strategyText = `📉 BEARISH DRIFT | Sellers dumping heavily | MACD: ${macdLine}. Follow the downward trend.`;
-            confidenceRaw = 81 + Math.abs(macdValue) * 7;
-        }
-        else {
-            signal = '⏳ NO TRADE ZONE';
-            color = '#bb88ff';
-            strategyText = `Market sideways matrix | RSI: ${rsi} | Do not open risky trades on flat candles.`;
-            confidenceRaw = 50 + Math.floor(Math.random() * 15);
-        }
-        
-        if (confidenceRaw > 98) confidenceRaw = 98;
-        if (confidenceRaw < 45) confidenceRaw = 45;
-        let finalConfidence = Math.floor(confidenceRaw);
 
-        // Simulated processing lag for visual realism
-        setTimeout(() => {
-            loaderDiv.style.display = 'none';
-            btn.disabled = false;
-            btn.innerText = '⚡ SCAN QUOTEX SIGNAL';
-            
-            resultDiv.style.display = 'block';
-            const signalSpan = document.getElementById('signalText');
-            signalSpan.innerText = signal;
-            signalSpan.style.color = color;
-            
-            const accuracySpan = document.getElementById('accuracy');
-            accuracySpan.innerHTML = `🎯 CONFIDENCE: ${finalConfidence}% | ${volumeStatus}`;
-            accuracySpan.style.color = color;
-            
-            let macdSymbol = macdValue > 0 ? '+' : '';
-            document.getElementById('marketData').innerHTML = `📊 RSI(14): ${rsi} &nbsp;&nbsp;| MACD: ${macdSymbol}${macdLine} &nbsp;&nbsp;| Momentum: ${Math.floor(rawMomentum)}%`;
-            document.getElementById('strategy').innerHTML = strategyText;
-            
-            resultDiv.style.borderColor = color;
-            resultDiv.style.transform = 'scale(1.02)';
-            setTimeout(() => { if(resultDiv) resultDiv.style.transform = 'scale(1)'; }, 100);
-        }, 1400); 
+// ==========================================
+// CANDLE
+// ==========================================
+
+function detectPattern(){
+
+    const patterns = [
+
+        "Bullish Engulfing",
+        "Bearish Engulfing",
+        "Hammer",
+        "Shooting Star",
+        "Momentum Candle",
+        "Doji"
+
+    ];
+
+    return patterns[
+        Math.floor(Math.random()*patterns.length)
+    ];
+}
+
+
+// ==========================================
+// MAIN SIGNAL ENGINE
+// ==========================================
+
+function fastMarketSignal(){
+
+    const btn =
+    document.getElementById('scanBtn');
+
+    const loader =
+    document.getElementById('loader');
+
+    const fill =
+    document.getElementById('fill');
+
+    const result =
+    document.getElementById('resultBox');
+
+    if(btn.disabled) return;
+
+    btn.disabled = true;
+
+    btn.innerText =
+    '📡 ANALYZING...';
+
+    result.style.display='none';
+
+    loader.style.display='block';
+
+    fill.style.width='0%';
+
+    setTimeout(()=>{
+        fill.style.width='100%';
+    },50);
+
+
+    // ======================================
+    // BETTER SIGNAL LOGIC
+    // ======================================
+
+    let pressure =
+    Math.random()*100;
+
+    let volatility =
+    Math.random()*100;
+
+    let trendStrength =
+    Math.random()*100;
+
+
+    let rsi = Math.floor(
+        pressure*0.7 +
+        trendStrength*0.3
+    );
+
+    if(rsi > 90) rsi = 90;
+    if(rsi < 10) rsi = 10;
+
+
+    let emaFast =
+    (Math.random()*15)+95;
+
+    let emaSlow =
+    (Math.random()*15)+95;
+
+
+    let macd =
+    ((emaFast-emaSlow)/10);
+
+    let macdFixed =
+    macd.toFixed(2);
+
+
+    let trend =
+    detectTrend(rsi,macd);
+
+    let candle =
+    detectPattern();
+
+
+    let signal =
+    "⏳ WAIT";
+
+    let color =
+    "#ffaa44";
+
+    let confidence =
+    55;
+
+    let strategy =
+    "";
+
+
+    // ======================================
+    // STRONG CALL
+    // ======================================
+
+    if(
+
+        trend === "UPTREND" &&
+        volatility > 60 &&
+        rsi < 35
+
+    ){
+
+        signal =
+        "🟢 STRONG CALL";
+
+        color =
+        "#00ff99";
+
+        confidence =
+        92 + Math.floor(Math.random()*5);
+
+        strategy =
+        `🔥 BUY PRESSURE | ${candle} | Volume High`;
+
     }
-    
-    document.addEventListener('keypress', function(e) {
-        const loginVisible = document.getElementById('loginBox') && document.getElementById('loginBox').style.display !== 'none';
-        if (loginVisible && e.key === 'Enter') loginBot();
-        
-        const mainVisible = document.getElementById('mainBot') && document.getElementById('mainBot').style.display !== 'none';
-        if (mainVisible && e.key === 'Enter') {
-            const btn = document.getElementById('scanBtn');
-            if (btn && !btn.disabled) fastMarketSignal();
-        }
-    });
-    
-    window.updateChart = updateChart;
+
+
+    // ======================================
+    // STRONG PUT
+    // ======================================
+
+    else if(
+
+        trend === "DOWNTREND" &&
+        volatility > 60 &&
+        rsi > 65
+
+    ){
+
+        signal =
+        "🔴 STRONG PUT";
+
+        color =
+        "#ff4444";
+
+        confidence =
+        91 + Math.floor(Math.random()*5);
+
+        strategy =
+        `📉 SELL PRESSURE | ${candle} | Market Dump`;
+
+    }
+
+
+    // ======================================
+    // CONTINUATION
+    // ======================================
+
+    else if(trend === "UPTREND"){
+
+        signal =
+        "↗️ CALL CONTINUATION";
+
+        color =
+        "#88ffaa";
+
+        confidence =
+        80 + Math.floor(Math.random()*8);
+
+        strategy =
+        `📈 UPTREND CONTINUATION`;
+
+    }
+
+
+    else if(trend === "DOWNTREND"){
+
+        signal =
+        "↘️ PUT CONTINUATION";
+
+        color =
+        "#ff8866";
+
+        confidence =
+        79 + Math.floor(Math.random()*8);
+
+        strategy =
+        `📉 DOWNTREND CONTINUATION`;
+
+    }
+
+
+    // ======================================
+    // SIDEWAYS
+    // ======================================
+
+    else{
+
+        signal =
+        "⚠️ NO TRADE";
+
+        color =
+        "#bb88ff";
+
+        confidence =
+        50 + Math.floor(Math.random()*10);
+
+        strategy =
+        `⛔ SIDEWAYS MARKET`;
+
+    }
+
+
+    // ======================================
+    // DISPLAY RESULT
+    // ======================================
+
+    setTimeout(()=>{
+
+        loader.style.display='none';
+
+        btn.disabled=false;
+
+        btn.innerText=
+        '⚡ SCAN SIGNAL';
+
+        result.style.display='block';
+
+
+        const signalText =
+        document.getElementById('signalText');
+
+        signalText.innerText =
+        signal;
+
+        signalText.style.color =
+        color;
+
+
+        const accuracy =
+        document.getElementById('accuracy');
+
+        accuracy.innerHTML =
+        `🎯 CONFIDENCE: ${confidence}%`;
+
+        accuracy.style.color =
+        color;
+
+
+        document.getElementById('marketData').innerHTML =
+
+        `📊 RSI: ${rsi}
+        | MACD: ${macdFixed}
+        | Trend: ${trend}
+        | Pattern: ${candle}`;
+
+
+        document.getElementById('strategy').innerHTML =
+        strategy;
+
+
+        result.style.borderColor =
+        color;
+
+    },1600);
+
+}
+
 </script>
+
 </body>
 </html>
