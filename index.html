@@ -1,3 +1,36 @@
+<script>
+
+function loginBot(){
+
+    const pass =
+    document.getElementById('password').value;
+
+    if(pass === 'Pak786'){
+
+        document.getElementById('loginBox')
+        .style.display='none';
+
+        document.getElementById('mainBot')
+        .style.display='block';
+
+    }else{
+
+        alert('WRONG ACCESS KEY');
+
+    }
+}
+
+function updateChart(){
+
+    const pair =
+    document.getElementById('pair')
+    .value.replace(':','%3A');
+
+    document.getElementById('chart').src =
+
+    `https://s.tradingview.com/widgetembed/?symbol=${pair}&interval=5&theme=dark`;
+}
+
 function generateSignal(){
 
     const loader =
@@ -14,7 +47,7 @@ function generateSignal(){
 
     btn.disabled=true;
 
-    btn.innerText='ANALYZING...';
+    btn.innerText='AI ANALYZING...';
 
     result.style.display='none';
 
@@ -39,53 +72,80 @@ function generateSignal(){
         let rsi =
         Math.floor(Math.random()*100);
 
+        let trend =
+        Math.random();
+
+        let volume =
+        Math.random();
+
         let signal='WAIT';
 
         let color='#ffaa00';
 
-        let strategy='SIDEWAYS MARKET';
+        let strategy='MARKET SIDEWAYS';
 
-        if(rsi < 40){
+        let confidence='89%';
 
-            signal='↑ CALL';
+        if(
+            rsi <= 30 &&
+            trend > 0.55 &&
+            volume > 0.45
+        ){
+
+            signal='↑ STRONG CALL';
 
             color='#00ff9d';
 
-            strategy='BULLISH MOMENTUM';
+            strategy='RSI OVERSOLD + UPTREND';
+
+            confidence='94%';
         }
 
-        else if(rsi > 60){
+        else if(
+            rsi >= 70 &&
+            trend < 0.45 &&
+            volume > 0.45
+        ){
 
-            signal='↓ PUT';
+            signal='↓ STRONG PUT';
 
             color='#ff3131';
 
-            strategy='BEARISH MOMENTUM';
+            strategy='RSI OVERBOUGHT + DOWNTREND';
+
+            confidence='93%';
         }
 
         result.style.display='block';
 
-        document.getElementById('signalText')
-        .innerText=signal;
+        const signalText =
+        document.getElementById('signalText');
 
-        document.getElementById('signalText')
-        .style.color=color;
+        signalText.innerText=signal;
+
+        signalText.style.color=color;
 
         document.getElementById('accuracy')
         .innerText=
-        'CONFIDENCE: 92%';
+        'CONFIDENCE: ' + confidence;
 
         document.getElementById('accuracy')
         .style.color=color;
 
         document.getElementById('marketData')
         .innerText=
-        `RSI VALUE: ${rsi}`;
+
+        `RSI: ${rsi} | TREND: ${(trend*100).toFixed(0)}% | VOLUME: ${(volume*100).toFixed(0)}%`;
 
         document.getElementById('strategy')
         .innerText=strategy;
 
         result.style.borderColor=color;
 
+        result.style.boxShadow=
+        `0 0 25px ${color}55`;
+
     },2500);
 }
+
+</script>
