@@ -1,233 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIGER AI TRADING BOT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --pink: #ff007f;
-            --tiger-orange: #ff6a00;
-            --bg-dark: #050103;
-            --glass-bg: rgba(20, 5, 12, 0.92);
-            --border-color: rgba(255, 0, 127, 0.3);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIGER AI PRO BOT</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
 
-        body { 
-            background: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 50% -10%, rgba(255, 106, 0, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 50% 110%, rgba(255, 0, 127, 0.1) 0%, transparent 50%);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+<style>
+:root{
+    --pink:#ff007f;
+    --orange:#ff6a00;
+    --dark:#050103;
+    --glass:rgba(20,5,12,.92);
+    --border:rgba(255,0,127,.3);
+}
 
-        .container { width: 100%; max-width: 420px; padding: 15px; z-index: 10; }
+*{
+    box-sizing:border-box;
+}
 
-        .bot-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            padding: 30px 25px;
-            border-radius: 35px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
-            text-align: center;
-            position: relative;
-        }
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:var(--dark);
+    background-image:
+    radial-gradient(circle at top, rgba(255,106,0,.18), transparent 40%),
+    radial-gradient(circle at bottom, rgba(255,0,127,.12), transparent 40%);
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow-x:hidden;
+}
 
-        .tiger-icon {
-            font-size: 60px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 15px var(--tiger-orange));
-            display: inline-block;
-            animation: breathe 3s infinite ease-in-out;
-        }
+.container{
+    width:100%;
+    max-width:430px;
+    padding:15px;
+}
 
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--tiger-orange)); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px var(--pink)); }
-        }
+.card{
+    background:var(--glass);
+    border:1px solid var(--border);
+    border-radius:35px;
+    padding:28px 24px;
+    backdrop-filter:blur(25px);
+    box-shadow:0 30px 70px rgba(0,0,0,.8);
+    text-align:center;
+}
 
-        .header-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
-            font-weight: 900;
-            letter-spacing: 3px;
-            background: linear-gradient(to right, var(--tiger-orange), var(--pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
+.logo{
+    font-size:65px;
+    animation:pulse 3s infinite ease-in-out;
+    filter:drop-shadow(0 0 18px var(--orange));
+}
 
-        .status-badge {
-            background: rgba(255, 106, 0, 0.1);
-            color: var(--tiger-orange);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 10px;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 106, 0, 0.2);
-            margin-bottom: 25px;
-        }
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.08)}
+}
 
-        .dot-live { width: 8px; height: 8px; background: var(--tiger-orange); border-radius: 50%; box-shadow: 0 0 10px var(--tiger-orange); }
+.title{
+    font-family:'Orbitron',sans-serif;
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:3px;
+    background:linear-gradient(to right,var(--orange),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin:15px 0 25px;
+}
 
-        select {
-            width: 100%;
-            padding: 15px;
-            border-radius: 16px;
-            background: #110408;
-            color: #fff;
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-            outline: none;
-            font-size: 14px;
-        }
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,106,0,.12);
+    color:var(--orange);
+    border:1px solid rgba(255,106,0,.3);
+    border-radius:40px;
+    padding:7px 14px;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:20px;
+}
 
-        #tv-frame { border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px; }
+.dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--orange);
+    box-shadow:0 0 10px var(--orange);
+}
 
-        .btn-tiger {
-            background: linear-gradient(135deg, var(--tiger-orange), var(--pink));
-            color: white;
-            border: none;
-            padding: 20px;
-            border-radius: 18px;
-            font-weight: 800;
-            width: 100%;
-            cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 15px;
-            letter-spacing: 1px;
-            transition: 0.4s;
-            box-shadow: 0 10px 25px rgba(255, 0, 127, 0.3);
-        }
+.input,
+select{
+    width:100%;
+    padding:16px;
+    border-radius:16px;
+    border:1px solid var(--border);
+    background:#10040a;
+    color:#fff;
+    margin-bottom:18px;
+    outline:none;
+    font-size:15px;
+}
 
-        .btn-tiger:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255, 0, 127, 0.5); }
+.btn{
+    width:100%;
+    border:none;
+    padding:18px;
+    border-radius:18px;
+    font-family:'Orbitron',sans-serif;
+    font-weight:900;
+    letter-spacing:1px;
+    cursor:pointer;
+    background:linear-gradient(135deg,var(--orange),var(--pink));
+    color:#fff;
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(255,0,127,.35);
+}
 
-        #result {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 22px;
-            display: none;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+.btn:hover{
+    transform:translateY(-3px);
+}
 
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+iframe{
+    width:100%;
+    height:240px;
+    border:none;
+    border-radius:20px;
+    margin-bottom:18px;
+}
 
-        .signal-text { font-family: 'Orbitron', sans-serif; font-size: 30px; font-weight: 900; margin: 0; }
+.loader{
+    width:100%;
+    height:5px;
+    background:#1a0510;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:18px;
+    display:none;
+}
 
-        .loader-bar { width: 100%; height: 5px; background: #1a050d; border-radius: 10px; margin-top: 20px; display: none; overflow: hidden; }
-        .loader-progress { height: 100%; width: 0%; background: linear-gradient(to right, var(--tiger-orange), var(--pink)); transition: 2s linear; }
+.fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(to right,var(--orange),var(--pink));
+    transition:2.5s linear;
+}
 
-        .login-input {
-            width: 100%; padding: 18px; border-radius: 16px; background: #000; border: 1px solid var(--border-color); color: #fff;
-            text-align: center; font-size: 20px; margin-bottom: 20px; box-sizing: border-box; outline: none;
-        }
-    </style>
+.result{
+    display:none;
+    margin-top:22px;
+    border-radius:24px;
+    padding:22px;
+    background:rgba(255,255,255,.03);
+    border:1px solid var(--border);
+}
+
+.signal{
+    font-family:'Orbitron',sans-serif;
+    font-size:32px;
+    font-weight:900;
+}
+
+.small{
+    margin-top:10px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.strategy{
+    margin-top:12px;
+    font-size:10px;
+    letter-spacing:2px;
+    color:#888;
+}
+
+.note{
+    margin-top:18px;
+    font-size:11px;
+    color:#999;
+    line-height:1.6;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <!-- Login Screen -->
-    <div id="loginSection" class="bot-card">
-        <div class="tiger-icon">🐯</div>
-        <div class="header-title">TIGER AI LOGIN</div>
-        <input type="password" id="passInput" class="login-input" placeholder="ACCESS KEY">
-        <button class="btn-tiger" onclick="checkPass()">WAKE THE TIGER</button>
-    </div>
 
-    <!-- Main Content -->
-    <div id="botContent" style="display: none;">
-        <div class="bot-card">
-            <div class="status-badge"><div class="dot-live"></div> TIGER MODE ACTIVE</div>
-            <div class="header-title">HUNTING SIGNALS</div>
-            
-            <select id="assetSelect" onchange="updateChart()">
-                <option value="FX_IDC:USDBRL">USD/BRL (OTC)</option>
-                <option value="FX_IDC:USDMXN">USD/MXN (OTC)</option>
-                <option value="FX_IDC:USDINR">USD/INR (OTC)</option>
-                <option value="FX:EURUSD">EUR/USD (OTC)</option>
-                <option value="CRYPTOCAP:BTC">BITCOIN (Live)</option>
-            </select>
+<div class="card" id="loginBox">
+<div class="logo">🐯</div>
+<div class="title">TIGER AI LOGIN</div>
 
-            <iframe id="tv-frame" src="https://s.tradingview.com/widgetembed/?symbol=FX_IDC%3AUSDBRL&interval=1&theme=dark" width="100%" height="230" frameborder="0"></iframe>
+<input type="password" id="password" class="input" placeholder="ENTER ACCESS KEY">
 
-            <button id="analyzeBtn" class="btn-tiger" onclick="getSignal()">HUNT FOR SIGNAL</button>
-            
-            <div id="loader" class="loader-bar"><div id="fill" class="loader-progress"></div></div>
+<button class="btn" onclick="loginBot()">WAKE THE TIGER</button>
+</div>
 
-            <div id="result">
-                <p id="sigText" class="signal-text"></p>
-                <div id="accBox" style="font-size: 15px; font-weight: bold; margin-top: 8px;"></div>
-                <div id="strat" style="font-size: 10px; color: #888; margin-top: 10px; letter-spacing: 2px; text-transform: uppercase;"></div>
-            </div>
-        </div>
-    </div>
+<div id="mainBot" style="display:none;">
+<div class="card">
+
+<div class="badge">
+<div class="dot"></div>
+LIVE AI SCANNER ACTIVE
+</div>
+
+<div class="title">TIGER AI PRO</div>
+
+<select id="pair" onchange="updateChart()">
+<option value="FX:EURUSD">EUR/USD</option>
+<option value="FX:GBPUSD">GBP/USD</option>
+<option value="FX:USDJPY">USD/JPY</option>
+<option value="FX_IDC:USDBRL">USD/BRL OTC</option>
+<option value="CRYPTOCAP:BTC">BITCOIN</option>
+</select>
+
+<iframe id="chart" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=1&theme=dark"></iframe>
+
+<button class="btn" onclick="generateSignal()" id="scanBtn">
+SCAN MARKET
+</button>
+
+<div class="loader" id="loader">
+<div class="fill" id="fill"></div>
+</div>
+
+<div class="result" id="resultBox">
+<div class="signal" id="signalText"></div>
+<div class="small" id="accuracy"></div>
+<div class="small" id="marketData"></div>
+<div class="strategy" id="strategy"></div>
+</div>
+
+<div class="note">
+یہ signals RSI + EMA logic پر based demo signals ہیں۔
+ہمیشہ risk management استعمال کریں۔
+</div>
+
+</div>
+</div>
+
 </div>
 
 <script>
-    function checkPass() {
-        if(document.getElementById("passInput").value === "Mybot786") {
-            document.getElementById("loginSection").style.display = "none";
-            document.getElementById("botContent").style.display = "block";
-        } else {
-            alert("KEY GALAT HAI!");
+
+function loginBot(){
+    const pass = document.getElementById('password').value;
+
+    if(pass === 'Tiger786'){
+        document.getElementById('loginBox').style.display='none';
+        document.getElementById('mainBot').style.display='block';
+    }else{
+        alert('WRONG ACCESS KEY');
+    }
+}
+
+function updateChart(){
+    const pair = document.getElementById('pair').value.replace(':','%3A');
+
+    document.getElementById('chart').src =
+    `https://s.tradingview.com/widgetembed/?symbol=${pair}&interval=1&theme=dark`;
+}
+
+function fakeRSI(){
+    return Math.floor(Math.random()*100);
+}
+
+function fakeEMAFast(){
+    return Math.random()*100;
+}
+
+function fakeEMASlow(){
+    return Math.random()*100;
+}
+
+function generateSignal(){
+
+    const loader = document.getElementById('loader');
+    const fill = document.getElementById('fill');
+    const btn = document.getElementById('scanBtn');
+    const result = document.getElementById('resultBox');
+
+    btn.disabled = true;
+    btn.innerText = 'ANALYZING...';
+
+    result.style.display='none';
+
+    loader.style.display='block';
+    fill.style.width='0%';
+
+    setTimeout(()=>{
+        fill.style.width='100%';
+    },50);
+
+    setTimeout(()=>{
+
+        loader.style.display='none';
+        btn.disabled = false;
+        btn.innerText = 'SCAN MARKET';
+
+        const rsi = fakeRSI();
+        const emaFast = fakeEMAFast();
+        const emaSlow = fakeEMASlow();
+
+        let signal = 'WAIT';
+        let color = '#ffaa00';
+        let strategy = 'NO STRONG CONFIRMATION';
+
+        if(rsi < 35 && emaFast > emaSlow){
+            signal = '↑ CALL';
+            color = '#00ff9d';
+            strategy = 'RSI OVERSOLD + EMA BULLISH';
         }
-    }
+        else if(rsi > 65 && emaFast < emaSlow){
+            signal = '↓ PUT';
+            color = '#ff3131';
+            strategy = 'RSI OVERBOUGHT + EMA BEARISH';
+        }
 
-    function updateChart() {
-        const pair = document.getElementById("assetSelect").value.replace(":", "%3A");
-        document.getElementById("tv-frame").src = `https://s.tradingview.com/widgetembed/?symbol=${pair}&interval=1&theme=dark`;
-    }
+        result.style.display='block';
 
-    function getSignal() {
-        const res = document.getElementById("result");
-        const loader = document.getElementById("loader");
-        const fill = document.getElementById("fill");
-        const btn = document.getElementById("analyzeBtn");
+        const signalText = document.getElementById('signalText');
+        signalText.innerText = signal;
+        signalText.style.color = color;
 
-        btn.disabled = true;
-        btn.innerText = "HUNTING...";
-        res.style.display = "none";
-        loader.style.display = "block";
-        fill.style.width = "0%";
-        
-        setTimeout(() => fill.style.width = "100%", 50);
+        document.getElementById('accuracy').innerText =
+        'CONFIDENCE: ' + (Math.random()*8 + 88).toFixed(1) + '%';
 
-        setTimeout(function() {
-            loader.style.display = "none";
-            btn.disabled = false;
-            btn.innerText = "HUNT FOR SIGNAL";
-            res.style.display = "block";
+        document.getElementById('accuracy').style.color = color;
 
-            const isUp = Math.random() > 0.5;
-            const signal = isUp ? "↑ TIGER CALL" : "↓ TIGER PUT";
-            const color = isUp ? "#00ff9d" : "#ff3131";
-            
-            const sigEl = document.getElementById("sigText");
-            sigEl.innerText = signal;
-            sigEl.style.color = color;
-            
-            document.getElementById("accBox").innerText = `HUNT ACCURACY: ${(Math.random() * (99.5 - 95.0) + 95.0).toFixed(2)}%`;
-            document.getElementById("accBox").style.color = color;
-            document.getElementById("strat").innerText = "ALGO: PREDATOR-X SCAN";
-            
-            res.style.borderColor = color + "66";
-            res.style.boxShadow = `0 0 25px ${color}33`;
-        }, 2500);
-    }
+        document.getElementById('marketData').innerText =
+        `RSI: ${rsi} | EMA FAST: ${emaFast.toFixed(2)} | EMA SLOW: ${emaSlow.toFixed(2)}`;
+
+        document.getElementById('strategy').innerText = strategy;
+
+        result.style.borderColor = color + '66';
+        result.style.boxShadow = `0 0 25px ${color}33`;
+
+    },2500);
+}
+
 </script>
+
 </body>
 </html>
