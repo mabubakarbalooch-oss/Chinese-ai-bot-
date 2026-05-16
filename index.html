@@ -1,151 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PAK AI TEST</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+flex-direction:column;
+}
+
+button{
+padding:15px 25px;
+font-size:20px;
+border:none;
+border-radius:10px;
+background:hotpink;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>PAK AI WORKING ✅</h1>
+
+<button onclick="test()">
+SCAN
+</button>
+
 <script>
 
-function loginBot(){
+function test(){
 
-    const pass =
-    document.getElementById('password').value;
+alert("BOT WORKING");
 
-    if(pass === 'Pak786'){
-
-        document.getElementById('loginBox')
-        .style.display='none';
-
-        document.getElementById('mainBot')
-        .style.display='block';
-
-    }else{
-
-        alert('WRONG ACCESS KEY');
-
-    }
-}
-
-function updateChart(){
-
-    const pair =
-    document.getElementById('pair')
-    .value.replace(':','%3A');
-
-    document.getElementById('chart').src =
-
-    `https://s.tradingview.com/widgetembed/?symbol=${pair}&interval=5&theme=dark`;
-}
-
-function generateSignal(){
-
-    const loader =
-    document.getElementById('loader');
-
-    const fill =
-    document.getElementById('fill');
-
-    const btn =
-    document.getElementById('scanBtn');
-
-    const result =
-    document.getElementById('resultBox');
-
-    btn.disabled=true;
-
-    btn.innerText='AI ANALYZING...';
-
-    result.style.display='none';
-
-    loader.style.display='block';
-
-    fill.style.width='0%';
-
-    setTimeout(()=>{
-
-        fill.style.width='100%';
-
-    },50);
-
-    setTimeout(()=>{
-
-        loader.style.display='none';
-
-        btn.disabled=false;
-
-        btn.innerText='SCAN MARKET';
-
-        let rsi =
-        Math.floor(Math.random()*100);
-
-        let trend =
-        Math.random();
-
-        let volume =
-        Math.random();
-
-        let signal='WAIT';
-
-        let color='#ffaa00';
-
-        let strategy='MARKET SIDEWAYS';
-
-        let confidence='89%';
-
-        if(
-            rsi <= 30 &&
-            trend > 0.55 &&
-            volume > 0.45
-        ){
-
-            signal='↑ STRONG CALL';
-
-            color='#00ff9d';
-
-            strategy='RSI OVERSOLD + UPTREND';
-
-            confidence='94%';
-        }
-
-        else if(
-            rsi >= 70 &&
-            trend < 0.45 &&
-            volume > 0.45
-        ){
-
-            signal='↓ STRONG PUT';
-
-            color='#ff3131';
-
-            strategy='RSI OVERBOUGHT + DOWNTREND';
-
-            confidence='93%';
-        }
-
-        result.style.display='block';
-
-        const signalText =
-        document.getElementById('signalText');
-
-        signalText.innerText=signal;
-
-        signalText.style.color=color;
-
-        document.getElementById('accuracy')
-        .innerText=
-        'CONFIDENCE: ' + confidence;
-
-        document.getElementById('accuracy')
-        .style.color=color;
-
-        document.getElementById('marketData')
-        .innerText=
-
-        `RSI: ${rsi} | TREND: ${(trend*100).toFixed(0)}% | VOLUME: ${(volume*100).toFixed(0)}%`;
-
-        document.getElementById('strategy')
-        .innerText=strategy;
-
-        result.style.borderColor=color;
-
-        result.style.boxShadow=
-        `0 0 25px ${color}55`;
-
-    },2500);
 }
 
 </script>
+
+</body>
+</html>
