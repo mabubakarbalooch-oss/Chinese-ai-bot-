@@ -395,7 +395,7 @@ ENTER BOT
 
 </div>
 
-<!-- MAIN -->
+<!-- MAIN BOT -->
 
 <div class="card" id="mainBot" style="display:none;">
 
@@ -405,7 +405,7 @@ ENTER BOT
 
 <div class="dot"></div>
 
-LIVE MARKET SIGNAL
+🇵🇰 LIVE MARKET SIGNAL
 
 </div>
 
@@ -415,13 +415,25 @@ PAK PRO SIGNAL BOT
 
 <select id="pair" onchange="updateChart()">
 
-<option value="FX:EURUSD">EUR/USD</option>
+<option value="FX:EURUSD">
+🇪🇺 EUR/USD
+</option>
 
-<option value="FX:GBPUSD">GBP/USD</option>
+<option value="FX:GBPUSD">
+🇬🇧 GBP/USD
+</option>
 
-<option value="FX:USDJPY">USD/JPY</option>
+<option value="FX_IDC:USDINR">
+🇮🇳 USD/INR
+</option>
 
-<option value="FX:AUDUSD">AUD/USD</option>
+<option value="FX_IDC:USDBRL">
+🇧🇷 USD/BRL
+</option>
+
+<option value="FX_IDC:USDPKR">
+🇵🇰 USD/PKR
+</option>
 
 </select>
 
@@ -529,13 +541,16 @@ function updateChart(){
 const pair =
 document.getElementById('pair').value;
 
+const symbol =
+pair.replace(":","%3A");
+
 document.getElementById('chart').src =
 
-`https://s.tradingview.com/widgetembed/?symbol=${pair}&interval=1&theme=dark`;
+`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1`;
 
 }
 
-// SIGNAL
+// SIGNAL ENGINE
 
 function generateSignal(){
 
@@ -566,7 +581,7 @@ setTimeout(()=>{
 fill.style.width = "100%";
 },50);
 
-// DATA
+// MARKET DATA
 
 let rsi =
 Math.floor(Math.random()*40)+30;
@@ -589,7 +604,7 @@ let color =
 let strategy =
 "🔥 BUY PRESSURE ACTIVE";
 
-// PUT
+// PUT SIGNAL
 
 if(macd < 0){
 
@@ -617,6 +632,8 @@ btn.innerHTML =
 
 result.style.display = "block";
 
+// SIGNAL
+
 const signalText =
 document.getElementById('signalText');
 
@@ -626,6 +643,8 @@ signal;
 signalText.style.color =
 color;
 
+// CONFIDENCE
+
 document.getElementById('accuracy').innerHTML =
 
 `🎯 CONFIDENCE:
@@ -633,6 +652,8 @@ ${confidence}%`;
 
 document.getElementById('accuracy').style.color =
 color;
+
+// DATA
 
 document.getElementById('marketData').innerHTML =
 
@@ -643,8 +664,12 @@ ${macd}
  | VOLATILITY:
 ${volatility}%`;
 
+// STRATEGY
+
 document.getElementById('strategy').innerHTML =
 strategy;
+
+// POWER BAR
 
 document.getElementById('powerBar').style.width =
 confidence + "%";
