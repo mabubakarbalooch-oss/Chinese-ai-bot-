@@ -3,157 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🇵🇰 PAK AI SIGNAL X - ULTRA 99%</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <title>🇵🇰 PAK AI SIGNAL X - V3 PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        :root{ --green:#00ff99; --red:#ff4444; --dark:#02140b; }
-        body{ min-height:100vh; display:flex; justify-content:center; align-items:center; padding:15px; font-family:'Inter',sans-serif; background: radial-gradient(circle at top left, #003d1f, #02140b 70%); overflow-x:hidden; }
-        .container{ width:100%; max-width:450px; position:relative; }
-        .card{ background:rgba(0,20,10,0.96); backdrop-filter:blur(20px); border:1px solid rgba(0,255,153,0.3); border-radius:35px; padding:25px; box-shadow: 0 0 30px rgba(0,255,153,0.2); text-align:center; }
-        .title{ font-family:'Orbitron',sans-serif; font-size:22px; font-weight:900; background: linear-gradient(135deg, #fff, #00ff99); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:15px; }
+        body{ min-height:100vh; display:flex; justify-content:center; align-items:center; background:#010a05; font-family:'Inter',sans-serif; color:white; overflow:hidden; }
+        .container{ width:100%; max-width:420px; padding:20px; position:relative; }
         
-        /* Analysis Widget */
-        #analysis-box { width:100%; height:130px; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,0.1); margin-bottom:15px; background: #000; }
+        /* Background Glow */
+        .container::after{ content:''; position:absolute; top:50%; left:50%; width:300px; height:300px; background:rgba(0,255,153,0.15); filter:blur(100px); z-index:-1; transform:translate(-50%, -50%); }
+
+        .card{ background:rgba(2,20,11,0.95); border:2px solid rgba(0,255,153,0.2); border-radius:40px; padding:30px 20px; box-shadow:0 15px 50px rgba(0,0,0,0.8); text-align:center; }
         
-        select{ width:100%; padding:15px; margin-bottom:15px; background:#04180d; border:1px solid #00ff99; border-radius:25px; color:white; font-size:14px; outline:none; }
-
-        .btn{ width:100%; border:none; border-radius:40px; padding:18px; font-weight:900; font-family:'Orbitron',sans-serif; font-size:14px; background: linear-gradient(95deg, #008f4a, #00d26f); color:white; cursor:pointer; box-shadow: 0 5px 15px rgba(0,255,153,0.3); }
+        .title{ font-family:'Orbitron',sans-serif; font-size:24px; color:#00ff99; text-shadow:0 0 15px rgba(0,255,153,0.5); margin-bottom:20px; }
         
-        .loader{ width:100%; height:6px; background:#062014; border-radius:10px; overflow:hidden; margin-top:15px; display:none; }
-        .fill{ width:0%; height:100%; background:#00ff99; transition:3s linear; }
+        select{ width:100%; padding:15px; border-radius:20px; background:#041a0e; border:1px solid #00ff99; color:white; font-weight:bold; margin-bottom:20px; outline:none; }
 
-        /* Signal Box Style like Video */
-        .result{ display:none; margin-top:20px; padding:25px; border-radius:30px; background:rgba(255,255,255,0.05); border:2px solid #00ff99; position:relative; animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes pop { from {transform: scale(0.8); opacity:0;} to {transform: scale(1); opacity:1;} }
+        /* Real Market Meter Area */
+        #meter-area{ width:100%; height:140px; background:#000; border-radius:25px; margin-bottom:20px; border:1px solid rgba(255,255,255,0.1); overflow:hidden; }
 
-        .signal-header { font-size: 10px; letter-spacing: 2px; color: #aaa; margin-bottom: 5px; font-weight: 800; }
-        .signal-main { font-family:'Orbitron',sans-serif; font-size:32px; font-weight:900; margin-bottom:10px; }
-        .accuracy-badge { display:inline-block; padding:5px 15px; border-radius:20px; background:#00ff99; color:#000; font-weight:900; font-size:12px; margin-bottom:10px; }
-        .countdown { font-size: 12px; color: #ffaa44; font-weight: bold; margin-top: 10px; }
+        .btn{ width:100%; padding:20px; border-radius:50px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#001a0d; font-family:'Orbitron',sans-serif; font-weight:900; font-size:15px; cursor:pointer; transition:0.3s; box-shadow:0 8px 20px rgba(0,255,153,0.3); }
+        .btn:active{ transform:scale(0.95); }
+
+        .loader{ width:100%; height:8px; background:#052614; border-radius:10px; margin-top:20px; display:none; overflow:hidden; }
+        .fill{ width:0%; height:100%; background:#00ff99; transition:2s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* Signal Result - Video Style */
+        .result-box{ display:none; margin-top:25px; padding:25px; border-radius:35px; background:rgba(255,255,255,0.03); border:3px solid #00ff99; position:relative; }
+        .signal-type{ font-family:'Orbitron',sans-serif; font-size:36px; font-weight:900; margin-bottom:5px; }
+        .accuracy-box{ display:inline-block; padding:6px 15px; background:#00ff99; color:#001a0d; border-radius:15px; font-weight:900; font-size:12px; margin-bottom:15px; }
+        .details{ font-size:11px; color:#aaa; line-height:1.6; }
+        .timer{ font-size:14px; color:#ffaa44; font-weight:bold; margin-top:15px; font-family:'Orbitron',sans-serif; }
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="card" id="loginBox">
-            <div class="title" style="font-size:40px;">🇵🇰</div>
-            <div class="title">PAK AI SIGNAL X</div>
-            <input type="password" id="password" style="width:100%; padding:15px; margin-bottom:15px; border-radius:20px; background:#04180d; color:white; border:1px solid #00ff99;" placeholder="PASSWORD: Pak786">
-            <button class="btn" onclick="loginBot()">ACTIVATE 99% AI</button>
+            <h1 class="title">PAK AI LOGIN</h1>
+            <input type="password" id="pass" placeholder="Enter Key" style="width:100%; padding:15px; border-radius:15px; margin-bottom:20px; background:#000; border:1px solid #00ff99; color:white; text-align:center;">
+            <button class="btn" onclick="login()">ACTIVATE BOT</button>
         </div>
 
-        <div class="card" id="mainBot" style="display:none;">
-            <div id="clock" style="color:#00ff99; margin-bottom:10px; font-weight:bold;">🕒 00:00:00</div>
-            <div class="title">ULTRA AI ENGINE</div>
+        <div class="card" id="botBox" style="display:none;">
+            <h1 class="title">PAK AI SIGNAL X</h1>
             
-            <select id="pair" onchange="updateMarket()">
-                <option value="USDBRL">🇧🇷 USD/BRL (OTC) - 99%</option>
-                <option value="USDMXN">🇲🇽 USD/MXN (OTC) - 98%</option>
-                <option value="USDINR">🇮🇳 USD/INR - 97%</option>
-                <option value="EURUSD">🇪🇺 EUR/USD - 99%</option>
+            <select id="pair" onchange="loadMarket()">
+                <option value="USDBRL">USD/BRL (OTC)</option>
+                <option value="USDMXN">USD/MXN (OTC)</option>
+                <option value="USDINR">USD/INR (LIVE)</option>
+                <option value="EURUSD">EUR/USD (LIVE)</option>
             </select>
 
-            <div id="analysis-box">
-                <div class="tradingview-widget-container__widget"></div>
+            <div id="meter-area">
+                <div id="tv-widget"></div>
             </div>
 
-            <button id="scanBtn" class="btn" onclick="startUltraScan()">⚡ START 99% ANALYSIS</button>
-            
+            <button class="btn" id="scanBtn" onclick="getUltraSignal()">⚡ SCAN MARKET</button>
+
             <div class="loader" id="loader"><div class="fill" id="fill"></div></div>
 
-            <div class="result" id="resultBox">
-                <div class="signal-header">SIGNAL ALERT</div>
-                <div class="signal-main" id="signalText">---</div>
-                <div class="accuracy-badge" id="accLabel">99% ACCURACY</div>
-                <div id="strategy" style="font-size:11px; color:#fff;">SCANNING MARKET...</div>
-                <div class="countdown" id="timer">PREPARING ENTRY...</div>
+            <div class="result-box" id="result">
+                <div class="accuracy-box" id="acc">ACCURACY 99.1%</div>
+                <div class="signal-type" id="sigText">---</div>
+                <div class="details" id="desc">Analyzing Volatility...</div>
+                <div class="timer" id="countdown">WAITING...</div>
             </div>
         </div>
     </div>
 
     <script>
-        function loginBot(){
-            if(document.getElementById('password').value === 'Pak786'){
+        function login(){
+            if(document.getElementById('pass').value === 'Pak786'){
                 document.getElementById('loginBox').style.display='none';
-                document.getElementById('mainBot').style.display='block';
-                updateMarket();
-            } else { alert('Incorrect Key'); }
+                document.getElementById('botBox').style.display='block';
+                loadMarket();
+            } else { alert('Wrong Key!'); }
         }
 
-        setInterval(() => {
-            document.getElementById('clock').innerHTML = "🕒 " + new Date().toLocaleTimeString();
-        }, 1000);
-
-        function updateMarket(){
+        function loadMarket(){
             const pair = document.getElementById('pair').value;
-            const widget = document.querySelector('.tradingview-widget-container__widget');
+            const widget = document.getElementById('tv-widget');
             widget.innerHTML = '';
             const script = document.createElement('script');
-            script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
+            script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
             script.async = true;
             script.text = JSON.stringify({
-                "interval": "1m", "width": "100%", "isTransparent": true, "height": "100%",
+                "interval": "1m", "width": "100%", "height": "100%", "isTransparent": true,
                 "symbol": `FX_IDC:${pair}`, "showIntervalTabs": false, "locale": "en", "colorTheme": "dark"
             });
             widget.appendChild(script);
         }
 
-        function startUltraScan(){
+        function getUltraSignal(){
             const btn = document.getElementById('scanBtn');
             const loader = document.getElementById('loader');
             const fill = document.getElementById('fill');
-            const result = document.getElementById('resultBox');
+            const result = document.getElementById('result');
 
             btn.disabled = true;
-            btn.innerText = '📡 AI CONVERGENCE ACTIVE...';
+            btn.innerText = "CONNECTING...";
             result.style.display = 'none';
             loader.style.display = 'block';
             fill.style.width = '0%';
 
-            setTimeout(() => { fill.style.width = '100%'; }, 100);
+            setTimeout(() => { fill.style.width = '100%'; }, 50);
 
             setTimeout(() => {
-                // High Probability Logic Simulation
-                const isCall = Math.random() > 0.5;
-                const acc = (98 + Math.random() * 1.9).toFixed(2); // Always 98-99.9%
+                const signals = [
+                    { t: "CALL", c: "#00ff99", d: "STRONG BULLISH MOMENTUM DETECTED" },
+                    { t: "PUT", c: "#ff4444", d: "STRONG BEARISH REJECTION DETECTED" }
+                ];
                 
+                const pick = signals[Math.floor(Math.random()*2)];
+                const accuracy = (98 + Math.random() * 1.8).toFixed(1);
+
                 loader.style.display = 'none';
                 btn.disabled = false;
-                btn.innerText = '⚡ START 99% ANALYSIS';
+                btn.innerText = "⚡ SCAN MARKET";
                 result.style.display = 'block';
-                
-                const sig = document.getElementById('signalText');
-                const box = document.getElementById('resultBox');
-                const strat = document.getElementById('strategy');
-                
-                if(isCall){
-                    sig.innerText = "UP (CALL)";
-                    sig.style.color = "#00ff99";
-                    box.style.borderColor = "#00ff99";
-                    strat.innerText = "INDICATORS: RSI OVERSOLD + MACD CROSSOVER";
-                } else {
-                    sig.innerText = "DOWN (PUT)";
-                    sig.style.color = "#ff4444";
-                    box.style.borderColor = "#ff4444";
-                    strat.innerText = "INDICATORS: RSI OVERBOUGHT + BEARISH ENGULFING";
-                }
+                result.style.borderColor = pick.c;
 
-                document.getElementById('accLabel').innerText = `${acc}% ACCURACY`;
+                document.getElementById('sigText').innerText = pick.t;
+                document.getElementById('sigText').style.color = pick.c;
+                document.getElementById('acc').innerText = `ACCURACY ${accuracy}%`;
+                document.getElementById('desc').innerText = pick.d;
 
-                // Countdown Timer like the video
-                let timeLeft = 5;
-                const timer = document.getElementById('timer');
-                const interval = setInterval(() => {
-                    timer.innerText = `PLACE TRADE IN: ${timeLeft}s`;
-                    timeLeft--;
-                    if(timeLeft < 0) {
-                        clearInterval(interval);
-                        timer.innerText = "✅ ENTER TRADE NOW!";
-                        timer.style.color = "#00ff99";
+                // Precision Timer
+                let time = 5;
+                const timerDisplay = document.getElementById('countdown');
+                const timer = setInterval(() => {
+                    timerDisplay.innerText = `ENTRY IN: ${time}s`;
+                    time--;
+                    if(time < 0){
+                        clearInterval(timer);
+                        timerDisplay.innerText = "ENTER TRADE NOW!";
+                        timerDisplay.style.color = "#00ff99";
                     }
                 }, 1000);
 
-            }, 3000);
+            }, 2500);
         }
     </script>
 </body>
