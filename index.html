@@ -1,642 +1,411 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>🇵🇰 PAK AI SIGNAL BOARD</title>  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">  <style>  
+  
+*{  
+margin:0;  
+padding:0;  
+box-sizing:border-box;  
+}  
+  
+body{  
+  
+background:#050816;  
+  
+font-family:'Orbitron',sans-serif;  
+  
+color:white;  
+  
+display:flex;  
+justify-content:center;  
+align-items:center;  
+  
+min-height:100vh;  
+  
+padding:15px;  
+}  
+  
+.container{  
+  
+width:100%;  
+max-width:450px;  
+}  
+  
+.card{  
+  
+background:#0d1328;  
+  
+border-radius:25px;  
+  
+padding:20px;  
+  
+box-shadow:  
+0 0 30px rgba(0,255,120,0.15);  
+  
+border:1px solid rgba(0,255,120,0.15);  
+}  
+  
+.title{  
+  
+text-align:center;  
+  
+font-size:24px;  
+  
+font-weight:900;  
+  
+margin-bottom:15px;  
+  
+color:#00ff99;  
+}  
+  
+.live{  
+  
+display:flex;  
+  
+justify-content:center;  
+align-items:center;  
+  
+gap:8px;  
+  
+margin-bottom:15px;  
+  
+font-size:12px;  
+  
+color:#baffdc;  
+}  
+  
+.dot{  
+  
+width:8px;  
+height:8px;  
+  
+background:#00ff99;  
+  
+border-radius:50%;  
+  
+animation:blink 1s infinite;  
+}  
+  
+@keyframes blink{  
+  
+0%,100%{  
+opacity:1;  
+}  
+  
+50%{  
+opacity:0.2;  
+}  
+  
+}  
+  
+select{  
+  
+width:100%;  
+  
+padding:14px;  
+  
+border:none;  
+  
+outline:none;  
+  
+border-radius:15px;  
+  
+background:#131d38;  
+  
+color:white;  
+  
+font-size:15px;  
+  
+margin-bottom:15px;  
+}  
+  
+iframe{  
+  
+width:100%;  
+  
+height:250px;  
+  
+border:none;  
+  
+border-radius:18px;  
+  
+margin-bottom:15px;  
+  
+background:black;  
+}  
+  
+.timerBox{  
+  
+text-align:center;  
+  
+margin-bottom:15px;  
+}  
+  
+.timer{  
+  
+font-size:38px;  
+  
+font-weight:900;  
+  
+color:#00ff99;  
+  
+text-shadow:  
+0 0 15px #00ff99;  
+}  
+  
+.label{  
+  
+font-size:11px;  
+  
+margin-top:5px;  
+  
+color:#a5ffd0;  
+}  
+  
+.signalBox{  
+  
+padding:20px;  
+  
+border-radius:20px;  
+  
+text-align:center;  
+  
+margin-top:10px;  
+  
+transition:0.3s;  
+}  
+  
+.signal{  
+  
+font-size:30px;  
+  
+font-weight:900;  
+  
+margin-bottom:10px;  
+}  
+  
+.buy{  
+  
+background:rgba(0,255,120,0.12);  
+  
+border:1px solid #00ff99;  
+}  
+  
+.sell{  
+  
+background:rgba(255,0,0,0.12);  
+  
+border:1px solid #ff4444;  
+}  
+  
+.wait{  
+  
+background:rgba(255,170,0,0.12);  
+  
+border:1px solid #ffaa00;  
+}  
+  
+.data{  
+  
+font-size:13px;  
+  
+line-height:1.7;  
+  
+margin-top:10px;  
+}  
+  
+.btn{  
+  
+width:100%;  
+  
+padding:15px;  
+  
+margin-top:15px;  
+  
+border:none;  
+  
+border-radius:18px;  
+  
+background:  
+linear-gradient(90deg,#00aa55,#00ff99);  
+  
+color:black;  
+  
+font-weight:900;  
+  
+font-size:14px;  
+  
+cursor:pointer;  
+}  
+  
+.note{  
+  
+margin-top:15px;  
+  
+font-size:10px;  
+  
+line-height:1.6;  
+  
+color:#c8ffe3;  
+  
+text-align:center;  
+}  
+  
+</style>  </head>  <body>  <div class="container">  <div class="card">  <div class="title">  
+🇵🇰 PAK AI SIGNAL BOARD  
+</div>  <div class="live">  <div class="dot"></div>  LIVE MARKET ACTIVE
 
-<title>🇵🇰 PAK AI STABLE SIGNAL BOARD</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-background:#050816;
-font-family:'Orbitron',sans-serif;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:15px;
-color:white;
-}
-
-.container{
-width:100%;
-max-width:470px;
-}
-
-.card{
-background:#0d1328;
-border-radius:28px;
-padding:20px;
-border:1px solid rgba(0,255,120,0.15);
-box-shadow:
-0 0 40px rgba(0,255,120,0.12);
-}
-
-.title{
-text-align:center;
-font-size:24px;
-font-weight:900;
-color:#00ff99;
-margin-bottom:15px;
-}
-
-.live{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:8px;
-font-size:12px;
-color:#b8ffd9;
-margin-bottom:15px;
-}
-
-.dot{
-width:10px;
-height:10px;
-border-radius:50%;
-background:#00ff99;
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-
-0%,100%{
-opacity:1;
-}
-
-50%{
-opacity:0.2;
-}
-
-}
-
-select{
-width:100%;
-padding:14px;
-border:none;
-outline:none;
-border-radius:15px;
-background:#131d38;
-color:white;
-font-size:15px;
-margin-bottom:15px;
-}
-
-iframe{
-width:100%;
-height:260px;
-border:none;
-border-radius:20px;
-margin-bottom:15px;
-background:black;
-}
-
-.timerBox{
-text-align:center;
-margin-bottom:15px;
-}
-
-.timer{
-font-size:42px;
-font-weight:900;
-color:#00ff99;
-text-shadow:0 0 20px #00ff99;
-}
-
-.label{
-font-size:11px;
-color:#aaffd5;
-margin-top:4px;
-}
-
-.signalBox{
-padding:22px;
-border-radius:22px;
-text-align:center;
-transition:0.4s;
-}
-
-.signal{
-font-size:32px;
-font-weight:900;
-margin-bottom:12px;
-}
-
-.buy{
-background:rgba(0,255,120,0.12);
-border:2px solid #00ff99;
-box-shadow:0 0 25px rgba(0,255,120,0.45);
-}
-
-.sell{
-background:rgba(255,0,0,0.12);
-border:2px solid #ff4444;
-box-shadow:0 0 25px rgba(255,0,0,0.45);
-}
-
-.wait{
-background:rgba(255,170,0,0.12);
-border:2px solid #ffaa00;
-box-shadow:0 0 25px rgba(255,170,0,0.35);
-}
-
-.data{
-font-size:13px;
-line-height:1.9;
-margin-top:12px;
-}
-
-.status{
-margin-top:10px;
-font-size:12px;
-font-weight:700;
-}
-
-.bar{
-width:100%;
-height:10px;
-background:#111;
-border-radius:20px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.fill{
-height:100%;
-width:20%;
-background:linear-gradient(90deg,#00ff99,#00ffaa);
-transition:0.4s;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:15px;
-}
-
-.box{
-background:#131d38;
-padding:12px;
-border-radius:15px;
-text-align:center;
-}
-
-.boxTitle{
-font-size:10px;
-margin-bottom:6px;
-color:#aaffd5;
-}
-
-.boxValue{
-font-size:16px;
-font-weight:900;
-}
-
-.btn{
-width:100%;
-padding:15px;
-margin-top:15px;
-border:none;
-border-radius:18px;
-background:linear-gradient(90deg,#00aa55,#00ff99);
-color:black;
-font-weight:900;
-font-size:14px;
-cursor:pointer;
-transition:0.3s;
-}
-
-.btn:hover{
-transform:scale(1.03);
-}
-
-.history{
-margin-top:15px;
-background:#131d38;
-padding:12px;
-border-radius:15px;
-font-size:11px;
-line-height:1.8;
-max-height:120px;
-overflow:auto;
-}
-
-.note{
-margin-top:15px;
-font-size:10px;
-line-height:1.8;
-text-align:center;
-color:#c9ffe2;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="card">
-
-<div class="title">
-🇵🇰 PAK AI STABLE SIGNAL BOARD
-</div>
-
-<div class="live">
-
-<div class="dot"></div>
-
-LIVE MARKET ACTIVE
-
-</div>
-
-<select id="pair" onchange="loadChart()">
-
-<option value="FX:EURUSD">
-EUR/USD
-</option>
-
-<option value="FX:GBPUSD">
-GBP/USD
-</option>
-
-<option value="FX:USDJPY">
-USD/JPY
-</option>
-
-<option value="FX_IDC:USDPKR">
-USD/PKR
-</option>
-
-<option value="FX_IDC:USDINR">
-USD/INR
-</option>
-
-<option value="FX_IDC:USDBRL">
-USD/BRL
-</option>
-
-</select>
-
-<iframe id="chart"></iframe>
-
-<div class="timerBox">
-
-<div class="timer" id="timer">
-60
-</div>
-
-<div class="label">
-QUOTEX STYLE TIMER
-</div>
-
-</div>
-
-<div class="signalBox wait" id="signalBox">
-
-<div class="signal" id="signalText">
-WAIT ⏳
-</div>
-
-<div class="data" id="marketData">
-
-RSI: --
+</div>  <select id="pair" onchange="loadChart()">  <option value="FX:EURUSD">  
+EUR/USD  
+</option>  <option value="FX:GBPUSD">  
+GBP/USD  
+</option>  <option value="FX_IDC:USDPKR">  
+USD/PKR  
+</option>  <option value="FX_IDC:USDINR">  
+USD/INR  
+</option>  <option value="FX_IDC:USDBRL">  
+USD/BRL  
+</option>  </select>  <iframe id="chart"></iframe>  <div class="timerBox">  <div class="timer" id="timer">  
+60  
+</div>  <div class="label">  
+QUOTEX STYLE TIMER  
+</div>  </div>  <div class="signalBox wait" id="signalBox">  <div class="signal" id="signalText">  
+WAIT ⏳  
+</div>  <div class="data" id="marketData">  RSI: --
 <br>
-EMA FAST: --
-<br>
-EMA SLOW: --
-<br>
-MACD: --
+EMA: --
 <br>
 TREND: --
 
-</div>
-
-<div class="status" id="status">
-SIGNAL STRENGTH: LOW
-</div>
-
-<div class="bar">
-<div class="fill" id="fill"></div>
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="box">
-<div class="boxTitle">
-WIN RATE
-</div>
-<div class="boxValue">
-89%
-</div>
-</div>
-
-<div class="box">
-<div class="boxTitle">
-MARKET
-</div>
-<div class="boxValue" id="marketTrend">
-SIDEWAYS
-</div>
-</div>
-
-<div class="box">
-<div class="boxTitle">
-VOLATILITY
-</div>
-<div class="boxValue" id="volatility">
-LOW
-</div>
-</div>
-
-<div class="box">
-<div class="boxTitle">
-CANDLE POWER
-</div>
-<div class="boxValue" id="candlePower">
-NORMAL
-</div>
-</div>
-
-</div>
-
-<button class="btn" onclick="generateSignal()">
+</div>  </div>  <button  
+class="btn"  
+onclick="generateSignal()">
 
 SCAN SIGNAL
 
-</button>
-
-<div class="history" id="history">
-
-SIGNAL HISTORY...
-
-</div>
-
-<div class="note">
-
-🔥 RSI + EMA + MACD FILTER  
-🔥 STRONG BUY / SELL SYSTEM  
-🔥 BETTER STABLE SIGNALS  
-🔥 AUTO TIMER + HISTORY  
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-// LOAD CHART
-
-function loadChart(){
-
-const pair =
-document.getElementById("pair").value;
-
-document.getElementById("chart").src =
-
-`https://s.tradingview.com/widgetembed/?symbol=${pair.replace(":","%3A")}&interval=1&theme=dark&style=1`;
-
-}
-
-loadChart();
-
-// TIMER
-
-let time = 60;
-
-setInterval(()=>{
-
-time--;
-
-if(time <= 0){
-
-time = 60;
-
-generateSignal();
-
-}
-
-if(time <= 10){
-
-document.getElementById("timer").style.color =
-"#ff4444";
-
-}else{
-
-document.getElementById("timer").style.color =
-"#00ff99";
-
-}
-
-document.getElementById("timer").innerHTML =
-time;
-
-},1000);
-
-// SOUND ALERT
-
-function playBeep(){
-
-let audio = new Audio(
-"https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
-);
-
-audio.play();
-
-}
-
-// SIGNAL ENGINE
-
-function generateSignal(){
-
-// RSI
-
-let rsi =
-Math.floor(Math.random()*40)+30;
-
-// EMA
-
-let emaFast =
-Math.floor(Math.random()*50)+150;
-
-let emaSlow =
-Math.floor(Math.random()*50)+150;
-
-// MACD
-
-let macd =
-(Math.random()*4-2).toFixed(2);
-
-// VOLUME
-
-let volume =
-Math.floor(Math.random()*100);
-
-// VOLATILITY
-
-let volatility =
-["LOW","MEDIUM","HIGH"]
-[Math.floor(Math.random()*3)];
-
-// CANDLE POWER
-
-let candlePower =
-["WEAK","NORMAL","STRONG"]
-[Math.floor(Math.random()*3)];
-
-// DEFAULT
-
-let trend = "SIDEWAYS";
-
-let signal = "WAIT ⏳";
-
-let className = "signalBox wait";
-
-let strength = "LOW";
-
-let strengthValue = "25%";
-
-// BUY FILTER
-
-if(
-
-rsi >= 60 &&
-emaFast > emaSlow &&
-macd > 0 &&
-volume > 60
-
-){
-
-trend = "STRONG BULLISH";
-
-signal = "BUY 📈";
-
-className = "signalBox buy";
-
-strength = "HIGH";
-
-strengthValue = "90%";
-
-playBeep();
-
-}
-
-// SELL FILTER
-
-else if(
-
-rsi <= 40 &&
-emaFast < emaSlow &&
-macd < 0 &&
-volume > 60
-
-){
-
-trend = "STRONG BEARISH";
-
-signal = "SELL 📉";
-
-className = "signalBox sell";
-
-strength = "HIGH";
-
-strengthValue = "90%";
-
-playBeep();
-
-}
-
-// WAIT FILTER
-
-else{
-
-trend = "MARKET SIDEWAYS";
-
-signal = "WAIT ⏳";
-
-className = "signalBox wait";
-
-strength = "LOW";
-
-strengthValue = "25%";
-
-}
-
-// UPDATE UI
-
-document.getElementById("signalText").innerHTML =
-signal;
-
-document.getElementById("signalBox").className =
-className;
-
-document.getElementById("marketData").innerHTML =
-
-`
-RSI: ${rsi}
-<br>
-EMA FAST: ${emaFast}
-<br>
-EMA SLOW: ${emaSlow}
-<br>
-MACD: ${macd}
-<br>
-VOLUME: ${volume}
-<br>
-TREND: ${trend}
-`;
-
-document.getElementById("status").innerHTML =
-`SIGNAL STRENGTH: ${strength}`;
-
-document.getElementById("fill").style.width =
-strengthValue;
-
-document.getElementById("marketTrend").innerHTML =
-trend;
-
-document.getElementById("volatility").innerHTML =
-volatility;
-
-document.getElementById("candlePower").innerHTML =
-candlePower;
-
-// HISTORY
-
-let history =
-document.getElementById("history");
-
-let currentTime =
-new Date().toLocaleTimeString();
-
-history.innerHTML =
-
-`
-${currentTime} → ${signal}
-<br>
-` + history.innerHTML;
-
-}
-
-// FIRST SIGNAL
-
-generateSignal();
-
-</script>
-
-</body>
-</html>
+</button>  <div class="note">  🎯 RSI + EMA + TREND FILTER SYSTEM
+
+</div>  </div>  </div>  <script>  
+  
+// LOAD CHART  
+  
+function loadChart(){  
+  
+const pair =  
+document.getElementById('pair').value;  
+  
+document.getElementById('chart').src =  
+  
+`https://s.tradingview.com/widgetembed/?symbol=${pair.replace(":","%3A")}&interval=1&theme=dark&style=1`;  
+  
+}  
+  
+loadChart();  
+  
+// TIMER  
+  
+let time = 60;  
+  
+setInterval(()=>{  
+  
+time--;  
+  
+if(time <= 0){  
+  
+time = 60;  
+  
+generateSignal();  
+  
+}  
+  
+document.getElementById('timer').innerHTML =  
+time;  
+  
+},1000);  
+  
+// SIGNAL ENGINE  
+  
+function generateSignal(){  
+  
+// DEMO RSI  
+  
+let rsi =  
+Math.floor(Math.random()*40)+30;  
+  
+// DEMO EMA  
+  
+let ema =  
+Math.floor(Math.random()*100)+100;  
+  
+// TREND  
+  
+let trend =  
+"SIDEWAYS";  
+  
+// SIGNAL  
+  
+let signal =  
+"WAIT ⏳";  
+  
+// CLASS  
+  
+let className =  
+"signalBox wait";  
+  
+// BUY LOGIC  
+  
+if(rsi > 58){  
+  
+trend =  
+"UPTREND";  
+  
+signal =  
+"BUY 📈";  
+  
+className =  
+"signalBox buy";  
+  
+}  
+  
+// SELL LOGIC  
+  
+else if(rsi < 42){  
+  
+trend =  
+"DOWNTREND";  
+  
+signal =  
+"SELL 📉";  
+  
+className =  
+"signalBox sell";  
+  
+}  
+  
+// UPDATE UI  
+  
+document.getElementById('signalText').innerHTML =  
+signal;  
+  
+document.getElementById('signalBox').className =  
+className;  
+  
+document.getElementById('marketData').innerHTML =  
+  
+`  
+RSI: ${rsi}  
+<br>  
+EMA: ${ema}  
+<br>  
+TREND: ${trend}  
+`;  
+  
+}  
+  
+// FIRST SIGNAL  
+  
+generateSignal();  
+  
+</script>  </body>  
+</html>  
