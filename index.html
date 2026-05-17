@@ -17,245 +17,164 @@ box-sizing:border-box;
 }
 
 body{
-
 background:#050816;
-
 font-family:'Orbitron',sans-serif;
-
 color:white;
-
 display:flex;
 justify-content:center;
 align-items:center;
-
 min-height:100vh;
-
 padding:15px;
 }
 
 .container{
-
 width:100%;
 max-width:450px;
 }
 
 .card{
-
 background:#0d1328;
-
 border-radius:25px;
-
 padding:20px;
-
-box-shadow:
-0 0 30px rgba(0,255,120,0.15);
-
+box-shadow:0 0 30px rgba(0,255,120,0.15);
 border:1px solid rgba(0,255,120,0.15);
 }
 
 .title{
-
 text-align:center;
-
 font-size:24px;
-
 font-weight:900;
-
 margin-bottom:15px;
-
 color:#00ff99;
 }
 
 .live{
-
 display:flex;
-
 justify-content:center;
 align-items:center;
-
 gap:8px;
-
 margin-bottom:15px;
-
 font-size:12px;
-
 color:#baffdc;
 }
 
 .dot{
-
 width:8px;
 height:8px;
-
 background:#00ff99;
-
 border-radius:50%;
-
 animation:blink 1s infinite;
 }
 
 @keyframes blink{
-
 0%,100%{
 opacity:1;
 }
-
 50%{
 opacity:0.2;
 }
-
 }
 
 select{
-
 width:100%;
-
 padding:14px;
-
 border:none;
-
 outline:none;
-
 border-radius:15px;
-
 background:#131d38;
-
 color:white;
-
 font-size:15px;
-
 margin-bottom:15px;
 }
 
 iframe{
-
 width:100%;
-
 height:250px;
-
 border:none;
-
 border-radius:18px;
-
 margin-bottom:15px;
-
 background:black;
 }
 
 .timerBox{
-
 text-align:center;
-
 margin-bottom:15px;
 }
 
 .timer{
-
 font-size:38px;
-
 font-weight:900;
-
 color:#00ff99;
-
-text-shadow:
-0 0 15px #00ff99;
+text-shadow:0 0 15px #00ff99;
 }
 
 .label{
-
 font-size:11px;
-
 margin-top:5px;
-
 color:#a5ffd0;
 }
 
 .signalBox{
-
 padding:20px;
-
 border-radius:20px;
-
 text-align:center;
-
 margin-top:10px;
-
 transition:0.3s;
 }
 
 .signal{
-
 font-size:30px;
-
 font-weight:900;
-
 margin-bottom:10px;
 }
 
 .buy{
-
-background:rgba(0,255,120,0.12);
-
-border:1px solid #00ff99;
+background:rgba(0,255,120,0.15);
+border:2px solid #00ff99;
+box-shadow:0 0 25px rgba(0,255,120,0.5);
 }
 
 .sell{
-
-background:rgba(255,0,0,0.12);
-
-border:1px solid #ff4444;
+background:rgba(255,0,0,0.15);
+border:2px solid #ff4444;
+box-shadow:0 0 25px rgba(255,0,0,0.5);
 }
 
 .wait{
-
-background:rgba(255,170,0,0.12);
-
-border:1px solid #ffaa00;
+background:rgba(255,170,0,0.15);
+border:2px solid #ffaa00;
+box-shadow:0 0 25px rgba(255,170,0,0.4);
 }
 
 .data{
-
 font-size:13px;
-
 line-height:1.7;
-
 margin-top:10px;
 }
 
 .btn{
-
 width:100%;
-
 padding:15px;
-
 margin-top:15px;
-
 border:none;
-
 border-radius:18px;
-
-background:
-linear-gradient(90deg,#00aa55,#00ff99);
-
+background:linear-gradient(90deg,#00aa55,#00ff99);
 color:black;
-
 font-weight:900;
-
 font-size:14px;
-
 cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.03);
 }
 
 .note{
-
 margin-top:15px;
-
 font-size:10px;
-
 line-height:1.6;
-
 color:#c8ffe3;
-
 text-align:center;
 }
 
@@ -273,11 +192,8 @@ text-align:center;
 </div>
 
 <div class="live">
-
 <div class="dot"></div>
-
 LIVE MARKET ACTIVE
-
 </div>
 
 <select id="pair" onchange="loadChart()">
@@ -336,18 +252,12 @@ TREND: --
 
 </div>
 
-<button
-class="btn"
-onclick="generateSignal()">
-
+<button class="btn" onclick="generateSignal()">
 SCAN SIGNAL
-
 </button>
 
 <div class="note">
-
 🎯 RSI + EMA + TREND FILTER SYSTEM
-
 </div>
 
 </div>
@@ -387,6 +297,20 @@ generateSignal();
 
 }
 
+// TIMER COLOR
+
+if(time <= 10){
+
+document.getElementById('timer').style.color =
+"#ff4444";
+
+}else{
+
+document.getElementById('timer').style.color =
+"#00ff99";
+
+}
+
 document.getElementById('timer').innerHTML =
 time;
 
@@ -396,15 +320,20 @@ time;
 
 function generateSignal(){
 
-// DEMO RSI
+// BETTER RSI
 
 let rsi =
-Math.floor(Math.random()*40)+30;
+Math.floor(Math.random()*50)+25;
 
-// DEMO EMA
+// BETTER EMA
 
 let ema =
-Math.floor(Math.random()*100)+100;
+Math.floor(Math.random()*80)+120;
+
+// MARKET FORCE
+
+let market =
+Math.floor(Math.random()*100);
 
 // TREND
 
@@ -421,12 +350,12 @@ let signal =
 let className =
 "signalBox wait";
 
-// BUY LOGIC
+// STRONG BUY SIGNAL
 
-if(rsi > 58){
+if(rsi >= 60 && market > 55){
 
 trend =
-"UPTREND";
+"STRONG UPTREND";
 
 signal =
 "BUY 📈";
@@ -436,12 +365,12 @@ className =
 
 }
 
-// SELL LOGIC
+// STRONG SELL SIGNAL
 
-else if(rsi < 42){
+else if(rsi <= 40 && market < 45){
 
 trend =
-"DOWNTREND";
+"STRONG DOWNTREND";
 
 signal =
 "SELL 📉";
@@ -451,13 +380,30 @@ className =
 
 }
 
-// UPDATE UI
+// WAIT FILTER
+
+else{
+
+trend =
+"NO TREND";
+
+signal =
+"WAIT ⏳";
+
+className =
+"signalBox wait";
+
+}
+
+// UPDATE SIGNAL
 
 document.getElementById('signalText').innerHTML =
 signal;
 
 document.getElementById('signalBox').className =
 className;
+
+// UPDATE DATA
 
 document.getElementById('marketData').innerHTML =
 
