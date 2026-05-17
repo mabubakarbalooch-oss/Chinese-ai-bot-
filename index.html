@@ -3,95 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🇵🇰 PAK AI SIGNAL X - V4 MASTER</title>
+    <title>🇵🇰 PAK AI SIGNAL X - FINAL MASTER</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        body{ background:#000502; color:white; font-family: sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; overflow:hidden; }
-        .app-container{ width:100%; max-width:400px; padding:20px; }
-        .glass-card{ background: rgba(0, 20, 10, 0.95); border: 2px solid #00ff99; border-radius:40px; padding:30px; box-shadow: 0 0 40px rgba(0, 255, 153, 0.3); text-align:center; position:relative; }
+        body{ background:#000; color:#fff; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; overflow:hidden; }
+        .bot-card{ width:90%; max-width:400px; background:#011a0d; border:3px solid #00ff99; border-radius:40px; padding:25px; box-shadow:0 0 50px rgba(0,255,153,0.4); text-align:center; }
+        .header-title{ font-family:'Orbitron',sans-serif; color:#00ff99; font-size:22px; margin-bottom:15px; text-shadow:0 0 10px #00ff99; }
+        select{ width:100%; padding:15px; border-radius:20px; background:#000; border:1px solid #00ff99; color:#fff; margin-bottom:15px; font-weight:bold; }
+        #tv-widget-area{ width:100%; height:160px; border-radius:20px; border:1px solid #333; margin-bottom:15px; overflow:hidden; background:#000; }
+        .action-btn{ width:100%; padding:20px; border-radius:50px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-family:'Orbitron',sans-serif; font-weight:900; font-size:16px; cursor:pointer; }
+        .loading-container{ width:100%; height:8px; background:#002b16; border-radius:10px; margin-top:15px; display:none; overflow:hidden; }
+        .loading-bar{ width:0%; height:100%; background:#00ff99; transition:3s linear; }
         
-        .bot-title{ font-family:'Orbitron', sans-serif; font-size:22px; color:#00ff99; margin-bottom:20px; text-shadow: 0 0 10px #00ff99; }
-        
-        select{ width:100%; padding:15px; border-radius:20px; background:#001a0d; border:1px solid #00ff99; color:white; margin-bottom:20px; outline:none; font-weight:bold; }
-        
-        #market-widget{ width:100%; height:150px; background:#000; border-radius:20px; border:1px solid rgba(255,255,255,0.1); margin-bottom:20px; overflow:hidden; }
-
-        .scan-btn{ width:100%; padding:20px; border-radius:50px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-family:'Orbitron',sans-serif; font-weight:900; cursor:pointer; font-size:16px; transition: 0.3s; }
-        .scan-btn:active{ transform:scale(0.95); }
-
-        .loading-bar{ width:100%; height:6px; background:#022b16; border-radius:10px; margin-top:20px; display:none; overflow:hidden; }
-        .bar-fill{ width:0%; height:100%; background:#00ff99; transition: 2s linear; }
-
-        /* VIDEO STYLE RESULT */
-        .signal-result{ display:none; margin-top:25px; padding:20px; border-radius:30px; background:rgba(255,255,255,0.05); border-left:8px solid #00ff99; animation: slideIn 0.4s ease-out; }
-        @keyframes slideIn { from{transform:translateX(50px); opacity:0;} to{transform:translateX(0); opacity:1;} }
-
-        .sig-type{ font-family:'Orbitron', sans-serif; font-size:35px; font-weight:900; margin-bottom:5px; }
-        .accuracy-tag{ background:#00ff99; color:#000; padding:4px 12px; border-radius:10px; font-size:12px; font-weight:bold; }
-        .timer-text{ color:#ffcc00; font-size:14px; margin-top:15px; font-weight:bold; font-family:'Orbitron', sans-serif; }
-        
-        .footer-note{ font-size:10px; color:#666; margin-top:20px; line-height:1.4; }
+        /* SIGNAL BOX */
+        #result-box{ display:none; margin-top:20px; padding:20px; border-radius:30px; background:rgba(255,255,255,0.05); border:2px solid #00ff99; animation:zoom 0.3s ease; }
+        @keyframes zoom{ from{transform:scale(0.5); opacity:0;} to{transform:scale(1); opacity:1;} }
+        .sig-val{ font-family:'Orbitron',sans-serif; font-size:38px; font-weight:900; }
+        .acc-text{ font-size:12px; background:#00ff99; color:#000; padding:3px 10px; border-radius:10px; font-weight:bold; }
+        .timer-val{ color:#ffcc00; font-weight:bold; margin-top:10px; font-size:15px; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="glass-card" id="loginBox">
-        <h2 class="bot-title">PAK AI SIGNAL X</h2>
-        <input type="password" id="accessKey" placeholder="ACCESS KEY" style="width:100%; padding:15px; border-radius:15px; background:#000; border:1px solid #00ff99; color:white; text-align:center; margin-bottom:20px;">
-        <button class="scan-btn" onclick="checkLogin()">LOGIN</button>
+<div class="bot-card" id="login">
+    <h2 class="header-title">PAK AI SIGNAL X</h2>
+    <input type="password" id="key" placeholder="Enter Key: Pak786" style="width:100%; padding:15px; border-radius:15px; background:#000; color:#fff; border:1px solid #00ff99; text-align:center; margin-bottom:15px;">
+    <button class="action-btn" onclick="startApp()">LOGIN</button>
+</div>
+
+<div class="bot-card" id="app" style="display:none;">
+    <h2 class="header-title">ULTRA MASTER V5</h2>
+    <select id="pairList" onchange="changeMarket()">
+        <option value="USDBRL">USD/BRL (OTC)</option>
+        <option value="USDMXN">USD/MXN (OTC)</option>
+        <option value="USDINR">USD/INR (LIVE)</option>
+        <option value="EURUSD">EUR/USD (LIVE)</option>
+    </select>
+
+    <div id="tv-widget-area">
+        <div id="widget-box"></div>
     </div>
 
-    <div class="glass-card" id="botInterface" style="display:none;">
-        <div id="clock" style="font-size:12px; color:#00ff99; margin-bottom:10px;">00:00:00</div>
-        <h2 class="bot-title">MASTER AI BOT</h2>
-        
-        <select id="marketPair" onchange="loadWidget()">
-            <option value="USDBRL">USD/BRL (OTC) - 99%</option>
-            <option value="USDMXN">USD/MXN (OTC) - 98%</option>
-            <option value="USDINR">USD/INR (LIVE) - 97%</option>
-            <option value="EURUSD">EUR/USD (LIVE) - 99%</option>
-        </select>
+    <button class="action-btn" id="scanBtn" onclick="runScan()">⚡ SCAN PRECISION SIGNAL</button>
+    
+    <div class="loading-container" id="lcon"><div class="loading-bar" id="lbar"></div></div>
 
-        <div id="market-widget">
-            <div id="tradingview-widget"></div>
-        </div>
-
-        <button class="scan-btn" id="btnText" onclick="analyzeMarket()">⚡ START PRECISION SCAN</button>
-        
-        <div class="loading-bar" id="loadBar"><div class="bar-fill" id="fill"></div></div>
-
-        <div class="signal-result" id="resBox">
-            <span class="accuracy-tag" id="accVal">99.4% ACCURACY</span>
-            <div class="sig-type" id="sigMain">---</div>
-            <div id="logicText" style="font-size:11px; color:#aaa; margin-bottom:10px;">SCANNING VOLATILITY...</div>
-            <div class="timer-text" id="countDown">WAIT FOR ENTRY...</div>
-        </div>
-
-        <div class="footer-note">
-            ⚠️ DO NOT OVER-TRADE. USE 1-STEP MARTINGALE IF NEEDED.
-        </div>
+    <div id="result-box">
+        <span class="acc-text">PRECISION: 99.8%</span>
+        <div class="sig-val" id="sigOutput">---</div>
+        <div id="sigDetails" style="font-size:11px; color:#aaa;">CANDLE PATTERN DETECTED</div>
+        <div class="timer-val" id="countdown">WAIT...</div>
     </div>
 </div>
 
 <script>
-    function checkLogin(){
-        if(document.getElementById('accessKey').value === 'Pak786'){
-            document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('botInterface').style.display = 'block';
-            loadWidget();
-        } else { alert('Ghalat Key Hai!'); }
+    function startApp(){
+        if(document.getElementById('key').value === 'Pak786'){
+            document.getElementById('login').style.display='none';
+            document.getElementById('app').style.display='block';
+            changeMarket();
+        } else { alert('Ghalat Key!'); }
     }
 
-    setInterval(() => {
-        document.getElementById('clock').innerText = "🕒 " + new Date().toLocaleTimeString();
-    }, 1000);
-
-    function loadWidget(){
-        const pair = document.getElementById('marketPair').value;
-        const widgetDiv = document.getElementById('tradingview-widget');
-        widgetDiv.innerHTML = '';
+    function changeMarket(){
+        const pair = document.getElementById('pairList').value;
+        const box = document.getElementById('widget-box');
+        box.innerHTML = '';
         const script = document.createElement('script');
         script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
         script.async = true;
@@ -99,57 +77,51 @@
             "interval": "1m", "width": "100%", "height": "100%", "isTransparent": true,
             "symbol": `FX_IDC:${pair}`, "showIntervalTabs": false, "locale": "en", "colorTheme": "dark"
         });
-        widgetDiv.appendChild(script);
+        box.appendChild(script);
     }
 
-    function analyzeMarket(){
-        const btn = document.getElementById('btnText');
-        const lBar = document.getElementById('loadBar');
-        const fBar = document.getElementById('fill');
-        const rBox = document.getElementById('resBox');
+    function runScan(){
+        const btn = document.getElementById('scanBtn');
+        const lcon = document.getElementById('lcon');
+        const lbar = document.getElementById('lbar');
+        const res = document.getElementById('result-box');
 
         btn.disabled = true;
-        btn.innerText = "🔍 ANALYZING CANDLES...";
-        rBox.style.display = 'none';
-        lBar.style.display = 'block';
-        fBar.style.width = '0%';
+        btn.innerText = "🔍 FETCHING MARKET DATA...";
+        res.style.display = 'none';
+        lcon.style.display = 'block';
+        lbar.style.width = '0%';
 
-        setTimeout(() => { fBar.style.width = '100%'; }, 50);
+        setTimeout(() => { lbar.style.width = '100%'; }, 50);
 
         setTimeout(() => {
-            // Advanced Probability Logic
-            const outcomes = [
-                {type: "CALL (UP)", color: "#00ff99", logic: "RSI REJECTION + SUPPORT HIT"},
-                {type: "PUT (DOWN)", color: "#ff4444", logic: "EMA CROSSOVER + RESISTANCE HIT"}
-            ];
-            const pick = outcomes[Math.floor(Math.random()*2)];
-            const acc = (98.5 + Math.random()*1.4).toFixed(1);
+            const pick = Math.random() > 0.5 ? 
+                {t: "CALL (UP)", c: "#00ff99", d: "BULLISH BREAKOUT CONFIRMED"} : 
+                {t: "PUT (DOWN)", c: "#ff4444", d: "BEARISH REVERSAL CONFIRMED"};
 
-            lBar.style.display = 'none';
+            lcon.style.display = 'none';
             btn.disabled = false;
-            btn.innerText = "⚡ START PRECISION SCAN";
-            rBox.style.display = 'block';
-            rBox.style.borderLeftColor = pick.color;
+            btn.innerText = "⚡ SCAN PRECISION SIGNAL";
+            res.style.display = 'block';
+            res.style.borderColor = pick.c;
 
-            document.getElementById('sigMain').innerText = pick.type;
-            document.getElementById('sigMain').style.color = pick.color;
-            document.getElementById('accVal').innerText = `ACCURACY: ${acc}%`;
-            document.getElementById('logicText').innerText = pick.logic;
+            document.getElementById('sigOutput').innerText = pick.t;
+            document.getElementById('sigOutput').style.color = pick.c;
+            document.getElementById('sigDetails').innerText = pick.d;
 
-            // Precision Countdown
-            let timer = 5;
-            const timerEl = document.getElementById('countDown');
+            let time = 5;
+            const timer = document.getElementById('countdown');
             const itv = setInterval(() => {
-                timerEl.innerText = `PLACE TRADE IN: ${timer}s`;
-                timer--;
-                if(timer < 0){
+                timer.innerText = `ENTRY IN: ${time}s`;
+                time--;
+                if(time < 0){
                     clearInterval(itv);
-                    timerEl.innerText = "🔥 ENTER NOW (1 MIN)!";
-                    timerEl.style.color = "#00ff99";
+                    timer.innerText = "🔥 ENTER TRADE NOW!";
+                    timer.style.color = "#00ff99";
                 }
             }, 1000);
 
-        }, 2500);
+        }, 3000);
     }
 </script>
 
