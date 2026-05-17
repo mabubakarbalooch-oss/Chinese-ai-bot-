@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🇵🇰 PAK PRO SIGNAL BOT</title>
+<title>🇵🇰 PAK AI SIGNAL BOARD</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -19,75 +18,55 @@ box-sizing:border-box;
 
 body{
 
-font-family:'Inter',sans-serif;
+background:#050816;
 
-background:
-radial-gradient(circle at top,#013220,#000);
+font-family:'Orbitron',sans-serif;
 
-min-height:100vh;
+color:white;
 
 display:flex;
 justify-content:center;
 align-items:center;
 
+min-height:100vh;
+
 padding:15px;
-
-overflow-x:hidden;
-
-color:white;
 }
 
 .container{
+
 width:100%;
-max-width:460px;
+max-width:450px;
 }
 
 .card{
 
-background:rgba(0,20,10,0.92);
+background:#0d1328;
 
-border:1px solid rgba(0,255,153,0.2);
+border-radius:25px;
 
-border-radius:30px;
-
-padding:22px;
-
-backdrop-filter:blur(15px);
+padding:20px;
 
 box-shadow:
-0 0 35px rgba(0,255,153,0.2);
-}
+0 0 30px rgba(0,255,120,0.15);
 
-.logo{
-
-font-size:60px;
-
-text-align:center;
-
-margin-bottom:10px;
+border:1px solid rgba(0,255,120,0.15);
 }
 
 .title{
 
 text-align:center;
 
-font-family:'Orbitron',sans-serif;
-
 font-size:24px;
 
 font-weight:900;
 
-margin-bottom:18px;
+margin-bottom:15px;
 
-background:
-linear-gradient(90deg,#ffffff,#00ff99);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
+color:#00ff99;
 }
 
-.badge{
+.live{
 
 display:flex;
 
@@ -96,19 +75,11 @@ align-items:center;
 
 gap:8px;
 
-padding:8px 14px;
+margin-bottom:15px;
 
-border-radius:50px;
+font-size:12px;
 
-background:rgba(0,255,153,0.08);
-
-border:1px solid rgba(0,255,153,0.2);
-
-margin-bottom:18px;
-
-font-size:11px;
-
-font-weight:800;
+color:#baffdc;
 }
 
 .dot{
@@ -135,224 +106,157 @@ opacity:0.2;
 
 }
 
-.clock{
-
-text-align:center;
-
-margin-bottom:15px;
-
-font-size:14px;
-
-font-weight:bold;
-}
-
-.input,
 select{
 
 width:100%;
 
-padding:15px;
+padding:14px;
 
 border:none;
 
 outline:none;
 
-border-radius:20px;
+border-radius:15px;
 
-background:#071d12;
+background:#131d38;
 
 color:white;
 
 font-size:15px;
 
 margin-bottom:15px;
-
-border:1px solid rgba(0,255,153,0.12);
 }
 
 iframe{
 
 width:100%;
 
-height:240px;
+height:250px;
 
 border:none;
 
-border-radius:22px;
-
-background:black;
+border-radius:18px;
 
 margin-bottom:15px;
+
+background:black;
+}
+
+.timerBox{
+
+text-align:center;
+
+margin-bottom:15px;
+}
+
+.timer{
+
+font-size:38px;
+
+font-weight:900;
+
+color:#00ff99;
+
+text-shadow:
+0 0 15px #00ff99;
+}
+
+.label{
+
+font-size:11px;
+
+margin-top:5px;
+
+color:#a5ffd0;
+}
+
+.signalBox{
+
+padding:20px;
+
+border-radius:20px;
+
+text-align:center;
+
+margin-top:10px;
+
+transition:0.3s;
+}
+
+.signal{
+
+font-size:30px;
+
+font-weight:900;
+
+margin-bottom:10px;
+}
+
+.buy{
+
+background:rgba(0,255,120,0.12);
+
+border:1px solid #00ff99;
+}
+
+.sell{
+
+background:rgba(255,0,0,0.12);
+
+border:1px solid #ff4444;
+}
+
+.wait{
+
+background:rgba(255,170,0,0.12);
+
+border:1px solid #ffaa00;
+}
+
+.data{
+
+font-size:13px;
+
+line-height:1.7;
+
+margin-top:10px;
 }
 
 .btn{
 
 width:100%;
 
-padding:16px;
-
-border:none;
-
-border-radius:30px;
-
-font-family:'Orbitron',sans-serif;
-
-font-size:13px;
-
-font-weight:900;
-
-letter-spacing:1px;
-
-background:
-linear-gradient(90deg,#00994d,#00d26f);
-
-color:white;
-
-cursor:pointer;
-
-transition:0.3s;
-
-box-shadow:
-0 0 20px rgba(0,255,153,0.4);
-}
-
-.btn:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-0 0 30px rgba(0,255,153,0.7);
-
-}
-
-.loader{
+padding:15px;
 
 margin-top:15px;
 
-width:100%;
+border:none;
 
-height:5px;
-
-background:#062014;
-
-border-radius:20px;
-
-overflow:hidden;
-
-display:none;
-}
-
-.fill{
-
-width:0%;
-
-height:100%;
+border-radius:18px;
 
 background:
 linear-gradient(90deg,#00aa55,#00ff99);
 
-transition:2s;
-}
-
-.result{
-
-display:none;
-
-margin-top:20px;
-
-padding:20px;
-
-border-radius:24px;
-
-background:rgba(0,30,12,0.8);
-
-border:1px solid rgba(0,255,153,0.2);
-}
-
-.signal{
-
-font-family:'Orbitron',sans-serif;
-
-font-size:32px;
+color:black;
 
 font-weight:900;
 
-text-align:center;
+font-size:14px;
 
-margin-bottom:12px;
-
-text-shadow:
-0 0 15px currentColor,
-0 0 25px currentColor;
-
-animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-}
-
-50%{
-transform:scale(1.04);
-}
-
-100%{
-transform:scale(1);
-}
-
-}
-
-.info{
-
-margin-top:8px;
-
-font-size:13px;
-
-font-weight:bold;
+cursor:pointer;
 }
 
 .note{
 
-margin-top:18px;
+margin-top:15px;
 
 font-size:10px;
 
 line-height:1.6;
 
-padding:12px;
+color:#c8ffe3;
 
-border-radius:16px;
-
-background:rgba(255,255,255,0.03);
-}
-
-.powerWrap{
-
-margin-top:15px;
-
-height:10px;
-
-border-radius:20px;
-
-overflow:hidden;
-
-background:#111;
-}
-
-.powerBar{
-
-height:100%;
-
-width:90%;
-
-background:
-linear-gradient(90deg,#00ff99,#00ccff);
-
-border-radius:20px;
-
-transition:1s;
+text-align:center;
 }
 
 </style>
@@ -362,123 +266,87 @@ transition:1s;
 
 <div class="container">
 
-<!-- LOGIN -->
-
-<div class="card" id="loginBox">
-
-<div class="logo">🇵🇰</div>
+<div class="card">
 
 <div class="title">
-PAK PRO SIGNAL BOT
+🇵🇰 PAK AI SIGNAL BOARD
 </div>
 
-<input
-type="password"
-id="password"
-class="input"
-placeholder="ENTER ACCESS KEY">
-
-<button
-class="btn"
-onclick="loginBot()">
-
-ENTER BOT
-
-</button>
-
-<div class="note">
-
-🔐 ACCESS KEY:
-<b style="color:#00ff99;">Pak786</b>
-
-</div>
-
-</div>
-
-<!-- MAIN BOT -->
-
-<div class="card" id="mainBot" style="display:none;">
-
-<div class="clock" id="clock"></div>
-
-<div class="badge">
+<div class="live">
 
 <div class="dot"></div>
 
-🇵🇰 LIVE MARKET SIGNAL
+LIVE MARKET ACTIVE
 
 </div>
 
-<div class="title">
-PAK PRO SIGNAL BOT
-</div>
-
-<select id="pair" onchange="updateChart()">
+<select id="pair" onchange="loadChart()">
 
 <option value="FX:EURUSD">
-🇪🇺 EUR/USD
+EUR/USD
 </option>
 
 <option value="FX:GBPUSD">
-🇬🇧 GBP/USD
-</option>
-
-<option value="FX_IDC:USDINR">
-🇮🇳 USD/INR
-</option>
-
-<option value="FX_IDC:USDBRL">
-🇧🇷 USD/BRL
+GBP/USD
 </option>
 
 <option value="FX_IDC:USDPKR">
-🇵🇰 USD/PKR
+USD/PKR
+</option>
+
+<option value="FX_IDC:USDINR">
+USD/INR
+</option>
+
+<option value="FX_IDC:USDBRL">
+USD/BRL
 </option>
 
 </select>
 
-<iframe id="chart" allowfullscreen></iframe>
+<iframe id="chart"></iframe>
+
+<div class="timerBox">
+
+<div class="timer" id="timer">
+60
+</div>
+
+<div class="label">
+QUOTEX STYLE TIMER
+</div>
+
+</div>
+
+<div class="signalBox wait" id="signalBox">
+
+<div class="signal" id="signalText">
+WAIT ⏳
+</div>
+
+<div class="data" id="marketData">
+
+RSI: --
+<br>
+EMA: --
+<br>
+TREND: --
+
+</div>
+
+</div>
 
 <button
 class="btn"
-id="scanBtn"
 onclick="generateSignal()">
 
-⚡ SCAN SIGNAL
+SCAN SIGNAL
 
 </button>
 
-<div class="loader" id="loader">
-<div class="fill" id="fill"></div>
-</div>
-
-<div class="result" id="resultBox">
-
-<div class="signal" id="signalText">
----
-</div>
-
-<div class="info" id="accuracy">
-CONFIDENCE: --%
-</div>
-
-<div class="info" id="marketData">
-ANALYZING...
-</div>
-
-<div class="info" id="strategy">
-WAITING...
-</div>
-
-<div class="powerWrap">
-<div class="powerBar" id="powerBar"></div>
-</div>
-
-</div>
-
 <div class="note">
 
-🎯 RSI + MACD + EMA + TREND FILTER ACTIVE
+🎯 RSI + EMA + TREND FILTER SYSTEM
 
 </div>
 
@@ -488,198 +356,124 @@ WAITING...
 
 <script>
 
-// LOGIN
+// LOAD CHART
 
-function loginBot(){
-
-const pwd =
-document.getElementById('password').value.trim();
-
-if(pwd === "Pak786"){
-
-document.getElementById('loginBox').style.display = "none";
-
-document.getElementById('mainBot').style.display = "block";
-
-updateChart();
-
-}else{
-
-alert("❌ WRONG PASSWORD");
-
-}
-
-}
-
-// ENTER KEY
-
-document
-.getElementById('password')
-.addEventListener('keypress',function(e){
-
-if(e.key === "Enter"){
-loginBot();
-}
-
-});
-
-// CLOCK
-
-setInterval(()=>{
-
-const now = new Date();
-
-document.getElementById('clock').innerHTML =
-"🕒 " + now.toLocaleTimeString();
-
-},1000);
-
-// CHART
-
-function updateChart(){
+function loadChart(){
 
 const pair =
 document.getElementById('pair').value;
 
-const symbol =
-pair.replace(":","%3A");
-
 document.getElementById('chart').src =
 
-`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1`;
+`https://s.tradingview.com/widgetembed/?symbol=${pair.replace(":","%3A")}&interval=1&theme=dark&style=1`;
 
 }
+
+loadChart();
+
+// TIMER
+
+let time = 60;
+
+setInterval(()=>{
+
+time--;
+
+if(time <= 0){
+
+time = 60;
+
+generateSignal();
+
+}
+
+document.getElementById('timer').innerHTML =
+time;
+
+},1000);
 
 // SIGNAL ENGINE
 
 function generateSignal(){
 
-const btn =
-document.getElementById('scanBtn');
-
-const loader =
-document.getElementById('loader');
-
-const fill =
-document.getElementById('fill');
-
-const result =
-document.getElementById('resultBox');
-
-btn.disabled = true;
-
-btn.innerHTML =
-"📡 ANALYZING...";
-
-loader.style.display = "block";
-
-result.style.display = "none";
-
-fill.style.width = "0%";
-
-setTimeout(()=>{
-fill.style.width = "100%";
-},50);
-
-// MARKET DATA
+// DEMO RSI
 
 let rsi =
 Math.floor(Math.random()*40)+30;
 
-let macd =
-(Math.random()*2-1).toFixed(2);
+// DEMO EMA
 
-let volatility =
-Math.floor(Math.random()*40)+60;
+let ema =
+Math.floor(Math.random()*100)+100;
 
-let confidence =
-90 + Math.floor(Math.random()*7);
+// TREND
 
-let signal =
-"🟢 STRONG CALL";
-
-let color =
-"#00ff99";
-
-let strategy =
-"🔥 BUY PRESSURE ACTIVE";
-
-// PUT SIGNAL
-
-if(macd < 0){
-
-signal =
-"🔴 STRONG PUT";
-
-color =
-"#ff4444";
-
-strategy =
-"📉 SELL PRESSURE ACTIVE";
-
-}
-
-// RESULT
-
-setTimeout(()=>{
-
-loader.style.display = "none";
-
-btn.disabled = false;
-
-btn.innerHTML =
-"⚡ SCAN SIGNAL";
-
-result.style.display = "block";
+let trend =
+"SIDEWAYS";
 
 // SIGNAL
 
-const signalText =
-document.getElementById('signalText');
+let signal =
+"WAIT ⏳";
 
-signalText.innerHTML =
+// CLASS
+
+let className =
+"signalBox wait";
+
+// BUY LOGIC
+
+if(rsi > 58){
+
+trend =
+"UPTREND";
+
+signal =
+"BUY 📈";
+
+className =
+"signalBox buy";
+
+}
+
+// SELL LOGIC
+
+else if(rsi < 42){
+
+trend =
+"DOWNTREND";
+
+signal =
+"SELL 📉";
+
+className =
+"signalBox sell";
+
+}
+
+// UPDATE UI
+
+document.getElementById('signalText').innerHTML =
 signal;
 
-signalText.style.color =
-color;
-
-// CONFIDENCE
-
-document.getElementById('accuracy').innerHTML =
-
-`🎯 CONFIDENCE:
-${confidence}%`;
-
-document.getElementById('accuracy').style.color =
-color;
-
-// DATA
+document.getElementById('signalBox').className =
+className;
 
 document.getElementById('marketData').innerHTML =
 
-`📊 RSI:
-${rsi}
- | MACD:
-${macd}
- | VOLATILITY:
-${volatility}%`;
-
-// STRATEGY
-
-document.getElementById('strategy').innerHTML =
-strategy;
-
-// POWER BAR
-
-document.getElementById('powerBar').style.width =
-confidence + "%";
-
-result.style.borderColor =
-color;
-
-},2200);
+`
+RSI: ${rsi}
+<br>
+EMA: ${ema}
+<br>
+TREND: ${trend}
+`;
 
 }
+
+// FIRST SIGNAL
+
+generateSignal();
 
 </script>
 
