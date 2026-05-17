@@ -1,437 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-<title>🇵🇰 PAK PRO SIGNAL BOT</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-
-font-family:'Inter',sans-serif;
-
-background:
-radial-gradient(circle at top left,#01361b,#02140b 70%);
-
-min-height:100vh;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-padding:15px;
-
-overflow-x:hidden;
-}
-
-.container{
-width:100%;
-max-width:460px;
-}
-
-.card{
-
-background:rgba(0,18,9,0.96);
-
-border:1px solid rgba(0,255,153,0.25);
-
-border-radius:30px;
-
-padding:22px;
-
-box-shadow:
-0 0 30px rgba(0,255,153,0.15),
-0 10px 40px rgba(0,0,0,0.5);
-
-backdrop-filter:blur(12px);
-}
-
-.logo{
-
-font-size:58px;
-
-text-align:center;
-
-margin-bottom:10px;
-}
-
-.title{
-
-text-align:center;
-
-font-family:'Orbitron',sans-serif;
-
-font-size:24px;
-
-font-weight:900;
-
-background:
-linear-gradient(90deg,#ffffff,#7dffbf,#00ff99);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-margin-bottom:18px;
-}
-
-.badge{
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-gap:8px;
-
-padding:8px 15px;
-
-border-radius:50px;
-
-background:rgba(0,255,153,0.08);
-
-border:1px solid rgba(0,255,153,0.2);
-
-margin-bottom:18px;
-
-font-size:11px;
-
-font-weight:800;
-
-color:#dffff1;
-}
-
-.dot{
-
-width:8px;
-height:8px;
-
-background:#00ff99;
-
-border-radius:50%;
-
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-
-0%,100%{
-opacity:1;
-}
-
-50%{
-opacity:0.3;
-}
-}
-
-.clock{
-
-text-align:center;
-
-color:white;
-
-font-size:14px;
-
-margin-bottom:15px;
-
-font-weight:bold;
-}
-
-.input,
-select{
-
-width:100%;
-
-padding:15px;
-
-border:none;
-
-outline:none;
-
-border-radius:22px;
-
-background:#051b0f;
-
-color:white;
-
-font-size:15px;
-
-margin-bottom:15px;
-
-border:1px solid rgba(0,255,153,0.15);
-}
-
-iframe{
-
-width:100%;
-
-height:240px;
-
-border:none;
-
-border-radius:22px;
-
-margin-bottom:16px;
-}
-
-.btn{
-
-width:100%;
-
-padding:16px;
-
-border:none;
-
-border-radius:30px;
-
-font-family:'Orbitron',sans-serif;
-
-font-weight:900;
-
-font-size:13px;
-
-letter-spacing:1px;
-
-background:
-linear-gradient(90deg,#00994d,#00d26f);
-
-color:white;
-
-cursor:pointer;
-
-transition:0.2s;
-}
-
-.btn:active{
-transform:scale(0.97);
-}
-
-.loader{
-
-margin-top:16px;
-
-width:100%;
-height:5px;
-
-background:#062014;
-
-border-radius:20px;
-
-overflow:hidden;
-
-display:none;
-}
-
-.fill{
-
-width:0%;
-height:100%;
-
-background:
-linear-gradient(90deg,#00a651,#00ff99);
-
-transition:1.5s;
-}
-
-.result{
-
-display:none;
-
-margin-top:20px;
-
-padding:20px;
-
-border-radius:24px;
-
-background:rgba(0,30,12,0.75);
-
-border:1px solid rgba(0,255,153,0.2);
-}
-
-.signal{
-
-font-family:'Orbitron',sans-serif;
-
-font-size:32px;
-
-font-weight:900;
-
-text-align:center;
-
-margin-bottom:12px;
-
-text-shadow:0 0 12px currentColor;
-}
-
-.info{
-
-margin-top:8px;
-
-font-size:13px;
-
-font-weight:bold;
-
-color:#eafff3;
-}
-
-.strategy{
-
-margin-top:12px;
-
-font-size:11px;
-
-line-height:1.5;
-
-color:#cffff0;
-}
-
-.note{
-
-margin-top:18px;
-
-font-size:10px;
-
-line-height:1.6;
-
-padding:12px;
-
-border-radius:16px;
-
-background:rgba(255,255,255,0.03);
-
-color:#dfffee;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<!-- LOGIN -->
-
-<div class="card" id="loginBox">
-
-<div class="logo">🇵🇰</div>
-
-<div class="title">
-PAK PRO SIGNAL BOT
-</div>
-
-<input
-type="password"
-id="password"
-class="input"
-placeholder="ENTER ACCESS KEY"
-autocomplete="off">
-
-<button
-class="btn"
-onclick="loginBot()">
-
-ENTER BOT
-
-</button>
-
-<div class="note">
-
-🔐 ACCESS KEY:
-<b style="color:#00ff99;">Pak786</b>
-
-</div>
-
-</div>
-
-<!-- MAIN -->
-
-<div class="card" id="mainBot" style="display:none;">
-
-<div class="clock" id="clock"></div>
-
-<div class="badge">
-
-<div class="dot"></div>
-
-🇵🇰 LIVE MARKET SIGNAL
-
-</div>
-
-<div class="title">
-PAK PRO SIGNAL BOT
-</div>
-
-<select id="pair" onchange="updateChart()">
-
-<option value="FX:EURUSD">🇪🇺 EUR/USD</option>
-
-<option value="FX:GBPUSD">🇬🇧 GBP/USD</option>
-
-<option value="FX_IDC:USDINR">🇮🇳 USD/INR</option>
-
-<option value="FX_IDC:USDBRL">🇧🇷 USD/BRL</option>
-
-</select>
-
-<iframe
-id="chart"
-allowfullscreen>
-</iframe>
-
-<button
-class="btn"
-id="scanBtn"
-onclick="generateSignal()">
-
-⚡ SCAN SIGNAL
-
-</button>
-
-<div class="loader" id="loader">
-<div class="fill" id="fill"></div>
-</div>
-
-<div class="result" id="resultBox">
-
-<div class="signal" id="signalText">
----
-</div>
-
-<div class="info" id="accuracy">
-CONFIDENCE: --%
-</div>
-
-<div class="info" id="marketData">
-ANALYZING...
-</div>
-
-<div class="strategy" id="strategy">
-WAITING...
-</div>
-
-</div>
-
-<div class="note">
-
-🎯 RSI + MACD + EMA + TREND + VOLATILITY SYSTEM ACTIVE
-
-</div>
-
-</div>
-
-</div>
-
 <script>
 
 // LOGIN
@@ -469,7 +35,7 @@ loginBot();
 
 });
 
-// CLOCK
+// LIVE CLOCK
 
 setInterval(()=>{
 
@@ -480,7 +46,7 @@ document.getElementById('clock').innerHTML =
 
 },1000);
 
-// CHART
+// CHART UPDATE
 
 function updateChart(){
 
@@ -491,23 +57,24 @@ const symbol =
 pair.replace(":","%3A");
 
 document.getElementById('chart').src =
-`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD%2CVolume`;
+
+`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD%2CBB%40tv-basicstudies`;
 
 }
 
-// CANDLE
+// CANDLE PATTERNS
 
-function getCandlePattern(){
+function getPattern(){
 
 const patterns = [
 
 "Bullish Engulfing",
 "Bearish Engulfing",
 "Hammer",
-"Shooting Star",
-"Strong Momentum",
-"Doji",
-"Breakout Candle"
+"Strong Breakout",
+"Morning Star",
+"Evening Star",
+"Momentum Candle"
 
 ];
 
@@ -517,31 +84,31 @@ Math.floor(Math.random()*patterns.length)
 
 }
 
-// TREND
+// TREND DETECTION
 
 function detectTrend(rsi,macd,emaFast,emaSlow){
 
 if(
-rsi >= 55 &&
-macd > 0 &&
+rsi > 58 &&
+macd > 0.30 &&
 emaFast > emaSlow
 ){
-return "UPTREND";
+return "STRONG_UP";
 }
 
 if(
-rsi <= 45 &&
-macd < 0 &&
+rsi < 42 &&
+macd < -0.30 &&
 emaFast < emaSlow
 ){
-return "DOWNTREND";
+return "STRONG_DOWN";
 }
 
 return "SIDEWAYS";
 
 }
 
-// SIGNAL ENGINE
+// MAIN SIGNAL ENGINE
 
 function generateSignal(){
 
@@ -561,8 +128,8 @@ if(btn.disabled) return;
 
 btn.disabled = true;
 
-btn.innerText =
-"📡 ANALYZING...";
+btn.innerHTML =
+"📡 ANALYZING MARKET...";
 
 loader.style.display = "block";
 
@@ -574,22 +141,22 @@ setTimeout(()=>{
 fill.style.width = "100%";
 },50);
 
-// MARKET DATA
-
-let volatility =
-Math.floor(Math.random()*100);
+// MARKET VALUES
 
 let rsi =
-Math.floor(Math.random()*60)+20;
+Math.floor(Math.random()*40)+30;
 
 let emaFast =
-Math.floor(Math.random()*20)+90;
+Math.floor(Math.random()*15)+100;
 
 let emaSlow =
-Math.floor(Math.random()*20)+90;
+Math.floor(Math.random()*15)+95;
+
+let volatility =
+Math.floor(Math.random()*40)+60;
 
 let macd =
-((emaFast - emaSlow)/10).toFixed(2);
+((emaFast - emaSlow)/8).toFixed(2);
 
 let trend =
 detectTrend(
@@ -600,30 +167,25 @@ emaSlow
 );
 
 let candle =
-getCandlePattern();
+getPattern();
 
 let signal =
-"⚠️ NO TRADE";
+"⚠️ WAIT";
 
 let color =
 "#ffaa33";
 
 let confidence =
-50;
+55;
 
 let strategy =
-"WAIT FOR CONFIRMATION";
+"WAITING FOR MARKET";
 
 // STRONG CALL
 
 if(
-
-trend === "UPTREND" &&
-rsi >= 55 &&
-rsi <= 70 &&
-macd > 0.20 &&
-volatility > 50
-
+trend === "STRONG_UP" &&
+volatility > 65
 ){
 
 signal =
@@ -633,23 +195,18 @@ color =
 "#00ff99";
 
 confidence =
-90 + Math.floor(Math.random()*7);
+92 + Math.floor(Math.random()*5);
 
 strategy =
-`🔥 BUY PRESSURE | ${candle} | EMA BULLISH`;
+`🔥 BUY PRESSURE | ${candle}`;
 
 }
 
 // STRONG PUT
 
 else if(
-
-trend === "DOWNTREND" &&
-rsi >= 30 &&
-rsi <= 45 &&
-macd < -0.20 &&
-volatility > 50
-
+trend === "STRONG_DOWN" &&
+volatility > 65
 ){
 
 signal =
@@ -659,44 +216,10 @@ color =
 "#ff4444";
 
 confidence =
-89 + Math.floor(Math.random()*7);
+92 + Math.floor(Math.random()*5);
 
 strategy =
-`📉 SELL PRESSURE | ${candle} | EMA BEARISH`;
-
-}
-
-// CONTINUATION
-
-else if(trend === "UPTREND"){
-
-signal =
-"↗️ CALL CONTINUATION";
-
-color =
-"#8dffbf";
-
-confidence =
-78 + Math.floor(Math.random()*8);
-
-strategy =
-"📈 MARKET CONTINUING UP";
-
-}
-
-else if(trend === "DOWNTREND"){
-
-signal =
-"↘️ PUT CONTINUATION";
-
-color =
-"#ff8866";
-
-confidence =
-78 + Math.floor(Math.random()*8);
-
-strategy =
-"📉 MARKET CONTINUING DOWN";
+`📉 SELL PRESSURE | ${candle}`;
 
 }
 
@@ -705,16 +228,16 @@ strategy =
 else{
 
 signal =
-"⚠️ SIDEWAYS";
+"⚠️ NO TRADE";
 
 color =
-"#bbbbbb";
+"#cccccc";
 
 confidence =
-45 + Math.floor(Math.random()*10);
+50 + Math.floor(Math.random()*10);
 
 strategy =
-"⛔ MARKET NOT CLEAR";
+"⛔ MARKET SIDEWAYS";
 
 }
 
@@ -726,19 +249,23 @@ loader.style.display = "none";
 
 btn.disabled = false;
 
-btn.innerText =
+btn.innerHTML =
 "⚡ SCAN SIGNAL";
 
 result.style.display = "block";
 
+// SIGNAL
+
 const signalText =
 document.getElementById('signalText');
 
-signalText.innerText =
+signalText.innerHTML =
 signal;
 
 signalText.style.color =
 color;
+
+// CONFIDENCE
 
 const accuracy =
 document.getElementById('accuracy');
@@ -749,25 +276,28 @@ accuracy.innerHTML =
 accuracy.style.color =
 color;
 
+// MARKET DATA
+
 document.getElementById('marketData').innerHTML =
 
 `📊 RSI: ${rsi}
-| MACD: ${macd}
-| EMA FAST: ${emaFast}
-| EMA SLOW: ${emaSlow}
-| VOLATILITY: ${volatility}%`;
+ | MACD: ${macd}
+ | EMA FAST: ${emaFast}
+ | EMA SLOW: ${emaSlow}
+ | VOLATILITY: ${volatility}%`;
+
+// STRATEGY
 
 document.getElementById('strategy').innerHTML =
 strategy;
 
+// BORDER
+
 result.style.borderColor =
 color;
 
-},1800);
+},2200);
 
 }
 
 </script>
-
-</body>
-</html>
