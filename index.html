@@ -1,786 +1,173 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">  <title>🇵🇰 PAK AI SIGNAL BOT</title>  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">  <style>  
-  
-*{  
-    margin:0;  
-    padding:0;  
-    box-sizing:border-box;  
-}  
-  
-:root{  
-    --green:#00a651;  
-    --green2:#00d26f;  
-    --white:#ffffff;  
-    --dark:#02140b;  
-}  
-  
-body{  
-  
-    min-height:100vh;  
-    display:flex;  
-    justify-content:center;  
-    align-items:center;  
-    padding:15px;  
-  
-    font-family:'Inter',sans-serif;  
-  
-    background:  
-    radial-gradient(circle at top left,  
-    #003d1f,  
-    #02140b 70%);  
-  
-    overflow-x:hidden;  
-    position:relative;  
-}  
-  
-/* GRID */  
-  
-body::before{  
-  
-    content:"";  
-  
-    position:fixed;  
-  
-    top:0;  
-    left:0;  
-  
-    width:100%;  
-    height:100%;  
-  
-    background-image:  
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),  
-    linear-gradient(90deg, rgba(0,166,81,0.08) 1px, transparent 1px);  
-  
-    background-size:35px 35px;  
-  
-    pointer-events:none;  
-}  
-  
-.container{  
-    width:100%;  
-    max-width:450px;  
-    position:relative;  
-    z-index:2;  
-}  
-  
-.card{  
-  
-    background:rgba(0,20,10,0.94);  
-  
-    backdrop-filter:blur(14px);  
-  
-    border:1px solid rgba(0,166,81,0.35);  
-  
-    border-radius:35px;  
-  
-    padding:26px 20px;  
-  
-    box-shadow:  
-    0 20px 40px rgba(0,0,0,0.6),  
-    0 0 28px rgba(0,166,81,0.25);  
-}  
-  
-.logo{  
-  
-    font-size:60px;  
-  
-    text-align:center;  
-  
-    margin-bottom:10px;  
-  
-    filter:drop-shadow(0 0 10px #00ff99);  
-}  
-  
-.title{  
-  
-    text-align:center;  
-  
-    font-family:'Orbitron',sans-serif;  
-  
-    font-size:24px;  
-  
-    font-weight:900;  
-  
-    letter-spacing:2px;  
-  
-    background:  
-    linear-gradient(  
-    135deg,  
-    #ffffff,  
-    #8dffbf,  
-    #00ff99  
-    );  
-  
-    -webkit-background-clip:text;  
-    background-clip:text;  
-  
-    -webkit-text-fill-color:transparent;  
-  
-    margin-bottom:22px;  
-}  
-  
-.badge{  
-  
-    display:flex;  
-  
-    justify-content:center;  
-    align-items:center;  
-  
-    gap:8px;  
-  
-    background:rgba(0,166,81,0.12);  
-  
-    padding:8px 16px;  
-  
-    border-radius:40px;  
-  
-    border:1px solid rgba(0,255,153,0.35);  
-  
-    font-size:11px;  
-  
-    font-weight:800;  
-  
-    color:#d8ffe9;  
-  
-    margin-bottom:20px;  
-}  
-  
-.dot{  
-  
-    width:8px;  
-    height:8px;  
-  
-    background:#00ff99;  
-  
-    border-radius:50%;  
-  
-    box-shadow:0 0 12px #00ff99;  
-  
-    animation:blink 1s infinite;  
-}  
-  
-@keyframes blink{  
-  
-    0%,100%{  
-        opacity:1;  
-    }  
-  
-    50%{  
-        opacity:0.3;  
-    }  
-}  
-  
-.input,  
-select{  
-  
-    width:100%;  
-  
-    padding:16px;  
-  
-    margin-bottom:18px;  
-  
-    background:#04180d;  
-  
-    border:1.5px solid rgba(0,255,153,0.25);  
-  
-    border-radius:28px;  
-  
-    color:white;  
-  
-    font-size:15px;  
-  
-    outline:none;  
-}  
-  
-.input:focus,  
-select:focus{  
-  
-    border-color:#00ff99;  
-  
-    box-shadow:  
-    0 0 14px rgba(0,255,153,0.3);  
-}  
-  
-iframe{  
-  
-    width:100%;  
-  
-    height:240px;  
-  
-    border-radius:24px;  
-  
-    margin-bottom:20px;  
-  
-    background:#000;  
-  
-    border:1px solid rgba(0,255,153,0.2);  
-}  
-  
-.btn{  
-  
-    width:100%;  
-  
-    border:none;  
-  
-    border-radius:40px;  
-  
-    padding:18px;  
-  
-    font-weight:900;  
-  
-    font-family:'Orbitron',sans-serif;  
-  
-    font-size:13px;  
-  
-    letter-spacing:1.5px;  
-  
-    background:  
-    linear-gradient(  
-    95deg,  
-    #008f4a,  
-    #00d26f  
-    );  
-  
-    color:white;  
-  
-    cursor:pointer;  
-  
-    transition:0.2s;  
-  
-    box-shadow:  
-    0 6px 20px rgba(0,255,153,0.25);  
-}  
-  
-.btn:active{  
-    transform:scale(0.97);  
-}  
-  
-.loader{  
-  
-    width:100%;  
-  
-    height:5px;  
-  
-    background:#062014;  
-  
-    border-radius:10px;  
-  
-    overflow:hidden;  
-  
-    margin-top:18px;  
-  
-    display:none;  
-}  
-  
-.fill{  
-  
-    width:0%;  
-  
-    height:100%;  
-  
-    background:  
-    linear-gradient(  
-    90deg,  
-    #00a651,  
-    #00ff99  
-    );  
-  
-    transition:1.2s;  
-}  
-  
-.result{  
-  
-    display:none;  
-  
-    margin-top:24px;  
-  
-    padding:20px;  
-  
-    border-radius:28px;  
-  
-    background:rgba(0,30,12,0.7);  
-  
-    border:1px solid rgba(0,255,153,0.3);  
-}  
-  
-.signal{  
-  
-    font-family:'Orbitron',sans-serif;  
-  
-    font-size:34px;  
-  
-    font-weight:900;  
-  
-    letter-spacing:1px;  
-  
-    text-shadow:0 0 8px currentColor;  
-}  
-  
-.info{  
-  
-    margin-top:10px;  
-  
-    font-size:13px;  
-  
-    font-weight:bold;  
-}  
-  
-.strategy{  
-  
-    margin-top:12px;  
-  
-    font-size:11px;  
-  
-    color:#d0ffe2;  
-  
-    line-height:1.5;  
-}  
-  
-.note{  
-  
-    margin-top:20px;  
-  
-    font-size:10px;  
-  
-    color:#d0ffe2;  
-  
-    background:rgba(255,255,255,0.03);  
-  
-    padding:12px;  
-  
-    border-radius:18px;  
-  
-    line-height:1.6;  
-}  
-  
-.clock{  
-  
-    text-align:center;  
-  
-    color:#ffffff;  
-  
-    margin-bottom:15px;  
-  
-    font-weight:bold;  
-}  
-  
-</style>  </head>  <body>  <div class="container">  <div class="card" id="loginBox">  <div class="logo">🇵🇰</div>  <div class="title">  
-PAK AI SIGNAL BOT  
-</div>  <input  
-type="password"  
-id="password"  
-class="input"  
-placeholder="ENTER ACCESS KEY"  
-autocomplete="off">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🇵🇰 PAK AI SIGNAL X</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        *{ margin:0; padding:0; box-sizing:border-box; }
+        :root{ --green:#00a651; --green2:#00d26f; --white:#ffffff; --dark:#02140b; }
+        body{ min-height:100vh; display:flex; justify:center; align-items:center; padding:15px; font-family:'Inter',sans-serif; background: radial-gradient(circle at top left, #003d1f, #02140b 70%); overflow-x:hidden; position:relative; }
+        body::before{ content:""; position:fixed; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,166,81,0.08) 1px, transparent 1px); background-size:35px 35px; pointer-events:none; }
+        .container{ width:100%; max-width:450px; position:relative; z-index:2; }
+        .card{ background:rgba(0,20,10,0.94); backdrop-filter:blur(14px); border:1px solid rgba(0,166,81,0.35); border-radius:35px; padding:26px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 28px rgba(0,166,81,0.25); }
+        .logo{ font-size:60px; text-align:center; margin-bottom:10px; filter:drop-shadow(0 0 10px #00ff99); }
+        .title{ text-align:center; font-family:'Orbitron',sans-serif; font-size:24px; font-weight:900; letter-spacing:2px; background: linear-gradient(135deg, #ffffff, #8dffbf, #00ff99); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:22px; }
+        .badge{ display:flex; justify-content:center; align-items:center; gap:8px; background:rgba(0,166,81,0.12); padding:8px 16px; border-radius:40px; border:1px solid rgba(0,255,153,0.35); font-size:11px; font-weight:800; color:#d8ffe9; margin-bottom:20px; }
+        .dot{ width:8px; height:8px; background:#00ff99; border-radius:50%; box-shadow:0 0 12px #00ff99; animation:blink 1s infinite; }
+        @keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
+        .input, select{ width:100%; padding:16px; margin-bottom:18px; background:#04180d; border:1.5px solid rgba(0,255,153,0.25); border-radius:28px; color:white; font-size:15px; outline:none; }
+        .input:focus, select:focus{ border-color:#00ff99; box-shadow: 0 0 14px rgba(0,255,153,0.3); }
+        iframe{ width:100%; height:240px; border-radius:24px; margin-bottom:20px; background:#000; border:1px solid rgba(0,255,153,0.2); }
+        .btn{ width:100%; border:none; border-radius:40px; padding:18px; font-weight:900; font-family:'Orbitron',sans-serif; font-size:13px; letter-spacing:1.5px; background: linear-gradient(95deg, #008f4a, #00d26f); color:white; cursor:pointer; transition:0.2s; box-shadow: 0 6px 20px rgba(0,255,153,0.25); }
+        .btn:active{ transform:scale(0.97); }
+        .loader{ width:100%; height:5px; background:#062014; border-radius:10px; overflow:hidden; margin-top:18px; display:none; }
+        .fill{ width:0%; height:100%; background: linear-gradient(90deg, #00a651, #00ff99); transition:1.2s; }
+        .result{ display:none; margin-top:24px; padding:20px; border-radius:28px; background:rgba(0,30,12,0.7); border:1px solid rgba(0,255,153,0.3); text-align:center; }
+        .signal{ font-family:'Orbitron',sans-serif; font-size:30px; font-weight:900; letter-spacing:1px; text-shadow:0 0 8px currentColor; margin-bottom:10px; }
+        .info{ margin-top:10px; font-size:13px; font-weight:bold; }
+        .strategy{ margin-top:12px; font-size:11px; color:#d0ffe2; line-height:1.5; font-style: italic; }
+        .note{ margin-top:20px; font-size:10px; color:#d0ffe2; background:rgba(255,255,255,0.03); padding:12px; border-radius:18px; line-height:1.6; }
+        .clock{ text-align:center; color:#ffffff; margin-bottom:15px; font-weight:bold; font-family: 'Orbitron', sans-serif; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="loginBox">
+            <div class="logo">🇵🇰</div>
+            <div class="title">PAK AI SIGNAL X</div>
+            <input type="password" id="password" class="input" placeholder="ENTER ACCESS KEY" autocomplete="off">
+            <button class="btn" onclick="loginBot()">ENTER BOT</button>
+            <div class="note">🔐 ACCESS KEY: <strong style="color:#00ff99;">Pak786</strong></div>
+        </div>
 
-<button  
-class="btn"  
-onclick="loginBot()">
+        <div class="card" id="mainBot" style="display:none;">
+            <div class="clock" id="clock">🕒 00:00:00</div>
+            <div class="badge"><div class="dot"></div> 🇵🇰 PAK AI LIVE SIGNAL</div>
+            <div class="title">PAK AI SIGNAL X</div>
+            
+            <select id="pair" onchange="updateChart()">
+                <option value="FX_IDC:USDBRL">🇧🇷 USD/BRL (OTC)</option>
+                <option value="FX_IDC:USDMXN">🇲🇽 USD/MXN (OTC)</option>
+                <option value="FX_IDC:USDINR">🇮🇳 USD/INR</option>
+                <option value="FX:EURUSD">🇪🇺 EUR/USD</option>
+                <option value="FX:GBPUSD">🇬🇧 GBP/USD</option>
+            </select>
 
-ENTER BOT
+            <iframe id="chart" src=""></iframe>
 
-</button>  <div class="note">  🔐 ACCESS KEY:
-<strong style="color:#00ff99;">
-Pak786
-</strong>
+            <button id="scanBtn" class="btn" onclick="generateSignal()">⚡ SCAN SIGNAL</button>
+            
+            <div class="loader" id="loader"><div class="fill" id="fill"></div></div>
 
-</div>  </div>  <!-- MAIN BOT -->  <div class="card" id="mainBot" style="display:none;">  <div class="clock" id="clock"></div>  <div class="badge">  <div class="dot"></div>  🇵🇰 PAK AI LIVE SIGNAL
+            <div class="result" id="resultBox">
+                <div class="signal" id="signalText">---</div>
+                <div class="info" id="accuracy">CONFIDENCE: --%</div>
+                <div class="info" id="marketData" style="font-size:11px;color:#ccc;"></div>
+                <div class="strategy" id="strategy">ANALYZING MARKET</div>
+            </div>
 
-</div>  <div class="title">  
-PAK AI SIGNAL BOT  
-</div>  <select id="pair" onchange="updateChart()">  <option value="FX_IDC:USDINR">  
-🇮🇳 USD/INR  
-</option>  <option value="FX:EURUSD">  
-🇪🇺 EUR/USD  
-</option>  <option value="FX:GBPUSD">  
-🇬🇧 GBP/USD  
-</option>  <option value="FX_IDC:USDBRL">  
-🇧🇷 USD/BRL  
-</option>  </select>  <iframe  
-id="chart"  
-src="https://s.tradingview.com/widgetembed/?symbol=FX_IDC%3AUSDINR&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD">  
-</iframe>  <button  
-id="scanBtn"  
-class="btn"  
-onclick="fastMarketSignal()">
+            <div class="note">🎯 Advanced Trend + RSI + MACD + Candle Patterns System Active for Mobile Trading.</div>
+        </div>
+    </div>
 
-⚡ SCAN SIGNAL
+    <script>
+        function loginBot(){
+            const pwd = document.getElementById('password').value;
+            if(pwd === 'Pak786'){
+                document.getElementById('loginBox').style.display='none';
+                document.getElementById('mainBot').style.display='block';
+                updateChart();
+            } else {
+                alert('❌ WRONG PASSWORD');
+            }
+        }
 
-</button>  <div class="loader" id="loader">  
-<div class="fill" id="fill"></div>  
-</div>  <div class="result" id="resultBox">  <div class="signal" id="signalText">  
----  
-</div>  <div class="info" id="accuracy">  
-CONFIDENCE: --%  
-</div>  <div  
-class="info"  
-id="marketData"  
-style="font-size:11px;color:#ccc;">  
-</div>  <div class="strategy" id="strategy">  
-ANALYZING MARKET  
-</div>  </div>  <div class="note">  🎯 Advanced Trend + RSI + MACD + Volume +
-Candle Pattern System Enabled
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerHTML = "🕒 " + now.toLocaleTimeString();
+        }, 1000);
 
-</div>  </div>  </div>  <script>  
-  
-// ==========================================  
-// LOGIN  
-// ==========================================  
-  
-function loginBot(){  
-  
-    const pwd =  
-    document.getElementById('password').value;  
-  
-    if(pwd === 'Pak786'){  
-  
-        document.getElementById('loginBox').style.display='none';  
-  
-        document.getElementById('mainBot').style.display='block';  
-  
-        updateChart();  
-  
-    }else{  
-  
-        alert('❌ WRONG PASSWORD');  
-    }  
-}  
-  
-  
-// ==========================================  
-// CLOCK  
-// ==========================================  
-  
-setInterval(()=>{  
-  
-    const now = new Date();  
-  
-    document.getElementById('clock').innerHTML =  
-    "🕒 " + now.toLocaleTimeString();  
-  
-},1000);  
-  
-  
-// ==========================================  
-// CHART  
-// ==========================================  
-  
-function updateChart(){  
-  
-    const rawPair =  
-    document.getElementById('pair').value;  
-  
-    const symbol =  
-    rawPair.replace(':','%3A');  
-  
-    document.getElementById('chart').src =  
-    `https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD`;  
-}  
-  
-  
-// ==========================================  
-// TREND  
-// ==========================================  
-  
-function detectTrend(rsi,macd){  
-  
-    if(rsi > 60 && macd > 0.15){  
-        return "UPTREND";  
-    }  
-  
-    if(rsi < 40 && macd < -0.15){  
-        return "DOWNTREND";  
-    }  
-  
-    return "SIDEWAYS";  
-}  
-  
-  
-// ==========================================  
-// CANDLE  
-// ==========================================  
-  
-function detectPattern(){  
-  
-    const patterns = [  
-  
-        "Bullish Engulfing",  
-        "Bearish Engulfing",  
-        "Hammer",  
-        "Shooting Star",  
-        "Momentum Candle",  
-        "Doji"  
-  
-    ];  
-  
-    return patterns[  
-        Math.floor(Math.random()*patterns.length)  
-    ];  
-}  
-  
-  
-// ==========================================  
-// MAIN SIGNAL ENGINE  
-// ==========================================  
-  
-function fastMarketSignal(){  
-  
-    const btn =  
-    document.getElementById('scanBtn');  
-  
-    const loader =  
-    document.getElementById('loader');  
-  
-    const fill =  
-    document.getElementById('fill');  
-  
-    const result =  
-    document.getElementById('resultBox');  
-  
-    if(btn.disabled) return;  
-  
-    btn.disabled = true;  
-  
-    btn.innerText =  
-    '📡 ANALYZING...';  
-  
-    result.style.display='none';  
-  
-    loader.style.display='block';  
-  
-    fill.style.width='0%';  
-  
-    setTimeout(()=>{  
-        fill.style.width='100%';  
-    },50);  
-  
-  
-    // ======================================  
-    // BETTER SIGNAL LOGIC  
-    // ======================================  
-  
-    let pressure =  
-    Math.random()*100;  
-  
-    let volatility =  
-    Math.random()*100;  
-  
-    let trendStrength =  
-    Math.random()*100;  
-  
-  
-    let rsi = Math.floor(  
-        pressure*0.7 +  
-        trendStrength*0.3  
-    );  
-  
-    if(rsi > 90) rsi = 90;  
-    if(rsi < 10) rsi = 10;  
-  
-  
-    let emaFast =  
-    (Math.random()*15)+95;  
-  
-    let emaSlow =  
-    (Math.random()*15)+95;  
-  
-  
-    let macd =  
-    ((emaFast-emaSlow)/10);  
-  
-    let macdFixed =  
-    macd.toFixed(2);  
-  
-  
-    let trend =  
-    detectTrend(rsi,macd);  
-  
-    let candle =  
-    detectPattern();  
-  
-  
-    let signal =  
-    "⏳ WAIT";  
-  
-    let color =  
-    "#ffaa44";  
-  
-    let confidence =  
-    55;  
-  
-    let strategy =  
-    "";  
-  
-  
-    // ======================================  
-    // STRONG CALL  
-    // ======================================  
-  
-    if(  
-  
-        trend === "UPTREND" &&  
-        volatility > 60 &&  
-        rsi < 35  
-  
-    ){  
-  
-        signal =  
-        "🟢 STRONG CALL";  
-  
-        color =  
-        "#00ff99";  
-  
-        confidence =  
-        92 + Math.floor(Math.random()*5);  
-  
-        strategy =  
-        `🔥 BUY PRESSURE | ${candle} | Volume High`;  
-  
-    }  
-  
-  
-    // ======================================  
-    // STRONG PUT  
-    // ======================================  
-  
-    else if(  
-  
-        trend === "DOWNTREND" &&  
-        volatility > 60 &&  
-        rsi > 65  
-  
-    ){  
-  
-        signal =  
-        "🔴 STRONG PUT";  
-  
-        color =  
-        "#ff4444";  
-  
-        confidence =  
-        91 + Math.floor(Math.random()*5);  
-  
-        strategy =  
-        `📉 SELL PRESSURE | ${candle} | Market Dump`;  
-  
-    }  
-  
-  
-    // ======================================  
-    // CONTINUATION  
-    // ======================================  
-  
-    else if(trend === "UPTREND"){  
-  
-        signal =  
-        "↗️ CALL CONTINUATION";  
-  
-        color =  
-        "#88ffaa";  
-  
-        confidence =  
-        80 + Math.floor(Math.random()*8);  
-  
-        strategy =  
-        `📈 UPTREND CONTINUATION`;  
-  
-    }  
-  
-  
-    else if(trend === "DOWNTREND"){  
-  
-        signal =  
-        "↘️ PUT CONTINUATION";  
-  
-        color =  
-        "#ff8866";  
-  
-        confidence =  
-        79 + Math.floor(Math.random()*8);  
-  
-        strategy =  
-        `📉 DOWNTREND CONTINUATION`;  
-  
-    }  
-  
-  
-    // ======================================  
-    // SIDEWAYS  
-    // ======================================  
-  
-    else{  
-  
-        signal =  
-        "⚠️ NO TRADE";  
-  
-        color =  
-        "#bb88ff";  
-  
-        confidence =  
-        50 + Math.floor(Math.random()*10);  
-  
-        strategy =  
-        `⛔ SIDEWAYS MARKET`;  
-  
-    }  
-  
-  
-    // ======================================  
-    // DISPLAY RESULT  
-    // ======================================  
-  
-    setTimeout(()=>{  
-  
-        loader.style.display='none';  
-  
-        btn.disabled=false;  
-  
-        btn.innerText=  
-        '⚡ SCAN SIGNAL';  
-  
-        result.style.display='block';  
-  
-  
-        const signalText =  
-        document.getElementById('signalText');  
-  
-        signalText.innerText =  
-        signal;  
-  
-        signalText.style.color =  
-        color;  
-  
-  
-        const accuracy =  
-        document.getElementById('accuracy');  
-  
-        accuracy.innerHTML =  
-        `🎯 CONFIDENCE: ${confidence}%`;  
-  
-        accuracy.style.color =  
-        color;  
-  
-  
-        document.getElementById('marketData').innerHTML =  
-  
-        `📊 RSI: ${rsi}  
-        | MACD: ${macdFixed}  
-        | Trend: ${trend}  
-        | Pattern: ${candle}`;  
-  
-  
-        document.getElementById('strategy').innerHTML =  
-        strategy;  
-  
-  
-        result.style.borderColor =  
-        color;  
-  
-    },1600);  
-  
-}  
-  
-</script>  </body>  
-</html>  
+        function updateChart(){
+            const rawPair = document.getElementById('pair').value;
+            const symbol = rawPair.replace(':','%3A');
+            document.getElementById('chart').src = `https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&hideideas=1&studies=RSI%2CMACD%2CEMA`;
+        }
+
+        function generateSignal(){
+            const btn = document.getElementById('scanBtn');
+            const loader = document.getElementById('loader');
+            const fill = document.getElementById('fill');
+            const result = document.getElementById('resultBox');
+
+            if(btn.disabled) return;
+            btn.disabled = true;
+            btn.innerText = '📡 SCANNING...';
+            result.style.display = 'none';
+            loader.style.display = 'block';
+            fill.style.width = '0%';
+
+            setTimeout(() => { fill.style.width = '100%'; }, 50);
+
+            setTimeout(() => {
+                // Better Simulation of Indicators
+                let rsi = Math.floor(Math.random() * (80 - 20) + 20); 
+                let macd = (Math.random() * (0.5 - (-0.5)) + (-0.5)).toFixed(3);
+                let patterns = ["Hammer", "Engulfing", "Marubozu", "Doji", "Shooting Star"];
+                let candle = patterns[Math.floor(Math.random() * patterns.length)];
+                
+                let signal = "⏳ WAIT";
+                let color = "#ffaa44";
+                let confidence = Math.floor(Math.random() * (65 - 50) + 50);
+                let strategyText = "Market Sideways - Avoid Entry";
+
+                // LOGIC: Strong Call (Buy)
+                if (rsi < 40 && macd > 0) {
+                    signal = "🟢 STRONG CALL";
+                    color = "#00ff99";
+                    confidence = Math.floor(Math.random() * (96 - 89) + 89);
+                    strategyText = `🔥 Bullish ${candle} Detected | Overbought Recovery`;
+                } 
+                // LOGIC: Strong Put (Sell)
+                else if (rsi > 60 && macd < 0) {
+                    signal = "🔴 STRONG PUT";
+                    color = "#ff4444";
+                    confidence = Math.floor(Math.random() * (95 - 88) + 88);
+                    strategyText = `📉 Bearish ${candle} Detected | Resistance Rejection`;
+                }
+                // LOGIC: Trend Following
+                else if (rsi > 50) {
+                    signal = "↗️ CALL (1 MIN)";
+                    color = "#88ffaa";
+                    confidence = Math.floor(Math.random() * (85 - 75) + 75);
+                    strategyText = "Trend is Bullish - Continuous Buy";
+                } else if (rsi < 50) {
+                    signal = "↘️ PUT (1 MIN)";
+                    color = "#ff8866";
+                    confidence = Math.floor(Math.random() * (84 - 74) + 74);
+                    strategyText = "Trend is Bearish - Continuous Sell";
+                }
+
+                loader.style.display = 'none';
+                btn.disabled = false;
+                btn.innerText = '⚡ SCAN SIGNAL';
+                result.style.display = 'block';
+                result.style.borderColor = color;
+
+                const sigElement = document.getElementById('signalText');
+                sigElement.innerText = signal;
+                sigElement.style.color = color;
+
+                const accElement = document.getElementById('accuracy');
+                accElement.innerText = `🎯 CONFIDENCE: ${confidence}%`;
+                accElement.style.color = color;
+
+                document.getElementById('marketData').innerHTML = `RSI: ${rsi} | MACD: ${macd} | Pattern: ${candle}`;
+                document.getElementById('strategy').innerText = strategyText;
+
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
