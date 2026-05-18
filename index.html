@@ -1,23 +1,22 @@
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAK AI SIGNAL X - LIVE V7.2</title>
+    <title>PAK AI SIGNAL X - AUTO V7.5</title>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        body{ background:#000; color:#fff; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
-        .bot-card{ width:90%; max-width:400px; background:#011a0d; border:3px solid #00ff99; border-radius:40px; padding:25px; text-align:center; }
-        .header-title{ color:#00ff99; font-size:22px; margin-bottom:15px; font-weight:bold; }
-        select, input{ width:100%; padding:15px; border-radius:20px; background:#000; border:1px solid #00ff99; color:#fff; margin-bottom:15px; text-align:center; font-weight:bold; }
-        .action-btn{ width:100%; padding:20px; border-radius:50px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-weight:900; font-size:16px; cursor:pointer; }
-        .action-btn:disabled{ background:#555; cursor:not-allowed; }
-        #result-box{ display:none; margin-top:20px; padding:20px; border-radius:30px; background:rgba(255,255,255,0.05); border:2px solid #00ff99; }
-        .sig-val{ font-size:38px; font-weight:900; margin-top:10px; }
-        .detail-text{ font-size:12px; color:#aaa; margin-top:8px; }
-        .acc-text{ font-size:12px; background:#00ff99; color:#000; padding:5px 12px; border-radius:10px; font-weight:bold; display:inline-block; }
+        body{ background:#000; color:#fff; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; padding:10px; }
+        .bot-card{ width:100%; max-width:400px; background:#011a0d; border:3px solid #00ff99; border-radius:30px; padding:20px; text-align:center; }
+        .header-title{ color:#00ff99; font-size:20px; margin-bottom:12px; font-weight:bold; }
+        select, input{ width:100%; padding:12px; border-radius:15px; background:#000; border:1px solid #00ff99; color:#fff; margin-bottom:12px; text-align:center; font-weight:bold; }
+        .status{ font-size:12px; color:#00ff99; margin-bottom:10px; }
+        #result-box{ margin-top:15px; padding:15px; border-radius:25px; background:rgba(255,255,255,0.05); border:2px solid #00ff99; }
+        .sig-val{ font-size:32px; font-weight:900; margin-top:8px; }
+        .detail-text{ font-size:12px; color:#aaa; margin-top:6px; }
+        .acc-text{ font-size:11px; background:#00ff99; color:#000; padding:4px 10px; border-radius:8px; font-weight:bold; display:inline-block; }
+        #mini-chart{ height:160px; margin-bottom:12px; border-radius:15px; overflow:hidden; }
     </style>
 </head>
 <body>
@@ -25,33 +24,66 @@
 <div class="bot-card" id="login">
     <h2 class="header-title">PAK AI SIGNAL X</h2>
     <input type="password" id="key" placeholder="Enter Key: Pak786">
-    <button class="action-btn" onclick="startApp()">LOGIN</button>
+    <button style="width:100%; padding:16px; border-radius:40px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-weight:900; font-size:15px; cursor:pointer;" onclick="startApp()">LOGIN</button>
 </div>
 
 <div class="bot-card" id="app" style="display:none;">
-    <h2 class="header-title">LIVE SIGNAL V7.2</h2>
-    <select id="pairList">
+    <h2 class="header-title">AUTO SIGNAL V7.5</h2>
+    <div class="status" id="status">🔴 Stopped</div>
+    
+    <div id="mini-chart"></div>
+    
+    <select id="pairList" onchange="changeMarket()">
         <option value="EURUSDT">EUR/USDT</option>
         <option value="BTCUSDT">BTC/USDT</option>
         <option value="ETHUSDT">ETH/USDT</option>
     </select>
-    <button class="action-btn" id="scanBtn" onclick="runScan()">⚡ SCAN LIVE SIGNAL</button>
 
     <div id="result-box">
-        <span class="acc-text" id="accText">ANALYZING...</span>
-        <div class="sig-val" id="sigOutput">---</div>
-        <div class="detail-text" id="sigDetails">Calculating...</div>
+        <span class="acc-text" id="accText">1 MINUTE WAIT</span>
+        <div class="sig-val" id="sigOutput">WAIT</div>
+        <div class="detail-text" id="sigDetails">Next scan in 60 sec...</div>
     </div>
 </div>
 
 <script>
+    let currentPair = "EURUSDT";
+
     function startApp(){
         if(document.getElementById('key').value === 'Pak786'){
             document.getElementById('login').style.display='none';
             document.getElementById('app').style.display='block';
+            loadChart(currentPair);
+            startAutoScan();
         } else { 
             alert('غلط Key! صحیح key: Pak786'); 
         }
+    }
+
+    function loadChart(symbol){
+        document.getElementById('mini-chart').innerHTML = "";
+        new TradingView.widget({
+            "width": "100%",
+            "height": 160,
+            "symbol": "BINANCE:" + symbol,
+            "interval": "1",
+            "theme": "dark",
+            "style": "1",
+            "hide_top_toolbar": true,
+            "hide_legend": true,
+            "container_id": "mini-chart"
+        });
+    }
+
+    function changeMarket(){
+        currentPair = document.getElementById('pairList').value;
+        loadChart(currentPair);
+    }
+
+    function startAutoScan(){
+        document.getElementById('status').innerText = "🟢 Auto Scanning Every 60 Sec";
+        runScan();
+        setInterval(runScan, 60000); // 1 منٹ
     }
 
     async function getRealCandles(symbol="EURUSDT"){
@@ -61,7 +93,6 @@
             let data = await res.json();
             return data.map(candle => parseFloat(candle[4]));
         } catch(e){
-            alert("انٹرنیٹ Error! Connection چیک کریں");
             return [];
         }
     }
@@ -86,19 +117,8 @@
     }
 
     async function runScan(){
-        let btn = document.getElementById('scanBtn');
-        btn.disabled = true;
-        btn.innerText = "🔍 FETCHING LIVE DATA...";
-
-        let pair = document.getElementById('pairList').value;
-        let prices = await getRealCandles(pair);
-        
-        if(prices.length < 15){
-            alert("Data load نہیں ہوا۔ دوبارہ try کریں");
-            btn.disabled = false;
-            btn.innerText = "⚡ SCAN LIVE SIGNAL";
-            return;
-        }
+        let prices = await getRealCandles(currentPair);
+        if(prices.length < 15) return;
 
         let rsi = calculateRSI(prices);
         let ma = calculateMA(prices);
@@ -106,7 +126,6 @@
 
         let signal, color, detail, accuracy;
 
-        // نیا Logic - اب signal جلدی آئے گا
         if(rsi < 45 && lastPrice > ma){
             signal = "CALL (UP)";
             color = "#00ff99";
@@ -120,19 +139,15 @@
         } else {
             signal = "WAIT";
             color = "#ffcc00";
-            detail = `RSI: ${rsi.toFixed(2)} Neutral | Wait for setup`;
+            detail = `RSI: ${rsi.toFixed(2)} Neutral`;
             accuracy = "NO SIGNAL";
         }
 
-        document.getElementById('result-box').style.display = 'block';
         document.getElementById('result-box').style.borderColor = color;
         document.getElementById('sigOutput').innerText = signal;
         document.getElementById('sigOutput').style.color = color;
-        document.getElementById('sigDetails').innerText = detail;
+        document.getElementById('sigDetails').innerText = "Next scan in 60 sec...";
         document.getElementById('accText').innerText = accuracy;
-
-        btn.disabled = false;
-        btn.innerText = "⚡ SCAN LIVE SIGNAL";
     }
 </script>
 
