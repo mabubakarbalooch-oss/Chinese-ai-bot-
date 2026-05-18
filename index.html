@@ -1,14 +1,11 @@
-
-    // Moving Average calculate karo
-    function calculateMA(prices, period=14){
-        let sum = prices.slice(-period).reduce((a,b)=>a+b,0);
-        return sum/period;
-    }<!DOCTYPE html>
+</body>
+</html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🇵🇰 PAK AI SIGNAL X - LIVE V7.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAK AI SIGNAL X - LIVE V7.2</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
         body{ background:#000; color:#fff; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
@@ -32,7 +29,7 @@
 </div>
 
 <div class="bot-card" id="app" style="display:none;">
-    <h2 class="header-title">LIVE SIGNAL V7.1</h2>
+    <h2 class="header-title">LIVE SIGNAL V7.2</h2>
     <select id="pairList">
         <option value="EURUSDT">EUR/USDT</option>
         <option value="BTCUSDT">BTC/USDT</option>
@@ -53,7 +50,7 @@
             document.getElementById('login').style.display='none';
             document.getElementById('app').style.display='block';
         } else { 
-            alert('Ghalat Key! Sahi key: Pak786'); 
+            alert('غلط Key! صحیح key: Pak786'); 
         }
     }
 
@@ -64,7 +61,7 @@
             let data = await res.json();
             return data.map(candle => parseFloat(candle[4]));
         } catch(e){
-            alert("Internet Error! Check connection");
+            alert("انٹرنیٹ Error! Connection چیک کریں");
             return [];
         }
     }
@@ -97,7 +94,7 @@
         let prices = await getRealCandles(pair);
         
         if(prices.length < 15){
-            alert("Data load nahi hua. Dobara try karo");
+            alert("Data load نہیں ہوا۔ دوبارہ try کریں");
             btn.disabled = false;
             btn.innerText = "⚡ SCAN LIVE SIGNAL";
             return;
@@ -109,7 +106,7 @@
 
         let signal, color, detail, accuracy;
 
-        // UPDATED CONDITION - Ab signal jaldi ayega
+        // نیا Logic - اب signal جلدی آئے گا
         if(rsi < 45 && lastPrice > ma){
             signal = "CALL (UP)";
             color = "#00ff99";
@@ -136,83 +133,6 @@
 
         btn.disabled = false;
         btn.innerText = "⚡ SCAN LIVE SIGNAL";
-    }
-</script>
-
-</body>
-</html>
-
-    async function runScan(){
-        const btn = document.getElementById('scanBtn');
-        const lcon = document.getElementById('lcon');
-        const lbar = document.getElementById('lbar');
-        const res = document.getElementById('result-box');
-
-        btn.disabled = true;
-        btn.innerText = "🔍 FETCHING LIVE DATA...";
-        res.style.display = 'none';
-        lcon.style.display = 'block';
-        lbar.style.width = '0%';
-
-        setTimeout(() => { lbar.style.width = '100%'; }, 50);
-
-        let pair = document.getElementById('pairList').value;
-        let prices = await getRealCandles(pair, "1m", 20);
-
-        if(prices.length < 15){
-            alert("Data load nahi hua. Dobara try karo");
-            btn.disabled = false;
-            btn.innerText = "⚡ SCAN LIVE SIGNAL";
-            lcon.style.display = 'none';
-            return;
-        }
-
-        let rsi = calculateRSI(prices);
-        let ma = calculateMA(prices);
-        let lastPrice = prices[prices.length-1];
-
-        let signal, color, detail, accuracy;
-
-        if(rsi < 30 && lastPrice > ma){
-            signal = "CALL (UP)";
-            color = "#00ff99";
-            detail = `RSI: ${rsi.toFixed(2)} Oversold | Price: ${lastPrice.toFixed(4)}`;
-            accuracy = "CONFIDENCE: 70%";
-        } else if(rsi > 70 && lastPrice < ma){
-            signal = "PUT (DOWN)";
-            color = "#ff4444";
-            detail = `RSI: ${rsi.toFixed(2)} Overbought | Price: ${lastPrice.toFixed(4)}`;
-            accuracy = "CONFIDENCE: 70%";
-        } else {
-            signal = "WAIT";
-            color = "#ffcc00";
-            detail = `RSI: ${rsi.toFixed(2)} Neutral | Price: ${lastPrice.toFixed(4)}`;
-            accuracy = "NO SIGNAL";
-        }
-
-        lcon.style.display = 'none';
-        btn.disabled = false;
-        btn.innerText = "⚡ SCAN LIVE SIGNAL";
-        res.style.display = 'block';
-        res.style.borderColor = color;
-
-        document.getElementById('sigOutput').innerText = signal;
-        document.getElementById('sigOutput').style.color = color;
-        document.getElementById('sigDetails').innerText = detail;
-        document.getElementById('accText').innerText = accuracy;
-
-        let time = 5;
-        const timer = document.getElementById('countdown');
-        timer.style.color = "#ffcc00";
-        const itv = setInterval(() => {
-            timer.innerText = `ENTRY IN: ${time}s`;
-            time--;
-            if(time < 0){
-                clearInterval(itv);
-                timer.innerText = signal === "WAIT"? "NO ENTRY" : "🔥 ENTER TRADE NOW!";
-                timer.style.color = signal === "WAIT"? "#ff4444" : "#00ff99";
-            }
-        }, 1000);
     }
 </script>
 
