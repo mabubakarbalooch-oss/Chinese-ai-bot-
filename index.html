@@ -28,7 +28,6 @@
                 radial-gradient(circle at 90% 80%, rgba(0, 255, 153, 0.05) 0%, transparent 50%);
         }
 
-        /* Pro Desktop Container */
         .app-window {
             width: 100%;
             max-width: 420px;
@@ -53,12 +52,10 @@
             text-shadow: 0 0 10px var(--neon);
         }
 
-        /* Status Lights */
         .status-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 10px; color: var(--neon); font-weight: bold; }
         .pulse { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--neon); animation: pulse 1.5s infinite; margin-right: 5px; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* Market Box */
         #chart-frame {
             height: 190px;
             background: #000;
@@ -84,7 +81,6 @@
         .scanning .scan-laser { display: block; animation: scanAnim 2s linear infinite; }
         @keyframes scanAnim { 0% { top: 0%; } 100% { top: 100%; } }
 
-        /* Form Elements */
         select, input {
             width: 100%;
             padding: 15px;
@@ -116,7 +112,6 @@
         .main-btn:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(0,255,153,0.4); }
         .main-btn:active { transform: scale(0.95); }
 
-        /* Result Display */
         .result-panel {
             display: none;
             margin-top: 25px;
@@ -167,9 +162,10 @@
     </div>
 
     <select id="assetSelect" onchange="switchAsset()">
-        <option value="EURUSDT">EUR/USD - BINANCE</option>
-        <option value="BTCUSDT">BTC/USD - BINANCE</option>
-        <option value="ETHUSDT">ETH/USD - BINANCE</option>
+        <option value="USDBRL">USD/BRL (OTC)</option>
+        <option value="USDMXN">USD/MXN (OTC)</option>
+        <option value="USDINR">USD/INR (REAL)</option>
+        <option value="USDPKR">USD/PKR (REAL)</option>
     </select>
 
     <button class="main-btn" id="scanButton" onclick="executeScan()">⚡ EXECUTE AI SCAN</button>
@@ -205,8 +201,16 @@
         const symbol = document.getElementById('assetSelect').value;
         const mount = document.getElementById('tv-mount');
         mount.innerHTML = '';
+        
+        // TradingView Symbol Mapping
+        let tvSymbol = "";
+        if(symbol === "USDBRL") tvSymbol = "FX_IDC:USDBRL";
+        else if(symbol === "USDMXN") tvSymbol = "FX_IDC:USDMXN";
+        else if(symbol === "USDINR") tvSymbol = "FX_IDC:USDINR";
+        else if(symbol === "USDPKR") tvSymbol = "FX_IDC:USDPKR";
+
         new TradingView.widget({
-            "width": "100%", "height": 190, "symbol": "BINANCE:" + symbol,
+            "width": "100%", "height": 190, "symbol": tvSymbol,
             "interval": "1", "theme": "dark", "style": "1",
             "hide_top_toolbar": true, "hide_legend": true, "container_id": "tv-mount"
         });
@@ -239,7 +243,6 @@
         btn.disabled = false;
         btn.innerText = "⚡ EXECUTE AI SCAN";
         
-        // Shake application for alert effect
         app.classList.add('shake');
         setTimeout(() => app.classList.remove('shake'), 500);
 
@@ -263,7 +266,6 @@
 
         document.getElementById('accuracyNum').innerText = `ACCURACY ${acc}%`;
 
-        // Countdown Timer
         let time = 5;
         const timer = document.getElementById('timerDisplay');
         const interval = setInterval(() => {
