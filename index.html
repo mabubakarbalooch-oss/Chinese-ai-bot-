@@ -1,10 +1,9 @@
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAK AI SIGNAL X - V7.9 FIXED</title>
+    <title>PAK AI SIGNAL X - V8.0 FIXED</title>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
@@ -25,7 +24,7 @@
             box-shadow:0 0 10px #00ff99; display:none; z-index:10;
         }
         .scan-line.active{ display:block; animation: scanMove 1.5s linear infinite; }
-        @keyframes scanMove{ 0%{ top:0; } 100%{ top:100%; } }
+        @keyframes scanMove{ 0%{ top:0; } 100%{ top:100%; }
     </style>
 </head>
 <body>
@@ -37,7 +36,7 @@
 </div>
 
 <div class="bot-card" id="app" style="display:none;">
-    <h2 class="header-title">SIGNAL V7.9 FIXED</h2>
+    <h2 class="header-title">SIGNAL V8.0 FIXED</h2>
     
     <div id="mini-chart"><div class="scan-line" id="scanLine"></div></div>
     
@@ -96,17 +95,30 @@
     }
 
     async function getRealCandles(symbol="EURUSDT"){
-        try{
-            // CORS proxy لگا دیا ہے تاکہ block نہ ہو
-            let proxy = "https://api.allorigins.win/raw?url=";
-            let url = proxy + encodeURIComponent(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=20`);
-            let res = await fetch(url);
-            let data = await res.json();
-            return data.map(candle => parseFloat(candle[4]));
-        } catch(e){
-            alert("Data load نہیں ہوا۔ انٹرنیٹ چیک کریں");
-            return [];
+        let proxies = [
+            "https://api.allorigins.win/raw?url=",
+            "https://corsproxy.io/?"
+        ];
+        
+        let url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=20`;
+        
+        for(let proxy of proxies){
+            try{
+                let controller = new AbortController();
+                let timeout = setTimeout(() => controller.abort(), 8000); // 8 sec timeout
+                
+                let res = await fetch(proxy + encodeURIComponent(url), {signal: controller.signal});
+                clearTimeout(timeout);
+                
+                if(!res.ok) continue;
+                let data = await res.json();
+                if(data.length > 0) return data.map(candle => parseFloat(candle[4]));
+            } catch(e){
+                console.log("Proxy failed:", proxy);
+                continue;
+            }
         }
+        return [];
     }
 
     function calculateRSI(prices, period=14){
@@ -139,7 +151,7 @@
         scanLine.classList.remove('active');
 
         if(prices.length < 15){
-            alert("Data نہیں ملا۔ دوبارہ try کریں");
+            alert("Data load nahi hua. Internet check karo ya 5 sec baad dubara try karo");
             btn.disabled = false; btn.innerText = "⚡ SCAN NOW";
             return;
         }
