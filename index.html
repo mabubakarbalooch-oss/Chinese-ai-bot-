@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🇵🇰 PAK AI SIGNAL X - PRO V6</title>
+    <title>🇵🇰 PAK AI SIGNAL X - LIVE V7</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
         body{ background:#000; color:#fff; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; overflow:hidden; }
-        .bot-card{ width:90%; max-width:400px; background:#011a0d; border:3px solid #00ff99; border-radius:40px; padding:25px; box-shadow:0 0 50px rgba(0,255,153,0.4); text-align:center; }
-        .header-title{ font-family:'Orbitron',sans-serif; color:#00ff99; font-size:22px; margin-bottom:15px; text-shadow:0 0 10px #00ff99; }
+       .bot-card{ width:90%; max-width:400px; background:#011a0d; border:3px solid #00ff99; border-radius:40px; padding:25px; box-shadow:0 0 50px rgba(0,255,153,0.4); text-align:center; }
+       .header-title{ font-family:'Orbitron',sans-serif; color:#00ff99; font-size:22px; margin-bottom:15px; text-shadow:0 0 10px #00ff99; }
         select{ width:100%; padding:15px; border-radius:20px; background:#000; border:1px solid #00ff99; color:#fff; margin-bottom:15px; font-weight:bold; }
         #tv-widget-area{ width:100%; height:160px; border-radius:20px; border:1px solid #333; margin-bottom:15px; overflow:hidden; background:#000; }
-        .action-btn{ width:100%; padding:20px; border-radius:50px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-family:'Orbitron',sans-serif; font-weight:900; font-size:16px; cursor:pointer; }
-        .loading-container{ width:100%; height:8px; background:#002b16; border-radius:10px; margin-top:15px; display:none; overflow:hidden; }
-        .loading-bar{ width:0%; height:100%; background:#00ff99; transition:3s linear; }
-        
+       .action-btn{ width:100%; padding:20px; border-radius:50px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-family:'Orbitron',sans-serif; font-weight:900; font-size:16px; cursor:pointer; }
+       .loading-container{ width:100%; height:8px; background:#002b16; border-radius:10px; margin-top:15px; display:none; overflow:hidden; }
+       .loading-bar{ width:0%; height:100%; background:#00ff99; transition:3s linear; }
+
         #result-box{ display:none; margin-top:20px; padding:20px; border-radius:30px; background:rgba(255,255,255,0.05); border:2px solid #00ff99; animation:zoom 0.3s ease; }
         @keyframes zoom{ from{transform:scale(0.5); opacity:0;} to{transform:scale(1); opacity:1;} }
-        .sig-val{ font-family:'Orbitron',sans-serif; font-size:38px; font-weight:900; }
-        .acc-text{ font-size:12px; background:#00ff99; color:#000; padding:3px 10px; border-radius:10px; font-weight:bold; }
-        .timer-val{ color:#ffcc00; font-weight:bold; margin-top:10px; font-size:15px; }
-        .detail-text{ font-size:11px; color:#aaa; margin-top:5px; }
+       .sig-val{ font-family:'Orbitron',sans-serif; font-size:38px; font-weight:900; }
+       .acc-text{ font-size:12px; background:#00ff99; color:#000; padding:3px 10px; border-radius:10px; font-weight:bold; }
+       .timer-val{ color:#ffcc00; font-weight:bold; margin-top:10px; font-size:15px; }
+       .detail-text{ font-size:11px; color:#aaa; margin-top:5px; }
     </style>
 </head>
 <body>
@@ -33,20 +33,20 @@
 </div>
 
 <div class="bot-card" id="app" style="display:none;">
-    <h2 class="header-title">ULTRA MASTER V6 - RSI + MA</h2>
+    <h2 class="header-title">LIVE SIGNAL V7 - BINANCE API</h2>
     <select id="pairList" onchange="changeMarket()">
-        <option value="USDBRL">USD/BRL (OTC)</option>
-        <option value="USDMXN">USD/MXN (OTC)</option>
-        <option value="USDINR">USD/INR (LIVE)</option>
-        <option value="EURUSD">EUR/USD (LIVE)</option>
+        <option value="EURUSDT">EUR/USDT</option>
+        <option value="BTCUSDT">BTC/USDT</option>
+        <option value="ETHUSDT">ETH/USDT</option>
+        <option value="BNBUSDT">BNB/USDT</option>
     </select>
 
     <div id="tv-widget-area">
         <div id="widget-box"></div>
     </div>
 
-    <button class="action-btn" id="scanBtn" onclick="runScan()">⚡ SCAN PRECISION SIGNAL</button>
-    
+    <button class="action-btn" id="scanBtn" onclick="runScan()">⚡ SCAN LIVE SIGNAL</button>
+
     <div class="loading-container" id="lcon"><div class="loading-bar" id="lbar"></div></div>
 
     <div id="result-box">
@@ -59,14 +59,11 @@
 
 <script>
     function startApp(){
-        let inputKey = document.getElementById('key').value;
-        if(inputKey === 'Pak786'){
+        if(document.getElementById('key').value === 'Pak786'){
             document.getElementById('login').style.display='none';
             document.getElementById('app').style.display='block';
             changeMarket();
-        } else { 
-            alert('Ghalat Key! Sahi key: Pak786'); 
-        }
+        } else { alert('Ghalat Key! Sahi key: Pak786'); }
     }
 
     function changeMarket(){
@@ -78,21 +75,25 @@
         script.async = true;
         script.text = JSON.stringify({
             "interval": "1m", "width": "100%", "height": "100%", "isTransparent": true,
-            "symbol": `FX_IDC:${pair}`, "showIntervalTabs": false, "locale": "en", "colorTheme": "dark"
+            "symbol": `BINANCE:${pair}`, "showIntervalTabs": false, "locale": "en", "colorTheme": "dark"
         });
         box.appendChild(script);
     }
 
-    function getFakeCandles(){
-        let prices = [];
-        let price = 1.5000;
-        for(let i=0; i<20; i++){
-            price += (Math.random() - 0.5) * 0.0020;
-            prices.push(price);
+    // Binance se real data lao
+    async function getRealCandles(symbol="EURUSDT", interval="1m", limit=20){
+        try{
+            let url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+            let res = await fetch(url);
+            let data = await res.json();
+            return data.map(candle => parseFloat(candle[4])); // closing price
+        } catch(e){
+            alert("API Error: Internet check karo");
+            return [];
         }
-        return prices;
     }
 
+    // RSI calculate karo
     function calculateRSI(prices, period=14){
         let gains=0, losses=0;
         for(let i=1; i<=period; i++){
@@ -107,75 +108,83 @@
         return 100 - (100/(1+rs));
     }
 
+    // Moving Average calculate karo
     function calculateMA(prices, period=14){
         let sum = prices.slice(-period).reduce((a,b)=>a+b,0);
         return sum/period;
     }
 
-    function runScan(){
+    async function runScan(){
         const btn = document.getElementById('scanBtn');
         const lcon = document.getElementById('lcon');
         const lbar = document.getElementById('lbar');
         const res = document.getElementById('result-box');
 
         btn.disabled = true;
-        btn.innerText = "🔍 ANALYZING MARKET...";
+        btn.innerText = "🔍 FETCHING LIVE DATA...";
         res.style.display = 'none';
         lcon.style.display = 'block';
         lbar.style.width = '0%';
 
         setTimeout(() => { lbar.style.width = '100%'; }, 50);
 
-        setTimeout(() => {
-            let prices = getFakeCandles();
-            let rsi = calculateRSI(prices);
-            let ma = calculateMA(prices);
-            let lastPrice = prices[prices.length-1];
+        let pair = document.getElementById('pairList').value;
+        let prices = await getRealCandles(pair, "1m", 20);
 
-            let signal, color, detail, accuracy;
-
-            if(rsi < 30 && lastPrice > ma){
-                signal = "CALL (UP)";
-                color = "#00ff99";
-                detail = `RSI: ${rsi.toFixed(2)} Oversold | Price > MA`;
-                accuracy = "ACCURACY: 78%";
-            } else if(rsi > 70 && lastPrice < ma){
-                signal = "PUT (DOWN)";
-                color = "#ff4444";
-                detail = `RSI: ${rsi.toFixed(2)} Overbought | Price < MA`;
-                accuracy = "ACCURACY: 76%";
-            } else {
-                signal = Math.random() > 0.5 ? "CALL (UP)" : "PUT (DOWN)";
-                color = signal.includes("CALL") ? "#00ff99" : "#ff4444";
-                detail = `RSI: ${rsi.toFixed(2)} Neutral | Waiting for setup`;
-                accuracy = "ACCURACY: 55%";
-            }
-
-            lcon.style.display = 'none';
+        if(prices.length < 15){
+            alert("Data load nahi hua. Dobara try karo");
             btn.disabled = false;
-            btn.innerText = "⚡ SCAN PRECISION SIGNAL";
-            res.style.display = 'block';
-            res.style.borderColor = color;
+            btn.innerText = "⚡ SCAN LIVE SIGNAL";
+            lcon.style.display = 'none';
+            return;
+        }
 
-            document.getElementById('sigOutput').innerText = signal;
-            document.getElementById('sigOutput').style.color = color;
-            document.getElementById('sigDetails').innerText = detail;
-            document.getElementById('accText').innerText = accuracy;
+        let rsi = calculateRSI(prices);
+        let ma = calculateMA(prices);
+        let lastPrice = prices[prices.length-1];
 
-            let time = 5;
-            const timer = document.getElementById('countdown');
-            timer.style.color = "#ffcc00";
-            const itv = setInterval(() => {
-                timer.innerText = `ENTRY IN: ${time}s`;
-                time--;
-                if(time < 0){
-                    clearInterval(itv);
-                    timer.innerText = "🔥 ENTER TRADE NOW!";
-                    timer.style.color = "#00ff99";
-                }
-            }, 1000);
+        let signal, color, detail, accuracy;
 
-        }, 3000);
+        if(rsi < 30 && lastPrice > ma){
+            signal = "CALL (UP)";
+            color = "#00ff99";
+            detail = `RSI: ${rsi.toFixed(2)} Oversold | Price: ${lastPrice.toFixed(4)}`;
+            accuracy = "CONFIDENCE: 70%";
+        } else if(rsi > 70 && lastPrice < ma){
+            signal = "PUT (DOWN)";
+            color = "#ff4444";
+            detail = `RSI: ${rsi.toFixed(2)} Overbought | Price: ${lastPrice.toFixed(4)}`;
+            accuracy = "CONFIDENCE: 70%";
+        } else {
+            signal = "WAIT";
+            color = "#ffcc00";
+            detail = `RSI: ${rsi.toFixed(2)} Neutral | Price: ${lastPrice.toFixed(4)}`;
+            accuracy = "NO SIGNAL";
+        }
+
+        lcon.style.display = 'none';
+        btn.disabled = false;
+        btn.innerText = "⚡ SCAN LIVE SIGNAL";
+        res.style.display = 'block';
+        res.style.borderColor = color;
+
+        document.getElementById('sigOutput').innerText = signal;
+        document.getElementById('sigOutput').style.color = color;
+        document.getElementById('sigDetails').innerText = detail;
+        document.getElementById('accText').innerText = accuracy;
+
+        let time = 5;
+        const timer = document.getElementById('countdown');
+        timer.style.color = "#ffcc00";
+        const itv = setInterval(() => {
+            timer.innerText = `ENTRY IN: ${time}s`;
+            time--;
+            if(time < 0){
+                clearInterval(itv);
+                timer.innerText = signal === "WAIT"? "NO ENTRY" : "🔥 ENTER TRADE NOW!";
+                timer.style.color = signal === "WAIT"? "#ff4444" : "#00ff99";
+            }
+        }, 1000);
     }
 </script>
 
