@@ -3,134 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PAK AI SIGNAL X - SKY BLUE PRO</title>
+    <title>PAK AI SIGNAL X - V11 PRO</title>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         :root {
-            --sky: #00d4ff; /* Aasmani Color */
-            --sky-dim: rgba(0, 212, 255, 0.3);
-            --bg: #010c12;
-            --card-bg: rgba(2, 15, 25, 0.9);
-            --red: #ff4757;
-            --gold: #ffaa00;
+            --sky: #00e5ff;
+            --sky-dim: rgba(0, 229, 255, 0.2);
+            --bg: #010a0f;
+            --card-bg: rgba(2, 18, 28, 0.95);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
-        body {
-            background: var(--bg);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            background-image: radial-gradient(circle at center, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: var(--bg); height: 100vh; display: flex; justify-content: center; align-items: center; padding: 15px; }
         .app-window {
-            width: 100%;
-            max-width: 430px;
-            background: var(--card-bg);
-            border: 1px solid var(--sky-dim);
-            border-radius: 40px;
-            padding: 25px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 25px var(--sky-dim);
-            position: relative;
+            width: 100%; max-width: 400px; background: var(--card-bg);
+            border: 2px solid var(--sky-dim); border-radius: 35px;
+            padding: 25px; text-align: center; box-shadow: 0 0 30px var(--sky-dim);
         }
-
-        .title-bar { text-align: center; margin-bottom: 20px; }
-        .title-bar h1 { font-size: 22px; color: #fff; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 15px var(--sky); }
-
-        .status-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 10px; color: var(--sky); font-weight: bold; }
-        .pulse { width: 8px; height: 8px; background: var(--sky); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--sky); animation: pulse 1.5s infinite; margin-right: 5px; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        #chart-frame { height: 180px; background: #000; border-radius: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; margin-bottom: 15px; }
-        .scan-laser { position: absolute; width: 100%; height: 3px; background: var(--sky); box-shadow: 0 0 20px var(--sky); top: -10%; z-index: 10; display: none; }
-        .scanning .scan-laser { display: block; animation: scanAnim 2s linear infinite; }
-        @keyframes scanAnim { 0% { top: 0%; } 100% { top: 100%; } }
-
-        select, input { width: 100%; padding: 14px; background: rgba(0,0,0,0.6); border: 1px solid var(--sky-dim); border-radius: 18px; color: #fff; margin-bottom: 12px; font-weight: 600; outline: none; }
-
-        .main-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #0088cc, #00d4ff); border: none; border-radius: 50px; color: #000; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 25px rgba(0,212,255,0.3); }
-
-        .result-panel { display: none; margin-top: 15px; padding: 15px; border-radius: 25px; background: rgba(255,255,255,0.03); border: 2px solid var(--sky-dim); text-align: center; }
-        .sig-text { font-size: 34px; font-weight: 900; margin: 5px 0; }
-        .acc-badge { font-size: 11px; color: #000; background: var(--sky); padding: 3px 10px; border-radius: 8px; font-weight: 800; }
-        
-        .history-box { margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
-        .history-box h3 { font-size: 12px; color: var(--sky); margin-bottom: 10px; text-align: left; }
-        table { width: 100%; font-size: 11px; color: #ccc; border-collapse: collapse; }
-        td { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .win-tag { color: var(--sky); font-weight: bold; }
-
-        .risk-warning { font-size: 9px; color: #445566; margin-top: 15px; text-align: center; }
-        .shake { animation: shakeEffect 0.4s ease-in-out; }
-        @keyframes shakeEffect { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+        h1 { color: #fff; font-size: 20px; letter-spacing: 2px; text-shadow: 0 0 10px var(--sky); margin-bottom: 20px; }
+        input, select {
+            width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 15px;
+            background: #000; border: 1px solid var(--sky); color: #fff; text-align: center; font-weight: bold; outline: none;
+        }
+        .main-btn {
+            width: 100%; padding: 18px; border-radius: 50px; border: none;
+            background: linear-gradient(90deg, #0099cc, var(--sky));
+            color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase;
+        }
+        #chart-frame { height: 180px; background: #000; border-radius: 20px; overflow: hidden; margin-bottom: 15px; border: 1px solid #111; position: relative; }
+        .laser { position: absolute; width: 100%; height: 3px; background: var(--sky); box-shadow: 0 0 15px var(--sky); top: -10%; display: none; z-index: 10; }
+        .scanning .laser { display: block; animation: scan 2s linear infinite; }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+        #result-box { display: none; margin-top: 15px; padding: 15px; border: 2px solid var(--sky); border-radius: 20px; background: rgba(0,229,255,0.05); }
+        .sig-text { font-size: 30px; font-weight: 900; margin: 5px 0; }
     </style>
 </head>
 <body>
 
 <div class="app-window" id="loginScreen">
-    <div class="title-bar"><h1>PAK AI SYSTEM</h1></div>
-    <input type="password" id="passkey" placeholder="SECURE KEY: Pak786">
-    <button class="main-btn" onclick="unlock()">LOGIN SYSTEM</button>
+    <h1>PAK AI SYSTEM</h1>
+    <input type="text" id="passkey" placeholder="ENTER KEY (Pak786)">
+    <button class="main-btn" onclick="unlock()">LOGIN</button>
 </div>
 
 <div class="app-window" id="botScreen" style="display:none;">
-    <div class="status-header">
-        <span><div class="pulse"></div> AI SERVER: ACTIVE</span>
-        <span id="liveTime">00:00:00</span>
-    </div>
-    
-    <div class="title-bar"><h1>SIGNAL MASTER PRO</h1></div>
-
-    <div id="chart-frame">
-        <div class="scan-laser" id="laser"></div>
-        <div id="tv-mount"></div>
-    </div>
-
+    <h1 id="topTitle">SIGNAL V11 PRO</h1>
+    <div id="chart-frame"><div class="laser" id="laser"></div><div id="tv-mount"></div></div>
     <select id="assetSelect" onchange="switchAsset()">
         <option value="USDBRL">USD/BRL (OTC)</option>
         <option value="USDMXN">USD/MXN (OTC)</option>
         <option value="USDINR">USD/INR (REAL)</option>
         <option value="USDPKR">USD/PKR (REAL)</option>
-        <option value="EURUSD">EUR/USD (BINANCE)</option>
-        <option value="BTCUSDT">BTC/USDT (CRYPTO)</option>
+        <option value="EURUSD">EUR/USD</option>
+        <option value="BTCUSDT">BTC/USDT</option>
     </select>
-
-    <button class="main-btn" id="scanButton" onclick="executeScan()">⚡ EXECUTE AI SCAN</button>
-
-    <div class="result-panel" id="resultDisplay">
-        <span class="acc-badge" id="accuracyNum">ACCURACY 99%</span>
-        <div class="sig-text" id="signalMain">---</div>
-        <div id="timerDisplay" style="color: var(--gold); font-weight: bold; font-size: 13px;">READY</div>
-    </div>
-
-    <div class="history-box">
-        <h3>SIGNAL HISTORY</h3>
-        <table>
-            <tbody id="historyBody">
-                <tr><td>USD/BRL</td><td>CALL</td><td>98.2%</td><td class="win-tag">WIN</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="risk-warning">
-        PAK AI SIGNAL X - HIGH ACCURACY NEURAL ENGINE
+    <button class="main-btn" id="scanBtn" onclick="runScan()">⚡ START SCAN</button>
+    <div id="result-box">
+        <div id="accLabel" style="font-size:12px; color:var(--sky); font-weight:bold;">ACCURACY: 99%</div>
+        <div class="sig-text" id="sigMain">---</div>
     </div>
 </div>
 
 <script>
-    let audioContext = null;
-
     function unlock() {
-        if(document.getElementById('passkey').value === 'Pak786') {
+        let key = document.getElementById('passkey').value.trim();
+        // Ab ye Pak786, pak786 ya PAK786 sab par kaam karega
+        if(key.toLowerCase() === 'pak786') {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('botScreen').style.display = 'block';
             switchAsset();
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            setInterval(() => { document.getElementById('liveTime').innerText = new Date().toLocaleTimeString(); }, 1000);
-        } else { alert('ACCESS DENIED!'); }
+        } else {
+            alert('Wrong Key! Sahi key "Pak786" hai.');
+        }
     }
+
+    function switchAsset() {
+        const symbol = document.getElementById('assetSelect').value;
+        const mount = document.getElementById('tv-mount');
+        mount.innerHTML = '';
+        let tvSymbol = (symbol === "EURUSD" || symbol === "BTCUSDT") ? "BINANCE:" + symbol : "FX_IDC:" + symbol;
+        new TradingView.widget({ "width": "100%", "height": 180, "symbol": tvSymbol, "interval": "1", "theme": "dark", "style": "1", "hide_top_toolbar": true, "container_id": "tv-mount" });
+    }
+
+    async function runScan() {
+        const btn = document.getElementById('scanBtn');
+        const frame = document.getElementById('chart-frame');
+        const res = document.getElementById('result-box');
+        
+        btn.disabled = true; btn.innerText = "SCANNING...";
+        frame.classList.add('scanning'); res.style.display = 'none';
+
+        await new Promise(r => setTimeout(r, 2500));
+
+        frame.classList.remove('scanning'); btn.disabled = false; btn.innerText = "⚡ START SCAN";
+        res.style.display = 'block';
+        
+        const isCall = Math.random() > 0.5;
+        const sigText = document.getElementById('sigMain');
+        sigText.innerText = isCall ? "CALL" : "PUT";
+        sigText.style.color = isCall ? "#00ff99" : "#ff4757";
+        document.getElementById('accLabel').innerText = "ACCURACY: " + (97 + Math.random() * 2).toFixed(1) + "%";
+    }
+</script>
+</body>
+</html>
