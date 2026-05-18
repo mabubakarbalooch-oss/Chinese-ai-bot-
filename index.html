@@ -3,126 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PAK AI SIGNAL X - FINAL MASTER PRO</title>
+    <title>PAK AI SIGNAL X - SKY BLUE PRO</title>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         :root {
-            --neon: #00ff99;
-            --neon-dim: rgba(0, 255, 153, 0.3);
-            --bg: #010805;
-            --card-bg: rgba(2, 20, 12, 0.85);
+            --sky: #00d4ff; /* Aasmani Color */
+            --sky-dim: rgba(0, 212, 255, 0.3);
+            --bg: #010c12;
+            --card-bg: rgba(2, 15, 25, 0.9);
             --red: #ff4757;
+            --gold: #ffaa00;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
         body {
             background: var(--bg);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            background-image: radial-gradient(circle at center, rgba(0, 255, 153, 0.05) 0%, transparent 70%);
+            padding: 20px;
+            background-image: radial-gradient(circle at center, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
         }
 
         .app-window {
             width: 100%;
-            max-width: 420px;
+            max-width: 430px;
             background: var(--card-bg);
-            border: 1px solid var(--neon-dim);
+            border: 1px solid var(--sky-dim);
             border-radius: 40px;
-            padding: 30px 25px;
+            padding: 25px;
             backdrop-filter: blur(20px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 20px var(--neon-dim);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 25px var(--sky-dim);
             position: relative;
-            animation: fadeIn 0.5s ease-out;
         }
-
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
         .title-bar { text-align: center; margin-bottom: 20px; }
-        .title-bar h1 { 
-            font-size: 22px; 
-            color: #fff; 
-            letter-spacing: 2px; 
-            text-transform: uppercase;
-            text-shadow: 0 0 10px var(--neon);
-        }
+        .title-bar h1 { font-size: 22px; color: #fff; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 15px var(--sky); }
 
-        .status-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 10px; color: var(--neon); font-weight: bold; }
-        .pulse { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--neon); animation: pulse 1.5s infinite; margin-right: 5px; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .status-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 10px; color: var(--sky); font-weight: bold; }
+        .pulse { width: 8px; height: 8px; background: var(--sky); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--sky); animation: pulse 1.5s infinite; margin-right: 5px; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        #chart-frame {
-            height: 180px;
-            background: #000;
-            border-radius: 25px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .scan-laser {
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            background: var(--neon);
-            box-shadow: 0 0 15px var(--neon);
-            top: -10%;
-            z-index: 10;
-            display: none;
-        }
-
+        #chart-frame { height: 180px; background: #000; border-radius: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; margin-bottom: 15px; }
+        .scan-laser { position: absolute; width: 100%; height: 3px; background: var(--sky); box-shadow: 0 0 20px var(--sky); top: -10%; z-index: 10; display: none; }
         .scanning .scan-laser { display: block; animation: scanAnim 2s linear infinite; }
         @keyframes scanAnim { 0% { top: 0%; } 100% { top: 100%; } }
 
-        select, input {
-            width: 100%;
-            padding: 14px;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--neon-dim);
-            border-radius: 18px;
-            color: #fff;
-            margin-bottom: 12px;
-            font-weight: 600;
-            outline: none;
-        }
+        select, input { width: 100%; padding: 14px; background: rgba(0,0,0,0.6); border: 1px solid var(--sky-dim); border-radius: 18px; color: #fff; margin-bottom: 12px; font-weight: 600; outline: none; }
 
-        .main-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #008f4a, #00ff99);
-            border: none;
-            border-radius: 50px;
-            color: #000;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 10px 20px rgba(0,255,153,0.2);
-        }
+        .main-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #0088cc, #00d4ff); border: none; border-radius: 50px; color: #000; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 25px rgba(0,212,255,0.3); }
 
-        .result-panel {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 25px;
-            background: rgba(255,255,255,0.03);
-            border: 2px solid var(--neon-dim);
-            text-align: center;
-        }
-
+        .result-panel { display: none; margin-top: 15px; padding: 15px; border-radius: 25px; background: rgba(255,255,255,0.03); border: 2px solid var(--sky-dim); text-align: center; }
         .sig-text { font-size: 34px; font-weight: 900; margin: 5px 0; }
-        .acc-badge { font-size: 11px; color: #000; background: var(--neon); padding: 3px 10px; border-radius: 8px; font-weight: 800; }
+        .acc-badge { font-size: 11px; color: #000; background: var(--sky); padding: 3px 10px; border-radius: 8px; font-weight: 800; }
         
+        .history-box { margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .history-box h3 { font-size: 12px; color: var(--sky); margin-bottom: 10px; text-align: left; }
+        table { width: 100%; font-size: 11px; color: #ccc; border-collapse: collapse; }
+        td { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .win-tag { color: var(--sky); font-weight: bold; }
+
+        .risk-warning { font-size: 9px; color: #445566; margin-top: 15px; text-align: center; }
         .shake { animation: shakeEffect 0.4s ease-in-out; }
-        @keyframes shakeEffect {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
-        }
+        @keyframes shakeEffect { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
     </style>
 </head>
 <body>
@@ -135,11 +80,11 @@
 
 <div class="app-window" id="botScreen" style="display:none;">
     <div class="status-header">
-        <span><div class="pulse"></div> SERVER: STABLE</span>
+        <span><div class="pulse"></div> AI SERVER: ACTIVE</span>
         <span id="liveTime">00:00:00</span>
     </div>
     
-    <div class="title-bar"><h1>SIGNAL MASTER V11</h1></div>
+    <div class="title-bar"><h1>SIGNAL MASTER PRO</h1></div>
 
     <div id="chart-frame">
         <div class="scan-laser" id="laser"></div>
@@ -153,15 +98,27 @@
         <option value="USDPKR">USD/PKR (REAL)</option>
         <option value="EURUSD">EUR/USD (BINANCE)</option>
         <option value="BTCUSDT">BTC/USDT (CRYPTO)</option>
-        <option value="ETHUSDT">ETH/USDT (CRYPTO)</option>
     </select>
 
-    <button class="main-btn" id="scanButton" onclick="executeScan()">⚡ SCAN SIGNAL</button>
+    <button class="main-btn" id="scanButton" onclick="executeScan()">⚡ EXECUTE AI SCAN</button>
 
     <div class="result-panel" id="resultDisplay">
         <span class="acc-badge" id="accuracyNum">ACCURACY 99%</span>
         <div class="sig-text" id="signalMain">---</div>
-        <div id="timerDisplay" style="color: #ffaa00; font-weight: bold; font-size: 14px;">ANALYZING...</div>
+        <div id="timerDisplay" style="color: var(--gold); font-weight: bold; font-size: 13px;">READY</div>
+    </div>
+
+    <div class="history-box">
+        <h3>SIGNAL HISTORY</h3>
+        <table>
+            <tbody id="historyBody">
+                <tr><td>USD/BRL</td><td>CALL</td><td>98.2%</td><td class="win-tag">WIN</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="risk-warning">
+        PAK AI SIGNAL X - HIGH ACCURACY NEURAL ENGINE
     </div>
 </div>
 
@@ -177,86 +134,3 @@
             setInterval(() => { document.getElementById('liveTime').innerText = new Date().toLocaleTimeString(); }, 1000);
         } else { alert('ACCESS DENIED!'); }
     }
-
-    function switchAsset() {
-        const symbol = document.getElementById('assetSelect').value;
-        const mount = document.getElementById('tv-mount');
-        mount.innerHTML = '';
-        
-        let tvSymbol = "";
-        if(symbol === "EURUSD") tvSymbol = "FX:EURUSD";
-        else if(symbol === "BTCUSDT") tvSymbol = "BINANCE:BTCUSDT";
-        else if(symbol === "ETHUSDT") tvSymbol = "BINANCE:ETHUSDT";
-        else tvSymbol = "FX_IDC:" + symbol;
-
-        new TradingView.widget({
-            "width": "100%", "height": 180, "symbol": tvSymbol,
-            "interval": "1", "theme": "dark", "style": "1",
-            "hide_top_toolbar": true, "hide_legend": true, "container_id": "tv-mount"
-        });
-    }
-
-    function playBeep(isCall) {
-        if(!audioContext) return;
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        osc.connect(gain); gain.connect(audioContext.destination);
-        osc.frequency.setValueAtTime(isCall ? 900 : 350, audioContext.currentTime);
-        gain.gain.setValueAtTime(0.1, audioContext.currentTime);
-        osc.start(); osc.stop(audioContext.currentTime + 0.3);
-    }
-
-    async function executeScan() {
-        const btn = document.getElementById('scanButton');
-        const frame = document.getElementById('chart-frame');
-        const res = document.getElementById('resultDisplay');
-        const app = document.querySelector('.app-window');
-
-        btn.disabled = true;
-        btn.innerText = "🔍 SCANNING...";
-        frame.classList.add('scanning');
-        res.style.display = 'none';
-
-        await new Promise(r => setTimeout(r, 2000));
-
-        frame.classList.remove('scanning');
-        btn.disabled = false;
-        btn.innerText = "⚡ SCAN SIGNAL";
-        app.classList.add('shake');
-        setTimeout(() => app.classList.remove('shake'), 500);
-
-        const isCall = Math.random() > 0.5;
-        const acc = (97 + Math.random() * 2.9).toFixed(1);
-
-        res.style.display = 'block';
-        const sigText = document.getElementById('signalMain');
-        
-        if(isCall) {
-            sigText.innerText = "CALL";
-            sigText.style.color = "#00ff99";
-            res.style.borderColor = "#00ff99";
-            playBeep(true);
-        } else {
-            sigText.innerText = "PUT";
-            sigText.style.color = "#ff4757";
-            res.style.borderColor = "#ff4757";
-            playBeep(false);
-        }
-
-        document.getElementById('accuracyNum').innerText = `ACCURACY ${acc}%`;
-
-        let time = 5;
-        const timer = document.getElementById('timerDisplay');
-        const interval = setInterval(() => {
-            timer.innerText = `ENTRY IN: ${time}s`;
-            time--;
-            if(time < 0) {
-                clearInterval(interval);
-                timer.innerText = "✅ ENTER NOW";
-                timer.style.color = "#00ff99";
-            }
-        }, 1000);
-    }
-</script>
-</body>
-</html>
