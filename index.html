@@ -1,9 +1,10 @@
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAK AI SIGNAL X - V7.8 SCAN EFFECT</title>
+    <title>PAK AI SIGNAL X - V7.9 FIXED</title>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
@@ -17,28 +18,14 @@
         .sig-val{ font-size:32px; font-weight:900; margin-top:8px; }
         .detail-text{ font-size:12px; color:#aaa; margin-top:6px; }
         .acc-text{ font-size:11px; background:#00ff99; color:#000; padding:4px 10px; border-radius:8px; font-weight:bold; display:inline-block; }
-        
-        /* Mini Chart + Scan Effect */
         #mini-chart{ height:160px; margin-bottom:12px; border-radius:15px; overflow:hidden; position:relative; }
         .scan-line{
-            position:absolute;
-            top:0;
-            left:0;
-            width:100%;
-            height:3px;
+            position:absolute; top:0; left:0; width:100%; height:3px;
             background:linear-gradient(90deg, transparent, #00ff99, transparent);
-            box-shadow:0 0 10px #00ff99;
-            display:none;
-            z-index:10;
+            box-shadow:0 0 10px #00ff99; display:none; z-index:10;
         }
-        .scan-line.active{
-            display:block;
-            animation: scanMove 1.5s linear infinite;
-        }
-        @keyframes scanMove{
-            0%{ top:0; }
-            100%{ top:100%; }
-        }
+        .scan-line.active{ display:block; animation: scanMove 1.5s linear infinite; }
+        @keyframes scanMove{ 0%{ top:0; } 100%{ top:100%; } }
     </style>
 </head>
 <body>
@@ -50,11 +37,9 @@
 </div>
 
 <div class="bot-card" id="app" style="display:none;">
-    <h2 class="header-title">SIGNAL V7.8</h2>
+    <h2 class="header-title">SIGNAL V7.9 FIXED</h2>
     
-    <div id="mini-chart">
-        <div class="scan-line" id="scanLine"></div>
-    </div>
+    <div id="mini-chart"><div class="scan-line" id="scanLine"></div></div>
     
     <select id="pairList" onchange="changeMarket()">
         <option value="EURUSDT">EUR/USDT</option>
@@ -90,33 +75,18 @@
         if(!audioCtx) return;
         let osc = audioCtx.createOscillator();
         let gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        
-        if(type === "CALL"){
-            osc.frequency.value = 1000;
-            gain.gain.value = 0.3;
-        } else if(type === "PUT"){
-            osc.frequency.value = 400;
-            gain.gain.value = 0.3;
-        }
-        
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.2);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.frequency.value = type === "CALL" ? 1000 : 400;
+        gain.gain.value = 0.3;
+        osc.start(); osc.stop(audioCtx.currentTime + 0.2);
     }
 
     function loadChart(symbol){
         document.getElementById('mini-chart').innerHTML = '<div class="scan-line" id="scanLine"></div>';
         new TradingView.widget({
-            "width": "100%",
-            "height": 160,
-            "symbol": "BINANCE:" + symbol,
-            "interval": "1",
-            "theme": "dark",
-            "style": "1",
-            "hide_top_toolbar": true,
-            "hide_legend": true,
-            "container_id": "mini-chart"
+            "width": "100%", "height": 160, "symbol": "BINANCE:" + symbol,
+            "interval": "1", "theme": "dark", "style": "1",
+            "hide_top_toolbar": true, "hide_legend": true, "container_id": "mini-chart"
         });
     }
 
@@ -127,12 +97,14 @@
 
     async function getRealCandles(symbol="EURUSDT"){
         try{
-            let url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=20`;
+            // CORS proxy لگا دیا ہے تاکہ block نہ ہو
+            let proxy = "https://api.allorigins.win/raw?url=";
+            let url = proxy + encodeURIComponent(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=20`);
             let res = await fetch(url);
             let data = await res.json();
             return data.map(candle => parseFloat(candle[4]));
         } catch(e){
-            alert("انٹرنیٹ Error! Connection چیک کریں");
+            alert("Data load نہیں ہوا۔ انٹرنیٹ چیک کریں");
             return [];
         }
     }
@@ -141,11 +113,9 @@
         let gains=0, losses=0;
         for(let i=1; i<=period; i++){
             let diff = prices[i] - prices[i-1];
-            if(diff > 0) gains += diff;
-            else losses -= diff;
+            if(diff > 0) gains += diff; else losses -= diff;
         }
-        let avgGain = gains/period;
-        let avgLoss = losses/period;
+        let avgGain = gains/period; let avgLoss = losses/period;
         if(avgLoss === 0) return 100;
         let rs = avgGain/avgLoss;
         return 100 - (100/(1+rs));
@@ -160,21 +130,17 @@
         let btn = document.getElementById('scanBtn');
         let scanLine = document.getElementById('scanLine');
         
-        btn.disabled = true;
-        btn.innerText = "🔍 SCANNING...";
-        scanLine.classList.add('active'); // Scan line start
+        btn.disabled = true; btn.innerText = "🔍 SCANNING...";
+        scanLine.classList.add('active');
 
-        // 1.5 سیکنڈ scan animation چلے گی
         await new Promise(resolve => setTimeout(resolve, 1500));
 
         let prices = await getRealCandles(currentPair);
-        
-        scanLine.classList.remove('active'); // Scan line stop
+        scanLine.classList.remove('active');
 
         if(prices.length < 15){
-            alert("Data load نہیں ہوا۔ دوبارہ try کریں");
-            btn.disabled = false;
-            btn.innerText = "⚡ SCAN NOW";
+            alert("Data نہیں ملا۔ دوبارہ try کریں");
+            btn.disabled = false; btn.innerText = "⚡ SCAN NOW";
             return;
         }
 
@@ -185,20 +151,15 @@
         let signal, color, detail, accuracy;
 
         if(rsi < 45 && lastPrice > ma){
-            signal = "CALL (UP)";
-            color = "#00ff99";
+            signal = "CALL (UP)"; color = "#00ff99";
             detail = `RSI: ${rsi.toFixed(2)} | Price: ${lastPrice.toFixed(4)}`;
-            accuracy = "CONFIDENCE: 65%";
-            playBeep("CALL");
+            accuracy = "CONFIDENCE: 65%"; playBeep("CALL");
         } else if(rsi > 55 && lastPrice < ma){
-            signal = "PUT (DOWN)";
-            color = "#ff4444";
+            signal = "PUT (DOWN)"; color = "#ff4444";
             detail = `RSI: ${rsi.toFixed(2)} | Price: ${lastPrice.toFixed(4)}`;
-            accuracy = "CONFIDENCE: 65%";
-            playBeep("PUT");
+            accuracy = "CONFIDENCE: 65%"; playBeep("PUT");
         } else {
-            signal = "WAIT";
-            color = "#ffcc00";
+            signal = "WAIT"; color = "#ffcc00";
             detail = `RSI: ${rsi.toFixed(2)} Neutral`;
             accuracy = "NO SIGNAL";
         }
@@ -210,8 +171,7 @@
         document.getElementById('sigDetails').innerText = detail;
         document.getElementById('accText').innerText = accuracy;
 
-        btn.disabled = false;
-        btn.innerText = "⚡ SCAN NOW";
+        btn.disabled = false; btn.innerText = "⚡ SCAN NOW";
     }
 </script>
 
