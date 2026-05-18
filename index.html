@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAK AI SIGNAL X - AUTO V7.5</title>
+    <title>PAK AI SIGNAL X - V7.8 SCAN EFFECT</title>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
@@ -11,12 +11,34 @@
         .bot-card{ width:100%; max-width:400px; background:#011a0d; border:3px solid #00ff99; border-radius:30px; padding:20px; text-align:center; }
         .header-title{ color:#00ff99; font-size:20px; margin-bottom:12px; font-weight:bold; }
         select, input{ width:100%; padding:12px; border-radius:15px; background:#000; border:1px solid #00ff99; color:#fff; margin-bottom:12px; text-align:center; font-weight:bold; }
-        .status{ font-size:12px; color:#00ff99; margin-bottom:10px; }
-        #result-box{ margin-top:15px; padding:15px; border-radius:25px; background:rgba(255,255,255,0.05); border:2px solid #00ff99; }
+        .action-btn{ width:100%; padding:16px; border-radius:40px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-weight:900; font-size:15px; cursor:pointer; margin-top:10px; }
+        .action-btn:disabled{ background:#555; cursor:not-allowed; }
+        #result-box{ display:none; margin-top:15px; padding:15px; border-radius:25px; background:rgba(255,255,255,0.05); border:2px solid #00ff99; }
         .sig-val{ font-size:32px; font-weight:900; margin-top:8px; }
         .detail-text{ font-size:12px; color:#aaa; margin-top:6px; }
         .acc-text{ font-size:11px; background:#00ff99; color:#000; padding:4px 10px; border-radius:8px; font-weight:bold; display:inline-block; }
-        #mini-chart{ height:160px; margin-bottom:12px; border-radius:15px; overflow:hidden; }
+        
+        /* Mini Chart + Scan Effect */
+        #mini-chart{ height:160px; margin-bottom:12px; border-radius:15px; overflow:hidden; position:relative; }
+        .scan-line{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:3px;
+            background:linear-gradient(90deg, transparent, #00ff99, transparent);
+            box-shadow:0 0 10px #00ff99;
+            display:none;
+            z-index:10;
+        }
+        .scan-line.active{
+            display:block;
+            animation: scanMove 1.5s linear infinite;
+        }
+        @keyframes scanMove{
+            0%{ top:0; }
+            100%{ top:100%; }
+        }
     </style>
 </head>
 <body>
@@ -24,14 +46,15 @@
 <div class="bot-card" id="login">
     <h2 class="header-title">PAK AI SIGNAL X</h2>
     <input type="password" id="key" placeholder="Enter Key: Pak786">
-    <button style="width:100%; padding:16px; border-radius:40px; border:none; background:linear-gradient(90deg, #008f4a, #00ff99); color:#000; font-weight:900; font-size:15px; cursor:pointer;" onclick="startApp()">LOGIN</button>
+    <button class="action-btn" onclick="startApp()">LOGIN</button>
 </div>
 
 <div class="bot-card" id="app" style="display:none;">
-    <h2 class="header-title">AUTO SIGNAL V7.5</h2>
-    <div class="status" id="status">🔴 Stopped</div>
+    <h2 class="header-title">SIGNAL V7.8</h2>
     
-    <div id="mini-chart"></div>
+    <div id="mini-chart">
+        <div class="scan-line" id="scanLine"></div>
+    </div>
     
     <select id="pairList" onchange="changeMarket()">
         <option value="EURUSDT">EUR/USDT</option>
@@ -39,29 +62,51 @@
         <option value="ETHUSDT">ETH/USDT</option>
     </select>
 
+    <button class="action-btn" id="scanBtn" onclick="runScan()">⚡ SCAN NOW</button>
+
     <div id="result-box">
-        <span class="acc-text" id="accText">1 MINUTE WAIT</span>
+        <span class="acc-text" id="accText">READY</span>
         <div class="sig-val" id="sigOutput">WAIT</div>
-        <div class="detail-text" id="sigDetails">Next scan in 60 sec...</div>
+        <div class="detail-text" id="sigDetails">Press SCAN to get signal</div>
     </div>
 </div>
 
 <script>
     let currentPair = "EURUSDT";
+    let audioCtx;
 
     function startApp(){
         if(document.getElementById('key').value === 'Pak786'){
             document.getElementById('login').style.display='none';
             document.getElementById('app').style.display='block';
             loadChart(currentPair);
-            startAutoScan();
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         } else { 
             alert('غلط Key! صحیح key: Pak786'); 
         }
     }
 
+    function playBeep(type){
+        if(!audioCtx) return;
+        let osc = audioCtx.createOscillator();
+        let gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        if(type === "CALL"){
+            osc.frequency.value = 1000;
+            gain.gain.value = 0.3;
+        } else if(type === "PUT"){
+            osc.frequency.value = 400;
+            gain.gain.value = 0.3;
+        }
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+    }
+
     function loadChart(symbol){
-        document.getElementById('mini-chart').innerHTML = "";
+        document.getElementById('mini-chart').innerHTML = '<div class="scan-line" id="scanLine"></div>';
         new TradingView.widget({
             "width": "100%",
             "height": 160,
@@ -80,12 +125,6 @@
         loadChart(currentPair);
     }
 
-    function startAutoScan(){
-        document.getElementById('status').innerText = "🟢 Auto Scanning Every 60 Sec";
-        runScan();
-        setInterval(runScan, 60000); // 1 منٹ
-    }
-
     async function getRealCandles(symbol="EURUSDT"){
         try{
             let url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=20`;
@@ -93,6 +132,7 @@
             let data = await res.json();
             return data.map(candle => parseFloat(candle[4]));
         } catch(e){
+            alert("انٹرنیٹ Error! Connection چیک کریں");
             return [];
         }
     }
@@ -117,8 +157,26 @@
     }
 
     async function runScan(){
+        let btn = document.getElementById('scanBtn');
+        let scanLine = document.getElementById('scanLine');
+        
+        btn.disabled = true;
+        btn.innerText = "🔍 SCANNING...";
+        scanLine.classList.add('active'); // Scan line start
+
+        // 1.5 سیکنڈ scan animation چلے گی
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
         let prices = await getRealCandles(currentPair);
-        if(prices.length < 15) return;
+        
+        scanLine.classList.remove('active'); // Scan line stop
+
+        if(prices.length < 15){
+            alert("Data load نہیں ہوا۔ دوبارہ try کریں");
+            btn.disabled = false;
+            btn.innerText = "⚡ SCAN NOW";
+            return;
+        }
 
         let rsi = calculateRSI(prices);
         let ma = calculateMA(prices);
@@ -131,11 +189,13 @@
             color = "#00ff99";
             detail = `RSI: ${rsi.toFixed(2)} | Price: ${lastPrice.toFixed(4)}`;
             accuracy = "CONFIDENCE: 65%";
+            playBeep("CALL");
         } else if(rsi > 55 && lastPrice < ma){
             signal = "PUT (DOWN)";
             color = "#ff4444";
             detail = `RSI: ${rsi.toFixed(2)} | Price: ${lastPrice.toFixed(4)}`;
             accuracy = "CONFIDENCE: 65%";
+            playBeep("PUT");
         } else {
             signal = "WAIT";
             color = "#ffcc00";
@@ -143,11 +203,15 @@
             accuracy = "NO SIGNAL";
         }
 
+        document.getElementById('result-box').style.display = 'block';
         document.getElementById('result-box').style.borderColor = color;
         document.getElementById('sigOutput').innerText = signal;
         document.getElementById('sigOutput').style.color = color;
-        document.getElementById('sigDetails').innerText = "Next scan in 60 sec...";
+        document.getElementById('sigDetails').innerText = detail;
         document.getElementById('accText').innerText = accuracy;
+
+        btn.disabled = false;
+        btn.innerText = "⚡ SCAN NOW";
     }
 </script>
 
