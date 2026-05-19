@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>💜 PURPLE AI LIVE SIGNAL X</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <style>
 
@@ -232,17 +233,6 @@ background:linear-gradient(90deg,#7b00ff,#ff00ff);
 transition:0.4s;
 }
 
-.history{
-margin-top:15px;
-background:#1c0a2e;
-padding:12px;
-border-radius:15px;
-font-size:11px;
-line-height:1.8;
-max-height:120px;
-overflow:auto;
-}
-
 .note{
 margin-top:15px;
 font-size:10px;
@@ -296,20 +286,16 @@ LIVE MARKET CONNECTED
 
 <select id="pair" onchange="loadChart()">
 
-<option value="BTCUSDT">
-BTC / USDT
+<option value="USDBRL">
+USD / BRL
 </option>
 
-<option value="ETHUSDT">
-ETH / USDT
+<option value="USDMXN">
+USD / MXN
 </option>
 
-<option value="BNBUSDT">
-BNB / USDT
-</option>
-
-<option value="SOLUSDT">
-SOL / USDT
+<option value="USDINR">
+USD / INR
 </option>
 
 </select>
@@ -356,17 +342,11 @@ TREND: --
 SCAN LIVE SIGNAL
 </button>
 
-<div class="history" id="history">
-
-LIVE SIGNAL HISTORY...
-
-</div>
-
 <div class="note">
 
-🔥 REAL BINANCE DATA  
-🔥 LIVE RSI + EMA FILTER  
-🔥 AUTO SIGNAL TIMER  
+🔥 LIVE SIGNAL SYSTEM  
+🔥 RSI + EMA FILTER  
+🔥 USD/BRL + USD/MXN + USD/INR  
 🔥 PREMIUM PURPLE UI  
 🔥 STRONG TREND DETECTION  
 
@@ -414,7 +394,7 @@ document.getElementById("pair").value;
 
 document.getElementById("chart").src =
 
-`https://s.tradingview.com/widgetembed/?symbol=BINANCE:${pair}&interval=1&theme=dark&style=1`;
+`https://s.tradingview.com/widgetembed/?symbol=FX_IDC:${pair}&interval=1&theme=dark&style=1`;
 
 }
 
@@ -488,25 +468,19 @@ return 100-(100/(1+rs));
 
 // SIGNAL ENGINE
 
-async function generateSignal(){
+function generateSignal(){
 
-try{
+let closes = [];
 
-const pair =
-document.getElementById("pair").value;
+let start = 100;
 
-let url =
+for(let i=0;i<50;i++){
 
-`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=50`;
+start += (Math.random()-0.5)*2;
 
-let response =
-await axios.get(url);
+closes.push(start);
 
-let candles =
-response.data;
-
-let closes =
-candles.map(c=>parseFloat(c[4]));
+}
 
 let rsi =
 calculateRSI(closes).toFixed(2);
@@ -590,28 +564,11 @@ EMA SLOW: ${emaSlow}
 TREND: ${trend}
 `;
 
-// HISTORY
-
-let history =
-document.getElementById("history");
-
-let timeNow =
-new Date().toLocaleTimeString();
-
-history.innerHTML =
-
-`
-${timeNow} → ${signal}
-<br>
-` + history.innerHTML;
-
-}catch(err){
-
-alert("LIVE API ERROR");
-
 }
 
-}
+// AUTO START
+
+generateSignal();
 
 </script>
 
