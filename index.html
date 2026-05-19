@@ -1,169 +1,619 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>OTC SURESHOT BOT - V13.5 FIXED</title>
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <style>
-        :root {
-            --sky: #00d4ff;
-            --sky-glow: rgba(0, 212, 255, 0.4);
-            --bg: #060d13;
-            --panel-bg: rgba(10, 23, 36, 0.95);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); height: 100vh; display: flex; flex-direction: column; overflow: hidden; justify-content: center; align-items: center; padding: 10px; }
+<title>💜 PURPLE AI LIVE SIGNAL X</title>
 
-        /* SCREEN 1: PAIR SELECTION */
-        .screen { display: flex; flex-direction: column; width: 100%; max-width: 400px; height: auto; background: rgba(2, 18, 28, 0.95); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 40px; padding: 25px; box-shadow: 0 0 40px rgba(0, 212, 255, 0.15); }
-        .pair-title { color: #fff; font-size: 20px; text-align: center; margin-bottom: 20px; font-weight: bold; text-shadow: 0 0 10px var(--sky); }
-        
-        .pair-list { display: flex; flex-direction: column; gap: 12px; }
-        .pair-btn {
-            background: #000; border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 15px;
-            padding: 16px; color: #fff; font-weight: 600; display: flex; align-items: center;
-            justify-content: space-between; cursor: pointer; transition: 0.2s;
-        }
-        .pair-btn:active { background: var(--sky); color: #000; }
-        .pair-btn span { color: var(--sky); font-size: 12px; font-weight: bold; }
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
-        /* SCREEN 2: TRADING PANEL */
-        .trading-container { display: none; flex-direction: column; width: 100%; max-width: 400px; background: rgba(2, 18, 28, 0.95); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 40px; padding: 25px; box-shadow: 0 0 40px rgba(0, 212, 255, 0.15); position: relative; }
-        
-        #chart-frame { height: 200px; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid #111; position: relative; margin-bottom: 20px; margin-top: 35px; }
-        .laser { position: absolute; width: 100%; height: 3px; background: var(--sky); top: -10%; display: none; z-index: 10; box-shadow: 0 0 15px var(--sky); }
-        .scanning .laser { display: block; animation: scanMove 2s linear infinite; }
-        @keyframes scanMove { 0% { top: 0%; } 100% { top: 100%; } }
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-        .bottom-panel { text-align: center; }
+<style>
 
-        /* SURESHOT GOOL BUTTON */
-        .sureshot-wrapper { display: flex; justify-content: center; margin-bottom: 15px; }
-        .sureshot-btn {
-            width: 120px; height: 50px; border-radius: 30px;
-            background: linear-gradient(135deg, #0088cc, var(--sky));
-            border: 2px solid #fff; color: #000; font-weight: 900;
-            font-size: 14px; letter-spacing: 1px; cursor: pointer;
-            box-shadow: 0 0 20px var(--sky-glow); transition: 0.3s;
-        }
-        .sureshot-btn:active { transform: scale(0.95); }
-        
-        .scanning .sureshot-btn { background: #333; color: #666; border-color: #444; animation: pulse 1s infinite; }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-        /* SIGNAL DISPLAY */
-        .signal-badge {
-            display: none; width: 100%; padding: 15px;
-            border-radius: 20px; font-size: 26px; font-weight: 900; text-align: center;
-            box-shadow: 0 0 25px rgba(255,255,255,0.1); margin-top: 10px;
-        }
-        .up-signal { background: #00ff99; color: #000; }
-        .down-signal { background: #ff4757; color: #fff; }
+body{
+background:#070010;
+font-family:'Orbitron',sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:15px;
+color:white;
+overflow-x:hidden;
+}
 
-        .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.6); border: 1px solid var(--sky); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        .pair-display-tag { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 13px; font-weight: bold; padding: 6px; }
-    </style>
+/* LOGIN */
+
+.loginBox{
+width:100%;
+max-width:420px;
+background:#120021;
+border:2px solid #b100ff;
+border-radius:35px;
+padding:25px;
+box-shadow:
+0 0 40px rgba(177,0,255,0.4);
+text-align:center;
+}
+
+.logo{
+font-size:24px;
+font-weight:900;
+color:#d86cff;
+margin-bottom:15px;
+text-shadow:0 0 15px #b100ff;
+}
+
+.input{
+width:100%;
+padding:16px;
+border:none;
+outline:none;
+border-radius:18px;
+background:#1c0a2e;
+color:white;
+font-size:15px;
+margin-bottom:15px;
+border:1px solid #b100ff;
+text-align:center;
+}
+
+.btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:20px;
+background:linear-gradient(90deg,#7b00ff,#d000ff);
+color:white;
+font-weight:900;
+font-size:15px;
+cursor:pointer;
+box-shadow:0 0 25px rgba(177,0,255,0.5);
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.03);
+}
+
+/* APP */
+
+.container{
+width:100%;
+max-width:460px;
+display:none;
+}
+
+.card{
+background:#120021;
+padding:20px;
+border-radius:30px;
+border:2px solid rgba(177,0,255,0.4);
+box-shadow:
+0 0 45px rgba(177,0,255,0.35);
+}
+
+.title{
+text-align:center;
+font-size:24px;
+font-weight:900;
+color:#d86cff;
+margin-bottom:15px;
+text-shadow:0 0 15px #b100ff;
+}
+
+.live{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+margin-bottom:15px;
+font-size:12px;
+color:#e7c6ff;
+}
+
+.dot{
+width:10px;
+height:10px;
+background:#d000ff;
+border-radius:50%;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+0%,100%{
+opacity:1;
+}
+
+50%{
+opacity:0.2;
+}
+
+}
+
+select{
+width:100%;
+padding:14px;
+border:none;
+outline:none;
+border-radius:15px;
+background:#1c0a2e;
+color:white;
+font-size:15px;
+margin-bottom:15px;
+border:1px solid #b100ff;
+}
+
+iframe{
+width:100%;
+height:260px;
+border:none;
+border-radius:20px;
+margin-bottom:15px;
+background:black;
+}
+
+.timerBox{
+text-align:center;
+margin-bottom:15px;
+}
+
+.timer{
+font-size:42px;
+font-weight:900;
+color:#d86cff;
+text-shadow:0 0 20px #b100ff;
+}
+
+.label{
+font-size:11px;
+margin-top:4px;
+color:#e7c6ff;
+}
+
+.signalBox{
+padding:22px;
+border-radius:25px;
+text-align:center;
+transition:0.4s;
+}
+
+.buy{
+background:rgba(0,255,120,0.12);
+border:2px solid #00ff99;
+box-shadow:0 0 30px rgba(0,255,120,0.45);
+}
+
+.sell{
+background:rgba(255,0,90,0.12);
+border:2px solid #ff0055;
+box-shadow:0 0 30px rgba(255,0,90,0.45);
+}
+
+.wait{
+background:rgba(177,0,255,0.12);
+border:2px solid #b100ff;
+box-shadow:0 0 30px rgba(177,0,255,0.45);
+}
+
+.signal{
+font-size:34px;
+font-weight:900;
+margin-bottom:12px;
+}
+
+.data{
+font-size:13px;
+line-height:1.9;
+}
+
+.bar{
+width:100%;
+height:10px;
+background:#1a1a1a;
+border-radius:20px;
+overflow:hidden;
+margin-top:12px;
+}
+
+.fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#7b00ff,#ff00ff);
+transition:0.4s;
+}
+
+.history{
+margin-top:15px;
+background:#1c0a2e;
+padding:12px;
+border-radius:15px;
+font-size:11px;
+line-height:1.8;
+max-height:120px;
+overflow:auto;
+}
+
+.note{
+margin-top:15px;
+font-size:10px;
+text-align:center;
+line-height:1.8;
+color:#f0d2ff;
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="screen" id="listScreen">
-    <div class="pair-title">OTC Sureshot BOT<br><span style="font-size:12px; color:var(--sky); font-weight:normal;">Select Target Asset</span></div>
-    <div class="pair-list">
-        <div class="pair-btn" onclick="launchTrading('USDBRL')">USD/BRL (OTC) <span>99.2% ACC</span></div>
-        <div class="pair-btn" onclick="launchTrading('USDMXN')">USD/MXN (OTC) <span>99.0% ACC</span></div>
-        <div class="pair-btn" onclick="launchTrading('USDINR')">USD/INR (REAL) <span>98.5% ACC</span></div>
-        <div class="pair-btn" onclick="launchTrading('EURUSD')">EUR/USD (REAL) <span>98.9% ACC</span></div>
-    </div>
+<!-- LOGIN -->
+
+<div class="loginBox" id="loginPage">
+
+<div class="logo">
+💜 PURPLE AI LIVE SIGNAL X
 </div>
 
-<div class="trading-container" id="tradeScreen">
-    <button class="back-btn" onclick="goBack()">« PAIRS</button>
-    <div class="pair-display-tag" id="assetTag">USD/BRL</div>
-    
-    <div id="chart-frame">
-        <div class="laser" id="laser"></div>
-        <div id="tv-mount"></div>
-    </div>
+<input
+type="password"
+class="input"
+id="key"
+placeholder="ENTER ACCESS KEY">
 
-    <div class="bottom-panel" id="panelArea">
-        <div class="sureshot-wrapper">
-            <button class="sureshot-btn" id="sureBtn" onclick="triggerSureshot()">SURESHOT</button>
-        </div>
-        
-        <div id="timerVal" style="color:#ffaa00; font-weight:bold; font-size:13px; margin-bottom:5px;">READY TO SCAN</div>
-        <div class="signal-badge" id="sigResult">---</div>
-    </div>
+<button class="btn" onclick="login()">
+LOGIN
+</button>
+
+</div>
+
+<!-- APP -->
+
+<div class="container" id="app">
+
+<div class="card">
+
+<div class="title">
+💜 PURPLE AI LIVE SIGNAL X
+</div>
+
+<div class="live">
+
+<div class="dot"></div>
+
+LIVE MARKET CONNECTED
+
+</div>
+
+<select id="pair" onchange="loadChart()">
+
+<option value="BTCUSDT">
+BTC / USDT
+</option>
+
+<option value="ETHUSDT">
+ETH / USDT
+</option>
+
+<option value="BNBUSDT">
+BNB / USDT
+</option>
+
+<option value="SOLUSDT">
+SOL / USDT
+</option>
+
+</select>
+
+<iframe id="chart"></iframe>
+
+<div class="timerBox">
+
+<div class="timer" id="timer">
+60
+</div>
+
+<div class="label">
+LIVE AUTO TIMER
+</div>
+
+</div>
+
+<div class="signalBox wait" id="signalBox">
+
+<div class="signal" id="signalText">
+WAIT ⏳
+</div>
+
+<div class="data" id="marketData">
+
+RSI: --
+<br>
+EMA FAST: --
+<br>
+EMA SLOW: --
+<br>
+TREND: --
+
+</div>
+
+<div class="bar">
+<div class="fill" id="fill"></div>
+</div>
+
+</div>
+
+<button class="btn" onclick="generateSignal()">
+SCAN LIVE SIGNAL
+</button>
+
+<div class="history" id="history">
+
+LIVE SIGNAL HISTORY...
+
+</div>
+
+<div class="note">
+
+🔥 REAL BINANCE DATA  
+🔥 LIVE RSI + EMA FILTER  
+🔥 AUTO SIGNAL TIMER  
+🔥 PREMIUM PURPLE UI  
+🔥 STRONG TREND DETECTION  
+
+</div>
+
+</div>
+
 </div>
 
 <script>
-    let audioContext = null;
-    let currentAsset = "";
 
-    function launchTrading(pair) {
-        document.getElementById('listScreen').style.display = "none";
-        document.getElementById('tradeScreen').style.display = "flex";
-        document.getElementById('assetTag').innerText = pair + " (LIVE)";
-        currentAsset = pair;
-        
-        if(!audioContext) { audioContext = new (window.AudioContext || window.webkitAudioContext)(); }
+// LOGIN
 
-        // Secure TradingView Chart Mount
-        const mount = document.getElementById('tv-mount');
-        mount.innerHTML = '';
-        new TradingView.widget({ "width": "100%", "height": 200, "symbol": "FX_IDC:"+pair, "interval": "1", "theme": "dark", "style": "1", "hide_top_toolbar": true, "container_id": "tv-mount" });
-    }
+function login(){
 
-    function goBack() {
-        document.getElementById('tradeScreen').style.display = "none";
-        document.getElementById('listScreen').style.display = "flex";
-    }
+let key =
+document.getElementById("key").value;
 
-    async function triggerSureshot() {
-        const btn = document.getElementById('sureBtn');
-        const frame = document.getElementById('chart-frame');
-        const sig = document.getElementById('sigResult');
-        const timer = document.getElementById('timerVal');
-        
-        btn.disabled = true;
-        frame.classList.add('scanning');
-        sig.style.display = 'none';
-        timer.innerText = "⚡ ANALYZING MARKET TREND...";
+if(key === "Pak786"){
 
-        // 3 Seconds Live Processing Delay
-        await new Promise(r => setTimeout(r, 3000));
+document.getElementById("loginPage").style.display =
+"none";
 
-        frame.classList.remove('scanning');
-        btn.disabled = false;
+document.getElementById("app").style.display =
+"block";
 
-        const isUp = Math.random() > 0.48; // Adjusted Strategy Logic
-        
-        sig.style.display = 'block';
-        if(isUp) {
-            sig.innerText = "CALL (UP) ↑";
-            sig.className = "signal-badge up-signal";
-        } else {
-            sig.innerText = "PUT (DOWN) ↓";
-            sig.className = "signal-badge down-signal";
-        }
-        
-        // Audio Tone Beep
-        if(audioContext) {
-            let osc = audioContext.createOscillator();
-            let gain = audioContext.createGain();
-            osc.connect(gain); gain.connect(audioContext.destination);
-            osc.frequency.setValueAtTime(isUp ? 1100 : 400, audioContext.currentTime);
-            gain.gain.setValueAtTime(0.1, audioContext.currentTime);
-            osc.start(); osc.stop(audioContext.currentTime + 0.25);
-        }
+loadChart();
 
-        let t = 5;
-        const itv = setInterval(() => {
-            timer.innerText = "ENTRY WINDOW IN: " + t + "s";
-            t--;
-            if(t < 0) { clearInterval(itv); timer.innerText = "✅ ENTER TRADE ON QUOTEX NOW"; }
-        }, 1000);
-    }
+generateSignal();
+
+}else{
+
+alert("WRONG ACCESS KEY");
+
+}
+
+}
+
+// LOAD CHART
+
+function loadChart(){
+
+const pair =
+document.getElementById("pair").value;
+
+document.getElementById("chart").src =
+
+`https://s.tradingview.com/widgetembed/?symbol=BINANCE:${pair}&interval=1&theme=dark&style=1`;
+
+}
+
+// TIMER
+
+let time = 60;
+
+setInterval(()=>{
+
+time--;
+
+if(time <= 0){
+
+time = 60;
+
+generateSignal();
+
+}
+
+document.getElementById("timer").innerHTML =
+time;
+
+},1000);
+
+// EMA
+
+function calculateEMA(prices,period){
+
+let k = 2/(period+1);
+
+let ema = prices[0];
+
+for(let i=1;i<prices.length;i++){
+
+ema = prices[i]*k + ema*(1-k);
+
+}
+
+return ema;
+
+}
+
+// RSI
+
+function calculateRSI(closes,period=14){
+
+let gains=0;
+let losses=0;
+
+for(let i=1;i<=period;i++){
+
+let diff = closes[i]-closes[i-1];
+
+if(diff>=0){
+
+gains += diff;
+
+}else{
+
+losses += Math.abs(diff);
+
+}
+
+}
+
+let rs = gains/(losses||1);
+
+return 100-(100/(1+rs));
+
+}
+
+// SIGNAL ENGINE
+
+async function generateSignal(){
+
+try{
+
+const pair =
+document.getElementById("pair").value;
+
+let url =
+
+`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=50`;
+
+let response =
+await axios.get(url);
+
+let candles =
+response.data;
+
+let closes =
+candles.map(c=>parseFloat(c[4]));
+
+let rsi =
+calculateRSI(closes).toFixed(2);
+
+let emaFast =
+calculateEMA(closes.slice(-20),9).toFixed(2);
+
+let emaSlow =
+calculateEMA(closes.slice(-20),21).toFixed(2);
+
+let trend =
+"SIDEWAYS";
+
+let signal =
+"WAIT ⏳";
+
+let className =
+"signalBox wait";
+
+let strength =
+"25%";
+
+// BUY
+
+if(
+
+rsi > 60 &&
+emaFast > emaSlow
+
+){
+
+signal = "CALL 📈";
+
+trend = "BULLISH";
+
+className = "signalBox buy";
+
+strength = "90%";
+
+}
+
+// SELL
+
+else if(
+
+rsi < 40 &&
+emaFast < emaSlow
+
+){
+
+signal = "PUT 📉";
+
+trend = "BEARISH";
+
+className = "signalBox sell";
+
+strength = "90%";
+
+}
+
+// UPDATE
+
+document.getElementById("signalText").innerHTML =
+signal;
+
+document.getElementById("signalBox").className =
+className;
+
+document.getElementById("fill").style.width =
+strength;
+
+document.getElementById("marketData").innerHTML =
+
+`
+RSI: ${rsi}
+<br>
+EMA FAST: ${emaFast}
+<br>
+EMA SLOW: ${emaSlow}
+<br>
+TREND: ${trend}
+`;
+
+// HISTORY
+
+let history =
+document.getElementById("history");
+
+let timeNow =
+new Date().toLocaleTimeString();
+
+history.innerHTML =
+
+`
+${timeNow} → ${signal}
+<br>
+` + history.innerHTML;
+
+}catch(err){
+
+alert("LIVE API ERROR");
+
+}
+
+}
+
 </script>
+
 </body>
 </html>
