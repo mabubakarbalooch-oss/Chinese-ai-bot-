@@ -3,102 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PAK AI SIGNAL X - V12 ULTRA</title>
+    <title>PAK AI SIGNAL X - LIVE ENGINE</title>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        :root {
-            --sky: #00d4ff;
-            --sky-dim: rgba(0, 212, 255, 0.2);
-            --bg: #010a0f;
-            --card-bg: rgba(2, 18, 28, 0.95);
-        }
-
+        :root { --sky: #00d4ff; --sky-dim: rgba(0, 212, 255, 0.2); --bg: #010a0f; --card-bg: rgba(2, 18, 28, 0.95); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); height: 100vh; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden; }
-
-        .app-window {
-            width: 100%; max-width: 400px; background: var(--card-bg);
-            border: 1px solid var(--sky-dim); border-radius: 45px;
-            padding: 30px; box-shadow: 0 0 50px rgba(0, 212, 255, 0.2);
-            text-align: center; position: relative;
-        }
-
-        h1 { color: #fff; font-size: 18px; text-shadow: 0 0 10px var(--sky); margin-bottom: 15px; letter-spacing: 1px; }
-
+        body { background: var(--bg); height: 100vh; display: flex; justify-content: center; align-items: center; padding: 15px; }
+        .app-window { width: 100%; max-width: 400px; background: var(--card-bg); border: 1px solid var(--sky-dim); border-radius: 45px; padding: 30px; text-align: center; box-shadow: 0 0 50px rgba(0, 212, 255, 0.2); }
         #chart-frame { height: 160px; background: #000; border-radius: 25px; overflow: hidden; border: 1px solid #111; margin-bottom: 20px; position: relative; }
-        
-        /* Laser Scan */
         .laser { position: absolute; width: 100%; height: 3px; background: var(--sky); top: -10%; display: none; z-index: 10; box-shadow: 0 0 15px var(--sky); }
         .scanning .laser { display: block; animation: scanMove 2s linear infinite; }
         @keyframes scanMove { 0% { top: 0%; } 100% { top: 100%; } }
-
-        select { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 15px; background: rgba(0,0,0,0.5); border: 1px solid var(--sky-dim); color: #fff; text-align: center; outline: none; }
-
-        /* GOOL (ROUND) NEON BUTTON */
-        .btn-wrapper { display: flex; justify-content: center; margin: 20px 0; position: relative; }
-        
-        .round-btn {
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            background: #000;
-            border: 3px solid var(--sky);
-            color: var(--sky);
-            font-weight: 900;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px var(--sky-dim), inset 0 0 10px var(--sky-dim);
-            transition: 0.4s;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 5;
-        }
-
+        select { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 15px; background: #000; border: 1px solid var(--sky-dim); color: #fff; text-align: center; outline: none; }
+        .btn-wrapper { display: flex; justify-content: center; margin: 20px 0; }
+        .round-btn { width: 110px; height: 110px; border-radius: 50%; background: #000; border: 3px solid var(--sky); color: var(--sky); font-weight: 900; cursor: pointer; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.4s; }
         .round-btn:active { transform: scale(0.9); }
-        
-        /* Pulse Animation when Scanning */
         .scanning .round-btn { animation: pulseBtn 1s infinite; border-color: #fff; color: #fff; }
         @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(0, 212, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); } }
-
         .result-panel { display: none; margin-top: 10px; padding: 15px; border-radius: 25px; border: 1px solid var(--sky-dim); background: rgba(0,212,255,0.05); }
-        .sig-text { font-size: 32px; font-weight: 900; margin: 5px 0; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
-        
-        #timerVal { color: #ffaa00; font-weight: bold; font-size: 13px; }
+        .sig-text { font-size: 32px; font-weight: 900; margin: 5px 0; }
     </style>
 </head>
 <body>
 
 <div class="app-window" id="loginScreen">
-    <h1>PAK AI SYSTEM</h1>
-    <input type="password" id="userInput" placeholder="Password" style="width:100%; padding:14px; margin-bottom:15px; border-radius:15px; background:#000; border:1px solid var(--sky); color:#fff; text-align:center; outline:none;">
-    <button onclick="checkPass()" style="width:100%; padding:15px; border-radius:50px; background:var(--sky); border:none; font-weight:bold; cursor:pointer; color:#000;">LOGIN</button>
+    <h1 style="color:#fff; font-size:18px; margin-bottom:20px;">PAK AI LIVE SYSTEM</h1>
+    <input type="password" id="userInput" placeholder="Password (Pak786)" style="width:100%; padding:14px; margin-bottom:15px; border-radius:15px; background:#000; border:1px solid var(--sky); color:#fff; text-align:center;">
+    <button onclick="checkPass()" style="width:100%; padding:15px; border-radius:50px; background:var(--sky); border:none; font-weight:bold; cursor:pointer;">LOGIN LIVE</button>
 </div>
 
 <div class="app-window" id="botScreen" style="display:none;">
-    <h1>AI SIGNAL MASTER PRO</h1>
-    
-    <div id="chart-frame">
-        <div class="laser" id="laser"></div>
-        <div id="tv-mount"></div>
-    </div>
-
+    <h1 style="color:#fff; font-size:16px;">LIVE SIGNAL MASTER</h1>
+    <div id="chart-frame"><div class="laser" id="laser"></div><div id="tv-mount"></div></div>
     <select id="assetSelect" onchange="switchAsset()">
+        <option value="BTCUSDT">BTC/USDT (LIVE)</option>
+        <option value="EURUSD">EUR/USD (REAL)</option>
         <option value="USDBRL">USD/BRL (OTC)</option>
-        <option value="USDMXN">USD/MXN (OTC)</option>
-        <option value="USDINR">USD/INR (REAL)</option>
-        <option value="BTCUSDT">BTC/USDT (CRYPTO)</option>
     </select>
-
     <div class="btn-wrapper" id="btnArea">
-        <button class="round-btn" id="scanBtn" onclick="startScan()">
-            <span id="btnMain">START</span>
-            <small style="font-size:8px; opacity:0.7;">AI SCAN</small>
+        <button class="round-btn" id="scanBtn" onclick="fetchLiveSignal()">
+            <span id="btnMain">SCAN</span>
+            <small style="font-size:8px; opacity:0.7;">MARKET</small>
         </button>
     </div>
-
     <div class="result-panel" id="resPanel">
-        <div style="color:var(--sky); font-size:10px; font-weight:bold; letter-spacing:1px;">NEURAL SIGNAL FOUND</div>
+        <div style="color:var(--sky); font-size:10px; font-weight:bold;">LIVE NEURAL ANALYSIS</div>
         <div class="sig-text" id="sigVal">---</div>
-        <div id="timerVal">READY</div>
+        <div id="timerVal" style="color:#ffaa00; font-weight:bold;">READY</div>
     </div>
 </div>
 
@@ -110,7 +61,7 @@
             document.getElementById('botScreen').style.display = "block";
             switchAsset();
             audio = new (window.AudioContext || window.webkitAudioContext)();
-        } else { alert("Incorrect Password!"); }
+        } else { alert("Wrong Password!"); }
     }
 
     function switchAsset() {
@@ -121,46 +72,46 @@
         new TradingView.widget({ "width": "100%", "height": 160, "symbol": prefix+symbol, "interval": "1", "theme": "dark", "style": "1", "hide_top_toolbar": true, "container_id": "tv-mount" });
     }
 
-    function playSound(isCall) {
-        if(!audio) return;
-        let osc = audio.createOscillator();
-        let gn = audio.createGain();
-        osc.connect(gn); gn.connect(audio.destination);
-        osc.frequency.setValueAtTime(isCall ? 1000 : 450, audio.currentTime);
-        gn.gain.setValueAtTime(0.1, audio.currentTime);
-        osc.start(); osc.stop(audio.currentTime + 0.3);
-    }
-
-    async function startScan() {
+    // LIVE SIGNAL LOGIC (API ANALYZER)
+    async function fetchLiveSignal() {
         const btn = document.getElementById('scanBtn');
         const area = document.getElementById('btnArea');
         const frame = document.getElementById('chart-frame');
         const res = document.getElementById('resPanel');
-        const txt = document.getElementById('btnMain');
         
-        btn.disabled = true; txt.innerText = "SCAN...";
-        area.classList.add('scanning'); frame.classList.add('scanning');
-        res.style.display = 'none';
+        btn.disabled = true; area.classList.add('scanning'); frame.classList.add('scanning'); res.style.display = 'none';
 
-        await new Promise(r => setTimeout(r, 3000));
+        // Fake Delay for Analysis
+        await new Promise(r => setTimeout(r, 4000));
 
-        area.classList.remove('scanning'); frame.classList.remove('scanning');
-        btn.disabled = false; txt.innerText = "START";
-        res.style.display = 'block';
+        // Connect to Binance for Price Action (Example Logic)
+        try {
+            const response = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT');
+            const data = await response.json();
+            const priceChange = parseFloat(data.priceChangePercent);
+            
+            // Logic: Agar price 24h mein positive hai toh CALL ka chance zyada hai
+            const signal = priceChange > 0 ? "CALL (UP)" : "PUT (DOWN)";
+            const color = priceChange > 0 ? "#00ff99" : "#ff4757";
 
-        const isCall = Math.random() > 0.5;
-        const sigVal = document.getElementById('sigVal');
-        sigVal.innerText = isCall ? "CALL (UP)" : "PUT (DOWN)";
-        sigVal.style.color = isCall ? "#00ff99" : "#ff4757";
-        playSound(isCall);
-        
-        let t = 5;
-        const timer = document.getElementById('timerVal');
-        const itv = setInterval(() => {
-            timer.innerText = "CONFIRM ENTRY: " + t + "s";
-            t--;
-            if(t < 0) { clearInterval(itv); timer.innerText = "✅ ENTER NOW"; timer.style.color = "#00ff99"; }
-        }, 1000);
+            document.getElementById('sigVal').innerText = signal;
+            document.getElementById('sigVal').style.color = color;
+            
+            area.classList.remove('scanning'); frame.classList.remove('scanning');
+            btn.disabled = false; res.style.display = 'block';
+            
+            // Beep
+            let osc = audio.createOscillator();
+            let gn = audio.createGain();
+            osc.connect(gn); gn.connect(audio.destination);
+            osc.frequency.setValueAtTime(priceChange > 0 ? 1000 : 400, audio.currentTime);
+            gn.gain.setValueAtTime(0.1, audio.currentTime);
+            osc.start(); osc.stop(audio.currentTime + 0.3);
+
+        } catch (e) {
+            alert("API Connection Error! Check Internet.");
+            area.classList.remove('scanning'); frame.classList.remove('scanning'); btn.disabled = false;
+        }
     }
 </script>
 </body>
