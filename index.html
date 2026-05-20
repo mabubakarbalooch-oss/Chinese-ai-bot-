@@ -1,293 +1,862 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIP SIGNAL BOT</title>
-<script src="https://s3.tradingview.com/tv.js"></script>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>💜 OTC SURESHOT BOT PRO</title>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <style>
+
+:root{
+
+--purple:#b100ff;
+--purple2:#7b00ff;
+--bg:#070010;
+
+}
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:'Segoe UI',sans-serif;
+
 }
 
 body{
-background:#0b1020;
-color:white;
+
+background:var(--bg);
+
+height:100vh;
+
+display:flex;
+
+flex-direction:column;
+
 overflow:hidden;
+
 }
 
-.header{
-height:60px;
-background:#111827;
+/* LIST SCREEN */
+
+.screen{
+
 display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 15px;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
-}
 
-.logo{
-font-size:22px;
-font-weight:bold;
-color:#00ff99;
-}
+flex-direction:column;
 
-.live{
-color:#00ff99;
-font-size:18px;
-}
-
-.chart-box{
-height:60vh;
 width:100%;
+
+height:100%;
+
+padding:20px;
+
 }
 
-.panel{
-padding:15px;
-background:#111827;
-position:fixed;
-bottom:0;
-width:100%;
-border-top-left-radius:20px;
-border-top-right-radius:20px;
-box-shadow:0 -5px 20px rgba(0,0,0,0.5);
-}
+.pair-title{
 
-.row{
-display:flex;
-justify-content:space-between;
-margin-bottom:15px;
-}
+color:#fff;
 
-.card{
-width:48%;
-background:#1e293b;
-padding:15px;
-border-radius:15px;
-text-align:center;
-}
-
-.title{
-font-size:15px;
-color:#94a3b8;
-margin-bottom:8px;
-}
-
-.value{
 font-size:22px;
-font-weight:bold;
-}
 
-.buy{
-color:#00ff99;
-}
-
-.sell{
-color:#ff4d4d;
-}
-
-.scan{
-margin-top:10px;
-font-size:16px;
 text-align:center;
-color:#38bdf8;
+
+margin-bottom:20px;
+
+font-weight:bold;
+
 }
 
-.buttons{
+.pair-title span{
+
+font-size:12px;
+
+color:#d86cff;
+
+font-weight:normal;
+
+}
+
+.pair-list{
+
 display:flex;
-gap:10px;
-margin-top:15px;
-}
 
-button{
+flex-direction:column;
+
+gap:12px;
+
+overflow-y:auto;
+
 flex:1;
-padding:15px;
-font-size:22px;
-border:none;
-border-radius:15px;
-font-weight:bold;
-color:white;
+
+padding-bottom:20px;
+
+}
+
+.pair-btn{
+
+background:#120021;
+
+border:1px solid rgba(255,255,255,0.08);
+
+border-radius:18px;
+
+padding:18px 20px;
+
+color:#fff;
+
+font-weight:700;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
 cursor:pointer;
+
+transition:0.3s;
+
 }
 
-.up{
-background:#00c853;
+.pair-btn:active{
+
+transform:scale(0.97);
+
+background:var(--purple);
+
 }
 
-.down{
-background:#ff1744;
+.pair-btn span{
+
+color:#f0b3ff;
+
+font-size:12px;
+
 }
 
-.rsi-box{
-margin-top:15px;
-background:#1e293b;
-padding:15px;
-border-radius:15px;
-text-align:center;
-}
+/* TRADING SCREEN */
 
-.ma-box{
-margin-top:15px;
-background:#1e293b;
-padding:15px;
-border-radius:15px;
-text-align:center;
-}
+.trading-container{
 
-.alert{
-position:fixed;
-top:80px;
-left:50%;
-transform:translateX(-50%);
-background:#00c853;
-padding:12px 25px;
-border-radius:12px;
-font-size:18px;
-font-weight:bold;
 display:none;
+
+flex-direction:column;
+
+width:100%;
+
+height:100%;
+
+position:relative;
+
+}
+
+.back-btn{
+
+position:absolute;
+
+top:15px;
+
+left:15px;
+
+background:rgba(0,0,0,0.6);
+
+border:1px solid var(--purple);
+
+color:#fff;
+
+padding:8px 15px;
+
+border-radius:20px;
+
+font-size:11px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+z-index:1000;
+
+}
+
+/* CHART */
+
+.chart-frame{
+
+flex:1;
+
+width:100%;
+
+border:none;
+
+background:#000;
+
+}
+
+/* BOTTOM PANEL */
+
+.bottom-panel{
+
+background:rgba(15,0,30,0.96);
+
+border-top:2px solid rgba(177,0,255,0.5);
+
+padding:20px;
+
+text-align:center;
+
+border-radius:35px 35px 0 0;
+
+box-shadow:0 -10px 30px rgba(0,0,0,0.5);
+
+position:relative;
+
 z-index:999;
+
+}
+
+/* BUTTON */
+
+.sureshot-wrapper{
+
+display:flex;
+
+justify-content:center;
+
+margin-bottom:15px;
+
+}
+
+.sureshot-btn{
+
+width:140px;
+
+height:55px;
+
+border-radius:35px;
+
+background:
+linear-gradient(135deg,var(--purple2),var(--purple));
+
+border:2px solid #fff;
+
+color:#fff;
+
+font-weight:900;
+
+font-size:16px;
+
+letter-spacing:1px;
+
+cursor:pointer;
+
+box-shadow:
+0 0 25px rgba(177,0,255,0.5);
+
+transition:0.3s;
+
+}
+
+.sureshot-btn:active{
+
+transform:scale(0.95);
+
+}
+
+.scanning .sureshot-btn{
+
+background:#333;
+
+color:#777;
+
+border-color:#444;
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+opacity:0.5;
+}
+
+50%{
+opacity:1;
+}
+
+100%{
+opacity:0.5;
+}
+
+}
+
+/* SIGNAL */
+
+.signal-badge{
+
+display:none;
+
+width:190px;
+
+margin:10px auto 0 auto;
+
+padding:15px;
+
+border-radius:25px;
+
+font-size:28px;
+
+font-weight:900;
+
+text-align:center;
+
+animation:popIn 0.3s ease;
+
+}
+
+@keyframes popIn{
+
+from{
+
+transform:scale(0);
+
+}
+
+to{
+
+transform:scale(1);
+
+}
+
+}
+
+.up-signal{
+
+background:#00cc7a;
+
+color:white;
+
+box-shadow:
+0 0 25px rgba(0,255,120,0.5);
+
+}
+
+.down-signal{
+
+background:#ff3355;
+
+color:white;
+
+box-shadow:
+0 0 25px rgba(255,0,90,0.5);
+
+}
+
+.wait-signal{
+
+background:#b100ff;
+
+color:white;
+
+box-shadow:
+0 0 25px rgba(177,0,255,0.5);
+
+}
+
+/* DATA */
+
+.data-box{
+
+margin-top:15px;
+
+font-size:12px;
+
+line-height:1.9;
+
+color:#f0d2ff;
+
+}
+
+/* TIMER */
+
+.timer{
+
+margin-top:12px;
+
+font-size:30px;
+
+font-weight:900;
+
+color:#d86cff;
+
+text-shadow:
+0 0 15px #b100ff;
+
 }
 
 </style>
 </head>
+
 <body>
 
-<div class="header">
-<div class="logo">🇵🇰 VIP SIGNAL BOT</div>
-<div class="live">LIVE</div>
-</div>
+<!-- PAIR SCREEN -->
 
-<div id="tvchart" class="chart-box"></div>
+<div class="screen" id="listScreen">
 
-<div class="alert" id="alertBox">
-SIGNAL FOUND
-</div>
+<div class="pair-title">
 
-<div class="panel">
+💜 OTC SURESHOT BOT PRO
 
-<div class="row">
-<div class="card">
-<div class="title">PAIR</div>
-<div class="value" id="pair">BINANCE:BTCUSDT</div>
-</div>
+<br>
 
-<div class="card">
-<div class="title">SIGNAL</div>
-<div class="value buy" id="signal">BUY</div>
-</div>
-</div>
-
-<div class="row">
-<div class="card">
-<div class="title">RSI</div>
-<div class="value" id="rsi">63</div>
-</div>
-
-<div class="card">
-<div class="title">MOVING AVG</div>
-<div class="value" id="ma">BULLISH</div>
-</div>
-</div>
-
-<div class="scan" id="scanner">
-📡 Live Market Scanner Running...
-</div>
-
-<div class="buttons">
-<button class="up" onclick="manualSignal('BUY')">UP</button>
-<button class="down" onclick="manualSignal('SELL')">DOWN</button>
-</div>
+<span>
+LIVE RSI + EMA SIGNAL SYSTEM
+</span>
 
 </div>
 
-<audio id="beep">
-<source src="https://www.soundjay.com/buttons/sounds/beep-01a.mp3" type="audio/mpeg">
-</audio>
+<div class="pair-list">
+
+<div class="pair-btn"
+onclick="launchTrading('BTCUSDT')">
+
+USD/BRL OTC
+
+<span>
+LIVE
+</span>
+
+</div>
+
+<div class="pair-btn"
+onclick="launchTrading('ETHUSDT')">
+
+USD/MXN OTC
+
+<span>
+LIVE
+</span>
+
+</div>
+
+<div class="pair-btn"
+onclick="launchTrading('BNBUSDT')">
+
+USD/INR OTC
+
+<span>
+LIVE
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TRADE SCREEN -->
+
+<div class="trading-container"
+id="tradeScreen">
+
+<button class="back-btn"
+onclick="goBack()">
+
+« PAIRS
+
+</button>
+
+<iframe class="chart-frame"
+id="chartFrame">
+
+</iframe>
+
+<div class="bottom-panel"
+id="panelArea">
+
+<div class="sureshot-wrapper">
+
+<button class="sureshot-btn"
+id="sureBtn"
+onclick="triggerSureshot()">
+
+SURESHOT
+
+</button>
+
+</div>
+
+<div class="signal-badge"
+id="sigResult">
+
+</div>
+
+<div class="data-box"
+id="marketData">
+
+RSI: --
+<br>
+EMA FAST: --
+<br>
+EMA SLOW: --
+<br>
+TREND: --
+
+</div>
+
+<div class="timer"
+id="timer">
+
+60
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
-new TradingView.widget({
-"container_id": "tvchart",
-"width": "100%",
-"height": "100%",
-"symbol": "BINANCE:BTCUSDT",
-"interval": "1",
-"timezone": "Asia/Karachi",
-"theme": "dark",
-"style": "1",
-"locale": "en",
-"toolbar_bg": "#111827",
-"enable_publishing": false,
-"hide_top_toolbar": true,
-"hide_legend": false,
-"save_image": false,
-"studies": [
-"RSI@tv-basicstudies",
-"MASimple@tv-basicstudies"
-]
-});
+let audioContext = null;
 
-const pairs = [
-"BINANCE:BTCUSDT",
-"BINANCE:ETHUSDT",
-"BINANCE:BNBUSDT",
-"BINANCE:XRPUSDT",
-"BINANCE:SOLUSDT",
-"FX:USDINR",
-"FX:USDPKR",
-"FX:USDBRL"
-];
+let selectedPair = "BTCUSDT";
 
-function generateSignal(){
+// OPEN MARKET
 
-let signal = Math.random() > 0.5 ? 'BUY' : 'SELL';
-let rsi = Math.floor(Math.random()*40)+40;
+function launchTrading(pair){
 
-let pair = pairs[Math.floor(Math.random()*pairs.length)];
+selectedPair = pair;
 
-document.getElementById('pair').innerHTML = pair;
-document.getElementById('signal').innerHTML = signal;
-document.getElementById('rsi').innerHTML = rsi;
+document.getElementById('listScreen').style.display =
+"none";
 
-document.getElementById('ma').innerHTML =
-signal === 'BUY' ? 'BULLISH' : 'BEARISH';
+document.getElementById('tradeScreen').style.display =
+"flex";
 
-if(signal === 'BUY'){
-document.getElementById('signal').className='value buy';
+if(!audioContext){
+
+audioContext =
+new(window.AudioContext ||
+window.webkitAudioContext)();
+
+}
+
+// TRADINGVIEW CHART
+
+document.getElementById('chartFrame').src =
+
+`https://s.tradingview.com/widgetembed/?symbol=BINANCE:${pair}&interval=1&theme=dark&style=1`;
+
+}
+
+// BACK
+
+function goBack(){
+
+document.getElementById('tradeScreen').style.display =
+"none";
+
+document.getElementById('listScreen').style.display =
+"flex";
+
+}
+
+// SOUND
+
+function playBeep(isUp){
+
+if(!audioContext) return;
+
+let osc =
+audioContext.createOscillator();
+
+let gain =
+audioContext.createGain();
+
+osc.connect(gain);
+
+gain.connect(audioContext.destination);
+
+osc.frequency.setValueAtTime(
+
+isUp ? 1200 : 350,
+
+audioContext.currentTime
+
+);
+
+gain.gain.setValueAtTime(
+
+0.15,
+
+audioContext.currentTime
+
+);
+
+osc.start();
+
+osc.stop(audioContext.currentTime + 0.3);
+
+}
+
+// EMA
+
+function ema(data,period){
+
+let k = 2/(period+1);
+
+let value = data[0];
+
+for(let i=1;i<data.length;i++){
+
+value =
+data[i]*k +
+value*(1-k);
+
+}
+
+return value;
+
+}
+
+// RSI
+
+function rsiCalc(data,period=14){
+
+let gains=0;
+let losses=0;
+
+for(let i=1;i<=period;i++){
+
+let diff =
+data[i]-data[i-1];
+
+if(diff>=0){
+
+gains += diff;
+
 }else{
-document.getElementById('signal').className='value sell';
-}
 
-showAlert(signal + ' SIGNAL');
+losses += Math.abs(diff);
 
 }
 
-function showAlert(text){
+}
 
-let box = document.getElementById('alertBox');
-box.innerHTML = text;
-box.style.display = 'block';
+let rs =
+gains/(losses||1);
 
-document.getElementById('beep').play();
-
-setTimeout(()=>{
-box.style.display='none';
-},3000);
+return 100-(100/(1+rs));
 
 }
 
-function manualSignal(type){
-showAlert(type + ' CLICKED');
+// SIGNAL
+
+async function triggerSureshot(){
+
+const btn =
+document.getElementById('sureBtn');
+
+const panel =
+document.getElementById('panelArea');
+
+const sig =
+document.getElementById('sigResult');
+
+btn.disabled = true;
+
+panel.classList.add('scanning');
+
+sig.style.display = 'none';
+
+// SCAN EFFECT
+
+await new Promise(r =>
+setTimeout(r,3000)
+);
+
+panel.classList.remove('scanning');
+
+btn.disabled = false;
+
+try{
+
+// REAL BINANCE API
+
+let response =
+await axios.get(
+
+`https://api.binance.com/api/v3/klines?symbol=${selectedPair}&interval=1m&limit=50`
+
+);
+
+let candles =
+response.data;
+
+// REAL CLOSES
+
+let closes =
+candles.map(c =>
+parseFloat(c[4])
+);
+
+// RSI + EMA
+
+let rsi =
+rsiCalc(closes).toFixed(2);
+
+let fast =
+ema(closes.slice(-20),9).toFixed(2);
+
+let slow =
+ema(closes.slice(-20),21).toFixed(2);
+
+let trend =
+"SIDEWAYS";
+
+let isUp = null;
+
+// BUY
+
+if(
+
+rsi > 60 &&
+fast > slow
+
+){
+
+isUp = true;
+
+trend = "BULLISH";
+
 }
+
+// SELL
+
+else if(
+
+rsi < 40 &&
+fast < slow
+
+){
+
+isUp = false;
+
+trend = "BEARISH";
+
+}
+
+// WAIT
+
+else{
+
+sig.style.display = 'block';
+
+sig.innerHTML =
+
+"WAIT ⏳<br><small>SIDEWAYS</small>";
+
+sig.className =
+"signal-badge wait-signal";
+
+document.getElementById('marketData').innerHTML =
+
+`
+RSI: ${rsi}
+<br>
+EMA FAST: ${fast}
+<br>
+EMA SLOW: ${slow}
+<br>
+TREND: ${trend}
+`;
+
+return;
+
+}
+
+// SHOW SIGNAL
+
+sig.style.display = 'block';
+
+if(isUp){
+
+sig.innerHTML =
+
+"UP ↑<br><small>BULLISH</small>";
+
+sig.className =
+"signal-badge up-signal";
+
+}else{
+
+sig.innerHTML =
+
+"DOWN ↓<br><small>BEARISH</small>";
+
+sig.className =
+"signal-badge down-signal";
+
+}
+
+playBeep(isUp);
+
+// UPDATE DATA
+
+document.getElementById('marketData').innerHTML =
+
+`
+RSI: ${rsi}
+<br>
+EMA FAST: ${fast}
+<br>
+EMA SLOW: ${slow}
+<br>
+TREND: ${trend}
+`;
+
+}catch(e){
+
+sig.style.display = 'block';
+
+sig.innerHTML =
+"API ERROR";
+
+sig.className =
+"signal-badge wait-signal";
+
+}
+
+}
+
+// TIMER
+
+let time = 60;
 
 setInterval(()=>{
-generateSignal();
-},10000);
 
-generateSignal();
+time--;
+
+if(time <= 0){
+
+time = 60;
+
+triggerSureshot();
+
+}
+
+document.getElementById('timer').innerHTML =
+time;
+
+},1000);
 
 </script>
 
