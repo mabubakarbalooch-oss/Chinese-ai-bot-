@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 
 <title>PAK AI SIGNAL BOT PRO</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
 
 <style>
 
@@ -21,36 +23,36 @@ body{
 background:#020817;
 display:flex;
 justify-content:center;
-align-items:center;
+align-items:flex-start;
 min-height:100vh;
-padding:10px;
-overflow:hidden;
+padding:8px;
+overflow-y:auto;
 color:white;
 }
 
 .app{
 width:100%;
-max-width:430px;
+max-width:400px;
 background:#050b18;
 border:2px solid #00cfff;
-border-radius:28px;
+border-radius:24px;
 overflow:hidden;
 box-shadow:
-0 0 20px #00cfff55,
+0 0 20px #00cfff44,
 0 0 50px #00cfff22;
 }
 
 /* HEADER */
 
 .header{
-padding:18px;
+padding:16px;
 text-align:center;
 position:relative;
 border-bottom:1px solid #123;
 }
 
 .header h1{
-font-size:22px;
+font-size:20px;
 font-weight:800;
 background:linear-gradient(90deg,#00d9ff,#ffffff);
 -webkit-background-clip:text;
@@ -60,46 +62,45 @@ background:linear-gradient(90deg,#00d9ff,#ffffff);
 .tag{
 margin-top:10px;
 display:inline-block;
-padding:7px 18px;
+padding:6px 16px;
 border-radius:30px;
-font-size:11px;
+font-size:10px;
 border:1px solid #00d9ff55;
 color:#00d9ff;
-box-shadow:0 0 10px #00d9ff33;
 }
 
 .gear{
 position:absolute;
-right:18px;
-top:20px;
-font-size:24px;
-color:#ffffffcc;
+right:15px;
+top:15px;
+font-size:22px;
+color:#00d9ff;
 }
 
-/* SELECT */
+/* MARKET */
 
-.market-select{
-padding:15px;
+.market{
+padding:12px;
 }
 
 select{
 width:100%;
-padding:15px;
-border-radius:18px;
+padding:14px;
+border-radius:16px;
 background:#09111f;
 border:1px solid #00d9ff33;
 color:white;
-font-size:16px;
+font-size:14px;
 outline:none;
 }
 
 /* CHART */
 
 .chart-box{
-margin:0 15px;
+margin:0 12px;
 background:#07101d;
-border-radius:22px;
-padding:15px;
+border-radius:20px;
+padding:12px;
 border:1px solid #123;
 position:relative;
 overflow:hidden;
@@ -107,68 +108,18 @@ overflow:hidden;
 
 .chart-top{
 display:flex;
-gap:10px;
-margin-bottom:15px;
-}
-
-.time-btn{
-padding:8px 14px;
-border-radius:10px;
-background:#101826;
-font-size:14px;
-}
-
-.time-btn.active{
-background:#0077ff;
-box-shadow:0 0 10px #0077ff;
-}
-
-.chart-title{
-font-size:14px;
-margin-bottom:3px;
-}
-
-.chart-price{
-color:#00ff88;
-font-size:20px;
-font-weight:700;
+justify-content:space-between;
 margin-bottom:10px;
 }
 
+.price{
+font-size:22px;
+font-weight:700;
+color:#00ff88;
+}
+
 .chart{
-height:260px;
-display:flex;
-align-items:flex-end;
-gap:3px;
-position:relative;
-overflow:hidden;
-padding-bottom:20px;
-}
-
-.candle{
-width:6px;
-border-radius:3px;
-position:relative;
-animation:pop .3s linear;
-}
-
-.green{
-background:linear-gradient(to top,#00ff88,#00d9ff);
-box-shadow:0 0 8px #00ff88aa;
-}
-
-.red{
-background:linear-gradient(to top,#ff3b5c,#ff7a8f);
-box-shadow:0 0 8px #ff3b5caa;
-}
-
-@keyframes pop{
-from{
-transform:scaleY(0);
-}
-to{
-transform:scaleY(1);
-}
+height:240px;
 }
 
 /* SCAN LINE */
@@ -180,16 +131,15 @@ bottom:0;
 width:2px;
 background:#00e1ff;
 box-shadow:0 0 15px #00e1ff;
-left:-10px;
 display:none;
 }
 
 .scan-line.active{
 display:block;
-animation:scanMove 2s linear infinite;
+animation:scan 2s linear infinite;
 }
 
-@keyframes scanMove{
+@keyframes scan{
 0%{
 left:0%;
 }
@@ -201,30 +151,23 @@ left:100%;
 /* SCAN BOX */
 
 .scan-box{
-margin:15px;
-padding:18px;
+margin:12px;
+padding:15px;
 background:#07101d;
-border-radius:22px;
+border-radius:18px;
 display:none;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 border:1px solid #123;
 }
 
-.scan-left{
-display:flex;
-align-items:center;
-gap:15px;
-}
-
 .radar{
-width:65px;
-height:65px;
-border-radius:50%;
+width:55px;
+height:55px;
 border:2px solid #00d9ff;
+border-radius:50%;
 position:relative;
 overflow:hidden;
-box-shadow:0 0 20px #00d9ff88;
 }
 
 .radar::before{
@@ -234,61 +177,43 @@ width:100%;
 height:2px;
 background:#00d9ff;
 top:50%;
-left:0;
 transform-origin:left;
 animation:radar 2s linear infinite;
 }
 
 @keyframes radar{
-0%{
-transform:rotate(0deg);
-}
 100%{
 transform:rotate(360deg);
 }
 }
 
-.scan-title{
-font-size:15px;
-font-weight:700;
-color:#00d9ff;
-}
-
-.scan-sub{
-font-size:11px;
-color:#aaa;
-margin-top:5px;
-max-width:150px;
-}
-
 .timer{
-width:75px;
-height:75px;
+width:60px;
+height:60px;
 border-radius:50%;
-border:5px solid #00d9ff;
+border:4px solid #00d9ff;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:28px;
+font-size:22px;
 font-weight:700;
 color:#00d9ff;
-box-shadow:0 0 20px #00d9ff88;
 }
 
 /* BUTTON */
 
 .scan-btn{
-margin:0 15px 15px;
-width:calc(100% - 30px);
-padding:18px;
+margin:0 12px 12px;
+width:calc(100% - 24px);
+padding:15px;
 border:none;
 border-radius:18px;
-font-size:22px;
+font-size:18px;
 font-weight:800;
 cursor:pointer;
-background:linear-gradient(90deg,#0077ff,#00e1ff);
+background:linear-gradient(90deg,#0077ff,#00d9ff);
 color:black;
-box-shadow:0 0 20px #00d9ff88;
+box-shadow:0 0 20px #00d9ff55;
 }
 
 .scan-btn.stop{
@@ -298,23 +223,17 @@ color:white;
 
 /* RESULT */
 
-.result-box{
-margin:0 15px 15px;
-padding:20px;
+.result{
+margin:0 12px 12px;
+padding:15px;
 background:#07101d;
-border-radius:22px;
+border-radius:18px;
 display:none;
 border:1px solid #123;
 }
 
-.result-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
 .signal{
-font-size:70px;
+font-size:52px;
 font-weight:800;
 }
 
@@ -332,35 +251,26 @@ text-shadow:0 0 20px #ff3b5c;
 color:#ffaa00;
 }
 
-.conf-box{
-text-align:center;
-}
-
-.conf-num{
-font-size:38px;
+.conf{
+font-size:28px;
 font-weight:700;
 color:#00d9ff;
 }
 
-.expiry{
-text-align:center;
-font-size:26px;
-color:#00d9ff;
-}
-
 .details{
-margin-top:15px;
-font-size:12px;
-color:#bbb;
+margin-top:10px;
+font-size:11px;
+color:#aaa;
+line-height:1.7;
 }
 
 /* SETTINGS */
 
-.setting-row{
-margin:0 15px 12px;
-padding:16px;
+.row{
+margin:0 12px 10px;
+padding:13px;
 background:#07101d;
-border-radius:18px;
+border-radius:16px;
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -380,8 +290,8 @@ cursor:pointer;
 content:'';
 width:20px;
 height:20px;
-background:white;
 border-radius:50%;
+background:white;
 position:absolute;
 top:3px;
 left:3px;
@@ -396,26 +306,6 @@ background:#00d9ff;
 left:27px;
 }
 
-/* NAV */
-
-.nav{
-display:flex;
-justify-content:space-around;
-padding:18px;
-border-top:1px solid #123;
-background:#040912;
-}
-
-.nav-item{
-text-align:center;
-font-size:11px;
-color:#aaa;
-}
-
-.nav-item.active{
-color:#00d9ff;
-}
-
 /* LOGIN */
 
 .login{
@@ -424,33 +314,53 @@ text-align:center;
 }
 
 .login h2{
-font-size:28px;
-margin-bottom:25px;
-background:linear-gradient(90deg,#00d9ff,#fff);
+font-size:26px;
+margin-bottom:20px;
+background:linear-gradient(90deg,#00d9ff,#ffffff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
 .login input{
 width:100%;
-padding:18px;
-border-radius:18px;
+padding:16px;
 border:none;
-outline:none;
+border-radius:16px;
 background:#09111f;
 color:white;
-font-size:18px;
-margin-bottom:20px;
+font-size:16px;
+margin-bottom:15px;
+outline:none;
 }
 
 .login button{
 width:100%;
-padding:18px;
+padding:16px;
 border:none;
-border-radius:18px;
-background:linear-gradient(90deg,#0077ff,#00e1ff);
-font-size:22px;
+border-radius:16px;
+background:linear-gradient(90deg,#0077ff,#00d9ff);
+font-size:18px;
 font-weight:700;
+}
+
+/* NAV */
+
+.nav{
+display:flex;
+justify-content:space-around;
+padding:12px;
+border-top:1px solid #123;
+background:#040912;
+}
+
+.nav-item{
+font-size:10px;
+text-align:center;
+color:#aaa;
+}
+
+.nav-item.active{
+color:#00d9ff;
 }
 
 </style>
@@ -466,7 +376,7 @@ font-weight:700;
 
 <h2>PAK AI SIGNAL BOT PRO</h2>
 
-<input type="password" id="loginKey" placeholder="Enter Key : Pak786">
+<input type="password" id="key" placeholder="Enter Key : Pak786">
 
 <button onclick="login()">LOGIN</button>
 
@@ -483,22 +393,20 @@ font-weight:700;
 <h1>PAK AI SIGNAL BOT PRO</h1>
 
 <div class="tag">
-AI POWERED • SMART ANALYSIS • HIGH ACCURACY
+REAL BINANCE • RSI • EMA • MACD • BBANDS
 </div>
 
 <div class="gear">⚙️</div>
 
 </div>
 
-<div class="market-select">
+<div class="market">
 
-<select id="pairSelect">
+<select id="pair">
 
-<option>USD/BRL (OTC)</option>
-<option>EUR/USD (OTC)</option>
-<option>GBP/USD (OTC)</option>
-<option>USD/JPY (OTC)</option>
-<option>AUD/USD (OTC)</option>
+<option value="btcusdt">BTC/USDT</option>
+<option value="ethusdt">ETH/USDT</option>
+<option value="bnbusdt">BNB/USDT</option>
 
 </select>
 
@@ -510,22 +418,25 @@ AI POWERED • SMART ANALYSIS • HIGH ACCURACY
 
 <div class="chart-top">
 
-<div class="time-btn active">1m</div>
-<div class="time-btn">5m</div>
-<div class="time-btn">15m</div>
-<div class="time-btn">30m</div>
+<div>
+
+<div style="font-size:12px;color:#aaa;">
+LIVE PRICE
+</div>
+
+<div class="price" id="price">
+0.00
+</div>
 
 </div>
 
-<div class="chart-title">
-U.S Dollar / Brazilian Real
+<div style="font-size:12px;color:#00d9ff;">
+BINANCE LIVE
 </div>
 
-<div class="chart-price" id="price">
-5.0475
 </div>
 
-<div class="chart" id="chart"></div>
+<div id="chart" class="chart"></div>
 
 <div class="scan-line" id="scanLine"></div>
 
@@ -535,18 +446,18 @@ U.S Dollar / Brazilian Real
 
 <div class="scan-box" id="scanBox">
 
-<div class="scan-left">
+<div style="display:flex;align-items:center;gap:12px;">
 
 <div class="radar"></div>
 
 <div>
 
-<div class="scan-title">
+<div style="font-size:14px;font-weight:700;color:#00d9ff;">
 SCANNING MARKET...
 </div>
 
-<div class="scan-sub">
-Analyzing RSI, EMA, Trend & Momentum
+<div style="font-size:10px;color:#aaa;">
+RSI • EMA • MACD • BBANDS
 </div>
 
 </div>
@@ -559,73 +470,66 @@ Analyzing RSI, EMA, Trend & Momentum
 
 </div>
 
-<!-- BUTTON -->
-
 <button class="scan-btn" id="scanBtn" onclick="startScan()">
 START SCAN
 </button>
 
 <!-- RESULT -->
 
-<div class="result-box" id="resultBox">
+<div class="result" id="result">
 
-<div class="result-head">
+<div style="display:flex;justify-content:space-between;align-items:center;">
 
 <div>
 
-<div style="font-size:13px;color:#00d9ff;">
-ANALYSIS RESULT
+<div style="font-size:11px;color:#00d9ff;">
+SIGNAL
 </div>
 
-<div class="signal call" id="signalText">
+<div class="signal call" id="signal">
 CALL
 </div>
 
 </div>
 
-<div class="conf-box">
+<div>
 
-<div style="font-size:13px;color:#999;">
+<div style="font-size:11px;color:#aaa;">
 CONFIDENCE
 </div>
 
-<div class="conf-num" id="confidence">
+<div class="conf" id="confidence">
 92%
 </div>
 
 </div>
 
-<div class="expiry">
-
+<div style="text-align:center;color:#00d9ff;">
 ⏰<br>
-
-<span style="font-size:18px;">
 1 MIN
-</span>
-
 </div>
 
 </div>
 
 <div class="details" id="details">
-RSI: 62 • EMA9: 101 • EMA21: 99
+RSI: 0 | EMA9: 0 | EMA21: 0 | MACD: 0
 </div>
 
 </div>
 
 <!-- SETTINGS -->
 
-<div class="setting-row">
+<div class="row">
 
 <div>
-🔊 SOUND ALERT
+🔊 SOUND
 </div>
 
 <div class="toggle active" id="soundToggle"></div>
 
 </div>
 
-<div class="setting-row">
+<div class="row">
 
 <div>
 📳 VIBRATION
@@ -644,11 +548,7 @@ RSI: 62 • EMA9: 101 • EMA21: 99
 </div>
 
 <div class="nav-item">
-🕓<br>HISTORY
-</div>
-
-<div class="nav-item">
-🎯<br>STRATEGY
+📈<br>MARKET
 </div>
 
 <div class="nav-item">
@@ -661,33 +561,51 @@ RSI: 62 • EMA9: 101 • EMA21: 99
 
 <script>
 
-let chart = document.getElementById('chart');
+let sound=true;
+let vibration=true;
+let scanning=false;
 
-let price = 5.0475;
+let closes=[];
 
-let prices = [];
+let chart =
+LightweightCharts.createChart(
+document.getElementById('chart'),
+{
+layout:{
+background:{color:'#07101d'},
+textColor:'#DDD'
+},
+grid:{
+vertLines:{color:'#111'},
+horzLines:{color:'#111'}
+},
+width:360,
+height:240
+}
+);
 
-let scanning = false;
+let candleSeries =
+chart.addCandlestickSeries({
+upColor:'#00ff88',
+downColor:'#ff3b5c',
+borderVisible:false,
+wickUpColor:'#00ff88',
+wickDownColor:'#ff3b5c'
+});
 
-let sound = true;
-
-let vibration = true;
+let socket;
 
 /* LOGIN */
 
 function login(){
 
-let key = document.getElementById('loginKey').value;
-
-if(key === 'Pak786'){
+if(document.getElementById('key').value==='Pak786'){
 
 document.getElementById('loginPage').style.display='none';
 
 document.getElementById('mainPage').style.display='block';
 
-generateCandles();
-
-setInterval(updateMarket,1200);
+connect();
 
 }else{
 
@@ -697,58 +615,243 @@ alert('Wrong Key');
 
 }
 
-/* CANDLES */
+/* BINANCE */
 
-function generateCandles(){
+function connect(){
 
-chart.innerHTML='';
+let pair =
+document.getElementById('pair').value;
 
-prices=[];
+if(socket){
 
-let last = price;
-
-for(let i=0;i<55;i++){
-
-last += (Math.random()-0.5)*0.03;
-
-prices.push(last);
-
-createCandle(last);
+socket.close();
 
 }
 
-}
+socket = new WebSocket(
+`wss://stream.binance.com:9443/ws/${pair}@kline_1m`
+);
 
-function createCandle(value){
+socket.onmessage = function(event){
 
-let candle = document.createElement('div');
+let msg = JSON.parse(event.data);
 
-let h = Math.random()*120+20;
+let k = msg.k;
 
-let up = Math.random()>0.5;
+let candle = {
+time:k.t/1000,
+open:parseFloat(k.o),
+high:parseFloat(k.h),
+low:parseFloat(k.l),
+close:parseFloat(k.c)
+};
 
-candle.className='candle '+(up?'green':'red');
-
-candle.style.height=h+'px';
-
-chart.appendChild(candle);
-
-}
-
-/* LIVE MARKET */
-
-function updateMarket(){
-
-if(scanning) return;
-
-price += (Math.random()-0.5)*0.01;
+candleSeries.update(candle);
 
 document.getElementById('price').innerText =
-price.toFixed(4);
+candle.close.toFixed(2);
 
-chart.removeChild(chart.firstChild);
+closes.push(candle.close);
 
-createCandle(price);
+if(closes.length>100){
+
+closes.shift();
+
+}
+
+};
+
+}
+
+document.getElementById('pair').onchange=function(){
+
+connect();
+
+}
+
+/* RSI */
+
+function RSI(period=14){
+
+if(closes.length<period) return 50;
+
+let gains=0;
+let losses=0;
+
+for(let i=1;i<period;i++){
+
+let diff =
+closes[closes.length-i] -
+closes[closes.length-i-1];
+
+if(diff>=0){
+
+gains+=diff;
+
+}else{
+
+losses-=diff;
+
+}
+
+}
+
+let rs=gains/(losses||1);
+
+return 100-(100/(1+rs));
+
+}
+
+/* EMA */
+
+function EMA(period){
+
+if(closes.length<period) return 0;
+
+let k=2/(period+1);
+
+let ema=closes[0];
+
+for(let i=1;i<closes.length;i++){
+
+ema=
+closes[i]*k+
+ema*(1-k);
+
+}
+
+return ema;
+
+}
+
+/* MACD */
+
+function MACD(){
+
+return EMA(12)-EMA(26);
+
+}
+
+/* BOLLINGER */
+
+function BBANDS(period=20){
+
+if(closes.length<period){
+
+return {upper:0,lower:0};
+
+}
+
+let slice =
+closes.slice(-period);
+
+let sma =
+slice.reduce((a,b)=>a+b,0)/period;
+
+let variance =
+slice.reduce((a,b)=>
+a+Math.pow(b-sma,2),0)/period;
+
+let std=Math.sqrt(variance);
+
+return{
+upper:sma+2*std,
+lower:sma-2*std
+};
+
+}
+
+/* SIGNAL */
+
+function generateSignal(){
+
+let rsi=RSI();
+
+let ema9=EMA(9);
+
+let ema21=EMA(21);
+
+let macd=MACD();
+
+let bb=BBANDS();
+
+let last=
+closes[closes.length-1];
+
+let signal='WAIT';
+
+let confidence=70;
+
+if(
+
+rsi<55 &&
+ema9>ema21 &&
+macd>0 &&
+last<bb.upper
+
+){
+
+signal='CALL';
+
+confidence=92;
+
+}
+
+else if(
+
+rsi>60 &&
+ema9<ema21 &&
+macd<0 &&
+last>bb.lower
+
+){
+
+signal='PUT';
+
+confidence=90;
+
+}
+
+let signalBox =
+document.getElementById('signal');
+
+signalBox.innerText=signal;
+
+signalBox.className='signal';
+
+if(signal==='CALL'){
+
+signalBox.classList.add('call');
+
+play(1000);
+
+}
+
+else if(signal==='PUT'){
+
+signalBox.classList.add('put');
+
+play(400);
+
+}
+
+else{
+
+signalBox.classList.add('wait');
+
+}
+
+document.getElementById('confidence').innerText =
+confidence+'%';
+
+document.getElementById('details').innerHTML =
+
+'RSI : '+rsi.toFixed(1)+
+'<br>EMA9 : '+ema9.toFixed(2)+
+'<br>EMA21 : '+ema21.toFixed(2)+
+'<br>MACD : '+macd.toFixed(2)+
+'<br>BB Upper : '+bb.upper.toFixed(2)+
+'<br>BB Lower : '+bb.lower.toFixed(2);
 
 }
 
@@ -758,23 +861,26 @@ function startScan(){
 
 if(scanning) return;
 
-scanning = true;
+scanning=true;
 
 document.getElementById('scanBox').style.display='flex';
 
-document.getElementById('resultBox').style.display='none';
+document.getElementById('result').style.display='none';
 
 document.getElementById('scanLine').classList.add('active');
 
-document.getElementById('scanBtn').innerText='STOP SCAN';
+let btn=
+document.getElementById('scanBtn');
 
-document.getElementById('scanBtn').classList.add('stop');
+btn.innerText='SCANNING...';
 
-let t = 3;
+btn.classList.add('stop');
+
+let t=3;
 
 document.getElementById('timer').innerText=t;
 
-let timer = setInterval(()=>{
+let interval=setInterval(()=>{
 
 t--;
 
@@ -782,91 +888,19 @@ document.getElementById('timer').innerText=t;
 
 if(t<=0){
 
-clearInterval(timer);
+clearInterval(interval);
 
 generateSignal();
 
-}
-
-},1000);
-
-}
-
-/* SIGNAL */
-
-function generateSignal(){
-
-let rsi = Math.floor(Math.random()*40)+40;
-
-let ema9 = Math.random()*100+50;
-
-let ema21 = Math.random()*100+50;
-
-let signal = 'WAIT';
-
-let confidence = 70;
-
-if(rsi<55 && ema9>ema21){
-
-signal='CALL';
-
-confidence=92;
-
-}
-
-else if(rsi>60 && ema9<ema21){
-
-signal='PUT';
-
-confidence=90;
-
-}
-
-let signalText = document.getElementById('signalText');
-
-signalText.innerText = signal;
-
-signalText.className='signal';
-
-if(signal==='CALL'){
-
-signalText.classList.add('call');
-
-playSound(1000);
-
-}
-
-else if(signal==='PUT'){
-
-signalText.classList.add('put');
-
-playSound(400);
-
-}
-
-else{
-
-signalText.classList.add('wait');
-
-}
-
-document.getElementById('confidence').innerText =
-confidence+'%';
-
-document.getElementById('details').innerText =
-'RSI: '+rsi+
-' | EMA9: '+ema9.toFixed(2)+
-' | EMA21: '+ema21.toFixed(2);
-
 document.getElementById('scanBox').style.display='none';
 
-document.getElementById('resultBox').style.display='block';
+document.getElementById('result').style.display='block';
 
 document.getElementById('scanLine').classList.remove('active');
 
-document.getElementById('scanBtn').innerText='START SCAN';
+btn.innerText='START SCAN';
 
-document.getElementById('scanBtn').classList.remove('stop');
+btn.classList.remove('stop');
 
 if(vibration && navigator.vibrate){
 
@@ -878,17 +912,21 @@ scanning=false;
 
 }
 
+},1000);
+
+}
+
 /* SOUND */
 
-function playSound(freq){
+function play(freq){
 
 if(!sound) return;
 
-let ctx = new(window.AudioContext||window.webkitAudioContext)();
+let ctx =
+new(window.AudioContext||
+window.webkitAudioContext)();
 
-let osc = ctx.createOscillator();
-
-osc.type='sine';
+let osc=ctx.createOscillator();
 
 osc.frequency.value=freq;
 
