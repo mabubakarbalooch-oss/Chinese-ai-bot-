@@ -17,8 +17,8 @@
     .chart-box{background:#0f1729;margin:12px;border-radius:15px;padding:10px;border:1px solid #1e2a4a;position:relative;min-height:200px;}
     #mini-chart{height:200px;border-radius:10px;overflow:hidden;}
     .fake-chart{height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#8892b0;}
-    .fake-chart .price{font-size:24px;color:#00ff99;font-weight:700;margin-bottom:5px;}
-    .fake-chart .change{font-size:14px;color:#00ff99;}
+    .fake-chart .price{font-size:28px;color:#00ff99;font-weight:700;margin-bottom:5px;}
+    .fake-chart .change{font-size:16px;color:#00ff99;}
     .scan-overlay{position:absolute;bottom:20px;right:20px;color:#00d9ff;font-size:12px;font-weight:600;display:none;}
     .scan-overlay.active{display:block;}
     
@@ -38,7 +38,7 @@
     .timer-text .sec{font-size:10px;color:#8892b0;}
     
     .btn{width:calc(100% - 24px);margin:0 12px 12px;padding:16px;border-radius:12px;border:none;background:linear-gradient(90deg,#00d9ff,#00aaff);color:#000;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
-    .btn.stop{background:linear-gradient(90deg,#ff4757,#ff6b7a);}
+    .btn.stop{background:linear-gradient(90deg,#00d9ff,#00aaff);}
     
     .result-box{margin:12px;background:#0f1729;border-radius:15px;padding:15px;border:1px solid #1e2a4a;display:none;}
     .result-title{font-size:12px;color:#00d9ff;text-align:center;margin-bottom:10px;}
@@ -70,6 +70,14 @@
     .login input{width:100%;padding:14px;border-radius:12px;background:#0f1729;border:1px solid #1e2a4a;color:#fff;text-align:center;margin-bottom:15px;}
     
     select{background:#0f1729;border:1px solid #1e2a4a;color:#fff;padding:12px;border-radius:12px;width:calc(100% - 24px);margin:12px;font-weight:600;}
+    
+    .sound-wave{width:100px;height:20px;display:flex;align-items:center;justify-content:center;gap:2px;}
+    .sound-wave span{width:3px;height:5px;background:#00ff99;animation:wave 1s infinite;}
+    .sound-wave span:nth-child(2){animation-delay:0.1s;height:10px;}
+    .sound-wave span:nth-child(3){animation-delay:0.2s;height:15px;}
+    .sound-wave span:nth-child(4){animation-delay:0.3s;height:10px;}
+    .sound-wave span:nth-child(5){animation-delay:0.4s;height:5px;}
+    @keyframes wave{0%,100%{height:5px;}50%{height:15px;}}
 </style>
 </head>
 <body>
@@ -103,8 +111,8 @@
     <div class="chart-box">
         <div id="mini-chart"></div>
         <div id="fake-chart" class="fake-chart" style="display:none;">
-            <div class="price" id="fakePrice">5.0475</div>
-            <div class="change" id="fakeChange">+0.0038 (+0.08%)</div>
+            <div class="price" id="fakePrice">5.0508</div>
+            <div class="change" id="fakeChange">+0.0033 (0.07%)</div>
             <div style="margin-top:10px;font-size:12px;">Live Price</div>
         </div>
         <div class="scan-overlay" id="scanOverlay">SCANNING MARKET...</div>
@@ -161,12 +169,23 @@
     </div>
     
     <div class="settings-row">
-        <div>🔊 SOUND ALERT: <span id="soundStatus">ON</span></div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <span>🔊</span>
+            <span>SOUND ALERT: <span id="soundStatus">ON</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div class="sound-wave">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
         <div class="toggle active" onclick="toggleSound()"></div>
     </div>
     
     <div class="settings-row">
-        <div>📳 VIBRATION: <span id="vibStatus">ON</span></div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <span>📳</span>
+            <span>VIBRATION: <span id="vibStatus">ON</span></span>
+        </div>
         <div class="toggle active" onclick="toggleVib()"></div>
     </div>
     
@@ -213,12 +232,10 @@ function loadChart(symbol){
     let isOTC = !symbol.includes('USDT');
     
     if(isOTC){
-        // OTC ke liye TradingView hide karo, fake chart dikhao
         document.getElementById('mini-chart').style.display='none';
         document.getElementById('fake-chart').style.display='flex';
         updateFakePrice(symbol);
     } else {
-        // Binance pairs ke liye real chart
         document.getElementById('mini-chart').style.display='block';
         document.getElementById('fake-chart').style.display='none';
         new TradingView.widget({
@@ -230,8 +247,7 @@ function loadChart(symbol){
 }
 
 function updateFakePrice(symbol){
-    // OTC ke liye random price generate karo
-    let base = symbol=="USDBRL" ? 5.0475 : symbol=="USDJPY" ? 148.50 : 1.0850;
+    let base = symbol=="USDBRL" ? 5.0508 : symbol=="USDJPY" ? 148.50 : 1.0850;
     let change = (Math.random()-0.5)*0.01;
     let newPrice = (base + change).toFixed(4);
     let percent = ((change/base)*100).toFixed(2);
@@ -248,7 +264,7 @@ function changeMarket(){
 
 async function getCandles(symbol){
     let demo = []; 
-    let base = symbol=="USDBRL" ? 5.0475 : symbol=="USDJPY" ? 148.50 : 1.0850;
+    let base = symbol=="USDBRL" ? 5.0508 : symbol=="USDJPY" ? 148.50 : 1.0850;
     for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.002;demo.push(base);}
     return demo;
 }
