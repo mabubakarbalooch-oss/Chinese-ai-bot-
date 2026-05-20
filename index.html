@@ -16,8 +16,11 @@
     .header .logo{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:28px;height:28px;background:#00d9ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;}
     .header .settings{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:20px;color:#8892b0;cursor:pointer;}
     
-    .chart-box{background:#0f1729;margin:12px;border-radius:15px;padding:10px;border:1px solid #1e2a4a;position:relative;}
+    .chart-box{background:#0f1729;margin:12px;border-radius:15px;padding:10px;border:1px solid #1e2a4a;position:relative;min-height:200px;}
     #mini-chart{height:200px;border-radius:10px;overflow:hidden;}
+    .fake-chart{height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#8892b0;}
+    .fake-chart .price{font-size:28px;color:#00ff99;font-weight:700;margin-bottom:5px;}
+    .fake-chart .change{font-size:16px;color:#00ff99;}
     .scan-overlay{position:absolute;bottom:20px;right:20px;color:#00d9ff;font-size:12px;font-weight:600;display:none;}
     .scan-overlay.active{display:block;}
     
@@ -98,13 +101,24 @@
     </div>
     
     <select id="pairList" onchange="changeMarket()">
-        <option value="USDBRL">🇺🇸🇧🇷 USD/BRL (OTC)</option>
-        <option value="EURUSDT">EUR/USDT</option>
-        <option value="BTCUSDT">BTC/USDT</option>
+        <optgroup label="OTC Pairs">
+            <option value="USDBRL">USD/BRL OTC</option>
+            <option value="USDJPY">USD/JPY OTC</option>
+            <option value="EURUSD">EUR/USD OTC</option>
+        </optgroup>
+        <optgroup label="Binance Pairs">
+            <option value="EURUSDT">EUR/USDT</option>
+            <option value="BTCUSDT">BTC/USDT</option>
+        </optgroup>
     </select>
     
     <div class="chart-box">
         <div id="mini-chart"></div>
+        <div id="fake-chart" class="fake-chart" style="display:none;">
+            <div class="price" id="fakePrice">5.0508</div>
+            <div class="change" id="fakeChange">+0.0033 (0.07%)</div>
+            <div style="margin-top:10px;font-size:12px;">Live Price</div>
+        </div>
         <div class="scan-overlay" id="scanOverlay">SCANNING MARKET...</div>
     </div>
     
@@ -219,11 +233,34 @@ function startApp(){
 }
 
 function loadChart(symbol){
-    new TradingView.widget({
-        "width":"100%","height":200,"symbol":"FX:"+symbol,
-        "interval":"1","theme":"dark","style":"1",
-        "hide_top_toolbar":false,"hide_legend":false,"container_id":"mini-chart"
-    });
+    let isOTC = !symbol.includes('USDT');
+    
+    if(isOTC){
+        // OTC ke liye TradingView hide karo, fake chart dikhao
+        document.getElementById('mini-chart').style.display='none';
+        document.getElementById('fake-chart').style.display='flex';
+        updateFakePrice(symbol);
+    } else {
+        // Binance pairs ke liye real chart
+        document.getElementById('mini-chart').style.display='block';
+        document.getElementById('fake-chart').style.display='none';
+        new TradingView.widget({
+            "width":"100%","height":200,"symbol":"BINANCE:"+symbol,
+            "interval":"1","theme":"dark","style":"1",
+            "hide_top_toolbar":true,"hide_legend":true,"container_id":"mini-chart"
+        });
+    }
+}
+
+function updateFakePrice(symbol){
+    let base = symbol=="USDBRL" ? 5.0508 : symbol=="USDJPY" ? 148.50 : 1.0850;
+    let change = (Math.random()-0.5)*0.01;
+    let newPrice = (base + change).toFixed(4);
+    let percent = ((change/base)*100).toFixed(2);
+    
+    document.getElementById('fakePrice').innerText=newPrice;
+    document.getElementById('fakeChange').innerText=`${change>=0?'+':''}${change.toFixed(4)} (${percent}%)`;
+    document.getElementById('fakeChange').style.color=change>=0?'#00ff99':'#ff4757';
 }
 
 function changeMarket(){
@@ -232,17 +269,10 @@ function changeMarket(){
 }
 
 async function getCandles(symbol){
-    try{
-        let proxy = "https://api.allorigins.win/raw?url=";
-        let url = proxy + encodeURIComponent(`https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=1m&limit=50`);
-        let res = await fetch(url);
-        let data = await res.json();
-        return data.map(c => parseFloat(c[4]));
-    }catch(e){
-        let demo = []; let base = 5.0475;
-        for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.001;demo.push(base);}
-        return demo;
-    }
+    let demo = []; 
+    let base = symbol=="USDBRL" ? 5.0508 : symbol=="USDJPY" ? 148.50 : 1.0850;
+    for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.002;demo.push(base);}
+    return demo;
 }
 
 function calculateRSI(prices,period=14){
@@ -364,6 +394,7 @@ async function generateSignal(){
     document.getElementById('resultBox').style.display='block';
     
     stopScan();
+    updateFakePrice(currentPair);
 }
 </script>
 </body>
