@@ -86,10 +86,16 @@
     </div>
     
     <select id="pairList" onchange="changeMarket()">
-        <option value="EURUSDT">EUR/USDT</option>
-        <option value="USDJPY">USD/JPY OTC</option>
-        <option value="GBPUSD">GBP/USD OTC</option>
-        <option value="BTCUSDT">BTC/USDT</option>
+        <optgroup label="OTC Pairs">
+            <option value="USDBRL">USD/BRL OTC</option>
+            <option value="USDJPY">USD/JPY OTC</option>
+            <option value="EURUSD">EUR/USD OTC</option>
+            <option value="GBPUSD">GBP/USD OTC</option>
+        </optgroup>
+        <optgroup label="Binance Pairs">
+            <option value="EURUSDT">EUR/USDT</option>
+            <option value="BTCUSDT">BTC/USDT</option>
+        </optgroup>
     </select>
     
     <div class="chart-box">
@@ -178,7 +184,7 @@
 </div>
 
 <script>
-let currentPair = "EURUSDT";
+let currentPair = "USDBRL";
 let audioCtx;
 let scanning = false;
 let scanInterval;
@@ -197,8 +203,9 @@ function startApp(){
 }
 
 function loadChart(symbol){
+    let tvSymbol = symbol.includes('USDT') ? "BINANCE:"+symbol : "FX:"+symbol;
     new TradingView.widget({
-        "width":"100%","height":200,"symbol":"BINANCE:"+symbol,
+        "width":"100%","height":200,"symbol":tvSymbol,
         "interval":"1","theme":"dark","style":"1",
         "hide_top_toolbar":true,"hide_legend":true,"container_id":"mini-chart"
     });
@@ -211,13 +218,20 @@ function changeMarket(){
 
 async function getCandles(symbol){
     try{
-        let proxy = "https://api.allorigins.win/raw?url=";
-        let url = proxy + encodeURIComponent(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=50`);
-        let res = await fetch(url);
-        let data = await res.json();
-        return data.map(c => parseFloat(c[4]));
+        if(symbol.includes('USDT')){
+            let proxy = "https://api.allorigins.win/raw?url=";
+            let url = proxy + encodeURIComponent(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=50`);
+            let res = await fetch(url);
+            let data = await res.json();
+            return data.map(c => parseFloat(c[4]));
+        }else{
+            // OTC کے لیے ڈیمو ڈیٹا
+            let demo = []; let base = 5.0475 + Math.random()*0.1;
+            for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.002;demo.push(base);}
+            return demo;
+        }
     }catch(e){
-        let demo = []; let base = 1.1640;
+        let demo = []; let base = 5.0475;
         for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.001;demo.push(base);}
         return demo;
     }
