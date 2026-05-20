@@ -3,63 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PAK AI SIGNAL BOT PRO V9.1</title>
+<title>PAK AI SIGNAL BOT PRO</title>
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
     body{background:#0a0e1a;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
-    .app{width:100%;max-width:420px;background:linear-gradient(180deg,#0d1424,#0a0e1a);border-radius:25px;border:1px solid #1e2a4a;overflow:hidden;}
+    .app{width:100%;max-width:420px;background:#0d1424;border-radius:20px;border:1px solid #1e2a4a;overflow:hidden;}
     
-    .header{padding:18px;text-align:center;}
-    .header h1{font-size:18px;color:#00d9ff;font-weight:800;letter-spacing:1px;}
+    .header{padding:18px;text-align:center;border-bottom:1px solid #1e2a4a;}
+    .header h1{font-size:18px;color:#00d9ff;font-weight:800;}
     .header .tag{font-size:10px;color:#00ff99;background:#00ff9915;padding:4px 10px;border-radius:20px;display:inline-block;margin-top:6px;}
     
-    .chart-box{background:#0f1729;margin:12px;border-radius:15px;padding:10px;border:1px solid #1e2a4a;}
-    #mini-chart{height:180px;border-radius:10px;overflow:hidden;position:relative;}
-    .scan-text{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);color:#00d9ff;font-size:12px;font-weight:600;display:none;}
-    .scan-text.active{display:block;}
-    
-    .pair-select{margin:12px;background:#0f1729;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;border:1px solid #1e2a4a;}
-    .pair-select select{flex:1;background:transparent;border:none;color:#fff;font-weight:600;font-size:14px;outline:none;}
-    
-    .btn{width:calc(100% - 24px);margin:0 12px 12px;padding:16px;border-radius:12px;border:none;background:linear-gradient(90deg,#00d9ff,#00aaff);color:#000;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
-    .btn:disabled{background:#2a3447;color:#666;cursor:not-allowed;}
-    .btn.stop{background:linear-gradient(90deg,#ff4757,#ff6b7a);}
+    .chart-box{background:#0f1729;margin:12px;border-radius:15px;padding:10px;border:1px solid #1e2a4a;position:relative;}
+    #mini-chart{height:200px;border-radius:10px;overflow:hidden;}
+    .scan-overlay{position:absolute;bottom:20px;right:20px;color:#00d9ff;font-size:12px;font-weight:600;display:none;}
+    .scan-overlay.active{display:block;}
     
     .scan-box{margin:12px;background:#0f1729;border-radius:15px;padding:15px;border:1px solid #1e2a4a;display:none;align-items:center;gap:15px;}
-    .circle-progress{width:50px;height:50px;position:relative;}
-    .circle-progress svg{transform:rotate(-90deg);}
-    .circle-progress circle{fill:none;stroke-width:3;stroke-linecap:round;}
+    .radar{width:50px;height:50px;border:2px solid #00d9ff;border-radius:50%;position:relative;animation:pulse 2s infinite;}
+    .radar::after{content:'';position:absolute;width:100%;height:2px;background:#00d9ff;top:50%;animation:rotate 2s linear infinite;transform-origin:left;}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+    @keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    
+    .circle-timer{width:60px;height:60px;position:relative;}
+    .circle-timer svg{transform:rotate(-90deg);}
+    .circle-timer circle{fill:none;stroke-width:3;stroke-linecap:round;}
     .circle-bg{stroke:#1e2a4a;}
-    .circle-fg{stroke:#00ff99;stroke-dasharray:138;stroke-dashoffset:138;transition:stroke-dashoffset 1s linear;}
-    .scan-info{flex:1;}
-    .scan-info h3{color:#00d9ff;font-size:14px;}
-    .scan-info p{font-size:11px;color:#8892b0;margin-top:3px;}
-    .timer{font-size:24px;font-weight:800;color:#00ff99;}
+    .circle-fg{stroke:#00d9ff;stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset 1s linear;}
+    .timer-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+    .timer-text .num{font-size:20px;font-weight:800;color:#00d9ff;}
+    .timer-text .sec{font-size:10px;color:#8892b0;}
+    
+    .btn{width:calc(100% - 24px);margin:0 12px 12px;padding:16px;border-radius:12px;border:none;background:linear-gradient(90deg,#00d9ff,#00aaff);color:#000;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .btn.stop{background:linear-gradient(90deg,#ff4757,#ff6b7a);}
     
     .result-box{margin:12px;background:#0f1729;border-radius:15px;padding:15px;border:1px solid #1e2a4a;display:none;}
-    .result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:10px;margin-top:10px;}
+    .result-title{font-size:12px;color:#00d9ff;text-align:center;margin-bottom:10px;}
+    .result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:10px;}
     .result-label{font-size:10px;color:#8892b0;}
-    .result-value{font-size:18px;font-weight:800;margin-top:5px;}
+    .result-value{font-size:18px;font-weight:800;margin:5px 0;}
     .call{color:#00ff99;}
     .put{color:#ff4757;}
-    .details{font-size:11px;color:#8892b0;margin-top:8px;text-align:center;}
     
-    .accuracy-circle{width:60px;height:60px;position:relative;margin:auto;}
-    .accuracy-circle svg{transform:rotate(-90deg);}
-    .accuracy-circle circle{fill:none;stroke-width:4;stroke-linecap:round;}
-    .accuracy-bg{stroke:#1e2a4a;}
-    .accuracy-fg{stroke:#00ff99;stroke-dasharray:157;stroke-dashoffset:157;}
-    .accuracy-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16px;font-weight:800;color:#00ff99;}
+    .confidence-circle{width:60px;height:60px;position:relative;margin:auto;}
+    .confidence-circle svg{transform:rotate(-90deg);}
+    .confidence-circle circle{fill:none;stroke-width:4;stroke-linecap:round;}
+    .conf-bg{stroke:#1e2a4a;}
+    .conf-fg{stroke:#00ff99;stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset 1s linear;}
+    .conf-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16px;font-weight:800;color:#00ff99;}
     
-    .settings{margin:12px;background:#0f1729;border-radius:15px;padding:12px;border:1px solid #1e2a4a;display:flex;justify-content:space-between;align-items:center;}
+    .settings-row{margin:12px;background:#0f1729;border-radius:15px;padding:12px;border:1px solid #1e2a4a;display:flex;justify-content:space-between;align-items:center;font-size:13px;}
     .toggle{width:45px;height:24px;background:#2a3447;border-radius:12px;position:relative;cursor:pointer;transition:0.3s;}
-    .toggle.active{background:#00d9ff;}
+    .toggle.active{background:#00ff99;}
     .toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;}
     .toggle.active::after{left:24px;}
     
+    .bottom-nav{display:flex;justify-content:space-around;padding:12px;border-top:1px solid #1e2a4a;background:#0f1729;}
+    .nav-item{text-align:center;color:#8892b0;font-size:10px;cursor:pointer;}
+    .nav-item.active{color:#00d9ff;}
+    .nav-item svg{width:22px;height:22px;margin-bottom:3px;}
+    
     .login{padding:40px 20px;text-align:center;}
     .login input{width:100%;padding:14px;border-radius:12px;background:#0f1729;border:1px solid #1e2a4a;color:#fff;text-align:center;margin-bottom:15px;}
+    
+    select{background:#0f1729;border:1px solid #1e2a4a;color:#fff;padding:12px;border-radius:12px;width:calc(100% - 24px);margin:12px;font-weight:600;}
 </style>
 </head>
 <body>
@@ -78,46 +85,43 @@
         <span class="tag">AI POWERED • SMART ANALYSIS • HIGH ACCURACY</span>
     </div>
     
+    <select id="pairList" onchange="changeMarket()">
+        <option value="EURUSDT">EUR/USDT</option>
+        <option value="USDJPY">USD/JPY OTC</option>
+        <option value="GBPUSD">GBP/USD OTC</option>
+        <option value="BTCUSDT">BTC/USDT</option>
+    </select>
+    
     <div class="chart-box">
-        <div id="mini-chart">
-            <div class="scan-text" id="scanText">SCANNING MARKET...</div>
-        </div>
+        <div id="mini-chart"></div>
+        <div class="scan-overlay" id="scanOverlay">SCANNING MARKET...</div>
     </div>
-    
-    <div class="pair-select">
-        <span>🌍</span>
-        <select id="pairList" onchange="changeMarket()">
-            <optgroup label="Binance Pairs">
-                <option value="EURUSDT">EUR/USDT</option>
-                <option value="BTCUSDT">BTC/USDT</option>
-                <option value="ETHUSDT">ETH/USDT</option>
-            </optgroup>
-            <optgroup label="OTC Pairs">
-                <option value="EURUSD">EUR/USD OTC</option>
-                <option value="GBPUSD">GBP/USD OTC</option>
-                <option value="USDJPY">USD/JPY OTC</option>
-            </optgroup>
-        </select>
-    </div>
-    
-    <button class="btn" id="scanBtn" onclick="runScan()">⚡ ANALYZE MARKET</button>
     
     <div class="scan-box" id="scanBox">
-        <div class="circle-progress">
-            <svg width="50" height="50">
-                <circle class="circle-bg" cx="25" cy="25" r="22"/>
-                <circle class="circle-fg" id="circleFg" cx="25" cy="25" r="22"/>
+        <div class="radar"></div>
+        <div style="flex:1;">
+            <h3 style="color:#00d9ff;font-size:14px;">SCANNING MARKET...</h3>
+            <p style="font-size:11px;color:#8892b0;margin-top:3px;">Analyzing Price Action, Trend, RSI, EMA</p>
+        </div>
+        <div class="circle-timer">
+            <svg width="60" height="60">
+                <circle class="circle-bg" cx="30" cy="30" r="25"/>
+                <circle class="circle-fg" id="circleFg" cx="30" cy="30" r="25"/>
             </svg>
+            <div class="timer-text">
+                <div class="num" id="timer">03</div>
+                <div class="sec">SEC</div>
+            </div>
         </div>
-        <div class="scan-info">
-            <h3>SCANNING MARKET...</h3>
-            <p>Analyzing RSI, EMA, SMA & Trend</p>
-        </div>
-        <div class="timer" id="timer">03</div>
     </div>
     
+    <button class="btn" id="scanBtn" onclick="runScan()">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 4.5L21 12l-7.5 7.5M4.5 12h16.5"/></svg>
+        <span id="btnText">ANALYZE MARKET</span>
+    </button>
+    
     <div class="result-box" id="resultBox">
-        <div style="text-align:center;font-size:12px;color:#00d9ff;margin-bottom:10px;">ANALYSIS RESULT</div>
+        <div class="result-title">ANALYSIS RESULT</div>
         <div class="result-grid">
             <div>
                 <div style="font-size:20px;">⬆️</div>
@@ -126,29 +130,50 @@
             </div>
             <div>
                 <div class="result-label">CONFIDENCE</div>
-                <div class="accuracy-circle">
+                <div class="confidence-circle">
                     <svg width="60" height="60">
-                        <circle class="accuracy-bg" cx="30" cy="30" r="25"/>
-                        <circle class="accuracy-fg" id="accuracyFg" cx="30" cy="30" r="25"/>
+                        <circle class="conf-bg" cx="30" cy="30" r="25"/>
+                        <circle class="conf-fg" id="confFg" cx="30" cy="30" r="25"/>
                     </svg>
-                    <div class="accuracy-text" id="accuracy">92%</div>
+                    <div class="conf-text" id="confidence">92%</div>
                 </div>
             </div>
             <div>
                 <div class="result-label">EXPIRY TIME</div>
-                <div style="font-size:20px;margin-top:5px;">⏰</div>
+                <div style="font-size:20px;margin:5px 0;">⏰</div>
                 <div class="result-value">1 MIN</div>
             </div>
         </div>
-        <div class="details" id="details">RSI: 62.46 | EMA12: 100.22 | EMA26: 99.91</div>
+        <div style="font-size:11px;color:#8892b0;margin-top:10px;text-align:center;" id="details">RSI: 62.46 | EMA12: 100.22 | EMA26: 99.91</div>
     </div>
     
-    <div class="settings">
-        <div>
-            <div style="font-size:13px;font-weight:600;">🔔 SOUND ALERT</div>
-            <div style="font-size:11px;color:#8892b0;">Enabled</div>
+    <div class="settings-row">
+        <div>🔊 SOUND ALERT: <span id="soundStatus">ON</span></div>
+        <div class="toggle active" onclick="toggleSound()"></div>
+    </div>
+    
+    <div class="settings-row">
+        <div>📳 VIBRATION: <span id="vibStatus">ON</span></div>
+        <div class="toggle active" onclick="toggleVib()"></div>
+    </div>
+    
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            HOME
         </div>
-        <div class="toggle active" id="soundToggle" onclick="toggleSound()"></div>
+        <div class="nav-item">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.96 8.96 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg>
+            HISTORY
+        </div>
+        <div class="nav-item">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+            STRATEGY
+        </div>
+        <div class="nav-item">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+            SETTINGS
+        </div>
     </div>
 </div>
 
@@ -157,6 +182,8 @@ let currentPair = "EURUSDT";
 let audioCtx;
 let scanning = false;
 let scanInterval;
+let soundOn = true;
+let vibOn = true;
 
 function startApp(){
     if(document.getElementById('key').value === 'Pak786'){
@@ -170,10 +197,8 @@ function startApp(){
 }
 
 function loadChart(symbol){
-    document.getElementById('mini-chart').innerHTML = '<div class="scan-text" id="scanText">SCANNING MARKET...</div>';
-    let tvSymbol = symbol.includes('USDT') ? "BINANCE:"+symbol : "FX:"+symbol;
     new TradingView.widget({
-        "width":"100%","height":180,"symbol":tvSymbol,
+        "width":"100%","height":200,"symbol":"BINANCE:"+symbol,
         "interval":"1","theme":"dark","style":"1",
         "hide_top_toolbar":true,"hide_legend":true,"container_id":"mini-chart"
     });
@@ -186,17 +211,11 @@ function changeMarket(){
 
 async function getCandles(symbol){
     try{
-        if(symbol.includes('USDT')){
-            let proxy = "https://api.allorigins.win/raw?url=";
-            let url = proxy + encodeURIComponent(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=50`);
-            let res = await fetch(url);
-            let data = await res.json();
-            return data.map(c => parseFloat(c[4]));
-        }else{
-            let demo = []; let base = 1.1640 + Math.random()*0.1;
-            for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.002;demo.push(base);}
-            return demo;
-        }
+        let proxy = "https://api.allorigins.win/raw?url=";
+        let url = proxy + encodeURIComponent(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=50`);
+        let res = await fetch(url);
+        let data = await res.json();
+        return data.map(c => parseFloat(c[4]));
     }catch(e){
         let demo = []; let base = 1.1640;
         for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.001;demo.push(base);}
@@ -226,28 +245,39 @@ function calculateEMA(prices,period){
 }
 
 function playBeep(type){
-    if(!audioCtx || !document.getElementById('soundToggle').classList.contains('active'))return;
+    if(!soundOn || !audioCtx)return;
     try{
         let osc=audioCtx.createOscillator();
-        let gain=audioCtx.createGain();
-        osc.connect(gain);gain.connect(audioCtx.destination);
         osc.frequency.value=type==="CALL"?1000:400;
-        gain.gain.value=0.3;
+        osc.connect(audioCtx.destination);
         osc.start();osc.stop(audioCtx.currentTime+0.2);
     }catch(e){}
 }
 
+function vibrate(){
+    if(vibOn && navigator.vibrate){
+        navigator.vibrate(200);
+    }
+}
+
 function toggleSound(){
-    document.getElementById('soundToggle').classList.toggle('active');
+    soundOn=!soundOn;
+    document.getElementById('soundStatus').innerText=soundOn?"ON":"OFF";
+    document.querySelectorAll('.toggle')[0].classList.toggle('active');
+}
+
+function toggleVib(){
+    vibOn=!vibOn;
+    document.getElementById('vibStatus').innerText=vibOn?"ON":"OFF";
+    document.querySelectorAll('.toggle')[1].classList.toggle('active');
 }
 
 function stopScan(){
     scanning=false;
     clearInterval(scanInterval);
     document.getElementById('scanBox').style.display='none';
-    document.getElementById('scanText').classList.remove('active');
-    document.getElementById('scanBtn').disabled=false;
-    document.getElementById('scanBtn').innerText="⚡ ANALYZE MARKET";
+    document.getElementById('scanOverlay').classList.remove('active');
+    document.getElementById('btnText').innerText="ANALYZE MARKET";
     document.getElementById('scanBtn').classList.remove('stop');
     document.getElementById('scanBtn').onclick=runScan;
 }
@@ -256,29 +286,21 @@ async function runScan(){
     if(scanning)return;
     scanning=true;
     
-    let btn=document.getElementById('scanBtn');
-    let scanBox=document.getElementById('scanBox');
-    let scanText=document.getElementById('scanText');
-    let timer=document.getElementById('timer');
-    let circleFg=document.getElementById('circleFg');
-    let resultBox=document.getElementById('resultBox');
-    
-    btn.disabled=true;
-    btn.innerText="⏹️ STOP SCAN";
-    btn.classList.add('stop');
-    btn.onclick=stopScan;
-    scanBox.style.display='flex';
-    scanText.classList.add('active');
-    resultBox.style.display='none';
+    document.getElementById('scanBox').style.display='flex';
+    document.getElementById('scanOverlay').classList.add('active');
+    document.getElementById('btnText').innerText="STOP SCAN";
+    document.getElementById('scanBtn').classList.add('stop');
+    document.getElementById('scanBtn').onclick=stopScan;
+    document.getElementById('resultBox').style.display='none';
     
     let count=3;
-    timer.innerText=count.toString().padStart(2,'0');
-    circleFg.style.strokeDashoffset=138;
+    document.getElementById('timer').innerText=count.toString().padStart(2,'0');
+    document.getElementById('circleFg').style.strokeDashoffset=157;
     
     scanInterval=setInterval(()=>{
         count--;
-        timer.innerText=count.toString().padStart(2,'0');
-        circleFg.style.strokeDashoffset=138-(138*(3-count)/3);
+        document.getElementById('timer').innerText=count.toString().padStart(2,'0');
+        document.getElementById('circleFg').style.strokeDashoffset=157-(157*(3-count)/3);
         
         if(count<=0){
             clearInterval(scanInterval);
@@ -295,29 +317,28 @@ async function generateSignal(){
     let lastPrice=prices[prices.length-1];
     
     let signal,color,confidence=65;
-    let trend = ema12 > ema26 ? "BULLISH" : "BEARISH";
     
     if(rsi<40 && lastPrice>ema12 && ema12>ema26){
         signal="CALL";color="call";confidence=85+Math.floor(Math.random()*10);
-        playBeep("CALL");
+        playBeep("CALL");vibrate();
     }else if(rsi>60 && lastPrice<ema12 && ema12<ema26){
         signal="PUT";color="put";confidence=85+Math.floor(Math.random()*10);
-        playBeep("PUT");
+        playBeep("PUT");vibrate();
     }else if(rsi<50 && lastPrice>ema12){
         signal="CALL";color="call";confidence=70+Math.floor(Math.random()*10);
-        playBeep("CALL");
+        playBeep("CALL");vibrate();
     }else if(rsi>50 && lastPrice<ema12){
         signal="PUT";color="put";confidence=70+Math.floor(Math.random()*10);
-        playBeep("PUT");
+        playBeep("PUT");vibrate();
     }else{
         signal="WAIT";color="call";confidence=50;
     }
     
     document.getElementById('signal').innerText=signal;
     document.getElementById('signal').className='result-value '+color;
-    document.getElementById('accuracy').innerText=confidence+'%';
-    document.getElementById('accuracyFg').style.strokeDashoffset=157-(157*confidence/100);
-    document.getElementById('details').innerText=`RSI:${rsi.toFixed(2)} | EMA12:${ema12.toFixed(4)} | EMA26:${ema26.toFixed(4)} | Trend:${trend}`;
+    document.getElementById('confidence').innerText=confidence+'%';
+    document.getElementById('confFg').style.strokeDashoffset=157-(157*confidence/100);
+    document.getElementById('details').innerText=`RSI:${rsi.toFixed(2)} | EMA12:${ema12.toFixed(4)} | EMA26:${ema26.toFixed(4)}`;
     document.getElementById('resultBox').style.display='block';
     
     stopScan();
