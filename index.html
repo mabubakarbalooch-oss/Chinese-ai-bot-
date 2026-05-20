@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PAK AI SURESHOT X - V14.0</title>
+    <title>PAK AI SURESHOT X - V14.1 FIXED</title>
     <style>
         :root {
             --sky: #00d4ff;
@@ -61,8 +61,8 @@
 
         /* ACTIONABLE SIGNAL NOTIFICATIONS */
         .signal-badge { display: none; width: 100%; padding: 15px; border-radius: 20px; font-size: 28px; font-weight: 900; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-top: 10px; }
-        .up-signal { background: var(--green); color: #000; text-shadow: 0 1px 2px rgba(255,255,255,0.4); }
-        .down-signal { background: var(--red); color: #fff; }
+        .up-signal { background: #00ff99; color: #000; text-shadow: 0 1px 2px rgba(255,255,255,0.4); }
+        .down-signal { background: #ff4757; color: #fff; }
 
         .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.6); border: 1px solid var(--sky); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .pair-tag { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
@@ -165,7 +165,7 @@
         frame.classList.add('scanning');
         sig.style.display = 'none';
         radarTxt.innerText = "SCANNING MARKET...";
-        radarTxt.style.color = var(--sky);
+        radarTxt.style.color = "#00d4ff";
         timer.innerText = "PROCESSING CANDLE VOLATILITY...";
 
         // 3 Seconds Neural Analysis Processing
@@ -180,7 +180,7 @@
         
         sig.style.display = 'block';
         radarTxt.innerText = "ANALYSIS COMPLETE";
-        radarTxt.style.color = isUp ? var(--green) : var(--red);
+        radarTxt.style.color = isUp ? "#00ff99" : "#ff4757";
 
         if(isUp) {
             sig.innerText = "CALL (UP) ↑";
@@ -196,7 +196,7 @@
             let gain = audioCtx.createGain();
             osc.connect(gain); gain.connect(audioCtx.destination);
             osc.frequency.setValueAtTime(isUp ? 1150 : 380, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.12, audioContext.currentTime);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
             osc.start(); osc.stop(audioCtx.currentTime + 0.28);
         }
 
@@ -209,7 +209,7 @@
             if(t < 0) { 
                 clearInterval(itv); 
                 timer.innerText = "✅ ENTER TRADE NOW (1 MIN)"; 
-                timer.style.color = var(--green);
+                timer.style.color = "#00ff99";
             }
         }, 1000);
     }
