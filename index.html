@@ -8,76 +8,85 @@
 <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
     body{background:#0a0e1a;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
-    .app{width:100%;max-width:420px;background:#0d1424;border-radius:20px;border:1px solid #1e2a4a;overflow:hidden;}
-    
-    .header{padding:18px;text-align:center;border-bottom:1px solid #1e2a4a;position:relative;}
-    .header h1{font-size:18px;color:#00d9ff;font-weight:800;}
-    .header .tag{font-size:10px;color:#00ff99;background:#00ff9915;padding:4px 10px;border-radius:20px;display:inline-block;margin-top:6px;}
-    .header .logo{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:28px;height:28px;background:#00d9ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;}
-    
-    .chart-box{background:#0f1729;margin:12px;border-radius:15px;padding:10px;border:1px solid #1e2a4a;position:relative;min-height:200px;}
+   .app{width:100%;max-width:420px;background:#0d1424;border-radius:20px;border:1px solid #1e2a4a;overflow:hidden;}
+
+   .header{padding:18px;text-align:center;border-bottom:1px solid #1e2a4a;position:relative;}
+   .header h1{font-size:18px;color:#00d9ff;font-weight:800;}
+   .header.tag{font-size:10px;color:#00ff99;background:#00ff9915;padding:4px 10px;border-radius:20px;display:inline-block;margin-top:6px;}
+   .header.logo{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:28px;height:28px;background:#00d9ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;}
+
+   .chart-box{background:#0f1729;margin:12px;border-radius:15px;padding:10px;border:1px solid #1e2a4a;position:relative;min-height:200px;}
     #mini-chart{height:200px;border-radius:10px;overflow:hidden;}
-    .fake-chart{height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#8892b0;}
-    .fake-chart .price{font-size:28px;color:#00ff99;font-weight:700;margin-bottom:5px;}
-    .fake-chart .change{font-size:16px;color:#00ff99;}
-    .scan-overlay{position:absolute;bottom:20px;right:20px;color:#00d9ff;font-size:12px;font-weight:600;display:none;}
-    .scan-overlay.active{display:block;}
-    
-    .scan-box{margin:12px;background:#0f1729;border-radius:15px;padding:15px;border:1px solid #1e2a4a;display:none;align-items:center;gap:15px;}
-    .radar{width:50px;height:50px;border:2px solid #00d9ff;border-radius:50%;position:relative;animation:pulse 2s infinite;}
-    .radar::after{content:'';position:absolute;width:100%;height:2px;background:#00d9ff;top:50%;animation:rotate 2s linear infinite;transform-origin:left;}
+
+    /* Fake Candlestick Chart for OTC */
+   .candle-chart{height:180px;position:relative;padding:20px 10px 30px;}
+   .candle-grid{position:absolute;top:20px;left:10px;right:10px;bottom:30px;display:flex;align-items:flex-end;gap:3px;}
+   .candle{width:4px;background:#00ff99;position:relative;border-radius:1px;}
+   .candle.red{background:#ff4757;}
+   .candle::before{content:'';position:absolute;width:1px;background:inherit;left:50%;transform:translateX(-50%);}
+   .chart-info{position:absolute;top:10px;left:10px;font-size:12px;}
+   .chart-info.pair{color:#fff;font-weight:600;}
+   .chart-info.price{color:#00ff99;font-size:14px;}
+   .chart-time{position:absolute;bottom:5px;left:10px;right:10px;display:flex;justify-content:space-between;font-size:9px;color:#8892b0;}
+   .scan-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:#00d9ff;animation:scan 2s infinite;display:none;}
+   .scan-line.active{display:block;}
+    @keyframes scan{0%{left:0;right:100%;}50%{left:0;right:0;}100%{left:100%;right:0;}}
+
+   .scan-box{margin:12px;background:#0f1729;border-radius:15px;padding:15px;border:1px solid #1e2a4a;display:none;align-items:center;gap:15px;}
+   .radar{width:50px;height:50px;border:2px solid #00d9ff;border-radius:50%;position:relative;animation:pulse 2s infinite;}
+   .radar::after{content:'';position:absolute;width:100%;height:2px;background:#00d9ff;top:50%;animation:rotate 2s linear infinite;transform-origin:left;}
     @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
     @keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-    
-    .circle-timer{width:60px;height:60px;position:relative;}
-    .circle-timer svg{transform:rotate(-90deg);}
-    .circle-timer circle{fill:none;stroke-width:3;stroke-linecap:round;}
-    .circle-bg{stroke:#1e2a4a;}
-    .circle-fg{stroke:#00d9ff;stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset 1s linear;}
-    .timer-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
-    .timer-text .num{font-size:20px;font-weight:800;color:#00d9ff;}
-    .timer-text .sec{font-size:10px;color:#8892b0;}
-    
-    .btn{width:calc(100% - 24px);margin:0 12px 12px;padding:16px;border-radius:12px;border:none;background:linear-gradient(90deg,#00d9ff,#00aaff);color:#000;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
-    .btn.stop{background:linear-gradient(90deg,#00d9ff,#00aaff);}
-    
-    .result-box{margin:12px;background:#0f1729;border-radius:15px;padding:15px;border:1px solid #1e2a4a;display:none;}
-    .result-title{font-size:12px;color:#00d9ff;text-align:center;margin-bottom:10px;}
-    .result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:10px;}
-    .result-label{font-size:10px;color:#8892b0;}
-    .result-value{font-size:18px;font-weight:800;margin:5px 0;}
-    .call{color:#00ff99;}
-    .put{color:#ff4757;}
-    
-    .confidence-circle{width:60px;height:60px;position:relative;margin:auto;}
-    .confidence-circle svg{transform:rotate(-90deg);}
-    .confidence-circle circle{fill:none;stroke-width:4;stroke-linecap:round;}
-    .conf-bg{stroke:#1e2a4a;}
-    .conf-fg{stroke:#00ff99;stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset 1s linear;}
-    .conf-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16px;font-weight:800;color:#00ff99;}
-    
-    .settings-row{margin:12px;background:#0f1729;border-radius:15px;padding:12px;border:1px solid #1e2a4a;display:flex;justify-content:space-between;align-items:center;font-size:13px;}
-    .toggle{width:45px;height:24px;background:#2a3447;border-radius:12px;position:relative;cursor:pointer;transition:0.3s;}
-    .toggle.active{background:#00ff99;}
-    .toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;}
-    .toggle.active::after{left:24px;}
-    
-    .bottom-nav{display:flex;justify-content:space-around;padding:12px;border-top:1px solid #1e2a4a;background:#0f1729;}
-    .nav-item{text-align:center;color:#8892b0;font-size:10px;cursor:pointer;}
-    .nav-item.active{color:#00d9ff;}
-    .nav-item svg{width:22px;height:22px;margin-bottom:3px;}
-    
-    .login{padding:40px 20px;text-align:center;}
-    .login input{width:100%;padding:14px;border-radius:12px;background:#0f1729;border:1px solid #1e2a4a;color:#fff;text-align:center;margin-bottom:15px;}
-    
+
+   .circle-timer{width:60px;height:60px;position:relative;}
+   .circle-timer svg{transform:rotate(-90deg);}
+   .circle-timer circle{fill:none;stroke-width:3;stroke-linecap:round;}
+   .circle-bg{stroke:#1e2a4a;}
+   .circle-fg{stroke:#00d9ff;stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset 1s linear;}
+   .timer-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+   .timer-text.num{font-size:20px;font-weight:800;color:#00d9ff;}
+   .timer-text.sec{font-size:10px;color:#8892b0;}
+
+   .btn{width:calc(100% - 24px);margin:0 12px 12px;padding:16px;border-radius:12px;border:none;background:linear-gradient(90deg,#00d9ff,#00aaff);color:#000;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+   .btn.stop{background:linear-gradient(90deg,#00d9ff,#00aaff);}
+
+   .result-box{margin:12px;background:#0f1729;border-radius:15px;padding:15px;border:1px solid #1e2a4a;display:none;}
+   .result-title{font-size:12px;color:#00d9ff;text-align:center;margin-bottom:10px;}
+   .result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:10px;}
+   .result-label{font-size:10px;color:#8892b0;}
+   .result-value{font-size:18px;font-weight:800;margin:5px 0;}
+   .call{color:#00ff99;}
+   .put{color:#ff4757;}
+
+   .confidence-circle{width:60px;height:60px;position:relative;margin:auto;}
+   .confidence-circle svg{transform:rotate(-90deg);}
+   .confidence-circle circle{fill:none;stroke-width:4;stroke-linecap:round;}
+   .conf-bg{stroke:#1e2a4a;}
+   .conf-fg{stroke:#00ff99;stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset 1s linear;}
+   .conf-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16px;font-weight:800;color:#00ff99;}
+
+   .settings-row{margin:12px;background:#0f1729;border-radius:15px;padding:12px;border:1px solid #1e2a4a;display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+   .toggle{width:45px;height:24px;background:#2a3447;border-radius:12px;position:relative;cursor:pointer;transition:0.3s;}
+   .toggle.active{background:#00ff99;}
+   .toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;}
+   .toggle.active::after{left:24px;}
+
+   .bottom-nav{display:flex;justify-content:space-around;padding:12px;border-top:1px solid #1e2a4a;background:#0f1729;}
+   .nav-item{text-align:center;color:#8892b0;font-size:10px;cursor:pointer;}
+   .nav-item.active{color:#00d9ff;}
+   .nav-item svg{width:22px;height:22px;margin-bottom:3px;}
+
+   .login{padding:40px 20px;text-align:center;}
+   .login input{width:100%;padding:14px;border-radius:12px;background:#0f1729;border:1px solid #1e2a4a;color:#fff;text-align:center;margin-bottom:15px;}
+
     select{background:#0f1729;border:1px solid #1e2a4a;color:#fff;padding:12px;border-radius:12px;width:calc(100% - 24px);margin:12px;font-weight:600;}
-    
-    .sound-wave{width:100px;height:20px;display:flex;align-items:center;justify-content:center;gap:2px;}
-    .sound-wave span{width:3px;height:5px;background:#00ff99;animation:wave 1s infinite;}
-    .sound-wave span:nth-child(2){animation-delay:0.1s;height:10px;}
-    .sound-wave span:nth-child(3){animation-delay:0.2s;height:15px;}
-    .sound-wave span:nth-child(4){animation-delay:0.3s;height:10px;}
-    .sound-wave span:nth-child(5){animation-delay:0.4s;height:5px;}
+
+   .sound-wave{width:100px;height:20px;display:flex;align-items:center;justify-content:center;gap:2px;}
+   .sound-wave span{width:3px;height:5px;background:#00ff99;animation:wave 1s infinite;}
+   .sound-wave span:nth-child(2){animation-delay:0.1s;height:10px;}
+   .sound-wave span:nth-child(3){animation-delay:0.2s;height:15px;}
+   .sound-wave span:nth-child(4){animation-delay:0.3s;height:10px;}
+   .sound-wave span:nth-child(5){animation-delay:0.4s;height:5px;}
     @keyframes wave{0%,100%{height:5px;}50%{height:15px;}}
 </style>
 </head>
@@ -97,29 +106,38 @@
         <h1>PAK AI SIGNAL BOT PRO</h1>
         <span class="tag">AI POWERED • SMART ANALYSIS • HIGH ACCURACY</span>
     </div>
-    
+
     <select id="pairList" onchange="changeMarket()">
-        <optgroup label="OTC Pairs">
-            <option value="USDBRL">USD/BRL OTC</option>
-            <option value="USDJPY">USD/JPY OTC</option>
-            <option value="EURUSD">EUR/USD OTC</option>
+        <optgroup label="Quotex OTC Pairs">
+            <option value="USD/BRL">USD/BRL OTC</option>
+            <option value="EUR/USD">EUR/USD OTC</option>
+            <option value="GBP/USD">GBP/USD OTC</option>
+            <option value="USD/JPY">USD/JPY OTC</option>
+            <option value="AUD/USD">AUD/USD OTC</option>
+            <option value="EUR/JPY">EUR/JPY OTC</option>
+            <option value="GBP/JPY">GBP/JPY OTC</option>
         </optgroup>
         <optgroup label="Binance Pairs">
             <option value="EURUSDT">EUR/USDT</option>
             <option value="BTCUSDT">BTC/USDT</option>
         </optgroup>
     </select>
-    
+
     <div class="chart-box">
         <div id="mini-chart"></div>
-        <div id="fake-chart" class="fake-chart" style="display:none;">
-            <div class="price" id="fakePrice">5.0508</div>
-            <div class="change" id="fakeChange">+0.0033 (0.07%)</div>
-            <div style="margin-top:10px;font-size:12px;">Live Price</div>
+        <div id="candle-chart" class="candle-chart">
+            <div class="chart-info">
+                <div class="pair" id="chartPair">USD/BRL OTC</div>
+                <div class="price" id="chartPrice">5.0516</div>
+            </div>
+            <div class="candle-grid" id="candleGrid"></div>
+            <div class="scan-line" id="scanLine"></div>
+            <div class="chart-time">
+                <span>06:44</span><span>06:48</span><span>06:50</span><span>06:52</span><span>06:54</span>
+            </div>
         </div>
-        <div class="scan-overlay" id="scanOverlay">SCANNING MARKET...</div>
     </div>
-    
+
     <div class="scan-box" id="scanBox">
         <div class="radar"></div>
         <div style="flex:1;">
@@ -137,12 +155,12 @@
             </div>
         </div>
     </div>
-    
+
     <button class="btn" id="scanBtn" onclick="runScan()">
         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 4.5L21 12l-7.5 7.5M4.5 12h16.5"/></svg>
         <span id="btnText">ANALYZE MARKET</span>
     </button>
-    
+
     <div class="result-box" id="resultBox">
         <div class="result-title">ANALYSIS RESULT</div>
         <div class="result-grid">
@@ -169,7 +187,7 @@
         </div>
         <div style="font-size:11px;color:#8892b0;margin-top:10px;text-align:center;" id="details">RSI: 62.46 | EMA12: 100.22 | EMA26: 99.91</div>
     </div>
-    
+
     <div class="settings-row">
         <div style="display:flex;align-items:center;gap:8px;">
             <span>🔊</span>
@@ -182,7 +200,7 @@
         </div>
         <div class="toggle active" onclick="toggleSound()"></div>
     </div>
-    
+
     <div class="settings-row">
         <div style="display:flex;align-items:center;gap:8px;">
             <span>📳</span>
@@ -190,7 +208,7 @@
         </div>
         <div class="toggle active" onclick="toggleVib()"></div>
     </div>
-    
+
     <div class="bottom-nav">
         <div class="nav-item active">
             <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -205,19 +223,20 @@
             STRATEGY
         </div>
         <div class="nav-item">
-            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0.46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0.61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
             SETTINGS
         </div>
     </div>
 </div>
 
 <script>
-let currentPair = "USDBRL";
+let currentPair = "USD/BRL";
 let audioCtx;
 let scanning = false;
 let scanInterval;
 let soundOn = true;
 let vibOn = true;
+let priceData = [];
 
 function startApp(){
     if(document.getElementById('key').value === 'Pak786'){
@@ -225,21 +244,23 @@ function startApp(){
         document.getElementById('main').style.display='block';
         loadChart(currentPair);
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    } else { 
-        alert('Wrong Key! Correct key: Pak786'); 
+        setInterval(updatePrice, 2000);
+    } else {
+        alert('Wrong Key! Correct key: Pak786');
     }
 }
 
 function loadChart(symbol){
-    let isOTC = !symbol.includes('USDT');
-    
+    let isOTC =!symbol.includes('USDT');
+
     if(isOTC){
         document.getElementById('mini-chart').style.display='none';
-        document.getElementById('fake-chart').style.display='flex';
-        updateFakePrice(symbol);
+        document.getElementById('candle-chart').style.display='block';
+        document.getElementById('chartPair').innerText = symbol + " OTC";
+        generateCandles(symbol);
     } else {
         document.getElementById('mini-chart').style.display='block';
-        document.getElementById('fake-chart').style.display='none';
+        document.getElementById('candle-chart').style.display='none';
         new TradingView.widget({
             "width":"100%","height":200,"symbol":"BINANCE:"+symbol,
             "interval":"1","theme":"dark","style":"1",
@@ -248,15 +269,65 @@ function loadChart(symbol){
     }
 }
 
-function updateFakePrice(symbol){
-    let base = symbol=="USDBRL" ? 5.0508 : symbol=="USDJPY" ? 148.50 : 1.0850;
-    let change = (Math.random()-0.5)*0.01;
-    let newPrice = (base + change).toFixed(4);
-    let percent = ((change/base)*100).toFixed(2);
-    
-    document.getElementById('fakePrice').innerText=newPrice;
-    document.getElementById('fakeChange').innerText=`${change>=0?'+':''}${change.toFixed(4)} (${percent}%)`;
-    document.getElementById('fakeChange').style.color=change>=0?'#00ff99':'#ff4757';
+function generateCandles(symbol){
+    priceData = [];
+    let base = symbol=="USD/BRL"? 5.0516 : symbol=="EUR/USD"? 1.0850 : symbol=="GBP/USD"? 1.2650 : 148.50;
+
+    for(let i=0;i<25;i++){
+        let open = base;
+        let close = base + (Math.random()-0.5)*0.01;
+        let high = Math.max(open, close) + Math.random()*0.005;
+        let low = Math.min(open, close) - Math.random()*0.005;
+        priceData.push({open, high, low, close});
+        base = close;
+    }
+    drawCandles();
+}
+
+function drawCandles(){
+    let grid = document.getElementById('candleGrid');
+    grid.innerHTML = '';
+
+    let min = Math.min(...priceData.map(d=>d.low));
+    let max = Math.max(...priceData.map(d=>d.high));
+    let range = max - min;
+
+    priceData.forEach(candle=>{
+        let div = document.createElement('div');
+        div.className = 'candle ' + (candle.close<candle.open?'red':'');
+
+        let h = ((candle.high-min)/range)*120;
+        let l = ((candle.low-min)/range)*120;
+        let o = ((candle.open-min)/range)*120;
+        let c = ((candle.close-min)/range)*120;
+
+        div.style.height = Math.abs(h-l) + 'px';
+        div.style.marginBottom = l + 'px';
+        div.style.height = Math.max(2, Math.abs(c-o)) + 'px';
+        div.style.marginBottom = Math.min(o,c) + 'px';
+
+        grid.appendChild(div);
+    });
+
+    document.getElementById('chartPrice').innerText = priceData[priceData.length-1].close.toFixed(4);
+}
+
+function updatePrice(){
+    if(!scanning){
+        let last = priceData[priceData.length-1].close;
+        let change = (Math.random()-0.5)*0.002;
+        let newPrice = last + change;
+
+        priceData.shift();
+        priceData.push({
+            open: last,
+            close: newPrice,
+            high: Math.max(last, newPrice) + Math.random()*0.001,
+            low: Math.min(last, newPrice) - Math.random()*0.001
+        });
+
+        drawCandles();
+    }
 }
 
 function changeMarket(){
@@ -264,36 +335,8 @@ function changeMarket(){
     loadChart(currentPair);
 }
 
-async function getCandles(symbol){
-    let demo = []; 
-    let base = symbol=="USDBRL" ? 5.0508 : symbol=="USDJPY" ? 148.50 : 1.0850;
-    for(let i=0;i<50;i++){base += (Math.random()-0.5)*0.002;demo.push(base);}
-    return demo;
-}
-
-function calculateRSI(prices,period=14){
-    let gains=0,losses=0;
-    for(let i=1;i<=period;i++){
-        let diff=prices[i]-prices[i-1];
-        if(diff>0)gains+=diff;else losses-=diff;
-    }
-    let avgGain=gains/period,avgLoss=losses/period;
-    if(avgLoss===0)return 100;
-    let rs=avgGain/avgLoss;
-    return 100-(100/(1+rs));
-}
-
-function calculateEMA(prices,period){
-    let k=2/(period+1);
-    let ema=prices[0];
-    for(let i=1;i<prices.length;i++){
-        ema=prices[i]*k+ema*(1-k);
-    }
-    return ema;
-}
-
 function playBeep(type){
-    if(!soundOn || !audioCtx)return;
+    if(!soundOn ||!audioCtx)return;
     try{
         let osc=audioCtx.createOscillator();
         osc.frequency.value=type==="CALL"?1000:400;
@@ -324,7 +367,7 @@ function stopScan(){
     scanning=false;
     clearInterval(scanInterval);
     document.getElementById('scanBox').style.display='none';
-    document.getElementById('scanOverlay').classList.remove('active');
+    document.getElementById('scanLine').classList.remove('active');
     document.getElementById('btnText').innerText="ANALYZE MARKET";
     document.getElementById('scanBtn').classList.remove('stop');
     document.getElementById('scanBtn').onclick=runScan;
@@ -333,23 +376,23 @@ function stopScan(){
 async function runScan(){
     if(scanning)return;
     scanning=true;
-    
+
     document.getElementById('scanBox').style.display='flex';
-    document.getElementById('scanOverlay').classList.add('active');
+    document.getElementById('scanLine').classList.add('active');
     document.getElementById('btnText').innerText="STOP SCAN";
     document.getElementById('scanBtn').classList.add('stop');
     document.getElementById('scanBtn').onclick=stopScan;
     document.getElementById('resultBox').style.display='none';
-    
+
     let count=3;
     document.getElementById('timer').innerText=count.toString().padStart(2,'0');
     document.getElementById('circleFg').style.strokeDashoffset=157;
-    
+
     scanInterval=setInterval(()=>{
         count--;
         document.getElementById('timer').innerText=count.toString().padStart(2,'0');
         document.getElementById('circleFg').style.strokeDashoffset=157-(157*(3-count)/3);
-        
+
         if(count<=0){
             clearInterval(scanInterval);
             generateSignal();
@@ -358,14 +401,13 @@ async function runScan(){
 }
 
 async function generateSignal(){
-    let prices=await getCandles(currentPair);
-    let rsi=calculateRSI(prices);
-    let ema12=calculateEMA(prices,12);
-    let ema26=calculateEMA(prices,26);
-    let lastPrice=prices[prices.length-1];
-    
+    let rsi = 40 + Math.random()*30;
+    let ema12 = priceData[priceData.length-1].close * (0.99 + Math.random()*0.02);
+    let ema26 = priceData[priceData.length-1].close * (0.98 + Math.random()*0.04);
+    let lastPrice = priceData[priceData.length-1].close;
+
     let signal,color,confidence=65;
-    
+
     if(rsi<40 && lastPrice>ema12 && ema12>ema26){
         signal="CALL";color="call";confidence=85+Math.floor(Math.random()*10);
         playBeep("CALL");vibrate();
@@ -381,16 +423,15 @@ async function generateSignal(){
     }else{
         signal="WAIT";color="call";confidence=50;
     }
-    
+
     document.getElementById('signal').innerText=signal;
     document.getElementById('signal').className='result-value '+color;
     document.getElementById('confidence').innerText=confidence+'%';
     document.getElementById('confFg').style.strokeDashoffset=157-(157*confidence/100);
     document.getElementById('details').innerText=`RSI:${rsi.toFixed(2)} | EMA12:${ema12.toFixed(4)} | EMA26:${ema26.toFixed(4)}`;
     document.getElementById('resultBox').style.display='block';
-    
+
     stopScan();
-    updateFakePrice(currentPair);
 }
 </script>
 </body>
