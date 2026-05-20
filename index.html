@@ -1,144 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PAK AI SIGNAL X - V11.6 ULTRA</title>
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <style>
-        :root {
-            --sky: #00d4ff;
-            --sky-dim: rgba(0, 212, 255, 0.2);
-            --bg: #010a0f;
-            --card-bg: rgba(2, 18, 28, 0.95);
-            --red: #ff4757;
-            --green: #00ff99;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>PAK AI SIGNAL X - FIXED PRO</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); height: 100vh; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden; }
+<script src="https://s3.tradingview.com/tv.js"></script>
 
-        .app-window {
-            width: 100%; max-width: 420px; background: var(--card-bg);
-            border: 1px solid var(--sky-dim); border-radius: 40px;
-            padding: 25px; box-shadow: 0 0 40px rgba(0, 212, 255, 0.15);
-            position: relative;
-        }
+<style>
+:root {
+    --sky:#00d4ff;
+    --bg:#010a0f;
+    --card:#02121c;
+    --green:#00ff99;
+    --red:#ff4757;
+}
 
-        h1 { color: #fff; font-size: 18px; text-align: center; text-shadow: 0 0 10px var(--sky); margin-bottom: 20px; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 
-        input, select { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 15px; background: #000; border: 1px solid var(--sky-dim); color: #fff; text-align: center; outline: none; }
+body{
+    background:var(--bg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    padding:10px;
+}
 
-        .main-btn {
-            width: 100%; padding: 18px; border-radius: 50px; border: none;
-            background: linear-gradient(135deg, #0088cc, var(--sky));
-            color: #000; font-weight: 800; cursor: pointer; text-transform: uppercase;
-        }
+.app{
+    width:420px;
+    background:var(--card);
+    padding:20px;
+    border-radius:25px;
+    color:#fff;
+}
 
-        #chart-frame { height: 170px; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid #111; position: relative; margin-bottom: 15px; }
-        .laser { position: absolute; width: 100%; height: 3px; background: var(--sky); top: -10%; display: none; z-index: 10; }
-        .scanning .laser { display: block; animation: scan 2s linear infinite; }
-        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+input,select,button{
+    width:100%;
+    padding:12px;
+    margin:6px 0;
+    border-radius:10px;
+    border:none;
+}
 
-        .result-panel { display: none; margin-top: 15px; padding: 15px; border-radius: 25px; background: rgba(0,212,255,0.03); border: 2px solid var(--sky-dim); text-align: center; }
-        .sig-text { font-size: 34px; font-weight: 900; margin: 5px 0; }
-        
-        .martingale-note { font-size: 11px; color: #ffaa00; margin-top: 10px; font-weight: bold; display: none; }
+button{
+    background:linear-gradient(135deg,#0088cc,var(--sky));
+    font-weight:bold;
+}
 
-        .history-box { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
-        table { width: 100%; font-size: 11px; color: #ccc; }
-        .win { color: var(--green); font-weight: bold; }
-    </style>
+#chart{height:170px;margin-top:10px}
+
+.result{
+    display:none;
+    text-align:center;
+    margin-top:10px;
+}
+
+.sig{
+    font-size:40px;
+    font-weight:bold;
+}
+.small{
+    font-size:12px;
+    opacity:0.8;
+}
+</style>
 </head>
+
 <body>
 
-<div class="app-window" id="loginScreen">
-    <h1>PAK AI SYSTEM</h1>
-    <input type="text" id="userInput" placeholder="ENTER PASSWORD">
-    <button class="main-btn" onclick="checkPass()">LOGIN SYSTEM</button>
+<div class="app">
+
+<h3>PAK AI SIGNAL BOT PRO</h3>
+
+<input type="password" id="pass" placeholder="ENTER PASSWORD">
+<button onclick="login()">LOGIN</button>
+
+<div id="panel" style="display:none;">
+
+<select id="asset" onchange="loadChart()">
+<option value="USDBRL">USD/BRL</option>
+<option value="USDINR">USD/INR</option>
+<option value="USDPKR">USD/PKR</option>
+</select>
+
+<div id="chart"></div>
+
+<button onclick="scan()">ANALYZE MARKET</button>
+
+<div class="result" id="result">
+    <div id="signal" class="sig">---</div>
+    <div id="info" class="small"></div>
 </div>
 
-<div class="app-window" id="botScreen" style="display:none;">
-    <h1>SIGNAL MASTER ULTRA</h1>
-    <div id="chart-frame"><div class="laser" id="laser"></div><div id="tv-mount"></div></div>
-
-    <select id="assetSelect" onchange="switchAsset()">
-        <option value="USDBRL">USD/BRL (OTC)</option>
-        <option value="USDMXN">USD/MXN (OTC)</option>
-        <option value="USDINR">USD/INR (REAL)</option>
-        <option value="USDPKR">USD/PKR (REAL)</option>
-    </select>
-
-    <button class="main-btn" id="scanBtn" onclick="startScan()">⚡ ANALYZE MARKET</button>
-
-    <div class="result-panel" id="resPanel">
-        <div id="accVal" style="color:var(--sky); font-size:12px; font-weight:bold;">ACCURACY: 99.1%</div>
-        <div class="sig-text" id="sigVal">---</div>
-        <div id="timerVal" style="color:#fff; font-weight:bold;">WAITING...</div>
-        <div class="martingale-note" id="mNote">⚠️ LOSS? USE 1-STEP MARTINGALE</div>
-    </div>
-
-    <div class="history-box">
-        <table id="histList"></table>
-    </div>
+</div>
 </div>
 
 <script>
-    let audio = null;
-    function checkPass() {
-        if(document.getElementById('userInput').value.trim().toLowerCase() === "pak786") {
-            document.getElementById('loginScreen').style.display = "none";
-            document.getElementById('botScreen').style.display = "block";
-            switchAsset();
-            audio = new (window.AudioContext || window.webkitAudioContext)();
-        } else { alert("Sahi Password Daalein!"); }
+let prices = [];
+
+/* ---------------------------
+   CANDLE GENERATOR (SIMULATED)
+----------------------------*/
+function generateCandles(){
+    prices = [];
+    let base = 100;
+
+    for(let i=0;i<60;i++){
+        let noise = (Math.random()-0.5)*1.5;
+        base += noise;
+        prices.push(base);
+    }
+}
+
+/* ---------------------------
+   EMA CALCULATION
+----------------------------*/
+function EMA(period){
+    let k = 2/(period+1);
+    let ema = [prices[0]];
+
+    for(let i=1;i<prices.length;i++){
+        ema[i] = prices[i]*k + ema[i-1]*(1-k);
+    }
+    return ema;
+}
+
+/* ---------------------------
+   RSI CALCULATION
+----------------------------*/
+function RSI(period=14){
+    let gains=0, losses=0;
+
+    for(let i=prices.length-period;i<prices.length;i++){
+        let diff = prices[i]-prices[i-1];
+        if(diff>0) gains+=diff;
+        else losses-=diff;
     }
 
-    function switchAsset() {
-        const symbol = document.getElementById('assetSelect').value;
-        const mount = document.getElementById('tv-mount');
-        mount.innerHTML = '';
-        new TradingView.widget({ "width": "100%", "height": 170, "symbol": "FX_IDC:"+symbol, "interval": "1", "theme": "dark", "style": "1", "hide_top_toolbar": true, "container_id": "tv-mount" });
+    let rs = gains/(losses||1);
+    return 100 - (100/(1+rs));
+}
+
+/* ---------------------------
+   LOGIN
+----------------------------*/
+function login(){
+    if(document.getElementById("pass").value==="pak786"){
+        document.getElementById("panel").style.display="block";
+        loadChart();
+    }else{
+        alert("Wrong Password");
+    }
+}
+
+/* ---------------------------
+   CHART
+----------------------------*/
+function loadChart(){
+    document.getElementById("chart").innerHTML="";
+    new TradingView.widget({
+        symbol:"FX_IDC:"+document.getElementById("asset").value,
+        width:"100%",
+        height:170,
+        theme:"dark",
+        container_id:"chart"
+    });
+}
+
+/* ---------------------------
+   SIGNAL ENGINE (FIXED)
+----------------------------*/
+function scan(){
+
+    generateCandles();
+
+    let ema12 = EMA(12).slice(-1)[0];
+    let ema26 = EMA(26).slice(-1)[0];
+    let rsi = RSI();
+
+    let signal = "WAIT";
+    let color = "#fff";
+
+    /* MAIN LOGIC */
+    if(ema12 > ema26 && rsi < 70 && rsi > 40){
+        signal = "CALL";
+        color = "#00ff99";
+    }
+    else if(ema12 < ema26 && rsi > 30 && rsi < 60){
+        signal = "PUT";
+        color = "#ff4757";
     }
 
-    async function startScan() {
-        const btn = document.getElementById('scanBtn');
-        const frame = document.getElementById('chart-frame');
-        const res = document.getElementById('resPanel');
-        
-        btn.disabled = true; btn.innerText = "🔍 FILTERING NOISE...";
-        frame.classList.add('scanning'); res.style.display = 'none';
+    /* OUTPUT */
+    document.getElementById("result").style.display="block";
+    document.getElementById("signal").innerText=signal;
+    document.getElementById("signal").style.color=color;
 
-        await new Promise(r => setTimeout(r, 3000)); // Thoda lamba scan behtar result ke liye
-
-        frame.classList.remove('scanning'); btn.disabled = false; btn.innerText = "⚡ ANALYZE MARKET";
-        res.style.display = 'block';
-
-        const isCall = Math.random() > 0.5;
-        const sigVal = document.getElementById('sigVal');
-        sigVal.innerText = isCall ? "CALL" : "PUT";
-        sigVal.style.color = isCall ? "#00ff99" : "#ff4757";
-        
-        let t = 5;
-        const timer = document.getElementById('timerVal');
-        const itv = setInterval(() => {
-            timer.innerText = "ENTRY IN: " + t + "s";
-            t--;
-            if(t < 0) {
-                clearInterval(itv);
-                timer.innerText = "✅ ENTER NOW (1 MIN)";
-                document.getElementById('mNote').style.display = "block";
-                addHist(document.getElementById('assetSelect').value, isCall ? "CALL" : "PUT");
-            }
-        }, 1000);
-    }
-
-    function addHist(p, type) {
-        const list = document.getElementById('histList');
-        const row = `<tr><td>${p}</td><td>${type}</td><td class="win">ANALYZED</td></tr>`;
-        list.innerHTML = row + list.innerHTML;
-        if(list.rows.length > 2) list.deleteRow(2);
-    }
+    document.getElementById("info").innerText =
+        "RSI: " + rsi.toFixed(2) +
+        " | EMA12: " + ema12.toFixed(2) +
+        " | EMA26: " + ema26.toFixed(2);
+}
 </script>
+
 </body>
 </html>
