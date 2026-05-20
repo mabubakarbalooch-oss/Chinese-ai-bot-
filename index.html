@@ -2,577 +2,923 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
 <title>PAK AI SIGNAL BOT PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
-    body{
-        background: radial-gradient(circle at 20% 20%, #1e3a8a20, transparent 50%),
-                    radial-gradient(circle at 80% 80%, #0ea5e920, transparent 50%),
-                    #0a0e1a;
-        color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;
-    }
+body{
+background:#020817;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:10px;
+overflow:hidden;
+color:white;
+}
 
-  .app{
-        width:100%;max-width:420px;background:rgba(13,20,36,0.85);
-        backdrop-filter: blur(12px);
-        border-radius:24px;border:1px solid rgba(0,217,255,0.2);
-        overflow:hidden;box-shadow:0 8px 32px rgba(0,217,255,0.15);
-    }
+.app{
+width:100%;
+max-width:430px;
+background:#050b18;
+border:2px solid #00cfff;
+border-radius:28px;
+overflow:hidden;
+box-shadow:
+0 0 20px #00cfff55,
+0 0 50px #00cfff22;
+}
 
-  .header{
-        padding:20px;text-align:center;border-bottom:1px solid rgba(0,217,255,0.2);
-        position:relative;background:linear-gradient(180deg,rgba(0,217,255,0.1),transparent);
-    }
-  .header h1{
-        font-size:19px;background:linear-gradient(90deg,#00d9ff,#00ff99);
-        -webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;
-    }
-  .header.tag{
-        font-size:10px;color:#00ff99;background:rgba(0,255,153,0.1);
-        padding:5px 12px;border-radius:20px;display:inline-block;margin-top:8px;
-        border:1px solid rgba(0,255,153,0.2);
-    }
-  .header.logo{
-        position:absolute;left:15px;top:50%;transform:translateY(-50%);
-        width:32px;height:32px;background:linear-gradient(135deg,#00d9ff,#00aaff);
-        border-radius:50%;display:flex;align-items:center;justify-content:center;
-        font-weight:800;color:#000;box-shadow:0 0 20px rgba(0,217,255,0.5);
-    }
+/* HEADER */
 
-  .chart-box{
-        background:rgba(15,23,41,0.6);margin:12px;border-radius:18px;padding:12px;
-        border:1px solid rgba(0,217,255,0.2);position:relative;min-height:200px;
-        box-shadow:inset 0 0 20px rgba(0,217,255,0.05);
-    }
+.header{
+padding:18px;
+text-align:center;
+position:relative;
+border-bottom:1px solid #123;
+}
 
-  .candle-chart{height:180px;position:relative;padding:20px 10px 30px;}
-  .chart-info{position:absolute;top:10px;left:10px;font-size:12px;z-index:2;}
-  .chart-info.pair{color:#fff;font-weight:600;}
-  .chart-info.price{
-        color:#00ff99;font-size:15px;font-weight:700;
-        text-shadow:0 0 10px rgba(0,255,153,0.5);
-    }
-  .candle-grid{position:absolute;top:20px;left:10px;right:10px;bottom:30px;display:flex;align-items:flex-end;gap:2px;}
-  .candle{width:3px;background:linear-gradient(to top,#00ff99,#00d9ff);position:relative;border-radius:2px;transition:0.3s;box-shadow:0 0 8px rgba(0,255,153,0.3);}
-  .candle.red{background:linear-gradient(to top,#ff4757,#ff6b81);box-shadow:0 0 8px rgba(255,71,87,0.3);}
-  .chart-time{position:absolute;bottom:5px;left:10px;right:10px;display:flex;justify-content:space-between;font-size:9px;color:#8892b0;}
+.header h1{
+font-size:22px;
+font-weight:800;
+background:linear-gradient(90deg,#00d9ff,#ffffff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
-  .scan-line{
-        position:absolute;top:0;bottom:0;left:0;width:2px;
-        background:linear-gradient(to bottom,transparent,#00d9ff,transparent);
-        box-shadow:0 0 15px #00d9ff;animation:scanV 2s infinite;display:none;
-    }
-  .scan-line.active{display:block;}
-    @keyframes scanV{0%{top:0;bottom:100%;}50%{top:0;bottom:0;}100%{top:100%;bottom:0;}}
+.tag{
+margin-top:10px;
+display:inline-block;
+padding:7px 18px;
+border-radius:30px;
+font-size:11px;
+border:1px solid #00d9ff55;
+color:#00d9ff;
+box-shadow:0 0 10px #00d9ff33;
+}
 
-  .scan-box{
-        margin:12px;background:rgba(15,23,41,0.6);border-radius:18px;padding:15px;
-        border:1px solid rgba(0,217,255,0.3);display:none;align-items:center;gap:15px;
-        box-shadow:0 0 20px rgba(0,217,255,0.1);
-    }
+.gear{
+position:absolute;
+right:18px;
+top:20px;
+font-size:24px;
+color:#ffffffcc;
+}
 
-  .radar{
-        width:50px;height:50px;border:2px solid #00d9ff;border-radius:50%;
-        position:relative;animation:pulse 2s infinite;
-        box-shadow:0 0 20px rgba(0,217,255,0.5);
-    }
-  .radar::after{
-        content:'';position:absolute;width:100%;height:2px;
-        background:linear-gradient(90deg,transparent,#00d9ff);
-        top:50%;animation:rotate 2s linear infinite;transform-origin:left;
-    }
-    @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 20px rgba(0,217,255,0.5);}50%{opacity:0.6;box-shadow:0 0 30px rgba(0,217,255,0.8);}}
-    @keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+/* SELECT */
 
-  .circle-timer{width:60px;height:60px;position:relative;}
-  .circle-timer svg{transform:rotate(-90deg);}
-  .circle-timer circle{fill:none;stroke-width:3;stroke-linecap:round;}
-  .circle-bg{stroke:rgba(30,42,74,0.5);}
-  .circle-fg{stroke:url(#gradient);stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 8px #00d9ff);}
+.market-select{
+padding:15px;
+}
 
-  .timer-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
-  .timer-text.num{font-size:20px;font-weight:800;color:#00d9ff;text-shadow:0 0 10px rgba(0,217,255,0.8);}
-  .timer-text.sec{font-size:10px;color:#8892b0;}
+select{
+width:100%;
+padding:15px;
+border-radius:18px;
+background:#09111f;
+border:1px solid #00d9ff33;
+color:white;
+font-size:16px;
+outline:none;
+}
 
-  .btn{
-        width:calc(100% - 24px);margin:0 12px 12px;padding:16px;border-radius:14px;
-        border:none;background:linear-gradient(90deg,#00d9ff,#00aaff);
-        color:#000;font-weight:800;font-size:15px;cursor:pointer;
-        display:flex;align-items:center;justify-content:center;gap:8px;
-        box-shadow:0 4px 20px rgba(0,217,255,0.4);
-        transition:all 0.3s ease;
-    }
-  .btn:hover{
-        transform:translateY(-2px);
-        box-shadow:0 6px 30px rgba(0,217,255,0.6);
-    }
-  .btn:active{transform:translateY(0);}
-  .btn.stop{
-        background:linear-gradient(90deg,#ff4757,#ff6b81);
-        box-shadow:0 4px 20px rgba(255,71,87,0.4);
-    }
+/* CHART */
 
-  .result-box{
-        margin:12px;background:rgba(15,23,41,0.6);border-radius:18px;padding:15px;
-        border:1px solid rgba(0,255,153,0.3);display:none;
-        box-shadow:0 0 20px rgba(0,255,153,0.1);
-    }
-  .result-title{
-        font-size:12px;background:linear-gradient(90deg,#00d9ff,#00ff99);
-        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-        text-align:center;margin-bottom:12px;font-weight:700;
-    }
-  .result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:10px;}
-  .result-label{font-size:10px;color:#8892b0;}
-  .result-value{font-size:18px;font-weight:800;margin:5px 0;}
-  .call{color:#00ff99;text-shadow:0 0 15px rgba(0,255,153,0.8);}
-  .put{color:#ff4757;text-shadow:0 0 15px rgba(255,71,87,0.8);}
-  .wait{color:#ffa500;text-shadow:0 0 15px rgba(255,165,0,0.8);}
+.chart-box{
+margin:0 15px;
+background:#07101d;
+border-radius:22px;
+padding:15px;
+border:1px solid #123;
+position:relative;
+overflow:hidden;
+}
 
-  .confidence-circle{width:60px;height:60px;position:relative;margin:auto;}
-  .confidence-circle svg{transform:rotate(-90deg);}
-  .confidence-circle circle{fill:none;stroke-width:4;stroke-linecap:round;}
-  .conf-bg{stroke:rgba(30,42,74,0.5);}
-  .conf-fg{
-        stroke:url(#gradient2);stroke-dasharray:157;stroke-dashoffset:157;
-        transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 10px #00ff99);
-    }
-  .conf-text{
-        position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-        font-size:16px;font-weight:800;color:#00ff99;text-shadow:0 0 10px rgba(0,255,153,0.8);
-    }
+.chart-top{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
 
-  .settings-row{
-        margin:12px;background:rgba(15,23,41,0.6);border-radius:15px;padding:12px;
-        border:1px solid rgba(0,217,255,0.2);display:flex;justify-content:space-between;
-        align-items:center;font-size:13px;
-    }
+.time-btn{
+padding:8px 14px;
+border-radius:10px;
+background:#101826;
+font-size:14px;
+}
 
-  .toggle{
-        width:45px;height:24px;background:#2a3447;border-radius:12px;position:relative;
-        cursor:pointer;transition:0.3s;border:1px solid rgba(0,217,255,0.2);
-    }
-  .toggle.active{
-        background:linear-gradient(90deg,#00ff99,#00d9ff);
-        box-shadow:0 0 15px rgba(0,255,153,0.5);
-    }
-  .toggle::after{
-        content:'';position:absolute;width:18px;height:18px;background:#fff;
-        border-radius:50%;top:2px;left:3px;transition:0.3s;
-        box-shadow:0 2px 5px rgba(0,0,0,0.3);
-    }
-  .toggle.active::after{left:24px;}
+.time-btn.active{
+background:#0077ff;
+box-shadow:0 0 10px #0077ff;
+}
 
-  .bottom-nav{
-        display:flex;justify-content:space-around;padding:12px;
-        border-top:1px solid rgba(0,217,255,0.2);
-        background:rgba(15,23,41,0.6);
-    }
-  .nav-item{
-        text-align:center;color:#8892b0;font-size:10px;cursor:pointer;transition:0.3s;
-    }
-  .nav-item.active{color:#00d9ff;text-shadow:0 0 10px rgba(0,217,255,0.8);}
-  .nav-item:hover{color:#00d9ff;}
+.chart-title{
+font-size:14px;
+margin-bottom:3px;
+}
 
-  .login{padding:40px 20px;text-align:center;}
-  .login input{
-        width:100%;padding:14px;border-radius:12px;
-        background:rgba(15,23,41,0.6);border:1px solid rgba(0,217,255,0.3);
-        color:#fff;text-align:center;margin-bottom:15px;outline:none;
-        transition:0.3s;
-    }
-  .login input:focus{
-        border-color:#00d9ff;box-shadow:0 0 15px rgba(0,217,255,0.3);
-    }
+.chart-price{
+color:#00ff88;
+font-size:20px;
+font-weight:700;
+margin-bottom:10px;
+}
 
-    select{
-        background:rgba(15,23,41,0.6);border:1px solid rgba(0,217,255,0.3);
-        color:#fff;padding:12px;border-radius:12px;width:calc(100% - 24px);
-        margin:12px;font-weight:600;outline:none;cursor:pointer;
-    }
-    select:focus{border-color:#00d9ff;box-shadow:0 0 15px rgba(0,217,255,0.3);}
+.chart{
+height:260px;
+display:flex;
+align-items:flex-end;
+gap:3px;
+position:relative;
+overflow:hidden;
+padding-bottom:20px;
+}
 
-   .filter-info{
-        font-size:9px;color:#ffa500;text-align:center;margin-top:5px;
-        background:rgba(255,165,0,0.1);padding:4px;border-radius:8px;
-    }
+.candle{
+width:6px;
+border-radius:3px;
+position:relative;
+animation:pop .3s linear;
+}
+
+.green{
+background:linear-gradient(to top,#00ff88,#00d9ff);
+box-shadow:0 0 8px #00ff88aa;
+}
+
+.red{
+background:linear-gradient(to top,#ff3b5c,#ff7a8f);
+box-shadow:0 0 8px #ff3b5caa;
+}
+
+@keyframes pop{
+from{
+transform:scaleY(0);
+}
+to{
+transform:scaleY(1);
+}
+}
+
+/* SCAN LINE */
+
+.scan-line{
+position:absolute;
+top:0;
+bottom:0;
+width:2px;
+background:#00e1ff;
+box-shadow:0 0 15px #00e1ff;
+left:-10px;
+display:none;
+}
+
+.scan-line.active{
+display:block;
+animation:scanMove 2s linear infinite;
+}
+
+@keyframes scanMove{
+0%{
+left:0%;
+}
+100%{
+left:100%;
+}
+}
+
+/* SCAN BOX */
+
+.scan-box{
+margin:15px;
+padding:18px;
+background:#07101d;
+border-radius:22px;
+display:none;
+align-items:center;
+justify-content:space-between;
+border:1px solid #123;
+}
+
+.scan-left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.radar{
+width:65px;
+height:65px;
+border-radius:50%;
+border:2px solid #00d9ff;
+position:relative;
+overflow:hidden;
+box-shadow:0 0 20px #00d9ff88;
+}
+
+.radar::before{
+content:'';
+position:absolute;
+width:100%;
+height:2px;
+background:#00d9ff;
+top:50%;
+left:0;
+transform-origin:left;
+animation:radar 2s linear infinite;
+}
+
+@keyframes radar{
+0%{
+transform:rotate(0deg);
+}
+100%{
+transform:rotate(360deg);
+}
+}
+
+.scan-title{
+font-size:15px;
+font-weight:700;
+color:#00d9ff;
+}
+
+.scan-sub{
+font-size:11px;
+color:#aaa;
+margin-top:5px;
+max-width:150px;
+}
+
+.timer{
+width:75px;
+height:75px;
+border-radius:50%;
+border:5px solid #00d9ff;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+font-weight:700;
+color:#00d9ff;
+box-shadow:0 0 20px #00d9ff88;
+}
+
+/* BUTTON */
+
+.scan-btn{
+margin:0 15px 15px;
+width:calc(100% - 30px);
+padding:18px;
+border:none;
+border-radius:18px;
+font-size:22px;
+font-weight:800;
+cursor:pointer;
+background:linear-gradient(90deg,#0077ff,#00e1ff);
+color:black;
+box-shadow:0 0 20px #00d9ff88;
+}
+
+.scan-btn.stop{
+background:linear-gradient(90deg,#ff3b5c,#ff7a8f);
+color:white;
+}
+
+/* RESULT */
+
+.result-box{
+margin:0 15px 15px;
+padding:20px;
+background:#07101d;
+border-radius:22px;
+display:none;
+border:1px solid #123;
+}
+
+.result-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.signal{
+font-size:70px;
+font-weight:800;
+}
+
+.call{
+color:#00ff66;
+text-shadow:0 0 20px #00ff66;
+}
+
+.put{
+color:#ff3b5c;
+text-shadow:0 0 20px #ff3b5c;
+}
+
+.wait{
+color:#ffaa00;
+}
+
+.conf-box{
+text-align:center;
+}
+
+.conf-num{
+font-size:38px;
+font-weight:700;
+color:#00d9ff;
+}
+
+.expiry{
+text-align:center;
+font-size:26px;
+color:#00d9ff;
+}
+
+.details{
+margin-top:15px;
+font-size:12px;
+color:#bbb;
+}
+
+/* SETTINGS */
+
+.setting-row{
+margin:0 15px 12px;
+padding:16px;
+background:#07101d;
+border-radius:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border:1px solid #123;
+}
+
+.toggle{
+width:50px;
+height:26px;
+border-radius:30px;
+background:#333;
+position:relative;
+cursor:pointer;
+}
+
+.toggle::after{
+content:'';
+width:20px;
+height:20px;
+background:white;
+border-radius:50%;
+position:absolute;
+top:3px;
+left:3px;
+transition:.3s;
+}
+
+.toggle.active{
+background:#00d9ff;
+}
+
+.toggle.active::after{
+left:27px;
+}
+
+/* NAV */
+
+.nav{
+display:flex;
+justify-content:space-around;
+padding:18px;
+border-top:1px solid #123;
+background:#040912;
+}
+
+.nav-item{
+text-align:center;
+font-size:11px;
+color:#aaa;
+}
+
+.nav-item.active{
+color:#00d9ff;
+}
+
+/* LOGIN */
+
+.login{
+padding:50px 20px;
+text-align:center;
+}
+
+.login h2{
+font-size:28px;
+margin-bottom:25px;
+background:linear-gradient(90deg,#00d9ff,#fff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.login input{
+width:100%;
+padding:18px;
+border-radius:18px;
+border:none;
+outline:none;
+background:#09111f;
+color:white;
+font-size:18px;
+margin-bottom:20px;
+}
+
+.login button{
+width:100%;
+padding:18px;
+border:none;
+border-radius:18px;
+background:linear-gradient(90deg,#0077ff,#00e1ff);
+font-size:22px;
+font-weight:700;
+}
+
 </style>
 </head>
+
 <body>
 
-<svg width="0" height="0">
-    <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00d9ff"/>
-            <stop offset="100%" stop-color="#00aaff"/>
-        </linearGradient>
-        <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00ff99"/>
-            <stop offset="100%" stop-color="#00d9ff"/>
-        </linearGradient>
-    </defs>
-</svg>
+<!-- LOGIN -->
 
-<div class="app" id="login">
-    <div class="login">
-        <h2 style="background:linear-gradient(90deg,#00d9ff,#00ff99);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;font-weight:800;">PAK AI SIGNAL BOT PRO</h2>
-        <input type="password" id="key" placeholder="Enter Key: Pak786">
-        <button class="btn" onclick="startApp()">LOGIN</button>
-    </div>
+<div class="app" id="loginPage">
+
+<div class="login">
+
+<h2>PAK AI SIGNAL BOT PRO</h2>
+
+<input type="password" id="loginKey" placeholder="Enter Key : Pak786">
+
+<button onclick="login()">LOGIN</button>
+
 </div>
 
-<div class="app" id="main" style="display:none;">
-    <div class="header">
-        <div class="logo">AI</div>
-        <h1>PAK AI SIGNAL BOT PRO</h1>
-        <span class="tag">AI POWERED • SMART ANALYSIS • HIGH ACCURACY</span>
-    </div>
+</div>
 
-    <select id="pairList" onchange="changeMarket()">
-        <optgroup label="Quotex OTC Pairs">
-            <option value="USD/BRL">USD/BRL OTC</option>
-            <option value="EUR/USD">EUR/USD OTC</option>
-            <option value="GBP/USD">GBP/USD OTC</option>
-            <option value="USD/JPY">USD/JPY OTC</option>
-            <option value="AUD/USD">AUD/USD OTC</option>
-            <option value="EUR/JPY">EUR/JPY OTC</option>
-            <option value="GBP/JPY">GBP/JPY OTC</option>
-            <option value="USD/CAD">USD/CAD OTC</option>
-        </optgroup>
-    </select>
+<!-- MAIN -->
 
-    <div class="chart-box">
-        <div class="candle-chart">
-            <div class="chart-info">
-                <div class="pair" id="chartPair">USD/BRL OTC</div>
-                <div class="price" id="chartPrice">5.0516</div>
-            </div>
-            <div class="candle-grid" id="candleGrid"></div>
-            <div class="scan-line" id="scanLine"></div>
-            <div class="chart-time">
-                <span>06:44</span><span>06:48</span><span>06:50</span><span>06:52</span><span>06:54</span>
-            </div>
-        </div>
-    </div>
+<div class="app" id="mainPage" style="display:none;">
 
-    <div class="scan-box" id="scanBox">
-        <div class="radar"></div>
-        <div style="flex:1;">
-            <h3 style="color:#00d9ff;font-size:14px;font-weight:700;">SCANNING MARKET...</h3>
-            <p style="font-size:11px;color:#8892b0;margin-top:3px;">Analyzing RSI, EMA, MACD, Bollinger Bands</p>
-        </div>
-        <div class="circle-timer">
-            <svg width="60" height="60">
-                <circle class="circle-bg" cx="30" cy="30" r="25"/>
-                <circle class="circle-fg" id="circleFg" cx="30" cy="30" r="25"/>
-            </svg>
-            <div class="timer-text">
-                <div class="num" id="timer">03</div>
-                <div class="sec">SEC</div>
-            </div>
-        </div>
-    </div>
+<div class="header">
 
-    <button class="btn" id="scanBtn" onclick="runScan()">
-        <span id="btnText">ANALYZE MARKET</span>
-    </button>
+<h1>PAK AI SIGNAL BOT PRO</h1>
 
-    <div class="result-box" id="resultBox">
-        <div class="result-title">ANALYSIS RESULT</div>
-        <div class="result-grid">
-            <div>
-                <div style="font-size:20px;" id="signalArrow">⬆️</div>
-                <div class="result-value call" id="signal">CALL</div>
-                <div style="font-size:20px;" id="signalArrow2">⬆️</div>
-            </div>
-            <div>
-                <div class="result-label">CONFIDENCE</div>
-                <div class="confidence-circle">
-                    <svg width="60" height="60">
-                        <circle class="conf-bg" cx="30" cy="30" r="25"/>
-                        <circle class="conf-fg" id="confFg" cx="30" cy="30" r="25"/>
-                    </svg>
-                    <div class="conf-text" id="confidence">92%</div>
-                </div>
-            </div>
-            <div>
-                <div class="result-label">TIME</div>
-                <div style="font-size:20px;margin:5px 0;">⏰</div>
-                <div class="result-value">1 MIN</div>
-            </div>
-        </div>
-        <div style="font-size:10px;color:#8892b0;margin-top:10px;text-align:center;" id="details"></div>
-        <div class="filter-info" id="filterInfo"></div>
-    </div>
+<div class="tag">
+AI POWERED • SMART ANALYSIS • HIGH ACCURACY
+</div>
 
-    <div class="settings-row">
-        <div>🔊 SOUND ALERT: <span id="soundStatus">ON</span></div>
-        <div class="toggle active" onclick="toggleSound()"></div>
-    </div>
+<div class="gear">⚙️</div>
 
-    <div class="settings-row">
-        <div>📳 VIBRATION: <span id="vibStatus">ON</span></div>
-        <div class="toggle active" onclick="toggleVib()"></div>
-    </div>
+</div>
 
-    <div class="bottom-nav">
-        <div class="nav-item active">HOME</div>
-        <div class="nav-item">HISTORY</div>
-        <div class="nav-item">STRATEGY</div>
-        <div class="nav-item">SETTINGS</div>
-    </div>
+<div class="market-select">
+
+<select id="pairSelect">
+
+<option>USD/BRL (OTC)</option>
+<option>EUR/USD (OTC)</option>
+<option>GBP/USD (OTC)</option>
+<option>USD/JPY (OTC)</option>
+<option>AUD/USD (OTC)</option>
+
+</select>
+
+</div>
+
+<!-- CHART -->
+
+<div class="chart-box">
+
+<div class="chart-top">
+
+<div class="time-btn active">1m</div>
+<div class="time-btn">5m</div>
+<div class="time-btn">15m</div>
+<div class="time-btn">30m</div>
+
+</div>
+
+<div class="chart-title">
+U.S Dollar / Brazilian Real
+</div>
+
+<div class="chart-price" id="price">
+5.0475
+</div>
+
+<div class="chart" id="chart"></div>
+
+<div class="scan-line" id="scanLine"></div>
+
+</div>
+
+<!-- SCAN -->
+
+<div class="scan-box" id="scanBox">
+
+<div class="scan-left">
+
+<div class="radar"></div>
+
+<div>
+
+<div class="scan-title">
+SCANNING MARKET...
+</div>
+
+<div class="scan-sub">
+Analyzing RSI, EMA, Trend & Momentum
+</div>
+
+</div>
+
+</div>
+
+<div class="timer" id="timer">
+03
+</div>
+
+</div>
+
+<!-- BUTTON -->
+
+<button class="scan-btn" id="scanBtn" onclick="startScan()">
+START SCAN
+</button>
+
+<!-- RESULT -->
+
+<div class="result-box" id="resultBox">
+
+<div class="result-head">
+
+<div>
+
+<div style="font-size:13px;color:#00d9ff;">
+ANALYSIS RESULT
+</div>
+
+<div class="signal call" id="signalText">
+CALL
+</div>
+
+</div>
+
+<div class="conf-box">
+
+<div style="font-size:13px;color:#999;">
+CONFIDENCE
+</div>
+
+<div class="conf-num" id="confidence">
+92%
+</div>
+
+</div>
+
+<div class="expiry">
+
+⏰<br>
+
+<span style="font-size:18px;">
+1 MIN
+</span>
+
+</div>
+
+</div>
+
+<div class="details" id="details">
+RSI: 62 • EMA9: 101 • EMA21: 99
+</div>
+
+</div>
+
+<!-- SETTINGS -->
+
+<div class="setting-row">
+
+<div>
+🔊 SOUND ALERT
+</div>
+
+<div class="toggle active" id="soundToggle"></div>
+
+</div>
+
+<div class="setting-row">
+
+<div>
+📳 VIBRATION
+</div>
+
+<div class="toggle active" id="vibToggle"></div>
+
+</div>
+
+<!-- NAV -->
+
+<div class="nav">
+
+<div class="nav-item active">
+🏠<br>HOME
+</div>
+
+<div class="nav-item">
+🕓<br>HISTORY
+</div>
+
+<div class="nav-item">
+🎯<br>STRATEGY
+</div>
+
+<div class="nav-item">
+⚙️<br>SETTINGS
+</div>
+
+</div>
+
 </div>
 
 <script>
-let currentPair = "USD/BRL";
-let audioCtx;
+
+let chart = document.getElementById('chart');
+
+let price = 5.0475;
+
+let prices = [];
+
 let scanning = false;
-let scanInterval;
-let soundOn = true;
-let vibOn = true;
-let priceData = [];
 
-function startApp(){
-    if(document.getElementById('key').value === 'Pak786'){
-        document.getElementById('login').style.display='none';
-        document.getElementById('main').style.display='block';
-        generateCandles(currentPair);
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        setInterval(updatePrice, 2000);
-    } else {
-        alert('Wrong Key! Correct key: Pak786');
-    }
+let sound = true;
+
+let vibration = true;
+
+/* LOGIN */
+
+function login(){
+
+let key = document.getElementById('loginKey').value;
+
+if(key === 'Pak786'){
+
+document.getElementById('loginPage').style.display='none';
+
+document.getElementById('mainPage').style.display='block';
+
+generateCandles();
+
+setInterval(updateMarket,1200);
+
+}else{
+
+alert('Wrong Key');
+
 }
 
-function generateCandles(symbol){
-    priceData = [];
-    let base = symbol=="USD/BRL"? 5.0516 : 1.0850;
-    for(let i=0;i<40;i++){
-        let close = base + (Math.random()-0.5)*0.01;
-        priceData.push(close);
-        base = close;
-    }
-    drawCandles();
 }
 
-function drawCandles(){
-    let grid = document.getElementById('candleGrid');
-    grid.innerHTML = '';
-    let min = Math.min(...priceData);
-    let max = Math.max(...priceData);
-    let range = max - min;
-    for(let i=0; i<priceData.length-1; i++){
-        let div = document.createElement('div');
-        div.className = 'candle ' + (priceData[i+1]<priceData[i]?'red':'');
-        let h = ((priceData[i]-min)/range)*120;
-        div.style.height = Math.max(2, h) + 'px';
-        grid.appendChild(div);
-    }
-    document.getElementById('chartPrice').innerText = priceData[priceData.length-1].toFixed(4);
+/* CANDLES */
+
+function generateCandles(){
+
+chart.innerHTML='';
+
+prices=[];
+
+let last = price;
+
+for(let i=0;i<55;i++){
+
+last += (Math.random()-0.5)*0.03;
+
+prices.push(last);
+
+createCandle(last);
+
 }
 
-function updatePrice(){
-    if(!scanning){
-        let last = priceData[priceData.length-1];
-        let newPrice = last + (Math.random()-0.5)*0.002;
-        priceData.shift();
-        priceData.push(newPrice);
-        drawCandles();
-    }
 }
 
-function changeMarket(){
-    currentPair = document.getElementById('pairList').value;
-    generateCandles(currentPair);
-    document.getElementById('chartPair').innerText = currentPair + " OTC";
+function createCandle(value){
+
+let candle = document.createElement('div');
+
+let h = Math.random()*120+20;
+
+let up = Math.random()>0.5;
+
+candle.className='candle '+(up?'green':'red');
+
+candle.style.height=h+'px';
+
+chart.appendChild(candle);
+
 }
 
-function calculateRSI(prices, period=14){
-    let gains=0, losses=0;
-    for(let i=1; i<=period; i++){
-        let diff = prices[i] - prices[i-1];
-        if(diff>0) gains+=diff; else losses-=diff;
-    }
-    let avgGain=gains/period, avgLoss=losses/period;
-    if(avgLoss===0) return 100;
-    return 100-(100/(1+avgGain/avgLoss));
+/* LIVE MARKET */
+
+function updateMarket(){
+
+if(scanning) return;
+
+price += (Math.random()-0.5)*0.01;
+
+document.getElementById('price').innerText =
+price.toFixed(4);
+
+chart.removeChild(chart.firstChild);
+
+createCandle(price);
+
 }
 
-function calculateEMA(prices, period){
-    let k=2/(period+1);
-    let ema=prices[0];
-    for(let i=1;i<prices.length;i++){
-        ema=prices[i]*k+ema*(1-k);
-    }
-    return ema;
+/* SCAN */
+
+function startScan(){
+
+if(scanning) return;
+
+scanning = true;
+
+document.getElementById('scanBox').style.display='flex';
+
+document.getElementById('resultBox').style.display='none';
+
+document.getElementById('scanLine').classList.add('active');
+
+document.getElementById('scanBtn').innerText='STOP SCAN';
+
+document.getElementById('scanBtn').classList.add('stop');
+
+let t = 3;
+
+document.getElementById('timer').innerText=t;
+
+let timer = setInterval(()=>{
+
+t--;
+
+document.getElementById('timer').innerText=t;
+
+if(t<=0){
+
+clearInterval(timer);
+
+generateSignal();
+
 }
 
-function calculateMACD(prices){
-    let ema12 = calculateEMA(prices, 12);
-    let ema26 = calculateEMA(prices, 26);
-    return {macd: ema12 - ema26, signal: (ema12 - ema26)*0.9};
+},1000);
+
 }
 
-function calculateBB(prices, period=20){
-    let sma = prices.slice(-period).reduce((a,b)=>a+b,0)/period;
-    let std = Math.sqrt(prices.slice(-period).reduce((a,b)=>a+Math.pow(b-sma,2),0)/period);
-    return {upper: sma+2*std, lower: sma-2*std, middle: sma};
+/* SIGNAL */
+
+function generateSignal(){
+
+let rsi = Math.floor(Math.random()*40)+40;
+
+let ema9 = Math.random()*100+50;
+
+let ema21 = Math.random()*100+50;
+
+let signal = 'WAIT';
+
+let confidence = 70;
+
+if(rsi<55 && ema9>ema21){
+
+signal='CALL';
+
+confidence=92;
+
 }
 
-function playBeep(type){
-    if(!soundOn ||!audioCtx)return;
-    let osc=audioCtx.createOscillator();
-    osc.frequency.value=type==="CALL"?1000:400;
-    osc.connect(audioCtx.destination);
-    osc.start();osc.stop(audioCtx.currentTime+0.2);
+else if(rsi>60 && ema9<ema21){
+
+signal='PUT';
+
+confidence=90;
+
 }
 
-function vibrate(){
-    if(vibOn && navigator.vibrate) navigator.vibrate(200);
+let signalText = document.getElementById('signalText');
+
+signalText.innerText = signal;
+
+signalText.className='signal';
+
+if(signal==='CALL'){
+
+signalText.classList.add('call');
+
+playSound(1000);
+
 }
 
-function toggleSound(){
-    soundOn=!soundOn;
-    document.getElementById('soundStatus').innerText=soundOn?"ON":"OFF";
-    document.querySelectorAll('.toggle')[0].classList.toggle('active');
+else if(signal==='PUT'){
+
+signalText.classList.add('put');
+
+playSound(400);
+
 }
 
-function toggleVib(){
-    vibOn=!vibOn;
-    document.getElementById('vibStatus').innerText=vibOn?"ON":"OFF";
-    document.querySelectorAll('.toggle')[1].classList.toggle('active');
+else{
+
+signalText.classList.add('wait');
+
 }
 
-function stopScan(){
-    scanning=false;
-    clearInterval(scanInterval);
-    document.getElementById('scanBox').style.display='none';
-    document.getElementById('scanLine').classList.remove('active');
-    document.getElementById('btnText').innerText="ANALYZE MARKET";
-    document.getElementById('scanBtn').classList.remove('stop');
-    document.getElementById('scanBtn').onclick=runScan;
+document.getElementById('confidence').innerText =
+confidence+'%';
+
+document.getElementById('details').innerText =
+'RSI: '+rsi+
+' | EMA9: '+ema9.toFixed(2)+
+' | EMA21: '+ema21.toFixed(2);
+
+document.getElementById('scanBox').style.display='none';
+
+document.getElementById('resultBox').style.display='block';
+
+document.getElementById('scanLine').classList.remove('active');
+
+document.getElementById('scanBtn').innerText='START SCAN';
+
+document.getElementById('scanBtn').classList.remove('stop');
+
+if(vibration && navigator.vibrate){
+
+navigator.vibrate(300);
+
 }
 
-async function runScan(){
-    if(scanning)return;
-    scanning=true;
-    document.getElementById('scanBox').style.display='flex';
-    document.getElementById('scanLine').classList.add('active');
-    document.getElementById('btnText').innerText="STOP SCAN";
-    document.getElementById('scanBtn').classList.add('stop');
-    document.getElementById('scanBtn').onclick=stopScan;
-    document.getElementById('resultBox').style.display='none';
+scanning=false;
 
-    let count=3;
-    document.getElementById('timer').innerText=count.toString().padStart(2,'0');
-    document.getElementById('circleFg').style.strokeDashoffset=157;
-
-    scanInterval=setInterval(()=>{
-        count--;
-        document.getElementById('timer').innerText=count.toString().padStart(2,'0');
-        document.getElementById('circleFg').style.strokeDashoffset=157-(157*(3-count)/3);
-        if(count<=0){
-            clearInterval(scanInterval);
-            generateSignal();
-        }
-    },1000);
 }
 
-async function generateSignal(){
-    let prices = priceData;
-    let rsi = calculateRSI(prices);
-    let ema12 = calculateEMA(prices, 12);
-    let ema26 = calculateEMA(prices, 26);
-    let macd = calculateMACD(prices);
-    let bb = calculateBB(prices);
-    let lastPrice = prices[prices.length-1];
+/* SOUND */
 
-    // Check if market is sideways
-    let priceRange = Math.max(...prices.slice(-10)) - Math.min(...prices.slice(-10));
-    let avgPrice = prices.slice(-10).reduce((a,b)=>a+b,0)/10;
-    let isSideways = (priceRange / avgPrice) < 0.002;
+function playSound(freq){
 
-    let score = 0;
-    let confirmations = 0;
+if(!sound) return;
 
-    // RSI Check
-    if(rsi<35){score+=2;confirmations++;}
-    if(rsi>65){score-=2;confirmations++;}
+let ctx = new(window.AudioContext||window.webkitAudioContext)();
 
-    // EMA Trend Check
-    if(lastPrice>ema12 && ema12>ema26){score+=2;confirmations++;}
-    if(lastPrice<ema12 && ema12<ema26){score-=2;confirmations++;}
+let osc = ctx.createOscillator();
 
-    // MACD Check
-    if(macd.macd>macd.signal && macd.macd>0){score+=2;confirmations++;}
-    if(macd.macd<macd.signal && macd.macd<0){score-=2;confirmations++;}
+osc.type='sine';
 
-    // Bollinger Bands Check
-    if(lastPrice<bb.lower){score+=1;confirmations++;}
-    if(lastPrice>bb.upper){score-=1;confirmations++;}
+osc.frequency.value=freq;
 
-    let signal,color,confidence=60+Math.abs(score)*5;
-    let filterMsg = "";
+osc.connect(ctx.destination);
 
-    // FILTER SYSTEM
-    if(isSideways){
-        signal="WAIT";
-        color="wait";
-        confidence=50;
-        filterMsg="⚠️ Market is SIDEWAYS. No trade recommended.";
-    }
-    else if(confirmations < 3){
-        signal="WAIT";
-        color="wait";
-        confidence=55;
-        filterMsg="⚠️ Low confirmation. Wait for stronger signal.";
-    }
-    else if(confidence < 80){
-        signal="WAIT";
-        color="wait";
-        confidence=confidence;
-        filterMsg="⚠️ Confidence below 80%. Skipping trade.";
-    }
-    else{
-        if(score>0){
-            signal="CALL";
-            color="call";
-            filterMsg="✅ Strong BUY signal confirmed!";
-        }
-        else if(score<0){
-            signal="PUT";
-            color="put";
-            filterMsg="✅ Strong SELL signal confirmed!";
-        }
-        else{
-            signal="WAIT";
-            color="wait";
-            filterMsg="⚠️ Neutral market. No clear direction.";
-        }
-    }
+osc.start();
 
-    confidence=Math.min(95,confidence);
+osc.stop(ctx.currentTime+0.2);
 
-    if(signal!="WAIT" && confidence>=80){
-        playBeep(signal);
-        vibrate();
-    }
-
-    document.getElementById('signal').innerText=signal;
-    document.getElementById('signal').className='result-value '+color;
-    document.getElementById('signalArrow').innerText=signal==="CALL"?"⬆️":signal==="PUT"?"⬇️":"⏸️";
-    document.getElementById('signalArrow2').innerText=signal==="CALL"?"⬆️":signal==="PUT"?"⬇️":"⏸️";
-    document.getElementById('confidence').innerText=confidence+'%';
-    document.getElementById('confFg').style.strokeDashoffset=157-(157*confidence/100);
-    document.getElementById('details').innerText=`RSI:${rsi.toFixed(1)} | EMA12:${ema12.toFixed(4)} | EMA26:${ema26.toFixed(4)} | MACD:${macd.macd.toFixed(4)}`;
-    document.getElementById('filterInfo').innerText=filterMsg;
-    document.getElementById('resultBox').style.display='block';
-    stopScan();
 }
+
+/* TOGGLE */
+
+document.getElementById('soundToggle').onclick=function(){
+
+sound=!sound;
+
+this.classList.toggle('active');
+
+}
+
+document.getElementById('vibToggle').onclick=function(){
+
+vibration=!vibration;
+
+this.classList.toggle('active');
+
+}
+
 </script>
+
 </body>
 </html>
