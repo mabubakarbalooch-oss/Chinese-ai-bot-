@@ -1,10 +1,10 @@
-<!-- PAK AI SIGNAL BOT PRO - FIXED SIGNAL VERSION -->
+<!-- PAK AI SIGNAL BOT PRO - FAST FINAL VERSION -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 <title>PAK AI SIGNAL BOT PRO</title>
 
@@ -27,6 +27,7 @@ display:flex;
 justify-content:center;
 padding:5px;
 color:white;
+overflow-x:hidden;
 }
 
 .app{
@@ -45,11 +46,10 @@ box-shadow:0 0 20px #00d9ff55;
 padding:12px;
 text-align:center;
 border-bottom:1px solid #123;
-position:relative;
 }
 
 .header h1{
-font-size:18px;
+font-size:17px;
 font-weight:800;
 background:linear-gradient(90deg,#00d9ff,#ffffff);
 -webkit-background-clip:text;
@@ -71,6 +71,14 @@ color:#00d9ff;
 .login{
 padding:35px 15px;
 text-align:center;
+}
+
+.login h2{
+margin-bottom:20px;
+font-size:24px;
+background:linear-gradient(90deg,#00d9ff,#ffffff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .login input{
@@ -134,7 +142,7 @@ color:#00ff88;
 }
 
 .chart{
-height:170px;
+height:150px;
 }
 
 .scan-line{
@@ -149,7 +157,7 @@ display:none;
 
 .scan-line.active{
 display:block;
-animation:scan 1s linear infinite;
+animation:scan 0.8s linear infinite;
 }
 
 @keyframes scan{
@@ -184,7 +192,7 @@ display:none;
 }
 
 .signal{
-font-size:45px;
+font-size:42px;
 font-weight:800;
 }
 
@@ -256,12 +264,7 @@ margin-bottom:5px;
 
 <div class="login">
 
-<h2 style="margin-bottom:20px;
-background:linear-gradient(90deg,#00d9ff,#fff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;">
-PAK AI SIGNAL BOT
-</h2>
+<h2>PAK AI SIGNAL BOT PRO</h2>
 
 <input type="password"
 id="key"
@@ -331,7 +334,7 @@ id="price">
 </div>
 
 <div style="font-size:10px;color:#00d9ff;">
-LIVE
+FAST LIVE
 </div>
 
 </div>
@@ -445,8 +448,8 @@ grid:{
 vertLines:{color:'#111'},
 horzLines:{color:'#111'}
 },
-width:350,
-height:170
+width:330,
+height:150
 }
 );
 
@@ -524,13 +527,21 @@ candle.close.toFixed(4);
 
 closes.push(candle.close);
 
-if(closes.length>80){
+/* FAST LIMIT */
+
+if(closes.length>40){
 
 closes.shift();
 
 }
 
+/* LESS CPU */
+
+if(closes.length % 2===0){
+
 updateIndicators();
+
+}
 
 };
 
@@ -638,9 +649,9 @@ document.getElementById('indicatorData').innerHTML=
 
 function scanSignal(){
 
-if(closes.length<30){
+if(closes.length<25){
 
-alert("Waiting for live candles...");
+alert("Waiting Live Data...");
 
 return;
 
@@ -656,7 +667,7 @@ generateSignal();
 document.getElementById('scanLine')
 .classList.remove('active');
 
-},1000);
+},500);
 
 }
 
@@ -681,15 +692,13 @@ closes[closes.length-2];
 let buy=0;
 let sell=0;
 
-/* TREND */
+/* EMA */
 
 if(last>ema9){
 
 buy+=2;
 
-}
-
-if(last<ema9){
+}else{
 
 sell+=2;
 
@@ -743,10 +752,11 @@ sell+=1;
 
 }
 
-/* FINAL SIGNAL */
+/* FINAL */
 
 let signal='WAIT';
-let confidence=70;
+
+let confidence=75;
 
 if(buy>sell){
 
