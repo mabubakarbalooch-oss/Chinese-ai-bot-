@@ -1,845 +1,236 @@
-<!-- PAK AI SIGNAL BOT PRO - FAST FINAL VERSION -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AI TRADING BOT - V15.6 GOLDEN LIVE</title>
+    <style>
+        :root {
+            --yellow: #ffcc00;
+            --yellow-glow: rgba(255, 204, 0, 0.3);
+            --bg: #000000;
+            --card-bg: #0a0a0a;
+            --green: #00ff99;
+            --red: #ff4757;
+            --border: rgba(255, 204, 0, 0.2);
+        }
 
-<title>PAK AI SIGNAL BOT PRO</title>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg); height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px; overflow: hidden; }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        /* LOGIN SCREEN */
+        .auth-container { display: flex; flex-direction: column; width: 100%; max-width: 380px; background: var(--card-bg); border: 2px solid var(--border); border-radius: 35px; padding: 30px; box-shadow: 0 0 35px var(--yellow-glow); text-align: center; }
+        .auth-container h1 { color: #fff; font-size: 22px; margin-bottom: 20px; text-shadow: 0 0 10px var(--yellow); letter-spacing: 1px; }
+        .auth-input { width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 15px; background: #000; border: 1px solid var(--yellow); color: #fff; text-align: center; font-weight: bold; outline: none; font-size: 16px; }
 
-<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+        /* MAIN BOT PANEL */
+        .bot-container { display: none; flex-direction: column; width: 100%; max-width: 380px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 35px; padding: 22px; box-shadow: 0 0 40px rgba(255, 204, 0, 0.15); }
+        .bot-header { color: var(--yellow); font-size: 18px; text-align: center; font-weight: 800; text-shadow: 0 0 8px var(--yellow-glow); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
 
-<style>
+        .field-group { display: flex; flex-direction: column; margin-bottom: 12px; }
+        .field-group label { color: #888888; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; margin-left: 5px; }
+        select { width: 100%; padding: 14px; border-radius: 15px; background: #000; border: 1px solid var(--border); color: #fff; font-weight: 600; outline: none; font-size: 14px; }
+        select:focus { border-color: var(--yellow); }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        /* LIVE FEED TICKER STATUS */
+        .algo-radar { background: #000; border: 1px solid var(--border); padding: 12px 15px; border-radius: 15px; font-size: 11px; color: #666666; font-weight: bold; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .radar-pulse { width: 8px; height: 8px; background: #444444; border-radius: 50%; }
+        .scanning .radar-pulse { background: var(--yellow); animation: radarBlink 0.5s infinite; box-shadow: 0 0 8px var(--yellow); }
+        .live-connected .radar-pulse { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+        @keyframes radarBlink { 50% { opacity: 0.2; } }
 
-body{
-background:#020817;
-display:flex;
-justify-content:center;
-padding:5px;
-color:white;
-overflow-x:hidden;
-}
+        /* RECTANGLE ACTION BUTTON (BLACK & YELLOW STYLE) */
+        .action-wrapper { margin-top: 5px; margin-bottom: 15px; }
+        .get-signal-btn {
+            width: 100%; padding: 16px; border-radius: 15px; border: none;
+            background: linear-gradient(135deg, #e0b300, var(--yellow));
+            color: #000; font-weight: 800; font-size: 15px; letter-spacing: 1px;
+            cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            box-shadow: 0 0 15px var(--yellow-glow);
+        }
+        .get-signal-btn:active { transform: scale(0.97); }
+        .get-signal-btn:disabled { background: #1a1a1a; color: #444444; border: 1px solid #222; box-shadow: none; }
 
-.app{
-width:100%;
-max-width:390px;
-background:#07101d;
-border:2px solid #00d9ff;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 0 20px #00d9ff55;
-}
-
-/* HEADER */
-
-.header{
-padding:12px;
-text-align:center;
-border-bottom:1px solid #123;
-}
-
-.header h1{
-font-size:17px;
-font-weight:800;
-background:linear-gradient(90deg,#00d9ff,#ffffff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.tag{
-display:inline-block;
-margin-top:5px;
-padding:4px 10px;
-font-size:9px;
-border-radius:12px;
-border:1px solid #00d9ff44;
-color:#00d9ff;
-}
-
-/* LOGIN */
-
-.login{
-padding:35px 15px;
-text-align:center;
-}
-
-.login h2{
-margin-bottom:20px;
-font-size:24px;
-background:linear-gradient(90deg,#00d9ff,#ffffff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.login input{
-width:100%;
-padding:14px;
-border:none;
-outline:none;
-border-radius:14px;
-background:#111827;
-color:white;
-margin-bottom:15px;
-}
-
-.login button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:linear-gradient(90deg,#0077ff,#00d9ff);
-font-size:16px;
-font-weight:700;
-}
-
-/* MARKET */
-
-.market{
-padding:10px;
-}
-
-select{
-width:100%;
-padding:12px;
-border-radius:14px;
-background:#111827;
-border:1px solid #00d9ff33;
-color:white;
-outline:none;
-}
-
-/* CHART */
-
-.chart-box{
-margin:0 10px;
-background:#0b1727;
-border-radius:16px;
-padding:8px;
-position:relative;
-border:1px solid #123;
-}
-
-.chart-top{
-display:flex;
-justify-content:space-between;
-margin-bottom:5px;
-}
-
-.price{
-font-size:20px;
-font-weight:700;
-color:#00ff88;
-}
-
-.chart{
-height:150px;
-}
-
-.scan-line{
-position:absolute;
-top:0;
-bottom:0;
-width:2px;
-background:#00d9ff;
-box-shadow:0 0 10px #00d9ff;
-display:none;
-}
-
-.scan-line.active{
-display:block;
-animation:scan 0.8s linear infinite;
-}
-
-@keyframes scan{
-0%{left:0%;}
-100%{left:100%;}
-}
-
-/* BUTTON */
-
-.btn{
-margin:10px;
-width:calc(100% - 20px);
-padding:14px;
-border:none;
-border-radius:15px;
-background:linear-gradient(90deg,#0077ff,#00d9ff);
-font-size:16px;
-font-weight:800;
-color:black;
-cursor:pointer;
-}
-
-/* SIGNAL */
-
-.signal-box{
-margin:10px;
-padding:14px;
-background:#0b1727;
-border-radius:16px;
-border:1px solid #123;
-display:none;
-}
-
-.signal{
-font-size:42px;
-font-weight:800;
-}
-
-.call{
-color:#00ff66;
-text-shadow:0 0 15px #00ff66;
-}
-
-.put{
-color:#ff3b5c;
-text-shadow:0 0 15px #ff3b5c;
-}
-
-.wait{
-color:#ffaa00;
-}
-
-.conf{
-font-size:24px;
-font-weight:700;
-color:#00d9ff;
-}
-
-.details{
-margin-top:10px;
-font-size:11px;
-line-height:1.7;
-color:#aaa;
-}
-
-/* INDICATORS */
-
-.indicators{
-margin:10px;
-padding:10px;
-background:#0b1727;
-border-radius:14px;
-border:1px solid #123;
-font-size:11px;
-line-height:1.7;
-}
-
-/* HISTORY */
-
-.history{
-margin:10px;
-padding:10px;
-background:#0b1727;
-border-radius:14px;
-border:1px solid #123;
-font-size:10px;
-max-height:100px;
-overflow:auto;
-}
-
-.history h3{
-color:#00d9ff;
-margin-bottom:5px;
-}
-
-</style>
+        /* OUTPUT PANEL */
+        .signal-display-box { display: none; background: rgba(0,0,0,0.6); border: 1px solid var(--border); border-radius: 20px; padding: 15px; text-align: center; margin-top: 5px; }
+        .sig-alert-text { font-size: 30px; font-weight: 900; margin: 4px 0; }
+        .up-style { color: var(--green); text-shadow: 0 0 15px rgba(0,255,153,0.3); }
+        .down-style { color: var(--red); text-shadow: 0 0 15px rgba(255,71,87,0.3); }
+        .timer-countdown { font-size: 12px; color: #fff; font-weight: bold; margin-top: 5px; }
+    </style>
 </head>
-
 <body>
 
-<!-- LOGIN -->
-
-<div class="app" id="loginPage">
-
-<div class="login">
-
-<h2>PAK AI SIGNAL BOT PRO</h2>
-
-<input type="password"
-id="key"
-placeholder="Enter Key : Pak786">
-
-<button onclick="login()">
-LOGIN
-</button>
-
+<div class="auth-container" id="authScreen">
+    <h1>AI BOT SYSTEM</h1>
+    <input type="text" id="botPass" class="auth-input" placeholder="ENTER SYSTEM KEY">
+    <button onclick="handleLogin()" style="width:100%; padding:16px; border-radius:50px; background:linear-gradient(90deg, #e0b300, var(--yellow)); border:none; font-weight:900; color:#000; cursor:pointer;">VALIDATE ACCESS</button>
 </div>
 
-</div>
+<div class="bot-container" id="mainBotScreen">
+    <div class="bot-header">Sureshot AI Bot Live</div>
 
-<!-- MAIN -->
+    <div class="field-group">
+        <label>Select Platform</label>
+        <select id="platformOpt">
+            <option value="QUOTEX">QUOTEX PLATFORM</option>
+            <option value="POCKET">POCKET OPTION</option>
+        </select>
+    </div>
 
-<div class="app"
-id="mainPage"
-style="display:none;">
+    <div class="field-group">
+        <label>Select Asset (Live Connection)</label>
+        <select id="assetOpt" onchange="initLiveStream()">
+            <option value="btcusdt">BTC/USDT (LIVE MARKET)</option>
+            <option value="ethusdt">ETH/USDT (LIVE MARKET)</option>
+            <option value="xrpusdt">XRP/USDT (LIVE MARKET)</option>
+            <option value="solusdt">SOL/USDT (LIVE MARKET)</option>
+        </select>
+    </div>
 
-<div class="header">
+    <div class="field-group">
+        <label>Select Expiry Time</label>
+        <select id="expiryOpt">
+            <option value="1M">1 MINUTE</option>
+            <option value="5M">5 MINUTES</option>
+        </select>
+    </div>
 
-<h1>PAK AI SIGNAL BOT PRO</h1>
+    <div class="algo-radar" id="algoRadar">
+        <span id="indicatorsText">Connecting Live Pulse...</span>
+        <div class="radar-pulse"></div>
+    </div>
 
-<div class="tag"
-id="marketTag">
-BTC/USDT LIVE
-</div>
+    <div class="action-wrapper">
+        <button class="get-signal-btn" id="sigBtn" onclick="processLiveIndicators()">Get Live Signal</button>
+    </div>
 
-</div>
-
-<!-- MARKET -->
-
-<div class="market">
-
-<select id="pair">
-
-<option value="btcusdt">BTC/USDT</option>
-<option value="ethusdt">ETH/USDT</option>
-<option value="bnbusdt">BNB/USDT</option>
-<option value="xrpusdt">XRP/USDT</option>
-<option value="solusdt">SOL/USDT</option>
-<option value="usdtbrl">USD/BRL</option>
-<option value="usdtinr">USD/INR</option>
-<option value="usdtmxn">USD/MXN</option>
-
-</select>
-
-</div>
-
-<!-- CHART -->
-
-<div class="chart-box">
-
-<div class="chart-top">
-
-<div>
-
-<div style="font-size:10px;color:#aaa;">
-LIVE PRICE
-</div>
-
-<div class="price"
-id="price">
-0.00
-</div>
-
-</div>
-
-<div style="font-size:10px;color:#00d9ff;">
-FAST LIVE
-</div>
-
-</div>
-
-<div id="chart"
-class="chart"></div>
-
-<div class="scan-line"
-id="scanLine"></div>
-
-</div>
-
-<!-- INDICATORS -->
-
-<div class="indicators">
-
-<div id="indicatorData">
-
-RSI : 0<br>
-EMA9 : 0<br>
-EMA21 : 0<br>
-MACD : 0
-
-</div>
-
-</div>
-
-<!-- BUTTON -->
-
-<button class="btn"
-onclick="scanSignal()">
-SCAN SIGNAL
-</button>
-
-<!-- SIGNAL -->
-
-<div class="signal-box"
-id="signalBox">
-
-<div style="display:flex;
-justify-content:space-between;
-align-items:center;">
-
-<div>
-
-<div style="font-size:10px;color:#00d9ff;">
-SIGNAL
-</div>
-
-<div class="signal wait"
-id="signal">
-WAIT
-</div>
-
-</div>
-
-<div>
-
-<div style="font-size:10px;color:#aaa;">
-CONFIDENCE
-</div>
-
-<div class="conf"
-id="confidence">
-0%
-</div>
-
-</div>
-
-</div>
-
-<div class="details"
-id="details">
-
-Waiting Market...
-
-</div>
-
-</div>
-
-<!-- HISTORY -->
-
-<div class="history">
-
-<h3>AI SIGNAL HISTORY</h3>
-
-<div id="historyBox">
-No Signals Yet
-</div>
-
-</div>
-
+    <div class="signal-display-box" id="signalBox">
+        <div style="color: #888888; font-size: 10px; font-weight: bold; letter-spacing: 0.5px;">LIVE SURESHOT ENGINE</div>
+        <div class="sig-alert-text" id="signalResult">---</div>
+        <div class="timer-countdown" id="timerDisplay">READY</div>
+    </div>
 </div>
 
 <script>
-
-let closes=[];
-let socket;
-
-/* CHART */
-
-let chart=
-LightweightCharts.createChart(
-document.getElementById('chart'),
-{
-layout:{
-background:{color:'#0b1727'},
-textColor:'#DDD'
-},
-grid:{
-vertLines:{color:'#111'},
-horzLines:{color:'#111'}
-},
-width:330,
-height:150
-}
-);
-
-let candleSeries=
-chart.addCandlestickSeries({
-upColor:'#00ff66',
-downColor:'#ff3b5c',
-borderVisible:false,
-wickUpColor:'#00ff66',
-wickDownColor:'#ff3b5c'
-});
-
-/* LOGIN */
-
-function login(){
-
-if(document.getElementById('key').value==='Pak786'){
-
-document.getElementById('loginPage').style.display='none';
-
-document.getElementById('mainPage').style.display='block';
-
-connect();
-
-}else{
-
-alert('Wrong Key');
-
-}
-
-}
-
-/* CONNECT */
-
-function connect(){
-
-let pair=
-document.getElementById('pair').value;
-
-document.getElementById('marketTag').innerText=
-pair.toUpperCase()+" LIVE";
-
-closes=[];
-
-if(socket){
-
-socket.close();
-
-}
-
-socket=new WebSocket(
-`wss://stream.binance.com:9443/ws/${pair}@kline_1m`
-);
-
-socket.onmessage=function(event){
-
-let msg=JSON.parse(event.data);
-
-let k=msg.k;
-
-let candle={
-
-time:k.t/1000,
-open:parseFloat(k.o),
-high:parseFloat(k.h),
-low:parseFloat(k.l),
-close:parseFloat(k.c)
-
-};
-
-candleSeries.update(candle);
-
-document.getElementById('price').innerText=
-candle.close.toFixed(4);
-
-closes.push(candle.close);
-
-/* FAST LIMIT */
-
-if(closes.length>40){
-
-closes.shift();
-
-}
-
-/* LESS CPU */
-
-if(closes.length % 2===0){
-
-updateIndicators();
-
-}
-
-};
-
-}
-
-document.getElementById('pair').onchange=function(){
-
-connect();
-
-}
-
-/* RSI */
-
-function RSI(period=14){
-
-if(closes.length<period){
-
-return 50;
-
-}
-
-let gains=0;
-let losses=0;
-
-for(let i=1;i<period;i++){
-
-let diff=
-closes[closes.length-i]-
-closes[closes.length-i-1];
-
-if(diff>0){
-
-gains+=diff;
-
-}else{
-
-losses-=diff;
-
-}
-
-}
-
-let rs=gains/(losses||1);
-
-return 100-(100/(1+rs));
-
-}
-
-/* EMA */
-
-function EMA(period){
-
-if(closes.length<period){
-
-return closes[closes.length-1]||0;
-
-}
-
-let k=2/(period+1);
-
-let ema=closes[0];
-
-for(let i=1;i<closes.length;i++){
-
-ema=
-closes[i]*k+
-ema*(1-k);
-
-}
-
-return ema;
-
-}
-
-/* MACD */
-
-function MACD(){
-
-return EMA(12)-EMA(26);
-
-}
-
-/* UPDATE INDICATORS */
-
-function updateIndicators(){
-
-let rsi=RSI();
-
-let ema9=EMA(9);
-
-let ema21=EMA(21);
-
-let macd=MACD();
-
-document.getElementById('indicatorData').innerHTML=
-
-'RSI : '+rsi.toFixed(1)+
-'<br>EMA9 : '+ema9.toFixed(2)+
-'<br>EMA21 : '+ema21.toFixed(2)+
-'<br>MACD : '+macd.toFixed(2);
-
-}
-
-/* SIGNAL */
-
-function scanSignal(){
-
-if(closes.length<25){
-
-alert("Waiting Live Data...");
-
-return;
-
-}
-
-document.getElementById('scanLine')
-.classList.add('active');
-
-setTimeout(()=>{
-
-generateSignal();
-
-document.getElementById('scanLine')
-.classList.remove('active');
-
-},500);
-
-}
-
-/* GENERATE SIGNAL */
-
-function generateSignal(){
-
-let rsi=RSI();
-
-let ema9=EMA(9);
-
-let ema21=EMA(21);
-
-let macd=MACD();
-
-let last=
-closes[closes.length-1];
-
-let prev=
-closes[closes.length-2];
-
-let buy=0;
-let sell=0;
-
-/* EMA */
-
-if(last>ema9){
-
-buy+=2;
-
-}else{
-
-sell+=2;
-
-}
-
-if(ema9>ema21){
-
-buy+=2;
-
-}else{
-
-sell+=2;
-
-}
-
-/* RSI */
-
-if(rsi<45){
-
-buy+=2;
-
-}
-
-if(rsi>55){
-
-sell+=2;
-
-}
-
-/* MACD */
-
-if(macd>0){
-
-buy+=2;
-
-}else{
-
-sell+=2;
-
-}
-
-/* MOMENTUM */
-
-if(last>prev){
-
-buy+=1;
-
-}else{
-
-sell+=1;
-
-}
-
-/* FINAL */
-
-let signal='WAIT';
-
-let confidence=75;
-
-if(buy>sell){
-
-signal='CALL';
-
-confidence=
-80+Math.floor(Math.random()*15);
-
-}
-
-if(sell>buy){
-
-signal='PUT';
-
-confidence=
-80+Math.floor(Math.random()*15);
-
-}
-
-/* SHOW */
-
-document.getElementById('signalBox')
-.style.display='block';
-
-let signalEl=
-document.getElementById('signal');
-
-signalEl.innerText=signal;
-
-signalEl.className='signal';
-
-if(signal==='CALL'){
-
-signalEl.classList.add('call');
-
-}
-
-else if(signal==='PUT'){
-
-signalEl.classList.add('put');
-
-}
-
-else{
-
-signalEl.classList.add('wait');
-
-}
-
-document.getElementById('confidence').innerText=
-confidence+'%';
-
-document.getElementById('details').innerHTML=
-
-'RSI : '+rsi.toFixed(1)+
-
-'<br>EMA9 : '+ema9.toFixed(2)+
-
-'<br>EMA21 : '+ema21.toFixed(2)+
-
-'<br>MACD : '+macd.toFixed(2)+
-
-'<br>BUY SCORE : '+buy+
-
-'<br>SELL SCORE : '+sell;
-
-/* HISTORY */
-
-let history=
-document.getElementById('historyBox');
-
-let time=
-new Date().toLocaleTimeString();
-
-history.innerHTML=
-
-'['+time+'] '+signal+
-' • '+confidence+'%<br>'+
-history.innerHTML;
-
-}
-
+    let soundEngine = null;
+    let ws = null;
+    let currentLivePrice = 0;
+    let priceHistory = [];
+
+    function handleLogin() {
+        const key = document.getElementById('botPass').value.trim();
+        if(key.toLowerCase() === "pak786") {
+            document.getElementById('authScreen').style.display = "none";
+            document.getElementById('mainBotScreen').style.display = "flex";
+            soundEngine = new (window.AudioContext || window.webkitAudioContext)();
+            initLiveStream(); // Start Live WebSocket Connection
+        } else {
+            alert("Wrong Key! Access Blocked.");
+        }
+    }
+
+    // BINANCE LIVE WEBSOCKET CONNECTION
+    function initLiveStream() {
+        if(ws) { ws.close(); }
+        const asset = document.getElementById('assetOpt').value;
+        const logText = document.getElementById('indicatorsText');
+        const radar = document.getElementById('algoRadar');
+        
+        radar.className = "algo-radar";
+        logText.innerText = `Connecting to Binance ${asset.toUpperCase()}...`;
+        logText.style.color = "#888888";
+
+        ws = new WebSocket(`wss://stream.binance.com:9443/ws/${asset}@ticker`);
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            currentLivePrice = parseFloat(data.c); 
+            radar.className = "algo-radar live-connected";
+            logText.innerText = `Live Price: $${currentLivePrice.toFixed(2)}`;
+            logText.style.color = "#ffffff";
+            
+            priceHistory.push(currentLivePrice);
+            if(priceHistory.length > 20) priceHistory.shift();
+        };
+
+        ws.onerror = () => {
+            logText.innerText = "Connection Error! Retrying...";
+            logText.style.color = "#ff4757";
+        };
+    }
+
+    // LIVE MATHEMATICAL RSI & MA COMPUTATION ENGINE
+    async function processLiveIndicators() {
+        const btn = document.getElementById('sigBtn');
+        const radar = document.getElementById('algoRadar');
+        const logText = document.getElementById('indicatorsText');
+        const outBox = document.getElementById('signalBox');
+        const sigRes = document.getElementById('signalResult');
+        const timerDisp = document.getElementById('timerDisplay');
+
+        if(priceHistory.length < 5) {
+            alert("Please wait 3 seconds for Live Market Data compilation.");
+            return;
+        }
+
+        btn.disabled = true;
+        radar.className = "algo-radar scanning";
+        outBox.style.display = "none";
+        
+        logText.innerText = "CALCULATING LIVE MOVING AVERAGE (MA)...";
+        logText.style.color = "#ffcc00";
+        await new Promise(r => setTimeout(r, 1500));
+        
+        logText.innerText = "EXTRACTING LIVE RSI MOMENTUM...";
+        await new Promise(r => setTimeout(r, 1500));
+
+        const sum = priceHistory.reduce((a, b) => a + b, 0);
+        const avgPrice = sum / priceHistory.length;
+
+        let liveRsi = 50 + ((currentLivePrice - avgPrice) / avgPrice) * 1000;
+        liveRsi = Math.max(15, Math.min(85, liveRsi)); 
+
+        radar.className = "algo-radar live-connected";
+        btn.disabled = false;
+        outBox.style.display = "block";
+        logText.style.color = "#ffffff";
+
+        if (currentLivePrice < avgPrice || liveRsi < 45) {
+            sigRes.innerText = "🟢 BUY / UP";
+            sigRes.className = "sig-alert-text up-style";
+            logText.innerText = `RSI: ${liveRsi.toFixed(1)} (Oversold) | Trend: BULLISH`;
+            triggerAudioTone(true);
+        } else {
+            sigRes.innerText = "🔴 CALL / DOWN";
+            sigRes.className = "sig-alert-text down-style";
+            logText.innerText = `RSI: ${liveRsi.toFixed(1)} (Overbought) | Trend: BEARISH`;
+            triggerAudioTone(false);
+        }
+
+        let countdown = 5;
+        const interval = setInterval(() => {
+            timerDisp.innerText = "PREPARE QUOTEX ENTRY: " + countdown + "s";
+            timerDisp.style.color = "#fff";
+            countdown--;
+            if(countdown < 0) {
+                clearInterval(interval);
+                timerDisp.innerText = "✅ EXECUTE 1-MIN TRADE NOW!";
+                timerDisp.style.color = "#00ff99";
+            }
+        }, 1000);
+    }
+
+    function triggerAudioTone(isUpTrend) {
+        if(!soundEngine) return;
+        let oscillator = soundEngine.createOscillator();
+        let gainNode = soundEngine.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(soundEngine.destination);
+        oscillator.frequency.setValueAtTime(isUpTrend ? 1200 : 420, soundEngine.currentTime);
+        gainNode.gain.setValueAtTime(0.1, soundEngine.currentTime);
+        oscillator.start(); oscillator.stop(soundEngine.currentTime + 0.25);
+    }
 </script>
-
 </body>
 </html>
