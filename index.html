@@ -23,11 +23,9 @@ body{
 background:#020817;
 display:flex;
 justify-content:center;
-align-items:flex-start;
-min-height:100vh;
 padding:8px;
-overflow-y:auto;
 color:white;
+overflow-x:hidden;
 }
 
 .app{
@@ -37,9 +35,7 @@ background:#050b18;
 border:2px solid #00cfff;
 border-radius:24px;
 overflow:hidden;
-box-shadow:
-0 0 20px #00cfff44,
-0 0 50px #00cfff22;
+box-shadow:0 0 25px #00cfff44;
 }
 
 /* HEADER */
@@ -60,24 +56,61 @@ background:linear-gradient(90deg,#00d9ff,#ffffff);
 }
 
 .tag{
-margin-top:10px;
+margin-top:8px;
 display:inline-block;
-padding:6px 16px;
-border-radius:30px;
+padding:6px 14px;
 font-size:10px;
-border:1px solid #00d9ff55;
+border-radius:20px;
+border:1px solid #00d9ff44;
 color:#00d9ff;
 }
 
 .gear{
 position:absolute;
-right:15px;
+right:14px;
 top:15px;
-font-size:22px;
+font-size:20px;
 color:#00d9ff;
 }
 
-/* MARKET */
+/* LOGIN */
+
+.login{
+padding:45px 20px;
+text-align:center;
+}
+
+.login h2{
+font-size:26px;
+margin-bottom:20px;
+background:linear-gradient(90deg,#00d9ff,#ffffff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.login input{
+width:100%;
+padding:16px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#09111f;
+color:white;
+font-size:16px;
+margin-bottom:15px;
+}
+
+.login button{
+width:100%;
+padding:16px;
+border:none;
+border-radius:16px;
+background:linear-gradient(90deg,#0077ff,#00d9ff);
+font-size:18px;
+font-weight:700;
+}
+
+/* SELECT */
 
 .market{
 padding:12px;
@@ -101,9 +134,9 @@ margin:0 12px;
 background:#07101d;
 border-radius:20px;
 padding:12px;
-border:1px solid #123;
 position:relative;
 overflow:hidden;
+border:1px solid #123;
 }
 
 .chart-top{
@@ -261,7 +294,7 @@ color:#00d9ff;
 margin-top:10px;
 font-size:11px;
 color:#aaa;
-line-height:1.7;
+line-height:1.8;
 }
 
 /* SETTINGS */
@@ -290,8 +323,8 @@ cursor:pointer;
 content:'';
 width:20px;
 height:20px;
-border-radius:50%;
 background:white;
+border-radius:50%;
 position:absolute;
 top:3px;
 left:3px;
@@ -306,51 +339,14 @@ background:#00d9ff;
 left:27px;
 }
 
-/* LOGIN */
-
-.login{
-padding:50px 20px;
-text-align:center;
-}
-
-.login h2{
-font-size:26px;
-margin-bottom:20px;
-background:linear-gradient(90deg,#00d9ff,#ffffff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.login input{
-width:100%;
-padding:16px;
-border:none;
-border-radius:16px;
-background:#09111f;
-color:white;
-font-size:16px;
-margin-bottom:15px;
-outline:none;
-}
-
-.login button{
-width:100%;
-padding:16px;
-border:none;
-border-radius:16px;
-background:linear-gradient(90deg,#0077ff,#00d9ff);
-font-size:18px;
-font-weight:700;
-}
-
 /* NAV */
 
 .nav{
 display:flex;
 justify-content:space-around;
 padding:12px;
-border-top:1px solid #123;
 background:#040912;
+border-top:1px solid #123;
 }
 
 .nav-item{
@@ -392,21 +388,35 @@ color:#00d9ff;
 
 <h1>PAK AI SIGNAL BOT PRO</h1>
 
-<div class="tag">
-REAL BINANCE • RSI • EMA • MACD • BBANDS
+<div class="tag" id="marketTag">
+REAL BINANCE LIVE
 </div>
 
 <div class="gear">⚙️</div>
 
 </div>
 
+<!-- MARKET -->
+
 <div class="market">
 
 <select id="pair">
 
 <option value="btcusdt">BTC/USDT</option>
+
 <option value="ethusdt">ETH/USDT</option>
+
 <option value="bnbusdt">BNB/USDT</option>
+
+<option value="usdtbrl">USD/BRL</option>
+
+<option value="usdtinr">USD/INR</option>
+
+<option value="usdtmxn">USD/MXN</option>
+
+<option value="xrpusdt">XRP/USDT</option>
+
+<option value="solusdt">SOL/USDT</option>
 
 </select>
 
@@ -431,7 +441,7 @@ LIVE PRICE
 </div>
 
 <div style="font-size:12px;color:#00d9ff;">
-BINANCE LIVE
+1 MIN LIVE
 </div>
 
 </div>
@@ -469,6 +479,8 @@ RSI • EMA • MACD • BBANDS
 </div>
 
 </div>
+
+<!-- BUTTON -->
 
 <button class="scan-btn" id="scanBtn" onclick="startScan()">
 START SCAN
@@ -512,7 +524,7 @@ CONFIDENCE
 </div>
 
 <div class="details" id="details">
-RSI: 0 | EMA9: 0 | EMA21: 0 | MACD: 0
+RSI: 0
 </div>
 
 </div>
@@ -567,6 +579,10 @@ let scanning=false;
 
 let closes=[];
 
+let socket;
+
+/* CHART */
+
 let chart =
 LightweightCharts.createChart(
 document.getElementById('chart'),
@@ -593,8 +609,6 @@ wickUpColor:'#00ff88',
 wickDownColor:'#ff3b5c'
 });
 
-let socket;
-
 /* LOGIN */
 
 function login(){
@@ -615,12 +629,34 @@ alert('Wrong Key');
 
 }
 
-/* BINANCE */
+/* MARKET NAME */
+
+function marketName(pair){
+
+if(pair==="btcusdt") return "BTC/USDT";
+if(pair==="ethusdt") return "ETH/USDT";
+if(pair==="bnbusdt") return "BNB/USDT";
+if(pair==="usdtbrl") return "USD/BRL";
+if(pair==="usdtinr") return "USD/INR";
+if(pair==="usdtmxn") return "USD/MXN";
+if(pair==="xrpusdt") return "XRP/USDT";
+if(pair==="solusdt") return "SOL/USDT";
+
+return pair.toUpperCase();
+
+}
+
+/* CONNECT */
 
 function connect(){
 
 let pair =
 document.getElementById('pair').value;
+
+document.getElementById('marketTag').innerText =
+marketName(pair) + " • LIVE BINANCE";
+
+closes=[];
 
 if(socket){
 
@@ -639,17 +675,19 @@ let msg = JSON.parse(event.data);
 let k = msg.k;
 
 let candle = {
+
 time:k.t/1000,
 open:parseFloat(k.o),
 high:parseFloat(k.h),
 low:parseFloat(k.l),
 close:parseFloat(k.c)
+
 };
 
 candleSeries.update(candle);
 
 document.getElementById('price').innerText =
-candle.close.toFixed(2);
+candle.close.toFixed(4);
 
 closes.push(candle.close);
 
@@ -673,7 +711,11 @@ connect();
 
 function RSI(period=14){
 
-if(closes.length<period) return 50;
+if(closes.length<period){
+
+return 50;
+
+}
 
 let gains=0;
 let losses=0;
@@ -706,7 +748,11 @@ return 100-(100/(1+rs));
 
 function EMA(period){
 
-if(closes.length<period) return 0;
+if(closes.length<period){
+
+return 0;
+
+}
 
 let k=2/(period+1);
 
@@ -732,13 +778,16 @@ return EMA(12)-EMA(26);
 
 }
 
-/* BOLLINGER */
+/* BBANDS */
 
 function BBANDS(period=20){
 
 if(closes.length<period){
 
-return {upper:0,lower:0};
+return{
+upper:0,
+lower:0
+};
 
 }
 
@@ -755,8 +804,10 @@ a+Math.pow(b-sma,2),0)/period;
 let std=Math.sqrt(variance);
 
 return{
-upper:sma+2*std,
-lower:sma-2*std
+
+upper:sma+(2*std),
+lower:sma-(2*std)
+
 };
 
 }
@@ -778,41 +829,38 @@ let bb=BBANDS();
 let last=
 closes[closes.length-1];
 
-let signal='WAIT';
+let score=0;
 
+if(rsi<35) score+=2;
+if(rsi>65) score-=2;
+
+if(ema9>ema21) score+=2;
+if(ema9<ema21) score-=2;
+
+if(macd>0) score+=2;
+if(macd<0) score-=2;
+
+if(last<bb.lower) score+=1;
+if(last>bb.upper) score-=1;
+
+let signal='WAIT';
 let confidence=70;
 
-if(
-
-rsi<55 &&
-ema9>ema21 &&
-macd>0 &&
-last<bb.upper
-
-){
+if(score>=4){
 
 signal='CALL';
-
 confidence=92;
 
 }
 
-else if(
-
-rsi>60 &&
-ema9<ema21 &&
-macd<0 &&
-last>bb.lower
-
-){
+else if(score<=-4){
 
 signal='PUT';
-
-confidence=90;
+confidence=91;
 
 }
 
-let signalBox =
+let signalBox=
 document.getElementById('signal');
 
 signalBox.innerText=signal;
@@ -926,7 +974,8 @@ let ctx =
 new(window.AudioContext||
 window.webkitAudioContext)();
 
-let osc=ctx.createOscillator();
+let osc =
+ctx.createOscillator();
 
 osc.frequency.value=freq;
 
