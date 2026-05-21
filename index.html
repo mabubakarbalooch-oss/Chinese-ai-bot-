@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>AI TRADING BOT - V16.3 PRO</title>
+<title>AI TRADING BOT - V16.4 PRO</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
     :root {
@@ -40,6 +40,12 @@
         background: linear-gradient(135deg, #e0b300, var(--yellow));
         color: #000; font-weight: 800; cursor: pointer; margin-top: 10px;
     }
+    .get-signal-btn:disabled {
+        background: #333; color: #666; cursor: not-allowed;
+    }
+    .data-counter {
+        font-size: 10px; color: #00ff99; text-align: center; margin-top: 5px;
+    }
     .signal-display-box { 
         display: none; background: rgba(0,0,0,0.6); border: 1px solid var(--border); 
         border-radius: 20px; padding: 15px; margin-top: 10px; text-align: center;
@@ -53,7 +59,7 @@
 <body>
 
 <div class="bot-container">
-    <div class="bot-header">Sureshot AI Bot Live V16.3</div>
+    <div class="bot-header">Sureshot AI Bot Live V16.4</div>
 
     <div class="field-group">
         <label>Candle Timeframe</label>
@@ -89,7 +95,11 @@
         <div class="radar-pulse"></div>
     </div>
 
-    <button class="get-signal-btn" id="sigBtn" onclick="processLiveIndicators()">Get Live Signal</button>
+    <div class="data-counter" id="dataCounter">Data: 0/10</div>
+
+    <button class="get-signal-btn" id="sigBtn" onclick="processLiveIndicators()" disabled>
+        Loading Data...
+    </button>
 
     <div class="signal-display-box" id="signalBox">
         <div class="sig-alert-text" id="signalResult">---</div>
@@ -102,13 +112,35 @@
     let currentLivePrice = 0;
     let priceHistory = [];
     let fallbackInterval = null;
+    let requiredDataPoints = 10;
 
     window.onload = initLiveStream;
 
     function resetHistory() {
         priceHistory = [];
         document.getElementById('signalBox').style.display = "none";
-        document.getElementById('indicatorsText').innerText = "History Reset - Loading Data...";
+        updateButtonState();
+    }
+
+    function updateButtonState() {
+        const btn = document.getElementById('sigBtn');
+        const counter = document.getElementById('dataCounter');
+        const asset = document.getElementById('assetOpt').value;
+        
+        // OTC needs only 10 points, Crypto needs 20
+        requiredDataPoints = asset.includes("usdbrl") || asset.includes("usdmxn") || asset.includes("eurusd") ? 10 : 20;
+        
+        counter.innerText = `Data: ${priceHistory.length}/${requiredDataPoints}`;
+        
+        if(priceHistory.length >= requiredDataPoints) {
+            btn.disabled = false;
+            btn.innerText = "Get Live Signal";
+            counter.style.color = "#00ff99";
+        } else {
+            btn.disabled = true;
+            btn.innerText = `Loading Data... ${priceHistory.length}/${requiredDataPoints}`;
+            counter.style.color = "#ffa500";
+        }
     }
 
     function initLiveStream() {
@@ -122,12 +154,12 @@
         radar.className = "algo-radar";
         logText.innerText = `Connecting to ${asset.toUpperCase()}...`;
         priceHistory = [];
+        updateButtonState();
 
         if (asset.includes("usdbrl") || asset.includes("usdmxn") || asset.includes("eurusd")) {
             let simulatedBase = asset === "usdbrl" ? 5.12 : (asset === "usdmxn" ? 16.85 : 1.08);
             radar.className = "algo-radar live-connected";
             
-            let updateSpeed = 800; // 0.8s for OTC
             fallbackInterval = setInterval(() => {
                 let change = (Math.random() - 0.5) * 0.002;
                 simulatedBase += change;
@@ -136,7 +168,8 @@
                 
                 priceHistory.push(currentLivePrice);
                 if(priceHistory.length > 50) priceHistory.shift();
-            }, updateSpeed);
+                updateButtonState();
+            }, 800);
         } else {
             ws = new WebSocket(`wss://stream.binance.com:9443/ws/${asset}@ticker`);
             ws.onopen = () => {
@@ -149,6 +182,7 @@
                 logText.innerText = `Live Price: $${currentLivePrice.toFixed(2)}`;
                 priceHistory.push(currentLivePrice);
                 if(priceHistory.length > 50) priceHistory.shift();
+                updateButtonState();
             };
         }
     }
@@ -182,12 +216,6 @@
         const sensitivity = parseInt(document.getElementById('sensitivityOpt').value);
         const candleTime = parseInt(document.getElementById('candleTimeOpt').value);
 
-        if(priceHistory.length < 20) {
-            alert("Wait 5 seconds for data loading");
-            return;
-        }
-
-        // Adjust period based on candle time
         let rsiPeriod = candleTime <= 30 ? 7 : 14;
         let emaPeriod1 = candleTime <= 30 ? 6 : 12;
         let emaPeriod2 = candleTime <= 30 ? 13 : 26;
@@ -215,12 +243,12 @@
             if(score>0){
                 signal="🟢 BUY / UP";
                 color="up-style";
-                filterMsg=`✅ BUY - Confidence ${confidence.toFixed(0)}% | Candle: ${candleTime}s`;
+                filterMsg=`✅ BUY - Confidence ${confidence.toFixed(0)}%`;
             }
             else{
                 signal="🔴 SELL / DOWN";
                 color="down-style";
-                filterMsg=`✅ SELL - Confidence ${confidence.toFixed(0)}% | Candle: ${candleTime}s`;
+                filterMsg=`✅ SELL - Confidence ${confidence.toFixed(0)}%`;
             }
         }
 
