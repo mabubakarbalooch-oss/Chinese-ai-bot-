@@ -3,111 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>AI TRADING BOT - V16.1 PRO</title>
+<title>AI TRADING BOT - V16.2 PRO</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
-    
     :root {
-        --yellow: #ffcc00;
-        --yellow-glow: rgba(255, 204, 0, 0.4);
-        --bg: #000;
-        --card-bg: rgba(10,10,10,0.85);
-        --green: #00ff99;
-        --red: #ff4757;
-        --border: rgba(255, 204, 0, 0.3);
+        --yellow: #ffcc00; --yellow-glow: rgba(255, 204, 0, 0.4);
+        --bg: #000; --card-bg: rgba(10,10,10,0.85);
+        --green: #00ff99; --red: #ff4757; --border: rgba(255, 204, 0, 0.3);
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body { 
         background: radial-gradient(circle at 20% 20%, #ffcc0020, transparent 50%),
-                    radial-gradient(circle at 80% 80%, #00ff9920, transparent 50%),
-                    var(--bg); 
-        height: 100vh; display: flex; justify-content: center; align-items: center; 
-        padding: 10px; overflow: hidden; 
+                    radial-gradient(circle at 80% 80%, #00ff9920, transparent 50%), var(--bg); 
+        height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px; 
     }
-
-    .auth-container, .bot-container { 
+    .bot-container { 
         display: flex; flex-direction: column; width: 100%; max-width: 380px; 
         background: var(--card-bg); backdrop-filter: blur(12px);
         border: 2px solid var(--border); border-radius: 25px; padding: 25px; 
         box-shadow: 0 0 35px var(--yellow-glow); text-align: center; 
     }
-    
-    .auth-container h1 { 
-        color: #fff; font-size: 22px; margin-bottom: 20px; 
-        background: linear-gradient(90deg,#ffcc00,#00ff99);
-        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-        letter-spacing: 1px; font-weight: 800;
-    }
-    
-    .auth-input, select { 
-        width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 15px; 
-        background: #000; border: 1px solid var(--border); color: #fff; 
-        text-align: center; font-weight: 600; outline: none; font-size: 14px; 
-    }
-    .auth-input:focus, select:focus { border-color: var(--yellow); box-shadow: 0 0 15px var(--yellow-glow); }
-
-    .bot-header { 
-        color: var(--yellow); font-size: 18px; text-align: center; font-weight: 800; 
-        text-shadow: 0 0 10px var(--yellow-glow); margin-bottom: 18px; 
-        text-transform: uppercase; letter-spacing: 1px; 
-    }
-
+    .bot-header { color: var(--yellow); font-size: 18px; font-weight: 800; margin-bottom: 18px; }
     .field-group { display: flex; flex-direction: column; margin-bottom: 12px; }
-    .field-group label { 
-        color: #888; font-size: 11px; font-weight: 700; 
-        text-transform: uppercase; margin-bottom: 5px; margin-left: 5px; 
+    .field-group label { color: #888; font-size: 11px; font-weight: 700; margin-bottom: 5px; }
+    select, .auth-input { 
+        width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 15px; 
+        background: #000; border: 1px solid var(--border); color: #fff; text-align: center; 
     }
-
     .algo-radar { 
         background: #000; border: 1px solid var(--border); padding: 12px 15px; 
-        border-radius: 15px; font-size: 11px; color: #666; font-weight: bold; 
-        margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; 
+        border-radius: 15px; font-size: 11px; color: #666; display: flex; justify-content: space-between; 
     }
     .radar-pulse { width: 8px; height: 8px; background: #444; border-radius: 50%; }
-    .scanning .radar-pulse { background: var(--yellow); animation: radarBlink 0.5s infinite; box-shadow: 0 0 12px var(--yellow); }
     .live-connected .radar-pulse { background: var(--yellow); box-shadow: 0 0 12px var(--yellow); }
-    @keyframes radarBlink { 50% { opacity: 0.2; } }
-
     .get-signal-btn {
         width: 100%; padding: 16px; border-radius: 15px; border: none;
         background: linear-gradient(135deg, #e0b300, var(--yellow));
-        color: #000; font-weight: 800; font-size: 15px; letter-spacing: 1px;
-        cursor: pointer; text-transform: uppercase; transition: 0.3s;
-        box-shadow: 0 0 20px var(--yellow-glow);
+        color: #000; font-weight: 800; cursor: pointer; margin-top: 10px;
     }
-    .get-signal-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px var(--yellow-glow); }
-    .get-signal-btn:active { transform: scale(0.97); }
-    .get-signal-btn:disabled { background: #1a1a1a; color: #444; border: 1px solid #222; box-shadow: none; }
-
     .signal-display-box { 
         display: none; background: rgba(0,0,0,0.6); border: 1px solid var(--border); 
-        border-radius: 20px; padding: 15px; text-align: center; margin-top: 5px; 
+        border-radius: 20px; padding: 15px; margin-top: 10px; 
     }
-    .sig-alert-text { font-size: 28px; font-weight: 900; margin: 4px 0; }
-    .up-style { color: var(--green); text-shadow: 0 0 20px rgba(0,255,153,0.5); }
-    .down-style { color: var(--red); text-shadow: 0 0 20px rgba(255,71,87,0.5); }
-    .wait-style { color: #ffa500; text-shadow: 0 0 20px rgba(255,165,0,0.5); }
-    .timer-countdown { font-size: 12px; color: #fff; font-weight: bold; margin-top: 5px; }
-    .filter-info { font-size: 10px; color: #ffa500; margin-top: 8px; background: rgba(255,165,0,0.1); padding: 6px; border-radius: 8px; }
+    .sig-alert-text { font-size: 28px; font-weight: 900; }
+    .up-style { color: var(--green); } .down-style { color: var(--red); } 
+    .wait-style { color: #ffa500; }
+    .filter-info { font-size: 10px; color: #ffa500; margin-top: 8px; }
 </style>
 </head>
 <body>
 
-<div class="auth-container" id="authScreen">
-    <h1>AI BOT SYSTEM PRO</h1>
-    <input type="text" id="botPass" class="auth-input" placeholder="ENTER SYSTEM KEY">
-    <button onclick="handleLogin()" class="get-signal-btn">VALIDATE ACCESS</button>
-</div>
-
-<div class="bot-container" id="mainBotScreen" style="display:none;">
-    <div class="bot-header">Sureshot AI Bot Live</div>
+<div class="bot-container">
+    <div class="bot-header">Sureshot AI Bot Live V16.2</div>
 
     <div class="field-group">
-        <label>Select Platform</label>
-        <select id="platformOpt">
-            <option value="QUOTEX">QUOTEX PLATFORM</option>
-            <option value="POCKET">POCKET OPTION</option>
+        <label>Sensitivity</label>
+        <select id="sensitivityOpt">
+            <option value="80">High - Safe Signals</option>
+            <option value="65" selected>Medium - Balanced</option>
+            <option value="50">Low - More Signals</option>
         </select>
     </div>
 
@@ -118,15 +72,6 @@
             <option value="usdmxn">USD/MXN OTC</option>
             <option value="eurusd">EUR/USD OTC</option>
             <option value="btcusdt">BTC/USDT LIVE</option>
-            <option value="ethusdt">ETH/USDT LIVE</option>
-        </select>
-    </div>
-
-    <div class="field-group">
-        <label>Expiry Time</label>
-        <select id="expiryOpt">
-            <option value="1M">1 MINUTE</option>
-            <option value="5M">5 MINUTES</option>
         </select>
     </div>
 
@@ -138,31 +83,18 @@
     <button class="get-signal-btn" id="sigBtn" onclick="processLiveIndicators()">Get Live Signal</button>
 
     <div class="signal-display-box" id="signalBox">
-        <div style="color: #888; font-size: 10px; font-weight: bold;">LIVE SURESHOT ENGINE</div>
         <div class="sig-alert-text" id="signalResult">---</div>
-        <div class="timer-countdown" id="timerDisplay">READY</div>
         <div class="filter-info" id="filterInfo"></div>
     </div>
 </div>
 
 <script>
-    let soundEngine = null;
     let ws = null;
     let currentLivePrice = 0;
     let priceHistory = [];
     let fallbackInterval = null;
 
-    function handleLogin() {
-        const key = document.getElementById('botPass').value.trim();
-        if(key.toLowerCase() === "pak786") {
-            document.getElementById('authScreen').style.display = "none";
-            document.getElementById('mainBotScreen').style.display = "flex";
-            soundEngine = new (window.AudioContext || window.webkitAudioContext)();
-            initLiveStream(); 
-        } else {
-            alert("Wrong Key! Access Blocked.");
-        }
-    }
+    window.onload = initLiveStream;
 
     function initLiveStream() {
         if(ws) { ws.close(); ws = null; }
@@ -173,10 +105,10 @@
         const radar = document.getElementById('algoRadar');
         
         radar.className = "algo-radar";
-        logText.innerText = `Connecting to ${asset.toUpperCase()} Feed...`;
+        logText.innerText = `Connecting to ${asset.toUpperCase()}...`;
         priceHistory = [];
 
-        if (asset === "usdbrl" || asset === "usdmxn" || asset === "eurusd") {
+        if (asset.includes("usdbrl") || asset.includes("usdmxn") || asset.includes("eurusd")) {
             let simulatedBase = asset === "usdbrl" ? 5.12 : (asset === "usdmxn" ? 16.85 : 1.08);
             radar.className = "algo-radar live-connected";
             
@@ -192,27 +124,16 @@
             }, 800);
         } else {
             ws = new WebSocket(`wss://stream.binance.com:9443/ws/${asset}@ticker`);
-
             ws.onopen = () => {
                 radar.className = "algo-radar live-connected";
                 logText.innerText = "Live Connected";
-                logText.style.color = "#00ff99";
             };
-
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 currentLivePrice = parseFloat(data.c); 
                 logText.innerText = `Live Price: $${currentLivePrice.toFixed(2)}`;
-                logText.style.color = "#ffffff";
-                
                 priceHistory.push(currentLivePrice);
                 if(priceHistory.length > 30) priceHistory.shift();
-            };
-
-            ws.onerror = ws.onclose = () => {
-                logText.innerText = "Reconnecting...";
-                logText.style.color = "#ff4757";
-                setTimeout(initLiveStream, 3000);
             };
         }
     }
@@ -239,32 +160,21 @@
         return ema;
     }
 
-    async function processLiveIndicators() {
+    function processLiveIndicators() {
         const btn = document.getElementById('sigBtn');
-        const radar = document.getElementById('algoRadar');
-        const logText = document.getElementById('indicatorsText');
         const outBox = document.getElementById('signalBox');
         const sigRes = document.getElementById('signalResult');
-        const timerDisp = document.getElementById('timerDisplay');
         const filterInfo = document.getElementById('filterInfo');
+        const sensitivity = parseInt(document.getElementById('sensitivityOpt').value);
 
         if(priceHistory.length < 15) {
-            alert("Please wait 3 seconds for Live Stream stabilization.");
+            alert("Wait 3 seconds for data loading");
             return;
         }
-
-        btn.disabled = true;
-        radar.className = "algo-radar scanning";
-        outBox.style.display = "none";
-        
-        logText.innerText = "CALCULATING RSI & EMA...";
-        logText.style.color = "#ffcc00";
-        await new Promise(r => setTimeout(r, 1500));
 
         const rsi = calculateRSI(priceHistory);
         const ema12 = calculateEMA(priceHistory, 12);
         const ema26 = calculateEMA(priceHistory, 26);
-        const avgPrice = priceHistory.reduce((a,b)=>a+b,0)/priceHistory.length;
         
         let score=0, confirmations=0;
         
@@ -273,67 +183,31 @@
         if(currentLivePrice>ema12 && ema12>ema26){score+=2;confirmations++;}
         if(currentLivePrice<ema12 && ema12<ema26){score-=2;confirmations++;}
         
-        let signal, color, confidence=60+Math.abs(score)*5;
-        let filterMsg="";
+        let confidence=60+Math.abs(score)*5;
+        let signal, color, filterMsg;
         
-        if(confirmations<3){
+        if(confidence < sensitivity){
             signal="WAIT";
             color="wait-style";
-            confidence=55;
-            filterMsg="⚠️ Low confirmation. Wait for stronger signal.";
-        }
-        else if(confidence<80){
-            signal="WAIT";
-            color="wait-style";
-            filterMsg="⚠️ Confidence below 80%. Skipping trade.";
+            filterMsg=`⚠️ Confidence ${confidence.toFixed(0)}% < ${sensitivity}%. Wait for stronger signal.`;
         }
         else{
             if(score>0){
                 signal="🟢 BUY / UP";
                 color="up-style";
-                filterMsg="✅ Strong BUY signal confirmed!";
-                triggerAudioTone(true);
+                filterMsg=`✅ BUY signal - Confidence ${confidence.toFixed(0)}%`;
             }
             else{
                 signal="🔴 SELL / DOWN";
                 color="down-style";
-                filterMsg="✅ Strong SELL signal confirmed!";
-                triggerAudioTone(false);
+                filterMsg=`✅ SELL signal - Confidence ${confidence.toFixed(0)}%`;
             }
         }
 
-        radar.className = "algo-radar live-connected";
-        btn.disabled = false;
         outBox.style.display = "block";
-        logText.innerText = `RSI: ${rsi.toFixed(1)} | EMA12: ${ema12.toFixed(4)}`;
-        logText.style.color = "#ffffff";
-        
         sigRes.innerText = signal;
         sigRes.className = "sig-alert-text "+color;
         filterInfo.innerText = filterMsg;
-
-        let countdown = 5;
-        timerDisp.innerText = "PREPARE ENTRY: " + countdown + "s";
-        const interval = setInterval(() => {
-            countdown--;
-            timerDisp.innerText = "PREPARE ENTRY: " + countdown + "s";
-            if(countdown < 0) {
-                clearInterval(interval);
-                timerDisp.innerText = "✅ EXECUTE TRADE NOW!";
-                timerDisp.style.color = "#00ff99";
-            }
-        }, 1000);
-    }
-
-    function triggerAudioTone(isUpTrend) {
-        if(!soundEngine) return;
-        let oscillator = soundEngine.createOscillator();
-        let gainNode = soundEngine.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(soundEngine.destination);
-        oscillator.frequency.setValueAtTime(isUpTrend ? 1200 : 420, soundEngine.currentTime);
-        gainNode.gain.setValueAtTime(0.1, soundEngine.currentTime);
-        oscillator.start(); oscillator.stop(soundEngine.currentTime + 0.25);
     }
 </script>
 </body>
