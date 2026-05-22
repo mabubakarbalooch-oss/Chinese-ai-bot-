@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>ABU BAKAR TRADER - QUOTEX SIGNAL BOT</title>
+<title>ABU BAKAR TRADER - QUOTEX BOT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 *{
 margin:0;
@@ -21,199 +21,207 @@ body{
 background:#000;
 display:flex;
 justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:10px;
+padding:8px;
 overflow-x:hidden;
 }
 
 .bot{
 width:100%;
-max-width:390px;
+max-width:360px;
 background:#050505;
-border:2px solid #ffd700;
-border-radius:25px;
-padding:15px;
-box-shadow:0 0 25px rgba(255,215,0,0.4);
+border:2px solid #ffd400;
+border-radius:22px;
+padding:10px;
+box-shadow:0 0 18px rgba(255,212,0,0.4);
+overflow:hidden;
 }
 
 .logo{
-width:85px;
-height:85px;
+width:68px;
+height:68px;
 border-radius:50%;
-background:linear-gradient(135deg,#ffd700,#ffb300);
+background:#ffd400;
 display:flex;
 align-items:center;
 justify-content:center;
 margin:auto;
-font-size:32px;
+font-size:30px;
 font-weight:800;
 color:#000;
-box-shadow:0 0 20px rgba(255,215,0,0.6);
+box-shadow:0 0 18px #ffd400;
 }
 
 .title{
 text-align:center;
-font-size:28px;
+font-size:20px;
 font-weight:800;
-margin-top:12px;
-color:#ffd700;
+color:#ffd400;
+margin-top:8px;
 }
 
 .sub{
 text-align:center;
-font-size:12px;
-color:#999;
-margin-top:4px;
-margin-bottom:15px;
+font-size:10px;
+color:#aaa;
+margin-bottom:10px;
 }
 
 .select{
 width:100%;
-background:#0d0d0d;
-border:1px solid #ffd700;
-border-radius:15px;
-padding:14px;
+padding:11px;
+background:#0b0b0b;
+border:1px solid #ffd400;
+border-radius:14px;
 color:#fff;
-font-size:16px;
-margin-bottom:12px;
+font-size:14px;
+margin-bottom:8px;
 outline:none;
 }
 
 .pairs{
 display:flex;
 flex-wrap:wrap;
-gap:8px;
 justify-content:center;
-margin-bottom:12px;
+gap:5px;
+margin-bottom:8px;
 }
 
 .pair{
-padding:8px 12px;
-border-radius:12px;
-background:#111;
-border:1px solid #333;
+padding:5px 10px;
+background:#101010;
+border:1px solid #222;
+border-radius:10px;
+font-size:11px;
 color:#fff;
-font-size:13px;
 }
 
 .chart{
-height:240px;
-background:#070707;
-border-radius:20px;
-border:1px solid #222;
-padding:12px;
+height:190px;
+background:#050505;
+border:1px solid #1d1d1d;
+border-radius:18px;
+padding:10px;
 position:relative;
 overflow:hidden;
 }
 
-.live{
-font-size:14px;
-color:#ffd700;
+.market{
+font-size:12px;
 font-weight:700;
+color:#ffd400;
 }
 
 .price{
-font-size:42px;
+font-size:34px;
 font-weight:800;
 color:#00ff88;
-margin-top:5px;
+margin-top:4px;
 }
 
 .candles{
 position:absolute;
-bottom:15px;
-left:10px;
-right:10px;
-height:110px;
+left:8px;
+right:8px;
+bottom:14px;
+height:95px;
 display:flex;
 align-items:flex-end;
-gap:4px;
+gap:3px;
 }
 
-.bar{
-width:7px;
-border-radius:5px;
-animation:pulse 1s infinite alternate;
+.candle{
+width:6px;
+border-radius:4px;
+position:relative;
 }
 
 .green{
 background:#00ff88;
-box-shadow:0 0 10px #00ff88;
+box-shadow:0 0 8px #00ff88;
 }
 
 .red{
 background:#ff3b3b;
-box-shadow:0 0 10px #ff3b3b;
+box-shadow:0 0 8px #ff3b3b;
 }
 
-@keyframes pulse{
-from{opacity:0.6;}
-to{opacity:1;}
+.scan{
+position:absolute;
+top:0;
+bottom:0;
+width:3px;
+background:#ffd400;
+box-shadow:0 0 16px #ffd400;
+animation:scanmove 2s linear infinite;
+}
+
+@keyframes scanmove{
+0%{left:-5px;}
+100%{left:100%;}
 }
 
 .btn{
 width:100%;
-padding:17px;
+padding:14px;
 border:none;
-border-radius:18px;
-margin-top:14px;
-font-size:28px;
+border-radius:15px;
+background:linear-gradient(135deg,#ffd400,#ffb300);
+font-size:22px;
 font-weight:800;
-cursor:pointer;
-background:linear-gradient(135deg,#ffd700,#ffb300);
 color:#000;
-box-shadow:0 0 20px rgba(255,215,0,0.4);
+margin-top:10px;
+box-shadow:0 0 16px rgba(255,212,0,0.4);
+cursor:pointer;
 }
 
 .signalBox{
-margin-top:15px;
+margin-top:10px;
 background:#080808;
-border-radius:20px;
-padding:18px;
+border-radius:16px;
+padding:12px;
 border:1px solid #222;
 text-align:center;
 }
 
 .signal{
-font-size:62px;
+font-size:52px;
 font-weight:800;
 }
 
 .buy{
 color:#00ff88;
-text-shadow:0 0 15px #00ff88;
+text-shadow:0 0 14px #00ff88;
 }
 
 .sell{
-color:#ff3b3b;
-text-shadow:0 0 15px #ff3b3b;
+color:#ff4444;
+text-shadow:0 0 14px #ff4444;
 }
 
 .wait{
 color:#ffaa00;
-text-shadow:0 0 15px #ffaa00;
+text-shadow:0 0 14px #ffaa00;
 }
 
 .conf{
-font-size:46px;
+font-size:34px;
 font-weight:800;
-margin-top:10px;
-color:#ffd700;
+color:#ffd400;
+margin-top:5px;
 }
 
 .info{
-margin-top:12px;
-line-height:1.9;
-font-size:15px;
+margin-top:8px;
+font-size:12px;
+line-height:1.7;
 color:#ddd;
 }
 
 .lock{
-margin-top:10px;
-font-size:12px;
 text-align:center;
+font-size:11px;
 color:#888;
+margin-top:8px;
 }
 
 </style>
@@ -231,23 +239,21 @@ color:#888;
 
 <select class="select" id="pair">
 
-<option value="usdbrl">🇧🇷 USD/BRL OTC</option>
-<option value="usdmxn">🇲🇽 USD/MXN OTC</option>
-<option value="usdinr">🇮🇳 USD/INR OTC</option>
-<option value="usdpkr">🇵🇰 USD/PKR OTC</option>
-<option value="eurusd">🇺🇸 EUR/USD OTC</option>
-<option value="gbpusd">🇬🇧 GBP/USD OTC</option>
-<option value="btcusdt">₿ BTC/USDT LIVE</option>
+<option>🇧🇷 USD/BRL OTC</option>
+<option>🇲🇽 USD/MXN OTC</option>
+<option>🇮🇳 USD/INR OTC</option>
+<option>🇵🇰 USD/PKR OTC</option>
+<option>🇺🇸 EUR/USD OTC</option>
+<option>🇬🇧 GBP/USD OTC</option>
 
 </select>
 
 <select class="select" id="timeframe">
 
-<option value="15">15 Seconds</option>
-<option value="30">30 Seconds</option>
-<option value="60">1 Minute</option>
-<option value="120">2 Minutes</option>
-<option value="300">5 Minutes</option>
+<option>15 Seconds</option>
+<option>30 Seconds</option>
+<option>1 Minute</option>
+<option>5 Minutes</option>
 
 </select>
 
@@ -264,15 +270,17 @@ color:#888;
 
 <div class="chart">
 
-<div class="live">LIVE MARKET</div>
+<div class="scan"></div>
 
-<div class="price" id="price">0.0000</div>
+<div class="market">LIVE MARKET</div>
+
+<div class="price" id="price">4.9721</div>
 
 <div class="candles" id="candles"></div>
 
 </div>
 
-<button class="btn" onclick="generateSignal()">
+<button class="btn" onclick="getSignal()">
 
 GET SIGNAL
 
@@ -286,7 +294,7 @@ WAIT
 
 </div>
 
-<div class="conf" id="conf">
+<div class="conf" id="confidence">
 
 0%
 
@@ -320,23 +328,17 @@ WAIT
 
 <script>
 
-let currentPrice = 5.0000;
+let price = 4.97;
 let history = [];
 
-function randomMove(){
+function updateMarket(){
 
-let move = (Math.random() - 0.5) * 0.02;
-
-currentPrice += move;
-
-if(currentPrice <= 0){
-currentPrice = 1;
-}
+price += (Math.random()-0.5)*0.02;
 
 document.getElementById("price").innerHTML =
-currentPrice.toFixed(4);
+price.toFixed(4);
 
-history.push(currentPrice);
+history.push(price);
 
 if(history.length > 100){
 history.shift();
@@ -346,7 +348,7 @@ drawCandles();
 
 }
 
-setInterval(randomMove,800);
+setInterval(updateMarket,800);
 
 function drawCandles(){
 
@@ -354,23 +356,23 @@ let wrap = document.getElementById("candles");
 
 wrap.innerHTML = "";
 
-for(let i=0;i<40;i++){
+for(let i=0;i<38;i++){
 
-let h = Math.floor(Math.random()*90)+20;
+let h = Math.random()*70+15;
 
-let div = document.createElement("div");
+let d = document.createElement("div");
 
-div.classList.add("bar");
+d.classList.add("candle");
 
 if(Math.random()>0.5){
-div.classList.add("green");
+d.classList.add("green");
 }else{
-div.classList.add("red");
+d.classList.add("red");
 }
 
-div.style.height = h+"px";
+d.style.height = h+"px";
 
-wrap.appendChild(div);
+wrap.appendChild(d);
 
 }
 
@@ -382,15 +384,15 @@ if(data.length < period) return 0;
 
 let k = 2/(period+1);
 
-let ema = data[0];
+let e = data[0];
 
 for(let i=1;i<data.length;i++){
 
-ema = data[i]*k + ema*(1-k);
+e = data[i]*k + e*(1-k);
 
 }
 
-return ema;
+return e;
 
 }
 
@@ -405,7 +407,7 @@ for(let i=1;i<=period;i++){
 
 let diff=data[i]-data[i-1];
 
-if(diff>=0){
+if(diff>0){
 gains+=diff;
 }else{
 losses-=diff;
@@ -413,7 +415,7 @@ losses-=diff;
 
 }
 
-if(losses===0) return 100;
+if(losses===0)return 100;
 
 let rs=gains/losses;
 
@@ -421,86 +423,80 @@ return 100-(100/(1+rs));
 
 }
 
-function macdSignal(){
+function macd(){
 
-let ema12 = ema(history,12);
+let ema12=ema(history,12);
 
-let ema26 = ema(history,26);
+let ema26=ema(history,26);
 
-return ema12 - ema26;
+return ema12-ema26;
 
 }
 
-function generateSignal(){
+function getSignal(){
 
-if(history.length < 30){
+if(history.length<30){
 
-alert("Waiting Live Market Data...");
+alert("WAITING LIVE DATA");
 
 return;
 
 }
 
-let RSI = rsi(history,14);
+let RSI=rsi(history);
 
-let EMA9 = ema(history,9);
+let EMA9=ema(history,9);
 
-let EMA21 = ema(history,21);
+let EMA21=ema(history,21);
 
-let MACD = macdSignal();
+let MACD=macd();
 
-let signal = "WAIT";
+let signal="WAIT";
+let cls="wait";
+let confidence=70;
 
-let cls = "wait";
+if(EMA9>EMA21 && RSI>55 && MACD>0){
 
-let conf = 70;
-
-if(EMA9 > EMA21 && RSI > 55 && MACD > 0){
-
-signal = "BUY";
-
-cls = "buy";
-
-conf = 92;
+signal="BUY";
+cls="buy";
+confidence=92;
 
 }
 
-else if(EMA9 < EMA21 && RSI < 45 && MACD < 0){
+else if(EMA9<EMA21 && RSI<45 && MACD<0){
 
-signal = "SELL";
-
-cls = "sell";
-
-conf = 91;
+signal="SELL";
+cls="sell";
+confidence=91;
 
 }
 
-document.getElementById("signal").innerHTML = signal;
+document.getElementById("signal").innerHTML=signal;
 
-document.getElementById("signal").className =
+document.getElementById("signal").className=
 "signal "+cls;
 
-document.getElementById("conf").innerHTML =
-conf+"%";
+document.getElementById("confidence").innerHTML=
+confidence+"%";
 
-document.getElementById("rsi").innerHTML =
+document.getElementById("rsi").innerHTML=
 "RSI : "+RSI.toFixed(1);
 
-document.getElementById("ema9").innerHTML =
+document.getElementById("ema9").innerHTML=
 "EMA 9 : "+EMA9.toFixed(4);
 
-document.getElementById("ema21").innerHTML =
+document.getElementById("ema21").innerHTML=
 "EMA 21 : "+EMA21.toFixed(4);
 
-document.getElementById("macd").innerHTML =
+document.getElementById("macd").innerHTML=
 "MACD : "+MACD.toFixed(4);
 
-document.getElementById("trend").innerHTML =
+document.getElementById("trend").innerHTML=
 "TREND : "+signal;
 
-document.getElementById("time").innerHTML =
+document.getElementById("time").innerHTML=
 "TIMEFRAME : "+
-document.getElementById("timeframe").value+"s";
+document.getElementById("timeframe").value;
 
 }
 
