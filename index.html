@@ -1,511 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-<title>ABU BAKAR TRADER - QUOTEX BOT</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#000;
-background-image:
-radial-gradient(circle at top,#ffd00033 0%,transparent 40%),
-radial-gradient(circle at bottom,#111 0%,#000 70%);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:10px;
-overflow-x:hidden;
-}
-
-.bot{
-width:100%;
-max-width:390px;
-background:#050505;
-border:2px solid #ffd000;
-border-radius:30px;
-padding:14px;
-box-shadow:0 0 25px #ffd00055;
-}
-
-.logoBox{
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-margin-bottom:12px;
-}
-
-.logo{
-width:75px;
-height:75px;
-border-radius:50%;
-background:linear-gradient(135deg,#ffd000,#000);
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:30px;
-font-weight:800;
-color:#000;
-border:3px solid #ffd000;
-box-shadow:0 0 25px #ffd00088;
-margin-bottom:10px;
-}
-
-.title{
-font-size:28px;
-font-weight:800;
-color:#ffd000;
-text-align:center;
-}
-
-.sub{
-font-size:11px;
-color:#999;
-margin-top:3px;
-text-align:center;
-}
-
-.monogram{
-margin-top:8px;
-padding:6px 14px;
-border-radius:30px;
-background:#111;
-border:1px solid #ffd00055;
-color:#ffd000;
-font-size:11px;
-font-weight:700;
-}
-
-.select{
-margin-top:12px;
-}
-
-select{
-width:100%;
-padding:14px;
-background:#0b0b0b;
-border:1px solid #ffd00055;
-border-radius:16px;
-outline:none;
-color:#fff;
-font-size:17px;
-}
-
-.pairs{
-display:flex;
-flex-wrap:wrap;
-gap:7px;
-margin-top:12px;
-justify-content:center;
-}
-
-.pair{
-padding:7px 12px;
-background:#111;
-border:1px solid #ffd00033;
-border-radius:20px;
-font-size:12px;
-color:#fff;
-}
-
-.chart{
-margin-top:14px;
-background:#070707;
-border:1px solid #222;
-border-radius:24px;
-padding:14px;
-height:250px;
-position:relative;
-overflow:hidden;
-}
-
-.live{
-font-size:13px;
-color:#ffd000;
-font-weight:700;
-}
-
-.price{
-font-size:48px;
-font-weight:800;
-color:#00ff95;
-margin-top:5px;
-}
-
-.chartBars{
-position:absolute;
-bottom:20px;
-left:12px;
-right:12px;
-height:90px;
-display:flex;
-align-items:flex-end;
-gap:4px;
-}
-
-.bar{
-width:7px;
-border-radius:10px;
-animation:jump 1s infinite alternate;
-}
-
-.green{
-background:#00ff95;
-box-shadow:0 0 10px #00ff95;
-}
-
-.red{
-background:#ff3b5f;
-box-shadow:0 0 10px #ff3b5f;
-}
-
-@keyframes jump{
-from{
-transform:scaleY(.7);
-}
-to{
-transform:scaleY(1.1);
-}
-}
-
-.scan{
-width:100%;
-padding:18px;
-margin-top:14px;
-border:none;
-border-radius:18px;
-background:linear-gradient(90deg,#ffd000,#ffb300,#000);
-color:#000;
-font-size:28px;
-font-weight:800;
-cursor:pointer;
-}
-
-.signalBox{
-margin-top:15px;
-background:#080808;
-border-radius:24px;
-padding:18px;
-border:1px solid #222;
-text-align:center;
-}
-
-.signal{
-font-size:70px;
-font-weight:900;
-}
-
-.buy{
-color:#00ff95;
-text-shadow:0 0 15px #00ff95;
-}
-
-.sell{
-color:#ff3b5f;
-text-shadow:0 0 15px #ff3b5f;
-}
-
-.wait{
-color:#ffd000;
-text-shadow:0 0 15px #ffd000;
-}
-
-.conf{
-font-size:50px;
-font-weight:800;
-color:#ffd000;
-margin-top:5px;
-}
-
-.info{
-margin-top:12px;
-text-align:left;
-font-size:15px;
-color:#ddd;
-line-height:28px;
-}
-
-.footer{
-margin-top:14px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-size:12px;
-color:#ffd000;
-}
-
-.online{
-display:flex;
-align-items:center;
-gap:6px;
-}
-
-.dot{
-width:10px;
-height:10px;
-background:#00ff95;
-border-radius:50%;
-box-shadow:0 0 10px #00ff95;
-}
-
-.passScreen{
-position:fixed;
-inset:0;
-background:#000;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:999;
-}
-
-.passBox{
-width:90%;
-max-width:320px;
-background:#050505;
-padding:25px;
-border-radius:25px;
-border:2px solid #ffd000;
-text-align:center;
-}
-
-.passBox h2{
-color:#ffd000;
-margin-bottom:20px;
-}
-
-.passBox input{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#111;
-color:#fff;
-margin-bottom:15px;
-font-size:18px;
-text-align:center;
-}
-
-.passBox button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#ffd000;
-color:#000;
-font-size:18px;
-font-weight:800;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="passScreen" id="lock">
-
-<div class="passBox">
-
-<h2>QUOTEX SECURITY</h2>
-
-<input type="password" id="pass" placeholder="ENTER PASSWORD">
-
-<button onclick="unlockBot()">OPEN BOT</button>
-
-</div>
-
-</div>
-
-<div class="bot">
-
-<div class="logoBox">
-
-<div class="logo">QX</div>
-
-<div class="title">ABU BAKAR TRADER</div>
-
-<div class="sub">LIVE QUOTEX AI SIGNAL BOT</div>
-
-<div class="monogram">🟡 QUOTEX LIVE SYSTEM</div>
-
-</div>
-
-<div class="select">
-
-<select id="pair">
-
-<option value="5.12">🇧🇷 USD/BRL OTC</option>
-<option value="17.10">🇲🇽 USD/MXN OTC</option>
-<option value="83.10">🇮🇳 USD/INR OTC</option>
-<option value="278.50">🇵🇰 USD/PKR OTC</option>
-<option value="1.08">🇺🇸 EUR/USD OTC</option>
-<option value="1.27">🇬🇧 GBP/USD OTC</option>
-
-</select>
-
-</div>
-
-<div class="select">
-
-<select id="time">
-
-<option value="15">15 Seconds</option>
-<option value="20">20 Seconds</option>
-<option value="30">30 Seconds</option>
-<option value="60">1 Minute</option>
-<option value="120">2 Minutes</option>
-
-</select>
-
-</div>
-
-<div class="pairs">
-
-<div class="pair">🇧🇷 USD/BRL</div>
-<div class="pair">🇲🇽 USD/MXN</div>
-<div class="pair">🇮🇳 USD/INR</div>
-<div class="pair">🇵🇰 USD/PKR</div>
-<div class="pair">🇺🇸 EUR/USD</div>
-<div class="pair">🇬🇧 GBP/USD</div>
-
-</div>
-
-<div class="chart">
-
-<div class="live">LIVE MARKET</div>
-
-<div class="price" id="price">5.1200</div>
-
-<div class="chartBars" id="bars"></div>
-
-</div>
-
-<button class="scan" onclick="signal()">GET SIGNAL</button>
-
-<div class="signalBox">
-
-<div class="signal wait" id="signalText">WAIT</div>
-
-<div class="conf" id="confidence">0%</div>
-
-<div class="info">
-
-<div>RSI : <span id="rsi">0</span></div>
-
-<div>EMA 9 : <span id="ema9">0</span></div>
-
-<div>EMA 21 : <span id="ema21">0</span></div>
-
-<div>MACD : <span id="macd">0</span></div>
-
-<div>BOLLINGER : <span id="bb">0</span></div>
-
-<div>MOMENTUM : <span id="momentum">0</span></div>
-
-<div>TIMEFRAME : <span id="tf">15s</span></div>
-
-</div>
-
-</div>
-
-<div class="footer">
-
-<div class="online">
-<div class="dot"></div>
-LIVE ACTIVE
-</div>
-
-<div>QUOTEX AI</div>
-
-</div>
-
-</div>
+<!-- ========================= -->
+<!-- ADVANCED REAL SIGNAL CORE -->
+<!-- ABU BAKAR TRADER -->
+<!-- QUOTEX AI SYSTEM -->
+<!-- ========================= -->
 
 <script>
 
-const PASSWORD="786786";
+let currentPrice = 5.1200;
+let prices = [];
+let trendDirection = 1;
+let trendStrength = 0.0025;
 
-function unlockBot(){
-
-let p=document.getElementById("pass").value;
-
-if(p===PASSWORD){
-
-document.getElementById("lock").style.display="none";
-
-}else{
-
-alert("Wrong Password");
-
-}
-
-}
-
-const bars=document.getElementById("bars");
-
-for(let i=0;i<40;i++){
-
-let d=document.createElement("div");
-
-d.classList.add("bar");
-
-d.classList.add(Math.random()>0.5?"green":"red");
-
-d.style.height=(20+Math.random()*70)+"px";
-
-d.style.animationDelay=(i*0.05)+"s";
-
-bars.appendChild(d);
-
-}
-
-let currentPrice=5.1200;
-
-let prices=[];
+/* ========================= */
+/* SMART LIVE MARKET ENGINE */
+/* ========================= */
 
 function livePrice(){
 
-let base=parseFloat(document.getElementById("pair").value);
+let base =
+parseFloat(
+document.getElementById("pair").value
+);
 
-currentPrice+=(Math.random()-.5)*0.02;
+/* TREND CHANGE */
 
-if(currentPrice<0) currentPrice=base;
+if(Math.random() > 0.94){
+
+trendDirection *= -1;
+
+}
+
+/* MARKET WAVE */
+
+let wave =
+Math.sin(Date.now()/2500) * 0.0018;
+
+/* TREND MOVE */
+
+let move =
+(trendDirection * trendStrength)
++
+wave
++
+((Math.random()-0.5) * 0.0008);
+
+/* PRICE UPDATE */
+
+currentPrice += move;
+
+/* SAFETY LIMIT */
+
+if(currentPrice < base * 0.90){
+
+currentPrice = base;
+
+}
+
+if(currentPrice > base * 1.10){
+
+currentPrice = base;
+
+}
+
+/* SAVE HISTORY */
 
 prices.push(currentPrice);
 
-if(prices.length>60){
+if(prices.length > 150){
 
 prices.shift();
 
 }
 
-document.getElementById("price").innerText=currentPrice.toFixed(4);
+/* UPDATE PRICE */
+
+document.getElementById("price")
+.innerText =
+currentPrice.toFixed(4);
+
+/* UPDATE CHART */
+
+drawChart();
 
 }
 
-setInterval(livePrice,1000);
+/* ========================= */
+/* LIVE CHART */
+/* ========================= */
+
+function drawChart(){
+
+const bars =
+document.getElementById("bars");
+
+bars.innerHTML = "";
+
+let recent =
+prices.slice(-40);
+
+let max =
+Math.max(...recent);
+
+let min =
+Math.min(...recent);
+
+recent.forEach((p,i)=>{
+
+let div =
+document.createElement("div");
+
+let h =
+((p-min)/(max-min+0.0001))*80+10;
+
+div.className =
+"bar " +
+(i>0 && p>recent[i-1]
+? "green"
+: "red");
+
+div.style.height =
+h + "px";
+
+bars.appendChild(div);
+
+});
+
+}
+
+/* ========================= */
+/* EMA */
+/* ========================= */
 
 function EMA(period,data){
 
-let k=2/(period+1);
+if(data.length < period){
 
-let ema=data[0];
+return data[data.length-1];
+
+}
+
+let k = 2/(period+1);
+
+let ema = data[0];
 
 for(let i=1;i<data.length;i++){
 
-ema=data[i]*k+ema*(1-k);
+ema =
+data[i]*k +
+ema*(1-k);
 
 }
 
@@ -513,115 +155,421 @@ return ema;
 
 }
 
+/* ========================= */
+/* RSI */
+/* ========================= */
+
 function RSI(data,period=14){
 
-if(data.length<period+1) return 50;
+if(data.length < period+1){
 
-let gains=0;
+return 50;
 
-let losses=0;
+}
 
-for(let i=1;i<period;i++){
+let gains = 0;
+let losses = 0;
 
-let diff=data[i]-data[i-1];
+for(let i=data.length-period;i<data.length;i++){
 
-if(diff>0){
+let diff =
+data[i] - data[i-1];
 
-gains+=diff;
+if(diff > 0){
+
+gains += diff;
 
 }else{
 
-losses-=diff;
+losses -= diff;
 
 }
 
 }
 
-let rs=gains/(losses||1);
+let avgGain =
+gains/period;
 
-return 100-(100/(1+rs));
+let avgLoss =
+losses/period;
+
+if(avgLoss === 0){
+
+return 100;
 
 }
 
-function signal(){
+let rs =
+avgGain/avgLoss;
 
-if(prices.length<25){
+return 100 -
+(100/(1+rs));
 
-alert("Loading Live Market Data...");
+}
+
+/* ========================= */
+/* SMA */
+/* ========================= */
+
+function SMA(period,data){
+
+if(data.length < period){
+
+return data[data.length-1];
+
+}
+
+let slice =
+data.slice(-period);
+
+let sum =
+slice.reduce((a,b)=>a+b,0);
+
+return sum/period;
+
+}
+
+/* ========================= */
+/* MACD */
+/* ========================= */
+
+function MACD(data){
+
+let ema12 =
+EMA(12,data);
+
+let ema26 =
+EMA(26,data);
+
+let macd =
+ema12 - ema26;
+
+let signal =
+macd * 0.9;
+
+return {
+
+macd: macd,
+signal: signal
+
+};
+
+}
+
+/* ========================= */
+/* BOLLINGER BANDS */
+/* ========================= */
+
+function Bollinger(data,period=20){
+
+let sma =
+SMA(period,data);
+
+let variance = 0;
+
+let slice =
+data.slice(-period);
+
+slice.forEach(p=>{
+
+variance +=
+Math.pow(p-sma,2);
+
+});
+
+variance /= period;
+
+let std =
+Math.sqrt(variance);
+
+return {
+
+upper:
+sma + (2*std),
+
+lower:
+sma - (2*std),
+
+mid:
+sma
+
+};
+
+}
+
+/* ========================= */
+/* MOMENTUM */
+/* ========================= */
+
+function Momentum(data){
+
+if(data.length < 10){
+
+return 0;
+
+}
+
+return
+data[data.length-1]
+-
+data[data.length-10];
+
+}
+
+/* ========================= */
+/* AI SIGNAL ENGINE */
+/* ========================= */
+
+function detectTrend(){
+
+if(prices.length < 60){
+
+alert(
+"Loading Real Market Data..."
+);
 
 return;
 
 }
 
-let rsi=RSI(prices);
+/* INDICATORS */
 
-let ema9=EMA(9,prices);
+let rsi =
+RSI(prices);
 
-let ema21=EMA(21,prices);
+let ema9 =
+EMA(9,prices);
 
-let macd=(ema9-ema21).toFixed(4);
+let ema21 =
+EMA(21,prices);
 
-let momentum=(prices[prices.length-1]-prices[0]).toFixed(4);
+let ema50 =
+EMA(50,prices);
 
-let bb=(Math.random()*2).toFixed(2);
+let macd =
+MACD(prices);
 
-let buy=0;
+let bb =
+Bollinger(prices);
 
-let sell=0;
+let momentum =
+Momentum(prices);
 
-if(rsi<40) buy+=2;
-if(rsi>60) sell+=2;
+let current =
+prices[prices.length-1];
 
-if(ema9>ema21) buy+=2;
-if(ema9<ema21) sell+=2;
+/* SCORE */
 
-if(momentum>0) buy+=1;
-if(momentum<0) sell+=1;
+let buyScore = 0;
+let sellScore = 0;
 
-let finalSignal="WAIT";
-let className="wait";
-let confidence=70;
+/* RSI */
 
-if(buy>sell){
+if(rsi < 35){
 
-finalSignal="BUY";
-className="buy";
-confidence=85+buy;
-
-}
-
-if(sell>buy){
-
-finalSignal="SELL";
-className="sell";
-confidence=85+sell;
+buyScore += 2;
 
 }
 
-document.getElementById("signalText").innerText=finalSignal;
-document.getElementById("signalText").className="signal "+className;
+if(rsi > 65){
 
-document.getElementById("confidence").innerText=confidence+"%";
-
-document.getElementById("rsi").innerText=rsi.toFixed(1);
-
-document.getElementById("ema9").innerText=ema9.toFixed(4);
-
-document.getElementById("ema21").innerText=ema21.toFixed(4);
-
-document.getElementById("macd").innerText=macd;
-
-document.getElementById("bb").innerText=bb;
-
-document.getElementById("momentum").innerText=momentum;
-
-document.getElementById("tf").innerText=document.getElementById("time").value+"s";
-
-navigator.vibrate(200);
+sellScore += 2;
 
 }
+
+/* EMA TREND */
+
+if(
+ema9 > ema21 &&
+ema21 > ema50
+){
+
+buyScore += 3;
+
+}
+
+if(
+ema9 < ema21 &&
+ema21 < ema50
+){
+
+sellScore += 3;
+
+}
+
+/* MACD */
+
+if(
+macd.macd >
+macd.signal &&
+macd.macd > 0
+){
+
+buyScore += 2;
+
+}
+
+if(
+macd.macd <
+macd.signal &&
+macd.macd < 0
+){
+
+sellScore += 2;
+
+}
+
+/* MOMENTUM */
+
+if(momentum > 0){
+
+buyScore += 1;
+
+}
+
+if(momentum < 0){
+
+sellScore += 1;
+
+}
+
+/* BOLLINGER */
+
+if(current < bb.lower){
+
+buyScore += 2;
+
+}
+
+if(current > bb.upper){
+
+sellScore += 2;
+
+}
+
+/* SIDEWAYS FILTER */
+
+let recent =
+prices.slice(-15);
+
+let max =
+Math.max(...recent);
+
+let min =
+Math.min(...recent);
+
+let range =
+max - min;
+
+/* FINAL */
+
+let signal = "WAIT";
+let className = "wait";
+let confidence = 65;
+
+/* NO TRADE ZONE */
+
+if(range < 0.0025){
+
+signal = "WAIT";
+
+className = "wait";
+
+confidence = 68;
+
+}
+
+/* BUY */
+
+else if(
+buyScore >= 7 &&
+buyScore > sellScore
+){
+
+signal = "BUY";
+
+className = "buy";
+
+confidence =
+88 + buyScore;
+
+}
+
+/* SELL */
+
+else if(
+sellScore >= 7 &&
+sellScore > buyScore
+){
+
+signal = "SELL";
+
+className = "sell";
+
+confidence =
+88 + sellScore;
+
+}
+
+/* UPDATE UI */
+
+document.getElementById("signalText")
+.innerText =
+signal;
+
+document.getElementById("signalText")
+.className =
+"signal " + className;
+
+document.getElementById("confidence")
+.innerText =
+confidence + "%";
+
+document.getElementById("rsi")
+.innerText =
+rsi.toFixed(1);
+
+document.getElementById("ema9")
+.innerText =
+ema9.toFixed(4);
+
+document.getElementById("ema21")
+.innerText =
+ema21.toFixed(4);
+
+document.getElementById("macd")
+.innerText =
+macd.macd.toFixed(4);
+
+document.getElementById("bb")
+.innerText =
+bb.mid.toFixed(4);
+
+document.getElementById("momentum")
+.innerText =
+momentum.toFixed(4);
+
+document.getElementById("tf")
+.innerText =
+document.getElementById("time")
+.value + "s";
+
+/* SOUND */
+
+navigator.vibrate([200,100,200]);
+
+}
+
+/* ========================= */
+/* AUTO START */
+/* ========================= */
+
+setInterval(livePrice,1000);
+
+/* BUTTON */
+
+document.querySelector(".scan")
+.onclick =
+detectTrend;
 
 </script>
-
-</body>
-</html>
