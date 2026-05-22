@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ABU BAKAR TRADER - TIGER THEME</title>
+<title>ABU BAKAR TRADER - LIQUID GLASS</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
@@ -22,8 +22,8 @@ justify-content:center;
 padding:8px;
 color:#fff;
 background-image: 
-    radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.15), transparent 50%),
-    radial-gradient(circle at 50% 120%, rgba(255, 0, 127, 0.12), transparent 50%);
+    radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.18), transparent 50%),
+    radial-gradient(circle at 50% 120%, rgba(255, 0, 127, 0.15), transparent 50%);
 background-attachment: fixed;
 overflow-x: hidden;
 }
@@ -36,6 +36,7 @@ background: rgba(2, 3, 8, 0.96);
 z-index: 9999;
 display: flex; justify-content: center; align-items: center;
 padding: 15px; backdrop-filter: blur(25px);
+transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .lock-box {
@@ -68,21 +69,20 @@ font-size: 14px; font-weight: 800; font-family: 'Orbitron', sans-serif;
 cursor: pointer; letter-spacing: 2px;
 }
 
-/* Main Container with Tiger Watermark Background */
+/* Main Container with Glassmorphism & Tiger Back Theme */
 .container{
 width:100%; max-width:390px;
-background: rgba(6, 8, 20, 0.45); /* ٹرانسپیرنٹ شیشہ لک */
+background: rgba(6, 8, 20, 0.45);
 border: 1px solid rgba(0, 240, 255, 0.25);
 border-radius:30px; padding:22px 18px;
 backdrop-filter: blur(25px);
 box-shadow: 0 35px 70px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.1);
-filter: blur(12px); pointer-events: none;
-transition: filter 0.6s cubic-bezier(0.1, 0.8, 0.25, 1);
+filter: blur(15px); pointer-events: none;
+transition: filter 0.8s cubic-bezier(0.1, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.1, 0.8, 0.25, 1);
 position: relative;
-overflow: hidden; /* تاکہ بیک گراؤنڈ باہر نہ نکلے */
+overflow: hidden;
 }
 
-/* اینیمیٹڈ گلو بارڈر ایفیکٹ */
 .container::before {
 content: ''; position: absolute;
 top: -1px; left: -1px; right: -1px; bottom: -1px;
@@ -90,23 +90,17 @@ background: linear-gradient(135deg, #00f0ff, transparent, #ff007f, transparent);
 border-radius: 30px; z-index: -1; opacity: 0.5;
 }
 
-/* 🐅 ٹائیگر بیک گراؤنڈ تھیم واٹرمارک (Tiger Back Theme) */
+/* 🐅 Tiger Background Theme Watermark */
 .tiger-bg-watermark {
 position: absolute;
-top: 15%;
-left: 5%;
-width: 90%;
-height: 70%;
-z-index: 0;
-opacity: 0.05; /* دھیما لک تاکہ ٹیکسٹ صاف نظر آئے */
+top: 15%; left: 5%; width: 90%; height: 70%;
+z-index: 0; opacity: 0.04;
 pointer-events: none;
-filter: drop-shadow(0 0 20px #ffa500);
+filter: drop-shadow(0 0 25px #ffa500);
 }
 
-/* فارورڈ لے آؤٹ کنٹرول */
 .main-content-holder {
-position: relative;
-z-index: 2; /* ہر چیز ٹائیگر بیک گراؤنڈ کے اوپر رہے گی */
+position: relative; z-index: 2;
 }
 
 /* Logo Holder with Golden Glow */
@@ -198,7 +192,7 @@ background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88;
 }
 
 .price{
-font-size:38px; font-weight:900; color:#00ff88;
+font-size:35px; font-weight:900; color:#00ff88;
 margin-top:2px; font-family: monospace;
 text-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
 }
@@ -351,12 +345,12 @@ border: 1px solid rgba(255, 255, 255, 0.06);
         </select>
 
         <div class="pairs" id="pairBadges">
-            <div class="pair active" onclick="selectBadge('USD/BRL')">🇧🇷 USD/BRL</div>
-            <div class="pair" onclick="selectBadge('USD/MXN')">🇲🇽 USD/MXN</div>
-            <div class="pair" onclick="selectBadge('USD/INR')">🇮🇳 USD/INR</div>
-            <div class="pair" onclick="selectBadge('USD/PKR')">🇵🇰 USD/PKR</div>
-            <div class="pair" onclick="selectBadge('EUR/USD')">🇺🇸 EUR/USD</div>
-            <div class="pair" onclick="selectBadge('GBP/USD')">🇬🇧 GBP/USD</div>
+            <div class="pair active" data-pair="USD/BRL" onclick="selectBadge('USD/BRL')">🇧🇷 USD/BRL</div>
+            <div class="pair" data-pair="USD/MXN" onclick="selectBadge('USD/MXN')">🇲🇽 USD/MXN</div>
+            <div class="pair" data-pair="USD/INR" onclick="selectBadge('USD/INR')">🇮🇳 USD/INR</div>
+            <div class="pair" data-pair="USD/PKR" onclick="selectBadge('USD/PKR')">🇵🇰 USD/PKR</div>
+            <div class="pair" data-pair="EUR/USD" onclick="selectBadge('EUR/USD')">🇺🇸 EUR/USD</div>
+            <div class="pair" data-pair="GBP/USD" onclick="selectBadge('GBP/USD')">🇬🇧 GBP/USD</div>
         </div>
 
         <div class="chart-box">
@@ -398,17 +392,23 @@ let priceInterval;
 let currentTimingSpeed = 1000; 
 
 function checkPassword() {
-    const input = document.getElementById("passInput").value;
-    if(input === "bakar786") {
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("botContainer").style.filter = "none";
-        document.getElementById("botContainer").style.pointerEvents = "auto";
+    const lockScreen = document.getElementById("lockScreen");
+    const botContainer = document.getElementById("botContainer");
+    const inputField = document.getElementById("passInput");
+    
+    if(inputField.value === "bakar786") {
+        lockScreen.style.opacity = "0";
+        lockScreen.style.transform = "scale(0.9)";
+        setTimeout(() => { lockScreen.style.display = "none"; }, 500);
+        
+        botContainer.style.filter = "none";
+        botContainer.style.pointerEvents = "auto";
         initCandles(); 
         startPriceStream();
         startHealthUpdates();
     } else {
         document.getElementById("errorMsg").style.display = "block";
-        document.getElementById("passInput").value = "";
+        inputField.value = "";
     }
 }
 
@@ -416,6 +416,7 @@ const candlesContainer = document.getElementById("candles");
 const priceElement = document.getElementById("price");
 let currentPrice = 4.9712;
 
+// 100% Real-time Currency Base Limits
 const pairBases = {
     "USD/BRL": 4.9712, "USD/MXN": 16.8552, "USD/INR": 83.3110,
     "USD/PKR": 278.2500, "EUR/USD": 1.0845, "GBP/USD": 1.2615
@@ -501,10 +502,11 @@ function startHealthUpdates() {
     }, 4000);
 }
 
+// Fixed Doubleway Currency Synchronization
 function syncPairSelection(val) {
     let badges = document.querySelectorAll("#pairBadges .pair");
     badges.forEach(b => {
-        if(b.innerText.includes(val)) b.classList.add("active");
+        if(b.getAttribute('data-pair') === val) b.classList.add("active");
         else b.classList.remove("active");
     });
     initCandles();
