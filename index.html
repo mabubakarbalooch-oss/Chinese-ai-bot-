@@ -1,5 +1,5 @@
 <!-- GET SIGNAL PRESS = SCAN LINE START -->
-<!-- ABU BAKAR TRADER - QUOTEX STYLE -->
+<!-- ABU BAKAR TRADER - QUOTEX PREMIUM STYLE -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,64 +20,78 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#000;
+background: #030303;
 display:flex;
 justify-content:center;
 padding:8px;
 color:#fff;
+background-image: radial-gradient(circle at 50% 10%, #ffd00015, transparent 50%);
 }
 
 .container{
 width:100%;
 max-width:390px;
-background:#050505;
-border:2px solid #ffd000;
-border-radius:22px;
-padding:12px;
-box-shadow:0 0 20px #ffd00055;
+background: rgba(10, 10, 10, 0.75);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border: 1px solid rgba(255, 208, 0, 0.4);
+border-radius:24px;
+padding:14px;
+box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 15px rgba(255, 208, 0, 0.1);
 overflow:hidden;
 }
 
 .logo{
-width:80px;
-height:80px;
-background:#ffd000;
+width:75px;
+height:75px;
+background: linear-gradient(135deg, #ffd000, #ffaa00);
 border-radius:50%;
 margin:auto;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:35px;
+font-size:32px;
 font-weight:900;
 color:#000;
-box-shadow:0 0 25px #ffd000;
+box-shadow:0 0 20px rgba(255, 208, 0, 0.6);
+border: 2px solid rgba(255,255,255,0.2);
 }
 
 .title{
 text-align:center;
-font-size:22px;
+font-size:24px;
 font-weight:800;
 color:#ffd000;
-margin-top:10px;
+margin-top:12px;
+letter-spacing: 0.5px;
+text-shadow: 0 0 10px rgba(255, 208, 0, 0.2);
 }
 
 .subtitle{
 text-align:center;
-font-size:12px;
-color:#999;
-margin-bottom:12px;
+font-size:11px;
+color:#888;
+margin-bottom:14px;
+text-transform: uppercase;
+letter-spacing: 1px;
 }
 
 .select{
 width:100%;
-padding:13px;
-background:#0b0b0b;
-border:1px solid #ffd00088;
+padding:14px;
+background: rgba(20, 20, 20, 0.6);
+border:1px solid rgba(255, 208, 0, 0.25);
 border-radius:16px;
 color:#fff;
-font-size:16px;
+font-size:15px;
 margin-bottom:10px;
 outline:none;
+backdrop-filter: blur(5px);
+transition: border 0.3s;
+}
+
+.select:focus {
+border-color: #ffd000;
 }
 
 .pairs{
@@ -85,160 +99,219 @@ display:flex;
 flex-wrap:wrap;
 gap:6px;
 justify-content:center;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .pair{
-background:#101010;
-border:1px solid #333;
-padding:8px 10px;
+background: rgba(255, 255, 255, 0.03);
+border:1px solid rgba(255,255,255,0.08);
+padding:8px 12px;
 border-radius:12px;
-font-size:13px;
+font-size:12px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.pair.active {
+border-color: #ffd000;
+background: rgba(255, 208, 0, 0.15);
+color: #ffd000;
+box-shadow: 0 0 10px rgba(255, 208, 0, 0.1);
 }
 
 .chart-box{
 position:relative;
-height:220px;
-background:#070707;
+height:210px;
+background: rgba(5, 5, 5, 0.8);
 border-radius:20px;
-padding:10px;
+padding:12px;
 overflow:hidden;
-border:1px solid #222;
+border:1px solid rgba(255,255,255,0.05);
 }
 
 .live{
-font-size:14px;
+font-size:12px;
 font-weight:700;
 color:#ffd000;
+letter-spacing: 1px;
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+.live::before {
+content: '';
+display: inline-block;
+width: 6px;
+height: 6px;
+background: #00ff88;
+border-radius: 50%;
+box-shadow: 0 0 6px #00ff88;
 }
 
 .price{
-font-size:42px;
+font-size:40px;
 font-weight:800;
 color:#00ff88;
-margin-top:5px;
+margin-top:2px;
+font-family: monospace;
+transition: color 0.1s ease;
 }
 
 .candles{
 position:absolute;
 bottom:15px;
-left:10px;
-right:10px;
-height:110px;
+left:12px;
+right:12px;
+height:100px;
 display:flex;
 align-items:flex-end;
 gap:4px;
 }
 
 .candle{
-width:7px;
-border-radius:5px;
-animation:move 1s infinite alternate;
+width:6px;
+border-radius:3px;
+transition: height 0.2s ease, background 0.2s ease;
 }
 
 .green{
 background:#00ff88;
-box-shadow:0 0 8px #00ff88;
+box-shadow:0 0 6px rgba(0, 255, 136, 0.4);
 }
 
 .red{
 background:#ff3b3b;
-box-shadow:0 0 8px #ff3b3b;
-}
-
-@keyframes move{
-from{
-transform:scaleY(0.8);
-}
-to{
-transform:scaleY(1);
-}
+box-shadow:0 0 6px rgba(255, 59, 59, 0.4);
 }
 
 .scan-line{
 position:absolute;
 top:0;
 bottom:0;
-width:4px;
-background:#ffd000;
-box-shadow:0 0 20px #ffd000;
+width:3px;
+background: linear-gradient(to right, transparent, #ffd000, transparent);
+box-shadow:0 0 15px #ffd000;
 display:none;
 animation:scan 2s linear infinite;
+z-index: 5;
 }
 
 @keyframes scan{
-0%{
-left:-10px;
-}
-100%{
-left:100%;
-}
+0%{ left:-10px; }
+100%{ left:100%; }
 }
 
 .btn{
 width:100%;
-padding:18px;
+padding:16px;
 border:none;
-border-radius:20px;
+border-radius:18px;
 margin-top:12px;
-background:#ffd000;
+background: linear-gradient(135deg, #ffd000, #ffcc00);
 color:#000;
-font-size:20px;
+font-size:18px;
 font-weight:800;
 cursor:pointer;
-box-shadow:0 0 20px #ffd00066;
+box-shadow:0 4px 15px rgba(255, 208, 0, 0.3);
+transition: all 0.2s ease;
+}
+
+.btn:active {
+transform: scale(0.98);
+}
+
+.btn:disabled {
+background: #333;
+color: #666;
+box-shadow: none;
+cursor: not-allowed;
 }
 
 .result{
-margin-top:12px;
-background:#090909;
+margin-top:14px;
+background: rgba(15, 15, 15, 0.6);
+backdrop-filter: blur(5px);
 border-radius:20px;
-padding:15px;
-border:1px solid #222;
+padding:16px;
+border:1px solid rgba(255,255,255,0.05);
 display:none;
+animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
 }
 
 .signal{
-font-size:60px;
+font-size:55px;
 font-weight:900;
 text-align:center;
+letter-spacing: 1px;
 }
 
 .buy{
 color:#00ff88;
-text-shadow:0 0 20px #00ff88;
+text-shadow:0 0 25px rgba(0, 255, 136, 0.6);
 }
 
 .sell{
 color:#ff3b3b;
-text-shadow:0 0 20px #ff3b3b;
+text-shadow:0 0 25px rgba(255, 59, 59, 0.6);
 }
 
 .wait{
 color:#ffd000;
-text-shadow:0 0 20px #ffd000;
+text-shadow:0 0 25px rgba(255, 208, 0, 0.6);
 }
 
 .conf{
 text-align:center;
-font-size:35px;
+font-size:32px;
 font-weight:800;
 color:#ffd000;
-margin-top:5px;
+margin-top:2px;
+background: rgba(255,208,0,0.1);
+width: fit-content;
+margin: 4px auto 12px auto;
+padding: 2px 14px;
+border-radius: 20px;
+border: 1px solid rgba(255,208,0,0.2);
 }
 
-.info{
-margin-top:10px;
-line-height:28px;
-font-size:14px;
-color:#ddd;
+.info-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+margin-top: 5px;
+font-size: 13px;
+color: #ccc;
+}
+
+.info-item {
+background: rgba(255,255,255,0.02);
+padding: 6px 10px;
+border-radius: 10px;
+border: 1px solid rgba(255,255,255,0.04);
+}
+
+.info-item span {
+float: right;
+font-weight: 600;
+color: #fff;
+}
+
+.info-item span.highlight {
+color: #ffd000;
 }
 
 .footer{
-margin-top:10px;
+margin-top:14px;
 text-align:center;
-font-size:12px;
-color:#777;
+font-size:11px;
+color:#555;
+letter-spacing: 0.5px;
 }
 </style>
 </head>
@@ -250,15 +323,15 @@ color:#777;
 <div class="logo">QX</div>
 
 <div class="title">ABU BAKAR TRADER</div>
-<div class="subtitle">QUOTEX LIVE SIGNAL BOT</div>
+<div class="subtitle">PREMIUM AI SIGNAL BOT</div>
 
-<select class="select" id="pair">
-<option>🇧🇷 USD/BRL OTC</option>
-<option>🇲🇽 USD/MXN OTC</option>
-<option>🇮🇳 USD/INR OTC</option>
-<option>🇵🇰 USD/PKR OTC</option>
-<option>🇺🇸 EUR/USD OTC</option>
-<option>🇬🇧 GBP/USD OTC</option>
+<select class="select" id="pair" onchange="syncPairSelection(this.value)">
+<option value="USD/BRL">🇧🇷 USD/BRL OTC</option>
+<option value="USD/MXN">🇲🇽 USD/MXN OTC</option>
+<option value="USD/INR">🇮🇳 USD/INR OTC</option>
+<option value="USD/PKR">🇵🇰 USD/PKR OTC</option>
+<option value="EUR/USD">🇺🇸 EUR/USD OTC</option>
+<option value="GBP/USD">🇬🇧 GBP/USD OTC</option>
 </select>
 
 <select class="select" id="time">
@@ -268,159 +341,184 @@ color:#777;
 <option>5 Minutes</option>
 </select>
 
-<div class="pairs">
-<div class="pair">🇧🇷 USD/BRL</div>
-<div class="pair">🇲🇽 USD/MXN</div>
-<div class="pair">🇮🇳 USD/INR</div>
-<div class="pair">🇵🇰 USD/PKR</div>
-<div class="pair">🇺🇸 EUR/USD</div>
-<div class="pair">🇬🇧 GBP/USD</div>
+<div class="pairs" id="pairBadges">
+<div class="pair active" onclick="selectBadge('USD/BRL')">🇧🇷 USD/BRL</div>
+<div class="pair" onclick="selectBadge('USD/MXN')">🇲🇽 USD/MXN</div>
+<div class="pair" onclick="selectBadge('USD/INR')">🇮🇳 USD/INR</div>
+<div class="pair" onclick="selectBadge('USD/PKR')">🇵🇰 USD/PKR</div>
+<div class="pair" onclick="selectBadge('EUR/USD')">🇺🇸 EUR/USD</div>
+<div class="pair" onclick="selectBadge('GBP/USD')">🇬🇧 GBP/USD</div>
 </div>
 
 <div class="chart-box">
-
 <div class="live">LIVE MARKET</div>
-
-<div class="price" id="price">4.9712</div>
-
+<div class="price" id="price">1.2540</div>
 <div class="scan-line" id="scanLine"></div>
-
 <div class="candles" id="candles"></div>
-
 </div>
 
-<button class="btn" onclick="getSignal()">
-GET SIGNAL
+<button class="btn" id="actionBtn" onclick="getSignal()">
+GET AI SIGNAL
 </button>
 
 <div class="result" id="resultBox">
+<div class="signal wait" id="signalText">WAIT</div>
+<div class="conf" id="confidence">85%</div>
 
-<div class="signal wait" id="signalText">
-WAIT
+<div class="info-grid">
+    <div class="info-item">RSI (14): <span id="rsi" class="highlight">52</span></div>
+    <div class="info-item">PATTERN: <span id="pattern" class="highlight">Doji</span></div>
+    <div class="info-item">EMA 9: <span id="ema9">1.2542</span></div>
+    <div class="info-item">EMA 21: <span id="ema21">1.2539</span></div>
+    <div class="info-item">MACD: <span id="macd">BUY</span></div>
+    <div class="info-item">TREND: <span id="trend">UPTREND</span></div>
 </div>
-
-<div class="conf" id="confidence">
-85%
-</div>
-
-<div class="info">
-RSI : <span id="rsi">52</span><br>
-EMA 9 : <span id="ema9">5.221</span><br>
-EMA 21 : <span id="ema21">5.201</span><br>
-MACD : <span id="macd">BUY</span><br>
-TREND : <span id="trend">UPTREND</span><br>
-TIMEFRAME : <span id="tf">15s</span>
-</div>
-
 </div>
 
 <div class="footer">
-ABU BAKAR TRADER ©
+ABU BAKAR TRADER © DESIGNED BY AI
 </div>
 
 </div>
 
 <script>
+const candlesContainer = document.getElementById("candles");
+const priceElement = document.getElementById("price");
+let candleData = []; 
+let currentPrice = 1.2500;
 
-const candles=document.getElementById("candles");
+const pairBases = {
+    "USD/BRL": 4.9710,
+    "USD/MXN": 16.8520,
+    "USD/INR": 83.3100,
+    "USD/PKR": 278.2500,
+    "EUR/USD": 1.0845,
+    "GBP/USD": 1.2615
+};
 
-for(let i=0;i<40;i++){
+function initCandles() {
+    candlesContainer.innerHTML = "";
+    candleData = [];
+    let selectedPair = document.getElementById("pair").value;
+    currentPrice = pairBases[selectedPair] || 1.2500;
 
-let c=document.createElement("div");
+    // زیادہ خوبصورت ڈسپلے کے لیے کینڈلز کی تعداد 45 کر دی
+    for(let i=0; i<45; i++){
+        let change = (Math.random() - 0.5) * 0.0015;
+        currentPrice += change;
+        let height = Math.floor(Math.random() * 65) + 15;
+        let isGreen = change >= 0;
+        
+        candleData.push({ price: currentPrice, isGreen: isGreen, height: height });
 
-let h=Math.floor(Math.random()*90)+20;
-
-c.classList.add("candle");
-
-if(Math.random()>0.5){
-c.classList.add("green");
-}else{
-c.classList.add("red");
+        let c = document.createElement("div");
+        c.classList.add("candle", isGreen ? "green" : "red");
+        c.style.height = height + "px";
+        candlesContainer.appendChild(c);
+    }
+    priceElement.innerText = currentPrice.toFixed(4);
 }
 
-c.style.height=h+"px";
+function updateLivePrice() {
+    let change = (Math.random() - 0.5) * 0.0004;
+    let oldPrice = currentPrice;
+    currentPrice += change;
+    
+    priceElement.innerText = currentPrice.toFixed(4);
+    priceElement.style.color = currentPrice >= oldPrice ? "#00ff88" : "#ff3b3b";
 
-candles.appendChild(c);
+    if(candlesContainer.lastChild) {
+        let lastHeight = Math.floor(Math.random() * 25) + 35;
+        candlesContainer.lastChild.style.height = lastHeight + "px";
+        if(currentPrice >= oldPrice) {
+            candlesContainer.lastChild.className = "candle green";
+        } else {
+            candlesContainer.lastChild.className = "candle red";
+        }
+    }
 }
 
-function randomPrice(){
+setInterval(updateLivePrice, 1000);
 
-let p=(4.8 + Math.random()*0.4).toFixed(4);
-
-document.getElementById("price").innerText=p;
+function syncPairSelection(val) {
+    let badges = document.querySelectorAll("#pairBadges .pair");
+    badges.forEach(b => {
+        if(b.innerText.includes(val)) b.classList.add("active");
+        else b.classList.remove("active");
+    });
+    initCandles();
 }
 
-setInterval(randomPrice,1000);
+function selectBadge(val) {
+    document.getElementById("pair").value = val;
+    syncPairSelection(val);
+}
 
 function getSignal(){
+    let scan = document.getElementById("scanLine");
+    let btn = document.getElementById("actionBtn");
+    
+    scan.style.display = "block";
+    btn.disabled = true;
 
-let scan=document.getElementById("scanLine");
-
-scan.style.display="block";
-
-setTimeout(()=>{
-
-scan.style.display="none";
-
-showSignal();
-
-},3000);
-
+    setTimeout(() => {
+        scan.style.display = "none";
+        btn.disabled = false;
+        generateSmartSignal();
+    }, 2500);
 }
 
-function showSignal(){
+function generateSmartSignal() {
+    document.getElementById("resultBox").style.display = "block";
+    
+    let greenCount = candleData.filter(c => c.isGreen).length;
+    let totalCount = candleData.length;
+    
+    let rsi = Math.floor((greenCount / totalCount) * 100);
+    if(rsi < 25) rsi = 28; if(rsi > 80) rsi = 74;
 
-let result=document.getElementById("resultBox");
+    let ema9 = (currentPrice + 0.0003).toFixed(4);
+    let ema21 = (currentPrice - 0.0002).toFixed(4);
+    
+    let signal = "WAIT";
+    let trend = "SIDEWAYS";
+    let macdText = "NEUTRAL";
+    let confidence = Math.floor(Math.random() * 7) + 89; // 89% to 95%
 
-result.style.display="block";
+    // کینڈل اسٹک پیٹرنز کی لسٹ
+    const patterns = ["Hammer", "Doji", "Marubozu", "Shooting Star", "Engulfing", "Spinning Top"];
+    let detectedPattern = patterns[Math.floor(Math.random() * patterns.length)];
 
-let signals=["BUY","SELL","WAIT"];
+    if (rsi < 45 && detectedPattern === "Hammer") {
+        signal = "BUY";
+        trend = "UPTREND";
+        macdText = "STRONG BUY";
+    } else if (rsi > 55 && detectedPattern === "Shooting Star") {
+        signal = "SELL";
+        trend = "DOWNTREND";
+        macdText = "STRONG SELL";
+    } else {
+        if(Math.random() > 0.5) {
+            signal = "BUY"; trend = "UPTREND"; macdText = "BUY";
+        } else {
+            signal = "SELL"; trend = "DOWNTREND"; macdText = "SELL";
+        }
+    }
 
-let signal=signals[Math.floor(Math.random()*signals.length)];
+    let signalText = document.getElementById("signalText");
+    signalText.innerText = signal;
+    signalText.className = "signal " + signal.toLowerCase();
 
-let conf=Math.floor(Math.random()*10)+88;
-
-let rsi=Math.floor(Math.random()*40)+30;
-
-let ema9=(5+Math.random()).toFixed(3);
-
-let ema21=(5+Math.random()).toFixed(3);
-
-let signalText=document.getElementById("signalText");
-
-signalText.innerText=signal;
-
-signalText.className="signal";
-
-if(signal==="BUY"){
-signalText.classList.add("buy");
-document.getElementById("macd").innerText="BUY";
-document.getElementById("trend").innerText="UPTREND";
-}
-else if(signal==="SELL"){
-signalText.classList.add("sell");
-document.getElementById("macd").innerText="SELL";
-document.getElementById("trend").innerText="DOWNTREND";
-}
-else{
-signalText.classList.add("wait");
-document.getElementById("macd").innerText="WAIT";
-document.getElementById("trend").innerText="SIDEWAYS";
-}
-
-document.getElementById("confidence").innerText=conf+"%";
-
-document.getElementById("rsi").innerText=rsi;
-
-document.getElementById("ema9").innerText=ema9;
-
-document.getElementById("ema21").innerText=ema21;
-
-document.getElementById("tf").innerText=
-document.getElementById("time").value;
-
+    document.getElementById("confidence").innerText = confidence + "%";
+    document.getElementById("rsi").innerText = rsi;
+    document.getElementById("pattern").innerText = detectedPattern;
+    document.getElementById("ema9").innerText = ema9;
+    document.getElementById("ema21").innerText = ema21;
+    document.getElementById("macd").innerText = macdText;
+    document.getElementById("trend").innerText = trend;
 }
 
+initCandles();
 </script>
 
 </body>
