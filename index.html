@@ -1,6 +1,3 @@
-<!-- GET SIGNAL PRESS = SCAN LINE START -->
-<!-- ABU BAKAR TRADER - QUOTEX PREMIUM STYLE -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +7,7 @@
 <title>ABU BAKAR TRADER</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght=400;600;700;800&display=swap');
 
 *{
 margin:0;
@@ -166,12 +163,14 @@ right:12px;
 height:100px;
 display:flex;
 align-items:flex-end;
-gap:4px;
+gap:6px; /* کینڈلز کے درمیان فاصلہ بڑھا دیا */
+overflow-x: hidden;
 }
 
 .candle{
-width:6px;
+width:10px; /* کینڈلز کی چوڑائی بڑھا کر 10px کر دی تاکہ صاف نظر آئیں */
 border-radius:3px;
+flex-shrink: 0;
 transition: height 0.2s ease, background 0.2s ease;
 }
 
@@ -215,10 +214,12 @@ font-weight:800;
 cursor:pointer;
 box-shadow:0 4px 15px rgba(255, 208, 0, 0.3);
 transition: all 0.2s ease;
+-webkit-tap-highlight-color: transparent;
 }
 
 .btn:active {
-transform: scale(0.98);
+transform: scale(0.95); /* پریس کرنے پر زبردست کلکنگ ایفیکٹ */
+background: linear-gradient(135deg, #ffcc00, #e6b800);
 }
 
 .btn:disabled {
@@ -230,17 +231,18 @@ cursor: not-allowed;
 
 .result{
 margin-top:14px;
-background: rgba(15, 15, 15, 0.6);
+background: rgba(15, 15, 15, 0.8);
 backdrop-filter: blur(5px);
-border-radius:20px;
-padding:16px;
-border:1px solid rgba(255,255,255,0.05);
-display:none;
-animation: fadeIn 0.4s ease;
+border-radius: 20px;
+padding: 16px;
+border: 1px solid rgba(255, 208, 0, 0.3); /* رزلٹ باکس بارڈر پر گولڈن ٹچ */
+display: none;
+animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+box-shadow: 0 0 15px rgba(255, 208, 0, 0.05);
 }
 
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(10px); }
+from { opacity: 0; transform: translateY(15px); }
 to { opacity: 1; transform: translateY(0); }
 }
 
@@ -291,7 +293,7 @@ color: #ccc;
 
 .info-item {
 background: rgba(255,255,255,0.02);
-padding: 6px 10px;
+padding: 8px 10px;
 border-radius: 10px;
 border: 1px solid rgba(255,255,255,0.04);
 }
@@ -402,8 +404,8 @@ function initCandles() {
     let selectedPair = document.getElementById("pair").value;
     currentPrice = pairBases[selectedPair] || 1.2500;
 
-    // زیادہ خوبصورت ڈسپلے کے لیے کینڈلز کی تعداد 45 کر دی
-    for(let i=0; i<45; i++){
+    // کینڈلز موٹی کرنے کے بعد تعداد کو اسکرین چوڑائی کے مطابق 28 کر دیا تا کہ اوور فلو نہ ہو
+    for(let i=0; i<28; i++){
         let change = (Math.random() - 0.5) * 0.0015;
         currentPrice += change;
         let height = Math.floor(Math.random() * 65) + 15;
@@ -483,9 +485,8 @@ function generateSmartSignal() {
     let signal = "WAIT";
     let trend = "SIDEWAYS";
     let macdText = "NEUTRAL";
-    let confidence = Math.floor(Math.random() * 7) + 89; // 89% to 95%
+    let confidence = Math.floor(Math.random() * 7) + 89;
 
-    // کینڈل اسٹک پیٹرنز کی لسٹ
     const patterns = ["Hammer", "Doji", "Marubozu", "Shooting Star", "Engulfing", "Spinning Top"];
     let detectedPattern = patterns[Math.floor(Math.random() * patterns.length)];
 
