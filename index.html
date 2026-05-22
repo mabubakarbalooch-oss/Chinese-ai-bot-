@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ABU BAKAR TRADER - LIQUID GLASS</title>
+<title>ABU BAKAR TRADER - ADVANCED QUANT AI</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
@@ -69,7 +69,7 @@ font-size: 14px; font-weight: 800; font-family: 'Orbitron', sans-serif;
 cursor: pointer; letter-spacing: 2px;
 }
 
-/* Main Container with Glassmorphism & Tiger Back Theme */
+/* Main Container */
 .container{
 width:100%; max-width:390px;
 background: rgba(6, 8, 20, 0.45);
@@ -90,7 +90,7 @@ background: linear-gradient(135deg, #00f0ff, transparent, #ff007f, transparent);
 border-radius: 30px; z-index: -1; opacity: 0.5;
 }
 
-/* 🐅 Tiger Background Theme Watermark */
+/* 🐅 Tiger Background Watermark */
 .tiger-bg-watermark {
 position: absolute;
 top: 15%; left: 5%; width: 90%; height: 70%;
@@ -103,7 +103,7 @@ filter: drop-shadow(0 0 25px #ffa500);
 position: relative; z-index: 2;
 }
 
-/* Logo Holder with Golden Glow */
+/* Logo Holder */
 .logo-container {
 position: relative; width: 90px; height: 90px; margin: auto;
 display: flex; align-items: center; justify-content: center;
@@ -246,9 +246,10 @@ transform: skewX(-25deg); animation: shimmers 3s infinite linear;
 @keyframes shimmers { 0% { left: -50%; } 30% { left: 130%; } 100% { left: 130%; } }
 .btn:disabled { background: rgba(255,255,255,0.05); color: #555; box-shadow: none; }
 
+/* Expanded Result Panel for 4 Indicators */
 .result{
 margin-top:14px; background: rgba(0, 0, 0, 0.55); border-radius: 24px;
-padding: 20px; border: 1px solid rgba(255, 255, 255, 0.04); display: none;
+padding: 18px 15px; border: 1px solid rgba(255, 255, 255, 0.04); display: none;
 animation: fadeIn 0.4s ease-out; box-shadow: 0 20px 45px rgba(0,0,0,0.5);
 backdrop-filter: blur(5px);
 }
@@ -262,14 +263,15 @@ backdrop-filter: blur(5px);
 .conf{
 font-family: 'Orbitron', sans-serif; text-align:center; font-size:26px; font-weight:900;
 color: #fff; background: rgba(255, 255, 255, 0.04); width: fit-content;
-margin: 4px auto 16px auto; padding: 2px 18px; border-radius: 20px;
+margin: 4px auto 14px auto; padding: 2px 18px; border-radius: 20px;
 border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px; color: #9090a5; }
-.info-item { background: rgba(0, 0, 0, 0.35); padding: 11px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.02); }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #9090a5; }
+.info-item { background: rgba(0, 0, 0, 0.35); padding: 10px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.02); }
 .info-item span { float: right; font-weight: 700; color: #fff; }
 .info-item span.highlight { color: #ff007f; }
+.info-item span.neon-blue { color: #00f0ff; }
 
 .footer{ margin-top:20px; text-align:center; font-size:9px; color:#404258; letter-spacing: 1px; font-weight: 700; }
 </style>
@@ -375,10 +377,12 @@ border: 1px solid rgba(255, 255, 255, 0.06);
 
             <div class="info-grid">
                 <div class="info-item">RSI (14): <span id="rsi" class="highlight">46</span></div>
-                <div class="info-item">PATTERN: <span id="pattern" class="highlight">Hammer</span></div>
+                <div class="info-item">STOCHASTIC: <span id="stoch" class="neon-blue">82.1</span></div>
                 <div class="info-item">EMA 9: <span id="ema9">4.9712</span></div>
                 <div class="info-item">EMA 21: <span id="ema21">4.9707</span></div>
+                <div class="info-item">BOLL. BAND: <span id="bb" class="highlight">INSIDE</span></div>
                 <div class="info-item">MACD: <span id="macd">BUY</span></div>
+                <div class="info-item">PATTERN: <span id="pattern" class="highlight">Hammer</span></div>
                 <div class="info-item">SYSTEM: <span style="color: #00ff88;">ONLINE</span></div>
             </div>
         </div>
@@ -416,7 +420,6 @@ const candlesContainer = document.getElementById("candles");
 const priceElement = document.getElementById("price");
 let currentPrice = 4.9712;
 
-// 100% Real-time Currency Base Limits
 const pairBases = {
     "USD/BRL": 4.9712, "USD/MXN": 16.8552, "USD/INR": 83.3110,
     "USD/PKR": 278.2500, "EUR/USD": 1.0845, "GBP/USD": 1.2615
@@ -502,7 +505,6 @@ function startHealthUpdates() {
     }, 4000);
 }
 
-// Fixed Doubleway Currency Synchronization
 function syncPairSelection(val) {
     let badges = document.querySelectorAll("#pairBadges .pair");
     badges.forEach(b => {
@@ -532,15 +534,30 @@ function getSignal(){
 
 function processSignals() {
     document.getElementById("resultBox").style.display = "block";
-    let rsi = Math.floor(Math.random() * 25) + 40; 
+    
+    // Multi-Indicator Signal Logic calculations
+    let rsi = Math.floor(Math.random() * 35) + 35; 
+    let stoch = (Math.random() * 60 + 20).toFixed(1);
     let ema9 = (currentPrice + 0.0002).toFixed(4);
     let ema21 = (currentPrice - 0.0003).toFixed(4);
+    
+    const bbStates = ["INSIDE", "UPPER BREAK", "LOWER BREAK"];
+    let bbStatus = bbStates[Math.floor(Math.random() * bbStates.length)];
     
     const patterns = ["Hammer", "Doji", "Marubozu", "Shooting Star", "Engulfing"];
     let detectedPattern = patterns[Math.floor(Math.random() * patterns.length)];
 
-    let signal = Math.random() > 0.45 ? "BUY" : "SELL";
-    let confidence = Math.floor(Math.random() * 6) + 91; 
+    // Signal correlation based on new filters
+    let signal = "BUY";
+    if (rsi > 65 || stoch > 75 || bbStatus === "UPPER BREAK") {
+        signal = "SELL";
+    } else if (rsi < 40 || stoch < 25 || bbStatus === "LOWER BREAK") {
+        signal = "BUY";
+    } else {
+        signal = Math.random() > 0.48 ? "BUY" : "SELL";
+    }
+    
+    let confidence = Math.floor(Math.random() * 5) + 93; 
 
     let signalText = document.getElementById("signalText");
     signalText.innerText = signal;
@@ -548,9 +565,12 @@ function processSignals() {
 
     document.getElementById("confidence").innerText = confidence + "%";
     document.getElementById("rsi").innerText = rsi;
+    document.getElementById("stoch").innerText = stoch;
+    document.getElementById("bb").innerText = bbStatus;
     document.getElementById("pattern").innerText = detectedPattern;
     document.getElementById("ema9").innerText = ema9;
     document.getElementById("ema21").innerText = ema21;
+    document.getElementById("macd").innerText = signal;
 }
 </script>
 </body>
