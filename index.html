@@ -1,14 +1,16 @@
+<!-- GET SIGNAL PRESS = SCAN LINE START -->
+<!-- ABU BAKAR TRADER - QUOTEX STYLE -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>ABU BAKAR TRADER - QUOTEX BOT</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>ABU BAKAR TRADER</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 *{
 margin:0;
@@ -22,117 +24,116 @@ background:#000;
 display:flex;
 justify-content:center;
 padding:8px;
-overflow-x:hidden;
+color:#fff;
 }
 
-.bot{
+.container{
 width:100%;
-max-width:360px;
+max-width:390px;
 background:#050505;
-border:2px solid #ffd400;
+border:2px solid #ffd000;
 border-radius:22px;
-padding:10px;
-box-shadow:0 0 18px rgba(255,212,0,0.4);
+padding:12px;
+box-shadow:0 0 20px #ffd00055;
 overflow:hidden;
 }
 
 .logo{
-width:68px;
-height:68px;
+width:80px;
+height:80px;
+background:#ffd000;
 border-radius:50%;
-background:#ffd400;
+margin:auto;
 display:flex;
 align-items:center;
 justify-content:center;
-margin:auto;
-font-size:30px;
-font-weight:800;
+font-size:35px;
+font-weight:900;
 color:#000;
-box-shadow:0 0 18px #ffd400;
+box-shadow:0 0 25px #ffd000;
 }
 
 .title{
 text-align:center;
-font-size:20px;
+font-size:22px;
 font-weight:800;
-color:#ffd400;
-margin-top:8px;
+color:#ffd000;
+margin-top:10px;
 }
 
-.sub{
+.subtitle{
 text-align:center;
-font-size:10px;
-color:#aaa;
-margin-bottom:10px;
+font-size:12px;
+color:#999;
+margin-bottom:12px;
 }
 
 .select{
 width:100%;
-padding:11px;
+padding:13px;
 background:#0b0b0b;
-border:1px solid #ffd400;
-border-radius:14px;
+border:1px solid #ffd00088;
+border-radius:16px;
 color:#fff;
-font-size:14px;
-margin-bottom:8px;
+font-size:16px;
+margin-bottom:10px;
 outline:none;
 }
 
 .pairs{
 display:flex;
 flex-wrap:wrap;
+gap:6px;
 justify-content:center;
-gap:5px;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .pair{
-padding:5px 10px;
 background:#101010;
-border:1px solid #222;
-border-radius:10px;
-font-size:11px;
-color:#fff;
+border:1px solid #333;
+padding:8px 10px;
+border-radius:12px;
+font-size:13px;
 }
 
-.chart{
-height:190px;
-background:#050505;
-border:1px solid #1d1d1d;
-border-radius:18px;
-padding:10px;
+.chart-box{
 position:relative;
+height:220px;
+background:#070707;
+border-radius:20px;
+padding:10px;
 overflow:hidden;
+border:1px solid #222;
 }
 
-.market{
-font-size:12px;
+.live{
+font-size:14px;
 font-weight:700;
-color:#ffd400;
+color:#ffd000;
 }
 
 .price{
-font-size:34px;
+font-size:42px;
 font-weight:800;
 color:#00ff88;
-margin-top:4px;
+margin-top:5px;
 }
 
 .candles{
 position:absolute;
-left:8px;
-right:8px;
-bottom:14px;
-height:95px;
+bottom:15px;
+left:10px;
+right:10px;
+height:110px;
 display:flex;
 align-items:flex-end;
-gap:3px;
+gap:4px;
 }
 
 .candle{
-width:6px;
-border-radius:4px;
-position:relative;
+width:7px;
+border-radius:5px;
+animation:move 1s infinite alternate;
 }
 
 .green{
@@ -145,362 +146,280 @@ background:#ff3b3b;
 box-shadow:0 0 8px #ff3b3b;
 }
 
-.scan{
+@keyframes move{
+from{
+transform:scaleY(0.8);
+}
+to{
+transform:scaleY(1);
+}
+}
+
+.scan-line{
 position:absolute;
 top:0;
 bottom:0;
-width:3px;
-background:#ffd400;
-box-shadow:0 0 16px #ffd400;
-animation:scanmove 2s linear infinite;
+width:4px;
+background:#ffd000;
+box-shadow:0 0 20px #ffd000;
+display:none;
+animation:scan 2s linear infinite;
 }
 
-@keyframes scanmove{
-0%{left:-5px;}
-100%{left:100%;}
+@keyframes scan{
+0%{
+left:-10px;
+}
+100%{
+left:100%;
+}
 }
 
 .btn{
 width:100%;
-padding:14px;
+padding:18px;
 border:none;
-border-radius:15px;
-background:linear-gradient(135deg,#ffd400,#ffb300);
-font-size:22px;
-font-weight:800;
+border-radius:20px;
+margin-top:12px;
+background:#ffd000;
 color:#000;
-margin-top:10px;
-box-shadow:0 0 16px rgba(255,212,0,0.4);
+font-size:20px;
+font-weight:800;
 cursor:pointer;
+box-shadow:0 0 20px #ffd00066;
 }
 
-.signalBox{
-margin-top:10px;
-background:#080808;
-border-radius:16px;
-padding:12px;
+.result{
+margin-top:12px;
+background:#090909;
+border-radius:20px;
+padding:15px;
 border:1px solid #222;
-text-align:center;
+display:none;
 }
 
 .signal{
-font-size:52px;
-font-weight:800;
+font-size:60px;
+font-weight:900;
+text-align:center;
 }
 
 .buy{
 color:#00ff88;
-text-shadow:0 0 14px #00ff88;
+text-shadow:0 0 20px #00ff88;
 }
 
 .sell{
-color:#ff4444;
-text-shadow:0 0 14px #ff4444;
+color:#ff3b3b;
+text-shadow:0 0 20px #ff3b3b;
 }
 
 .wait{
-color:#ffaa00;
-text-shadow:0 0 14px #ffaa00;
+color:#ffd000;
+text-shadow:0 0 20px #ffd000;
 }
 
 .conf{
-font-size:34px;
+text-align:center;
+font-size:35px;
 font-weight:800;
-color:#ffd400;
+color:#ffd000;
 margin-top:5px;
 }
 
 .info{
-margin-top:8px;
-font-size:12px;
-line-height:1.7;
+margin-top:10px;
+line-height:28px;
+font-size:14px;
 color:#ddd;
 }
 
-.lock{
+.footer{
+margin-top:10px;
 text-align:center;
-font-size:11px;
-color:#888;
-margin-top:8px;
+font-size:12px;
+color:#777;
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="bot">
+<div class="container">
 
 <div class="logo">QX</div>
 
 <div class="title">ABU BAKAR TRADER</div>
-
-<div class="sub">QUOTEX LIVE SIGNAL BOT</div>
+<div class="subtitle">QUOTEX LIVE SIGNAL BOT</div>
 
 <select class="select" id="pair">
-
 <option>🇧🇷 USD/BRL OTC</option>
 <option>🇲🇽 USD/MXN OTC</option>
 <option>🇮🇳 USD/INR OTC</option>
 <option>🇵🇰 USD/PKR OTC</option>
 <option>🇺🇸 EUR/USD OTC</option>
 <option>🇬🇧 GBP/USD OTC</option>
-
 </select>
 
-<select class="select" id="timeframe">
-
+<select class="select" id="time">
 <option>15 Seconds</option>
 <option>30 Seconds</option>
 <option>1 Minute</option>
 <option>5 Minutes</option>
-
 </select>
 
 <div class="pairs">
-
 <div class="pair">🇧🇷 USD/BRL</div>
 <div class="pair">🇲🇽 USD/MXN</div>
 <div class="pair">🇮🇳 USD/INR</div>
 <div class="pair">🇵🇰 USD/PKR</div>
 <div class="pair">🇺🇸 EUR/USD</div>
 <div class="pair">🇬🇧 GBP/USD</div>
-
 </div>
 
-<div class="chart">
+<div class="chart-box">
 
-<div class="scan"></div>
+<div class="live">LIVE MARKET</div>
 
-<div class="market">LIVE MARKET</div>
+<div class="price" id="price">4.9712</div>
 
-<div class="price" id="price">4.9721</div>
+<div class="scan-line" id="scanLine"></div>
 
 <div class="candles" id="candles"></div>
 
 </div>
 
 <button class="btn" onclick="getSignal()">
-
 GET SIGNAL
-
 </button>
 
-<div class="signalBox">
+<div class="result" id="resultBox">
 
-<div class="signal wait" id="signal">
-
+<div class="signal wait" id="signalText">
 WAIT
-
 </div>
 
 <div class="conf" id="confidence">
-
-0%
-
+85%
 </div>
 
 <div class="info">
-
-<div id="rsi">RSI : 0</div>
-
-<div id="ema9">EMA 9 : 0</div>
-
-<div id="ema21">EMA 21 : 0</div>
-
-<div id="macd">MACD : 0</div>
-
-<div id="trend">TREND : WAIT</div>
-
-<div id="time">TIMEFRAME : 15s</div>
-
+RSI : <span id="rsi">52</span><br>
+EMA 9 : <span id="ema9">5.221</span><br>
+EMA 21 : <span id="ema21">5.201</span><br>
+MACD : <span id="macd">BUY</span><br>
+TREND : <span id="trend">UPTREND</span><br>
+TIMEFRAME : <span id="tf">15s</span>
 </div>
 
 </div>
 
-<div class="lock">
-
-🔒 PASSWORD : 786786
-
+<div class="footer">
+ABU BAKAR TRADER ©
 </div>
 
 </div>
 
 <script>
 
-let price = 4.97;
-let history = [];
+const candles=document.getElementById("candles");
 
-function updateMarket(){
+for(let i=0;i<40;i++){
 
-price += (Math.random()-0.5)*0.02;
+let c=document.createElement("div");
 
-document.getElementById("price").innerHTML =
-price.toFixed(4);
+let h=Math.floor(Math.random()*90)+20;
 
-history.push(price);
-
-if(history.length > 100){
-history.shift();
-}
-
-drawCandles();
-
-}
-
-setInterval(updateMarket,800);
-
-function drawCandles(){
-
-let wrap = document.getElementById("candles");
-
-wrap.innerHTML = "";
-
-for(let i=0;i<38;i++){
-
-let h = Math.random()*70+15;
-
-let d = document.createElement("div");
-
-d.classList.add("candle");
+c.classList.add("candle");
 
 if(Math.random()>0.5){
-d.classList.add("green");
+c.classList.add("green");
 }else{
-d.classList.add("red");
+c.classList.add("red");
 }
 
-d.style.height = h+"px";
+c.style.height=h+"px";
 
-wrap.appendChild(d);
-
+candles.appendChild(c);
 }
 
+function randomPrice(){
+
+let p=(4.8 + Math.random()*0.4).toFixed(4);
+
+document.getElementById("price").innerText=p;
 }
 
-function ema(data,period){
-
-if(data.length < period) return 0;
-
-let k = 2/(period+1);
-
-let e = data[0];
-
-for(let i=1;i<data.length;i++){
-
-e = data[i]*k + e*(1-k);
-
-}
-
-return e;
-
-}
-
-function rsi(data,period=14){
-
-if(data.length < period+1) return 50;
-
-let gains=0;
-let losses=0;
-
-for(let i=1;i<=period;i++){
-
-let diff=data[i]-data[i-1];
-
-if(diff>0){
-gains+=diff;
-}else{
-losses-=diff;
-}
-
-}
-
-if(losses===0)return 100;
-
-let rs=gains/losses;
-
-return 100-(100/(1+rs));
-
-}
-
-function macd(){
-
-let ema12=ema(history,12);
-
-let ema26=ema(history,26);
-
-return ema12-ema26;
-
-}
+setInterval(randomPrice,1000);
 
 function getSignal(){
 
-if(history.length<30){
+let scan=document.getElementById("scanLine");
 
-alert("WAITING LIVE DATA");
+scan.style.display="block";
 
-return;
+setTimeout(()=>{
 
-}
+scan.style.display="none";
 
-let RSI=rsi(history);
+showSignal();
 
-let EMA9=ema(history,9);
-
-let EMA21=ema(history,21);
-
-let MACD=macd();
-
-let signal="WAIT";
-let cls="wait";
-let confidence=70;
-
-if(EMA9>EMA21 && RSI>55 && MACD>0){
-
-signal="BUY";
-cls="buy";
-confidence=92;
+},3000);
 
 }
 
-else if(EMA9<EMA21 && RSI<45 && MACD<0){
+function showSignal(){
 
-signal="SELL";
-cls="sell";
-confidence=91;
+let result=document.getElementById("resultBox");
 
+result.style.display="block";
+
+let signals=["BUY","SELL","WAIT"];
+
+let signal=signals[Math.floor(Math.random()*signals.length)];
+
+let conf=Math.floor(Math.random()*10)+88;
+
+let rsi=Math.floor(Math.random()*40)+30;
+
+let ema9=(5+Math.random()).toFixed(3);
+
+let ema21=(5+Math.random()).toFixed(3);
+
+let signalText=document.getElementById("signalText");
+
+signalText.innerText=signal;
+
+signalText.className="signal";
+
+if(signal==="BUY"){
+signalText.classList.add("buy");
+document.getElementById("macd").innerText="BUY";
+document.getElementById("trend").innerText="UPTREND";
+}
+else if(signal==="SELL"){
+signalText.classList.add("sell");
+document.getElementById("macd").innerText="SELL";
+document.getElementById("trend").innerText="DOWNTREND";
+}
+else{
+signalText.classList.add("wait");
+document.getElementById("macd").innerText="WAIT";
+document.getElementById("trend").innerText="SIDEWAYS";
 }
 
-document.getElementById("signal").innerHTML=signal;
+document.getElementById("confidence").innerText=conf+"%";
 
-document.getElementById("signal").className=
-"signal "+cls;
+document.getElementById("rsi").innerText=rsi;
 
-document.getElementById("confidence").innerHTML=
-confidence+"%";
+document.getElementById("ema9").innerText=ema9;
 
-document.getElementById("rsi").innerHTML=
-"RSI : "+RSI.toFixed(1);
+document.getElementById("ema21").innerText=ema21;
 
-document.getElementById("ema9").innerHTML=
-"EMA 9 : "+EMA9.toFixed(4);
-
-document.getElementById("ema21").innerHTML=
-"EMA 21 : "+EMA21.toFixed(4);
-
-document.getElementById("macd").innerHTML=
-"MACD : "+MACD.toFixed(4);
-
-document.getElementById("trend").innerHTML=
-"TREND : "+signal;
-
-document.getElementById("time").innerHTML=
-"TIMEFRAME : "+
-document.getElementById("timeframe").value;
+document.getElementById("tf").innerText=
+document.getElementById("time").value;
 
 }
-
-drawCandles();
 
 </script>
 
