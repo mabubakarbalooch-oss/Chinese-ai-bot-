@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>ABU BAKAR TRADER - ROYAL TIGER</title>
+<title>ABU BAKAR TRADER - ULTRA VIP</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght=400;600;700;800;900&display=swap');
@@ -22,7 +22,7 @@ display:flex;
 justify-content:center;
 padding:8px;
 color:#fff;
-background-image: radial-gradient(circle at 50% 15%, #d4af3715, transparent 55%);
+background-image: radial-gradient(circle at 50% 15%, #ffd7001c, transparent 60%);
 }
 
 /* پاس ورڈ اسکرین کا اسٹائل */
@@ -32,154 +32,180 @@ top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background: rgba(2, 2, 2, 0.95);
+background: rgba(2, 2, 2, 0.96);
 z-index: 9999;
 display: flex;
 justify-content: center;
 align-items: center;
 padding: 15px;
-backdrop-filter: blur(10px);
+backdrop-filter: blur(12px);
 }
 
 .lock-box {
 width: 100%;
 max-width: 350px;
-background: #0a0a0a;
+background: linear-gradient(135deg, #0a0a0a, #030303);
 border: 2px solid #d4af37;
-border-radius: 20px;
-padding: 25px;
+border-radius: 24px;
+padding: 30px 25px;
 text-align: center;
-box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
 }
 
 .lock-title {
-font-size: 20px;
-font-weight: 800;
+font-size: 22px;
+font-weight: 900;
 color: #d4af37;
-margin-bottom: 15px;
+margin-bottom: 18px;
 letter-spacing: 1px;
+text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 .lock-input {
 width: 100%;
-padding: 12px;
-background: #111;
+padding: 14px;
+background: #0f0f0f;
 border: 1px solid rgba(212, 175, 55, 0.4);
-border-radius: 12px;
+border-radius: 14px;
 color: #fff;
 font-size: 16px;
 text-align: center;
 outline: none;
-margin-bottom: 15px;
-letter-spacing: 2px;
+margin-bottom: 18px;
+letter-spacing: 3px;
+box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
 }
 
 .lock-input:focus {
-border-color: #d4af37;
-box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+border-color: #ffd700;
+box-shadow: 0 0 15px rgba(212, 175, 55, 0.3), inset 0 0 5px rgba(0,0,0,0.8);
 }
 
 .lock-btn {
 width: 100%;
-padding: 12px;
-background: linear-gradient(135deg, #d4af37, #f3e5ab);
+padding: 14px;
+background: linear-gradient(135deg, #ffd700, #b8860b);
 border: none;
-border-radius: 12px;
+border-radius: 14px;
 color: #000;
 font-size: 16px;
 font-weight: 800;
 cursor: pointer;
-box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+transition: all 0.2s;
+}
+
+.lock-btn:active {
+transform: scale(0.97);
 }
 
 .error-msg {
 color: #ff3b3b;
-font-size: 12px;
-margin-top: 10px;
+font-size: 13px;
+margin-top: 12px;
 display: none;
+font-weight: 600;
 }
 
-/* مین بوٹ کنٹینر (لاک ہونے پر دھندلا رہے گا) */
+/* مین بوٹ کنٹینر */
 .container{
 width:100%;
 max-width:390px;
-background: linear-gradient(145deg, #0a0a0a, #050505);
-border: 2px solid #d4af37;
-border-radius:24px;
-padding:14px;
-box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15);
+background: linear-gradient(160deg, #0d0d0d, #040404);
+border: 2px solid;
+border-image: linear-gradient(135deg, #ffd700, #b8860b, #ffd700) 1;
+border-radius:24px; /* نوٹ: کسٹم بارڈر امیج کے ساتھ کچھ براؤزرز پر ریڈیس چھپ سکتا ہے */
+padding:16px;
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.12);
 overflow:hidden;
-filter: blur(10px); /* شروع میں بلر رہے گا */
+filter: blur(12px);
 pointer-events: none;
-transition: filter 0.5s ease;
+transition: filter 0.6s cubic-bezier(0.1, 0.8, 0.25, 1);
 }
 
 .logo-container {
 position: relative;
-width: 85px;
-height: 85px;
+width: 90px;
+height: 90px;
 margin: auto;
 display: flex;
 align-items: center;
 justify-content: center;
 }
 
+.logo-glow {
+position: absolute;
+width: 100%;
+height: 100%;
+background: rgba(212, 175, 55, 0.3);
+border-radius: 50%;
+filter: blur(15px);
+animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+0%, 100% { transform: scale(0.9); opacity: 0.4; }
+50% { transform: scale(1.1); opacity: 0.8; }
+}
+
 .logo{
 width:100%;
 height:100%;
-background: radial-gradient(circle, #ffd700, #b8860b);
+background: radial-gradient(circle, #ffe259, #ffa751);
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:35px;
-box-shadow:0 0 25px rgba(212, 175, 55, 0.6);
-border: 2px solid rgba(255,255,255,0.2);
+box-shadow:0 0 25px rgba(212, 175, 55, 0.7), inset 0 0 10px rgba(255,255,255,0.4);
+border: 2px solid rgba(255,255,255,0.3);
 position: relative;
 z-index: 2;
 }
 
 .logo::before {
 content: '🐅';
-font-size: 40px;
+font-size: 42px;
 }
 
 .title{
 text-align:center;
-font-size:24px;
+font-size:25px;
 font-weight:900;
-color: #d4af37;
-margin-top:12px;
-letter-spacing: 1px;
-text-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+color: #ffd700;
+background: linear-gradient(to right, #ffd700, #fff, #b8860b);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+margin-top:14px;
+letter-spacing: 0.8px;
 }
 
 .subtitle{
 text-align:center;
 font-size:11px;
-color:#8a8a8a;
-margin-bottom:14px;
+color:#858585;
+margin-bottom:16px;
 text-transform: uppercase;
-letter-spacing: 2px;
-font-weight: 600;
+letter-spacing: 2.5px;
+font-weight: 700;
 }
 
 .select{
 width:100%;
-padding:14px;
-background: #0f0f0f;
-border:1px solid rgba(212, 175, 55, 0.3);
+padding:15px;
+background: #0a0a0a;
+border:1px solid rgba(212, 175, 55, 0.35);
 border-radius:16px;
 color:#fff;
 font-size:15px;
-margin-bottom:10px;
+margin-bottom:12px;
 outline:none;
+box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
 transition: all 0.3s;
 }
 
 .select:focus {
-border-color: #d4af37;
-box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+border-color: #ffd700;
+box-shadow: 0 0 10px rgba(212, 175, 55, 0.25), inset 0 2px 5px rgba(0,0,0,0.5);
 }
 
 .pairs{
@@ -187,72 +213,74 @@ display:flex;
 flex-wrap:wrap;
 gap:6px;
 justify-content:center;
-margin-bottom:12px;
+margin-bottom:14px;
 }
 
 .pair{
-background: #0d0d0d;
-border:1px solid rgba(255,255,255,0.05);
-padding:8px 12px;
+background: #080808;
+border:1px solid rgba(255,255,255,0.04);
+padding:9px 13px;
 border-radius:12px;
 font-size:12px;
 cursor: pointer;
 transition: all 0.3s ease;
-color: #aaa;
+color: #b5b5b5;
+box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .pair.active {
-border-color: #d4af37;
-background: rgba(212, 175, 55, 0.12);
-color: #d4af37;
-font-weight: 600;
-box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+border-color: #ffd700;
+background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+color: #ffd700;
+font-weight: 700;
+box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
 }
 
 .chart-box{
 position:relative;
 height:210px;
-background: #040404;
+background: #030303;
 border-radius:20px;
-padding:12px;
+padding:14px;
 overflow:hidden;
-border:1px solid rgba(212, 175, 55, 0.15);
+border:1px solid rgba(212, 175, 55, 0.2);
+box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
 }
 
 .live{
-font-size:12px;
-font-weight:700;
-color:#d4af37;
-letter-spacing: 1px;
+font-size:11px;
+font-weight:800;
+color:#ffd700;
+letter-spacing: 1.5px;
 display: flex;
 align-items: center;
-gap: 5px;
+gap: 6px;
 }
 
 .live::before {
 content: '';
 display: inline-block;
-width: 6px;
-height: 6px;
+width: 7px;
+height: 7px;
 background: #00ff88;
 border-radius: 50%;
-box-shadow: 0 0 6px #00ff88;
+box-shadow: 0 0 8px #00ff88;
 }
 
 .price{
-font-size:42px;
-font-weight:800;
+font-size:44px;
+font-weight:900;
 color:#00ff88;
 margin-top:2px;
 font-family: monospace;
-transition: color 0.1s ease;
+text-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
 }
 
 .candles{
 position:absolute;
 bottom:15px;
-left:12px;
-right:12px;
+left:14px;
+right:14px;
 height:100px;
 display:flex;
 align-items:flex-end;
@@ -268,13 +296,13 @@ transition: height 0.2s ease, background 0.2s ease;
 }
 
 .green{
-background:#00ff88;
-box-shadow:0 0 6px rgba(0, 255, 136, 0.3);
+background: linear-gradient(to top, #00cd73, #00ff88);
+box-shadow:0 0 8px rgba(0, 255, 136, 0.35);
 }
 
 .red{
-background:#ff3b3b;
-box-shadow:0 0 6px rgba(255, 59, 59, 0.3);
+background: linear-gradient(to top, #d63031, #ff3b3b);
+box-shadow:0 0 8px rgba(255, 59, 59, 0.35);
 }
 
 .scan-line{
@@ -282,8 +310,8 @@ position:absolute;
 top:0;
 bottom:0;
 width:4px;
-background: linear-gradient(to right, transparent, #d4af37, transparent);
-box-shadow:0 0 18px #d4af37;
+background: linear-gradient(to right, transparent, #ffd700, transparent);
+box-shadow:0 0 20px #ffd700;
 display:none;
 animation:scan 2s linear infinite;
 z-index: 5;
@@ -294,121 +322,145 @@ z-index: 5;
 100%{ left:100%; }
 }
 
+/* شمر اینیمیشن والا بٹن */
 .btn{
 width:100%;
 padding:16px;
 border:none;
 border-radius:18px;
-margin-top:12px;
-background: linear-gradient(135deg, #d4af37, #f3e5ab);
+margin-top:14px;
+background: linear-gradient(135deg, #ffd700, #b8860b);
 color:#000;
 font-size:18px;
 font-weight:900;
 cursor:pointer;
-box-shadow:0 4px 18px rgba(212, 175, 55, 0.35);
+box-shadow:0 5px 25px rgba(212, 175, 55, 0.4);
+position: relative;
+overflow: hidden;
 transition: all 0.2s ease;
 -webkit-tap-highlight-color: transparent;
-letter-spacing: 0.5px;
+letter-spacing: 0.8px;
+}
+
+.btn::after {
+content: '';
+position: absolute;
+top: 0; left: -50%;
+width: 30%; height: 100%;
+background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+transform: skewX(-25deg);
+animation: shimmers 3s infinite linear;
+}
+
+@keyframes shimmers {
+0% { left: -50%; }
+30% { left: 130%; }
+100% { left: 130%; }
 }
 
 .btn:active {
 transform: scale(0.96);
-background: linear-gradient(135deg, #b8860b, #d4af37);
+box-shadow:0 2px 10px rgba(212, 175, 55, 0.2);
 }
 
 .btn:disabled {
-background: #222;
-color: #555;
+background: #1a1a1a;
+color: #444;
 box-shadow: none;
 cursor: not-allowed;
-border: 1px solid #333;
+border: 1px solid #252525;
 }
 
+.btn:disabled::after { display: none; }
+
 .result{
-margin-top:14px;
-background: rgba(15, 15, 15, 0.9);
-border-radius: 20px;
-padding: 16px;
-border: 1px solid #d4af37;
+margin-top:16px;
+background: rgba(10, 10, 10, 0.95);
+border-radius: 22px;
+padding: 18px;
+border: 1.5px solid #ffd700;
 display: none;
-animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+animation: fadeIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
 }
 
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(15px); }
+from { opacity: 0; transform: translateY(18px); }
 to { opacity: 1; transform: translateY(0); }
 }
 
 .signal{
-font-size:55px;
-font-weight:900;
+font-size:58px;
+font-weight:950;
 text-align:center;
-letter-spacing: 2px;
+letter-spacing: 3px;
 }
 
 .buy{
 color:#00ff88;
-text-shadow:0 0 25px rgba(0, 255, 136, 0.5);
+text-shadow:0 0 30px rgba(0, 255, 136, 0.6);
 }
 
 .sell{
 color:#ff3b3b;
-text-shadow:0 0 25px rgba(255, 59, 59, 0.5);
+text-shadow:0 0 30px rgba(255, 59, 59, 0.6);
 }
 
 .wait{
-color:#d4af37;
-text-shadow:0 0 25px rgba(212, 175, 55, 0.5);
+color:#ffd700;
+text-shadow:0 0 30px rgba(212, 175, 55, 0.6);
 }
 
 .conf{
 text-align:center;
-font-size:32px;
-font-weight:800;
-color:#d4af37;
+font-size:34px;
+font-weight:900;
+color:#ffd700;
 margin-top:2px;
-background: rgba(212, 175, 55, 0.1);
+background: rgba(212, 175, 55, 0.14);
 width: fit-content;
-margin: 4px auto 12px auto;
-padding: 2px 16px;
+margin: 4px auto 14px auto;
+padding: 3px 18px;
 border-radius: 20px;
-border: 1px solid rgba(212, 175, 55, 0.25);
+border: 1px solid rgba(212, 175, 55, 0.3);
+box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .info-grid {
 display: grid;
 grid-template-columns: 1fr 1fr;
-gap: 10px;
+gap: 12px;
 margin-top: 5px;
 font-size: 13px;
-color: #ccc;
+color: #c5c5c5;
 }
 
 .info-item {
-background: rgba(255,255,255,0.02);
-padding: 8px 10px;
-border-radius: 10px;
-border: 1px solid rgba(212, 175, 55, 0.1);
+background: rgba(255,255,255,0.01);
+padding: 10px 12px;
+border-radius: 12px;
+border: 1px solid rgba(212, 175, 55, 0.12);
+box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .info-item span {
 float: right;
-font-weight: 600;
+font-weight: 700;
 color: #fff;
 }
 
 .info-item span.highlight {
-color: #d4af37;
+color: #ffd700;
 }
 
 .footer{
-margin-top:14px;
+margin-top:16px;
 text-align:center;
 font-size:11px;
 color:#444;
-letter-spacing: 1px;
-font-weight: 600;
+letter-spacing: 1.2px;
+font-weight: 700;
+text-transform: uppercase;
 }
 </style>
 </head>
@@ -417,17 +469,18 @@ font-weight: 600;
 
 <div class="lock-screen" id="lockScreen">
     <div class="lock-box">
-        <div style="font-size: 40px; margin-bottom: 10px;">🐅</div>
+        <div style="font-size: 45px; margin-bottom: 12px; filter: drop-shadow(0 0 10px rgba(212,175,55,0.5));">🐅</div>
         <div class="lock-title">ABU BAKAR TRADER</div>
         <input type="password" class="lock-input" id="passInput" placeholder="ENTER PASSWORD">
-        <button class="lock-btn" onclick="checkPassword()">UNLOCK BOT</button>
-        <div class="error-msg" id="errorMsg">❌ WRONG PASSWORD! TRY AGAIN.</div>
+        <button class="lock-btn" onclick="checkPassword()">UNLOCK VIP BOT</button>
+        <div class="error-msg" id="errorMsg">❌ ACCESS DENIED! WRONG PASSWORD.</div>
     </div>
 </div>
 
 <div class="container" id="botContainer">
 
 <div class="logo-container">
+    <div class="logo-glow"></div>
     <div class="logo"></div>
 </div>
 
@@ -485,16 +538,16 @@ font-weight: 600;
 </div>
 
 <div class="footer">
-ABU BAKAR TRADER © ROYAL TIGER EDITION
+ABU BAKAR TRADER © VIP EDITION
 </div>
 
 </div>
 
 <script>
-// پاس ورڈ چیک کرنے کا لاجک
+// پاس ورڈ لاجک
 function checkPassword() {
     const input = document.getElementById("passInput").value;
-    const correctPassword = "bakar786"; // یہاں آپ پاس ورڈ بدل سکتے ہیں
+    const correctPassword = "bakar786"; 
     const lockScreen = document.getElementById("lockScreen");
     const botContainer = document.getElementById("botContainer");
     const errorMsg = document.getElementById("errorMsg");
@@ -503,18 +556,15 @@ function checkPassword() {
         lockScreen.style.display = "none";
         botContainer.style.filter = "none";
         botContainer.style.pointerEvents = "auto";
-        initCandles(); // انلاک ہونے پر چارٹ لوڈ ہوگا
+        initCandles(); 
     } else {
         errorMsg.style.display = "block";
         document.getElementById("passInput").value = "";
     }
 }
 
-// انٹر بٹن دبانے پر بھی انلاک کرنے کے لیے
 document.getElementById("passInput").addEventListener("keyup", function(event) {
-    if (event.key === "Enter") {
-        checkPassword();
-    }
+    if (event.key === "Enter") { checkPassword(); }
 });
 
 const candlesContainer = document.getElementById("candles");
@@ -554,7 +604,6 @@ function initCandles() {
 }
 
 function updateLivePrice() {
-    // صرف تب چلے گا جب بوٹ انلاک ہو چکا ہوگا
     if(document.getElementById("lockScreen").style.display === "none") {
         let change = (Math.random() - 0.5) * 0.0004;
         let oldPrice = currentPrice;
@@ -626,13 +675,9 @@ function generateSmartSignal() {
     let detectedPattern = patterns[Math.floor(Math.random() * patterns.length)];
 
     if (rsi < 45 && detectedPattern === "Hammer") {
-        signal = "BUY";
-        trend = "UPTREND";
-        macdText = "STRONG BUY";
+        signal = "BUY"; trend = "UPTREND"; macdText = "STRONG BUY";
     } else if (rsi > 55 && detectedPattern === "Shooting Star") {
-        signal = "SELL";
-        trend = "DOWNTREND";
-        macdText = "STRONG SELL";
+        signal = "SELL"; trend = "DOWNTREND"; macdText = "STRONG SELL";
     } else {
         if(Math.random() > 0.5) {
             signal = "BUY"; trend = "UPTREND"; macdText = "BUY";
