@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>ABU BAKAR TRADER</title>
+<title>ABU BAKAR TRADER - ROYAL TIGER</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght=400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght=400;600;700;800;900&display=swap');
 
 *{
 margin:0;
@@ -17,78 +17,169 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background: #030303;
+background: #020202;
 display:flex;
 justify-content:center;
 padding:8px;
 color:#fff;
-background-image: radial-gradient(circle at 50% 10%, #ffd00015, transparent 50%);
+background-image: radial-gradient(circle at 50% 15%, #d4af3715, transparent 55%);
 }
 
+/* پاس ورڈ اسکرین کا اسٹائل */
+.lock-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(2, 2, 2, 0.95);
+z-index: 9999;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 15px;
+backdrop-filter: blur(10px);
+}
+
+.lock-box {
+width: 100%;
+max-width: 350px;
+background: #0a0a0a;
+border: 2px solid #d4af37;
+border-radius: 20px;
+padding: 25px;
+text-align: center;
+box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+.lock-title {
+font-size: 20px;
+font-weight: 800;
+color: #d4af37;
+margin-bottom: 15px;
+letter-spacing: 1px;
+}
+
+.lock-input {
+width: 100%;
+padding: 12px;
+background: #111;
+border: 1px solid rgba(212, 175, 55, 0.4);
+border-radius: 12px;
+color: #fff;
+font-size: 16px;
+text-align: center;
+outline: none;
+margin-bottom: 15px;
+letter-spacing: 2px;
+}
+
+.lock-input:focus {
+border-color: #d4af37;
+box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.lock-btn {
+width: 100%;
+padding: 12px;
+background: linear-gradient(135deg, #d4af37, #f3e5ab);
+border: none;
+border-radius: 12px;
+color: #000;
+font-size: 16px;
+font-weight: 800;
+cursor: pointer;
+box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.error-msg {
+color: #ff3b3b;
+font-size: 12px;
+margin-top: 10px;
+display: none;
+}
+
+/* مین بوٹ کنٹینر (لاک ہونے پر دھندلا رہے گا) */
 .container{
 width:100%;
 max-width:390px;
-background: rgba(10, 10, 10, 0.75);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border: 1px solid rgba(255, 208, 0, 0.4);
+background: linear-gradient(145deg, #0a0a0a, #050505);
+border: 2px solid #d4af37;
 border-radius:24px;
 padding:14px;
-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 15px rgba(255, 208, 0, 0.1);
+box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15);
 overflow:hidden;
+filter: blur(10px); /* شروع میں بلر رہے گا */
+pointer-events: none;
+transition: filter 0.5s ease;
+}
+
+.logo-container {
+position: relative;
+width: 85px;
+height: 85px;
+margin: auto;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .logo{
-width:75px;
-height:75px;
-background: linear-gradient(135deg, #ffd000, #ffaa00);
+width:100%;
+height:100%;
+background: radial-gradient(circle, #ffd700, #b8860b);
 border-radius:50%;
-margin:auto;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:32px;
-font-weight:900;
-color:#000;
-box-shadow:0 0 20px rgba(255, 208, 0, 0.6);
+font-size:35px;
+box-shadow:0 0 25px rgba(212, 175, 55, 0.6);
 border: 2px solid rgba(255,255,255,0.2);
+position: relative;
+z-index: 2;
+}
+
+.logo::before {
+content: '🐅';
+font-size: 40px;
 }
 
 .title{
 text-align:center;
 font-size:24px;
-font-weight:800;
-color:#ffd000;
+font-weight:900;
+color: #d4af37;
 margin-top:12px;
-letter-spacing: 0.5px;
-text-shadow: 0 0 10px rgba(255, 208, 0, 0.2);
+letter-spacing: 1px;
+text-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
 }
 
 .subtitle{
 text-align:center;
 font-size:11px;
-color:#888;
+color:#8a8a8a;
 margin-bottom:14px;
 text-transform: uppercase;
-letter-spacing: 1px;
+letter-spacing: 2px;
+font-weight: 600;
 }
 
 .select{
 width:100%;
 padding:14px;
-background: rgba(20, 20, 20, 0.6);
-border:1px solid rgba(255, 208, 0, 0.25);
+background: #0f0f0f;
+border:1px solid rgba(212, 175, 55, 0.3);
 border-radius:16px;
 color:#fff;
 font-size:15px;
 margin-bottom:10px;
 outline:none;
-backdrop-filter: blur(5px);
-transition: border 0.3s;
+transition: all 0.3s;
 }
 
 .select:focus {
-border-color: #ffd000;
+border-color: #d4af37;
+box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
 
 .pairs{
@@ -100,36 +191,38 @@ margin-bottom:12px;
 }
 
 .pair{
-background: rgba(255, 255, 255, 0.03);
-border:1px solid rgba(255,255,255,0.08);
+background: #0d0d0d;
+border:1px solid rgba(255,255,255,0.05);
 padding:8px 12px;
 border-radius:12px;
 font-size:12px;
 cursor: pointer;
 transition: all 0.3s ease;
+color: #aaa;
 }
 
 .pair.active {
-border-color: #ffd000;
-background: rgba(255, 208, 0, 0.15);
-color: #ffd000;
-box-shadow: 0 0 10px rgba(255, 208, 0, 0.1);
+border-color: #d4af37;
+background: rgba(212, 175, 55, 0.12);
+color: #d4af37;
+font-weight: 600;
+box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
 }
 
 .chart-box{
 position:relative;
 height:210px;
-background: rgba(5, 5, 5, 0.8);
+background: #040404;
 border-radius:20px;
 padding:12px;
 overflow:hidden;
-border:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(212, 175, 55, 0.15);
 }
 
 .live{
 font-size:12px;
 font-weight:700;
-color:#ffd000;
+color:#d4af37;
 letter-spacing: 1px;
 display: flex;
 align-items: center;
@@ -147,7 +240,7 @@ box-shadow: 0 0 6px #00ff88;
 }
 
 .price{
-font-size:40px;
+font-size:42px;
 font-weight:800;
 color:#00ff88;
 margin-top:2px;
@@ -163,12 +256,12 @@ right:12px;
 height:100px;
 display:flex;
 align-items:flex-end;
-gap:6px; /* کینڈلز کے درمیان فاصلہ بڑھا دیا */
+gap:6px;
 overflow-x: hidden;
 }
 
 .candle{
-width:10px; /* کینڈلز کی چوڑائی بڑھا کر 10px کر دی تاکہ صاف نظر آئیں */
+width:10px;
 border-radius:3px;
 flex-shrink: 0;
 transition: height 0.2s ease, background 0.2s ease;
@@ -176,21 +269,21 @@ transition: height 0.2s ease, background 0.2s ease;
 
 .green{
 background:#00ff88;
-box-shadow:0 0 6px rgba(0, 255, 136, 0.4);
+box-shadow:0 0 6px rgba(0, 255, 136, 0.3);
 }
 
 .red{
 background:#ff3b3b;
-box-shadow:0 0 6px rgba(255, 59, 59, 0.4);
+box-shadow:0 0 6px rgba(255, 59, 59, 0.3);
 }
 
 .scan-line{
 position:absolute;
 top:0;
 bottom:0;
-width:3px;
-background: linear-gradient(to right, transparent, #ffd000, transparent);
-box-shadow:0 0 15px #ffd000;
+width:4px;
+background: linear-gradient(to right, transparent, #d4af37, transparent);
+box-shadow:0 0 18px #d4af37;
 display:none;
 animation:scan 2s linear infinite;
 z-index: 5;
@@ -207,38 +300,39 @@ padding:16px;
 border:none;
 border-radius:18px;
 margin-top:12px;
-background: linear-gradient(135deg, #ffd000, #ffcc00);
+background: linear-gradient(135deg, #d4af37, #f3e5ab);
 color:#000;
 font-size:18px;
-font-weight:800;
+font-weight:900;
 cursor:pointer;
-box-shadow:0 4px 15px rgba(255, 208, 0, 0.3);
+box-shadow:0 4px 18px rgba(212, 175, 55, 0.35);
 transition: all 0.2s ease;
 -webkit-tap-highlight-color: transparent;
+letter-spacing: 0.5px;
 }
 
 .btn:active {
-transform: scale(0.95); /* پریس کرنے پر زبردست کلکنگ ایفیکٹ */
-background: linear-gradient(135deg, #ffcc00, #e6b800);
+transform: scale(0.96);
+background: linear-gradient(135deg, #b8860b, #d4af37);
 }
 
 .btn:disabled {
-background: #333;
-color: #666;
+background: #222;
+color: #555;
 box-shadow: none;
 cursor: not-allowed;
+border: 1px solid #333;
 }
 
 .result{
 margin-top:14px;
-background: rgba(15, 15, 15, 0.8);
-backdrop-filter: blur(5px);
+background: rgba(15, 15, 15, 0.9);
 border-radius: 20px;
 padding: 16px;
-border: 1px solid rgba(255, 208, 0, 0.3); /* رزلٹ باکس بارڈر پر گولڈن ٹچ */
+border: 1px solid #d4af37;
 display: none;
 animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-box-shadow: 0 0 15px rgba(255, 208, 0, 0.05);
+box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
 }
 
 @keyframes fadeIn {
@@ -250,36 +344,36 @@ to { opacity: 1; transform: translateY(0); }
 font-size:55px;
 font-weight:900;
 text-align:center;
-letter-spacing: 1px;
+letter-spacing: 2px;
 }
 
 .buy{
 color:#00ff88;
-text-shadow:0 0 25px rgba(0, 255, 136, 0.6);
+text-shadow:0 0 25px rgba(0, 255, 136, 0.5);
 }
 
 .sell{
 color:#ff3b3b;
-text-shadow:0 0 25px rgba(255, 59, 59, 0.6);
+text-shadow:0 0 25px rgba(255, 59, 59, 0.5);
 }
 
 .wait{
-color:#ffd000;
-text-shadow:0 0 25px rgba(255, 208, 0, 0.6);
+color:#d4af37;
+text-shadow:0 0 25px rgba(212, 175, 55, 0.5);
 }
 
 .conf{
 text-align:center;
 font-size:32px;
 font-weight:800;
-color:#ffd000;
+color:#d4af37;
 margin-top:2px;
-background: rgba(255,208,0,0.1);
+background: rgba(212, 175, 55, 0.1);
 width: fit-content;
 margin: 4px auto 12px auto;
-padding: 2px 14px;
+padding: 2px 16px;
 border-radius: 20px;
-border: 1px solid rgba(255,208,0,0.2);
+border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 .info-grid {
@@ -295,7 +389,7 @@ color: #ccc;
 background: rgba(255,255,255,0.02);
 padding: 8px 10px;
 border-radius: 10px;
-border: 1px solid rgba(255,255,255,0.04);
+border: 1px solid rgba(212, 175, 55, 0.1);
 }
 
 .info-item span {
@@ -305,27 +399,40 @@ color: #fff;
 }
 
 .info-item span.highlight {
-color: #ffd000;
+color: #d4af37;
 }
 
 .footer{
 margin-top:14px;
 text-align:center;
 font-size:11px;
-color:#555;
-letter-spacing: 0.5px;
+color:#444;
+letter-spacing: 1px;
+font-weight: 600;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="lock-screen" id="lockScreen">
+    <div class="lock-box">
+        <div style="font-size: 40px; margin-bottom: 10px;">🐅</div>
+        <div class="lock-title">ABU BAKAR TRADER</div>
+        <input type="password" class="lock-input" id="passInput" placeholder="ENTER PASSWORD">
+        <button class="lock-btn" onclick="checkPassword()">UNLOCK BOT</button>
+        <div class="error-msg" id="errorMsg">❌ WRONG PASSWORD! TRY AGAIN.</div>
+    </div>
+</div>
 
-<div class="logo">QX</div>
+<div class="container" id="botContainer">
+
+<div class="logo-container">
+    <div class="logo"></div>
+</div>
 
 <div class="title">ABU BAKAR TRADER</div>
-<div class="subtitle">PREMIUM AI SIGNAL BOT</div>
+<div class="subtitle">ROYAL TIGER AI BOT</div>
 
 <select class="select" id="pair" onchange="syncPairSelection(this.value)">
 <option value="USD/BRL">🇧🇷 USD/BRL OTC</option>
@@ -360,7 +467,7 @@ letter-spacing: 0.5px;
 </div>
 
 <button class="btn" id="actionBtn" onclick="getSignal()">
-GET AI SIGNAL
+⚡ GET ROYAL SIGNAL
 </button>
 
 <div class="result" id="resultBox">
@@ -378,12 +485,38 @@ GET AI SIGNAL
 </div>
 
 <div class="footer">
-ABU BAKAR TRADER © DESIGNED BY AI
+ABU BAKAR TRADER © ROYAL TIGER EDITION
 </div>
 
 </div>
 
 <script>
+// پاس ورڈ چیک کرنے کا لاجک
+function checkPassword() {
+    const input = document.getElementById("passInput").value;
+    const correctPassword = "bakar786"; // یہاں آپ پاس ورڈ بدل سکتے ہیں
+    const lockScreen = document.getElementById("lockScreen");
+    const botContainer = document.getElementById("botContainer");
+    const errorMsg = document.getElementById("errorMsg");
+
+    if(input === correctPassword) {
+        lockScreen.style.display = "none";
+        botContainer.style.filter = "none";
+        botContainer.style.pointerEvents = "auto";
+        initCandles(); // انلاک ہونے پر چارٹ لوڈ ہوگا
+    } else {
+        errorMsg.style.display = "block";
+        document.getElementById("passInput").value = "";
+    }
+}
+
+// انٹر بٹن دبانے پر بھی انلاک کرنے کے لیے
+document.getElementById("passInput").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        checkPassword();
+    }
+});
+
 const candlesContainer = document.getElementById("candles");
 const priceElement = document.getElementById("price");
 let candleData = []; 
@@ -404,7 +537,6 @@ function initCandles() {
     let selectedPair = document.getElementById("pair").value;
     currentPrice = pairBases[selectedPair] || 1.2500;
 
-    // کینڈلز موٹی کرنے کے بعد تعداد کو اسکرین چوڑائی کے مطابق 28 کر دیا تا کہ اوور فلو نہ ہو
     for(let i=0; i<28; i++){
         let change = (Math.random() - 0.5) * 0.0015;
         currentPrice += change;
@@ -422,20 +554,23 @@ function initCandles() {
 }
 
 function updateLivePrice() {
-    let change = (Math.random() - 0.5) * 0.0004;
-    let oldPrice = currentPrice;
-    currentPrice += change;
-    
-    priceElement.innerText = currentPrice.toFixed(4);
-    priceElement.style.color = currentPrice >= oldPrice ? "#00ff88" : "#ff3b3b";
+    // صرف تب چلے گا جب بوٹ انلاک ہو چکا ہوگا
+    if(document.getElementById("lockScreen").style.display === "none") {
+        let change = (Math.random() - 0.5) * 0.0004;
+        let oldPrice = currentPrice;
+        currentPrice += change;
+        
+        priceElement.innerText = currentPrice.toFixed(4);
+        priceElement.style.color = currentPrice >= oldPrice ? "#00ff88" : "#ff3b3b";
 
-    if(candlesContainer.lastChild) {
-        let lastHeight = Math.floor(Math.random() * 25) + 35;
-        candlesContainer.lastChild.style.height = lastHeight + "px";
-        if(currentPrice >= oldPrice) {
-            candlesContainer.lastChild.className = "candle green";
-        } else {
-            candlesContainer.lastChild.className = "candle red";
+        if(candlesContainer.lastChild) {
+            let lastHeight = Math.floor(Math.random() * 25) + 35;
+            candlesContainer.lastChild.style.height = lastHeight + "px";
+            if(currentPrice >= oldPrice) {
+                candlesContainer.lastChild.className = "candle green";
+            } else {
+                candlesContainer.lastChild.className = "candle red";
+            }
         }
     }
 }
@@ -518,8 +653,6 @@ function generateSmartSignal() {
     document.getElementById("macd").innerText = macdText;
     document.getElementById("trend").innerText = trend;
 }
-
-initCandles();
 </script>
 
 </body>
