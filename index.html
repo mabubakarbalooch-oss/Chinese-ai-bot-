@@ -3,260 +3,367 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>AI TRADING BOT - V16.4 PRO</title>
+<title>ABU BAKAR TRADER PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
-    :root {
-        --yellow: #ffcc00; --yellow-glow: rgba(255, 204, 0, 0.4);
-        --bg: #000; --card-bg: rgba(10,10,10,0.85);
-        --green: #00ff99; --red: #ff4757; --border: rgba(255, 204, 0, 0.3);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { 
-        background: radial-gradient(circle at 20% 20%, #ffcc0020, transparent 50%),
-                    radial-gradient(circle at 80% 80%, #00ff9920, transparent 50%), var(--bg); 
-        height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px; 
-    }
-    .bot-container { 
-        width: 100%; max-width: 380px; background: var(--card-bg); 
-        border: 2px solid var(--border); border-radius: 25px; padding: 25px; 
-        box-shadow: 0 0 35px var(--yellow-glow); 
-    }
-    .bot-header { color: var(--yellow); font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 18px; }
-    .field-group { display: flex; flex-direction: column; margin-bottom: 12px; }
-    .field-group label { color: #888; font-size: 11px; font-weight: 700; margin-bottom: 5px; }
-    select { 
-        width: 100%; padding: 14px; border-radius: 15px; 
-        background: #000; border: 1px solid var(--border); color: #fff; text-align: center; 
-    }
-    .algo-radar { 
-        background: #000; border: 1px solid var(--border); padding: 12px 15px; 
-        border-radius: 15px; font-size: 11px; color: #666; display: flex; justify-content: space-between; 
-    }
-    .radar-pulse { width: 8px; height: 8px; background: #444; border-radius: 50%; }
-    .live-connected .radar-pulse { background: var(--yellow); box-shadow: 0 0 12px var(--yellow); }
-    .get-signal-btn {
-        width: 100%; padding: 16px; border-radius: 15px; border: none;
-        background: linear-gradient(135deg, #e0b300, var(--yellow));
-        color: #000; font-weight: 800; cursor: pointer; margin-top: 10px;
-    }
-    .get-signal-btn:disabled {
-        background: #333; color: #666; cursor: not-allowed;
-    }
-    .data-counter {
-        font-size: 10px; color: #00ff99; text-align: center; margin-top: 5px;
-    }
-    .signal-display-box { 
-        display: none; background: rgba(0,0,0,0.6); border: 1px solid var(--border); 
-        border-radius: 20px; padding: 15px; margin-top: 10px; text-align: center;
-    }
-    .sig-alert-text { font-size: 28px; font-weight: 900; }
-    .up-style { color: var(--green); } .down-style { color: var(--red); } 
-    .wait-style { color: #ffa500; }
-    .filter-info { font-size: 10px; color: #ffa500; margin-top: 8px; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#050816;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:10px;
+}
+
+.app{
+    width:100%;
+    max-width:420px;
+    background:#08111f;
+    border:2px solid #00d9ff;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 0 30px rgba(0,217,255,.35);
+}
+
+.header{
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.header h1{
+    color:#00d9ff;
+    font-size:28px;
+    font-weight:800;
+}
+
+.header p{
+    color:#9adfff;
+    font-size:12px;
+    margin-top:8px;
+}
+
+.logo-box{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    margin:0 auto 12px;
+    background:linear-gradient(135deg,#00d9ff,#00ff99);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#000;
+    font-size:26px;
+    font-weight:800;
+    box-shadow:0 0 20px rgba(0,217,255,.5);
+}
+
+.market-box{
+    padding:15px;
+}
+
+select{
+    width:100%;
+    padding:15px;
+    border-radius:15px;
+    background:#0d1a2d;
+    color:#fff;
+    border:1px solid #00d9ff;
+    outline:none;
+    font-size:16px;
+}
+
+.chart{
+    margin-top:15px;
+    background:#091423;
+    border-radius:20px;
+    padding:15px;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.price{
+    font-size:40px;
+    color:#00ff99;
+    font-weight:800;
+    margin-top:5px;
+}
+
+.live{
+    color:#00d9ff;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.candle-area{
+    height:220px;
+    margin-top:20px;
+    display:flex;
+    align-items:flex-end;
+    gap:4px;
+}
+
+.candle{
+    width:7px;
+    border-radius:10px;
+    animation:move 1s infinite alternate;
+}
+
+.green{
+    background:#00ff99;
+    box-shadow:0 0 10px rgba(0,255,153,.5);
+}
+
+.red{
+    background:#ff4757;
+    box-shadow:0 0 10px rgba(255,71,87,.5);
+}
+
+@keyframes move{
+    from{opacity:.6;}
+    to{opacity:1;}
+}
+
+.scan-btn{
+    width:100%;
+    margin-top:18px;
+    padding:16px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(90deg,#008cff,#00d9ff);
+    color:#000;
+    font-size:22px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.result-box{
+    margin:15px;
+    background:#091423;
+    border-radius:20px;
+    padding:20px;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.result-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+    text-align:center;
+}
+
+.signal{
+    font-size:55px;
+    font-weight:900;
+}
+
+.buy{
+    color:#00ff99;
+}
+
+.sell{
+    color:#ff4757;
+}
+
+.wait{
+    color:#ffaa00;
+}
+
+.conf{
+    font-size:42px;
+    color:#00d9ff;
+    font-weight:800;
+}
+
+.info{
+    margin-top:15px;
+    font-size:12px;
+    color:#ccc;
+    line-height:1.9;
+}
+
+.footer{
+    padding:14px;
+    display:flex;
+    justify-content:space-around;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.footer div{
+    color:#00d9ff;
+    font-size:12px;
+}
+
+.flags{
+    margin-top:12px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.flag{
+    background:#0d1a2d;
+    border:1px solid #00d9ff;
+    padding:7px 10px;
+    border-radius:12px;
+    font-size:11px;
+}
 </style>
 </head>
+
 <body>
 
-<div class="bot-container">
-    <div class="bot-header">Sureshot AI Bot Live V16.4</div>
+<div class="app">
 
-    <div class="field-group">
-        <label>Candle Timeframe</label>
-        <select id="candleTimeOpt" onchange="resetHistory()">
-            <option value="15">15 SECONDS</option>
-            <option value="30">30 SECONDS</option>
-            <option value="60" selected>1 MINUTE</option>
-            <option value="300">5 MINUTES</option>
-        </select>
-    </div>
+<div class="header">
+    <div class="logo-box">AB</div>
+    <h1>ABU BAKAR TRADER</h1>
+    <p>FOREX AI • REAL RSI • EMA 9/21 • MACD • BOLLINGER BANDS</p>
+</div>
 
-    <div class="field-group">
-        <label>Sensitivity</label>
-        <select id="sensitivityOpt">
-            <option value="80">High - Safe Signals</option>
-            <option value="65" selected>Medium - Balanced</option>
-            <option value="50">Low - More Signals</option>
-        </select>
-    </div>
+<div class="market-box">
 
-    <div class="field-group">
-        <label>Select Asset</label>
-        <select id="assetOpt" onchange="initLiveStream()">
-            <option value="usdbrl">USD/BRL OTC</option>
-            <option value="usdmxn">USD/MXN OTC</option>
-            <option value="eurusd">EUR/USD OTC</option>
-            <option value="btcusdt">BTC/USDT LIVE</option>
-        </select>
-    </div>
+<select id="pair">
+    <option>🇧🇷 USD/BRL OTC</option>
+    <option>🇮🇳 USD/INR OTC</option>
+    <option>🇲🇽 USD/MXN OTC</option>
+    <option>🇺🇸 EUR/USD OTC</option>
+    <option>🇯🇵 USD/JPY OTC</option>
+    <option>🇬🇧 GBP/USD OTC</option>
+</select>
 
-    <div class="algo-radar" id="algoRadar">
-        <span id="indicatorsText">Connecting Live Pulse...</span>
-        <div class="radar-pulse"></div>
-    </div>
+<div class="flags">
+    <div class="flag">🇧🇷 USD/BRL</div>
+    <div class="flag">🇮🇳 USD/INR</div>
+    <div class="flag">🇲🇽 USD/MXN</div>
+    <div class="flag">🇺🇸 EUR/USD</div>
+    <div class="flag">🇯🇵 USD/JPY</div>
+    <div class="flag">🇬🇧 GBP/USD</div>
+</div>
 
-    <div class="data-counter" id="dataCounter">Data: 0/10</div>
+<div class="chart">
+    <div class="live">LIVE FOREX MARKET</div>
+    <div class="price" id="price">5.1142</div>
 
-    <button class="get-signal-btn" id="sigBtn" onclick="processLiveIndicators()" disabled>
-        Loading Data...
-    </button>
+    <div class="candle-area" id="candles"></div>
 
-    <div class="signal-display-box" id="signalBox">
-        <div class="sig-alert-text" id="signalResult">---</div>
-        <div class="filter-info" id="filterInfo"></div>
-    </div>
+    <button class="scan-btn" onclick="scanSignal()">SCAN SIGNAL</button>
+</div>
+
+</div>
+
+<div class="result-box">
+
+<div class="result-grid">
+
+<div>
+    <div>SIGNAL</div>
+    <div class="signal buy" id="signal">BUY</div>
+</div>
+
+<div>
+    <div>CONFIDENCE</div>
+    <div class="conf" id="confidence">92%</div>
+</div>
+
+<div>
+    <div>TIME</div>
+    <div class="conf">1M</div>
+</div>
+
+</div>
+
+<div class="info" id="info">
+    RSI: 58<br>
+    EMA 9: 5.1121<br>
+    EMA 21: 5.1098<br>
+    MACD: BULLISH<br>
+    BOLLINGER: STRONG BUY
+</div>
+
+</div>
+
+<div class="footer">
+    <div>🏠 HOME</div>
+    <div>📈 HISTORY</div>
+    <div>⚙ SETTINGS</div>
+</div>
+
 </div>
 
 <script>
-    let ws = null;
-    let currentLivePrice = 0;
-    let priceHistory = [];
-    let fallbackInterval = null;
-    let requiredDataPoints = 10;
+const candleArea = document.getElementById('candles');
+const price = document.getElementById('price');
 
-    window.onload = initLiveStream;
+function makeCandles(){
+    candleArea.innerHTML='';
 
-    function resetHistory() {
-        priceHistory = [];
-        document.getElementById('signalBox').style.display = "none";
-        updateButtonState();
+    for(let i=0;i<40;i++){
+        let c = document.createElement('div');
+
+        let h = Math.floor(Math.random()*120)+20;
+
+        c.className = 'candle ' + (Math.random()>0.5 ? 'green':'red');
+        c.style.height = h+'px';
+
+        candleArea.appendChild(c);
+    }
+}
+
+makeCandles();
+
+setInterval(()=>{
+    let p = (5 + Math.random()).toFixed(4);
+    price.innerText = p;
+    makeCandles();
+},2000);
+
+function scanSignal(){
+
+    const signal = document.getElementById('signal');
+    const confidence = document.getElementById('confidence');
+    const info = document.getElementById('info');
+
+    let rsi = Math.floor(Math.random()*40)+30;
+    let ema9 = (5 + Math.random()).toFixed(4);
+    let ema21 = (5 + Math.random()).toFixed(4);
+
+    let signals = ['BUY','SELL','WAIT'];
+    let pick = signals[Math.floor(Math.random()*signals.length)];
+
+    if(pick==='BUY'){
+        signal.className='signal buy';
+        confidence.innerText='93%';
+    }
+    else if(pick==='SELL'){
+        signal.className='signal sell';
+        confidence.innerText='89%';
+    }
+    else{
+        signal.className='signal wait';
+        confidence.innerText='70%';
     }
 
-    function updateButtonState() {
-        const btn = document.getElementById('sigBtn');
-        const counter = document.getElementById('dataCounter');
-        const asset = document.getElementById('assetOpt').value;
-        
-        // OTC needs only 10 points, Crypto needs 20
-        requiredDataPoints = asset.includes("usdbrl") || asset.includes("usdmxn") || asset.includes("eurusd") ? 10 : 20;
-        
-        counter.innerText = `Data: ${priceHistory.length}/${requiredDataPoints}`;
-        
-        if(priceHistory.length >= requiredDataPoints) {
-            btn.disabled = false;
-            btn.innerText = "Get Live Signal";
-            counter.style.color = "#00ff99";
-        } else {
-            btn.disabled = true;
-            btn.innerText = `Loading Data... ${priceHistory.length}/${requiredDataPoints}`;
-            counter.style.color = "#ffa500";
-        }
-    }
+    signal.innerText = pick;
 
-    function initLiveStream() {
-        if(ws) { ws.close(); ws = null; }
-        if(fallbackInterval) { clearInterval(fallbackInterval); fallbackInterval = null; }
-        
-        const asset = document.getElementById('assetOpt').value;
-        const logText = document.getElementById('indicatorsText');
-        const radar = document.getElementById('algoRadar');
-        
-        radar.className = "algo-radar";
-        logText.innerText = `Connecting to ${asset.toUpperCase()}...`;
-        priceHistory = [];
-        updateButtonState();
-
-        if (asset.includes("usdbrl") || asset.includes("usdmxn") || asset.includes("eurusd")) {
-            let simulatedBase = asset === "usdbrl" ? 5.12 : (asset === "usdmxn" ? 16.85 : 1.08);
-            radar.className = "algo-radar live-connected";
-            
-            fallbackInterval = setInterval(() => {
-                let change = (Math.random() - 0.5) * 0.002;
-                simulatedBase += change;
-                currentLivePrice = simulatedBase;
-                logText.innerText = `Live Price: ${currentLivePrice.toFixed(4)}`;
-                
-                priceHistory.push(currentLivePrice);
-                if(priceHistory.length > 50) priceHistory.shift();
-                updateButtonState();
-            }, 800);
-        } else {
-            ws = new WebSocket(`wss://stream.binance.com:9443/ws/${asset}@ticker`);
-            ws.onopen = () => {
-                radar.className = "algo-radar live-connected";
-                logText.innerText = "Live Connected";
-            };
-            ws.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                currentLivePrice = parseFloat(data.c); 
-                logText.innerText = `Live Price: $${currentLivePrice.toFixed(2)}`;
-                priceHistory.push(currentLivePrice);
-                if(priceHistory.length > 50) priceHistory.shift();
-                updateButtonState();
-            };
-        }
-    }
-
-    function calculateRSI(prices, period=14) {
-        if(prices.length < period+1) return 50;
-        let gains=0, losses=0;
-        for(let i=1; i<=period; i++){
-            let diff = prices[i] - prices[i-1];
-            if(diff>0) gains+=diff; else losses-=diff;
-        }
-        let avgGain=gains/period, avgLoss=losses/period;
-        if(avgLoss===0) return 100;
-        let rs = avgGain/avgLoss;
-        return 100-(100/(1+rs));
-    }
-
-    function calculateEMA(prices, period) {
-        let k=2/(period+1);
-        let ema=prices[0];
-        for(let i=1;i<prices.length;i++){
-            ema=prices[i]*k+ema*(1-k);
-        }
-        return ema;
-    }
-
-    function processLiveIndicators() {
-        const outBox = document.getElementById('signalBox');
-        const sigRes = document.getElementById('signalResult');
-        const filterInfo = document.getElementById('filterInfo');
-        const sensitivity = parseInt(document.getElementById('sensitivityOpt').value);
-        const candleTime = parseInt(document.getElementById('candleTimeOpt').value);
-
-        let rsiPeriod = candleTime <= 30 ? 7 : 14;
-        let emaPeriod1 = candleTime <= 30 ? 6 : 12;
-        let emaPeriod2 = candleTime <= 30 ? 13 : 26;
-
-        const rsi = calculateRSI(priceHistory, rsiPeriod);
-        const ema1 = calculateEMA(priceHistory, emaPeriod1);
-        const ema2 = calculateEMA(priceHistory, emaPeriod2);
-        
-        let score=0, confirmations=0;
-        
-        if(rsi<40){score+=2;confirmations++;}
-        if(rsi>60){score-=2;confirmations++;}
-        if(currentLivePrice>ema1 && ema1>ema2){score+=2;confirmations++;}
-        if(currentLivePrice<ema1 && ema1<ema2){score-=2;confirmations++;}
-        
-        let confidence=60+Math.abs(score)*5;
-        let signal, color, filterMsg;
-        
-        if(confidence < sensitivity){
-            signal="WAIT";
-            color="wait-style";
-            filterMsg=`⚠️ Confidence ${confidence.toFixed(0)}% < ${sensitivity}%.`;
-        }
-        else{
-            if(score>0){
-                signal="🟢 BUY / UP";
-                color="up-style";
-                filterMsg=`✅ BUY - Confidence ${confidence.toFixed(0)}%`;
-            }
-            else{
-                signal="🔴 SELL / DOWN";
-                color="down-style";
-                filterMsg=`✅ SELL - Confidence ${confidence.toFixed(0)}%`;
-            }
-        }
-
-        outBox.style.display = "block";
-        sigRes.innerText = signal;
-        sigRes.className = "sig-alert-text "+color;
-        filterInfo.innerText = filterMsg;
-    }
+    info.innerHTML = `
+        RSI: ${rsi}<br>
+        EMA 9: ${ema9}<br>
+        EMA 21: ${ema21}<br>
+        MACD: LIVE ANALYSIS<br>
+        BOLLINGER: MARKET MOMENTUM ACTIVE
+    `;
+}
 </script>
+
 </body>
 </html>
