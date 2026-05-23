@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>ABU BAKAR TRADER - PRO AI v2.0</title>
+  <title>ABU BAKAR TRADER - Signal Alerts</title>
 
-  <!-- Google Fonts Import -->
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
 
   <style>
-    /* Reset and base styles */
+    /* Base reset & fonts */
     * {
       margin: 0;
       padding: 0;
@@ -22,409 +21,175 @@
 
     body {
       background: #02040a;
-      display: flex;
-      justify-content: center;
-      padding: 8px;
       color: #fff;
-      overflow-x: hidden;
       min-height: 100vh;
-      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
 
-    /* Background decorative radial gradients */
-    body::before {
-      content: '';
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at top left, rgba(0, 240, 255, 0.15), transparent 40%),
-        radial-gradient(circle at bottom right, rgba(255, 0, 128, 0.15), transparent 40%);
-      z-index: -1;
-    }
-
-    /* Main container that is initially hidden */
     .container {
-      width: 100%;
-      max-width: 400px;
-      background: rgba(10, 15, 30, 0.7);
-      border: 1px solid rgba(0, 240, 255, 0.15);
+      background: rgba(10, 15, 30, 0.8);
       border-radius: 28px;
-      padding: 20px;
-      backdrop-filter: blur(25px);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.02);
-      display: none;
-      animation: fade 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    /* Fade-in animation */
-    @keyframes fade {
-      from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    /* Lock screen overlay that covers the viewport */
-    .lock-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
+      padding: 25px 30px;
+      max-width: 400px;
       width: 100%;
-      height: 100%;
-      background: #02040a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      padding: 20px;
-    }
-
-    /* Inner box for the lock screen */
-    .lock-box {
-      width: 100%;
-      max-width: 350px;
-      background: rgba(15, 22, 42, 0.6);
-      border: 1px solid rgba(0, 240, 255, 0.2);
-      border-radius: 24px;
-      padding: 35px 25px;
-      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
       backdrop-filter: blur(20px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 240, 255, 0.05);
-      outline: none; /* for focus styles handle with JS */
-    }
-
-    /* Title styling using Orbitron font */
-    .lock-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 24px;
-      font-weight: 900;
-      color: #00f0ff;
-      margin-bottom: 8px;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-    }
-
-    /* Subtitle text */
-    .lock-subtitle {
-      font-size: 11px;
-      color: #8892b0;
-      margin-bottom: 25px;
-      letter-spacing: 1px;
-    }
-
-    /* Input field for lock screen */
-    .lock-input {
-      width: 100%;
-      padding: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      outline: none;
-      border-radius: 14px;
-      background: rgba(0, 0, 0, 0.5);
-      color: #fff;
-      font-size: 16px;
+      border: 1px solid rgba(0, 240, 255, 0.15);
       text-align: center;
-      margin-bottom: 18px;
-      letter-spacing: 4px;
-      transition: 0.3s;
     }
 
-    .lock-input:focus {
-      border-color: #00f0ff;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
-    }
-
-    /* Submit button on lock screen */
-    .lock-btn {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #00f0ff, #006eff);
-      color: #fff;
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 110, 255, 0.4);
-      transition: 0.3s;
-    }
-
-    .lock-btn:hover,
-    .lock-btn:focus {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
-    }
-
-    /* Error message styling */
-    .error {
-      margin-top: 12px;
-      color: #ff4f6d;
-      display: none;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    /* Logo circle */
     .logo {
-      width: 85px;
-      height: 85px;
-      margin: auto;
-      border-radius: 50%;
-      background: rgba(0, 240, 255, 0.05);
-      border: 2px solid rgba(0, 240, 255, 0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       font-family: 'Orbitron', sans-serif;
-      font-size: 32px;
-      font-weight: 900;
+      font-size: 36px;
       color: #00f0ff;
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+      margin-bottom: 15px;
+      text-shadow: 0 0 12px #00f0ff;
       user-select: none;
     }
 
-    /* Main title with gradient text */
     .title {
-      text-align: center;
       font-family: 'Orbitron', sans-serif;
       font-size: 22px;
       font-weight: 900;
-      margin-top: 15px;
       background: linear-gradient(to right, #fff, #00f0ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
     }
 
-    /* Subtitle below title */
     .sub {
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 4px;
+      font-size: 12px;
+      letter-spacing: 3px;
       color: #00f0ff;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       font-weight: 600;
     }
 
-    /* Stats bar container */
-    .stats-bar {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 8px 12px;
-      margin-bottom: 12px;
-      font-size: 11px;
-      color: #8892b0;
-      user-select: none;
-    }
-
-    /* Highlighted span inside stats bar */
-    .stats-bar span {
-      color: #00ff88;
-      font-weight: bold;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    /* Custom styled select dropdown */
-    .select {
+    select, button {
       width: 100%;
-      padding: 14px;
+      padding: 14px 0;
       border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       background: #0d1326;
-      border: 1px solid rgba(255, 255, 255, 0.08);
       color: #fff;
-      outline: none;
-      margin-bottom: 12px;
       font-weight: 600;
+      font-size: 16px;
       cursor: pointer;
+      margin-bottom: 20px;
       transition: 0.3s;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
       background-image: url("data:image/svg+xml;charset=US-ASCII,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3e%3cpath%20fill='none'%20stroke='%23ffffff'%20stroke-width='1'%20d='M0%200l2%202%202-2'/%3e%3c/svg%3e");
       background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 8px 10px;
+      background-position: right 15px center;
+      background-size: 10px 12px;
     }
 
-    .select:focus {
+    select:focus, button:hover {
       border-color: #00f0ff;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+      box-shadow: 0 0 10px #00f0ff;
+      outline: none;
     }
 
-    /* Chart container placeholder */
-    .chart {
-      position: relative;
-      /* Additional styles to be added as needed */
+    .signal-message {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+      color: #00ff88;
+      background: rgba(0, 255, 136, 0.1);
+      user-select: none;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .signal-message.error {
+      color: #ff4f6d;
+      background: rgba(255, 79, 109, 0.1);
+      box-shadow: 0 0 15px rgba(255, 79, 109, 0.6);
     }
   </style>
 </head>
 <body>
-  <!-- Lock Screen Overlay -->
-  <section
-    class="lock-screen"
-    aria-label="Authentication lock screen"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="lockTitle"
-    aria-describedby="lockDesc"
-    tabindex="-1"
-  >
-    <div class="lock-box" tabindex="0">
-      <div class="logo" aria-hidden="true">ABT</div>
-      <h1 class="lock-title" id="lockTitle">ABU BAKAR TRADER</h1>
-      <p class="lock-subtitle" id="lockDesc">PRO AI v2.0 - Enter your access code</p>
-      <form id="lockForm" novalidate>
-        <label for="accessCode" class="sr-only">Access Code</label>
-        <input
-          id="accessCode"
-          class="lock-input"
-          type="password"
-          inputmode="numeric"
-          maxlength="6"
-          aria-describedby="errorMsg"
-          autocomplete="one-time-code"
-          required
-          pattern="\d{6}"
-          placeholder="••••••"
-          aria-label="Enter 6-digit access code"
-          aria-invalid="false"
-        />
-        <button type="submit" class="lock-btn">Unlock</button>
-        <p id="errorMsg" class="error" role="alert" aria-live="assertive"></p>
-      </form>
-    </div>
-  </section>
 
-  <!-- Main Content Container (hidden by default) -->
-  <main class="container" role="main" aria-hidden="true" tabindex="-1">
-    <!-- Content to be revealed after unlocking -->
-    <h2 class="title">Welcome to ABU BAKAR TRADER</h2>
-    <p class="sub">Powered by PRO AI v2.0</p>
+  <main class="container" role="main" aria-label="Trading Signal Interface">
+    <div class="logo" aria-hidden="true">ABT</div>
+    <h1 class="title">ABU BAKAR TRADER</h1>
+    <p class="sub">PRO AI v2.0 - Signal Generator</p>
 
-    <!-- Example stats bar -->
-    <section class="stats-bar" aria-label="Trading statistics">
-      <span>Balance: $12,345</span>
-      <span>Profit: +8.9%</span>
-      <span>Trades: 34</span>
-    </section>
-
-    <!-- Example Select dropdown -->
-    <label for="strategySelect" class="sub" style="display: block; margin-bottom: 6px;">
-      Select Trading Strategy:
-    </label>
-    <select id="strategySelect" class="select" aria-label="Trading strategy selection">
-      <option value="scalping">Scalping</option>
-      <option value="day-trading">Day Trading</option>
-      <option value="swing-trading">Swing Trading</option>
-      <option value="position-trading">Position Trading</option>
+    <label for="signalSelect" class="sr-only">Select Signal Type</label>
+    <select id="signalSelect" aria-describedby="signalDesc">
+      <option value="" disabled selected>Select Signal</option>
+      <option value="buy">BUY Signal</option>
+      <option value="sell">SELL Signal</option>
+      <option value="hold">HOLD Signal</option>
+      <option value="error">Invalid Signal</option>
     </select>
 
-    <!-- Chart placeholder -->
-    <section class="chart" aria-label="Trading performance chart" tabindex="0">
-      <!-- Chart implementation goes here -->
-      <p style="text-align:center; color:#8892b0; font-size: 14px;">Chart will be displayed here</p>
-    </section>
+    <button id="generateBtn" type="button">Generate Signal</button>
+
+    <div id="signalDisplay" class="signal-message" aria-live="polite" aria-atomic="true" role="alert">
+      Please select a signal and click "Generate Signal".
+    </div>
   </main>
 
   <script>
-    // JavaScript to manage lock screen authentication and reveal container
+    const signalSelect = document.getElementById('signalSelect');
+    const generateBtn = document.getElementById('generateBtn');
+    const signalDisplay = document.getElementById('signalDisplay');
 
-    (function () {
-      const lockScreen = document.querySelector('.lock-screen');
-      const container = document.querySelector('.container');
-      const form = document.getElementById('lockForm');
-      const input = document.getElementById('accessCode');
-      const errorMsg = document.getElementById('errorMsg');
+    generateBtn.addEventListener('click', () => {
+      const selected = signalSelect.value;
 
-      // Example hardcoded access code for demo (6 digits)
-      const ACCESS_CODE = '123456';
-
-      // Show error message function
-      function showError(message) {
-        errorMsg.textContent = message;
-        errorMsg.style.display = 'block';
-        input.setAttribute('aria-invalid', 'true');
-        errorMsg.focus();
+      if (!selected) {
+        signalDisplay.textContent = '⚠️ Please select a signal first.';
+        signalDisplay.classList.add('error');
+        return;
       }
 
-      // Hide error message
-      function clearError() {
-        errorMsg.textContent = '';
-        errorMsg.style.display = 'none';
-        input.setAttribute('aria-invalid', 'false');
+      let message = '';
+      let isError = false;
+
+      switch (selected) {
+        case 'buy':
+          message = '🟢 BUY Signal: Consider entering a long position.';
+          break;
+        case 'sell':
+          message = '🔴 SELL Signal: Consider exiting or shorting the position.';
+          break;
+        case 'hold':
+          message = '🟡 HOLD Signal: No action recommended currently.';
+          break;
+        case 'error':
+          message = '❌ Invalid signal detected! Please check your data.';
+          isError = true;
+          break;
+        default:
+          message = '⚠️ Unknown signal type.';
+          isError = true;
       }
 
-      // Focus trap within lock screen
-      function trapFocus(element) {
-        const focusableElements = element.querySelectorAll(
-          'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
-        );
-        const firstFocusable = focusableElements[0];
-        const lastFocusable = focusableElements[focusableElements.length - 1];
+      signalDisplay.textContent = message;
 
-        element.addEventListener('keydown', function (e) {
-          if (e.key === 'Tab' || e.keyCode === 9) {
-            if (e.shiftKey) {
-              if (document.activeElement === firstFocusable) {
-                e.preventDefault();
-                lastFocusable.focus();
-              }
-            } else {
-              if (document.activeElement === lastFocusable) {
-                e.preventDefault();
-                firstFocusable.focus();
-              }
-            }
-          }
-        });
+      if (isError) {
+        signalDisplay.classList.add('error');
+      } else {
+        signalDisplay.classList.remove('error');
       }
-
-      trapFocus(lockScreen);
-
-      // Automatically focus input on load
-      input.focus();
-
-      // On form submit, validate input
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        clearError();
-
-        const value = input.value.trim();
-
-        // Basic validation: exactly 6 digits
-        if (!/^\d{6}$/.test(value)) {
-          showError('Please enter a valid 6-digit code.');
-          return;
-        }
-
-        if (value === ACCESS_CODE) {
-          // Unlock success: hide lock screen and show container
-          lockScreen.style.display = 'none';
-          container.style.display = 'block';
-          container.setAttribute('aria-hidden', 'false');
-          container.focus();
-          input.value = '';
-          input.setAttribute('aria-invalid', 'false');
-
-          // Optionally announce success (can add live region or alert)
-          const successMsg = document.createElement('p');
-          successMsg.textContent = 'Access granted. Welcome!';
-          successMsg.setAttribute('aria-live', 'polite');
-          successMsg.className = 'sr-only';
-          container.appendChild(successMsg);
-        } else {
-          showError('Access code is incorrect. Please try again.');
-        }
-      });
-    })();
+    });
   </script>
 
-  <!-- Screen reader only styles -->
   <style>
+    /* Screen reader only class */
     .sr-only {
       position: absolute !important;
       width: 1px !important;
@@ -432,10 +197,11 @@
       padding: 0 !important;
       margin: -1px !important;
       overflow: hidden !important;
-      clip: rect(0, 0, 0, 0) !important;
+      clip: rect(0,0,0,0) !important;
       white-space: nowrap !important;
       border: 0 !important;
     }
   </style>
+
 </body>
 </html>
