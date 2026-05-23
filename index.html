@@ -1,31 +1,65 @@
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>ABU BAKAR TRADER - ULTRA VIP</title>
+<title>ABU BAKAR TRADER - PRO AI</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap');
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Plus Jakarta Sans',sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#060713;
+background:#050816;
 display:flex;
 justify-content:center;
 padding:8px;
 color:#fff;
-background-image:
-radial-gradient(circle at 10% 20%, rgba(0,240,255,0.15), transparent 40%),
-radial-gradient(circle at 90% 80%, rgba(255,0,127,0.15), transparent 40%);
-background-attachment:fixed;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top left, rgba(0,255,255,0.12), transparent 35%),
+radial-gradient(circle at bottom right, rgba(255,0,120,0.12), transparent 35%);
+z-index:-1;
+}
+
+.container{
+width:100%;
+max-width:400px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:28px;
+padding:18px;
+backdrop-filter:blur(18px);
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
+display:none;
+animation:fade 0.5s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .lock-screen{
@@ -34,203 +68,124 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(6,7,19,0.92);
-z-index:9999;
+background:#050816;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:15px;
-backdrop-filter:blur(20px);
+z-index:9999;
+padding:20px;
 }
 
 .lock-box{
 width:100%;
 max-width:350px;
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.08);
 border-radius:24px;
-padding:35px 25px;
+padding:30px 20px;
 text-align:center;
-backdrop-filter:blur(10px);
-box-shadow:0 20px 50px rgba(0,0,0,0.4);
+backdrop-filter:blur(20px);
 }
 
 .lock-title{
 font-family:'Orbitron',sans-serif;
-font-size:20px;
+font-size:22px;
 font-weight:900;
 color:#00f0ff;
 margin-bottom:20px;
-letter-spacing:2px;
 }
 
 .lock-input{
 width:100%;
 padding:15px;
-background:rgba(0,0,0,0.4);
-border:1px solid rgba(0,240,255,0.3);
+border:none;
+outline:none;
 border-radius:14px;
+background:rgba(0,0,0,0.4);
 color:#fff;
 font-size:16px;
 text-align:center;
-outline:none;
-margin-bottom:20px;
-letter-spacing:5px;
-font-family:'Orbitron',sans-serif;
+margin-bottom:15px;
+letter-spacing:3px;
 }
 
 .lock-btn{
 width:100%;
 padding:15px;
-background:linear-gradient(135deg,#00f0ff,#ff007f);
 border:none;
 border-radius:14px;
+background:linear-gradient(135deg,#00f0ff,#006eff);
 color:#fff;
+font-weight:700;
 font-size:15px;
-font-weight:800;
-font-family:'Orbitron',sans-serif;
 cursor:pointer;
 }
 
-.error-msg{
-color:#ff4757;
-font-size:13px;
-margin-top:12px;
+.error{
+margin-top:10px;
+color:#ff4f6d;
 display:none;
-font-weight:700;
-}
-
-.container{
-width:100%;
-max-width:390px;
-background:rgba(255,255,255,0.02);
-border:1px solid rgba(255,255,255,0.08);
-border-radius:28px;
-padding:20px 16px;
-backdrop-filter:blur(15px);
-box-shadow:0 25px 50px rgba(0,0,0,0.5);
-filter:blur(12px);
-pointer-events:none;
-transition:0.5s;
-}
-
-.logo-container{
-position:relative;
-width:85px;
-height:85px;
-margin:auto;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.logo-glow{
-position:absolute;
-width:100%;
-height:100%;
-background:radial-gradient(circle, rgba(0,240,255,0.4), transparent 70%);
-border-radius:50%;
-animation:pulseGlow 3s infinite ease-in-out;
-}
-
-@keyframes pulseGlow{
-0%,100%{transform:scale(0.95);opacity:0.5;}
-50%{transform:scale(1.2);opacity:0.9;}
+font-size:13px;
 }
 
 .logo{
-width:100%;
-height:100%;
-background:rgba(255,255,255,0.03);
+width:90px;
+height:90px;
+margin:auto;
 border-radius:50%;
+background:rgba(255,255,255,0.05);
 display:flex;
-align-items:center;
 justify-content:center;
-border:1px solid rgba(255,255,255,0.15);
-position:relative;
-z-index:2;
-}
-
-.logo::before{
-content:'QX';
+align-items:center;
 font-family:'Orbitron',sans-serif;
-font-size:32px;
+font-size:34px;
 font-weight:900;
-background:linear-gradient(135deg,#fff,#00f0ff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+color:#00f0ff;
+box-shadow:0 0 25px rgba(0,240,255,0.3);
 }
 
 .title{
-font-family:'Orbitron',sans-serif;
 text-align:center;
-font-size:21px;
+font-family:'Orbitron',sans-serif;
+font-size:20px;
 font-weight:900;
-margin-top:16px;
+margin-top:15px;
 }
 
-.subtitle{
+.sub{
 text-align:center;
 font-size:10px;
+letter-spacing:3px;
 color:#00f0ff;
 margin-bottom:20px;
-letter-spacing:3px;
-font-weight:700;
 }
 
 .select{
 width:100%;
-padding:15px;
-background:rgba(0,0,0,0.3);
+padding:14px;
+border-radius:14px;
+background:rgba(255,255,255,0.04);
 border:1px solid rgba(255,255,255,0.08);
-border-radius:16px;
 color:#fff;
-font-size:15px;
-margin-bottom:12px;
 outline:none;
+margin-bottom:12px;
 }
 
-.pairs{
-display:flex;
-flex-wrap:wrap;
-gap:6px;
-justify-content:center;
-margin-bottom:16px;
-}
-
-.pair{
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(255,255,255,0.05);
-padding:9px 14px;
-border-radius:12px;
-font-size:11px;
-cursor:pointer;
-color:#a0a0b0;
-}
-
-.pair.active{
-border-color:#00f0ff;
-background:rgba(0,240,255,0.1);
-color:#00f0ff;
-font-weight:700;
-}
-
-.chart-box{
+.chart{
 position:relative;
 height:220px;
-background:rgba(0,0,0,0.4);
 border-radius:22px;
+background:rgba(0,0,0,0.35);
 padding:14px;
 overflow:hidden;
-border:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.06);
 }
 
 .live{
-font-family:'Orbitron',sans-serif;
 font-size:11px;
-font-weight:700;
-color:#a0a0b0;
-letter-spacing:1.5px;
+font-family:'Orbitron',sans-serif;
+letter-spacing:2px;
+color:#aaa;
 display:flex;
 align-items:center;
 gap:6px;
@@ -238,37 +193,36 @@ gap:6px;
 
 .live::before{
 content:'';
-width:6px;
-height:6px;
+width:7px;
+height:7px;
 background:#00ff88;
 border-radius:50%;
 box-shadow:0 0 8px #00ff88;
 }
 
 .price{
-font-size:42px;
+font-size:40px;
 font-weight:900;
-color:#00ff88;
-margin-top:2px;
 font-family:monospace;
+margin-top:5px;
+color:#00ff88;
 }
 
 .candles{
 position:absolute;
-bottom:15px;
-left:14px;
-right:14px;
-height:100px;
+left:10px;
+right:10px;
+bottom:10px;
+height:110px;
 display:flex;
 align-items:flex-end;
-gap:5px;
+gap:4px;
 overflow:hidden;
 }
 
 .candle{
-width:10px;
+width:9px;
 border-radius:4px;
-flex-shrink:0;
 transition:0.3s;
 }
 
@@ -282,7 +236,7 @@ background:#ff3b3b;
 box-shadow:0 0 10px rgba(255,59,59,0.7);
 }
 
-.scan-line{
+.scan{
 position:absolute;
 top:0;
 bottom:0;
@@ -290,17 +244,15 @@ width:4px;
 background:linear-gradient(to right, transparent,#00f0ff,transparent);
 box-shadow:0 0 20px #00f0ff;
 display:none;
-animation:scan 2s linear infinite;
-z-index:5;
+animation:scanMove 1.5s linear infinite;
 }
 
-@keyframes scan{
+@keyframes scanMove{
 0%{left:-10px;}
 100%{left:100%;}
 }
 
 .btn{
-font-family:'Orbitron',sans-serif;
 width:100%;
 padding:16px;
 border:none;
@@ -308,38 +260,40 @@ border-radius:16px;
 margin-top:16px;
 background:linear-gradient(135deg,#00f0ff,#0072ff);
 color:#fff;
-font-size:15px;
 font-weight:900;
+font-size:15px;
 cursor:pointer;
+font-family:'Orbitron',sans-serif;
 }
 
 .btn:disabled{
 opacity:0.5;
-cursor:not-allowed;
 }
 
 .result{
 margin-top:16px;
-background:rgba(0,0,0,0.4);
-border-radius:22px;
 padding:18px;
-border:1px solid rgba(255,255,255,0.08);
+border-radius:22px;
+background:rgba(0,0,0,0.35);
+border:1px solid rgba(255,255,255,0.06);
 display:none;
 }
 
 .signal{
-font-family:'Orbitron',sans-serif;
-font-size:52px;
-font-weight:900;
 text-align:center;
+font-family:'Orbitron',sans-serif;
+font-size:55px;
+font-weight:900;
 }
 
 .buy{
 color:#00ff88;
+text-shadow:0 0 20px rgba(0,255,136,0.6);
 }
 
 .sell{
 color:#ff3b3b;
+text-shadow:0 0 20px rgba(255,59,59,0.6);
 }
 
 .wait{
@@ -347,447 +301,393 @@ color:#00f0ff;
 }
 
 .conf{
-font-family:'Orbitron',sans-serif;
 text-align:center;
 font-size:30px;
-font-weight:900;
+font-family:'Orbitron',sans-serif;
 margin-top:5px;
 }
 
-.info-grid{
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
-margin-top:12px;
-font-size:13px;
+margin-top:14px;
 }
 
-.info-item{
-background:rgba(0,0,0,0.2);
+.item{
+background:rgba(255,255,255,0.04);
 padding:10px;
 border-radius:12px;
+font-size:12px;
 }
 
-.info-item span{
+.item span{
 float:right;
 font-weight:700;
 }
 
 .footer{
-margin-top:18px;
 text-align:center;
+margin-top:16px;
 font-size:10px;
-color:#444760;
-letter-spacing:1.5px;
-font-weight:700;
+letter-spacing:2px;
+color:#666;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="lock-screen" id="lockScreen">
+<div class="lock-screen" id="lock">
+
 <div class="lock-box">
-<div class="lock-title">QX AI TERMINAL</div>
 
-<input type="password" class="lock-input" id="passInput" placeholder="ACCESS KEY">
+<div class="lock-title">
+QX AI TERMINAL
+</div>
 
-<button class="lock-btn" onclick="checkPassword()">
+<input type="password" id="pass" class="lock-input" placeholder="ACCESS KEY">
+
+<button class="lock-btn" onclick="unlock()">
 UNLOCK TERMINAL
 </button>
 
-<div class="error-msg" id="errorMsg">
-❌ INVALID ACCESS KEY
+<div class="error" id="err">
+WRONG PASSWORD
 </div>
+
 </div>
 </div>
 
-<div class="container" id="botContainer">
+<div class="container" id="app">
 
-<div class="logo-container">
-<div class="logo-glow"></div>
-<div class="logo"></div>
+<div class="logo">
+QX
 </div>
 
-<div class="title">ABU BAKAR TRADER</div>
-<div class="subtitle">ULTRA VIP GLASS BOT</div>
+<div class="title">
+ABU BAKAR TRADER
+</div>
 
-<select class="select" id="pair" onchange="syncPairSelection(this.value)">
-<option value="USD/BRL">🇧🇷 USD/BRL OTC</option>
-<option value="USD/MXN">🇲🇽 USD/MXN OTC</option>
-<option value="USD/INR">🇮🇳 USD/INR OTC</option>
-<option value="USD/PKR">🇵🇰 USD/PKR OTC</option>
-<option value="EUR/USD">🇺🇸 EUR/USD OTC</option>
-<option value="GBP/USD">🇬🇧 GBP/USD OTC</option>
+<div class="sub">
+PRO AI SIGNAL BOT
+</div>
+
+<select class="select" id="pair">
+<option>USD/BRL OTC</option>
+<option>USD/MXN OTC</option>
+<option>USD/PKR OTC</option>
+<option>EUR/USD OTC</option>
+<option>GBP/USD OTC</option>
 </select>
 
-<select class="select" id="time">
+<select class="select">
 <option>15 Seconds</option>
 <option>30 Seconds</option>
 <option>1 Minute</option>
-<option>5 Minutes</option>
 </select>
 
-<div class="pairs" id="pairBadges">
-<div class="pair active" onclick="selectBadge('USD/BRL')">🇧🇷 USD/BRL</div>
-<div class="pair" onclick="selectBadge('USD/MXN')">🇲🇽 USD/MXN</div>
-<div class="pair" onclick="selectBadge('USD/INR')">🇮🇳 USD/INR</div>
-<div class="pair" onclick="selectBadge('USD/PKR')">🇵🇰 USD/PKR</div>
-<div class="pair" onclick="selectBadge('EUR/USD')">🇺🇸 EUR/USD</div>
-<div class="pair" onclick="selectBadge('GBP/USD')">🇬🇧 GBP/USD</div>
+<div class="chart">
+
+<div class="live">
+LIVE MARKET
 </div>
 
-<div class="chart-box">
+<div class="price" id="price">
+1.2500
+</div>
 
-<div class="live">SECURE LIVE FEED</div>
-
-<div class="price" id="price">1.2500</div>
-
-<div class="scan-line" id="scanLine"></div>
+<div class="scan" id="scan"></div>
 
 <div class="candles" id="candles"></div>
 
 </div>
 
-<button class="btn" id="actionBtn" onclick="getSignal()">
-ANALYZE MARKET
+<button class="btn" id="btn" onclick="getSignal()">
+GET AI SIGNAL
 </button>
 
-<div class="result" id="resultBox">
+<div class="result" id="result">
 
-<div class="signal wait" id="signalText">WAIT</div>
+<div class="signal wait" id="signal">
+WAIT
+</div>
 
-<div class="conf" id="confidence">85%</div>
+<div class="conf" id="conf">
+85%
+</div>
 
-<div class="info-grid">
+<div class="grid">
 
-<div class="info-item">
+<div class="item">
 RSI
 <span id="rsi">50</span>
 </div>
 
-<div class="info-item">
-PATTERN
-<span id="pattern">SIDEWAYS</span>
+<div class="item">
+TREND
+<span id="trend">WAIT</span>
 </div>
 
-<div class="info-item">
+<div class="item">
 EMA 9
 <span id="ema9">1.2500</span>
 </div>
 
-<div class="info-item">
+<div class="item">
 EMA 21
 <span id="ema21">1.2500</span>
 </div>
 
-<div class="info-item">
+<div class="item">
 MACD
 <span id="macd">WAIT</span>
 </div>
 
-<div class="info-item">
-TREND
-<span id="trend">SIDEWAYS</span>
+<div class="item">
+PATTERN
+<span id="pattern">SIDEWAYS</span>
 </div>
 
 </div>
+
 </div>
 
 <div class="footer">
-DESIGNED FOR HIGH-PREMIUM TRADING
+HIGH SPEED AI ANALYZER
 </div>
 
 </div>
 
 <script>
 
-function checkPassword(){
+const correctPassword = "bakar786";
 
-const input=document.getElementById("passInput").value;
+let currentPrice = 1.2500;
 
-const correctPassword="bakar786";
+let candleData = [];
 
-const lockScreen=document.getElementById("lockScreen");
+let lastSignal = "WAIT";
 
-const botContainer=document.getElementById("botContainer");
+const candles = document.getElementById("candles");
 
-const errorMsg=document.getElementById("errorMsg");
+const price = document.getElementById("price");
 
-if(input===correctPassword){
+function unlock(){
 
-lockScreen.style.display="none";
+const input = document.getElementById("pass").value;
 
-botContainer.style.filter="none";
+if(input === correctPassword){
 
-botContainer.style.pointerEvents="auto";
+document.getElementById("lock").style.display = "none";
 
-initCandles();
+document.getElementById("app").style.display = "block";
 
-}else{
-
-errorMsg.style.display="block";
-
-document.getElementById("passInput").value="";
+generateCandles();
 
 }
+else{
+
+document.getElementById("err").style.display = "block";
+
 }
 
-document.getElementById("passInput").addEventListener("keyup",function(event){
+}
 
-if(event.key==="Enter"){
-checkPassword();
+document.getElementById("pass").addEventListener("keyup",e=>{
+
+if(e.key==="Enter"){
+unlock();
 }
 
 });
 
-const candlesContainer=document.getElementById("candles");
+function generateCandles(){
 
-const priceElement=document.getElementById("price");
+candles.innerHTML = "";
 
-let candleData=[];
+candleData = [];
 
-let currentPrice=1.2500;
+for(let i=0;i<32;i++){
 
-const pairBases={
-"USD/BRL":4.9710,
-"USD/MXN":16.8520,
-"USD/INR":83.3100,
-"USD/PKR":278.2500,
-"EUR/USD":1.0845,
-"GBP/USD":1.2615
-};
+let move = Math.random() > 0.5;
 
-function initCandles(){
-
-candlesContainer.innerHTML="";
-
-candleData=[];
-
-let selectedPair=document.getElementById("pair").value;
-
-currentPrice=pairBases[selectedPair] || 1.2500;
-
-for(let i=0;i<28;i++){
-
-let change=(Math.random()-0.5)*0.0015;
-
-currentPrice+=change;
-
-let height=Math.floor(Math.random()*60)+20;
-
-let isGreen=change>=0;
+let height = Math.floor(Math.random()*70)+20;
 
 candleData.push({
-price:currentPrice,
-isGreen:isGreen,
+green:move,
 height:height
 });
 
-let c=document.createElement("div");
+let div = document.createElement("div");
 
-c.classList.add("candle",isGreen ? "green":"red");
+div.className = "candle " + (move ? "green":"red");
 
-c.style.height=height+"px";
+div.style.height = height + "px";
 
-candlesContainer.appendChild(c);
-
-}
-
-priceElement.innerText=currentPrice.toFixed(4);
+candles.appendChild(div);
 
 }
 
-function updateLivePrice(){
+}
 
-if(document.getElementById("lockScreen").style.display==="none"){
+function updateChart(){
 
-let oldPrice=currentPrice;
+let oldPrice = currentPrice;
 
-let change=(Math.random()-0.5)*0.0005;
+if(lastSignal === "BUY"){
 
-currentPrice+=change;
+currentPrice += Math.random()*0.0005;
 
-priceElement.innerText=currentPrice.toFixed(4);
+}
+else if(lastSignal === "SELL"){
 
-priceElement.style.color=currentPrice>=oldPrice ? "#00ff88":"#ff3b3b";
+currentPrice -= Math.random()*0.0005;
+
+}
+else{
+
+currentPrice += (Math.random()-0.5)*0.0005;
+
+}
+
+price.innerText = currentPrice.toFixed(4);
+
+price.style.color = currentPrice >= oldPrice
+? "#00ff88"
+: "#ff3b3b";
 
 candleData.shift();
 
-let move=currentPrice>=oldPrice;
+let up = currentPrice >= oldPrice;
 
-let newHeight=Math.floor(Math.random()*60)+20;
+let h = Math.floor(Math.random()*70)+20;
 
 candleData.push({
-price:currentPrice,
-isGreen:move,
-height:newHeight
+green:up,
+height:h
 });
 
-candlesContainer.innerHTML="";
+candles.innerHTML = "";
 
 candleData.forEach(c=>{
 
-let div=document.createElement("div");
+let d = document.createElement("div");
 
-div.className="candle "+(c.isGreen ? "green":"red");
+d.className = "candle " + (c.green ? "green":"red");
 
-div.style.height=c.height+"px";
+d.style.height = c.height + "px";
 
-candlesContainer.appendChild(div);
-
-});
-
-}
-}
-
-setInterval(updateLivePrice,1000);
-
-function syncPairSelection(val){
-
-let badges=document.querySelectorAll("#pairBadges .pair");
-
-badges.forEach(b=>{
-
-if(b.innerText.includes(val)){
-b.classList.add("active");
-}else{
-b.classList.remove("active");
-}
+candles.appendChild(d);
 
 });
 
-initCandles();
-
 }
 
-function selectBadge(val){
-
-document.getElementById("pair").value=val;
-
-syncPairSelection(val);
-
-}
+setInterval(updateChart,500);
 
 function getSignal(){
 
-let scan=document.getElementById("scanLine");
+const scan = document.getElementById("scan");
 
-let btn=document.getElementById("actionBtn");
+const btn = document.getElementById("btn");
 
-scan.style.display="block";
+scan.style.display = "block";
 
-btn.disabled=true;
+btn.disabled = true;
 
-document.getElementById("resultBox").style.display="none";
+document.getElementById("result").style.display = "none";
 
 setTimeout(()=>{
 
-scan.style.display="none";
+scan.style.display = "none";
 
-btn.disabled=false;
+btn.disabled = false;
 
-generateSmartSignal();
+generateSignal();
 
-},2500);
-
-}
-
-function generateSmartSignal(){
-
-document.getElementById("resultBox").style.display="block";
-
-let greenCandles=candleData.filter(c=>c.isGreen).length;
-
-let redCandles=candleData.length-greenCandles;
-
-let rsi=Math.floor((greenCandles/candleData.length)*100);
-
-let ema9=currentPrice+((greenCandles-redCandles)*0.0001);
-
-let ema21=currentPrice-((redCandles-greenCandles)*0.00005);
-
-let macdValue=ema9-ema21;
-
-let detectedPattern="SIDEWAYS";
-
-if(greenCandles>redCandles+5){
-
-detectedPattern="BULLISH";
-
-}else if(redCandles>greenCandles+5){
-
-detectedPattern="BEARISH";
+},1500);
 
 }
 
-let signal="WAIT";
+function generateSignal(){
 
-let trend="SIDEWAYS";
+document.getElementById("result").style.display = "block";
 
-let macdText="WAIT";
+let greens = candleData.filter(c=>c.green).length;
 
-let confidence=78;
+let reds = candleData.length - greens;
 
-if(
+let rsi = Math.floor((greens/candleData.length)*100);
 
-rsi<45 &&
-ema9>ema21 &&
-macdValue>0 &&
-greenCandles>redCandles
+let ema9 = currentPrice + ((greens-reds)*0.0001);
 
-){
+let ema21 = currentPrice - ((reds-greens)*0.00008);
 
-signal="BUY";
+let signal = "WAIT";
 
-trend="UPTREND";
+let trend = "SIDEWAYS";
 
-macdText="BUY";
+let macd = "WAIT";
 
-confidence=94;
+let pattern = "SIDEWAYS";
 
-}
+let confidence = 85;
 
-else if(
+if(greens > reds + 5){
 
-rsi>55 &&
-ema9<ema21 &&
-macdValue<0 &&
-redCandles>greenCandles
+signal = "BUY";
 
-){
+trend = "UP";
 
-signal="SELL";
+macd = "BUY";
 
-trend="DOWNTREND";
+pattern = "BULLISH";
 
-macdText="SELL";
-
-confidence=93;
+confidence = Math.floor(Math.random()*5)+92;
 
 }
 
-let signalText=document.getElementById("signalText");
+else if(reds > greens + 5){
 
-signalText.innerText=signal;
+signal = "SELL";
 
-signalText.className="signal "+signal.toLowerCase();
+trend = "DOWN";
 
-document.getElementById("confidence").innerText=confidence+"%";
+macd = "SELL";
 
-document.getElementById("rsi").innerText=rsi;
+pattern = "BEARISH";
 
-document.getElementById("pattern").innerText=detectedPattern;
+confidence = Math.floor(Math.random()*5)+91;
 
-document.getElementById("ema9").innerText=ema9.toFixed(4);
+}
 
-document.getElementById("ema21").innerText=ema21.toFixed(4);
+lastSignal = signal;
 
-document.getElementById("macd").innerText=macdText;
+const signalBox = document.getElementById("signal");
 
-document.getElementById("trend").innerText=trend;
+signalBox.innerText = signal;
 
-let audio=new Audio(
+signalBox.className = "signal " + signal.toLowerCase();
+
+document.getElementById("conf").innerText = confidence + "%";
+
+document.getElementById("rsi").innerText = rsi;
+
+document.getElementById("trend").innerText = trend;
+
+document.getElementById("ema9").innerText = ema9.toFixed(4);
+
+document.getElementById("ema21").innerText = ema21.toFixed(4);
+
+document.getElementById("macd").innerText = macd;
+
+document.getElementById("pattern").innerText = pattern;
+
+// SOUND
+
+let audio = new Audio(
 
 signal==="BUY"
 
