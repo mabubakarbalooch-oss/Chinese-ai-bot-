@@ -3,232 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ABU BAKAR TRADER - ULTRA HIGH</title>
+
+<title>ABU BAKAR TRADER - ULTRA VIP</title>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: 'Plus Jakarta Sans', sans-serif;
+font-family:'Plus Jakarta Sans',sans-serif;
 }
 
 body{
-background: #020308;
+background:#060713;
 display:flex;
 justify-content:center;
 padding:8px;
 color:#fff;
 background-image:
-    radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.12), transparent 50%),
-    radial-gradient(circle at 50% 120%, rgba(255, 0, 127, 0.1), transparent 50%);
-background-attachment: fixed;
-overflow-x: hidden;
+radial-gradient(circle at 10% 20%, rgba(0,240,255,0.15), transparent 40%),
+radial-gradient(circle at 90% 80%, rgba(255,0,127,0.15), transparent 40%);
+background-attachment:fixed;
 }
 
-/* الٹرا پریمیم لاک اسکرین */
-.lock-screen {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(2, 3, 8, 0.95);
-z-index: 9999;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 15px;
-backdrop-filter: blur(25px);
+.lock-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(6,7,19,0.92);
+z-index:9999;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:15px;
+backdrop-filter:blur(20px);
 }
 
-.lock-box {
-width: 100%;
-max-width: 350px;
-background: rgba(255, 255, 255, 0.01);
-border: 1px solid rgba(0, 240, 255, 0.2);
-border-radius: 28px;
-padding: 40px 25px;
-text-align: center;
-backdrop-filter: blur(15px);
-box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05);
+.lock-box{
+width:100%;
+max-width:350px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:24px;
+padding:35px 25px;
+text-align:center;
+backdrop-filter:blur(10px);
+box-shadow:0 20px 50px rgba(0,0,0,0.4);
 }
 
-.lock-title {
-font-family: 'Orbitron', sans-serif;
-font-size: 18px;
-font-weight: 900;
-color: #00f0ff;
-margin-bottom: 22px;
-letter-spacing: 3px;
-text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+.lock-title{
+font-family:'Orbitron',sans-serif;
+font-size:20px;
+font-weight:900;
+color:#00f0ff;
+margin-bottom:20px;
+letter-spacing:2px;
 }
 
-.lock-input {
-width: 100%;
-padding: 16px;
-background: rgba(0, 0, 0, 0.6);
-border: 1px solid rgba(255, 255, 255, 0.08);
-border-radius: 16px;
-color: #fff;
-font-size: 16px;
-text-align: center;
-outline: none;
-margin-bottom: 22px;
-letter-spacing: 6px;
-font-family: 'Orbitron', sans-serif;
-transition: 0.3s;
+.lock-input{
+width:100%;
+padding:15px;
+background:rgba(0,0,0,0.4);
+border:1px solid rgba(0,240,255,0.3);
+border-radius:14px;
+color:#fff;
+font-size:16px;
+text-align:center;
+outline:none;
+margin-bottom:20px;
+letter-spacing:5px;
+font-family:'Orbitron',sans-serif;
 }
 
-.lock-input:focus {
-border-color: #ff007f;
-box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+.lock-btn{
+width:100%;
+padding:15px;
+background:linear-gradient(135deg,#00f0ff,#ff007f);
+border:none;
+border-radius:14px;
+color:#fff;
+font-size:15px;
+font-weight:800;
+font-family:'Orbitron',sans-serif;
+cursor:pointer;
 }
 
-.lock-btn {
-width: 100%;
-padding: 16px;
-background: linear-gradient(135deg, #00f0ff, #ff007f);
-border: none;
-border-radius: 16px;
-color: #fff;
-font-size: 14px;
-font-weight: 800;
-font-family: 'Orbitron', sans-serif;
-cursor: pointer;
-box-shadow: 0 10px 28px rgba(255, 0, 127, 0.35);
-letter-spacing: 2px;
-transition: 0.2s;
+.error-msg{
+color:#ff4757;
+font-size:13px;
+margin-top:12px;
+display:none;
+font-weight:700;
 }
 
-.lock-btn:active {
-transform: scale(0.97);
-}
-
-.error-msg {
-color: #ff4757;
-font-size: 13px;
-margin-top: 14px;
-display: none;
-font-weight: 700;
-}
-
-/* مین ہائی اینڈ گلاس کنٹینر */
 .container{
 width:100%;
 max-width:390px;
-background: rgba(255, 255, 255, 0.01);
-border: 1px solid rgba(0, 240, 255, 0.2);
-border-radius:30px;
-padding:22px 18px;
-backdrop-filter: blur(20px);
-box-shadow: 0 35px 70px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.05);
-filter: blur(12px);
-pointer-events: none;
-transition: filter 0.6s cubic-bezier(0.1, 0.8, 0.25, 1);
-position: relative;
+background:rgba(255,255,255,0.02);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:28px;
+padding:20px 16px;
+backdrop-filter:blur(15px);
+box-shadow:0 25px 50px rgba(0,0,0,0.5);
+filter:blur(12px);
+pointer-events:none;
+transition:0.5s;
 }
 
-/* اینیمیٹڈ گلو بیک گراؤنڈ */
-.container::before {
-content: '';
-position: absolute;
-top: -2px; left: -2px; right: -2px; bottom: -2px;
-background: linear-gradient(135deg, #00f0ff, transparent, #ff007f, transparent);
-border-radius: 30px;
-z-index: -1;
-opacity: 0.4;
-pointer-events: none;
+.logo-container{
+position:relative;
+width:85px;
+height:85px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-.logo-container {
-position: relative;
-width: 80px;
-height: 80px;
-margin: auto;
-display: flex;
-align-items: center;
-justify-content: center;
+.logo-glow{
+position:absolute;
+width:100%;
+height:100%;
+background:radial-gradient(circle, rgba(0,240,255,0.4), transparent 70%);
+border-radius:50%;
+animation:pulseGlow 3s infinite ease-in-out;
 }
 
-.logo-glow {
-position: absolute;
-width: 100%;
-height: 100%;
-background: radial-gradient(circle, rgba(0, 240, 255, 0.25), transparent 70%);
-border-radius: 50%;
-animation: breatheGlow 4s infinite ease-in-out;
+@keyframes pulseGlow{
+0%,100%{transform:scale(0.95);opacity:0.5;}
+50%{transform:scale(1.2);opacity:0.9;}
 }
 
-@keyframes breatheGlow {
-0%, 100% { transform: scale(0.9); opacity: 0.4; }
-50% { transform: scale(1.2); opacity: 0.8; }
-}
-
-/* QX منیملیسٹ لوگو */
 .logo{
 width:100%;
 height:100%;
-background: rgba(5, 6, 15, 0.6);
+background:rgba(255,255,255,0.03);
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.08);
-position: relative;
-z-index: 2;
+border:1px solid rgba(255,255,255,0.15);
+position:relative;
+z-index:2;
 }
 
-.logo::before {
-content: 'QX';
-font-family: 'Orbitron', sans-serif;
-font-size: 30px;
-font-weight: 900;
-background: linear-gradient(135deg, #fff, #00f0ff);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-letter-spacing: 1px;
-filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
+.logo::before{
+content:'QX';
+font-family:'Orbitron',sans-serif;
+font-size:32px;
+font-weight:900;
+background:linear-gradient(135deg,#fff,#00f0ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .title{
-font-family: 'Orbitron', sans-serif;
+font-family:'Orbitron',sans-serif;
 text-align:center;
-font-size:20px;
+font-size:21px;
 font-weight:900;
-color: #fff;
 margin-top:16px;
-letter-spacing: 1.5px;
-text-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
 
 .subtitle{
 text-align:center;
-font-size:9px;
-color:#ff007f;
-margin-bottom:22px;
-text-transform: uppercase;
-letter-spacing: 4px;
-font-weight: 800;
+font-size:10px;
+color:#00f0ff;
+margin-bottom:20px;
+letter-spacing:3px;
+font-weight:700;
 }
 
 .select{
 width:100%;
-padding:16px;
-background: rgba(0, 0, 0, 0.5);
-border: 1px solid rgba(255, 255, 255, 0.05);
-border-radius: 16px;
+padding:15px;
+background:rgba(0,0,0,0.3);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:16px;
 color:#fff;
 font-size:15px;
 margin-bottom:12px;
 outline:none;
-transition: 0.3s;
-}
-
-.select:focus {
-border-color: #00f0ff;
 }
 
 .pairs{
@@ -236,57 +195,54 @@ display:flex;
 flex-wrap:wrap;
 gap:6px;
 justify-content:center;
-margin-bottom:18px;
+margin-bottom:16px;
 }
 
 .pair{
-background: rgba(255, 255, 255, 0.01);
-border: 1px solid rgba(255, 255, 255, 0.03);
-padding: 9px 14px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.05);
+padding:9px 14px;
 border-radius:12px;
 font-size:11px;
-cursor: pointer;
-transition: 0.3s;
-color: #9090a8;
+cursor:pointer;
+color:#a0a0b0;
 }
 
-.pair.active {
-border-color: #00f0ff;
-background: rgba(0, 240, 255, 0.08);
-color: #00f0ff;
-font-weight: 700;
-box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+.pair.active{
+border-color:#00f0ff;
+background:rgba(0,240,255,0.1);
+color:#00f0ff;
+font-weight:700;
 }
 
 .chart-box{
 position:relative;
-height:190px;
-background: rgba(0, 0, 0, 0.5);
-border-radius:24px;
+height:220px;
+background:rgba(0,0,0,0.4);
+border-radius:22px;
 padding:14px;
 overflow:hidden;
-border: 1px solid rgba(255, 255, 255, 0.03);
+border:1px solid rgba(255,255,255,0.05);
 }
 
 .live{
-font-family: 'Orbitron', sans-serif;
-font-size:10px;
-font-weight:800;
-color:#707085;
-letter-spacing: 2px;
-display: flex;
-align-items: center;
-gap: 6px;
+font-family:'Orbitron',sans-serif;
+font-size:11px;
+font-weight:700;
+color:#a0a0b0;
+letter-spacing:1.5px;
+display:flex;
+align-items:center;
+gap:6px;
 }
 
-.live::before {
-content: '';
-display: inline-block;
-width: 6px;
-height: 6px;
-background: #00ff88;
-border-radius: 50%;
-box-shadow: 0 0 8px #00ff88;
+.live::before{
+content:'';
+width:6px;
+height:6px;
+background:#00ff88;
+border-radius:50%;
+box-shadow:0 0 8px #00ff88;
 }
 
 .price{
@@ -294,8 +250,7 @@ font-size:42px;
 font-weight:900;
 color:#00ff88;
 margin-top:2px;
-font-family: monospace;
-text-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+font-family:monospace;
 }
 
 .candles{
@@ -303,186 +258,128 @@ position:absolute;
 bottom:15px;
 left:14px;
 right:14px;
-height:85px;
+height:100px;
 display:flex;
 align-items:flex-end;
-gap:6px;
-overflow-x: hidden;
+gap:5px;
+overflow:hidden;
 }
 
 .candle{
 width:10px;
 border-radius:4px;
-flex-shrink: 0;
-transition: height 0.2s ease, background 0.2s ease;
+flex-shrink:0;
+transition:0.3s;
 }
 
 .green{
-background: #00ff88;
-box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+background:#00ff88;
+box-shadow:0 0 10px rgba(0,255,136,0.7);
 }
 
 .red{
-background: #ff3b3b;
-box-shadow: 0 0 10px rgba(255, 59, 59, 0.4);
+background:#ff3b3b;
+box-shadow:0 0 10px rgba(255,59,59,0.7);
 }
 
 .scan-line{
 position:absolute;
 top:0;
 bottom:0;
-width:3px;
-background: linear-gradient(to right, transparent, #00f0ff, transparent);
-box-shadow: 0 0 20px #00f0ff;
+width:4px;
+background:linear-gradient(to right, transparent,#00f0ff,transparent);
+box-shadow:0 0 20px #00f0ff;
 display:none;
-animation: scan 2s linear infinite;
-z-index: 5;
+animation:scan 2s linear infinite;
+z-index:5;
 }
 
 @keyframes scan{
-0%{ left:-10px; }
-100%{ left:100%; }
+0%{left:-10px;}
+100%{left:100%;}
 }
 
-/* الٹرا پریمیم گلوبل ایکشن بٹن */
 .btn{
-font-family: 'Orbitron', sans-serif;
+font-family:'Orbitron',sans-serif;
 width:100%;
 padding:16px;
 border:none;
-border-radius:18px;
+border-radius:16px;
 margin-top:16px;
-background: linear-gradient(135deg, #00f0ff, #0055ff);
+background:linear-gradient(135deg,#00f0ff,#0072ff);
 color:#fff;
 font-size:15px;
 font-weight:900;
 cursor:pointer;
-box-shadow: 0 10px 30px rgba(0, 85, 255, 0.25);
-position: relative;
-overflow: hidden;
-transition: 0.2s;
--webkit-tap-highlight-color: transparent;
-letter-spacing: 2px;
 }
 
-.btn::after {
-content: '';
-position: absolute;
-top: 0; left: -50%;
-width: 30%; height: 100%;
-background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
-transform: skewX(-25deg);
-animation: shimmers 2.5s infinite linear;
+.btn:disabled{
+opacity:0.5;
+cursor:not-allowed;
 }
 
-@keyframes shimmers {
-0% { left: -50%; }
-30% { left: 130%; }
-100% { left: 130%; }
-}
-
-.btn:active {
-transform: scale(0.97);
-}
-
-.btn:disabled {
-background: rgba(255,255,255,0.03);
-color: #444;
-box-shadow: none;
-cursor: not-allowed;
-border: 1px solid rgba(255,255,255,0.01);
-}
-
-.btn:disabled::after { display: none; }
-
-/* الٹرا سگنل رزلٹ باکس */
 .result{
 margin-top:16px;
-background: rgba(0, 0, 0, 0.4);
-border-radius: 24px;
-padding: 20px;
-border: 1px solid rgba(255, 255, 255, 0.04);
-display: none;
-animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-box-shadow: 0 20px 45px rgba(0,0,0,0.4);
-}
-
-@keyframes fadeIn {
-from { opacity: 0; transform: scale(0.96); }
-to { opacity: 1; transform: scale(1); }
+background:rgba(0,0,0,0.4);
+border-radius:22px;
+padding:18px;
+border:1px solid rgba(255,255,255,0.08);
+display:none;
 }
 
 .signal{
-font-family: 'Orbitron', sans-serif;
-font-size:54px;
+font-family:'Orbitron',sans-serif;
+font-size:52px;
 font-weight:900;
 text-align:center;
-letter-spacing: 4px;
 }
 
 .buy{
 color:#00ff88;
-text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
 }
 
 .sell{
 color:#ff3b3b;
-text-shadow: 0 0 30px rgba(255, 59, 59, 0.5);
 }
 
 .wait{
 color:#00f0ff;
-text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
 }
 
 .conf{
-font-family: 'Orbitron', sans-serif;
+font-family:'Orbitron',sans-serif;
 text-align:center;
-font-size:28px;
+font-size:30px;
 font-weight:900;
-color: #fff;
-margin-top:2px;
-background: rgba(255, 255, 255, 0.03);
-width: fit-content;
-margin: 4px auto 16px auto;
-padding: 2px 20px;
-border-radius: 20px;
-border: 1px solid rgba(255, 255, 255, 0.06);
+margin-top:5px;
 }
 
-.info-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-margin-top: 5px;
-font-size: 13px;
-color: #9090a5;
+.info-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:12px;
+font-size:13px;
 }
 
-.info-item {
-background: rgba(0, 0, 0, 0.25);
-padding: 11px 12px;
-border-radius: 14px;
-border: 1px solid rgba(255, 255, 255, 0.02);
+.info-item{
+background:rgba(0,0,0,0.2);
+padding:10px;
+border-radius:12px;
 }
 
-.info-item span {
-float: right;
-font-weight: 700;
-color: #fff;
-}
-
-.info-item span.highlight {
-color: #ff007f;
+.info-item span{
+float:right;
+font-weight:700;
 }
 
 .footer{
-margin-top:20px;
+margin-top:18px;
 text-align:center;
-font-size:9px;
-color:#35374a;
-letter-spacing: 2px;
-font-weight: 700;
+font-size:10px;
+color:#444760;
+letter-spacing:1.5px;
+font-weight:700;
 }
 </style>
 </head>
@@ -490,23 +387,30 @@ font-weight: 700;
 <body>
 
 <div class="lock-screen" id="lockScreen">
-    <div class="lock-box">
-        <div class="lock-title">SYSTEM INITIALIZATION</div>
-        <input type="password" class="lock-input" id="passInput" placeholder="PASSKEY">
-        <button class="lock-btn" onclick="checkPassword()">BOOT ALGORITHM</button>
-        <div class="error-msg" id="errorMsg">❌ ACCESS DENIED</div>
-    </div>
+<div class="lock-box">
+<div class="lock-title">QX AI TERMINAL</div>
+
+<input type="password" class="lock-input" id="passInput" placeholder="ACCESS KEY">
+
+<button class="lock-btn" onclick="checkPassword()">
+UNLOCK TERMINAL
+</button>
+
+<div class="error-msg" id="errorMsg">
+❌ INVALID ACCESS KEY
+</div>
+</div>
 </div>
 
 <div class="container" id="botContainer">
 
 <div class="logo-container">
-    <div class="logo-glow"></div>
-    <div class="logo"></div>
+<div class="logo-glow"></div>
+<div class="logo"></div>
 </div>
 
 <div class="title">ABU BAKAR TRADER</div>
-<div class="subtitle">LIQUID GLASS AI CORE</div>
+<div class="subtitle">ULTRA VIP GLASS BOT</div>
 
 <select class="select" id="pair" onchange="syncPairSelection(this.value)">
 <option value="USD/BRL">🇧🇷 USD/BRL OTC</option>
@@ -534,195 +438,373 @@ font-weight: 700;
 </div>
 
 <div class="chart-box">
-<div class="live">DEEP QUANT RESYNC</div>
-<div class="price" id="price">1.2540</div>
+
+<div class="live">SECURE LIVE FEED</div>
+
+<div class="price" id="price">1.2500</div>
+
 <div class="scan-line" id="scanLine"></div>
+
 <div class="candles" id="candles"></div>
+
 </div>
 
 <button class="btn" id="actionBtn" onclick="getSignal()">
-RUN SMART MATRIX
+ANALYZE MARKET
 </button>
 
 <div class="result" id="resultBox">
+
 <div class="signal wait" id="signalText">WAIT</div>
+
 <div class="conf" id="confidence">85%</div>
 
 <div class="info-grid">
-    <div class="info-item">RSI (14): <span id="rsi" class="highlight">52</span></div>
-    <div class="info-item">PATTERN: <span id="pattern" class="highlight">Doji</span></div>
-    <div class="info-item">EMA 9: <span id="ema9">1.2542</span></div>
-    <div class="info-item">EMA 21: <span id="ema21">1.2539</span></div>
-    <div class="info-item">MACD: <span id="macd">BUY</span></div>
-    <div class="info-item">ANALYZER: <span id="trend" style="color: #00ff88;">ONLINE</span></div>
+
+<div class="info-item">
+RSI
+<span id="rsi">50</span>
+</div>
+
+<div class="info-item">
+PATTERN
+<span id="pattern">SIDEWAYS</span>
+</div>
+
+<div class="info-item">
+EMA 9
+<span id="ema9">1.2500</span>
+</div>
+
+<div class="info-item">
+EMA 21
+<span id="ema21">1.2500</span>
+</div>
+
+<div class="info-item">
+MACD
+<span id="macd">WAIT</span>
+</div>
+
+<div class="info-item">
+TREND
+<span id="trend">SIDEWAYS</span>
+</div>
+
 </div>
 </div>
 
 <div class="footer">
-INTELLIGENT TRADING INTERFACE // V3.0
+DESIGNED FOR HIGH-PREMIUM TRADING
 </div>
 
 </div>
 
 <script>
-// پاس ورڈ لاجک
-function checkPassword() {
-    const input = document.getElementById("passInput").value.trim();
-    const correctPassword = "bakar786";
-    const lockScreen = document.getElementById("lockScreen");
-    const botContainer = document.getElementById("botContainer");
-    const errorMsg = document.getElementById("errorMsg");
 
-    if(input === correctPassword) {
-        lockScreen.style.display = "none";
-        botContainer.style.filter = "none";
-        botContainer.style.pointerEvents = "auto";
-        initCandles();
-    } else {
-        errorMsg.style.display = "block";
-        document.getElementById("passInput").value = "";
-    }
+function checkPassword(){
+
+const input=document.getElementById("passInput").value;
+
+const correctPassword="bakar786";
+
+const lockScreen=document.getElementById("lockScreen");
+
+const botContainer=document.getElementById("botContainer");
+
+const errorMsg=document.getElementById("errorMsg");
+
+if(input===correctPassword){
+
+lockScreen.style.display="none";
+
+botContainer.style.filter="none";
+
+botContainer.style.pointerEvents="auto";
+
+initCandles();
+
+}else{
+
+errorMsg.style.display="block";
+
+document.getElementById("passInput").value="";
+
+}
 }
 
-document.getElementById("passInput").addEventListener("keyup", function(event) {
-    if (event.key === "Enter") { checkPassword(); }
+document.getElementById("passInput").addEventListener("keyup",function(event){
+
+if(event.key==="Enter"){
+checkPassword();
+}
+
 });
 
-const candlesContainer = document.getElementById("candles");
-const priceElement = document.getElementById("price");
-let candleData = [];
-let currentPrice = 1.2500;
+const candlesContainer=document.getElementById("candles");
 
-const pairBases = {
-    "USD/BRL": 4.9710,
-    "USD/MXN": 16.8520,
-    "USD/INR": 83.3100,
-    "USD/PKR": 278.2500,
-    "EUR/USD": 1.0845,
-    "GBP/USD": 1.2615
+const priceElement=document.getElementById("price");
+
+let candleData=[];
+
+let currentPrice=1.2500;
+
+const pairBases={
+"USD/BRL":4.9710,
+"USD/MXN":16.8520,
+"USD/INR":83.3100,
+"USD/PKR":278.2500,
+"EUR/USD":1.0845,
+"GBP/USD":1.2615
 };
 
-function initCandles() {
-    candlesContainer.innerHTML = "";
-    candleData = [];
-    let selectedPair = document.getElementById("pair").value;
-    currentPrice = pairBases[selectedPair] || 1.2500;
+function initCandles(){
 
-    for(let i=0; i<28; i++){
-        let change = (Math.random() - 0.5) * 0.0015;
-        currentPrice += change;
-        let height = Math.floor(Math.random() * 55) + 15;
-        let isGreen = change >= 0;
+candlesContainer.innerHTML="";
 
-        candleData.push({ price: currentPrice, isGreen: isGreen, height: height });
+candleData=[];
 
-        let c = document.createElement("div");
-        c.classList.add("candle", isGreen? "green" : "red");
-        c.style.height = height + "px";
-        candlesContainer.appendChild(c);
-    }
-    priceElement.innerText = currentPrice.toFixed(4);
+let selectedPair=document.getElementById("pair").value;
+
+currentPrice=pairBases[selectedPair] || 1.2500;
+
+for(let i=0;i<28;i++){
+
+let change=(Math.random()-0.5)*0.0015;
+
+currentPrice+=change;
+
+let height=Math.floor(Math.random()*60)+20;
+
+let isGreen=change>=0;
+
+candleData.push({
+price:currentPrice,
+isGreen:isGreen,
+height:height
+});
+
+let c=document.createElement("div");
+
+c.classList.add("candle",isGreen ? "green":"red");
+
+c.style.height=height+"px";
+
+candlesContainer.appendChild(c);
+
 }
 
-function updateLivePrice() {
-    if(document.getElementById("lockScreen").style.display === "none") {
-        let change = (Math.random() - 0.5) * 0.0004;
-        let oldPrice = currentPrice;
-        currentPrice += change;
+priceElement.innerText=currentPrice.toFixed(4);
 
-        priceElement.innerText = currentPrice.toFixed(4);
-        priceElement.style.color = currentPrice >= oldPrice? "#00ff88" : "#ff3b3b";
-
-        if(candlesContainer.lastChild) {
-            let lastHeight = Math.floor(Math.random() * 25) + 30;
-            candlesContainer.lastChild.style.height = lastHeight + "px";
-            if(currentPrice >= oldPrice) {
-                candlesContainer.lastChild.className = "candle green";
-            } else {
-                candlesContainer.lastChild.className = "candle red";
-            }
-        }
-    }
 }
 
-setInterval(updateLivePrice, 1000);
+function updateLivePrice(){
 
-function syncPairSelection(val) {
-    let badges = document.querySelectorAll("#pairBadges.pair");
-    badges.forEach(b => {
-        if(b.innerText.includes(val)) b.classList.add("active");
-        else b.classList.remove("active");
-    });
-    initCandles();
+if(document.getElementById("lockScreen").style.display==="none"){
+
+let oldPrice=currentPrice;
+
+let change=(Math.random()-0.5)*0.0005;
+
+currentPrice+=change;
+
+priceElement.innerText=currentPrice.toFixed(4);
+
+priceElement.style.color=currentPrice>=oldPrice ? "#00ff88":"#ff3b3b";
+
+candleData.shift();
+
+let move=currentPrice>=oldPrice;
+
+let newHeight=Math.floor(Math.random()*60)+20;
+
+candleData.push({
+price:currentPrice,
+isGreen:move,
+height:newHeight
+});
+
+candlesContainer.innerHTML="";
+
+candleData.forEach(c=>{
+
+let div=document.createElement("div");
+
+div.className="candle "+(c.isGreen ? "green":"red");
+
+div.style.height=c.height+"px";
+
+candlesContainer.appendChild(div);
+
+});
+
+}
 }
 
-function selectBadge(val) {
-    document.getElementById("pair").value = val;
-    syncPairSelection(val);
+setInterval(updateLivePrice,1000);
+
+function syncPairSelection(val){
+
+let badges=document.querySelectorAll("#pairBadges .pair");
+
+badges.forEach(b=>{
+
+if(b.innerText.includes(val)){
+b.classList.add("active");
+}else{
+b.classList.remove("active");
+}
+
+});
+
+initCandles();
+
+}
+
+function selectBadge(val){
+
+document.getElementById("pair").value=val;
+
+syncPairSelection(val);
+
 }
 
 function getSignal(){
-    let scan = document.getElementById("scanLine");
-    let btn = document.getElementById("actionBtn");
 
-    scan.style.display = "block";
-    btn.disabled = true;
+let scan=document.getElementById("scanLine");
 
-    setTimeout(() => {
-        scan.style.display = "none";
-        btn.disabled = false;
-        generateSmartSignal();
-    }, 2500);
+let btn=document.getElementById("actionBtn");
+
+scan.style.display="block";
+
+btn.disabled=true;
+
+document.getElementById("resultBox").style.display="none";
+
+setTimeout(()=>{
+
+scan.style.display="none";
+
+btn.disabled=false;
+
+generateSmartSignal();
+
+},2500);
+
 }
 
-function generateSmartSignal() {
-    document.getElementById("resultBox").style.display = "block";
+function generateSmartSignal(){
 
-    let greenCount = candleData.filter(c => c.isGreen).length;
-    let totalCount = candleData.length;
+document.getElementById("resultBox").style.display="block";
 
-    let rsi = Math.floor((greenCount / totalCount) * 100);
-    if(rsi < 25) rsi = 28; if(rsi > 80) rsi = 74;
+let greenCandles=candleData.filter(c=>c.isGreen).length;
 
-    let ema9 = (currentPrice + 0.0003).toFixed(4);
-    let ema21 = (currentPrice - 0.0002).toFixed(4);
+let redCandles=candleData.length-greenCandles;
 
-    let signal = "WAIT";
-    let trend = "SIDEWAYS";
-    let macdText = "NEUTRAL";
-    let confidence = Math.floor(Math.random() * 7) + 89;
+let rsi=Math.floor((greenCandles/candleData.length)*100);
 
-    const patterns = ["Hammer", "Doji", "Marubozu", "Shooting Star", "Engulfing", "Spinning Top"];
-    let detectedPattern = patterns[Math.floor(Math.random() * patterns.length)];
+let ema9=currentPrice+((greenCandles-redCandles)*0.0001);
 
-    if (rsi < 45 && detectedPattern === "Hammer") {
-        signal = "BUY"; trend = "UPTREND"; macdText = "STRONG BUY";
-    } else if (rsi > 55 && detectedPattern === "Shooting Star") {
-        signal = "SELL"; trend = "DOWNTREND"; macdText = "STRONG SELL";
-    } else {
-        if(Math.random() > 0.5) {
-            signal = "BUY"; trend = "UPTREND"; macdText = "BUY";
-        } else {
-            signal = "SELL"; trend = "DOWNTREND"; macdText = "SELL";
-        }
-    }
+let ema21=currentPrice-((redCandles-greenCandles)*0.00005);
 
-    let signalText = document.getElementById("signalText");
-    signalText.innerText = signal;
-    signalText.className = "signal " + signal.toLowerCase();
+let macdValue=ema9-ema21;
 
-    document.getElementById("confidence").innerText = confidence + "%";
-    document.getElementById("rsi").innerText = rsi;
-    document.getElementById("pattern").innerText = detectedPattern;
-    document.getElementById("ema9").innerText = ema9;
-    document.getElementById("ema21").innerText = ema21;
-    document.getElementById("macd").innerText = macdText;
+let detectedPattern="SIDEWAYS";
+
+if(greenCandles>redCandles+5){
+
+detectedPattern="BULLISH";
+
+}else if(redCandles>greenCandles+5){
+
+detectedPattern="BEARISH";
+
 }
 
-// Page load پر chart بن جائے
-window.onload = function() {
-    initCandles();
+let signal="WAIT";
+
+let trend="SIDEWAYS";
+
+let macdText="WAIT";
+
+let confidence=78;
+
+if(
+
+rsi<45 &&
+ema9>ema21 &&
+macdValue>0 &&
+greenCandles>redCandles
+
+){
+
+signal="BUY";
+
+trend="UPTREND";
+
+macdText="BUY";
+
+confidence=94;
+
 }
+
+else if(
+
+rsi>55 &&
+ema9<ema21 &&
+macdValue<0 &&
+redCandles>greenCandles
+
+){
+
+signal="SELL";
+
+trend="DOWNTREND";
+
+macdText="SELL";
+
+confidence=93;
+
+}
+
+let signalText=document.getElementById("signalText");
+
+signalText.innerText=signal;
+
+signalText.className="signal "+signal.toLowerCase();
+
+document.getElementById("confidence").innerText=confidence+"%";
+
+document.getElementById("rsi").innerText=rsi;
+
+document.getElementById("pattern").innerText=detectedPattern;
+
+document.getElementById("ema9").innerText=ema9.toFixed(4);
+
+document.getElementById("ema21").innerText=ema21.toFixed(4);
+
+document.getElementById("macd").innerText=macdText;
+
+document.getElementById("trend").innerText=trend;
+
+let audio=new Audio(
+
+signal==="BUY"
+
+? "https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
+
+: signal==="SELL"
+
+? "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
+
+: "https://actions.google.com/sounds/v1/cartoon/pop.ogg"
+
+);
+
+audio.play();
+
+}
+
 </script>
 
 </body>
