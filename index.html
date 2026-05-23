@@ -6,7 +6,7 @@
 <title>ABU BAKAR TRADER - SMART AI</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Plus+Jakarta+Sans:wght=400;600;700;800&display=swap');
 
 *{
 margin:0;
@@ -173,12 +173,11 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 10px; color: #9090a5; }
 .info-item { background: rgba(0, 0, 0, 0.4); padding: 5px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.01); }
-.info-item span { float: right; font-weight: 700; color: #fff; }
+.info-item span { float: right; font-weight: 700; }
 
-/* Dynamic Helper Utilities for Script */
+/* Fixed Dynamic Color Classes */
 .txt-green { color: #00ff88 !important; }
 .txt-red { color: #ff3b3b !important; }
-.txt-blue { color: #00f0ff !important; }
 
 .footer { margin-top: 4px; text-align: center; font-size: 7.5px; color: #404258; font-weight: 700; }
 </style>
@@ -285,7 +284,7 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
                     <div class="info-item">BOLL: <span id="bb">--</span></div>
                     <div class="info-item">MACD: <span id="macd">--</span></div>
                     <div class="info-item">PATRN: <span id="pattern">--</span></div>
-                    <div class="info-item">SYS: <span style="color: #00ff88;">OK</span></div>
+                    <div class="info-item">SYS: <span style="color: #00ff88; font-weight: bold;">OK</span></div>
                 </div>
             </div>
 
@@ -430,71 +429,62 @@ function getSignal(){
     }, 1800);
 }
 
-/* 🔥 Connected Smart Logic Core Fix */
+/* 🎯 Completely Rewritten Signal Engine */
 function processSmartSignals() {
     document.getElementById("resultBox").style.display = "block";
     
-    // 1. سب سے پہلے مین سگنل ڈیسائیڈ کریں (50/50 چانس پر پرفیکٹ الائنمنٹ کے لیے)
+    // 1. ڈیسائیڈ کریں کہ سگنل BUY ہوگا یا SELL
     let finalSignal = Math.random() > 0.5 ? "BUY" : "SELL";
-    let confidence = Math.floor(Math.random() * 6) + 92; // 92% to 97%
+    let confidence = Math.floor(Math.random() * 6) + 92; 
     
-    let rsi, stoch, bbStatus, macdStatus, patternText;
-    let rsiElem = document.getElementById("rsi");
-    let stochElem = document.getElementById("stoch");
-    let bbElem = document.getElementById("bb");
-    let macdElem = document.getElementById("macd");
-    let patElem = document.getElementById("pattern");
-
-    // 2. سگنل کی لاجک کے حساب سے انڈیکیٹرز کا ڈیٹا سیٹ کریں
+    let rsi, stoch, bbStatus, macdStatus, patternText, targetColor;
+    
+    // 2. فائنل سگنل کے مطابق ڈیٹا کو 100% الائن کریں
     if (finalSignal === "BUY") {
-        rsi = Math.floor(Math.random() * 15) + 20;    // 20-35 (Oversold - Perfect for BUY)
-        stoch = (Math.random() * 15 + 10).toFixed(1); // 10-25
+        rsi = Math.floor(Math.random() * 10) + 25;    // 25-35 (Oversold Area)
+        stoch = (Math.random() * 10 + 15).toFixed(1); // 15-25
         bbStatus = "LOWER";
         macdStatus = "BUY";
         
         const buyPatterns = ["Hammer", "Bullish Engulfing", "Morning Star"];
         patternText = buyPatterns[Math.floor(Math.random() * buyPatterns.length)];
-        
-        // گرین کلر کی کلاسز ایڈ کریں
-        rsiElem.className = "txt-green";
-        stochElem.className = "txt-green";
-        bbElem.className = "txt-green";
-        macdElem.className = "txt-green";
-        patElem.className = "txt-green";
+        targetColor = "txt-green";
     } else {
-        rsi = Math.floor(Math.random() * 15) + 65;    // 65-80 (Overbought - Perfect for SELL)
-        stoch = (Math.random() * 15 + 75).toFixed(1); // 75-90
+        rsi = Math.floor(Math.random() * 10) + 68;    // 68-78 (Overbought Area)
+        stoch = (Math.random() * 10 + 75).toFixed(1); // 75-85
         bbStatus = "UPPER";
         macdStatus = "SELL";
         
-        const sellPatterns = ["Shooting Star", "Bearish Engulfing", "Evening Star", "Doji"];
+        const sellPatterns = ["Shooting Star", "Bearish Engulfing", "Evening Star"];
         patternText = sellPatterns[Math.floor(Math.random() * sellPatterns.length)];
-        
-        // ریڈ کلر کی کلاسز ایڈ کریں
-        rsiElem.className = "txt-red";
-        stochElem.className = "txt-red";
-        bbElem.className = "txt-red";
-        macdElem.className = "txt-red";
-        patElem.className = "txt-red";
+        targetColor = "txt-red";
     }
 
-    // EMAs کو لائیو پرائس کے آس پاس فلٹر کریں
-    let ema9 = (currentPrice + (finalSignal === "BUY" ? -0.0002 : 0.0002)).toFixed(4);
-    let ema21 = (currentPrice + (finalSignal === "BUY" ? -0.0005 : 0.0004)).toFixed(4);
+    // EMAs کیلکولیشن لائیو پرائس کے حساب سے
+    let ema9Val = (currentPrice + (finalSignal === "BUY" ? -0.0002 : 0.0002)).toFixed(4);
+    let ema21Val = (currentPrice + (finalSignal === "BUY" ? -0.0005 : 0.0004)).toFixed(4);
 
-    // 3. UI پر ڈیٹا رینڈر کریں
+    // 3. UI پر ٹیکسٹ اور کلاسز کو فورس رینڈر کریں تاکہ پرانی ویلیو غائب ہو جائے
     let signalText = document.getElementById("signalText");
     signalText.innerText = finalSignal;
     signalText.className = "signal " + finalSignal.toLowerCase();
-
     document.getElementById("confidence").innerText = confidence + "%";
-    rsiElem.innerText = rsi;
-    stochElem.innerText = stoch;
-    bbElem.innerText = bbStatus;
-    macdElem.innerText = macdStatus;
-    patElem.innerText = patternText;
-    document.getElementById("ema9").innerText = ema9;
-    document.getElementById("ema21").innerText = ema21;
+
+    // تمام انڈیکیٹر ایلیمنٹس کو اپڈیٹ کریں
+    updateElementData("rsi", rsi, targetColor);
+    updateElementData("stoch", stoch, targetColor);
+    updateElementData("bb", bbStatus, targetColor);
+    updateElementData("macd", macdStatus, targetColor);
+    updateElementData("pattern", patternText, targetColor);
+    updateElementData("ema9", ema9Val, targetColor);
+    updateElementData("ema21", ema21Val, targetColor);
+}
+
+// ہیلپر فنکشن جو ڈیٹا اور کلر دونوں کو لازمی تبدیل کرے گا
+function updateElementData(id, value, colorClass) {
+    let el = document.getElementById(id);
+    el.innerText = value;
+    el.className = colorClass; // پرانی کلاس ہٹا کر نئی کلاس فورس اپلائی کرے گا
 }
 </script>
 </body>
