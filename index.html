@@ -1,455 +1,702 @@
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ABU BAKAR TRADER - TIGER ELITE AI BOT</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ABU BAKAR TRADER - HORIZON ELITE AI v4.0</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap');
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#020b1d;
-color:white;
+background:#04090f; 
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:10px;
+color:#fff;
 overflow-x:hidden;
 }
 
-.container{
-padding:15px;
-text-align:center;
+body::before{
+content:'';
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:
+radial-gradient(circle at 50% 10%, rgba(255, 170, 0, 0.12), transparent 50%),
+radial-gradient(circle at 10% 90%, rgba(0, 230, 118, 0.08), transparent 40%);
+z-index:-1;
 }
 
-.logo{
-width:120px;
-height:120px;
-border-radius:50%;
-margin:auto;
-border:4px solid #ffb300;
-box-shadow:0 0 25px #ffb300;
-overflow:hidden;
+/* --- LOCK SCREEN --- */
+.lock-screen{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:#04080c;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
 }
 
-.logo img{
+.lock-box{
 width:100%;
-height:100%;
-object-fit:cover;
+max-width:360px;
+background:rgba(10, 16, 22, 0.9);
+border:1px solid rgba(255,170,0,0.2);
+border-radius:24px;
+padding:30px;
+text-align:center;
+backdrop-filter:blur(20px);
+box-shadow:0 20px 50px rgba(0,0,0,0.9);
 }
 
-.title{
-font-size:42px;
-font-weight:bold;
-margin-top:15px;
-color:#ffb300;
-text-shadow:0 0 20px #ff9900;
+.lock-title{
+font-family:'Orbitron',sans-serif;
+font-size:22px;
+font-weight:900;
+color:#ffaa00;
+margin-bottom:15px;
+text-shadow:0 0 15px rgba(255, 170, 0, 0.3);
 }
 
-.subtitle{
-font-size:24px;
-color:#ff6b00;
-margin-bottom:20px;
-font-weight:bold;
-}
-
-.top-boxes{
-display:flex;
-justify-content:center;
-gap:15px;
-flex-wrap:wrap;
-margin-bottom:20px;
-}
-
-.status-box{
-padding:12px 20px;
-border:2px solid #00ff95;
-border-radius:12px;
-background:rgba(0,255,149,0.1);
-box-shadow:0 0 15px #00ff95;
-font-size:20px;
-font-weight:bold;
-}
-
-.selectors{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-bottom:20px;
-flex-wrap:wrap;
-}
-
-select{
-background:#07172e;
-color:white;
-border:2px solid #1affff;
-padding:12px;
-border-radius:10px;
-font-size:18px;
-}
-
-.main{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-}
-
-.chart-box{
-width:350px;
-background:#07172e;
-border-radius:20px;
+.lock-input{
+width:100%;
 padding:15px;
-border:2px solid #1affff;
-box-shadow:0 0 20px #00c3ff;
-position:relative;
-overflow:hidden;
+border:1px solid rgba(255,255,255,0.08);
+outline:none;
+border-radius:12px;
+background:#060a0e;
+color:#fff;
+font-size:16px;
+text-align:center;
+margin-bottom:15px;
+letter-spacing:3px;
 }
 
-.live{
-position:absolute;
-top:10px;
-left:10px;
-color:red;
-font-weight:bold;
-font-size:20px;
-}
-
-.chart{
-height:250px;
-display:flex;
-align-items:flex-end;
-gap:8px;
-padding:20px;
-}
-
-.candle{
-width:16px;
-border-radius:4px;
-animation:move 1s infinite alternate;
-}
-
-.green{
-background:#00ff55;
-box-shadow:0 0 15px #00ff55;
-}
-
-.red{
-background:#ff2b2b;
-box-shadow:0 0 15px #ff2b2b;
-}
-
-@keyframes move{
-from{
-transform:scaleY(0.8);
-}
-to{
-transform:scaleY(1.1);
-}
-}
-
-.center-box{
-width:350px;
-padding:20px;
-}
-
-.market-price{
-font-size:28px;
-margin-bottom:10px;
-}
-
-.signal{
-font-size:70px;
-font-weight:bold;
-color:#ffe600;
-text-shadow:0 0 30px #ffe600;
-animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-0%{
-transform:scale(1);
-}
-50%{
-transform:scale(1.08);
-}
-100%{
-transform:scale(1);
-}
-}
-
-.accuracy{
-font-size:30px;
-margin-top:10px;
-}
-
-.vip-btn{
-margin-top:20px;
-padding:15px 35px;
-font-size:24px;
-font-weight:bold;
-background:#00d9ff;
+.lock-btn{
+width:100%;
+padding:15px;
 border:none;
-border-radius:15px;
-color:white;
-box-shadow:0 0 20px #00d9ff;
+border-radius:12px;
+background:linear-gradient(135deg, #ffaa00, #ff5500);
+color:#000;
+font-weight:900;
+font-size:14px;
 cursor:pointer;
 }
 
-.analysis-box{
-width:350px;
-background:#07172e;
-border-radius:20px;
+.error{
+margin-top:10px;
+color:#ff3b3b;
+display:none;
+font-size:13px;
+font-weight:600;
+}
+
+/* --- MAIN CONTAINER --- */
+.container{
+width:100%;
+max-width:1100px;
+background:rgba(6, 11, 17, 0.93);
+border:1px solid rgba(255, 255, 255, 0.04);
+border-radius:24px;
 padding:20px;
-border:2px solid #00ff55;
-box-shadow:0 0 20px #00ff55;
+backdrop-filter:blur(30px);
+box-shadow:0 25px 60px rgba(0,0,0,0.8);
+display:none;
+animation:panelFade 0.6s cubic-bezier(0.15, 0.85, 0.35, 1.2);
 }
 
-.analysis-title{
-font-size:28px;
+@keyframes panelFade{
+from{ opacity:0; transform:scale(0.97); }
+to{ opacity:1; transform:scale(1); }
+}
+
+/* --- LOGO RING WITH INTEGRATED AVATAR --- */
+.header-wrapper{
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
 margin-bottom:20px;
-color:#00ff55;
+position:relative;
 }
 
-.grid{
+.logo-glowing-ring{
+width:120px;
+height:120px;
+border-radius:50%;
+background:#050a0e;
+border:3px solid #ffaa00;
+display:flex;
+justify-content:center;
+align-items:center;
+box-shadow:0 0 25px rgba(255, 170, 0, 0.6), inset 0 0 15px rgba(255, 170, 0, 0.3);
+margin-bottom:12px;
+overflow:hidden;
+position:relative;
+}
+
+.avatar-img {
+width:100px;
+height:100px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid rgba(255,255,255,0.15);
+background:#04090f;
+}
+
+.brand-title{
+font-family:'Orbitron',sans-serif;
+font-size:32px;
+font-weight:900;
+letter-spacing:2px;
+background:linear-gradient(to right, #ffffff, #ffaa00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.brand-sub{
+font-family:'Orbitron',sans-serif;
+font-size:14px;
+letter-spacing:5px;
+color:#ff5500;
+font-weight:700;
+margin-top:2px;
+text-shadow:0 0 10px rgba(255, 85, 0, 0.3);
+}
+
+/* --- DASHBOARD GRID --- */
+.dashboard-grid{
+display:grid;
+grid-template-columns:310px 1fr 340px;
+gap:18px;
+align-items:stretch;
+}
+
+@media(max-width:950px){
+.dashboard-grid{ grid-template-columns:1fr; }
+}
+
+.panel-card{
+background:rgba(10, 18, 26, 0.75);
+border:1px solid rgba(255,255,255,0.03);
+border-radius:18px;
+padding:16px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.meta-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(255,255,255,0.02);
+border:1px solid rgba(255,255,255,0.04);
+border-radius:10px;
+padding:10px 12px;
+font-size:12px;
+color:#94a3b8;
+margin-bottom:12px;
+}
+
+.meta-accent{
+font-family:'Orbitron',sans-serif;
+font-weight:700;
+}
+
+.select-menu{
+width:100%;
+padding:13px;
+border-radius:12px;
+background:#0a0f14;
+border:1px solid rgba(255,255,255,0.07);
+color:#fff;
+outline:none;
+margin-bottom:12px;
+font-weight:600;
+font-size:13px;
+}
+
+/* --- CHARTS --- */
+.chart-viewport{
+position:relative;
+height:210px;
+border-radius:16px;
+background:#03070b;
+border:1px solid rgba(255,255,255,0.04);
+padding:12px;
+overflow:hidden;
+margin-top:auto;
+}
+
+.chart-tag{
+font-size:10px;
+font-family:'Orbitron',sans-serif;
+letter-spacing:2px;
+color:#64748b;
+display:flex;
+align-items:center;
+gap:5px;
+font-weight:bold;
+}
+
+.chart-tag::before{
+content:'';width:6px;height:6px;background:#00E676;
+border-radius:50%;box-shadow:0 0 8px #00E676;
+}
+
+.market-rate{
+font-size:36px;
+font-weight:900;
+font-family:monospace;
+margin-top:2px;
+color:#ffaa00;
+letter-spacing:-1px;
+}
+
+.candles-canvas{
+position:absolute;
+left:8px;right:8px;bottom:8px;
+height:105px;
+display:flex;
+align-items:flex-end;
+gap:3px;
+overflow:hidden;
+}
+
+.candle-bar{
+flex:1;
+border-radius:1px;
+position:relative;
+}
+.candle-bar::before{
+content:'';position:absolute;width:1.5px;
+left:50%;transform:translateX(-50%);
+bottom:-4px;top:-4px;z-index:-1;
+}
+
+.bullish{ background:#00E676; box-shadow:0 0 5px rgba(0,230,118,0.25); }
+.bullish::before{ background:#00E676; }
+
+.bearish{ background:#ff3b3b; box-shadow:0 0 5px rgba(255,59,59,0.25); }
+.bearish::before{ background:#ff3b3b; }
+
+/* --- CENTER PANEL SIGNAL --- */
+.center-display{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:10px 0;
+}
+
+.status-indicator-text{
+font-family:'Orbitron',sans-serif;
+font-size:12px;
+letter-spacing:3px;
+color:#94a3b8;
+margin-bottom:2px;
+font-weight:700;
+}
+
+.big-signal-box{
+font-family:'Orbitron',sans-serif;
+font-size:68px;
+font-weight:900;
+letter-spacing:4px;
+margin:5px 0;
+line-height:1;
+}
+
+.buy-neon{ color:#00E676; text-shadow:0 0 35px rgba(0,230,118,0.7); }
+.sell-neon{ color:#ff3b3b; text-shadow:0 0 35px rgba(255,59,59,0.7); }
+.wait-neon{ color:#ffaa00; text-shadow:0 0 35px rgba(255,170,0,0.5); }
+
+.accuracy-banner{
+font-family:'Orbitron',sans-serif;
+font-size:18px;
+font-weight:700;
+color:#e2e8f0;
+letter-spacing:1px;
+margin-bottom:20px;
+}
+
+.action-trigger-btn{
+width:100%;
+max-width:280px;
+padding:15px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg, #00b0ff, #00e676);
+color:#000;
+font-weight:900;
+font-size:14px;
+font-family:'Orbitron',sans-serif;
+cursor:pointer;
+letter-spacing:1px;
+box-shadow:0 8px 25px rgba(0, 176, 255, 0.25);
+transition:all 0.2s;
+}
+.action-trigger-btn:active{ transform:scale(0.97); }
+.action-trigger-btn:disabled{ opacity:0.5; }
+
+/* --- RIGHT METRICS MATRIX --- */
+.metrics-matrix-grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:15px;
+gap:8px;
 }
 
-.card{
-background:#020b1d;
-padding:15px;
+.matrix-cell{
+background:rgba(255,255,255,0.015);
+border:1px solid rgba(255,255,255,0.03);
+border-radius:10px;
+padding:10px 12px;
+font-size:11px;
+color:#64748b;
+display:flex;
+flex-direction:column;
+gap:3px;
+}
+.matrix-cell span{
+font-weight:700;
+color:#fff;
+font-family:'Orbitron',monospace;
+font-size:13px;
+}
+
+.full-span-cell{
+grid-column:span 2;
+flex-direction:row;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,176,255,0.02);
+border:1px solid rgba(0,176,255,0.08);
+}
+
+.laser-scan-line{
+position:absolute;
+top:0;bottom:0;width:3px;
+background:linear-gradient(to right, transparent, #00b0ff, transparent);
+box-shadow:0 0 15px #00b0ff;
+display:none;
+animation:laserMove 1.4s ease-in-out infinite;
+z-index:10;
+}
+@keyframes laserMove{
+0%{left:0%;} 50%{left:100%;} 100%{left:0%;}
+}
+
+.community-link{
+display:block;
+text-align:center;
+padding:12px;
+margin-top:15px;
+background:rgba(0, 230, 118, 0.02);
+border:1px dashed rgba(0,230,118,0.3);
+color:#00E676;
 border-radius:12px;
-border:1px solid #00ff95;
+text-decoration:none;
+font-family:'Orbitron',sans-serif;
+font-size:11px;
+font-weight:700;
+letter-spacing:1px;
 }
 
-.card h3{
-font-size:20px;
-margin-bottom:10px;
-}
-
-.card p{
-font-size:22px;
+.system-tagline{
+text-align:center;
+margin-top:20px;
+font-size:9px;
+font-family:'Orbitron',sans-serif;
+letter-spacing:3px;
+color:#334155;
 font-weight:bold;
-color:#00ff55;
-}
-
-.footer{
-margin-top:30px;
-font-size:24px;
-color:#00e1ff;
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-50%{
-opacity:0.4;
-}
-}
-
-@media(max-width:900px){
-
-.title{
-font-size:30px;
-}
-
-.subtitle{
-font-size:20px;
-}
-
-.signal{
-font-size:55px;
-}
-
-.chart-box,
-.center-box,
-.analysis-box{
-width:100%;
-}
-
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-
-<div class="logo">
-<img src="https://i.imgur.com/8Km9tLL.png">
+<div class="lock-screen" id="lock">
+  <div class="lock-box">
+    <div class="lock-title">QX HORIZON TERMINAL</div>
+    <input type="password" id="pass" class="lock-input" placeholder="ACCESS KEY">
+    <button class="lock-btn" onclick="verifyTerminalAccess()">UNLOCK DASHBOARD</button>
+    <div class="error" id="err">INVALID SECURE KEY</div>
+  </div>
 </div>
 
-<div class="title">ABU BAKAR TRADER</div>
-<div class="subtitle">TIGER ELITE AI BOT</div>
-
-<div class="top-boxes">
-
-<div class="status-box">
-SERVER STATUS: SECURE
+<div class="container" id="app">
+  
+  <div class="header-wrapper">
+    <div class="logo-glowing-ring">
+      <img src="data:image/jpeg;base64,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">
+  </div>
+  <div class="brand-title">ABU BAKAR TRADER</div>
+  <div class="brand-sub">TIGER ELITE AI BOT</div>
 </div>
 
-<div class="status-box">
-AI ACCURACY: 95.4%
-</div>
+  <div class="dashboard-grid">
+    
+    <div class="panel-card">
+      <div>
+        <div class="meta-row">
+          <div>SERVER STATUS</div>
+          <div class="meta-accent" style="color:#00E676">SECURE</div>
+        </div>
+        <div class="meta-row">
+          <div>AI ACCURACY</div>
+          <div class="meta-accent" id="realtime-accuracy-metric">95.2%</div>
+        </div>
+        
+        <select class="select-menu" id="asset-pair" onchange="switchMarketEngine()">
+          <option value="1.2472">USD/BRL OTC</option>
+          <option value="17.8200">USD/MXN OTC</option>
+          <option value="278.400">USD/PKR OTC</option>
+          <option value="1.0825">EUR/USD OTC</option>
+          <option value="1.2640">GBP/USD OTC</option>
+        </select>
 
-</div>
+        <select class="select-menu" id="interval-speed" onchange="switchMarketEngine()">
+          <option value="1000">15 Seconds (Fast)</option>
+          <option value="2000">30 Seconds (Medium)</option>
+          <option value="4000">1 Minute (Stable)</option>
+        </select>
+      </div>
 
-<div class="selectors">
+      <div class="chart-viewport">
+        <div class="chart-tag">LIVE MARKET</div>
+        <div class="market-rate" id="ticker-rate">1.2472</div>
+        <div class="laser-scan-line" id="laser-scan"></div>
+        <div class="candles-canvas" id="candles-canvas"></div>
+      </div>
+    </div>
 
-<select>
-<option>USD/BRL OTC</option>
-<option>EUR/USD OTC</option>
-<option>USD/PKR OTC</option>
-</select>
+    <div class="panel-card center-display">
+      <div class="status-indicator-text" id="status-tag">PULSATING SIGNAL</div>
+      <div class="big-signal-box buy-neon" id="main-signal">BUY</div>
+      <div class="accuracy-banner" id="match-accuracy">92% ACCURACY MATCH</div>
+      <button class="action-trigger-btn" id="trigger-btn" onclick="processMarketAnalysis()">ANALYZER MARKET (GET SIGNAL)</button>
+    </div>
 
-<select>
-<option>5 Seconds</option>
-<option selected>15 Seconds</option>
-<option>30 Seconds</option>
-</select>
+    <div class="panel-card">
+      <div class="metrics-matrix-grid">
+        <div class="matrix-cell">RSI <span id="metric-rsi" style="color:#00b0ff">61</span></div>
+        <div class="matrix-cell">TREND <span id="metric-trend" style="color:#00E676">Strong Up</span></div>
+        <div class="matrix-cell">EMA 9 <span id="metric-ema9">1.2450</span></div>
+        <div class="matrix-cell">EMA 21 <span id="metric-ema21">1.2444</span></div>
+        <div class="matrix-cell">MACD <span id="metric-macd">BULLISH</span></div>
+        <div class="matrix-cell">PATTERN <span id="metric-pattern">3 WHITE SOLDIERS</span></div>
+        
+        <div class="matrix-cell full-span-cell">
+          <div style="color:#64748b">ORDER-ID: <span id="order-id" style="color:#fff; margin-left:5px;">90046199370900</span></div>
+        </div>
+        <div class="matrix-cell full-span-cell">
+          <div style="color:#64748b">EXECUTION TIME: <span id="execution-time" style="color:#ffaa00; margin-left:5px;">01:02:33</span></div>
+        </div>
+      </div>
 
-</div>
+      <a href="https://t.me/your_group_link" target="_blank" class="community-link">
+        📢 JOIN OUR VIP GROUP
+      </a>
+    </div>
 
-<div class="main">
+  </div>
 
-<div class="chart-box">
-
-<div class="live">LIVE</div>
-
-<div class="chart">
-
-<div class="candle red" style="height:90px;"></div>
-<div class="candle red" style="height:60px;"></div>
-<div class="candle green" style="height:130px;"></div>
-<div class="candle green" style="height:160px;"></div>
-<div class="candle red" style="height:80px;"></div>
-<div class="candle green" style="height:180px;"></div>
-<div class="candle green" style="height:120px;"></div>
-<div class="candle red" style="height:100px;"></div>
-<div class="candle green" style="height:170px;"></div>
-<div class="candle green" style="height:190px;"></div>
-
-</div>
-
-</div>
-
-<div class="center-box">
-
-<div class="market-price">
-MARKET PRICE:
-<h1 id="price">1.2469</h1>
-</div>
-
-<div class="signal" id="signalText">
-BUY
-</div>
-
-<div class="accuracy">
-92% ACCURACY MATCH
-</div>
-
-<button class="vip-btn">
-VIP GROUP
-</button>
-
-</div>
-
-<div class="analysis-box">
-
-<div class="analysis-title">
-ANALYZER MARKET
-</div>
-
-<div class="grid">
-
-<div class="card">
-<h3>RSI</h3>
-<p id="rsi">61</p>
-</div>
-
-<div class="card">
-<h3>TREND</h3>
-<p id="trend">STRONG UP</p>
-</div>
-
-<div class="card">
-<h3>EMA 9</h3>
-<p>1.2450</p>
-</div>
-
-<div class="card">
-<h3>EMA 21</h3>
-<p>1.2444</p>
-</div>
-
-<div class="card">
-<h3>ORDER ID</h3>
-<p>900461993</p>
-</div>
-
-<div class="card">
-<h3>TIME</h3>
-<p id="timer">00:15</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="footer">
-HIGH SPEED AI ANALYSIS
-</div>
-
+  <div class="system-tagline">HIGH SPEED AI ANALYSIS</div>
 </div>
 
 <script>
+const terminalKey = "bakar786";
+let basePrice = 1.2472;
+let collectionCandles = [];
+let ongoingSignalDirection = "WAIT";
+let coreEngineLoop;
 
-let price = document.getElementById("price");
-let signal = document.getElementById("signalText");
-let rsi = document.getElementById("rsi");
-let trend = document.getElementById("trend");
-let timer = document.getElementById("timer");
+const canvas = document.getElementById("candles-canvas");
+const ticker = document.getElementById("ticker-rate");
 
-let sec = 15;
-
-setInterval(()=>{
-
-let randomPrice = (1.2400 + Math.random()*0.0100).toFixed(4);
-price.innerHTML = randomPrice;
-
-let randomRsi = Math.floor(Math.random()*40)+40;
-rsi.innerHTML = randomRsi;
-
-if(randomRsi > 55){
-
-signal.innerHTML = "BUY";
-signal.style.color = "#ffe600";
-trend.innerHTML = "STRONG UP";
-
-}else{
-
-signal.innerHTML = "SELL";
-signal.style.color = "#ff3c3c";
-trend.innerHTML = "STRONG DOWN";
-
+function verifyTerminalAccess(){
+    const val = document.getElementById("pass").value;
+    if(val === terminalKey){
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        switchMarketEngine();
+        setInterval(() => {
+            let variance = 92 + Math.random() * 3.5;
+            document.getElementById("realtime-accuracy-metric").innerText = variance.toFixed(1) + "%";
+        }, 4000);
+    } else {
+        document.getElementById("err").style.display = "block";
+    }
 }
 
-sec--;
+document.getElementById("pass").addEventListener("keyup", event => {
+    if(event.key === "Enter") verifyTerminalAccess();
+});
 
-if(sec <= 0){
-sec = 15;
+function switchMarketEngine() {
+    clearInterval(coreEngineLoop);
+    const selectedAsset = document.getElementById("asset-pair");
+    basePrice = parseFloat(selectedAsset.value);
+    ticker.innerText = basePrice.toFixed(4);
+    buildInitialCandlesticks();
+    const timeframeSpeed = parseInt(document.getElementById("interval-speed").value);
+    coreEngineLoop = setInterval(refreshMarketStream, timeframeSpeed);
 }
 
-timer.innerHTML = "00:" + (sec < 10 ? "0"+sec : sec);
+function buildInitialCandlesticks(){
+    canvas.innerHTML = "";
+    collectionCandles = [];
+    for(let i=0; i<28; i++){
+        let directionState = Math.random() > 0.48; 
+        let numericHeight = Math.floor(Math.random() * 60) + 20;
+        collectionCandles.push({ green: directionState, height: numericHeight });
 
-},1000);
+        let node = document.createElement("div");
+        node.className = "candle-bar " + (directionState ? "bullish" : "bearish");
+        node.style.height = numericHeight + "px";
+        canvas.appendChild(node);
+    }
+}
 
+function refreshMarketStream(){
+    let previousTickPrice = basePrice;
+    let scalingFactor = basePrice > 100 ? 0.05 : 0.0004; 
+
+    if(ongoingSignalDirection === "BUY"){
+        basePrice += Math.random() * scalingFactor;
+    } else if(ongoingSignalDirection === "SELL"){
+        basePrice -= Math.random() * scalingFactor;
+    } else {
+        basePrice += (Math.random() - 0.5) * scalingFactor;
+    }
+
+    ticker.innerText = basePrice.toFixed(4);
+    ticker.style.color = basePrice >= previousTickPrice ? "#00E676" : "#ff3b3b";
+
+    collectionCandles.shift();
+    let isBullishTick = basePrice >= previousTickPrice;
+    let currentHeightVal = Math.floor(Math.random() * 60) + 20;
+    collectionCandles.push({ green: isBullishTick, height: currentHeightVal });
+
+    canvas.innerHTML = "";
+    collectionCandles.forEach(candle => {
+        let block = document.createElement("div");
+        block.className = "candle-bar " + (candle.green ? "bullish" : "bearish");
+        block.style.height = candle.height + "px";
+        canvas.appendChild(block);
+    });
+}
+
+function playSynthBeep(signalType) {
+    try {
+        let ContextClass = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = new ContextClass();
+        let toneOsc = audioCtx.createOscillator();
+        let volumeGain = audioCtx.createGain();
+        
+        toneOsc.connect(volumeGain);
+        volumeGain.connect(audioCtx.destination);
+        
+        if (signalType === "BUY") {
+            toneOsc.type = "sine";
+            toneOsc.frequency.setValueAtTime(700, audioCtx.currentTime);
+            toneOsc.frequency.exponentialRampToValueAtTime(1400, audioCtx.currentTime + 0.2);
+            volumeGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            toneOsc.start();
+            toneOsc.stop(audioCtx.currentTime + 0.25);
+        } else if (signalType === "SELL") {
+            toneOsc.type = "sawtooth";
+            toneOsc.frequency.setValueAtTime(500, audioCtx.currentTime);
+            toneOsc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.25);
+            volumeGain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            toneOsc.start();
+            toneOsc.stop(audioCtx.currentTime + 0.28);
+        } else {
+            toneOsc.type = "triangle";
+            toneOsc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            volumeGain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            toneOsc.start();
+            toneOsc.stop(audioCtx.currentTime + 0.08);
+        }
+    } catch (err) { }
+}
+
+function processMarketAnalysis(){
+    const beam = document.getElementById("laser-scan");
+    const trigger = document.getElementById("trigger-btn");
+    beam.style.display = "block";
+    trigger.disabled = true;
+    playSynthBeep("SCAN");
+
+    setTimeout(() => {
+        beam.style.display = "none";
+        trigger.disabled = false;
+        outputCalculatedSignal();
+    }, 1400);
+}
+
+function outputCalculatedSignal(){
+    let structuralRoll = Math.random() > 0.5;
+    let rsi, trend, macd, pattern, signal, confidence, accentColor, ema9, ema21;
+
+    if (structuralRoll) {
+        signal = "BUY";
+        rsi = Math.floor(Math.random() * 15) + 58; 
+        trend = "STRONG UP";
+        macd = "BULLISH CROSS";
+        pattern = "3 WHITE SOLDIERS";
+        confidence = Math.floor(Math.random() * 4) + 92;
+        accentColor = "#00E676"; 
+        ema9 = basePrice + 0.0005;
+        ema21 = basePrice - 0.0003;
+    } else {
+        signal = "SELL";
+        rsi = Math.floor(Math.random() * 15) + 28; 
+        trend = "STRONG DOWN";
+        macd = "BEARISH CROSS";
+        pattern = "EVENING STAR";
+        confidence = Math.floor(Math.random() * 4) + 91;
+        accentColor = "#ff3b3b"; 
+        ema9 = basePrice - 0.0005;
+        ema21 = basePrice + 0.0003;
+    }
+
+    ongoingSignalDirection = signal;
+    
+    const uiSignalElement = document.getElementById("main-signal");
+    uiSignalElement.innerText = signal;
+    uiSignalElement.className = "big-signal-box " + (signal === "BUY" ? "buy-neon" : "sell-neon");
+
+    document.getElementById("status-tag").innerText = "SIGNAL GENERATED";
+    document.getElementById("match-accuracy").innerText = confidence + "% ACCURACY MATCH";
+    document.getElementById("metric-rsi").innerText = rsi;
+    document.getElementById("metric-trend").innerText = trend;
+    document.getElementById("metric-trend").style.color = accentColor;
+    
+    document.getElementById("metric-ema9").innerText = ema9.toFixed(4);
+    document.getElementById("metric-ema21").innerText = ema21.toFixed(4);
+    document.getElementById("metric-macd").innerText = macd;
+    document.getElementById("metric-pattern").innerText = pattern;
+
+    document.getElementById("order-id").innerText = "ABX-" + Math.floor(100000000 + Math.random() * 900000000);
+    let stamp = new Date();
+    document.getElementById("execution-time").innerText = stamp.toLocaleTimeString();
+
+    playSynthBeep(signal);
+}
 </script>
 
 </body>
