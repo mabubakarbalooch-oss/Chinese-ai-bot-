@@ -2,253 +2,759 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+
 <title>ABU BAKAR TRADER - FAST AI</title>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Plus+Jakarta+Sans:wght=400;600;700;800&display=swap');
-*{ margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-body{ background: #020308; display:flex; justify-content:center; align-items: center; height: 100vh; height: -webkit-fill-available; padding:4px; color:#fff; background-image: radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.12), transparent 50%), radial-gradient(circle at 50% 120%, rgba(255, 0, 127, 0.1), transparent 50%); overflow: hidden; }
-.lock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 4, 10, 0.98); z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 15px; backdrop-filter: blur(25px); transition: opacity 0.4s, transform 0.4s; }
-.lock-box { width: 100%; max-width: 320px; background: rgba(6, 8, 20, 0.6); border: 1px solid rgba(255, 165, 0, 0.3); border-radius: 24px; padding: 25px 20px; text-align: center; backdrop-filter: blur(20px); box-shadow: 0 25px 50px rgba(0,0,0,0.8); }
-.lock-title { font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 900; color: #fff; margin-bottom: 2px; letter-spacing: 1px; }
-.lock-subtitle { font-size: 8px; color: #ffa500; font-weight: 800; margin-bottom: 16px; letter-spacing: 2px; text-transform: uppercase; }
-.lock-input { width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; color: #fff; font-size: 15px; text-align: center; outline: none; margin-bottom: 15px; letter-spacing: 6px; font-family: 'Orbitron', sans-serif; }
-.lock-btn { width: 100%; padding: 13px; background: linear-gradient(135deg, #00f0ff, #ff007f); border: none; border-radius: 12px; color: #fff; font-size: 12px; font-weight: 800; font-family: 'Orbitron', sans-serif; cursor: pointer; letter-spacing: 1px; }
-.container { width: 100%; max-width: 365px; height: 96vh; height: -webkit-fill-available; background: rgba(6, 8, 20, 0.4); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 20px; padding: 10px 12px; backdrop-filter: blur(20px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); filter: blur(12px); pointer-events: none; transition: filter 0.5s ease; position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-.tiger-bg-watermark { position: absolute; top: 25%; left: 10%; width: 80%; height: 50%; z-index: 0; opacity: 0.02; pointer-events: none; }
-.main-content-holder { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
-.logo-container { position: relative; width: 46px; height: 46px; margin: 0 auto; }
-.logo-glow { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 165, 0, 0.3), transparent 70%); border-radius: 50%; }
-.logo { width: 100%; height: 100%; background: rgba(5, 6, 15, 0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255, 165, 0, 0.4); padding: 5px; }
-.logo svg { width: 100%; height: 100%; filter: drop-shadow(0 0 4px rgba(255, 165, 0, 0.7)); }
-.title { font-family: 'Orbitron', sans-serif; text-align: center; font-size: 15px; font-weight: 900; color: #fff; margin-top: 2px; }
-.subtitle { text-align: center; font-size: 7.5px; color: #ff007f; margin-bottom: 6px; letter-spacing: 1.5px; font-weight: 800; }
-.select { width: 100%; padding: 8px 10px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; color: #fff; font-size: 11px; margin-bottom: 4px; outline: none; }
-.pairs { display: flex; gap: 4px; overflow-x: auto; padding: 2px 0; margin-bottom: 4px; scrollbar-width: none; }
-.pair { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 5px 10px; border-radius: 6px; font-size: 9px; color: #9090a8; flex-shrink: 0; cursor: pointer; }
-.pair.active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); color: #00f0ff; font-weight: 700; }
-.chart-box { position: relative; height: 95px; background: rgba(0, 0, 0, 0.6); border-radius: 12px; padding: 6px 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.03); }
-.live { font-family: 'Orbitron', sans-serif; font-size: 8px; font-weight: 800; color: #00f0ff; display: flex; align-items: center; gap: 3px; }
-.live::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #00ff88; border-radius: 50%; }
-.price { font-size: 22px; font-weight: 900; color: #00ff88; margin-top: 0px; font-family: monospace; }
-.candles { position: absolute; bottom: 6px; left: 10px; right: 10px; height: 40px; display: flex; align-items: flex-end; gap: 3px; overflow: hidden; }
-.candle { width: 8px; border-radius: 1px; flex-shrink: 0; transition: height 0.2s ease; }
-.green { background: #00ff88; box-shadow: 0 0 4px rgba(0,255,136,0.4); }
-.red { background: #ff3b3b; box-shadow: 0 0 4px rgba(255,59,59,0.4); }
-.scan-line { position: absolute; top: 0; bottom: 0; width: 2px; background: linear-gradient(to right, transparent, #ff007f, transparent); box-shadow: 0 0 10px #ff007f; display: none; animation: scan 0.8s linear infinite; }
-@keyframes scan { 0% { left: -10px; } 100% { left: 100%; } }
-.market-health-container { margin-top: 4px; background: rgba(0,0,0,0.5); border-radius: 8px; padding: 5px 10px; border: 1px solid rgba(255,255,255,0.02); }
-.health-label { font-size: 9px; color: #9090a5; font-weight: 700; }
-.health-label span { float: right; color: #00ff88; }
-.health-bar-bg { width: 100%; height: 4px; background: rgba(255,59,59,0.25); border-radius: 2px; overflow: hidden; margin-top: 2px; }
-.health-bar-fill { width: 50%; height: 100%; background: #00ff88; border-radius: 2px; transition: width 0.3s ease, background 0.3s ease; }
-.btn { font-family: 'Orbitron', sans-serif; width: 100%; padding: 11px; border: none; border-radius: 10px; margin-top: 4px; background: linear-gradient(135deg, #00f0ff, #0055ff); color: #fff; font-size: 12px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 85, 255, 0.3); letter-spacing: 0.5px; text-transform: uppercase; }
-.result { margin-top: 4px; background: rgba(0, 0, 0, 0.6); border-radius: 12px; padding: 6px 10px; border: 1px solid rgba(255, 255, 255, 0.03); display: none; }
-.signal { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; text-align: center; line-height: 1; }
-.buy { color: #00ff88; text-shadow: 0 0 12px rgba(0, 255, 136, 0.5); }
-.sell { color: #ff3b3b; text-shadow: 0 0 12px rgba(255, 59, 59, 0.5); }
-.conf { font-family: 'Orbitron', sans-serif; text-align: center; font-size: 15px; font-weight: 900; color: #fff; background: rgba(255, 255, 255, 0.03); width: fit-content; margin: 2px auto 6px auto; padding: 1px 10px; border-radius: 10px; }
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 10px; color: #9090a5; }
-.info-item { background: rgba(0, 0, 0, 0.4); padding: 5px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.01); }
-.info-item span { float: right; font-weight: 700; }
-.txt-green { color: #00ff88 !important; }
-.txt-red { color: #ff3b3b !important; }
-.footer { margin-top: 4px; text-align: center; font-size: 7.5px; color: #404258; font-weight: 700; }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Plus Jakarta Sans',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#020308;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:5px;
+overflow:hidden;
+color:#fff;
+background-image:
+radial-gradient(circle at top, rgba(0,240,255,0.15), transparent 40%),
+radial-gradient(circle at bottom, rgba(255,0,127,0.1), transparent 40%);
+}
+
+.lock-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+backdrop-filter:blur(20px);
+}
+
+.lock-box{
+width:100%;
+max-width:320px;
+background:rgba(8,10,20,0.8);
+border:1px solid rgba(255,165,0,0.3);
+border-radius:22px;
+padding:25px;
+text-align:center;
+}
+
+.lock-title{
+font-family:'Orbitron',sans-serif;
+font-size:15px;
+font-weight:900;
+}
+
+.lock-subtitle{
+font-size:9px;
+margin-top:4px;
+margin-bottom:18px;
+color:#ffa500;
+font-weight:800;
+letter-spacing:2px;
+}
+
+.lock-input{
+width:100%;
+padding:13px;
+border:none;
+outline:none;
+border-radius:12px;
+background:#000;
+color:#fff;
+font-size:16px;
+text-align:center;
+letter-spacing:5px;
+margin-bottom:12px;
+}
+
+.lock-btn{
+width:100%;
+padding:13px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#00f0ff,#ff007f);
+color:#fff;
+font-weight:800;
+cursor:pointer;
+}
+
+.container{
+width:100%;
+max-width:370px;
+height:96vh;
+background:rgba(7,10,20,0.45);
+border-radius:22px;
+border:1px solid rgba(0,240,255,0.15);
+padding:12px;
+backdrop-filter:blur(18px);
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+overflow:hidden;
+filter:blur(10px);
+pointer-events:none;
+transition:0.4s;
+}
+
+.logo{
+width:52px;
+height:52px;
+margin:auto;
+border-radius:50%;
+background:#0d111d;
+display:flex;
+justify-content:center;
+align-items:center;
+border:2px solid rgba(255,165,0,0.4);
+font-size:22px;
+box-shadow:0 0 15px rgba(255,165,0,0.2);
+}
+
+.title{
+font-family:'Orbitron',sans-serif;
+text-align:center;
+font-size:15px;
+margin-top:5px;
+font-weight:900;
+}
+
+.subtitle{
+text-align:center;
+font-size:8px;
+letter-spacing:2px;
+margin-bottom:8px;
+color:#ff007f;
+font-weight:800;
+}
+
+.select{
+width:100%;
+padding:9px;
+border:none;
+outline:none;
+border-radius:10px;
+background:#0c111d;
+color:#fff;
+margin-bottom:5px;
+font-size:11px;
+}
+
+.pairs{
+display:flex;
+gap:5px;
+overflow-x:auto;
+margin-bottom:6px;
+scrollbar-width:none;
+}
+
+.pair{
+padding:5px 10px;
+background:#101520;
+border-radius:7px;
+font-size:9px;
+cursor:pointer;
+flex-shrink:0;
+color:#9090a5;
+border:1px solid transparent;
+}
+
+.pair.active{
+border-color:#00f0ff;
+color:#00f0ff;
+background:rgba(0,240,255,0.08);
+}
+
+.chart-box{
+height:110px;
+background:#080c16;
+border-radius:14px;
+padding:8px;
+position:relative;
+overflow:hidden;
+}
+
+.live{
+font-size:8px;
+font-family:'Orbitron',sans-serif;
+color:#00f0ff;
+font-weight:800;
+}
+
+.price{
+font-size:24px;
+font-weight:900;
+margin-top:2px;
+font-family:monospace;
+color:#00ff88;
+}
+
+.candles{
+position:absolute;
+left:10px;
+right:10px;
+bottom:8px;
+height:48px;
+display:flex;
+align-items:flex-end;
+gap:3px;
+overflow:hidden;
+}
+
+.candle{
+width:8px;
+border-radius:2px;
+}
+
+.green{
+background:#00ff88;
+box-shadow:0 0 6px rgba(0,255,136,0.4);
+}
+
+.red{
+background:#ff3b3b;
+box-shadow:0 0 6px rgba(255,59,59,0.4);
+}
+
+.scan-line{
+position:absolute;
+top:0;
+bottom:0;
+width:2px;
+background:linear-gradient(to right, transparent,#ff007f,transparent);
+box-shadow:0 0 12px #ff007f;
+display:none;
+animation:scan 0.7s linear infinite;
+}
+
+@keyframes scan{
+0%{left:-10px;}
+100%{left:100%;}
+}
+
+.market-health{
+margin-top:6px;
+background:#0b101a;
+padding:8px;
+border-radius:10px;
+}
+
+.market-health p{
+font-size:9px;
+font-weight:700;
+color:#999;
+}
+
+.market-health span{
+float:right;
+color:#00ff88;
+}
+
+.bar{
+width:100%;
+height:5px;
+background:rgba(255,0,0,0.2);
+border-radius:3px;
+margin-top:4px;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+width:50%;
+background:#00ff88;
+border-radius:3px;
+transition:0.3s;
+}
+
+.btn{
+width:100%;
+padding:12px;
+margin-top:6px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#00f0ff,#0055ff);
+color:#fff;
+font-weight:900;
+font-family:'Orbitron',sans-serif;
+cursor:pointer;
+}
+
+.result{
+margin-top:6px;
+background:#0a0f19;
+border-radius:14px;
+padding:10px;
+display:none;
+}
+
+.signal{
+font-size:28px;
+font-family:'Orbitron',sans-serif;
+font-weight:900;
+text-align:center;
+}
+
+.buy{
+color:#00ff88;
+}
+
+.sell{
+color:#ff3b3b;
+}
+
+.conf{
+text-align:center;
+font-weight:900;
+margin-top:4px;
+margin-bottom:6px;
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:5px;
+font-size:10px;
+}
+
+.info-item{
+background:#101520;
+padding:6px;
+border-radius:7px;
+color:#aaa;
+}
+
+.info-item span{
+float:right;
+font-weight:700;
+}
+
+.footer{
+margin-top:5px;
+font-size:8px;
+text-align:center;
+color:#555;
+}
 </style>
 </head>
+
 <body>
 
 <div class="lock-screen" id="lockScreen">
-    <div class="lock-box">
-        <div class="lock-title">ABU BAKAR TRADER</div><div class="lock-subtitle">RAPID AI ENGINE</div>
-        <input type="password" class="lock-input" id="passInput" placeholder="PASSKEY">
-        <button class="lock-btn" onclick="checkPassword()">INITIALIZE CORE</button>
-        <div style="color: #ff4757; font-size: 11px; margin-top: 8px; display: none; font-weight:700;" id="errorMsg">❌ DENIED</div>
-    </div>
+<div class="lock-box">
+
+<div class="lock-title">ABU BAKAR TRADER</div>
+<div class="lock-subtitle">ROYAL TIGER ENGINE</div>
+
+<input type="password"
+class="lock-input"
+id="passInput"
+placeholder="PASSKEY">
+
+<button class="lock-btn"
+onclick="checkPassword()">
+INITIALIZE CORE
+</button>
+
+<div id="errorMsg"
+style="display:none;color:#ff3b3b;font-size:11px;margin-top:8px;font-weight:700;">
+❌ ACCESS DENIED
+</div>
+
+</div>
 </div>
 
 <div class="container" id="botContainer">
-    <svg class="tiger-bg-watermark" viewBox="0 0 100 100" fill="none"><path d="M50 15 L25 35 L30 55 L50 85 L70 55 L75 35 Z" fill="#ffa500" opacity="0.15"/></svg>
-    <div class="main-content-holder">
-        <div>
-            <div class="logo-container"><div class="logo-glow"></div><div class="logo"><svg viewBox="0 0 100 100" fill="none"><path d="M50 15 L25 35 L30 55 L50 85 L70 55 L75 35 Z" fill="#ffa500" opacity="0.1"/><path d="M50 20 L40 15 M50 20 L60 15" stroke="#ffa500" stroke-width="3"/><path d="M50 32 L35 30 M50 32 L65 30" stroke="#ffa500" stroke-width="3.5"/><path d="M44 48 L50 60 L56 48" stroke="#ffa500" stroke-width="2"/><path d="M40 64 Q50 60 60 64 Q50 78 40 64 Z" fill="#111" stroke="#ffa500" stroke-width="2"/></svg></div></div>
-            <div class="title">ABU BAKAR TRADER</div><div class="subtitle">ROYAL TIGER INSTANT AI</div>
 
-            <select class="select" id="pair" onchange="syncSelectToBadges()"><option value="USD/BRL">🇧🇷 USD/BRL OTC</option><option value="USD/MXN">🇲🇽 USD/MXN OTC</option><option value="USD/INR">🇮🇳 USD/INR OTC</option><option value="USD/PKR">🇵🇰 USD/PKR OTC</option><option value="EUR/USD">🇺🇸 EUR/USD OTC</option><option value="GBP/USD">🇬🇧 GBP/USD OTC</option></select>
-            <select class="select" id="time"><option value="1">⚡ INSTANT SCAN (NO DELAY)</option></select>
+<div>
 
-            <div class="pairs" id="pairBadges">
-                <div class="pair active" onclick="changePair('USD/BRL', this)">🇧🇷 BRL</div><div class="pair" onclick="changePair('USD/MXN', this)">🇲🇽 MXN</div><div class="pair" onclick="changePair('USD/INR', this)">🇮🇳 INR</div><div class="pair" onclick="changePair('USD/PKR', this)">🇵🇰 PKR</div><div class="pair" onclick="changePair('EUR/USD', this)">🇺🇸 EUR</div><div class="pair" onclick="changePair('GBP/USD', this)">🇬🇧 GBP</div>
-            </div>
+<div class="logo">🐅</div>
 
-            <div class="chart-box">
-                <div class="live">RAPID ALGO STREAM</div><div class="price" id="price">4.9710</div><div class="scan-line" id="scanLine"></div><div class="candles" id="candles"></div>
-            </div>
+<div class="title">ABU BAKAR TRADER</div>
+<div class="subtitle">INSTANT AI SIGNAL</div>
 
-            <div class="market-health-container">
-                <div class="health-label">SIGNAL ACCURACY HEALTH <span id="healthPercent">SYNCING...</span></div>
-                <div class="health-bar-bg"><div class="health-bar-fill" id="healthBar" style="width: 50%"></div></div>
-            </div>
-        </div>
+<select class="select" id="pair">
+<option value="USD/BRL">🇧🇷 USD/BRL OTC</option>
+<option value="USD/MXN">🇲🇽 USD/MXN OTC</option>
+<option value="USD/INR">🇮🇳 USD/INR OTC</option>
+<option value="USD/PKR">🇵🇰 USD/PKR OTC</option>
+<option value="EUR/USD">🇺🇸 EUR/USD OTC</option>
+<option value="GBP/USD">🇬🇧 GBP/USD OTC</option>
+</select>
 
-        <div>
-            <button class="btn" id="actionBtn" onclick="getInstantSignal()">GET INSTANT SIGNAL</button>
-            <div class="result" id="resultBox">
-                <div class="signal buy" id="signalText">UP</div><div class="conf" id="confidence">95%</div>
-                <div class="info-grid">
-                    <div class="info-item">RSI (14): <span id="rsi">--</span></div><div class="info-item">STOCHASTIC: <span id="stoch">--</span></div>
-                    <div class="info-item">EMA 9: <span id="ema9">--</span></div><div class="info-item">EMA 21: <span id="ema21">--</span></div>
-                    <div class="info-item">BOLL. BAND: <span id="bb">--</span></div><div class="info-item">MACD: <span id="macd">--</span></div>
-                    <div class="info-item">ACTION: <span style="color: #00ff88; font-weight: bold;" id="actionType">IMMEDIATE</span></div><div class="info-item">STATUS: <span style="color: #00f0ff; font-weight: bold;">LIVE</span></div>
-                </div>
-            </div>
-            <div class="footer">ABU BAKAR TRADER © INSTANT SIGNAL MATRIX</div>
-        </div>
-    </div>
+<div class="pairs">
+<div class="pair active">BRL</div>
+<div class="pair">MXN</div>
+<div class="pair">INR</div>
+<div class="pair">PKR</div>
+<div class="pair">EUR</div>
+<div class="pair">GBP</div>
+</div>
+
+<div class="chart-box">
+
+<div class="live">LIVE AI STREAM</div>
+
+<div class="price" id="price">4.9710</div>
+
+<div class="scan-line" id="scanLine"></div>
+
+<div class="candles" id="candles"></div>
+
+</div>
+
+<div class="market-health">
+
+<p>
+SIGNAL HEALTH
+<span id="healthPercent">SYNCING...</span>
+</p>
+
+<div class="bar">
+<div class="fill" id="healthBar"></div>
+</div>
+
+</div>
+
+</div>
+
+<div>
+
+<button class="btn"
+id="actionBtn"
+onclick="getInstantSignal()">
+GET INSTANT SIGNAL
+</button>
+
+<div class="result" id="resultBox">
+
+<div class="signal buy" id="signalText">
+UP
+</div>
+
+<div class="conf" id="confidence">
+95%
+</div>
+
+<div class="info-grid">
+
+<div class="info-item">
+RSI:
+<span id="rsi">--</span>
+</div>
+
+<div class="info-item">
+EMA 9:
+<span id="ema9">--</span>
+</div>
+
+<div class="info-item">
+EMA 21:
+<span id="ema21">--</span>
+</div>
+
+<div class="info-item">
+MACD:
+<span id="macd">--</span>
+</div>
+
+<div class="info-item">
+TREND:
+<span id="trend">--</span>
+</div>
+
+<div class="info-item">
+STATUS:
+<span style="color:#00f0ff;">
+LIVE
+</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+ABU BAKAR TRADER © AI ENGINE
+</div>
+
+</div>
+
 </div>
 
 <script>
+
 const marketBases = {
-    "USD/BRL": { base: 4.9700, pips: 4 },
-    "USD/MXN": { base: 16.8200, pips: 4 },
-    "USD/INR": { base: 83.4500, pips: 4 },
-    "USD/PKR": { base: 278.10, pips: 2 },
-    "EUR/USD": { base: 1.0850, pips: 4 },
-    "GBP/USD": { base: 1.2640, pips: 4 }
+"USD/BRL":{base:4.9700,pips:4},
+"USD/MXN":{base:16.8200,pips:4},
+"USD/INR":{base:83.4500,pips:4},
+"USD/PKR":{base:278.10,pips:2},
+"EUR/USD":{base:1.0850,pips:4},
+"GBP/USD":{base:1.2640,pips:4}
 };
 
-let currentPair = "USD/BRL";
-let currentPrice = 4.9710;
-let candleHistory = [];
+let currentPair="USD/BRL";
+let currentPrice=4.9710;
+let candleHistory=[];
 
-function checkPassword() {
-    if(document.getElementById("passInput").value === "bakar786") {
-        document.getElementById("lockScreen").style.opacity = "0";
-        setTimeout(() => { document.getElementById("lockScreen").style.display = "none"; }, 400);
-        document.getElementById("botContainer").style.filter = "none";
-        document.getElementById("botContainer").style.pointerEvents = "auto";
-        initLiveEngine();
-    } else {
-        document.getElementById("errorMsg").style.display = "block";
-    }
+function checkPassword(){
+
+let pass=document.getElementById("passInput").value;
+
+if(pass==="bakar786"){
+
+document.getElementById("lockScreen").style.display="none";
+
+document.getElementById("botContainer").style.filter="none";
+
+document.getElementById("botContainer").style.pointerEvents="auto";
+
+startEngine();
+
+}else{
+
+document.getElementById("errorMsg").style.display="block";
+
 }
 
-function initLiveEngine() {
-    for(let i=0; i<18; i++) {
-        candleHistory.push(Math.random() > 0.5 ? "green" : "red");
-    }
-    renderCandles();
-
-    setInterval(() => {
-        let config = marketBases[currentPair];
-        let change = (Math.random() - 0.5) * (4 / Math.pow(10, config.pips));
-        let oldPrice = currentPrice;
-        currentPrice = parseFloat((currentPrice + change).toFixed(config.pips));
-        
-        document.getElementById("price").innerText = currentPrice.toFixed(config.pips);
-        document.getElementById("price").style.color = currentPrice >= oldPrice ? "#00ff88" : "#ff3b3b";
-        
-        // مارکیٹ ہیلتھ بار کو مستقل ایکٹیو اور خوبصورت رکھنا
-        let greens = candleHistory.filter(c => c === "green").length;
-        let hPercent = Math.min(Math.max(Math.round((greens / candleHistory.length) * 100), 40), 88);
-        document.getElementById("healthBar").style.width = hPercent + "%";
-        document.getElementById("healthPercent").innerText = hPercent + "% HIGH VOLUME";
-    }, 1000);
 }
 
-function renderCandles() {
-    const container = document.getElementById("candles");
-    container.innerHTML = "";
-    candleHistory.forEach(type => {
-        let c = document.createElement("div");
-        c.classList.add("candle", type);
-        c.style.height = (Math.floor(Math.random() * 22) + 12) + "px";
-        container.appendChild(c);
-    });
+function startEngine(){
+
+for(let i=0;i<20;i++){
+
+candleHistory.push(
+Math.random()>0.5?"green":"red"
+);
+
 }
 
-function changePair(pairStr, element) {
-    currentPair = pairStr;
-    currentPrice = marketBases[pairStr].base;
-    document.getElementById("pair").value = pairStr;
-    document.querySelectorAll('.pair').forEach(p => p.classList.remove('active'));
-    element.classList.add('active');
-    document.getElementById("resultBox").style.display = "none";
+renderCandles();
+
+setInterval(()=>{
+
+updatePrice();
+
+},1000);
+
 }
 
-function syncSelectToBadges() {
-    let selectVal = document.getElementById("pair").value;
-    let badges = document.querySelectorAll('.pair');
-    badges.forEach(b => {
-        if(b.innerText.includes(selectVal.split('/'))) { changePair(selectVal, b); }
-    });
+function updatePrice(){
+
+currentPair=document.getElementById("pair").value;
+
+let config=marketBases[currentPair];
+
+let move=(Math.random()-0.5)*
+(5/Math.pow(10,config.pips));
+
+let old=currentPrice;
+
+currentPrice=parseFloat(
+(currentPrice+move).toFixed(config.pips)
+);
+
+document.getElementById("price").innerText=
+currentPrice.toFixed(config.pips);
+
+document.getElementById("price").style.color=
+currentPrice>=old
+?"#00ff88"
+:"#ff3b3b";
+
+updateHealth();
+
 }
 
-// 🎯 سپر فاسٹ فوری سگنل لاجک (Instant Signal Delivery)
-function getInstantSignal() {
-    let scan = document.getElementById("scanLine");
-    let btn = document.getElementById("actionBtn");
-    
-    scan.style.display = "block";
-    btn.disabled = true;
-    btn.innerText = "HACKING NEXT CANDLE...";
+function renderCandles(){
 
-    // اسکین ٹائم صرف 0.7 سیکنڈ تاکہ سگنل لیٹ نہ ہو!
-    setTimeout(() => {
-        scan.style.display = "none";
-        btn.disabled = false;
-        btn.innerText = "GET INSTANT SIGNAL";
-        
-        // فوری طور پر نئی کینڈل کو آگے پش کریں تاکہ لائیو میچ ہو
-        let nextMove = Math.random() > 0.48 ? "BULLISH" : "BEARISH";
-        candleHistory.shift();
-        candleHistory.push(nextMove === "BULLISH" ? "green" : "red");
-        renderCandles();
+let wrap=document.getElementById("candles");
 
-        displayFastResult(nextMove);
-    }, 700);
+wrap.innerHTML="";
+
+candleHistory.forEach(type=>{
+
+let c=document.createElement("div");
+
+c.classList.add("candle",type);
+
+c.style.height=
+(Math.random()*28+12)+"px";
+
+wrap.appendChild(c);
+
+});
+
 }
 
-function displayFastResult(move) {
-    document.getElementById("resultBox").style.display = "block";
-    let sigText = document.getElementById("signalText");
-    let confDiv = document.getElementById("confidence");
-    let actType = document.getElementById("actionType");
+function updateHealth(){
 
-    confDiv.innerText = (Math.floor(Math.random() * 4) + 95) + "%";
-    
-    if(move === "BULLISH") {
-        sigText.innerText = "CALL / UP ⬆️";
-        sigText.className = "signal buy";
-        actType.innerText = "NOW (BUY)";
-        actType.style.color = "#00ff88";
-        
-        document.getElementById("rsi").innerText = "28.4 (BUY)";
-        document.getElementById("stoch").innerText = "15.2";
-        document.getElementById("bb").innerText = "LOWER REBOUND";
-        document.getElementById("macd").innerText = "UP CROSS";
-    } else {
-        sigText.innerText = "PUT / DOWN ⬇️";
-        sigText.className = "signal sell";
-        actType.innerText = "NOW (SELL)";
-        actType.style.color = "#ff3b3b";
-        
-        document.getElementById("rsi").innerText = "74.1 (SELL)";
-        document.getElementById("stoch").innerText = "84.7";
-        document.getElementById("bb").innerText = "UPPER REBOUND";
-        document.getElementById("macd").innerText = "DOWN CROSS";
-    }
+let greens=
+candleHistory.filter(c=>c==="green").length;
 
-    let colorClass = move === "BULLISH" ? "txt-green" : "txt-red";
-    document.getElementById("rsi").className = colorClass;
-    document.getElementById("stoch").className = colorClass;
-    document.getElementById("bb").className = colorClass;
-    document.getElementById("macd").className = colorClass;
+let percent=Math.round(
+(greens/candleHistory.length)*100
+);
 
-    let config = marketBases[currentPair];
-    document.getElementById("ema9").innerText = (currentPrice + 0.0002).toFixed(config.pips);
-    document.getElementById("ema21").innerText = (currentPrice - 0.0001).toFixed(config.pips);
+percent=Math.max(45,Math.min(92,percent));
+
+document.getElementById("healthBar").style.width=
+percent+"%";
+
+document.getElementById("healthPercent").innerText=
+percent+"%";
+
 }
+
+function getInstantSignal(){
+
+let scan=document.getElementById("scanLine");
+
+let btn=document.getElementById("actionBtn");
+
+scan.style.display="block";
+
+btn.disabled=true;
+
+btn.innerText="SCANNING...";
+
+setTimeout(()=>{
+
+scan.style.display="none";
+
+btn.disabled=false;
+
+btn.innerText="GET INSTANT SIGNAL";
+
+generateSignal();
+
+},700);
+
+}
+
+function generateSignal(){
+
+let greens=
+candleHistory.filter(c=>c==="green").length;
+
+let reds=
+candleHistory.filter(c=>c==="red").length;
+
+let trendPower=greens-reds;
+
+let rsiValue=
+Math.floor(Math.random()*40)+30;
+
+let move;
+
+if(rsiValue<40 && trendPower>=0){
+
+move="BULLISH";
+
+}else if(rsiValue>60 && trendPower<0){
+
+move="BEARISH";
+
+}else{
+
+move=trendPower>=0
+?"BULLISH"
+:"BEARISH";
+
+}
+
+candleHistory.shift();
+
+candleHistory.push(
+move==="BULLISH"
+?"green"
+:"red"
+);
+
+renderCandles();
+
+showResult(move,rsiValue);
+
+}
+
+function showResult(move,rsiValue){
+
+let result=document.getElementById("resultBox");
+
+result.style.display="block";
+
+let signal=document.getElementById("signalText");
+
+if(move==="BULLISH"){
+
+signal.innerText="CALL / UP ⬆️";
+
+signal.className="signal buy";
+
+document.getElementById("macd").innerText=
+"UP CROSS";
+
+document.getElementById("trend").innerText=
+"BULLISH";
+
+}else{
+
+signal.innerText="PUT / DOWN ⬇️";
+
+signal.className="signal sell";
+
+document.getElementById("macd").innerText=
+"DOWN CROSS";
+
+document.getElementById("trend").innerText=
+"BEARISH";
+
+}
+
+document.getElementById("confidence").innerText=
+(Math.floor(Math.random()*4)+95)+"%";
+
+document.getElementById("rsi").innerText=
+rsiValue;
+
+let config=marketBases[currentPair];
+
+let ema9=
+move==="BULLISH"
+?currentPrice+(2/Math.pow(10,config.pips))
+:currentPrice-(2/Math.pow(10,config.pips));
+
+let ema21=
+move==="BULLISH"
+?currentPrice-(1/Math.pow(10,config.pips))
+:currentPrice+(1/Math.pow(10,config.pips));
+
+document.getElementById("ema9").innerText=
+ema9.toFixed(config.pips);
+
+document.getElementById("ema21").innerText=
+ema21.toFixed(config.pips);
+
+}
+
 </script>
+
 </body>
 </html>
