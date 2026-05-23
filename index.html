@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>ABU BAKAR TRADER - PRO AI v2.0</title>
+<title>ABU BAKAR TRADER - PRO AI v3.0</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap');
@@ -40,11 +40,11 @@ z-index:-1;
 width:100%;
 max-width:400px;
 background:rgba(10, 15, 30, 0.7);
-border:1px solid rgba(0, 240, 255, 0.15);
+border:1px solid rgba(0, 240, 255, 0.2);
 border-radius:28px;
 padding:20px;
 backdrop-filter:blur(25px);
-box-shadow:0 0 30px rgba(0, 240, 255, 0.1), inset 0 0 15px rgba(255,255,255,0.02);
+box-shadow:0 0 35px rgba(0, 240, 255, 0.15), inset 0 0 15px rgba(255,255,255,0.02);
 display:none;
 animation:fade 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -128,11 +128,6 @@ font-size:15px;
 cursor:pointer;
 box-shadow:0 4px 15px rgba(0,110,255,0.4);
 transition:0.3s;
-}
-
-.lock-btn:hover{
-transform:translateY(-2px);
-box-shadow:0 6px 20px rgba(0,240,255,0.5);
 }
 
 .error{
@@ -259,7 +254,6 @@ font-family:monospace;
 margin-top:5px;
 color:#00ff88;
 text-shadow:0 0 15px rgba(0,255,136,0.2);
-transition:color 0.2s ease;
 }
 
 .candles{
@@ -281,7 +275,6 @@ position:relative;
 transition:0.2s ease;
 }
 
-/* Real-looking Candlestick Wicks */
 .candle::before {
 content:'';
 position:absolute;
@@ -293,16 +286,10 @@ top:-5px;
 z-index:-1;
 }
 
-.green{
-background:#00ff88;
-box-shadow:0 0 8px rgba(0,255,136,0.4);
-}
+.green{ background:#00ff88; box-shadow:0 0 8px rgba(0,255,136,0.4); }
 .green::before { background:#00ff88; }
 
-.red{
-background:#ff3b3b;
-box-shadow:0 0 8px rgba(255,59,59,0.4);
-}
+.red{ background:#ff3b3b; box-shadow:0 0 8px rgba(255,59,59,0.4); }
 .red::before { background:#ff3b3b; }
 
 .scan{
@@ -345,17 +332,14 @@ transform:translateY(-2px);
 box-shadow:0 8px 25px rgba(0,240,255,0.5);
 }
 
-.btn:disabled{
-opacity:0.6;
-cursor:not-allowed;
-}
+.btn:disabled{ opacity:0.6; cursor:not-allowed; }
 
 .result{
 margin-top:16px;
 padding:18px;
 border-radius:22px;
 background:rgba(5, 10, 25, 0.8);
-border:1px solid rgba(0, 240, 255, 0.1);
+border:1px solid rgba(0, 240, 255, 0.15);
 display:none;
 animation:fade 0.4s ease;
 }
@@ -368,24 +352,13 @@ font-weight:900;
 letter-spacing:2px;
 }
 
-.buy{
-color:#00ff88;
-text-shadow:0 0 25px rgba(0,255,136,0.6);
-}
-
-.sell{
-color:#ff3b3b;
-text-shadow:0 0 25px rgba(255,59,59,0.6);
-}
-
-.wait{
-color:#00f0ff;
-text-shadow:0 0 25px rgba(0,240,255,0.4);
-}
+.buy{ color:#00ff88; text-shadow:0 0 25px rgba(0,255,136,0.6); }
+.sell{ color:#ff3b3b; text-shadow:0 0 25px rgba(255,59,59,0.6); }
+.wait{ color:#00f0ff; text-shadow:0 0 25px rgba(0,240,255,0.4); }
 
 .conf{
 text-align:center;
-font-size:28px;
+font-size:24px;
 font-family:'Orbitron',sans-serif;
 margin-top:2px;
 color:#e2e8f0;
@@ -400,18 +373,47 @@ margin-top:14px;
 
 .item{
 background:rgba(255,255,255,0.03);
-border:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(0, 240, 255, 0.1);
 padding:12px;
 border-radius:14px;
 font-size:12px;
 color:#ae94b0;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .item span{
-float:right;
 font-weight:700;
 font-family:monospace;
 color:#fff;
+padding-left:5px;
+}
+
+/* New Social Group Neon Button Style */
+.social-btn {
+display:block;
+width:100%;
+padding:14px;
+margin-top:15px;
+background:rgba(0, 255, 136, 0.05);
+border:1px dashed #00ff88;
+border-radius:14px;
+color:#00ff88;
+text-align:center;
+text-decoration:none;
+font-family:'Orbitron', sans-serif;
+font-size:12px;
+font-weight:bold;
+letter-spacing:1px;
+box-shadow:0 0 15px rgba(0,255,136,0.1);
+animation:glowBlink 2s infinite ease-in-out;
+}
+
+@keyframes glowBlink {
+0% { opacity:0.8; box-shadow:0 0 10px rgba(0,255,136,0.1); }
+50% { opacity:1; box-shadow:0 0 20px rgba(0,255,136,0.3); }
+100% { opacity:0.8; box-shadow:0 0 10px rgba(0,255,136,0.1); }
 }
 
 .footer{
@@ -427,7 +429,6 @@ font-weight:bold;
 
 <body>
 
-<!-- LOCK SCREEN -->
 <div class="lock-screen" id="lock">
   <div class="lock-box">
     <div class="lock-title">QX AI TERMINAL</div>
@@ -438,16 +439,14 @@ font-weight:bold;
   </div>
 </div>
 
-<!-- MAIN APPLICATION -->
 <div class="container" id="app">
   <div class="logo">QX</div>
   <div class="title">ABU BAKAR TRADER</div>
   <div class="sub">PRO AI SIGNAL BOT</div>
 
-  <!-- Realtime Statistics Counter -->
   <div class="stats-bar">
-    <div>SERVER STATUS: <span style="color:#00ff88">ONLINE</span></div>
-    <div>AI ACCURACY: <span id="accuracy-val">94.2%</span></div>
+    <div>SERVER: <span style="color:#00ff88">ONLINE</span></div>
+    <div>ACCURACY: <span id="accuracy-val">94.2%</span></div>
   </div>
 
   <select class="select" id="pair" onchange="resetMarket()">
@@ -483,8 +482,16 @@ font-weight:bold;
       <div class="item">EMA 21 <span id="ema21">0.0000</span></div>
       <div class="item">MACD <span id="macd">WAIT</span></div>
       <div class="item">PATTERN <span id="pattern">ANALYZING</span></div>
+      <div class="item" style="grid-column: span 2; font-size:11px; border-color:rgba(255,255,255,0.1)">
+        ID: <span id="order-id" style="color:#8892b0">--</span> 
+        TIME: <span id="execution-time" style="color:#8892b0">--</span>
+      </div>
     </div>
   </div>
+
+  <a href="https://t.me/your_group_link" target="_blank" class="social-btn">
+    📢 JOIN OUR VIP SOCIAL GROUP
+  </a>
 
   <div class="footer">HIGH SPEED AI ANALYSIS SYSTEMS</div>
 </div>
@@ -505,7 +512,6 @@ function unlock(){
         document.getElementById("lock").style.display = "none";
         document.getElementById("app").style.display = "block";
         resetMarket();
-        // Dynamic Accuracy update simulation
         setInterval(() => {
             let baseAcc = 92 + Math.random()*4;
             document.getElementById("accuracy-val").innerText = baseAcc.toFixed(1) + "%";
@@ -524,9 +530,7 @@ function resetMarket() {
     const pairSelect = document.getElementById("pair");
     currentPrice = parseFloat(pairSelect.value);
     price.innerText = currentPrice.toFixed(4);
-    
     generateCandles();
-    
     const speed = parseInt(document.getElementById("timeframe").value);
     marketInterval = setInterval(updateChart, speed);
 }
@@ -548,7 +552,6 @@ function generateCandles(){
 
 function updateChart(){
     let oldPrice = currentPrice;
-    // Pip dynamic configuration based on asset scale
     let pipSize = currentPrice > 100 ? 0.04 : 0.0003; 
 
     if(lastSignal === "BUY"){
@@ -576,7 +579,6 @@ function updateChart(){
     });
 }
 
-// Modern Web Audio Synthesizer Api Integration (No external link issues)
 function triggerFuturisticSound(type) {
     try {
         let AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -609,7 +611,7 @@ function triggerFuturisticSound(type) {
             osc.stop(ctx.currentTime + 0.1);
         }
     } catch (e) {
-        console.log("Audio Engine requires click interaction first.");
+         console.log("Audio play blocked.");
     }
 }
 
@@ -619,7 +621,6 @@ function getSignal(){
     scan.style.display = "block";
     btn.disabled = true;
     document.getElementById("result").style.display = "none";
-    
     triggerFuturisticSound("SCAN");
 
     setTimeout(() => {
@@ -634,7 +635,6 @@ function generateSignal(){
     let greens = candleData.filter(c => c.green).length;
     let reds = candleData.length - greens;
     
-    // Technical Calculations
     let rsi = Math.floor((greens / candleData.length) * 100);
     let factor = currentPrice > 100 ? 0.015 : 0.0001;
     let ema9 = currentPrice + ((greens - reds) * factor);
@@ -646,7 +646,6 @@ function generateSignal(){
     let pattern = "CONSOLIDATION";
     let confidence = Math.floor(Math.random() * 8) + 76;
 
-    // Smart AI Filtering Condition Logic
     if(greens > reds + 2 || rsi > 52){
         signal = "BUY";
         trend = "STRONG UP";
@@ -681,6 +680,11 @@ function generateSignal(){
     document.getElementById("ema21").innerText = ema21.toFixed(4);
     document.getElementById("macd").innerText = macd;
     document.getElementById("pattern").innerText = pattern;
+
+    // Generate Order ID & Live Local Time
+    document.getElementById("order-id").innerText = "ABX-" + Math.floor(100000 + Math.random() * 900000);
+    let now = new Date();
+    document.getElementById("execution-time").innerText = now.toLocaleTimeString();
 
     triggerFuturisticSound(signal);
 }
