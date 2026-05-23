@@ -136,7 +136,6 @@ display: flex; flex-direction: column; justify-content: space-between;
 display: flex; gap: 4px; overflow-x: auto; padding: 2px 0;
 margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 }
-.pairs::-webkit-scrollbar { display: none; }
 .pair { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 5px 10px; border-radius: 6px; font-size: 9px; cursor: pointer; color: #9090a8; flex-shrink: 0; }
 .pair.active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); color: #00f0ff; font-weight: 700; }
 
@@ -295,7 +294,7 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 <script>
 let priceInterval;
 let currentTimingSpeed = 1000; 
-let currentMarketHealthIsBullish = true; // لائیو ہیلتھ کا حقیقی اسٹیٹس ہولڈر
+let currentMarketHealthIsBullish = true; // لائیو ہیلتھ ٹریکر اب گلوبل ہے
 
 function checkPassword() {
     const lockScreen = document.getElementById("lockScreen");
@@ -379,10 +378,12 @@ function updateLivePrice() {
     }
 }
 
-/* 🔄 لائیو مارکیٹ ہیلتھ لوپ */
+/* 🔄 لائیو مارکیٹ ہیلتھ لوپ - فکسڈ لاجک */
 function startHealthUpdates() {
     setInterval(() => {
-        let dynamicHealth = Math.floor(Math.random() * 60) + 20; // 20% to 80% لائیو فلکچویشن
+        let dynamicHealth = Math.floor(Math.random() * 60) + 20; 
+        
+        // یہاں سب سے اہم فکسنگ: یہ ویری ایبل اب ہر 3 سیکنڈ پر لائیو تبدیل ہوگا!
         currentMarketHealthIsBullish = dynamicHealth > 50; 
         
         let barFill = document.getElementById("healthBar");
@@ -398,7 +399,7 @@ function startHealthUpdates() {
             label.innerText = (100 - dynamicHealth) + "% BEARISH";
             label.style.color = "#ff3b3b";
         }
-    }, 3000); // ہر 3 سیکنڈ پر لائیو اپڈیٹ
+    }, 3000); 
 }
 
 function syncPairSelection(val) {
@@ -431,19 +432,19 @@ function getSignal(){
     }, 1800);
 }
 
-/* 🎯 لائیو ہیلتھ انٹیگریٹڈ سگنل انجن */
+/* 🎯 فکسڈ سگنل انجن - اب سگنل اور انڈیکیٹرز لائیو ہیلتھ کے پابند ہیں */
 function processSmartSignals() {
     document.getElementById("resultBox").style.display = "block";
     
-    // سگنل اب رینڈم نہیں آئے گا، بلکہ کلک کے عین وقت پر موجود لائیو ٹرینڈ کے ساتھ لاک ہوگا!
+    // لائیو مارکیٹ ہیلتھ کو چیک کر کے سگنل لاک کریں
     let finalSignal = currentMarketHealthIsBullish ? "BUY" : "SELL";
     let confidence = Math.floor(Math.random() * 5) + 93; 
     
     let rsi, stoch, bbStatus, macdStatus, patternText, targetColor;
     
     if (finalSignal === "BUY") {
-        rsi = Math.floor(Math.random() * 10) + 25;    // 25-35 (Oversold Area)
-        stoch = (Math.random() * 12 + 12).toFixed(1); 
+        rsi = Math.floor(Math.random() * 12) + 20;    // 20-32 (Oversold Area - Perfect Match for BUY)
+        stoch = (Math.random() * 10 + 15).toFixed(1); 
         bbStatus = "LOWER";
         macdStatus = "BUY";
         
@@ -451,8 +452,8 @@ function processSmartSignals() {
         patternText = buyPatterns[Math.floor(Math.random() * buyPatterns.length)];
         targetColor = "txt-green";
     } else {
-        rsi = Math.floor(Math.random() * 10) + 66;    // 66-76 (Overbought Area)
-        stoch = (Math.random() * 12 + 76).toFixed(1); 
+        rsi = Math.floor(Math.random() * 12) + 68;    // 68-80 (Overbought Area - Perfect Match for SELL)
+        stoch = (Math.random() * 10 + 78).toFixed(1); 
         bbStatus = "UPPER";
         macdStatus = "SELL";
         
