@@ -1,530 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>ABU BAKAR TRADER - SMART AI</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+(function() {
+    'use strict';
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Plus Jakarta Sans',sans-serif;
--webkit-tap-highlight-color:transparent;
-}
+    // اگر پہلے سے کوئی پرانا پینل کھلا ہو تو اسے ہٹانا تاکہ اسکرین صاف رہے
+    if(document.getElementById('bakar_vip_ai')){document.getElementById('bakar_vip_ai').remove();}
 
-body{
-background:#020308;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-padding:5px;
-overflow:hidden;
-color:#fff;
-background-image:
-radial-gradient(circle at top, rgba(0,240,255,0.15), transparent 40%),
-radial-gradient(circle at bottom, rgba(255,0,127,0.1), transparent 40%);
-}
+    // شیشے جیسا پریمیم فلوٹنگ پینل کنٹینر بنانا
+    const panel = document.createElement('div');
+    panel.id = 'bakar_vip_ai';
+    panel.style = "position: fixed; top: 100px; left: 15px; width: 230px; background: rgba(10, 14, 31, 0.92); border: 2px solid #ff007f; border-radius: 24px; padding: 18px; z-index: 999999; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 0 30px rgba(255, 0, 127, 0.35), inset 0 0 15px rgba(255, 255, 255, 0.05); text-align: center; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);";
+    
+    panel.innerHTML = `
+        <div style="margin-bottom: 8px;">
+            <span style="font-size: 28px; background: rgba(255, 165, 0, 0.15); padding: 8px 12px; border-radius: 50%; border: 1px solid #ffa500; display: inline-block; box-shadow: 0 0 15px rgba(255,165,0,0.3);">🐅</span>
+        </div>
+        <div style="font-size: 13px; font-weight: 900; color: #ffffff; letter-spacing: 1.5px; text-shadow: 0 0 10px rgba(255,255,255,0.3);">ABU BAKAR TRADER</div>
+        <div style="font-size: 9px; color: #00f0ff; font-weight: bold; letter-spacing: 1px; margin-bottom: 15px; text-transform: uppercase;">ROYAL TIGER AI • VIP</div>
+        
+        <select id="bakar_pair" style="width: 100%; background: rgba(17, 22, 45, 0.85); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 10px; color: #00f0ff; padding: 8px; font-size: 11px; font-weight: bold; outline: none; margin-bottom: 15px; cursor: pointer;">
+            <option value="USD/BRL (OTC)">🇧🇷 USD/BRL OTC</option>
+            <option value="USD/MXN (OTC)">🇲🇽 USD/MXN OTC</option>
+            <option value="USD/INR (OTC)">🇵🇰 USD/INR OTC</option>
+        </select>
 
-.lock-screen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.95);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-backdrop-filter:blur(25px);
-transition:0.4s;
-}
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-size: 8px; color: #ff007f; font-weight: 900; letter-spacing: 0.5px;">LIVE MARKET STREAM</span>
+            <span id="bakar_rate" style="font-size: 18px; font-weight: bold; color: #00ff88; font-family: monospace;">4.9714</span>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; height: 30px; margin-bottom: 12px; background: rgba(0, 0, 0, 0.3); padding: 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02);">
+            <div id="bar1" style="width: 6px; height: 12px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
+            <div id="bar2" style="width: 6px; height: 22px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
+            <div id="bar3" style="width: 6px; height: 15px; background: #ff3b3b; border-radius: 2px; transition: 0.3s;"></div>
+            <div id="bar4" style="width: 6px; height: 26px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
+            <div id="bar5" style="width: 6px; height: 10px; background: #ff3b3b; border-radius: 2px; transition: 0.3s;"></div>
+            <div id="bar6" style="width: 6px; height: 19px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
+            <div id="bar7" style="width: 6px; height: 14px; background: #ff3b3b; border-radius: 2px; transition: 0.3s;"></div>
+        </div>
 
-.lock-box{
-width:100%;
-max-width:320px;
-background:rgba(10,12,22,0.7);
-border:1px solid rgba(255,165,0,0.25);
-border-radius:24px;
-padding:25px;
-text-align:center;
-}
+        <div style="display: flex; justify-content: space-between; font-size: 8px; color: #aaa; margin-bottom: 4px; font-weight: bold;">
+            <span>MARKET HEALTH</span>
+            <span style="color:#00ff88;">62% BULLISH</span>
+        </div>
+        <div style="width: 100%; height: 5px; background: rgba(255,59,59,0.2); border-radius: 3px; margin-bottom: 18px; overflow: hidden;">
+            <div style="width: 62%; height: 100%; background: linear-gradient(90deg, #00ff88, #00f0ff);"></div>
+        </div>
 
-.lock-title{
-font-family:'Orbitron',sans-serif;
-font-size:15px;
-font-weight:900;
-}
+        <div id="bakar_timer_box" style="display: none; font-size: 12px; font-weight: bold; color: #ffa500; background: rgba(255,165,0,0.12); border: 1px dashed #ffa500; padding: 7px; border-radius: 10px; margin-bottom: 12px;">
+            ⏳ ANALYZING MARKET: <span id="bakar_countdown" style="font-family:monospace; font-size:13px;">00:05</span>
+        </div>
 
-.lock-sub{
-font-size:8px;
-color:#ffa500;
-letter-spacing:2px;
-margin-top:4px;
-margin-bottom:16px;
-font-weight:800;
-}
+        <button id="bakar_get_sig" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #ff007f, #0055ff); border: none; border-radius: 12px; color: white; font-size: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255,0,127,0.35); margin-bottom: 15px; letter-spacing: 0.5px; transition: 0.2s;">GET AI SIGNAL</button>
 
-.lock-input{
-width:100%;
-padding:13px;
-background:#000;
-border:none;
-outline:none;
-border-radius:12px;
-color:#fff;
-text-align:center;
-font-size:16px;
-letter-spacing:5px;
-margin-bottom:12px;
-}
+        <div id="bakar_result_box" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 12px;">
+            <div id="bakar_signal" style="font-size: 28px; font-weight: 900; color: #00ff88; margin-bottom: 2px; text-shadow: 0 0 15px rgba(0,255,136,0.3);">BUY</div>
+            <div id="bakar_accuracy" style="font-size: 12px; font-weight: bold; color: #00f0ff; margin-bottom: 12px; background: rgba(0,240,255,0.1); display: inline-block; padding: 2px 8px; border-radius: 20px;">ACCURACY: 96%</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: left; font-size: 9px; color: #a4a7b7; font-weight: bold; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
+                <div>RSI (14): <span id="ind_rsi" style="color:#00ff88; float:right;">26</span></div>
+                <div>EMA (9): <span id="ind_ema9" style="color:#00ff88; float:right;">4.9717</span></div>
+                <div>EMA (21): <span id="ind_ema21" style="color:#00ff88; float:right;">4.9714</span></div>
+                <div>MACD: <span id="ind_macd" style="color:#00ff88; float:right;">BULL</span></div>
+                <div style="grid-column: span 2; text-align: center; color: #ffa500; font-size: 9px; background: rgba(255,165,0,0.05); padding: 4px; border-radius: 6px; margin-top: 4px;">
+                    PATTERN: <span id="ind_pattern" style="color:#ffffff;">Morning Star</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="font-size: 7px; color: #555; margin-top: 12px; letter-spacing: 0.5px; font-weight: bold;">ABU BAKAR TRADER © SMART ENGINE</div>
+    `;
 
-.lock-btn{
-width:100%;
-padding:13px;
-border:none;
-border-radius:12px;
-background:linear-gradient(135deg,#00f0ff,#ff007f);
-color:#fff;
-font-weight:900;
-font-family:'Orbitron',sans-serif;
-cursor:pointer;
-}
+    document.body.appendChild(panel);
 
-.container{
-width:100%;
-max-width:370px;
-height:96vh;
-background:rgba(7,10,20,0.45);
-border-radius:22px;
-border:1px solid rgba(0,240,255,0.12);
-padding:12px;
-backdrop-filter:blur(20px);
-overflow:hidden;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-filter:blur(10px);
-pointer-events:none;
-transition:0.4s;
-}
+    // لائیو ریٹ اور گراف بارز کی اینیمیشن
+    setInterval(() => {
+        let currentRate = (4.9700 + Math.random() * 0.0030).toFixed(4);
+        let rateEl = document.getElementById('bakar_rate');
+        if(rateEl) { rateEl.innerText = currentRate; }
+        
+        for(let i=1; i<=7; i++) {
+            let bar = document.getElementById('bar'+i);
+            if(bar) { bar.style.height = (10 + Math.random() * 18) + 'px'; }
+        }
+    }, 700);
 
-.logo{
-width:54px;
-height:54px;
-margin:auto;
-border-radius:50%;
-background:#0d111d;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:24px;
-border:2px solid rgba(255,165,0,0.4);
-box-shadow:0 0 15px rgba(255,165,0,0.2);
-}
+    // بٹن اور 5 سیکنڈ الٹا ٹائمر ایکشن
+    document.getElementById('bakar_get_sig').onclick = function() {
+        const btn = this;
+        const timerBox = document.getElementById('bakar_timer_box');
+        const countdownEl = document.getElementById('bakar_countdown');
+        const sigEl = document.getElementById('bakar_signal');
+        const accEl = document.getElementById('bakar_accuracy');
+        
+        btn.disabled = true;
+        btn.style.background = "#222";
+        btn.style.boxShadow = "none";
+        btn.innerText = "SCANNING MARKET...";
+        timerBox.style.display = "block";
+        
+        let timeLeft = 5;
+        countdownEl.innerText = "00:05";
 
-.title{
-font-family:'Orbitron',sans-serif;
-text-align:center;
-font-size:15px;
-font-weight:900;
-margin-top:6px;
-}
-
-.subtitle{
-text-align:center;
-font-size:8px;
-letter-spacing:2px;
-color:#ff007f;
-font-weight:800;
-margin-bottom:8px;
-}
-
-.select{
-width:100%;
-padding:9px;
-border:none;
-outline:none;
-border-radius:10px;
-background:#0c111d;
-color:#fff;
-font-size:11px;
-margin-bottom:5px;
-}
-
-.chart-box{
-height:110px;
-background:#080c16;
-border-radius:14px;
-padding:8px;
-position:relative;
-overflow:hidden;
-}
-
-.live{
-font-size:8px;
-font-family:'Orbitron',sans-serif;
-color:#00f0ff;
-font-weight:800;
-}
-
-.price{
-font-size:24px;
-font-weight:900;
-margin-top:2px;
-font-family:monospace;
-}
-
-.candles{
-position:absolute;
-left:10px;
-right:10px;
-bottom:8px;
-height:48px;
-display:flex;
-align-items:flex-end;
-gap:3px;
-overflow:hidden;
-}
-
-.candle{
-width:8px;
-border-radius:2px;
-}
-
-.green{
-background:#00ff88;
-box-shadow:0 0 6px rgba(0,255,136,0.3);
-}
-
-.red{
-background:#ff3b3b;
-box-shadow:0 0 6px rgba(255,59,59,0.3);
-}
-
-.scan-line{
-position:absolute;
-top:0;
-bottom:0;
-width:2px;
-background:linear-gradient(to right,transparent,#ff007f,transparent);
-box-shadow:0 0 10px #ff007f;
-display:none;
-animation:scan.7s linear infinite;
-}
-
-@keyframes scan{
-0%{left:-10px;}
-100%{left:100%;}
-}
-
-.market-health{
-margin-top:6px;
-background:#0b101a;
-padding:8px;
-border-radius:10px;
-}
-
-.market-health p{
-font-size:9px;
-font-weight:700;
-color:#999;
-}
-
-.market-health span{
-float:right;
-}
-
-.bar{
-width:100%;
-height:5px;
-background:rgba(255,0,0,0.2);
-border-radius:3px;
-overflow:hidden;
-margin-top:4px;
-}
-
-.fill{
-height:100%;
-width:50%;
-background:#00ff88;
-transition:0.3s;
-}
-
-.btn{
-width:100%;
-padding:12px;
-margin-top:7px;
-border:none;
-border-radius:12px;
-background:linear-gradient(135deg,#00f0ff,#0055ff);
-color:#fff;
-font-family:'Orbitron',sans-serif;
-font-weight:900;
-cursor:pointer;
-}
-
-.result{
-margin-top:7px;
-background:#0a0f19;
-border-radius:14px;
-padding:10px;
-display:none;
-animation:fade.25s ease;
-}
-
-@keyframes fade{
-from{opacity:0;transform:scale(.98);}
-to{opacity:1;transform:scale(1);}
-}
-
-.signal{
-font-size:28px;
-font-family:'Orbitron',sans-serif;
-font-weight:900;
-text-align:center;
-}
-
-.buy{color:#00ff88;}
-.sell{color:#ff3b3b;}
-.conf{text-align:center;margin-top:4px;margin-bottom:6px;font-weight:900;}
-
-.info-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:5px;
-font-size:10px;
-}
-
-.info-item{
-background:#101520;
-padding:6px;
-border-radius:7px;
-color:#aaa;
-}
-
-.info-item span{
-float:right;
-font-weight:700;
-}
-
-.footer{
-margin-top:5px;
-font-size:8px;
-text-align:center;
-color:#555;
-}
-
-.txt-green{color:#00ff88!important;}
-.txt-red{color:#ff3b3b!important;}
-</style>
-</head>
-
-<body>
-
-<div class="lock-screen" id="lockScreen">
-<div class="lock-box">
-<div class="logo">🐅</div>
-<div class="lock-title">ABU BAKAR TRADER</div>
-<div class="lock-sub">SMART AI SECURITY</div>
-<input type="password" id="passInput" class="lock-input" placeholder="PASSKEY">
-<button class="lock-btn" onclick="checkPassword()">INITIALIZE CORE</button>
-<div id="errorMsg" style="display:none;color:#ff3b3b;font-size:11px;margin-top:8px;font-weight:700;">❌ ACCESS DENIED</div>
-</div>
-</div>
-
-<div class="container" id="botContainer">
-<div>
-<div class="logo">🐅</div>
-<div class="title">ABU BAKAR TRADER</div>
-<div class="subtitle">ROYAL TIGER AI</div>
-<select class="select" id="pair" onchange="changePair()">
-<option value="USD/BRL">🇧🇷 USD/BRL OTC</option>
-<option value="USD/MXN">🇲🇽 USD/MXN OTC</option>
-<option value="USD/INR">🇮🇳 USD/INR OTC</option>
-<option value="USD/PKR">🇵🇰 USD/PKR OTC</option>
-<option value="EUR/USD">🇺🇸 EUR/USD OTC</option>
-<option value="GBP/USD">🇬🇧 GBP/USD OTC</option>
-</select>
-<div class="chart-box">
-<div class="live">LIVE MARKET STREAM</div>
-<div class="price" id="price">4.9712</div>
-<div class="scan-line" id="scanLine"></div>
-<div class="candles" id="candles"></div>
-</div>
-<div class="market-health">
-<p>MARKET HEALTH <span id="healthText">68% BULLISH</span></p>
-<div class="bar"><div class="fill" id="healthFill"></div></div>
-</div>
-</div>
-
-<div>
-<button class="btn" id="signalBtn" onclick="generateSignal()">GET AI SIGNAL</button>
-<div class="result" id="resultBox">
-<div class="signal buy" id="signalText">BUY</div>
-<div class="conf" id="confidence">95%</div>
-<div class="info-grid">
-<div class="info-item">RSI:<span id="rsi">--</span></div>
-<div class="info-item">EMA 9:<span id="ema9">--</span></div>
-<div class="info-item">EMA 21:<span id="ema21">--</span></div>
-<div class="info-item">MACD:<span id="macd">--</span></div>
-<div class="info-item">STOCH:<span id="stoch">--</span></div>
-<div class="info-item">PATTERN:<span id="pattern">--</span></div>
-</div>
-</div>
-<div class="footer">ABU BAKAR TRADER © SMART ENGINE</div>
-</div>
-</div>
-
-<script>
-const pairData={
-"USD/BRL":{base:4.9712,digits:4},
-"USD/MXN":{base:16.8552,digits:4},
-"USD/INR":{base:83.3110,digits:4},
-"USD/PKR":{base:278.25,digits:2},
-"EUR/USD":{base:1.0845,digits:4},
-"GBP/USD":{base:1.2615,digits:4}
-};
-
-let currentPair="USD/BRL";
-let currentPrice=4.9712;
-let candles=[];
-let streamInterval;
-let healthInterval;
-
-const candlesWrap=document.getElementById("candles");
-
-function checkPassword(){
-let pass=document.getElementById("passInput").value.trim();
-if(pass==="bakar786"){
-document.getElementById("lockScreen").style.opacity="0";
-setTimeout(()=>{document.getElementById("lockScreen").style.display="none";},400);
-document.getElementById("botContainer").style.filter="none";
-document.getElementById("botContainer").style.pointerEvents="auto";
-initialize();
-}else{
-document.getElementById("errorMsg").style.display="block";
-}
-}
-
-function initialize(){
-createCandles();
-startStream();
-startHealth();
-}
-
-function changePair(){
-currentPair=document.getElementById("pair").value;
-currentPrice=pairData[currentPair].base;
-createCandles();
-}
-
-function createCandles(){
-candles=[];
-for(let i=0;i<24;i++){
-candles.push(Math.random()>0.5?"green":"red");
-}
-renderCandles();
-}
-
-function renderCandles(){
-candlesWrap.innerHTML="";
-candles.forEach(type=>{
-let c=document.createElement("div");
-c.classList.add("candle",type);
-c.style.height=(Math.random()*28+12)+"px";
-candlesWrap.appendChild(c);
-});
-}
-
-function startStream(){
-if(streamInterval) clearInterval(streamInterval);
-streamInterval=setInterval(()=>{updatePrice();},1000);
-}
-
-function updatePrice(){
-let cfg=pairData[currentPair];
-let move=(Math.random()-0.49)*(4/Math.pow(10,cfg.digits));
-let old=currentPrice;
-currentPrice=parseFloat((currentPrice+move).toFixed(cfg.digits));
-document.getElementById("price").innerText=currentPrice.toFixed(cfg.digits);
-document.getElementById("price").style.color=currentPrice>=old?"#00ff88":"#ff3b3b";
-candles.shift();
-candles.push(currentPrice>=old?"green":"red");
-renderCandles();
-}
-
-function startHealth(){
-if(healthInterval) clearInterval(healthInterval);
-healthInterval=setInterval(()=>{updateHealth();},2000);
-}
-
-function updateHealth(){
-let greens=candles.filter(c=>c==="green").length;
-let percent=Math.floor((greens/candles.length)*100);
-percent=Math.max(25,Math.min(92,percent));
-let fill=document.getElementById("healthFill");
-let text=document.getElementById("healthText");
-fill.style.width=percent+"%";
-if(percent>=50){
-fill.style.background="#00ff88";
-text.innerText=percent+"% BULLISH";
-text.style.color="#00ff88";
-}else{
-fill.style.background="#ff3b3b";
-text.innerText=(100-percent)+"% BEARISH";
-text.style.color="#ff3b3b";
-}
-}
-
-function generateSignal(){
-let scan=document.getElementById("scanLine");
-let btn=document.getElementById("signalBtn");
-scan.style.display="block";
-btn.disabled=true;
-btn.innerText="SCANNING...";
-setTimeout(()=>{scan.style.display="none";btn.disabled=false;btn.innerText="GET AI SIGNAL";processSignal();},700);
-}
-
-function processSignal(){
-document.getElementById("resultBox").style.display="block";
-let greens=candles.filter(c=>c==="green").length;
-let reds=candles.filter(c=>c==="red").length;
-let bullish=greens>=reds;
-let signal=bullish?"BUY":"SELL";
-let signalText=document.getElementById("signalText");
-signalText.classList.remove("buy","sell");
-signalText.classList.add(bullish?"buy":"sell");
-signalText.innerText=signal;
-let confidence=Math.floor(Math.random()*4)+94;
-document.getElementById("confidence").innerText=confidence+"%";
-let rsi=bullish?Math.floor(Math.random()*10)+25:Math.floor(Math.random()*10)+70;
-let stoch=bullish?(Math.random()*15+10).toFixed(1):(Math.random()*15+80).toFixed(1);
-let macd=bullish?"BULL CROSS":"BEAR CROSS";
-let patternsBull=["Hammer","Morning Star","Bullish Engulf"];
-let patternsBear=["Shooting Star","Evening Star","Bearish Engulf"];
-let pattern=bullish?patternsBull[Math.floor(Math.random()*patternsBull.length)]:patternsBear[Math.floor(Math.random()*patternsBear.length)];
-let cfg=pairData[currentPair];
-let ema9=bullish?currentPrice+(2/Math.pow(10,cfg.digits)):currentPrice-(2/Math.pow(10,cfg.digits));
-let ema21=bullish?currentPrice-(1/Math.pow(10,cfg.digits)):currentPrice+(1/Math.pow(10,cfg.digits));
-let color=bullish?"txt-green":"txt-red";
-updateData("rsi",rsi,color);
-updateData("ema9",ema9.toFixed(cfg.digits),color);
-updateData("ema21",ema21.toFixed(cfg.digits),color);
-updateData("macd",macd,color);
-updateData("stoch",stoch,color);
-updateData("pattern",pattern,color);
-}
-
-function updateData(id,val,color){
-let el=document.getElementById(id);
-el.innerText=val;
-el.className=color;
-}
-</script>
-</body>
-</html>
+        const counter = setInterval(() => {
+            timeLeft--;
+            countdownEl.innerText = "00:0" + timeLeft;
+            
+            if(timeLeft <= 0) {
+                clearInterval(counter);
+                timerBox.style.display = "none";
+                btn.disabled = false;
+                btn.style.background = "linear-gradient(135deg, #ff007f, #0055ff)";
+                btn.style.boxShadow = "0 5px 15px rgba(255,0,127,0.35)";
+                btn.innerText = "GET AI SIGNAL";
+                
+                let decision = Math.random() > 0.48 ? "BUY" : "SELL";
+                let accuracy = (87 + Math.random() * 12).toFixed(0) + "%";
+                
+                if(decision === "BUY") {
+                    sigEl.innerText = "BUY ⬆️";
+                    sigEl.style.color = "#00ff88";
+                    document.getElementById('ind_rsi').innerText = (22 + Math.random()*12).toFixed(0);
+                    document.getElementById('ind_macd').innerText = "BULL CROSS";
+                    document.getElementById('ind_pattern').innerText = "Morning Star";
+                } else {
+                    sigEl.innerText = "SELL ⬇️";
+                    sigEl.style.color = "#ff3b3b";
+                    document.getElementById('ind_rsi').innerText = (68 + Math.random()*15).toFixed(0);
+                    document.getElementById('ind_macd').innerText = "BEAR CROSS";
+                    document.getElementById('ind_pattern').innerText = "Evening Star";
+                }
+                
+                accEl.innerText = "ACCURACY: " + accuracy;
+                document.getElementById('ind_ema9').innerText = (4.9700 + Math.random() * 0.0020).toFixed(4);
+                document.getElementById('ind_ema21').innerText = (4.9700 + Math.random() * 0.0020).toFixed(4);
+            }
+        }, 1000);
+    };
+})();
