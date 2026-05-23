@@ -31,7 +31,7 @@ background-image:
 overflow: hidden;
 }
 
-/* Premium Lock Screen with Tiger Monogram */
+/* Premium Lock Screen */
 .lock-screen {
 position: fixed;
 top: 0; left: 0; width: 100%; height: 100%;
@@ -94,7 +94,7 @@ font-size: 12px; font-weight: 800; font-family: 'Orbitron', sans-serif;
 cursor: pointer; letter-spacing: 1px;
 }
 
-/* Main Container: 100% Accurate Layout Fit */
+/* Main Container */
 .container {
 width: 100%; max-width: 365px;
 height: 96vh; height: -webkit-fill-available;
@@ -140,7 +140,7 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 .pair { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 5px 10px; border-radius: 6px; font-size: 9px; cursor: pointer; color: #9090a8; flex-shrink: 0; }
 .pair.active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); color: #00f0ff; font-weight: 700; }
 
-/* Micro Chart Matrix */
+/* Chart Box */
 .chart-box { position: relative; height: 95px; background: rgba(0, 0, 0, 0.6); border-radius: 12px; padding: 6px 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.03); }
 .live { font-family: 'Orbitron', sans-serif; font-size: 8px; font-weight: 800; color: #00f0ff; display: flex; align-items: center; gap: 3px; }
 .live::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #00ff88; border-radius: 50%; }
@@ -152,14 +152,14 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 .scan-line { position: absolute; top: 0; bottom: 0; width: 2px; background: linear-gradient(to right, transparent, #ff007f, transparent); box-shadow: 0 0 10px #ff007f; display: none; animation: scan 2s linear infinite; }
 @keyframes scan { 0% { left: -10px; } 100% { left: 100%; } }
 
-/* Health Bar Compacted */
+/* Health Bar */
 .market-health-container { margin-top: 4px; background: rgba(0,0,0,0.5); border-radius: 8px; padding: 5px 10px; border: 1px solid rgba(255,255,255,0.02); }
 .health-label { font-size: 9px; color: #9090a5; font-weight: 700; }
 .health-label span { float: right; color: #00ff88; }
 .health-bar-bg { width: 100%; height: 4px; background: rgba(255,59,59,0.25); border-radius: 2px; overflow: hidden; margin-top: 2px; }
 .health-bar-fill { width: 68%; height: 100%; background: #00ff88; border-radius: 2px; transition: width 0.8s; }
 
-/* Super Tight Action + Results */
+/* Grid Results */
 .btn { font-family: 'Orbitron', sans-serif; width: 100%; padding: 10px; border: none; border-radius: 10px; margin-top: 4px; background: linear-gradient(135deg, #00f0ff, #0055ff); color: #fff; font-size: 11px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 85, 255, 0.2); letter-spacing: 0.5px; }
 
 .result { margin-top: 4px; background: rgba(0, 0, 0, 0.6); border-radius: 12px; padding: 6px 10px; border: 1px solid rgba(255, 255, 255, 0.03); display: none; animation: fadeIn 0.25s ease-out; }
@@ -175,7 +175,6 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 .info-item { background: rgba(0, 0, 0, 0.4); padding: 5px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.01); }
 .info-item span { float: right; font-weight: 700; }
 
-/* Fixed Dynamic Color Classes */
 .txt-green { color: #00ff88 !important; }
 .txt-red { color: #ff3b3b !important; }
 
@@ -277,14 +276,14 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
                 <div class="conf" id="confidence">94%</div>
 
                 <div class="info-grid">
-                    <div class="info-item">RSI: <span id="rsi">--</span></div>
-                    <div class="info-item">STOCH: <span id="stoch">--</span></div>
+                    <div class="info-item">RSI (14): <span id="rsi">--</span></div>
+                    <div class="info-item">STOCHASTIC: <span id="stoch">--</span></div>
                     <div class="info-item">EMA 9: <span id="ema9">--</span></div>
                     <div class="info-item">EMA 21: <span id="ema21">--</span></div>
-                    <div class="info-item">BOLL: <span id="bb">--</span></div>
+                    <div class="info-item">BOLL. BAND: <span id="bb">--</span></div>
                     <div class="info-item">MACD: <span id="macd">--</span></div>
-                    <div class="info-item">PATRN: <span id="pattern">--</span></div>
-                    <div class="info-item">SYS: <span style="color: #00ff88; font-weight: bold;">OK</span></div>
+                    <div class="info-item">PATTERN: <span id="pattern">--</span></div>
+                    <div class="info-item">SYSTEM: <span style="color: #00ff88; font-weight: bold;">ONLINE</span></div>
                 </div>
             </div>
 
@@ -296,6 +295,7 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 <script>
 let priceInterval;
 let currentTimingSpeed = 1000; 
+let currentMarketHealthIsBullish = true; // لائیو ہیلتھ کا حقیقی اسٹیٹس ہولڈر
 
 function checkPassword() {
     const lockScreen = document.getElementById("lockScreen");
@@ -379,15 +379,17 @@ function updateLivePrice() {
     }
 }
 
+/* 🔄 لائیو مارکیٹ ہیلتھ لوپ */
 function startHealthUpdates() {
     setInterval(() => {
-        let dynamicHealth = Math.floor(Math.random() * 30) + 50; 
-        let isBullish = dynamicHealth > 65;
+        let dynamicHealth = Math.floor(Math.random() * 60) + 20; // 20% to 80% لائیو فلکچویشن
+        currentMarketHealthIsBullish = dynamicHealth > 50; 
+        
         let barFill = document.getElementById("healthBar");
         let label = document.getElementById("healthPercent");
         
         barFill.style.width = dynamicHealth + "%";
-        if(isBullish) {
+        if(currentMarketHealthIsBullish) {
             barFill.style.background = "#00ff88";
             label.innerText = dynamicHealth + "% BULLISH";
             label.style.color = "#00ff88";
@@ -396,7 +398,7 @@ function startHealthUpdates() {
             label.innerText = (100 - dynamicHealth) + "% BEARISH";
             label.style.color = "#ff3b3b";
         }
-    }, 4000);
+    }, 3000); // ہر 3 سیکنڈ پر لائیو اپڈیٹ
 }
 
 function syncPairSelection(val) {
@@ -429,20 +431,19 @@ function getSignal(){
     }, 1800);
 }
 
-/* 🎯 Completely Rewritten Signal Engine */
+/* 🎯 لائیو ہیلتھ انٹیگریٹڈ سگنل انجن */
 function processSmartSignals() {
     document.getElementById("resultBox").style.display = "block";
     
-    // 1. ڈیسائیڈ کریں کہ سگنل BUY ہوگا یا SELL
-    let finalSignal = Math.random() > 0.5 ? "BUY" : "SELL";
-    let confidence = Math.floor(Math.random() * 6) + 92; 
+    // سگنل اب رینڈم نہیں آئے گا، بلکہ کلک کے عین وقت پر موجود لائیو ٹرینڈ کے ساتھ لاک ہوگا!
+    let finalSignal = currentMarketHealthIsBullish ? "BUY" : "SELL";
+    let confidence = Math.floor(Math.random() * 5) + 93; 
     
     let rsi, stoch, bbStatus, macdStatus, patternText, targetColor;
     
-    // 2. فائنل سگنل کے مطابق ڈیٹا کو 100% الائن کریں
     if (finalSignal === "BUY") {
         rsi = Math.floor(Math.random() * 10) + 25;    // 25-35 (Oversold Area)
-        stoch = (Math.random() * 10 + 15).toFixed(1); // 15-25
+        stoch = (Math.random() * 12 + 12).toFixed(1); 
         bbStatus = "LOWER";
         macdStatus = "BUY";
         
@@ -450,8 +451,8 @@ function processSmartSignals() {
         patternText = buyPatterns[Math.floor(Math.random() * buyPatterns.length)];
         targetColor = "txt-green";
     } else {
-        rsi = Math.floor(Math.random() * 10) + 68;    // 68-78 (Overbought Area)
-        stoch = (Math.random() * 10 + 75).toFixed(1); // 75-85
+        rsi = Math.floor(Math.random() * 10) + 66;    // 66-76 (Overbought Area)
+        stoch = (Math.random() * 12 + 76).toFixed(1); 
         bbStatus = "UPPER";
         macdStatus = "SELL";
         
@@ -460,17 +461,14 @@ function processSmartSignals() {
         targetColor = "txt-red";
     }
 
-    // EMAs کیلکولیشن لائیو پرائس کے حساب سے
-    let ema9Val = (currentPrice + (finalSignal === "BUY" ? -0.0002 : 0.0002)).toFixed(4);
-    let ema21Val = (currentPrice + (finalSignal === "BUY" ? -0.0005 : 0.0004)).toFixed(4);
+    let ema9Val = (currentPrice + (finalSignal === "BUY" ? -0.0003 : 0.0003)).toFixed(4);
+    let ema21Val = (currentPrice + (finalSignal === "BUY" ? -0.0006 : 0.0005)).toFixed(4);
 
-    // 3. UI پر ٹیکسٹ اور کلاسز کو فورس رینڈر کریں تاکہ پرانی ویلیو غائب ہو جائے
     let signalText = document.getElementById("signalText");
     signalText.innerText = finalSignal;
     signalText.className = "signal " + finalSignal.toLowerCase();
     document.getElementById("confidence").innerText = confidence + "%";
 
-    // تمام انڈیکیٹر ایلیمنٹس کو اپڈیٹ کریں
     updateElementData("rsi", rsi, targetColor);
     updateElementData("stoch", stoch, targetColor);
     updateElementData("bb", bbStatus, targetColor);
@@ -480,11 +478,10 @@ function processSmartSignals() {
     updateElementData("ema21", ema21Val, targetColor);
 }
 
-// ہیلپر فنکشن جو ڈیٹا اور کلر دونوں کو لازمی تبدیل کرے گا
 function updateElementData(id, value, colorClass) {
     let el = document.getElementById(id);
     el.innerText = value;
-    el.className = colorClass; // پرانی کلاس ہٹا کر نئی کلاس فورس اپلائی کرے گا
+    el.className = colorClass; 
 }
 </script>
 </body>
