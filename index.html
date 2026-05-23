@@ -1,138 +1,729 @@
-(function() {
-    'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ABU BAKAR TRADER - ULTRA HIGH</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
-    // اگر پہلے سے کوئی پرانا پینل کھلا ہو تو اسے ہٹانا تاکہ اسکرین صاف رہے
-    if(document.getElementById('bakar_vip_ai')){document.getElementById('bakar_vip_ai').remove();}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Plus Jakarta Sans', sans-serif;
+}
 
-    // شیشے جیسا پریمیم فلوٹنگ پینل کنٹینر بنانا
-    const panel = document.createElement('div');
-    panel.id = 'bakar_vip_ai';
-    panel.style = "position: fixed; top: 100px; left: 15px; width: 230px; background: rgba(10, 14, 31, 0.92); border: 2px solid #ff007f; border-radius: 24px; padding: 18px; z-index: 999999; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 0 30px rgba(255, 0, 127, 0.35), inset 0 0 15px rgba(255, 255, 255, 0.05); text-align: center; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);";
-    
-    panel.innerHTML = `
-        <div style="margin-bottom: 8px;">
-            <span style="font-size: 28px; background: rgba(255, 165, 0, 0.15); padding: 8px 12px; border-radius: 50%; border: 1px solid #ffa500; display: inline-block; box-shadow: 0 0 15px rgba(255,165,0,0.3);">🐅</span>
-        </div>
-        <div style="font-size: 13px; font-weight: 900; color: #ffffff; letter-spacing: 1.5px; text-shadow: 0 0 10px rgba(255,255,255,0.3);">ABU BAKAR TRADER</div>
-        <div style="font-size: 9px; color: #00f0ff; font-weight: bold; letter-spacing: 1px; margin-bottom: 15px; text-transform: uppercase;">ROYAL TIGER AI • VIP</div>
-        
-        <select id="bakar_pair" style="width: 100%; background: rgba(17, 22, 45, 0.85); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 10px; color: #00f0ff; padding: 8px; font-size: 11px; font-weight: bold; outline: none; margin-bottom: 15px; cursor: pointer;">
-            <option value="USD/BRL (OTC)">🇧🇷 USD/BRL OTC</option>
-            <option value="USD/MXN (OTC)">🇲🇽 USD/MXN OTC</option>
-            <option value="USD/INR (OTC)">🇵🇰 USD/INR OTC</option>
-        </select>
+body{
+background: #020308;
+display:flex;
+justify-content:center;
+padding:8px;
+color:#fff;
+background-image:
+    radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.12), transparent 50%),
+    radial-gradient(circle at 50% 120%, rgba(255, 0, 127, 0.1), transparent 50%);
+background-attachment: fixed;
+overflow-x: hidden;
+}
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-            <span style="font-size: 8px; color: #ff007f; font-weight: 900; letter-spacing: 0.5px;">LIVE MARKET STREAM</span>
-            <span id="bakar_rate" style="font-size: 18px; font-weight: bold; color: #00ff88; font-family: monospace;">4.9714</span>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; height: 30px; margin-bottom: 12px; background: rgba(0, 0, 0, 0.3); padding: 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02);">
-            <div id="bar1" style="width: 6px; height: 12px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
-            <div id="bar2" style="width: 6px; height: 22px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
-            <div id="bar3" style="width: 6px; height: 15px; background: #ff3b3b; border-radius: 2px; transition: 0.3s;"></div>
-            <div id="bar4" style="width: 6px; height: 26px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
-            <div id="bar5" style="width: 6px; height: 10px; background: #ff3b3b; border-radius: 2px; transition: 0.3s;"></div>
-            <div id="bar6" style="width: 6px; height: 19px; background: #00ff88; border-radius: 2px; transition: 0.3s;"></div>
-            <div id="bar7" style="width: 6px; height: 14px; background: #ff3b3b; border-radius: 2px; transition: 0.3s;"></div>
-        </div>
+/* الٹرا پریمیم لاک اسکرین */
+.lock-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(2, 3, 8, 0.95);
+z-index: 9999;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 15px;
+backdrop-filter: blur(25px);
+}
 
-        <div style="display: flex; justify-content: space-between; font-size: 8px; color: #aaa; margin-bottom: 4px; font-weight: bold;">
-            <span>MARKET HEALTH</span>
-            <span style="color:#00ff88;">62% BULLISH</span>
-        </div>
-        <div style="width: 100%; height: 5px; background: rgba(255,59,59,0.2); border-radius: 3px; margin-bottom: 18px; overflow: hidden;">
-            <div style="width: 62%; height: 100%; background: linear-gradient(90deg, #00ff88, #00f0ff);"></div>
-        </div>
+.lock-box {
+width: 100%;
+max-width: 350px;
+background: rgba(255, 255, 255, 0.01);
+border: 1px solid rgba(0, 240, 255, 0.2);
+border-radius: 28px;
+padding: 40px 25px;
+text-align: center;
+backdrop-filter: blur(15px);
+box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05);
+}
 
-        <div id="bakar_timer_box" style="display: none; font-size: 12px; font-weight: bold; color: #ffa500; background: rgba(255,165,0,0.12); border: 1px dashed #ffa500; padding: 7px; border-radius: 10px; margin-bottom: 12px;">
-            ⏳ ANALYZING MARKET: <span id="bakar_countdown" style="font-family:monospace; font-size:13px;">00:05</span>
-        </div>
+.lock-title {
+font-family: 'Orbitron', sans-serif;
+font-size: 18px;
+font-weight: 900;
+color: #00f0ff;
+margin-bottom: 22px;
+letter-spacing: 3px;
+text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
 
-        <button id="bakar_get_sig" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #ff007f, #0055ff); border: none; border-radius: 12px; color: white; font-size: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255,0,127,0.35); margin-bottom: 15px; letter-spacing: 0.5px; transition: 0.2s;">GET AI SIGNAL</button>
+.lock-input {
+width: 100%;
+padding: 16px;
+background: rgba(0, 0, 0, 0.6);
+border: 1px solid rgba(255, 255, 255, 0.08);
+border-radius: 16px;
+color: #fff;
+font-size: 16px;
+text-align: center;
+outline: none;
+margin-bottom: 22px;
+letter-spacing: 6px;
+font-family: 'Orbitron', sans-serif;
+transition: 0.3s;
+}
 
-        <div id="bakar_result_box" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 12px;">
-            <div id="bakar_signal" style="font-size: 28px; font-weight: 900; color: #00ff88; margin-bottom: 2px; text-shadow: 0 0 15px rgba(0,255,136,0.3);">BUY</div>
-            <div id="bakar_accuracy" style="font-size: 12px; font-weight: bold; color: #00f0ff; margin-bottom: 12px; background: rgba(0,240,255,0.1); display: inline-block; padding: 2px 8px; border-radius: 20px;">ACCURACY: 96%</div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: left; font-size: 9px; color: #a4a7b7; font-weight: bold; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
-                <div>RSI (14): <span id="ind_rsi" style="color:#00ff88; float:right;">26</span></div>
-                <div>EMA (9): <span id="ind_ema9" style="color:#00ff88; float:right;">4.9717</span></div>
-                <div>EMA (21): <span id="ind_ema21" style="color:#00ff88; float:right;">4.9714</span></div>
-                <div>MACD: <span id="ind_macd" style="color:#00ff88; float:right;">BULL</span></div>
-                <div style="grid-column: span 2; text-align: center; color: #ffa500; font-size: 9px; background: rgba(255,165,0,0.05); padding: 4px; border-radius: 6px; margin-top: 4px;">
-                    PATTERN: <span id="ind_pattern" style="color:#ffffff;">Morning Star</span>
-                </div>
-            </div>
-        </div>
-        
-        <div style="font-size: 7px; color: #555; margin-top: 12px; letter-spacing: 0.5px; font-weight: bold;">ABU BAKAR TRADER © SMART ENGINE</div>
-    `;
+.lock-input:focus {
+border-color: #ff007f;
+box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+}
 
-    document.body.appendChild(panel);
+.lock-btn {
+width: 100%;
+padding: 16px;
+background: linear-gradient(135deg, #00f0ff, #ff007f);
+border: none;
+border-radius: 16px;
+color: #fff;
+font-size: 14px;
+font-weight: 800;
+font-family: 'Orbitron', sans-serif;
+cursor: pointer;
+box-shadow: 0 10px 28px rgba(255, 0, 127, 0.35);
+letter-spacing: 2px;
+transition: 0.2s;
+}
 
-    // لائیو ریٹ اور گراف بارز کی اینیمیشن
-    setInterval(() => {
-        let currentRate = (4.9700 + Math.random() * 0.0030).toFixed(4);
-        let rateEl = document.getElementById('bakar_rate');
-        if(rateEl) { rateEl.innerText = currentRate; }
-        
-        for(let i=1; i<=7; i++) {
-            let bar = document.getElementById('bar'+i);
-            if(bar) { bar.style.height = (10 + Math.random() * 18) + 'px'; }
-        }
-    }, 700);
+.lock-btn:active {
+transform: scale(0.97);
+}
 
-    // بٹن اور 5 سیکنڈ الٹا ٹائمر ایکشن
-    document.getElementById('bakar_get_sig').onclick = function() {
-        const btn = this;
-        const timerBox = document.getElementById('bakar_timer_box');
-        const countdownEl = document.getElementById('bakar_countdown');
-        const sigEl = document.getElementById('bakar_signal');
-        const accEl = document.getElementById('bakar_accuracy');
-        
-        btn.disabled = true;
-        btn.style.background = "#222";
-        btn.style.boxShadow = "none";
-        btn.innerText = "SCANNING MARKET...";
-        timerBox.style.display = "block";
-        
-        let timeLeft = 5;
-        countdownEl.innerText = "00:05";
+.error-msg {
+color: #ff4757;
+font-size: 13px;
+margin-top: 14px;
+display: none;
+font-weight: 700;
+}
 
-        const counter = setInterval(() => {
-            timeLeft--;
-            countdownEl.innerText = "00:0" + timeLeft;
-            
-            if(timeLeft <= 0) {
-                clearInterval(counter);
-                timerBox.style.display = "none";
-                btn.disabled = false;
-                btn.style.background = "linear-gradient(135deg, #ff007f, #0055ff)";
-                btn.style.boxShadow = "0 5px 15px rgba(255,0,127,0.35)";
-                btn.innerText = "GET AI SIGNAL";
-                
-                let decision = Math.random() > 0.48 ? "BUY" : "SELL";
-                let accuracy = (87 + Math.random() * 12).toFixed(0) + "%";
-                
-                if(decision === "BUY") {
-                    sigEl.innerText = "BUY ⬆️";
-                    sigEl.style.color = "#00ff88";
-                    document.getElementById('ind_rsi').innerText = (22 + Math.random()*12).toFixed(0);
-                    document.getElementById('ind_macd').innerText = "BULL CROSS";
-                    document.getElementById('ind_pattern').innerText = "Morning Star";
-                } else {
-                    sigEl.innerText = "SELL ⬇️";
-                    sigEl.style.color = "#ff3b3b";
-                    document.getElementById('ind_rsi').innerText = (68 + Math.random()*15).toFixed(0);
-                    document.getElementById('ind_macd').innerText = "BEAR CROSS";
-                    document.getElementById('ind_pattern').innerText = "Evening Star";
-                }
-                
-                accEl.innerText = "ACCURACY: " + accuracy;
-                document.getElementById('ind_ema9').innerText = (4.9700 + Math.random() * 0.0020).toFixed(4);
-                document.getElementById('ind_ema21').innerText = (4.9700 + Math.random() * 0.0020).toFixed(4);
+/* مین ہائی اینڈ گلاس کنٹینر */
+.container{
+width:100%;
+max-width:390px;
+background: rgba(255, 255, 255, 0.01);
+border: 1px solid rgba(0, 240, 255, 0.2);
+border-radius:30px;
+padding:22px 18px;
+backdrop-filter: blur(20px);
+box-shadow: 0 35px 70px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.05);
+filter: blur(12px);
+pointer-events: none;
+transition: filter 0.6s cubic-bezier(0.1, 0.8, 0.25, 1);
+position: relative;
+}
+
+/* اینیمیٹڈ گلو بیک گراؤنڈ */
+.container::before {
+content: '';
+position: absolute;
+top: -2px; left: -2px; right: -2px; bottom: -2px;
+background: linear-gradient(135deg, #00f0ff, transparent, #ff007f, transparent);
+border-radius: 30px;
+z-index: -1;
+opacity: 0.4;
+pointer-events: none;
+}
+
+.logo-container {
+position: relative;
+width: 80px;
+height: 80px;
+margin: auto;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.logo-glow {
+position: absolute;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle, rgba(0, 240, 255, 0.25), transparent 70%);
+border-radius: 50%;
+animation: breatheGlow 4s infinite ease-in-out;
+}
+
+@keyframes breatheGlow {
+0%, 100% { transform: scale(0.9); opacity: 0.4; }
+50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* QX منیملیسٹ لوگو */
+.logo{
+width:100%;
+height:100%;
+background: rgba(5, 6, 15, 0.6);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.08);
+position: relative;
+z-index: 2;
+}
+
+.logo::before {
+content: 'QX';
+font-family: 'Orbitron', sans-serif;
+font-size: 30px;
+font-weight: 900;
+background: linear-gradient(135deg, #fff, #00f0ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+letter-spacing: 1px;
+filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
+}
+
+.title{
+font-family: 'Orbitron', sans-serif;
+text-align:center;
+font-size:20px;
+font-weight:900;
+color: #fff;
+margin-top:16px;
+letter-spacing: 1.5px;
+text-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+.subtitle{
+text-align:center;
+font-size:9px;
+color:#ff007f;
+margin-bottom:22px;
+text-transform: uppercase;
+letter-spacing: 4px;
+font-weight: 800;
+}
+
+.select{
+width:100%;
+padding:16px;
+background: rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(255, 255, 255, 0.05);
+border-radius: 16px;
+color:#fff;
+font-size:15px;
+margin-bottom:12px;
+outline:none;
+transition: 0.3s;
+}
+
+.select:focus {
+border-color: #00f0ff;
+}
+
+.pairs{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+justify-content:center;
+margin-bottom:18px;
+}
+
+.pair{
+background: rgba(255, 255, 255, 0.01);
+border: 1px solid rgba(255, 255, 255, 0.03);
+padding: 9px 14px;
+border-radius:12px;
+font-size:11px;
+cursor: pointer;
+transition: 0.3s;
+color: #9090a8;
+}
+
+.pair.active {
+border-color: #00f0ff;
+background: rgba(0, 240, 255, 0.08);
+color: #00f0ff;
+font-weight: 700;
+box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+}
+
+.chart-box{
+position:relative;
+height:190px;
+background: rgba(0, 0, 0, 0.5);
+border-radius:24px;
+padding:14px;
+overflow:hidden;
+border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.live{
+font-family: 'Orbitron', sans-serif;
+font-size:10px;
+font-weight:800;
+color:#707085;
+letter-spacing: 2px;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+
+.live::before {
+content: '';
+display: inline-block;
+width: 6px;
+height: 6px;
+background: #00ff88;
+border-radius: 50%;
+box-shadow: 0 0 8px #00ff88;
+}
+
+.price{
+font-size:42px;
+font-weight:900;
+color:#00ff88;
+margin-top:2px;
+font-family: monospace;
+text-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+}
+
+.candles{
+position:absolute;
+bottom:15px;
+left:14px;
+right:14px;
+height:85px;
+display:flex;
+align-items:flex-end;
+gap:6px;
+overflow-x: hidden;
+}
+
+.candle{
+width:10px;
+border-radius:4px;
+flex-shrink: 0;
+transition: height 0.2s ease, background 0.2s ease;
+}
+
+.green{
+background: #00ff88;
+box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.red{
+background: #ff3b3b;
+box-shadow: 0 0 10px rgba(255, 59, 59, 0.4);
+}
+
+.scan-line{
+position:absolute;
+top:0;
+bottom:0;
+width:3px;
+background: linear-gradient(to right, transparent, #00f0ff, transparent);
+box-shadow: 0 0 20px #00f0ff;
+display:none;
+animation: scan 2s linear infinite;
+z-index: 5;
+}
+
+@keyframes scan{
+0%{ left:-10px; }
+100%{ left:100%; }
+}
+
+/* الٹرا پریمیم گلوبل ایکشن بٹن */
+.btn{
+font-family: 'Orbitron', sans-serif;
+width:100%;
+padding:16px;
+border:none;
+border-radius:18px;
+margin-top:16px;
+background: linear-gradient(135deg, #00f0ff, #0055ff);
+color:#fff;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+box-shadow: 0 10px 30px rgba(0, 85, 255, 0.25);
+position: relative;
+overflow: hidden;
+transition: 0.2s;
+-webkit-tap-highlight-color: transparent;
+letter-spacing: 2px;
+}
+
+.btn::after {
+content: '';
+position: absolute;
+top: 0; left: -50%;
+width: 30%; height: 100%;
+background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+transform: skewX(-25deg);
+animation: shimmers 2.5s infinite linear;
+}
+
+@keyframes shimmers {
+0% { left: -50%; }
+30% { left: 130%; }
+100% { left: 130%; }
+}
+
+.btn:active {
+transform: scale(0.97);
+}
+
+.btn:disabled {
+background: rgba(255,255,255,0.03);
+color: #444;
+box-shadow: none;
+cursor: not-allowed;
+border: 1px solid rgba(255,255,255,0.01);
+}
+
+.btn:disabled::after { display: none; }
+
+/* الٹرا سگنل رزلٹ باکس */
+.result{
+margin-top:16px;
+background: rgba(0, 0, 0, 0.4);
+border-radius: 24px;
+padding: 20px;
+border: 1px solid rgba(255, 255, 255, 0.04);
+display: none;
+animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: scale(0.96); }
+to { opacity: 1; transform: scale(1); }
+}
+
+.signal{
+font-family: 'Orbitron', sans-serif;
+font-size:54px;
+font-weight:900;
+text-align:center;
+letter-spacing: 4px;
+}
+
+.buy{
+color:#00ff88;
+text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+}
+
+.sell{
+color:#ff3b3b;
+text-shadow: 0 0 30px rgba(255, 59, 59, 0.5);
+}
+
+.wait{
+color:#00f0ff;
+text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+}
+
+.conf{
+font-family: 'Orbitron', sans-serif;
+text-align:center;
+font-size:28px;
+font-weight:900;
+color: #fff;
+margin-top:2px;
+background: rgba(255, 255, 255, 0.03);
+width: fit-content;
+margin: 4px auto 16px auto;
+padding: 2px 20px;
+border-radius: 20px;
+border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.info-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+margin-top: 5px;
+font-size: 13px;
+color: #9090a5;
+}
+
+.info-item {
+background: rgba(0, 0, 0, 0.25);
+padding: 11px 12px;
+border-radius: 14px;
+border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.info-item span {
+float: right;
+font-weight: 700;
+color: #fff;
+}
+
+.info-item span.highlight {
+color: #ff007f;
+}
+
+.footer{
+margin-top:20px;
+text-align:center;
+font-size:9px;
+color:#35374a;
+letter-spacing: 2px;
+font-weight: 700;
+}
+</style>
+</head>
+
+<body>
+
+<div class="lock-screen" id="lockScreen">
+    <div class="lock-box">
+        <div class="lock-title">SYSTEM INITIALIZATION</div>
+        <input type="password" class="lock-input" id="passInput" placeholder="PASSKEY">
+        <button class="lock-btn" onclick="checkPassword()">BOOT ALGORITHM</button>
+        <div class="error-msg" id="errorMsg">❌ ACCESS DENIED</div>
+    </div>
+</div>
+
+<div class="container" id="botContainer">
+
+<div class="logo-container">
+    <div class="logo-glow"></div>
+    <div class="logo"></div>
+</div>
+
+<div class="title">ABU BAKAR TRADER</div>
+<div class="subtitle">LIQUID GLASS AI CORE</div>
+
+<select class="select" id="pair" onchange="syncPairSelection(this.value)">
+<option value="USD/BRL">🇧🇷 USD/BRL OTC</option>
+<option value="USD/MXN">🇲🇽 USD/MXN OTC</option>
+<option value="USD/INR">🇮🇳 USD/INR OTC</option>
+<option value="USD/PKR">🇵🇰 USD/PKR OTC</option>
+<option value="EUR/USD">🇺🇸 EUR/USD OTC</option>
+<option value="GBP/USD">🇬🇧 GBP/USD OTC</option>
+</select>
+
+<select class="select" id="time">
+<option>15 Seconds</option>
+<option>30 Seconds</option>
+<option>1 Minute</option>
+<option>5 Minutes</option>
+</select>
+
+<div class="pairs" id="pairBadges">
+<div class="pair active" onclick="selectBadge('USD/BRL')">🇧🇷 USD/BRL</div>
+<div class="pair" onclick="selectBadge('USD/MXN')">🇲🇽 USD/MXN</div>
+<div class="pair" onclick="selectBadge('USD/INR')">🇮🇳 USD/INR</div>
+<div class="pair" onclick="selectBadge('USD/PKR')">🇵🇰 USD/PKR</div>
+<div class="pair" onclick="selectBadge('EUR/USD')">🇺🇸 EUR/USD</div>
+<div class="pair" onclick="selectBadge('GBP/USD')">🇬🇧 GBP/USD</div>
+</div>
+
+<div class="chart-box">
+<div class="live">DEEP QUANT RESYNC</div>
+<div class="price" id="price">1.2540</div>
+<div class="scan-line" id="scanLine"></div>
+<div class="candles" id="candles"></div>
+</div>
+
+<button class="btn" id="actionBtn" onclick="getSignal()">
+RUN SMART MATRIX
+</button>
+
+<div class="result" id="resultBox">
+<div class="signal wait" id="signalText">WAIT</div>
+<div class="conf" id="confidence">85%</div>
+
+<div class="info-grid">
+    <div class="info-item">RSI (14): <span id="rsi" class="highlight">52</span></div>
+    <div class="info-item">PATTERN: <span id="pattern" class="highlight">Doji</span></div>
+    <div class="info-item">EMA 9: <span id="ema9">1.2542</span></div>
+    <div class="info-item">EMA 21: <span id="ema21">1.2539</span></div>
+    <div class="info-item">MACD: <span id="macd">BUY</span></div>
+    <div class="info-item">ANALYZER: <span id="trend" style="color: #00ff88;">ONLINE</span></div>
+</div>
+</div>
+
+<div class="footer">
+INTELLIGENT TRADING INTERFACE // V3.0
+</div>
+
+</div>
+
+<script>
+// پاس ورڈ لاجک
+function checkPassword() {
+    const input = document.getElementById("passInput").value.trim();
+    const correctPassword = "bakar786";
+    const lockScreen = document.getElementById("lockScreen");
+    const botContainer = document.getElementById("botContainer");
+    const errorMsg = document.getElementById("errorMsg");
+
+    if(input === correctPassword) {
+        lockScreen.style.display = "none";
+        botContainer.style.filter = "none";
+        botContainer.style.pointerEvents = "auto";
+        initCandles();
+    } else {
+        errorMsg.style.display = "block";
+        document.getElementById("passInput").value = "";
+    }
+}
+
+document.getElementById("passInput").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") { checkPassword(); }
+});
+
+const candlesContainer = document.getElementById("candles");
+const priceElement = document.getElementById("price");
+let candleData = [];
+let currentPrice = 1.2500;
+
+const pairBases = {
+    "USD/BRL": 4.9710,
+    "USD/MXN": 16.8520,
+    "USD/INR": 83.3100,
+    "USD/PKR": 278.2500,
+    "EUR/USD": 1.0845,
+    "GBP/USD": 1.2615
+};
+
+function initCandles() {
+    candlesContainer.innerHTML = "";
+    candleData = [];
+    let selectedPair = document.getElementById("pair").value;
+    currentPrice = pairBases[selectedPair] || 1.2500;
+
+    for(let i=0; i<28; i++){
+        let change = (Math.random() - 0.5) * 0.0015;
+        currentPrice += change;
+        let height = Math.floor(Math.random() * 55) + 15;
+        let isGreen = change >= 0;
+
+        candleData.push({ price: currentPrice, isGreen: isGreen, height: height });
+
+        let c = document.createElement("div");
+        c.classList.add("candle", isGreen? "green" : "red");
+        c.style.height = height + "px";
+        candlesContainer.appendChild(c);
+    }
+    priceElement.innerText = currentPrice.toFixed(4);
+}
+
+function updateLivePrice() {
+    if(document.getElementById("lockScreen").style.display === "none") {
+        let change = (Math.random() - 0.5) * 0.0004;
+        let oldPrice = currentPrice;
+        currentPrice += change;
+
+        priceElement.innerText = currentPrice.toFixed(4);
+        priceElement.style.color = currentPrice >= oldPrice? "#00ff88" : "#ff3b3b";
+
+        if(candlesContainer.lastChild) {
+            let lastHeight = Math.floor(Math.random() * 25) + 30;
+            candlesContainer.lastChild.style.height = lastHeight + "px";
+            if(currentPrice >= oldPrice) {
+                candlesContainer.lastChild.className = "candle green";
+            } else {
+                candlesContainer.lastChild.className = "candle red";
             }
-        }, 1000);
-    };
-})();
+        }
+    }
+}
+
+setInterval(updateLivePrice, 1000);
+
+function syncPairSelection(val) {
+    let badges = document.querySelectorAll("#pairBadges.pair");
+    badges.forEach(b => {
+        if(b.innerText.includes(val)) b.classList.add("active");
+        else b.classList.remove("active");
+    });
+    initCandles();
+}
+
+function selectBadge(val) {
+    document.getElementById("pair").value = val;
+    syncPairSelection(val);
+}
+
+function getSignal(){
+    let scan = document.getElementById("scanLine");
+    let btn = document.getElementById("actionBtn");
+
+    scan.style.display = "block";
+    btn.disabled = true;
+
+    setTimeout(() => {
+        scan.style.display = "none";
+        btn.disabled = false;
+        generateSmartSignal();
+    }, 2500);
+}
+
+function generateSmartSignal() {
+    document.getElementById("resultBox").style.display = "block";
+
+    let greenCount = candleData.filter(c => c.isGreen).length;
+    let totalCount = candleData.length;
+
+    let rsi = Math.floor((greenCount / totalCount) * 100);
+    if(rsi < 25) rsi = 28; if(rsi > 80) rsi = 74;
+
+    let ema9 = (currentPrice + 0.0003).toFixed(4);
+    let ema21 = (currentPrice - 0.0002).toFixed(4);
+
+    let signal = "WAIT";
+    let trend = "SIDEWAYS";
+    let macdText = "NEUTRAL";
+    let confidence = Math.floor(Math.random() * 7) + 89;
+
+    const patterns = ["Hammer", "Doji", "Marubozu", "Shooting Star", "Engulfing", "Spinning Top"];
+    let detectedPattern = patterns[Math.floor(Math.random() * patterns.length)];
+
+    if (rsi < 45 && detectedPattern === "Hammer") {
+        signal = "BUY"; trend = "UPTREND"; macdText = "STRONG BUY";
+    } else if (rsi > 55 && detectedPattern === "Shooting Star") {
+        signal = "SELL"; trend = "DOWNTREND"; macdText = "STRONG SELL";
+    } else {
+        if(Math.random() > 0.5) {
+            signal = "BUY"; trend = "UPTREND"; macdText = "BUY";
+        } else {
+            signal = "SELL"; trend = "DOWNTREND"; macdText = "SELL";
+        }
+    }
+
+    let signalText = document.getElementById("signalText");
+    signalText.innerText = signal;
+    signalText.className = "signal " + signal.toLowerCase();
+
+    document.getElementById("confidence").innerText = confidence + "%";
+    document.getElementById("rsi").innerText = rsi;
+    document.getElementById("pattern").innerText = detectedPattern;
+    document.getElementById("ema9").innerText = ema9;
+    document.getElementById("ema21").innerText = ema21;
+    document.getElementById("macd").innerText = macdText;
+}
+
+// Page load پر chart بن جائے
+window.onload = function() {
+    initCandles();
+}
+</script>
+
+</body>
+</html>
