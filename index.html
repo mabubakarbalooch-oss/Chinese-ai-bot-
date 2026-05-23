@@ -1,72 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIGER ELITE AI BOT</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
-        
-        body { background: #080b10; color: #fff; font-family: 'Rajdhani', sans-serif; display: flex; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .bot-frame { width: 100%; max-width: 450px; background: #0f141d; border: 2px solid #d4af37; border-radius: 20px; padding: 20px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); }
-        
-        /* Profile & Header */
-        .avatar { width: 120px; height: 120px; border-radius: 50%; border: 4px solid #d4af37; margin: 0 auto 15px; overflow: hidden; }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        h1 { color: #d4af37; text-align: center; font-family: 'Orbitron'; font-size: 20px; margin: 0; }
-        .sub-title { text-align: center; color: #ffaa00; font-size: 12px; letter-spacing: 2px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ABU BAKAR TRADER SIGNAL BOT ELITE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700&display=swap');
 
-        /* Stats & Inputs */
-        .grid-status { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .box { background: #161c27; padding: 10px; border-radius: 8px; border: 1px solid #333; text-align: center; font-size: 13px; }
-        
-        /* Signal Result */
-        .signal-box { border: 2px solid #d4af37; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; }
-        .signal-text { font-size: 50px; font-weight: bold; color: #00ff00; font-family: 'Orbitron'; margin: 10px 0; }
-        
-        .btn { width: 100%; padding: 15px; background: linear-gradient(90deg, #d4af37, #b8860b); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 18px; margin-top: 15px; }
-    </style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter', sans-serif;
+}
+
+body{
+background:#0a0e1a;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:10px;
+color:#fff;
+}
+
+.bot-container{
+width:100%;
+max-width:420px;
+background:#0f1422;
+border:1px solid rgba(255,193,7,0.3);
+border-radius:20px;
+padding:16px;
+box-shadow:0 0 40px rgba(255,193,7,0.1);
+display:none;
+}
+
+/* Header */
+.header{
+text-align:center;
+margin-bottom:15px;
+position:relative;
+}
+.header h1{
+font-family:'Orbitron',sans-serif;
+font-size:16px;
+font-weight:900;
+color:#fff;
+letter-spacing:1px;
+}
+.header .sub{
+display:inline-block;
+background:rgba(255,193,7,0.1);
+border:1px solid rgba(255,193,7,0.3);
+border-radius:20px;
+padding:4px 12px;
+font-size:9px;
+color:#ffc107;
+margin-top:6px;
+font-weight:600;
+}
+.settings{
+position:absolute;
+right:0;
+top:0;
+color:#ffc107;
+font-size:20px;
+cursor:pointer;
+}
+
+/* Pair Selector */
+.pair-box{
+background:#1a2030;
+border:1px solid rgba(255,193,7,0.2);
+border-radius:12px;
+padding:12px;
+margin-bottom:12px;
+}
+.pair-header{
+display:flex;
+align-items:center;
+gap:8px;
+margin-bottom:10px;
+}
+.flag{
+width:24px;
+height:18px;
+border-radius:3px;
+background:linear-gradient(to right,#3c3b6e 50%,#b22234 50%);
+position:relative;
+}
+.flag::after{
+content:'';
+position:absolute;
+width:10px;
+height:10px;
+background:#fff;
+border-radius:50%;
+top:4px;
+left:7px;
+}
+.pair-select{
+flex:1;
+background:transparent;
+border:none;
+color:#fff;
+font-size:14px;
+font-weight:600;
+outline:none;
+}
+.time-frames{
+display:flex;
+gap:6px;
+margin-bottom:10px;
+}
+.time-frames span{
+padding:4px 10px;
+border-radius:6px;
+font-size:11px;
+color:#64748b;
+cursor:pointer;
+}
+.time-frames span.active{
+background:#ffc107;
+color:#000;
+font-weight:700;
+}
+
+/* Chart Area with Photo */
+.chart-area{
+position:relative;
+height:200px;
+background:#0a0e1a;
+border-radius:12px;
+overflow:hidden;
+margin-bottom:12px;
+border:1px solid rgba(255,193,7,0.2);
+}
+.chart-bg{
+position:absolute;
+inset:0;
+background:linear-gradient(to bottom,rgba(255,193,7,0.05),transparent);
+}
+.candles{
+position:absolute;
+bottom:30px;
+left:10px;
+right:10px;
+height:100px;
+display:flex;
+align-items:flex-end;
+gap:2px;
+}
+.candle{
+flex:1;
+background:#ff3b3b;
+}
+.candle.up{
+background:#00e676;
+}
+
+.photo-ring{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:140px;
+height:140px;
+border-radius:50%;
+padding:3px;
+background:conic-gradient(#ffc107,#ff8c00,#ffc107);
+animation:rotate 3s linear infinite;
+}
+@keyframes rotate{
+100%{transform:translate(-50%,-50%) rotate(360deg);}
+}
+.photo-ring::before{
+content:'';
+position:absolute;
+inset:3px;
+border-radius:50%;
+background:#0a0e1a;
+z-index:1;
+}
+.photo-ring img{
+position:absolute;
+inset:6px;
+width:calc(100% - 12px);
+height:calc(100% - 12px);
+border-radius:50%;
+object-fit:cover;
+z-index:2;
+}
+.scan-text{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+color:#ffc107;
+font-size:10px;
+font-weight:700;
+letter-spacing:1px;
+z-index:3;
+margin-top:80px;
+}
+
+/* Scanning Box */
+.scan-box{
+background:#1a2030;
+border:1px solid rgba(255,193,7,0.2);
+border-radius:12px;
+padding:12px;
+margin-bottom:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.radar{
+width:45px;
+height:45px;
+border:2px solid #ffc107;
+border-radius:50%;
+position:relative;
+}
+.radar::before{
+content:'';
+position:absolute;
+top:50%;
+left:50%;
+width:2px;
+height:20px;
+background:linear-gradient(to top,transparent,#ffc107);
+transform-origin:bottom;
+animation:spin 2s linear infinite;
+}
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
+.scan-info h3{
+font-size:14px;
+color:#ffc107;
+margin-bottom:4px;
+}
+.scan-info p{
+font-size:10px;
+color:#64748b;
+}
+.timer{
+width:55px;
+height:55px;
+border:2px solid #ffc107;
+border-radius:50%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+.timer .num{
+font-family:'Orbitron',sans-serif;
+font-size:18px;
+color:#ffc107;
+font-weight:900;
+}
+.timer .txt{
+font-size:8px;
+color:#64748b;
+}
+
+/* Buttons */
+.btn-group{
+display:flex;
+gap:8px;
+margin-bottom:12px;
+}
+.btn{
+flex:1;
+padding:12px;
+border:none;
+border-radius:10px;
+font-family:'Orbitron',sans-serif;
+font-size:12px;
+font-weight:900;
+cursor:pointer;
+}
+.btn-primary{
+background:linear-gradient(135deg,#ffc107,#ff8c00);
+color:#000;
+box-shadow:0 4px 15px rgba(255,193,7,0.4);
+}
+.btn-secondary{
+background:linear-gradient(135deg,#ffc107,#ff8c00);
+color:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:5px;
+}
+
+/* Result Box */
+.result-box{
+background:#1a2030;
+border:1px solid rgba(255,193,7,0.2);
+border-radius:12px;
+padding:15px;
+margin-bottom:12px;
+display:none;
+}
+.result-header{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+font-size:10px;
+color:#64748b;
+}
+.result-main{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.call{
+text-align:center;
+}
+.call h1{
+font-family:'Orbitron',sans-serif;
+font-size:36px;
+color:#ff3b3b;
+text-shadow:0 0 20px rgba(255,59,59,0.5);
+}
+.call .arrows{
+color:#ff3b3b;
+font-size:20px;
+}
+.conf-circle{
+width:60px;
+height:60px;
+border:3px solid #ffc107;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Orbitron',sans-serif;
+font-size:18px;
+font-weight:900;
+}
+.result-info{
+font-size:10px;
+color:#64748b;
+margin-top:8px;
+}
+
+/* Bottom Bar */
+.alert-bar{
+background:#1a2030;
+border:1px solid rgba(255,193,7,0.2);
+border-radius:10px;
+padding:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:10px;
+color:#ff3b3b;
+margin-bottom:12px;
+}
+
+.bottom-nav{
+display:flex;
+justify-content:space-around;
+background:#1a2030;
+border-radius:12px;
+padding:10px 0;
+}
+.nav-item{
+text-align:center;
+font-size:9px;
+color:#64748b;
+}
+.nav-item.active{
+color:#ffc107;
+}
+.nav-item svg{
+width:20px;
+height:20px;
+margin-bottom:4px;
+}
+
+.footer{
+text-align:center;
+font-size:9px;
+color:#ffc107;
+margin-top:10px;
+letter-spacing:1px;
+}
+
+/* Lock Screen */
+.lock-screen{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:#0a0e1a;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+.lock-box{
+width:90%;
+max-width:320px;
+background:#1a2030;
+border:1px solid rgba(255,193,7,0.3);
+border-radius:20px;
+padding:25px;
+text-align:center;
+}
+.lock-input{
+width:100%;
+padding:12px;
+border:1px solid rgba(255,193,7,0.2);
+border-radius:10px;
+background:#0a0e1a;
+color:#fff;
+text-align:center;
+margin:15px 0;
+outline:none;
+}
+.lock-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#ffc107,#ff8c00);
+color:#000;
+font-weight:900;
+cursor:pointer;
+}
+</style>
 </head>
 <body>
 
-<div class="bot-frame">
-    <div class="avatar">
-        <img src="https://i.imgur.com/W2SHevC.jpeg" alt="Abu Bakar">
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <h2 style="color:#ffc107;font-family:Orbitron">ENTER ACCESS KEY</h2>
+    <input type="password" id="passInput" class="lock-input" placeholder="PASSWORD">
+    <button class="lock-btn" onclick="unlock()">CONNECT BOT</button>
+  </div>
+</div>
+
+<div class="bot-container" id="botApp">
+  
+  <div class="header">
+    <h1>ABU BAKAR TRADER SIGNAL BOT ELITE</h1>
+    <div class="sub">AI POWERED • SMART ANALYSIS • HIGH ACCURACY</div>
+    <div class="settings">⚙️</div>
+  </div>
+
+  <div class="pair-box">
+    <div class="pair-header">
+      <div class="flag"></div>
+      <select class="pair-select" id="pair" onchange="changePair()">
+        <option value="USD/BRL">USD/BRL (OTC)</option>
+        <option value="USD/MXN">USD/MXN (OTC)</option>
+        <option value="EUR/USD">EUR/USD (OTC)</option>
+      </select>
     </div>
-    <h1>ABU BAKAR TRADER</h1>
-    <p class="sub-title">TIGER ELITE AI BOT</p>
-
-    <div class="grid-status">
-        <div class="box">SERVER: SECURE</div>
-        <div class="box">ACCURACY: 95.4%</div>
+    <div class="time-frames">
+      <span class="active">1m</span>
+      <span>5m</span>
+      <span>15m</span>
+      <span>30m</span>
+      <span>1h</span>
     </div>
+  </div>
 
-    <select style="width:100%; padding:10px; background:#161c27; color:#fff; border-radius:8px;">
-        <option>USD/BRL OTC</option>
-    </select>
-
-    <div class="signal-box">
-        <p>ANALYSIS RESULT</p>
-        <div id="signal" class="signal-text">WAIT</div>
-        <div id="accuracy">92% ACCURACY MATCH</div>
+  <div class="chart-area">
+    <div class="chart-bg"></div>
+    <div class="candles" id="candles"></div>
+    
+    <div class="photo-ring">
+      <img src="data:image/jpeg;base64,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" />
     </div>
+    <div class="scan-text" id="scanText">SCANNING MARKET...</div>
+  </div>
 
-    <button class="btn" onclick="startAnalysis()">GET SIGNAL</button>
-
-    <div class="grid-status" style="margin-top:20px;">
-        <div class="box">RSI: 61</div>
-        <div class="box">TREND: STRONG UP</div>
-        <div class="box">EMA 9: 1.2450</div>
-        <div class="box">EMA 21: 1.2444</div>
+  <div class="scan-box">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="radar" id="radar"></div>
+      <div class="scan-info">
+        <h3 id="scanTitle">SCANNING MARKET...</h3>
+        <p>Analyzing Price Action, Trend, RSI, EMA & Market Momentum</p>
+      </div>
     </div>
+    <div class="timer">
+      <div class="num" id="timer">03</div>
+      <div class="txt">SEC</div>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn btn-primary" onclick="getSignal()">ANALYZER MARKET<br>(GET SIGNAL)</button>
+    <button class="btn btn-secondary" onclick="stopScan()">⚡ STOP SCAN</button>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-header">
+      <span>ANALYSIS RESULT</span>
+      <span>CONFIDENCE</span>
+      <span>EXPIRY TIME</span>
+    </div>
+    <div class="result-main">
+      <div class="call">
+        <div class="arrows">^^</div>
+        <h1 id="signal">CALL</h1>
+      </div>
+      <div class="conf-circle" id="conf">92%</div>
+      <div style="text-align:center;">
+        <svg width="24" height="24" fill="#ffc107" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        <div style="font-size:16px;font-weight:700;margin-top:4px;">1 MIN</div>
+      </div>
+    </div>
+    <div class="result-info" id="info">RSI: 62.46 | EMA12: 100.22 | EMA26: 99.91</div>
+  </div>
+
+  <div class="alert-bar">
+    <span>🔊 SOUND ALERT: ON</span>
+    <span>〰️〰️〰️</span>
+    <span>VIBRATION: ON 📱</span>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <div>HOME</div>
+    </div>
+    <div class="nav-item">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.69 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+      <div>HISTORY</div>
+    </div>
+    <div class="nav-item">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6z"/></svg>
+      <div>STRATEGY</div>
+    </div>
+    <div class="nav-item">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+      <div>SETTINGS</div>
+    </div>
+  </div>
+
+  <div class="footer">HIGH SPEED AI ANALYSIS</div>
 </div>
 
 <script>
-    function startAnalysis() {
-        document.getElementById('signal').innerText = "BUY";
-        document.getElementById('signal').style.color = "#00ff00";
-    }
-</script>
+let scanning=false;
+let timerInterval;
 
+function unlock(){
+  if(document.getElementById('passInput').value==='bakar786'){
+    document.getElementById('lockScreen').style.display='none';
+    document.getElementById('botApp').style.display='block';
+    initCandles();
+  }else{
+    alert('Wrong Password');
+  }
+}
+
+function initCandles(){
+  const c=document.getElementById('candles');
+  c.innerHTML='';
+  for(let i=0;i<30;i++){
+    let d=document.createElement('div');
+    d.className='candle '+(Math.random()>0.5?'up':'');
+    d.style.height=Math.random()*80+20+'px';
+    c.appendChild(d);
+  }
+}
+
+function getSignal(){
+  if(scanning)return;
+  scanning=true;
+  document.getElementById('radar').style.animation='spin 1s linear infinite';
+  document.getElementById('scanTitle').innerText='SCANNING MARKET...';
+  
+  let sec=3;
+  document.getElementById('timer').innerText='0'+sec;
+  
+  timerInterval=setInterval(()=>{
+    sec--;
+    document.getElementById('timer').innerText='0'+sec;
+    if(sec<=0){
+      clearInterval(timerInterval);
+      scanning=false;
+      document.getElementById('radar').style.animation='none';
+      document.getElementById('scanTitle').innerText='ANALYSIS COMPLETE';
+      document.getElementById('resultBox').style.display='block';
+      
+      let signal=Math.random()>0.5?'CALL':'PUT';
+      let conf=Math.floor(Math.random()*10)+90;
+      document.getElementById('signal').innerText=signal;
+      document.getElementById('signal').style.color=signal==='CALL'?'#ff3b3b':'#00e676';
+      document.getElementById('conf').innerText=conf+'%';
+    }
+  },1000);
+}
+
+function stopScan(){
+  clearInterval(timerInterval);
+  scanning=false;
+  document.getElementById('radar').style.animation='none';
+  document.getElementById('timer').innerText='03';
+  document.getElementById('scanTitle').innerText='SCANNING STOPPED';
+}
+</script>
 </body>
 </html>
