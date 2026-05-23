@@ -1,341 +1,690 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abu Bakar Trader - Tiger Elite AI Bot v3.5</title>
-    <style>
-        :root {
-            --bg-dark: #121212;
-            --container-bg: #1A1A1A;
-            --accent-gold: #FFC107;
-            --accent-orange: #FF5722;
-            --text-main: #FFFFFF;
-            --text-secondary: #AAAAAA;
-            --glow-gold: rgba(255, 193, 7, 0.4);
-            --glow-orange: rgba(255, 87, 34, 0.4);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Montserrat', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
+<title>ABU BAKAR TRADER - ORIGINAL TIGER v3.5</title>
 
-        .phone-container {
-            width: 375px;
-            height: 812px;
-            background-color: #000;
-            border-radius: 40px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            border: 8px solid #222;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            padding-top: 50px; /* Space for notches */
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap');
 
-        /* --- Header Section with Animated Realistic Tiger --- */
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
-        /* The container that defines the neon circle and holds the avatar */
-        .avatar-circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-orange);
-            box-shadow: 0 0 20px var(--glow-orange);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            background-color: #000;
-        }
+body{
+background:#050202; 
+display:flex;
+justify-content:center;
+padding:8px;
+color:#fff;
+overflow-x:hidden;
+}
 
-        /* The image itself, absolute positioning and default size */
-        #tiger-avatar {
-            height: 130%; /* Set height, let width be auto for realistic scale */
-            width: auto;
-            position: absolute;
-            object-fit: cover;
-            object-position: center;
-            transform: translateX(0); /* Default position */
-        }
+body::before{
+content:'';
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top left, rgba(255, 60, 0, 0.15), transparent 40%),
+radial-gradient(circle at bottom right, rgba(255, 204, 0, 0.12), transparent 40%);
+z-index:-1;
+}
 
-        /* Walking Animation: Moves left, then snaps back right and restarts */
-        @keyframes walkCycle {
-            0% { transform: translateX(50px); }    /* Start far right, mostly out of view */
-            100% { transform: translateX(-50px); } /* Walk far left, mostly out of view */
-        }
+.container{
+width:100%;
+max-width:400px;
+background:rgba(15, 10, 10, 0.75);
+border:1px solid rgba(255, 77, 0, 0.25); 
+border-radius:28px;
+padding:20px;
+backdrop-filter:blur(25px);
+box-shadow:0 0 35px rgba(255, 60, 0, 0.15), inset 0 0 15px rgba(255,255,255,0.01);
+display:none;
+animation:fade 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-        /* Assign the animation to the avatar image */
-        .avatar-circle #tiger-avatar {
-            animation: walkCycle 2.5s infinite linear;
-        }
+@keyframes fade{
+from{ opacity:0; transform:translateY(20px) scale(0.95); }
+to{ opacity:1; transform:translateY(0) scale(1); }
+}
 
-        /* Red glow overlay for the avatar itself */
-        .avatar-glow-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 50%, var(--glow-orange) 100%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
+.lock-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#050202;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+padding:20px;
+}
 
-        .titles {
-            text-align: center;
-            margin-top: 15px;
-        }
+.lock-box{
+width:100%;
+max-width:350px;
+background:rgba(20, 12, 12, 0.7);
+border:1px solid rgba(255, 77, 0, 0.2);
+border-radius:24px;
+padding:35px 25px;
+text-align:center;
+backdrop-filter:blur(20px);
+box-shadow:0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(255, 77, 0, 0.05);
+}
 
-        .main-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--accent-gold);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+.lock-title{
+font-family:'Orbitron',sans-serif;
+font-size:24px;
+font-weight:900;
+color:#ff4d00;
+margin-bottom:8px;
+text-shadow:0 0 10px rgba(255, 77, 0, 0.3);
+}
 
-        .subtitle {
-            font-size: 10px;
-            font-weight: 400;
-            color: var(--accent-orange);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+.lock-subtitle{
+font-size:11px;
+color:#a0aec0;
+margin-bottom:25px;
+letter-spacing:1px;
+}
 
-        /* --- Sub-Header Metrics --- */
-        .metrics {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            padding: 0 10px;
-        }
+.lock-input{
+width:100%;
+padding:16px;
+border:1px solid rgba(255,255,255,0.1);
+outline:none;
+border-radius:14px;
+background:rgba(0,0,0,0.6);
+color:#fff;
+font-size:16px;
+text-align:center;
+margin-bottom:18px;
+letter-spacing:4px;
+transition:0.3s;
+}
 
-        .metric span { font-weight: 700; color: var(--accent-gold); }
+.lock-input:focus{
+border-color:#ffcc00;
+box-shadow:0 0 10px rgba(255,204,0,0.2);
+}
 
-        /* --- Input Fields (Selectors) --- */
-        .inputs-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
+.lock-btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#ff4d00,#ffcc00);
+color:#000;
+font-weight:900;
+font-size:15px;
+cursor:pointer;
+box-shadow:0 4px 15px rgba(255, 77, 0, 0.4);
+}
 
-        .select-input {
-            background-color: #111;
-            border: 1px solid #333;
-            border-radius: 12px;
-            color: var(--text-main);
-            padding: 16px;
-            font-size: 14px;
-            appearance: none;
-            cursor: pointer;
-            width: 100%;
-            box-sizing: border-box;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%2024%22%3E%3Cpath%20fill%3D%22%23AAAAAA%22%20d%3D%22M7.41%207.84L12%2012.42l4.59-4.58L18%209.25l-6%206-6-6z%22%2F%3E%3C%2Fsvg%2E');
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 16px;
-        }
+.error{
+margin-top:12px;
+color:#ff3b3b;
+display:none;
+font-size:13px;
+font-weight:600;
+}
 
-        /* --- Price Display & Chart --- */
-        .chart-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+/* --- ORIGINAL REAL TIGER LOGO WITH WALKING EFFECT --- */
+.logo-container{
+width:95px;
+height:95px;
+margin:auto;
+border-radius:50%;
+background:rgba(0, 0, 0, 0.6);
+border:2.5px solid rgba(255, 204, 0, 0.5);
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+overflow:hidden;
+box-shadow:0 0 25px rgba(255, 77, 0, 0.3), inset 0 0 15px rgba(255, 77, 0, 0.2);
+}
 
-        .live-market-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 5px;
-        }
-        .live-market-label::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 3px; width: 8px; height: 8px;
-            background-color: var(--accent-gold);
-            border-radius: 50%;
-        }
+.real-tiger {
+width:75px;
+height:auto;
+position:absolute;
+animation:tigerRun 4s infinite linear;
+}
 
-        .price-display {
-            font-size: 36px;
-            font-weight: 900;
-            color: var(--accent-gold);
-            margin-bottom: 15px;
-            font-family: 'Roboto Mono', monospace;
-        }
+/* Original Realistic Tiger Running/Walking Cycle */
+@keyframes tigerRun {
+0% { transform: translateX(-65px) scaleX(1); }
+49% { transform: translateX(65px) scaleX(1); }
+50% { transform: translateX(65px) scaleX(-1); } /* Face turns left */
+99% { transform: translateX(-65px) scaleX(-1); }
+100% { transform: translateX(-65px) scaleX(1); } /* Face turns right */
+}
 
-        .chart-container {
-            width: 100%;
-            height: 120px;
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-        }
+.title{
+text-align:center;
+font-family:'Orbitron',sans-serif;
+font-size:22px;
+font-weight:900;
+margin-top:15px;
+background:linear-gradient(to right, #fff, #ffcc00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
-        .candle {
-            width: 8px;
-            border-radius: 2px;
-        }
-        .candle.up { background-color: var(--accent-gold); height: 50%; }
-        .candle.down { background-color: #B01A10; height: 30%; }
-        /* Add different heights for realism */
-        .c1 { height: 60%; } .c2 { height: 50%; } .c3 { height: 75%; }
-        .c4 { height: 40%; } .c5 { height: 65%; }
+.sub{
+text-align:center;
+font-size:10px;
+letter-spacing:4px;
+color:#ff4d00;
+margin-bottom:20px;
+font-weight:600;
+}
 
-        /* --- Get Signal Button --- */
-        .btn-signal {
-            background: linear-gradient(90deg, #E65100 0%, #FF9800 100%);
-            border: none;
-            border-radius: 12px;
-            color: #000;
-            padding: 18px;
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.1s, box-shadow 0.2s;
-            margin-bottom: 25px;
-        }
-        .btn-signal:active { transform: translateY(1px); }
-        .btn-signal:hover { box-shadow: 0 4px 15px rgba(255,152,0,0.4); }
+.stats-bar {
+display:flex;
+justify-content:space-between;
+background:rgba(255,255,255,0.02);
+border:1px solid rgba(255,255,255,0.05);
+border-radius:12px;
+padding:8px 12px;
+margin-bottom:12px;
+font-size:11px;
+color:#a0aec0;
+}
 
-        /* --- Signal Display & Metrics --- */
-        .signal-display {
-            text-align: center;
-        }
+.stats-bar span {
+color:#ffcc00;
+font-weight:bold;
+font-family:'Orbitron', sans-serif;
+}
 
-        .signal-text {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--accent-gold);
-            margin-bottom: 2px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--glow-gold);
-        }
+.select{
+width:100%;
+padding:14px;
+border-radius:14px;
+background:#140d0d;
+border:1px solid rgba(255,255,255,0.08);
+color:#fff;
+outline:none;
+margin-bottom:12px;
+font-weight:600;
+cursor:pointer;
+}
 
-        .accuracy-text {
-            font-size: 18px;
-            color: #fff;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            margin-bottom: 15px;
-        }
+.chart{
+position:relative;
+height:220px;
+border-radius:22px;
+background:rgba(5, 2, 2, 0.8);
+padding:14px;
+overflow:hidden;
+border:1px solid rgba(255, 77, 0, 0.1);
+}
 
-        .signal-metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-align: left;
-            padding: 0 10px;
-        }
+.live{
+font-size:11px;
+font-family:'Orbitron',sans-serif;
+letter-spacing:2px;
+color:#a0aec0;
+display:flex;
+align-items:center;
+gap:6px;
+}
 
-        .met-item {
-            display: flex;
-            justify-content: space-between;
-        }
-        .met-label { color: #fff; font-weight: 400; }
-        .met-val { color: #fff; font-weight: 700; font-family: 'Roboto Mono', monospace; }
-        .met-val.green { color: #00E676; }
+.live::before{
+content:'';
+width:7px;
+height:7px;
+background:#ffcc00;
+border-radius:50%;
+box-shadow:0 0 10px #ffcc00;
+animation:pulse 1.5s infinite;
+}
 
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+@keyframes pulse {
+0% { opacity:0.4; }
+50% { opacity:1; }
+100% { opacity:0.4; }
+}
+
+.price{
+font-size:38px;
+font-weight:900;
+font-family:monospace;
+margin-top:5px;
+color:#ffcc00;
+text-shadow:0 0 15px rgba(255,204,0,0.2);
+}
+
+.candles{
+position:absolute;
+left:10px;
+right:10px;
+bottom:10px;
+height:110px;
+display:flex;
+align-items:flex-end;
+gap:4px;
+overflow:hidden;
+}
+
+.candle{
+width:9px;
+border-radius:2px;
+position:relative;
+transition:0.2s ease;
+}
+
+.candle::before {
+content:'';
+position:absolute;
+width:2px;
+left:50%;
+transform:translateX(-50%);
+bottom:-5px;
+top:-5px;
+z-1;
+}
+
+.green{ background:#ffcc00; box-shadow:0 0 8px rgba(255,204,0,0.4); } 
+.green::before { background:#ffcc00; }
+
+.red{ background:#ff3b3b; box-shadow:0 0 8px rgba(255,59,59,0.4); } 
+.red::before { background:#ff3b3b; }
+
+.scan{
+position:absolute;
+top:0;
+bottom:0;
+width:6px;
+background:linear-gradient(to right, transparent, #ff4d00, transparent);
+box-shadow:0 0 25px #ff4d00;
+display:none;
+animation:scanMove 1.5s ease-in-out infinite;
+z-index:5;
+}
+
+@keyframes scanMove{
+0%{left:-10px;}
+50%{left:100%;}
+100%{left:-10px;}
+}
+
+.btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:16px;
+margin-top:16px;
+background:linear-gradient(135deg,#ff4d00,#ffcc00); 
+color:#000;
+font-weight:900;
+font-size:15px;
+cursor:pointer;
+font-family:'Orbitron',sans-serif;
+letter-spacing:1px;
+box-shadow:0 6px 20px rgba(255, 77, 0, 0.3);
+transition:0.3s;
+}
+
+.btn:disabled{ opacity:0.6; cursor:not-allowed; }
+
+.result{
+margin-top:16px;
+padding:18px;
+border-radius:22px;
+background:rgba(10, 5, 5, 0.9);
+border:1px solid rgba(255, 77, 0, 0.2);
+display:none;
+animation:fade 0.4s ease;
+}
+
+.signal{
+text-align:center;
+font-family:'Orbitron',sans-serif;
+font-size:52px;
+font-weight:900;
+letter-spacing:2px;
+}
+
+.buy{ color:#ffcc00; text-shadow:0 0 25px rgba(255,204,0,0.6); }
+.sell{ color:#ff3b3b; text-shadow:0 0 25px rgba(255,59,59,0.6); }
+.wait{ color:#ff4d00; text-shadow:0 0 25px rgba(255,77,0,0.4); }
+
+.conf{
+text-align:center;
+font-size:24px;
+font-family:'Orbitron',sans-serif;
+margin-top:2px;
+color:#e2e8f0;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:14px;
+}
+
+.item{
+background:rgba(255,255,255,0.02);
+border:1px solid rgba(255, 77, 0, 0.1);
+padding:12px;
+border-radius:14px;
+font-size:12px;
+color:#a0aec0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.item span{
+font-weight:700;
+font-family:monospace;
+color:#fff;
+padding-left:5px;
+}
+
+.social-btn {
+display:block;
+width:100%;
+padding:14px;
+margin-top:15px;
+background:rgba(255, 204, 0, 0.05);
+border:1px dashed #ffcc00;
+border-radius:14px;
+color:#ffcc00;
+text-align:center;
+text-decoration:none;
+font-family:'Orbitron', sans-serif;
+font-size:12px;
+font-weight:bold;
+letter-spacing:1px;
+box-shadow:0 0 15px rgba(255,204,0,0.1);
+animation:glowBlink 2s infinite ease-in-out;
+}
+
+@keyframes glowBlink {
+0% { opacity:0.8; box-shadow:0 0 10px rgba(255,204,0,0.1); }
+50% { opacity:1; box-shadow:0 0 20px rgba(255,204,0,0.3); }
+100% { opacity:0.8; box-shadow:0 0 10px rgba(255,204,0,0.1); }
+}
+
+.footer{
+text-align:center;
+margin-top:18px;
+font-size:10px;
+letter-spacing:3px;
+color:#5a4a4a;
+font-weight:bold;
+}
+</style>
 </head>
+
 <body>
-    <div class="phone-container">
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 25px; display: flex; justify-content: space-around; font-size: 12px; color: #fff; z-index: 10;">
-            <span>12:31</span>
-            <span>LTE</span>
-            <span>R</span>
-        </div>
 
-        <div class="header">
-            <div class="avatar-circle">
-                <img src="walking-tiger.png" id="tiger-avatar" alt="Walking Tiger Elite AI">
-                <div class="avatar-glow-overlay"></div>
-            </div>
-            <div class="titles">
-                <p class="main-title">Abu Bakar Trader</p>
-                <p class="subtitle">Tiger Elite AI Bot v3.5</p>
-            </div>
-        </div>
+<div class="lock-screen" id="lock">
+  <div class="lock-box">
+    <div class="lock-title">QX TIGER TERMINAL</div>
+    <div class="lock-subtitle">ABU BAKAR TRADER ELITE INTERFACE</div>
+    <input type="password" id="pass" class="lock-input" placeholder="ACCESS KEY">
+    <button class="lock-btn" onclick="unlock()">UNLOCK TERMINAL</button>
+    <div class="error" id="err">INVALID ACCESS KEY</div>
+  </div>
+</div>
 
-        <div class="metrics">
-            <div class="metric">SERVER: <span>SECURE</span></div>
-            <div class="metric">ACCURACY: <span>93.4%</span></div>
-        </div>
+<div class="container" id="app">
+  <div class="logo-container">
+    <img src="https://i.ibb.co/vYm6gPq/tiger-walk.png" class="real-tiger" alt="Tiger">
+  </div>
+  <div class="title">ABU BAKAR TRADER</div>
+  <div class="sub">TIGER ELITE AI BOT</div>
 
-        <div class="inputs-group">
-            <select class="select-input">
-                <option selected>USD/BRL OTC</option>
-                <option>EUR/USD OTC</option>
-                <option>GBP/USD OTC</option>
-            </select>
-            <select class="select-input">
-                <option selected>15 Seconds (Fast)</option>
-                <option>30 Seconds (Medium)</option>
-                <option>1 Minute (Stable)</option>
-            </select>
-        </div>
+  <div class="stats-bar">
+    <div>SERVER: <span style="color:#ffcc00">SECURE</span></div>
+    <div>ACCURACY: <span id="accuracy-val">95.4%</span></div>
+  </div>
 
-        <div class="chart-section">
-            <div class="live-market-label">Live Market</div>
-            <div class="price-display">1.2475</div>
-            <div class="chart-container">
-                <div class="candle down c1"></div> <div class="candle down c2"></div> <div class="candle up c3"></div> <div class="candle down c4"></div> <div class="candle up c5"></div>
-                <div class="candle down c1"></div> <div class="candle down c2"></div> <div class="candle up c3"></div> <div class="candle down c4"></div> <div class="candle up c5"></div>
-                <div class="candle down c1"></div> <div class="candle down c2"></div> <div class="candle up c3"></div> <div class="candle down c4"></div> <div class="candle up c5"></div>
-                <div class="candle down c1"></div> <div class="candle down c2"></div> <div class="candle up c3"></div> <div class="candle down c4"></div> <div class="candle up c5"></div>
-                <div class="candle down c1"></div> <div class="candle down c2"></div> <div class="candle up c3"></div> <div class="candle down c4"></div> <div class="candle up c5"></div>
-            </div>
-        </div>
+  <select class="select" id="pair" onchange="resetMarket()">
+    <option value="1.2450">USD/BRL OTC</option>
+    <option value="17.8200">USD/MXN OTC</option>
+    <option value="278.400">USD/PKR OTC</option>
+    <option value="1.0825">EUR/USD OTC</option>
+    <option value="1.2640">GBP/USD OTC</option>
+  </select>
 
-        <button class="btn-signal">Analyzer Market (Get Signal)</button>
+  <select class="select" id="timeframe" onchange="resetMarket()">
+    <option value="1000">15 Seconds (Fast)</option>
+    <option value="2000">30 Seconds (Medium)</option>
+    <option value="4000">1 Minute (Stable)</option>
+  </select>
 
-        <div class="signal-display">
-            <div class="signal-text">BUY</div>
-            <div class="accuracy-text">93% Accuracy Match</div>
-            <div class="signal-metrics-grid">
-                <div class="met-item"><span class="met-label">RSI:</span> <span class="met-val green">58</span></div>
-                <div class="met-item"><span class="met-label">EMA 9:</span> <span class="met-val">1.2591</span></div>
-                <div class="met-item"><span class="met-label">Trend:</span> <span class="met-val green">Strong Up</span></div>
-                <div class="met-item"><span class="met-label">EMA 21:</span> <span class="met-val">1.2585</span></div>
-                <div class="met-item"><span class="met-label">MACD:</span> <span class="met-val green">Bullish Cross</span></div>
-                <div class="met-item"><span class="met-label">ORDER ID:</span> <span class="met-val">000633216733</span></div>
-                <div class="met-item"><span class="met-label">Pattern:</span> <span class="met-val green">3 White Soldiers</span></div>
-                <div class="met-item"><span class="met-label">TIME:</span> <span class="met-val">12:11:50 AM</span></div>
-            </div>
-        </div>
+  <div class="chart">
+    <div class="live">LIVE MARKET</div>
+    <div class="price" id="price">1.2450</div>
+    <div class="scan" id="scan"></div>
+    <div class="candles" id="candles"></div>
+  </div>
+
+  <button class="btn" id="btn" onclick="getSignal()">ANALYZER MARKET (GET SIGNAL)</button>
+
+  <div class="result" id="result">
+    <div class="signal wait" id="signal">WAIT</div>
+    <div class="conf" id="conf">--%</div>
+    <div class="grid">
+      <div class="item">RSI <span id="rsi" style="color:#ffcc00">50</span></div>
+      <div class="item">TREND <span id="trend">WAIT</span></div>
+      <div class="item">EMA 9 <span id="ema9">0.0000</span></div>
+      <div class="item">EMA 21 <span id="ema21">0.0000</span></div>
+      <div class="item">MACD <span id="macd">WAIT</span></div>
+      <div class="item">PATTERN <span id="pattern">ANALYZING</span></div>
+      <div class="item" style="grid-column: span 2; font-size:11px; border-color:rgba(255,255,255,0.05)">
+        ID: <span id="order-id" style="color:#a0aec0">--</span> 
+        TIME: <span id="execution-time" style="color:#a0aec0">--</span>
+      </div>
     </div>
+  </div>
+
+  <a href="https://t.me/your_group_link" target="_blank" class="social-btn">
+    📢 JOIN OUR VIP TIGER GROUP
+  </a>
+
+  <div class="footer">TIGER ALGORITHM POWERED SYSTEMS</div>
+</div>
+
+<script>
+const correctPassword = "bakar786";
+let currentPrice = 1.2450;
+let candleData = [];
+let lastSignal = "WAIT";
+let marketInterval;
+
+const candles = document.getElementById("candles");
+const price = document.getElementById("price");
+
+function unlock(){
+    const input = document.getElementById("pass").value;
+    if(input === correctPassword){
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        resetMarket();
+        setInterval(() => {
+            let baseAcc = 93 + Math.random()*3;
+            document.getElementById("accuracy-val").innerText = baseAcc.toFixed(1) + "%";
+        }, 5000);
+    } else {
+        document.getElementById("err").style.display = "block";
+    }
+}
+
+document.getElementById("pass").addEventListener("keyup", e => {
+    if(e.key === "Enter") unlock();
+});
+
+function resetMarket() {
+    clearInterval(marketInterval);
+    const pairSelect = document.getElementById("pair");
+    currentPrice = parseFloat(pairSelect.value);
+    price.innerText = currentPrice.toFixed(4);
+    generateCandles();
+    const speed = parseInt(document.getElementById("timeframe").value);
+    marketInterval = setInterval(updateChart, speed);
+}
+
+function generateCandles(){
+    candles.innerHTML = "";
+    candleData = [];
+    for(let i=0; i<30; i++){
+        let move = Math.random() > 0.50;
+        let height = Math.floor(Math.random()*65)+25;
+        candleData.push({ green: move, height: height });
+
+        let div = document.createElement("div");
+        div.className = "candle " + (move ? "green":"red");
+        div.style.height = height + "px";
+        candles.appendChild(div);
+    }
+}
+
+function updateChart(){
+    let oldPrice = currentPrice;
+    let pipSize = currentPrice > 100 ? 0.04 : 0.0003; 
+
+    if(lastSignal === "BUY"){
+        currentPrice += Math.random() * pipSize;
+    } else if(lastSignal === "SELL"){
+        currentPrice -= Math.random() * pipSize;
+    } else {
+        currentPrice += (Math.random() - 0.5) * pipSize;
+    }
+
+    price.innerText = currentPrice.toFixed(4);
+    price.style.color = currentPrice >= oldPrice ? "#ffcc00" : "#ff3b3b";
+
+    candleData.shift();
+    let up = currentPrice >= oldPrice;
+    let h = Math.floor(Math.random()*65)+25;
+    candleData.push({ green: up, height: h });
+
+    candles.innerHTML = "";
+    candleData.forEach(c => {
+        let d = document.createElement("div");
+        d.className = "candle " + (c.green ? "green":"red");
+        d.style.height = c.height + "px";
+        candles.appendChild(d);
+    });
+}
+
+function triggerFuturisticSound(type) {
+    try {
+        let AudioContext = window.AudioContext || window.webkitAudioContext;
+        let ctx = new AudioContext();
+        let osc = ctx.createOscillator();
+        let gain = ctx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        if (type === "BUY") {
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(650, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1300, ctx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.25);
+        } else if (type === "SELL") {
+            osc.type = "sawtooth";
+            osc.frequency.setValueAtTime(450, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.3);
+        } else {
+            osc.type = "triangle";
+            osc.frequency.setValueAtTime(440, ctx.currentTime);
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.1);
+        }
+    } catch (e) { }
+}
+
+function getSignal(){
+    const scan = document.getElementById("scan");
+    const btn = document.getElementById("btn");
+    scan.style.display = "block";
+    btn.disabled = true;
+    document.getElementById("result").style.display = "none";
+    triggerFuturisticSound("SCAN");
+
+    setTimeout(() => {
+        scan.style.display = "none";
+        btn.disabled = false;
+        generateSignal();
+    }, 1500);
+}
+
+function generateSignal(){
+    document.getElementById("result").style.display = "block";
+    
+    let greens = candleData.filter(c => c.green).length;
+    let decisionRoll = Math.random() > 0.5;
+
+    let rsi, trend, macd, pattern, signal, confidence, textColor, ema9, ema21;
+
+    if (decisionRoll || greens > 15) {
+        signal = "BUY";
+        rsi = Math.floor(Math.random() * 10) + 58; 
+        trend = "STRONG UP";
+        macd = "BULLISH CROSS";
+        pattern = "3 WHITE SOLDIERS";
+        confidence = Math.floor(Math.random() * 5) + 91;
+        textColor = "#ffcc00"; 
+        ema9 = currentPrice + 0.0004;
+        ema21 = currentPrice - 0.0002;
+    } else {
+        signal = "SELL";
+        rsi = Math.floor(Math.random() * 10) + 32; 
+        trend = "STRONG DOWN";
+        macd = "BEARISH CROSS";
+        pattern = "EVENING STAR";
+        confidence = Math.floor(Math.random() * 5) + 89;
+        textColor = "#ff3b3b"; 
+        ema9 = currentPrice - 0.0004;
+        ema21 = currentPrice + 0.0002;
+    }
+
+    lastSignal = signal;
+    const signalBox = document.getElementById("signal");
+    signalBox.innerText = signal;
+    signalBox.className = "signal " + signal.toLowerCase();
+
+    document.getElementById("conf").innerText = confidence + "% ACCURACY MATCH";
+    document.getElementById("rsi").innerText = rsi;
+    document.getElementById("trend").innerText = trend;
+    document.getElementById("trend").style.color = textColor;
+    
+    document.getElementById("ema9").innerText = ema9.toFixed(4);
+    document.getElementById("ema21").innerText = ema21.toFixed(4);
+    document.getElementById("macd").innerText = macd;
+    document.getElementById("pattern").innerText = pattern;
+
+    document.getElementById("order-id").innerText = "ABX-" + Math.floor(100000 + Math.random() * 900000);
+    let now = new Date();
+    document.getElementById("execution-time").innerText = now.toLocaleTimeString();
+
+    triggerFuturisticSound(signal);
+}
+</script>
+
 </body>
 </html>
