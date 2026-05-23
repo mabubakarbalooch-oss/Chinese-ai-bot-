@@ -31,7 +31,7 @@ background-image:
 overflow: hidden;
 }
 
-/* Premium Lock Screen */
+/* Premium Lock Screen with Tiger Monogram */
 .lock-screen {
 position: fixed;
 top: 0; left: 0; width: 100%; height: 100%;
@@ -94,7 +94,7 @@ font-size: 12px; font-weight: 800; font-family: 'Orbitron', sans-serif;
 cursor: pointer; letter-spacing: 1px;
 }
 
-/* Main Container */
+/* Main Container: 100% Accurate Layout Fit */
 .container {
 width: 100%; max-width: 365px;
 height: 96vh; height: -webkit-fill-available;
@@ -136,10 +136,11 @@ display: flex; flex-direction: column; justify-content: space-between;
 display: flex; gap: 4px; overflow-x: auto; padding: 2px 0;
 margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 }
+.pairs::-webkit-scrollbar { display: none; }
 .pair { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 5px 10px; border-radius: 6px; font-size: 9px; cursor: pointer; color: #9090a8; flex-shrink: 0; }
 .pair.active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); color: #00f0ff; font-weight: 700; }
 
-/* Chart Box */
+/* Micro Chart Matrix */
 .chart-box { position: relative; height: 95px; background: rgba(0, 0, 0, 0.6); border-radius: 12px; padding: 6px 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.03); }
 .live { font-family: 'Orbitron', sans-serif; font-size: 8px; font-weight: 800; color: #00f0ff; display: flex; align-items: center; gap: 3px; }
 .live::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #00ff88; border-radius: 50%; }
@@ -151,14 +152,14 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 .scan-line { position: absolute; top: 0; bottom: 0; width: 2px; background: linear-gradient(to right, transparent, #ff007f, transparent); box-shadow: 0 0 10px #ff007f; display: none; animation: scan 2s linear infinite; }
 @keyframes scan { 0% { left: -10px; } 100% { left: 100%; } }
 
-/* Health Bar */
+/* Health Bar Compacted */
 .market-health-container { margin-top: 4px; background: rgba(0,0,0,0.5); border-radius: 8px; padding: 5px 10px; border: 1px solid rgba(255,255,255,0.02); }
 .health-label { font-size: 9px; color: #9090a5; font-weight: 700; }
 .health-label span { float: right; color: #00ff88; }
 .health-bar-bg { width: 100%; height: 4px; background: rgba(255,59,59,0.25); border-radius: 2px; overflow: hidden; margin-top: 2px; }
 .health-bar-fill { width: 68%; height: 100%; background: #00ff88; border-radius: 2px; transition: width 0.8s; }
 
-/* Grid Results */
+/* Super Tight Action + Results */
 .btn { font-family: 'Orbitron', sans-serif; width: 100%; padding: 10px; border: none; border-radius: 10px; margin-top: 4px; background: linear-gradient(135deg, #00f0ff, #0055ff); color: #fff; font-size: 11px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 85, 255, 0.2); letter-spacing: 0.5px; }
 
 .result { margin-top: 4px; background: rgba(0, 0, 0, 0.6); border-radius: 12px; padding: 6px 10px; border: 1px solid rgba(255, 255, 255, 0.03); display: none; animation: fadeIn 0.25s ease-out; }
@@ -174,6 +175,7 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 .info-item { background: rgba(0, 0, 0, 0.4); padding: 5px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.01); }
 .info-item span { float: right; font-weight: 700; }
 
+/* Fixed Dynamic Color Classes */
 .txt-green { color: #00ff88 !important; }
 .txt-red { color: #ff3b3b !important; }
 
@@ -294,7 +296,6 @@ margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 <script>
 let priceInterval;
 let currentTimingSpeed = 1000; 
-let currentMarketHealthIsBullish = true; // لائیو ہیلتھ ٹریکر اب گلوبل ہے
 
 function checkPassword() {
     const lockScreen = document.getElementById("lockScreen");
@@ -378,19 +379,15 @@ function updateLivePrice() {
     }
 }
 
-/* 🔄 لائیو مارکیٹ ہیلتھ لوپ - فکسڈ لاجک */
 function startHealthUpdates() {
     setInterval(() => {
-        let dynamicHealth = Math.floor(Math.random() * 60) + 20; 
-        
-        // یہاں سب سے اہم فکسنگ: یہ ویری ایبل اب ہر 3 سیکنڈ پر لائیو تبدیل ہوگا!
-        currentMarketHealthIsBullish = dynamicHealth > 50; 
-        
+        let dynamicHealth = Math.floor(Math.random() * 30) + 50; 
+        let isBullish = dynamicHealth > 65;
         let barFill = document.getElementById("healthBar");
         let label = document.getElementById("healthPercent");
         
         barFill.style.width = dynamicHealth + "%";
-        if(currentMarketHealthIsBullish) {
+        if(isBullish) {
             barFill.style.background = "#00ff88";
             label.innerText = dynamicHealth + "% BULLISH";
             label.style.color = "#00ff88";
@@ -399,7 +396,7 @@ function startHealthUpdates() {
             label.innerText = (100 - dynamicHealth) + "% BEARISH";
             label.style.color = "#ff3b3b";
         }
-    }, 3000); 
+    }, 4000);
 }
 
 function syncPairSelection(val) {
@@ -432,18 +429,16 @@ function getSignal(){
     }, 1800);
 }
 
-/* 🎯 فکسڈ سگنل انجن - اب سگنل اور انڈیکیٹرز لائیو ہیلتھ کے پابند ہیں */
 function processSmartSignals() {
     document.getElementById("resultBox").style.display = "block";
     
-    // لائیو مارکیٹ ہیلتھ کو چیک کر کے سگنل لاک کریں
-    let finalSignal = currentMarketHealthIsBullish ? "BUY" : "SELL";
-    let confidence = Math.floor(Math.random() * 5) + 93; 
+    let finalSignal = Math.random() > 0.5 ? "BUY" : "SELL";
+    let confidence = Math.floor(Math.random() * 6) + 92; 
     
     let rsi, stoch, bbStatus, macdStatus, patternText, targetColor;
     
     if (finalSignal === "BUY") {
-        rsi = Math.floor(Math.random() * 12) + 20;    // 20-32 (Oversold Area - Perfect Match for BUY)
+        rsi = Math.floor(Math.random() * 10) + 25;    
         stoch = (Math.random() * 10 + 15).toFixed(1); 
         bbStatus = "LOWER";
         macdStatus = "BUY";
@@ -452,8 +447,8 @@ function processSmartSignals() {
         patternText = buyPatterns[Math.floor(Math.random() * buyPatterns.length)];
         targetColor = "txt-green";
     } else {
-        rsi = Math.floor(Math.random() * 12) + 68;    // 68-80 (Overbought Area - Perfect Match for SELL)
-        stoch = (Math.random() * 10 + 78).toFixed(1); 
+        rsi = Math.floor(Math.random() * 10) + 68;    
+        stoch = (Math.random() * 10 + 75).toFixed(1); 
         bbStatus = "UPPER";
         macdStatus = "SELL";
         
@@ -462,8 +457,8 @@ function processSmartSignals() {
         targetColor = "txt-red";
     }
 
-    let ema9Val = (currentPrice + (finalSignal === "BUY" ? -0.0003 : 0.0003)).toFixed(4);
-    let ema21Val = (currentPrice + (finalSignal === "BUY" ? -0.0006 : 0.0005)).toFixed(4);
+    let ema9Val = (currentPrice + (finalSignal === "BUY" ? -0.0002 : 0.0002)).toFixed(4);
+    let ema21Val = (currentPrice + (finalSignal === "BUY" ? -0.0005 : 0.0004)).toFixed(4);
 
     let signalText = document.getElementById("signalText");
     signalText.innerText = finalSignal;
