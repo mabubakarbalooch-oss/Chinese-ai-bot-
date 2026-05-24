@@ -3,187 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ABU BAKAR TRADER - SPREADSHEET v1.0</title>
+<title>ABU BAKAR TRADER - TIGER ELITE</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Exo+2:wght@400;600;700&display=swap');
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Roboto Mono', monospace;
+font-family:'Exo 2', sans-serif;
 }
 
 body{
-background:#f0f0f0;
+background:#050814;
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-color:#000;
-}
-
-.spreadsheet{
-width:380px;
-height:640px;
-background:#ffffff;
-border:1px solid #000;
+overflow:hidden;
+color:#fff;
 position:relative;
 }
 
-/* Menu bar */
-.menu-bar{
-background:#e0e0e0;
-border-bottom:1px solid #000;
-padding:6px 10px;
-font-size:12px;
-display:flex;
-gap:20px;
-}
-.menu-bar span{
-cursor:pointer;
-padding:2px 6px;
-}
-.menu-bar span:hover{
-background:#000;
-color:#fff;
+/* Circuit background */
+body::before{
+content:'';
+position:absolute;
+inset:0;
+background-image: 
+  linear-gradient(rgba(0,150,255,0.1) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,150,255,0.1) 1px, transparent 1px);
+background-size:40px 40px;
+opacity:0.3;
 }
 
-/* Toolbar */
-.toolbar{
-background:#f5f5f5;
-border-bottom:1px solid #000;
-padding:8px 10px;
+/* Main phone frame */
+.phone-frame{
+width:380px;
+height:720px;
+background:linear-gradient(180deg, 
+  rgba(10,20,40,0.95) 0%, 
+  rgba(5,10,25,0.98) 100%);
+border:1px solid rgba(0,200,255,0.3);
+border-radius:35px;
+padding:20px;
+backdrop-filter:blur(20px);
+box-shadow:
+ 0 0 50px rgba(0,150,255,0.4),
+ inset 0 0 40px rgba(0,100,255,0.1);
+position:relative;
+overflow:hidden;
+}
+
+/* Top glow */
+.phone-frame::before{
+content:'';
+position:absolute;
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:radial-gradient(circle at 50% 20%, 
+  rgba(0,200,255,0.2) 0%, 
+  transparent 50%);
+pointer-events:none;
+}
+
+/* Header */
+.header{
 display:flex;
-gap:10px;
 align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
 }
-.toolbar-btn{
-padding:4px 10px;
-border:1px solid #000;
-background:#ffffff;
-font-size:12px;
-cursor:pointer;
+.logo-circle{
+width:45px;
+height:45px;
+border-radius:50%;
+border:2px solid rgba(0,200,255,0.8);
+box-shadow:0 0 20px rgba(0,200,255,0.8), inset 0 0 15px rgba(0,200,255,0.3);
+animation:pulse 2s infinite;
 }
-.toolbar-btn:active{
-background:#000;
-color:#fff;
+@keyframes pulse{
+0%,100%{box-shadow:0 0 15px rgba(0,200,255,0.6), inset 0 0 10px rgba(0,200,255,0.3);}
+50%{box-shadow:0 0 30px rgba(0,200,255,1), inset 0 0 20px rgba(0,200,255,0.5);}
 }
-
-/* Formula bar */
-.formula-bar{
-background:#ffffff;
-border-bottom:1px solid #000;
-padding:6px 10px;
+.header-text h1{
+font-family:'Orbitron',sans-serif;
+font-size:16px;
+font-weight:900;
+letter-spacing:1px;
+background:linear-gradient(90deg, #00c8ff, #00ff88);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+.header-text p{
+font-size:11px;
+color:#8892b0;
+letter-spacing:1px;
+}
+.settings-icon{
+width:24px;
+height:24px;
+border:1px solid rgba(0,200,255,0.5);
+border-radius:50%;
 display:flex;
 align-items:center;
+justify-content:center;
+color:#00c8ff;
+}
+
+/* Dropdowns */
+.dropdowns{
+display:grid;
+grid-template-columns:1fr 1fr;
 gap:10px;
-font-size:13px;
-}
-.formula-bar input{
-flex:1;
-border:1px solid #000;
-padding:4px 6px;
-font-family:'Roboto Mono', monospace;
-outline:none;
-}
-
-.content{
-padding:15px;
-}
-
-/* Table style */
-.table{
-width:100%;
-border-collapse:collapse;
 margin-bottom:15px;
 }
-.table th{
-background:#000;
-color:#ffffff;
-padding:8px;
-text-align:left;
-font-size:12px;
-font-weight:700;
-border:1px solid #000;
-}
-.table td{
-border:1px solid #000;
-padding:8px;
-font-size:13px;
-background:#ffffff;
-}
-.table tr:nth-child(even) td{
-background:#f5f5f5;
-}
-
-.big-display{
-border:2px solid #000;
-padding:20px;
-text-align:center;
-margin:15px 0;
-background:#ffffff;
-}
-.big-display .label{
-font-size:11px;
-text-transform:uppercase;
-letter-spacing:1px;
-margin-bottom:5px;
-}
-.big-display .value{
-font-size:36px;
-font-weight:700;
-}
-
-.signal-row{
-display:flex;
-gap:10px;
-margin:15px 0;
-}
-.signal-box{
-flex:1;
-border:2px solid #000;
-padding:15px;
-text-align:center;
-}
-.signal-box.black{
-background:#000;
-color:#ffffff;
-}
-
-.btn{
-width:100%;
-padding:10px;
-background:#ffffff;
-border:2px solid #000;
-font-family:'Roboto Mono', monospace;
-font-size:13px;
-font-weight:700;
-cursor:pointer;
-margin:5px 0;
-}
-.btn:active{
-background:#000;
-color:#ffffff;
-}
-
-.status-bar{
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-background:#000;
-color:#ffffff;
-padding:5px 10px;
-font-size:11px;
+.dropdown{
+background:rgba(0,0,0,0.5);
+border:1px solid rgba(0,200,255,0.3);
+border-radius:12px;
+padding:12px;
 display:flex;
 justify-content:space-between;
+align-items:center;
+font-size:13px;
 }
 
+/* Live market box */
+.live-box{
+background:linear-gradient(135deg, 
+  rgba(0,20,40,0.8) 0%, 
+  rgba(0,0,0,0.9) 100%);
+border:1px solid rgba(0,200,255,0.3);
+border-radius:15px;
+padding:15px;
+margin-bottom:15px;
+position:relative;
+overflow:hidden;
+}
+.live-header{
+display:flex;
+justify-content:space-between;
+font-size:12px;
+margin-bottom:10px;
+}
+.live-dot{
+display:inline-block;
+width:8px;
+height:8px;
+background:#00ff88;
+border-radius:50%;
+box-shadow:0 0 10px #00ff88;
+animation:blink 1.5s infinite;
+}
+@keyframes blink{
+0%,100%{opacity:1;}
+50%{opacity:0.3;}
+}
+.price{
+font-family:'Orbitron',sans-serif;
+font-size:36px;
+color:#00ff88;
+text-shadow:0 0 20px #00ff88, 0 0 40px #00ff88;
+margin-bottom:10px;
+}
+
+/* Chart */
+.chart{
+height:80px;
+display:flex;
+align-items:flex-end;
+gap:4px;
+position:relative;
+}
+.bar{
+flex:1;
+background:linear-gradient(180deg, #00ff88 0%, rgba(0,255,136,0.2) 100%);
+border-radius:2px 2px 0 0;
+position:relative;
+}
+.bar.red{
+background:linear-gradient(180deg, #ff4444 0%, rgba(255,68,68,0.2) 100%);
+}
+
+/* Analysis complete box */
+.analysis-box{
+background:rgba(0,0,0,0.6);
+border:1px solid rgba(0,200,255,0.3);
+border-radius:15px;
+padding:15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:15px;
+}
+.circle-loader{
+width:35px;
+height:35px;
+border:2px solid rgba(0,200,255,0.3);
+border-top:2px solid #00c8ff;
+border-radius:50%;
+animation:spin 2s linear infinite;
+}
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
+.timer-circle{
+width:45px;
+height:45px;
+border:2px solid rgba(0,200,255,0.3);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}
+
+/* Analyzer button */
+.analyzer-btn{
+width:100%;
+padding:15px;
+background:linear-gradient(90deg, 
+  rgba(200,200,200,0.2) 0%, 
+  rgba(255,255,255,0.3) 50%, 
+  rgba(200,200,200,0.2) 100%);
+border:1px solid rgba(255,255,255,0.3);
+border-radius:15px;
+color:#fff;
+font-family:'Orbitron',sans-serif;
+font-size:13px;
+font-weight:700;
+letter-spacing:1px;
+margin-bottom:15px;
+cursor:pointer;
+box-shadow:0 0 20px rgba(255,255,255,0.2);
+}
+
+/* Result box */
+.result-box{
+background:linear-gradient(135deg, 
+  rgba(0,20,40,0.8) 0%, 
+  rgba(0,0,0,0.9) 100%);
+border:1px solid rgba(0,255,136,0.4);
+border-radius:15px;
+padding:20px;
+text-align:center;
+margin-bottom:15px;
+position:relative;
+overflow:hidden;
+}
+.result-box h4{
+font-size:12px;
+color:#8892b0;
+margin-bottom:10px;
+}
+.result-box h1{
+font-family:'Orbitron',sans-serif;
+font-size:48px;
+color:#00ff88;
+text-shadow:0 0 30px #00ff88;
+margin-bottom:5px;
+}
+.tiger-icon{
+position:absolute;
+right:20px;
+bottom:20px;
+width:30px;
+height:30px;
+opacity:0.3;
+}
+
+/* Info grid */
+.info-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:10px;
+}
+.info-card{
+background:rgba(0,0,0,0.5);
+border:1px solid rgba(0,200,255,0.2);
+border-radius:12px;
+padding:12px;
+display:flex;
+justify-content:space-between;
+font-size:13px;
+}
+.info-card .green{
+color:#00ff88;
+}
+
+/* Lock screen */
 .lock-screen{
 position:fixed;
 top:0;left:0;width:100%;height:100%;
-background:#f0f0f0;
+background:#050814;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -192,25 +308,31 @@ z-index:9999;
 .lock-box{
 width:90%;
 max-width:320px;
-border:2px solid #000;
-background:#ffffff;
-padding:25px;
+background:rgba(0,20,40,0.8);
+border:1px solid rgba(0,200,255,0.4);
+border-radius:20px;
+padding:30px;
+text-align:center;
+backdrop-filter:blur(20px);
 }
 .lock-input{
 width:100%;
-padding:10px;
-border:1px solid #000;
-background:#ffffff;
-font-family:'Roboto Mono', monospace;
-margin:12px 0;
+padding:12px;
+border:1px solid rgba(0,200,255,0.4);
+background:rgba(0,0,0,0.5);
+color:#fff;
+border-radius:10px;
+text-align:center;
+margin:15px 0;
 outline:none;
 }
 .lock-btn{
 width:100%;
-padding:10px;
-border:2px solid #000;
-background:#000;
-color:#ffffff;
+padding:12px;
+border:none;
+border-radius:10px;
+background:linear-gradient(90deg,#00c8ff,#00ff88);
+color:#000;
 font-weight:700;
 cursor:pointer;
 }
@@ -220,86 +342,98 @@ cursor:pointer;
 
 <div class="lock-screen" id="lockScreen">
   <div class="lock-box">
-    <div style="text-align:center;font-weight:700;margin-bottom:15px;">
-      ABU BAKAR TRADER
-    </div>
-    <div style="font-size:12px;margin-bottom:8px;">Password:</div>
-    <input type="password" id="passInput" class="lock-input">
-    <button class="lock-btn" onclick="unlock()">LOGIN</button>
+    <h2 style="color:#00c8ff;font-family:Orbitron;margin-bottom:10px;">TIGER ELITE ACCESS</h2>
+    <input type="password" id="passInput" class="lock-input" placeholder="ENTER PASSWORD">
+    <button class="lock-btn" onclick="unlock()">UNLOCK</button>
   </div>
 </div>
 
-<div class="spreadsheet" id="botApp" style="display:none;">
+<div class="phone-frame" id="botApp" style="display:none;">
   
-  <div class="menu-bar">
-    <span>File</span>
-    <span>Edit</span>
-    <span>View</span>
-    <span>Tools</span>
-    <span>Help</span>
-  </div>
-
-  <div class="toolbar">
-    <button class="toolbar-btn">Save</button>
-    <button class="toolbar-btn">Refresh</button>
-    <button class="toolbar-btn">Export</button>
-  </div>
-
-  <div class="formula-bar">
-    <span>fx</span>
-    <input type="text" value="=ANALYZE(MARKET)" readonly>
-  </div>
-
-  <div class="content">
-    
-    <table class="table">
-      <tr>
-        <th>Parameter</th>
-        <th>Value</th>
-      </tr>
-      <tr>
-        <td>Pair</td>
-        <td>USD/BRL OTC</td>
-      </tr>
-      <tr>
-        <td>Price</td>
-        <td id="price">1.2476</td>
-      </tr>
-      <tr>
-        <td>RSI(14)</td>
-        <td id="rsi">72</td>
-      </tr>
-      <tr>
-        <td>Trend</td>
-        <td>UP</td>
-      </tr>
-    </table>
-
-    <div class="big-display">
-      <div class="label">Signal</div>
-      <div class="value" id="signal">BUY</div>
-      <div style="font-size:13px;margin-top:5px;" id="confidence">Confidence: 96%</div>
-    </div>
-
-    <div class="signal-row">
-      <div class="signal-box">
-        <div style="font-size:11px;">Timer</div>
-        <div style="font-size:24px;font-weight:700;" id="timer">03</div>
-      </div>
-      <div class="signal-box black">
-        <div style="font-size:11px;">Status</div>
-        <div style="font-size:16px;font-weight:700;">READY</div>
+  <div class="header">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="logo-circle"></div>
+      <div class="header-text">
+        <h1>ABU BAKAR TRADER</h1>
+        <p>TIGER ELITE AI BOT</p>
       </div>
     </div>
-
-    <button class="btn" onclick="getSignal()">RUN ANALYSIS</button>
-    <button class="btn">CLEAR DATA</button>
-
+    <div class="settings-icon">⚙</div>
   </div>
 
-  <div class="status-bar">
-    <span>Ready</span>
-    <span>Sheet 1</span>
+  <div class="dropdowns">
+    <div class="dropdown">
+      <span>USD/BRL OTC</span>
+      <span>▼</span>
+    </div>
+    <div class="dropdown">
+      <span>1M (Stable)</span>
+      <span>▼</span>
+    </div>
+  </div>
+
+  <div class="live-box">
+    <div class="live-header">
+      <span><span class="live-dot"></span> LIVE MARKET</span>
+      <span>USD/BRL OTC</span>
+    </div>
+    <div class="price" id="price">1.2476</div>
+    <div class="chart" id="chart"></div>
+  </div>
+
+  <div class="analysis-box">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="circle-loader"></div>
+      <div>
+        <div style="font-weight:700;">ANALYSIS COMPLETE</div>
+        <div style="font-size:12px;color:#8892b0;">Signal processed successfully.</div>
+      </div>
+    </div>
+    <div class="timer-circle">
+      <div style="font-size:18px;font-weight:700;" id="timer">00</div>
+      <div style="font-size:10px;color:#8892b0;">SEC</div>
+    </div>
+  </div>
+
+  <button class="analyzer-btn" onclick="getSignal()">⚡ ANALYZER MARKET (GET SIGNAL)</button>
+
+  <div class="result-box">
+    <h4>ANALYSIS RESULT</h4>
+    <h1 id="signal">BUY</h1>
+    <div style="color:#00ff88;font-weight:700;" id="confidence">92% CONFIDENCE MATCH</div>
+    <div class="tiger-icon">🐅</div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <span>RSI (14)</span>
+      <span id="rsi">70</span>
+    </div>
+    <div class="info-card">
+      <span>TREND</span>
+      <span class="green" id="trend">STRONG UP</span>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <span>EMA 9</span>
+      <span id="ema9">1.2473</span>
+    </div>
+    <div class="info-card">
+      <span>EMA 21</span>
+      <span id="ema21">1.2467</span>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <span>ORDER ID</span>
+    <span id="orderId">TGR-257168</span>
+  </div>
+
+  <div class="info-card" style="margin-top:10px;">
+    <span>EXPIRY TIME</span>
+    <span id="expiry">09:24:15 AM</span>
   </div>
 
 </div>
@@ -307,23 +441,41 @@ cursor:pointer;
 <script>
 let scanning=false;
 
+function generateChart(){
+  const chart = document.getElementById('chart');
+  chart.innerHTML='';
+  for(let i=0;i<20;i++){
+    let bar = document.createElement('div');
+    bar.className = Math.random()>0.5?'bar':'bar red';
+    bar.style.height = Math.random()*60+20+'px';
+    chart.appendChild(bar);
+  }
+}
+
 function unlock(){
   if(document.getElementById('passInput').value==='bakar786'){
     document.getElementById('lockScreen').style.display='none';
     document.getElementById('botApp').style.display='block';
-    updatePrice();
+    generateChart();
+    updateData();
   }else{
-    alert('WRONG PASSWORD');
+    alert('Wrong Password');
   }
 }
 
-function updatePrice(){
+function updateData(){
   setInterval(()=>{
     let base=1.2476;
     let change=(Math.random()-0.5)*0.002;
     document.getElementById('price').innerText=(base+change).toFixed(4);
-    document.getElementById('rsi').innerText = Math.floor(Math.random()*15)+70;
+    document.getElementById('rsi').innerText=Math.floor(Math.random()*10)+65;
+    generateChart();
   },2000);
+  
+  setInterval(()=>{
+    let now=new Date();
+    document.getElementById('expiry').innerText=now.toLocaleTimeString('en-US');
+  },1000);
 }
 
 function getSignal(){
@@ -339,22 +491,15 @@ function getSignal(){
     if(sec<=0){
       clearInterval(timer);
       scanning=false;
+      document.getElementById('timer').innerText='00';
       
       let signal=Math.random()>0.5?'BUY':'SELL';
-      let conf=Math.floor(Math.random()*4)+96;
+      let conf=Math.floor(Math.random()*8)+92;
       
       document.getElementById('signal').innerText=signal;
-      document.getElementById('confidence').innerText='Confidence: '+conf+'%';
+      document.getElementById('confidence').innerText=conf+'% CONFIDENCE MATCH';
       
-      // Toggle black/white for SELL
-      let box = document.querySelector('.big-display');
-      if(signal==='SELL'){
-        box.style.background='#000';
-        box.style.color='#ffffff';
-      }else{
-        box.style.background='#ffffff';
-        box.style.color='#000';
-      }
+      document.getElementById('orderId').innerText='TGR-'+Math.floor(Math.random()*999);
     }
   },1000);
 }
