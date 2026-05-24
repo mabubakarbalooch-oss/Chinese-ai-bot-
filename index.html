@@ -3,230 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ABU BAKAR TRADER - TERMINAL v1.0</title>
+<title>ABU BAKAR TRADER - SPREADSHEET v1.0</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'VT323', monospace;
+font-family:'Roboto Mono', monospace;
 }
 
 body{
-background:#000;
+background:#f0f0f0;
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-overflow:hidden;
-color:#00ff00;
-position:relative;
-}
-
-/* CRT scanlines effect */
-body::before{
-content:'';
-position:absolute;
-inset:0;
-background:repeating-linear-gradient(
- 0deg,
-  rgba(0,0,0,0.15),
-  rgba(0,0,0,0.15) 1px,
-  transparent 1px,
-  transparent 2px
-);
-pointer-events:none;
-z-index:10;
-}
-
-/* CRT flicker */
-body::after{
-content:'';
-position:absolute;
-inset:0;
-background:radial-gradient(circle at center, transparent 0%, rgba(0,255,0,0.02) 100%);
-animation:flicker 0.15s infinite;
-pointer-events:none;
-}
-@keyframes flicker{
-0%,100%{opacity:1;}
-50%{opacity:0.98;}
-}
-
-.terminal{
-width:400px;
-height:650px;
-background:#000;
-border:3px solid #00ff00;
-border-radius:10px;
-padding:20px;
-box-shadow:
- 0 0 30px rgba(0,255,0,0.3),
- inset 0 0 50px rgba(0,255,0,0.05);
-position:relative;
-overflow:hidden;
-}
-
-/* Screen curve effect */
-.terminal::before{
-content:'';
-position:absolute;
-inset:0;
-background:radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
-pointer-events:none;
-border-radius:10px;
-}
-
-.header{
-border-bottom:2px solid #00ff00;
-padding-bottom:10px;
-margin-bottom:15px;
-text-align:center;
-}
-.header h1{
-font-family:'Orbitron',sans-serif;
-font-size:16px;
-letter-spacing:2px;
-text-shadow:0 0 10px #00ff00;
-animation:blink 1.5s infinite;
-}
-@keyframes blink{
-0%,100%{opacity:1;}
-50%{opacity:0.7;}
-}
-.header p{
-font-size:14px;
-color:#00ff00;
-}
-
-.boot-text{
-font-size:14px;
-line-height:1.6;
-color:#00ff00;
-margin-bottom:15px;
-}
-.boot-text span{
-color:#fff;
-}
-
-.console-box{
-background:rgba(0,255,0,0.03);
-border:1px solid #00ff00;
-padding:15px;
-margin:15px 0;
-position:relative;
-}
-.console-box::before{
-content:'[SYSTEM]';
-position:absolute;
-top:-10px;
-left:10px;
-background:#000;
-padding:0 5px;
-font-size:12px;
-color:#00ff00;
-}
-
-.price-line{
-font-size:20px;
-color:#fff;
-text-shadow:0 0 10px #00ff00;
-margin:10px 0;
-}
-.price-line span{
-color:#00ff00;
-}
-
-.signal-display{
-border:2px solid #00ff00;
-padding:20px;
-text-align:center;
-margin:20px 0;
-background:rgba(0,255,0,0.05);
-box-shadow:0 0 20px rgba(0,255,0,0.2) inset;
-}
-.signal-display h1{
-font-family:'Orbitron',sans-serif;
-font-size:48px;
-color:#fff;
-text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;
-animation:glow-text 2s infinite alternate;
-}
-@keyframes glow-text{
-from{text-shadow:0 0 10px #00ff00, 0 0 20px #00ff00;}
-to{text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;}
-}
-
-.cmd-btn{
-width:100%;
-padding:12px;
-background:transparent;
-border:2px solid #00ff00;
-color:#00ff00;
-font-family:'VT323', monospace;
-font-size:18px;
-cursor:pointer;
-text-transform:uppercase;
-transition:all 0.2s;
-}
-.cmd-btn:hover{
-background:#00ff00;
 color:#000;
-box-shadow:0 0 20px #00ff00;
-}
-.cmd-btn:active{
-transform:scale(0.98);
 }
 
-.info-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
+.spreadsheet{
+width:380px;
+height:640px;
+background:#ffffff;
+border:1px solid #000;
+position:relative;
+}
+
+/* Menu bar */
+.menu-bar{
+background:#e0e0e0;
+border-bottom:1px solid #000;
+padding:6px 10px;
+font-size:12px;
+display:flex;
+gap:20px;
+}
+.menu-bar span{
+cursor:pointer;
+padding:2px 6px;
+}
+.menu-bar span:hover{
+background:#000;
+color:#fff;
+}
+
+/* Toolbar */
+.toolbar{
+background:#f5f5f5;
+border-bottom:1px solid #000;
+padding:8px 10px;
+display:flex;
+gap:10px;
+align-items:center;
+}
+.toolbar-btn{
+padding:4px 10px;
+border:1px solid #000;
+background:#ffffff;
+font-size:12px;
+cursor:pointer;
+}
+.toolbar-btn:active{
+background:#000;
+color:#fff;
+}
+
+/* Formula bar */
+.formula-bar{
+background:#ffffff;
+border-bottom:1px solid #000;
+padding:6px 10px;
+display:flex;
+align-items:center;
+gap:10px;
+font-size:13px;
+}
+.formula-bar input{
+flex:1;
+border:1px solid #000;
+padding:4px 6px;
+font-family:'Roboto Mono', monospace;
+outline:none;
+}
+
+.content{
+padding:15px;
+}
+
+/* Table style */
+.table{
+width:100%;
+border-collapse:collapse;
+margin-bottom:15px;
+}
+.table th{
+background:#000;
+color:#ffffff;
+padding:8px;
+text-align:left;
+font-size:12px;
+font-weight:700;
+border:1px solid #000;
+}
+.table td{
+border:1px solid #000;
+padding:8px;
+font-size:13px;
+background:#ffffff;
+}
+.table tr:nth-child(even) td{
+background:#f5f5f5;
+}
+
+.big-display{
+border:2px solid #000;
+padding:20px;
+text-align:center;
+margin:15px 0;
+background:#ffffff;
+}
+.big-display .label{
+font-size:11px;
+text-transform:uppercase;
+letter-spacing:1px;
+margin-bottom:5px;
+}
+.big-display .value{
+font-size:36px;
+font-weight:700;
+}
+
+.signal-row{
+display:flex;
 gap:10px;
 margin:15px 0;
 }
-.info-box{
-border:1px solid #00ff00;
-padding:10px;
+.signal-box{
+flex:1;
+border:2px solid #000;
+padding:15px;
 text-align:center;
 }
-.info-box .label{
-font-size:12px;
-color:#00ff00;
-opacity:0.7;
-}
-.info-box .value{
-font-size:20px;
-color:#fff;
+.signal-box.black{
+background:#000;
+color:#ffffff;
 }
 
-.cursor{
-display:inline-block;
-width:10px;
-height:20px;
-background:#00ff00;
-animation:cursor-blink 1s infinite;
+.btn{
+width:100%;
+padding:10px;
+background:#ffffff;
+border:2px solid #000;
+font-family:'Roboto Mono', monospace;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+margin:5px 0;
 }
-@keyframes cursor-blink{
-0%,50%{opacity:1;}
-51%,100%{opacity:0;}
+.btn:active{
+background:#000;
+color:#ffffff;
 }
 
-.typing{
-overflow:hidden;
-white-space:nowrap;
-animation:typing 2s steps(40, end);
-}
-@keyframes typing{
-from{width:0;}
-to{width:100%;}
+.status-bar{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+background:#000;
+color:#ffffff;
+padding:5px 10px;
+font-size:11px;
+display:flex;
+justify-content:space-between;
 }
 
 .lock-screen{
 position:fixed;
 top:0;left:0;width:100%;height:100%;
-background:#000;
+background:#f0f0f0;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -234,45 +191,28 @@ z-index:9999;
 }
 .lock-box{
 width:90%;
-max-width:350px;
-border:2px solid #00ff00;
-padding:30px;
-background:#000;
-box-shadow:0 0 30px rgba(0,255,0,0.3);
+max-width:320px;
+border:2px solid #000;
+background:#ffffff;
+padding:25px;
 }
 .lock-input{
 width:100%;
-padding:12px;
-border:1px solid #00ff00;
-background:#000;
-color:#00ff00;
-font-family:'VT323', monospace;
-font-size:18px;
+padding:10px;
+border:1px solid #000;
+background:#ffffff;
+font-family:'Roboto Mono', monospace;
+margin:12px 0;
 outline:none;
-margin:15px 0;
 }
 .lock-btn{
 width:100%;
-padding:12px;
-border:2px solid #00ff00;
-background:transparent;
-color:#00ff00;
-font-family:'VT323', monospace;
-font-size:18px;
+padding:10px;
+border:2px solid #000;
+background:#000;
+color:#ffffff;
+font-weight:700;
 cursor:pointer;
-}
-.lock-btn:hover{
-background:#00ff00;
-color:#000;
-}
-
-.ascii-art{
-font-size:10px;
-line-height:1;
-color:#00ff00;
-text-align:center;
-margin:10px 0;
-opacity:0.5;
 }
 </style>
 </head>
@@ -280,64 +220,86 @@ opacity:0.5;
 
 <div class="lock-screen" id="lockScreen">
   <div class="lock-box">
-    <div class="ascii-art">
-      ┌─────────────────┐<br>
-      │ TERMINAL ACCESS │<br>
-      └─────────────────┘
+    <div style="text-align:center;font-weight:700;margin-bottom:15px;">
+      ABU BAKAR TRADER
     </div>
-    <div style="text-align:center;margin:15px 0;">
-      <span style="color:#00ff00;">ENTER PASSWORD:</span><span class="cursor"></span>
-    </div>
-    <input type="password" id="passInput" class="lock-input" placeholder="********">
-    <button class="lock-btn" onclick="unlock()">[ EXECUTE ]</button>
+    <div style="font-size:12px;margin-bottom:8px;">Password:</div>
+    <input type="password" id="passInput" class="lock-input">
+    <button class="lock-btn" onclick="unlock()">LOGIN</button>
   </div>
 </div>
 
-<div class="terminal" id="botApp" style="display:none;">
+<div class="spreadsheet" id="botApp" style="display:none;">
   
-  <div class="header">
-    <h1>ABU BAKAR TRADER TERMINAL v1.0</h1>
-    <p>SYSTEM ONLINE | SECURE CONNECTION</p>
+  <div class="menu-bar">
+    <span>File</span>
+    <span>Edit</span>
+    <span>View</span>
+    <span>Tools</span>
+    <span>Help</span>
   </div>
 
-  <div class="boot-text">
-    <div class="typing">Initializing AI Core...</div>
-    <div>Loading Market Data... <span>[OK]</span></div>
-    <div>Connecting to Server... <span>[OK]</span></div>
-    <div>Status: <span>READY</span><span class="cursor"></span></div>
+  <div class="toolbar">
+    <button class="toolbar-btn">Save</button>
+    <button class="toolbar-btn">Refresh</button>
+    <button class="toolbar-btn">Export</button>
   </div>
 
-  <div class="console-box">
-    <div>USER@ABUBAKAR:~$ <span style="color:#fff;">get_price</span></div>
-    <div class="price-line">
-      PAIR: <span>USD/BRL OTC</span><br>
-      RATE: <span id="price">1.2476</span>
+  <div class="formula-bar">
+    <span>fx</span>
+    <input type="text" value="=ANALYZE(MARKET)" readonly>
+  </div>
+
+  <div class="content">
+    
+    <table class="table">
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Pair</td>
+        <td>USD/BRL OTC</td>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td id="price">1.2476</td>
+      </tr>
+      <tr>
+        <td>RSI(14)</td>
+        <td id="rsi">72</td>
+      </tr>
+      <tr>
+        <td>Trend</td>
+        <td>UP</td>
+      </tr>
+    </table>
+
+    <div class="big-display">
+      <div class="label">Signal</div>
+      <div class="value" id="signal">BUY</div>
+      <div style="font-size:13px;margin-top:5px;" id="confidence">Confidence: 96%</div>
     </div>
+
+    <div class="signal-row">
+      <div class="signal-box">
+        <div style="font-size:11px;">Timer</div>
+        <div style="font-size:24px;font-weight:700;" id="timer">03</div>
+      </div>
+      <div class="signal-box black">
+        <div style="font-size:11px;">Status</div>
+        <div style="font-size:16px;font-weight:700;">READY</div>
+      </div>
+    </div>
+
+    <button class="btn" onclick="getSignal()">RUN ANALYSIS</button>
+    <button class="btn">CLEAR DATA</button>
+
   </div>
 
-  <div class="signal-display">
-    <div style="font-size:14px;margin-bottom:5px;">ANALYSIS RESULT:</div>
-    <h1 id="signal">BUY</h1>
-    <div style="font-size:16px;margin-top:8px;">
-      CONFIDENCE: <span id="confidence">96%</span>
-    </div>
-  </div>
-
-  <div class="info-grid">
-    <div class="info-box">
-      <div class="label">RSI(14)</div>
-      <div class="value" id="rsi">72</div>
-    </div>
-    <div class="info-box">
-      <div class="label">TIMER</div>
-      <div class="value" id="timer">03</div>
-    </div>
-  </div>
-
-  <button class="cmd-btn" onclick="getSignal()">[ RUN ANALYSIS ]</button>
-
-  <div style="margin-top:15px;font-size:12px;color:#00ff00;opacity:0.5;">
-    C:\SYSTEM32> <span class="cursor"></span>
+  <div class="status-bar">
+    <span>Ready</span>
+    <span>Sheet 1</span>
   </div>
 
 </div>
@@ -351,7 +313,7 @@ function unlock(){
     document.getElementById('botApp').style.display='block';
     updatePrice();
   }else{
-    alert('ACCESS DENIED');
+    alert('WRONG PASSWORD');
   }
 }
 
@@ -382,15 +344,16 @@ function getSignal(){
       let conf=Math.floor(Math.random()*4)+96;
       
       document.getElementById('signal').innerText=signal;
-      document.getElementById('confidence').innerText=conf+'%';
+      document.getElementById('confidence').innerText='Confidence: '+conf+'%';
       
-      // Change color for SELL
+      // Toggle black/white for SELL
+      let box = document.querySelector('.big-display');
       if(signal==='SELL'){
-        document.getElementById('signal').style.color='#ff0000';
-        document.getElementById('signal').style.textShadow='0 0 20px #ff0000, 0 0 40px #ff0000';
+        box.style.background='#000';
+        box.style.color='#ffffff';
       }else{
-        document.getElementById('signal').style.color='#fff';
-        document.getElementById('signal').style.textShadow='0 0 20px #00ff00, 0 0 40px #00ff00';
+        box.style.background='#ffffff';
+        box.style.color='#000';
       }
     }
   },1000);
