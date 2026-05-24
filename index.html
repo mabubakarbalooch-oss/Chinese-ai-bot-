@@ -231,13 +231,13 @@ border-radius:50%;
 box-shadow:0 0 10px #00ff88;
 }
 
-/* Custom Modal */
+/* Popup */
 .modal-overlay{
 position:fixed;
 top:0;left:0;
 width:100%;height:100%;
-background:rgba(0,0,0,0.7);
-backdrop-filter:blur(5px);
+background:rgba(0,0,0,0.8);
+backdrop-filter:blur(8px);
 display:none;
 justify-content:center;
 align-items:center;
@@ -249,11 +249,11 @@ display:flex;
 .modal{
 background:#1e2329;
 border:1px solid rgba(0,255,136,0.3);
-border-radius:20px;
+border-radius:16px;
 padding:25px;
 width:90%;
 max-width:350px;
-box-shadow:0 0 40px rgba(0,255,136,0.2);
+box-shadow:0 0 40px rgba(0,255,136,0.25);
 animation:popup 0.3s ease;
 }
 @keyframes popup{
@@ -263,26 +263,28 @@ to{transform:scale(1);opacity:1;}
 .modal h3{
 color:#00ff88;
 margin-bottom:15px;
-font-size:18px;
+font-size:20px;
+font-weight:700;
 }
 .modal p{
 color:#c9d1d9;
-margin-bottom:10px;
-font-size:14px;
-line-height:1.6;
+margin-bottom:12px;
+font-size:15px;
 }
-.modal p strong{
-color:#fff;
+.modal-signal{
+color:#00ff88;
+font-size:18px;
+font-weight:700;
 }
 .modal-btn{
 width:100%;
-padding:12px;
-background:linear-gradient(90deg, #00ff88, #00d977);
+padding:14px;
+background:#00ff88;
 border:none;
-border-radius:10px;
+border-radius:12px;
 color:#000;
 font-weight:700;
-font-size:15px;
+font-size:16px;
 cursor:pointer;
 margin-top:15px;
 }
@@ -316,12 +318,8 @@ margin-top:15px;
     <div class="asset-dropdown" id="assetDropdown">
       <div class="asset-item">USD/پاکستان (OTC) <div class="radio"></div></div>
       <div class="asset-item">USD/PHP (OTC) <div class="radio"></div></div>
-      <div class="asset-item">EUR/SGD (OTC) <div class="radio"></div></div>
       <div class="asset-item active">USD/BRL (OTC) <div class="radio active"></div></div>
       <div class="asset-item">NZD/CHF (OTC) <div class="radio"></div></div>
-      <div class="asset-item">USD/TRY (OTC) <div class="radio"></div></div>
-      <div class="asset-item">USD/PKR (OTC) <div class="radio"></div></div>
-      <div class="asset-item">USD/COP (OTC) <div class="radio"></div></div>
       <div class="asset-item">EUR/USD <div class="radio"></div></div>
     </div>
     
@@ -340,13 +338,13 @@ margin-top:15px;
   </div>
 </div>
 
-<!-- Custom Modal -->
+<!-- Signal Popup -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h3>Signal Generated!</h3>
     <p><strong>Asset:</strong> <span id="modalAsset">USD/BRL (OTC)</span></p>
     <p><strong>Timeframe:</strong> <span id="modalTime">15s</span></p>
-    <p><strong>Signal:</strong> <span id="modalSignal" style="color:#00ff88;font-size:18px;">BUY</span></p>
+    <p><strong>Signal:</strong> <span id="modalSignal" class="modal-signal">SELL 93%</span></p>
     <button class="modal-btn" onclick="closeModal()">OK</button>
   </div>
 </div>
@@ -354,7 +352,7 @@ margin-top:15px;
 <script>
 let selectedTime = '15s';
 let selectedAsset = 'USD/BRL (OTC)';
-const correctPassword = "bakar786"; // یہاں password بدل سکتے ہیں
+const correctPassword = "bakar786";
 
 function checkPassword(){
   let input = document.getElementById('passwordInput').value;
@@ -390,14 +388,14 @@ document.querySelectorAll('.asset-item').forEach(item=>{
   }
 });
 
+// یہاں فکس کیا ہے
 function generateSignal(){
-  // ڈیمو کے لیے Random سگنل
   let signal = Math.random() > 0.5 ? "BUY" : "SELL";
-  let confidence = Math.floor(Math.random() * 10 + 88); // 88-98%
+  let confidence = Math.floor(Math.random() * 10 + 88);
   
   document.getElementById('modalAsset').innerText = selectedAsset;
   document.getElementById('modalTime').innerText = selectedTime;
-  document.getElementById('modalSignal').innerText = signal + "  " + confidence + "%";
+  document.getElementById('modalSignal').innerText = signal + " + confidence + "%";
   document.getElementById('modalOverlay').classList.add('show');
 }
 
