@@ -10,20 +10,27 @@
     h1 { color:#00ff88; font-size:20px; text-align:center; }
     .label { color:#8b949e; font-size:13px; margin:10px 0 5px 0; display:block; }
     select, input { width:100%; padding:12px; background:#1a1f26; border:1px solid #30363d; border-radius:10px; color:#fff; box-sizing:border-box; }
+    
+    /* Candle Preview Area */
+    #candleChart { width:100%; height:80px; background:#000; border-radius:10px; margin:15px 0; display:flex; align-items:center; justify-content:center; gap:5px; border:1px solid #30363d; }
+    .candle { width:10px; height:40px; background:#00ff88; border-radius:2px; }
+
     .time-container { display:flex; gap:5px; margin:10px 0; }
     .time-btn { flex:1; padding:10px; background:#1a1f26; border:1px solid #30363d; border-radius:8px; color:#8b949e; cursor:pointer; text-align:center; font-size:12px; }
     .time-btn.active { border:1px solid #00ff88; color:#00ff88; }
+    
     .gen-btn { width:100%; padding:15px; background:#00ff88; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:15px; color:#000; }
     
-    /* Loading Bar */
-    #progressContainer { width:100%; height:8px; background:#1a1f26; border-radius:4px; margin-top:15px; display:none; overflow:hidden; }
-    #progressBar { width:0%; height:100%; background:#00ff88; transition: width 2s; }
+    /* Animated Progress Bar */
+    #progressContainer { width:100%; height:8px; background:#1a1f26; border-radius:4px; margin-top:15px; display:none; }
+    #progressBar { width:0%; height:100%; background:#00ff88; border-radius:4px; }
+    @keyframes move { from { width: 0%; } to { width: 100%; } }
+    .loading { animation: move 2s linear forwards; }
 
     #signalBox { margin-top:15px; padding:12px; border-radius:10px; text-align:center; font-weight:bold; display:none; }
     .buy-style { background:rgba(0, 255, 136, 0.2); border:1px solid #00ff88; color:#00ff88; }
     .sell-style { background:rgba(255, 68, 68, 0.2); border:1px solid #ff4444; color:#ff4444; }
 
-    /* Indicator Boxes */
     .indicator-container { display:flex; gap:8px; margin-top:15px; }
     .ind-box { flex:1; background:#1a1f26; padding:10px; border-radius:8px; border:1px solid #30363d; text-align:center; font-size:10px; color:#8b949e; }
 </style>
@@ -38,10 +45,20 @@
 
 <div id="mainBoard" class="container" style="display:none;">
     <h1>🚀 Chinese Signal Generator</h1>
+    
+    <div id="candleChart">
+        <div class="candle" style="height:30px"></div>
+        <div class="candle" style="height:50px; background:#ff4444"></div>
+        <div class="candle" style="height:40px"></div>
+        <div class="candle" style="height:60px"></div>
+    </div>
+
+    <label class="label">Select Broker</label>
+    <select><option>Quotex</option><option>Pocket Option</option></select>
+
     <label class="label">Trading Asset</label>
     <select id="asset"><option>NZD/CHF (OTC)</option><option>USD/BRL (OTC)</option><option>USD/MXN (OTC)</option></select>
 
-    <label class="label">Time Frame</label>
     <div class="time-container">
         <div class="time-btn" onclick="setActive(this)">5s</div>
         <div class="time-btn active" onclick="setActive(this)">15s</div>
@@ -72,9 +89,14 @@
         el.classList.add('active');
     }
     function startAnalysis() {
+        let bar = document.getElementById('progressBar');
         document.getElementById('progressContainer').style.display = 'block';
-        document.getElementById('progressBar').style.width = '100%';
+        bar.classList.add('loading');
+        
         setTimeout(() => {
+            bar.classList.remove('loading');
+            document.getElementById('progressContainer').style.display = 'none';
+            
             let isBuy = Math.random() > 0.5;
             let box = document.getElementById('signalBox');
             box.style.display = 'block';
@@ -85,14 +107,10 @@
             document.getElementById('ma').innerText = "MA(50)";
             document.getElementById('conf').innerText = "96%";
             
-            // Sound
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = ctx.createOscillator();
             osc.frequency.value = isBuy ? 600 : 300;
             osc.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.3);
-            
-            document.getElementById('progressContainer').style.display = 'none';
-            document.getElementById('progressBar').style.width = '0%';
         }, 2000);
     }
 </script>
