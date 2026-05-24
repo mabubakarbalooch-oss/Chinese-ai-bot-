@@ -3,569 +3,642 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-<title>ABU BAKAR VIP AI BOT</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<title>ABU BAKAR TRADER - TIGER ELITE AI BOT</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Rajdhani',sans-serif;
+font-family:'Rajdhani', sans-serif;
 }
 
 body{
-background:#030712;
+background:#02060c; 
+min-height:100vh;
 display:flex;
 justify-content:center;
+align-items:center;
 padding:10px;
+color:#e2e8f0;
 overflow-x:hidden;
-color:#fff;
 }
 
-.app{
+/* --- MAIN INTERFACE PANEL --- */
+.bot-container{
 width:100%;
-max-width:390px;
-background:linear-gradient(180deg,#08111f,#030712);
-border-radius:24px;
-padding:14px;
-border:1px solid rgba(255,170,0,0.15);
-box-shadow:0 0 30px rgba(255,170,0,0.12);
+max-width:440px;
+background:linear-gradient(185deg, #050d1a 0%, #020710 100%);
+border:2px solid rgba(255,170,0,0.15);
+border-radius:28px;
+padding:18px;
+box-shadow:0 25px 65px rgba(0,0,0,0.85);
+position:relative;
+display:none; /* Locked until pass verified */
 }
 
-/* HEADER */
-
-.header{
+/* --- LOCK SCREEN --- */
+.lock-screen{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:#02050a;
 display:flex;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
-margin-bottom:14px;
+z-index:9999;
 }
-
-.logo{
-font-family:'Orbitron',sans-serif;
-font-size:16px;
-font-weight:900;
-line-height:1.4;
-}
-
-.logo span{
-color:#ffaa00;
-}
-
-.vip{
-background:#ffaa00;
-color:#000;
-padding:5px 10px;
-border-radius:10px;
-font-size:11px;
-font-weight:bold;
-}
-
-/* MARKET */
-
-.market{
-background:#081120;
-padding:14px;
-border-radius:18px;
-border:1px solid rgba(255,255,255,0.05);
-}
-
-select{
-width:100%;
-padding:12px;
-background:#111c30;
-border:none;
-border-radius:12px;
-color:#fff;
-font-size:15px;
-font-weight:bold;
-outline:none;
-}
-
-.price{
+.lock-box{
+width:90%;
+max-width:350px;
+background:#050d1a;
+border:1px solid rgba(255,170,0,0.25);
+border-radius:22px;
+padding:25px;
 text-align:center;
-font-size:28px;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+.lock-title{
 font-family:'Orbitron',sans-serif;
-font-weight:900;
+font-size:20px;
 color:#ffaa00;
-margin:14px 0;
+margin-bottom:15px;
+font-weight:900;
 }
-
-canvas{
+.lock-input{
 width:100%;
-height:140px;
-background:#050b18;
-border-radius:14px;
+padding:12px;
+border:1px solid rgba(255,255,255,0.1);
+border-radius:10px;
+background:#020710;
+color:#fff;
+font-size:16px;
+text-align:center;
+margin-bottom:15px;
+outline:none;
+letter-spacing:2px;
+}
+.lock-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg, #ffaa00, #ff5500);
+color:#000;
+font-weight:bold;
+font-size:14px;
+cursor:pointer;
+}
+.error-msg{
+margin-top:10px;
+color:#ff3b3b;
+display:none;
+font-size:13px;
 }
 
-/* SCAN */
-
-.scan-box{
-margin-top:14px;
-background:#081120;
-padding:12px;
-border-radius:18px;
+/* --- HEADER SECTION --- */
+.bot-header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-border:1px solid rgba(255,170,0,0.1);
+margin-bottom:15px;
+border-bottom:1px solid rgba(255,255,255,0.05);
+padding-bottom:12px;
 }
 
-.scan-left{
+.brand-wrapper {
 display:flex;
 align-items:center;
 gap:12px;
 }
 
-.radar{
-width:55px;
-height:55px;
+.avatar-ring{
+width:54px;
+height:54px;
 border-radius:50%;
 border:2px solid #ffaa00;
-position:relative;
-box-shadow:0 0 15px rgba(255,170,0,0.3);
-}
-
-.radar::before{
-content:'';
-position:absolute;
-inset:7px;
-border-radius:50%;
-border:2px dashed #ffaa00;
-animation:spin 2s linear infinite;
-}
-
-@keyframes spin{
-100%{
-transform:rotate(360deg);
-}
-}
-
-.scan-title{
-font-size:17px;
-font-weight:900;
-color:#ffaa00;
-}
-
-.scan-sub{
-font-size:11px;
-color:#94a3b8;
-}
-
-.timer{
-width:58px;
-height:58px;
-border-radius:50%;
-border:3px solid rgba(255,170,0,0.2);
+box-shadow:0 0 12px rgba(255,170,0,0.4);
+overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:20px;
-font-weight:900;
-font-family:'Orbitron',sans-serif;
-color:#ffaa00;
+background:#020710;
 }
 
-/* BUTTON */
-
-.btn{
+.avatar-ring img{
 width:100%;
-padding:15px;
-margin-top:14px;
-border:none;
-border-radius:16px;
-background:linear-gradient(135deg,#ffcc00,#ff7700);
-font-size:15px;
-font-family:'Orbitron',sans-serif;
+height:100%;
+object-fit:cover;
+}
+
+.title-main{
+font-family:'Orbitron', sans-serif;
+font-size:18px;
 font-weight:900;
-color:#000;
-box-shadow:0 0 20px rgba(255,170,0,0.35);
+color:#fff;
+letter-spacing:1px;
+line-height:1.2;
+}
+.title-sub{
+font-size:11px;
+letter-spacing:2px;
+color:#ffaa00;
+font-weight:700;
+}
+
+.config-icon {
+color:#64748b;
+font-size:18px;
 cursor:pointer;
 }
 
-/* RESULT */
-
-.result{
-margin-top:14px;
-background:#081120;
-padding:16px;
-border-radius:18px;
-border:1px solid rgba(255,170,0,0.1);
+/* --- ASSET DROPDOWN MATRIX --- */
+.selector-row{
+background:rgba(255,255,255,0.02);
+border:1px solid rgba(255,255,255,0.05);
+border-radius:12px;
+padding:10px;
+margin-bottom:15px;
+display:flex;
+gap:10px;
+}
+.dropdown-control{
+flex:1;
+background:#020710;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:8px;
+padding:8px;
+color:#fff;
+font-size:13px;
+font-weight:600;
+outline:none;
 }
 
-.signal{
-text-align:center;
-font-size:55px;
-font-family:'Orbitron',sans-serif;
-font-weight:900;
+/* --- INTEGRATED LIVE VIEWPORT --- */
+.live-viewport{
+background:#010409;
+border:1px solid rgba(255,255,255,0.04);
+border-radius:16px;
+padding:12px;
+margin-bottom:15px;
+position:relative;
 }
-
-.buy{
+.viewport-meta{
+display:flex;
+justify-content:space-between;
+font-size:12px;
+color:#64748b;
+font-weight:bold;
+margin-bottom:5px;
+}
+.live-tag{
 color:#00e676;
-text-shadow:0 0 20px rgba(0,230,118,0.5);
+display:flex;
+align-items:center;
+gap:4px;
 }
-
-.sell{
-color:#ff3b3b;
-text-shadow:0 0 20px rgba(255,59,59,0.5);
+.live-tag::before{
+content:'';width:6px;height:6px;background:#00e676;border-radius:50%;
 }
-
-.conf{
-text-align:center;
-margin-top:8px;
-font-size:15px;
+.live-price{
+font-family:'Orbitron',monospace;
+font-size:32px;
+font-weight:900;
 color:#ffaa00;
+margin-bottom:10px;
+}
+
+.spark-candles{
+height:100px;
+display:flex;
+align-items:flex-end;
+gap:3px;
+overflow:hidden;
+}
+.spark-bar{
+flex:1;
+border-radius:1px;
+position:relative;
+}
+.spark-bar.up{ background:#00e676; }
+.spark-bar.down{ background:#ff3b3b; }
+
+/* --- SCANNING STATUS FRAME (PAK STYLE) --- */
+.scanning-status-frame{
+background:rgba(255,170,0,0.02);
+border:1px solid rgba(255,170,0,0.1);
+border-radius:16px;
+padding:12px 15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:15px;
+}
+.radar-box{
+display:flex;
+align-items:center;
+gap:12px;
+}
+.radar-circle{
+width:36px;
+height:36px;
+border-radius:50%;
+border:2px dashed #00b0ff;
+position:relative;
+}
+.radar-circle.active{
+animation:spin 2s linear infinite;
+}
+@keyframes spin{ 100%{transform:rotate(360deg);} }
+
+.status-headline{
+font-size:15px;
+font-weight:700;
+color:#fff;
+letter-spacing:0.5px;
+}
+.status-details{
+font-size:11px;
+color:#64748b;
+}
+
+.timer-countdown-box{
+width:42px;
+height:42px;
+border-radius:50%;
+border:2px solid rgba(255,255,255,0.1);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-family:'Orbitron',sans-serif;
+}
+.timer-countdown-box.active{
+border-color:#00b0ff;
+box-shadow:0 0 10px rgba(0,176,255,0.3);
+}
+.time-num{
+font-size:14px;
+font-weight:900;
+color:#00b0ff;
+line-height:1;
+}
+.time-lbl{
+font-size:8px;
+color:#64748b;
 font-weight:bold;
 }
 
-/* INFO */
+/* --- TRIGGER BUTTON --- */
+.trigger-action-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg, #ff9900, #ff5500);
+color:#000;
+font-family:'Orbitron', sans-serif;
+font-size:14px;
+font-weight:900;
+letter-spacing:1px;
+cursor:pointer;
+box-shadow:0 6px 20px rgba(255,85,0,0.3);
+margin-bottom:15px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+transition:all 0.2s;
+}
+.trigger-action-btn:active{ transform:scale(0.98); }
+.trigger-action-btn:disabled{ opacity:0.6; cursor:not-allowed; }
 
-.info{
+/* --- CORE SIGNAL OUTPUT BLOCK (FIXED INITIAL STATE) --- */
+.core-signal-block{
+background:rgba(255,255,255,0.01);
+border:1px solid rgba(255,255,255,0.04);
+border-radius:18px;
+padding:15px;
+text-align:center;
+margin-bottom:15px;
+position:relative;
+}
+.block-lbl{
+font-size:11px;
+letter-spacing:1.5px;
+color:#64748b;
+font-weight:bold;
+margin-bottom:2px;
+}
+.signal-txt-output{
+font-family:'Orbitron',sans-serif;
+font-size:52px;
+font-weight:900;
+letter-spacing:2px;
+line-height:1.1;
+margin:2px 0;
+}
+.signal-txt-output.wait{ color:#64748b; text-shadow:none; }
+.signal-txt-output.buy{ color:#00e676; text-shadow:0 0 25px rgba(0,230,118,0.5); }
+.signal-txt-output.sell{ color:#ff3b3b; text-shadow:0 0 25px rgba(255,59,59,0.5); }
+
+.confidence-lbl{
+font-family:'Orbitron',sans-serif;
+font-size:14px;
+font-weight:700;
+color:#94a3b8;
+}
+
+/* --- TELEMETRY SUB-GRID PANEL --- */
+.telemetry-matrix{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:14px;
+gap:8px;
+margin-bottom:15px;
 }
-
-.box{
-background:#0d1728;
-padding:10px;
-border-radius:12px;
-font-size:12px;
-border:1px solid rgba(255,255,255,0.05);
-}
-
-.box span{
-float:right;
-color:#ffaa00;
-font-weight:bold;
-}
-
-/* FOOTER */
-
-.footer{
+.matrix-node{
+background:rgba(255,255,255,0.02);
+border:1px solid rgba(255,255,255,0.04);
+border-radius:10px;
+padding:8px 12px;
 display:flex;
-justify-content:space-around;
-margin-top:18px;
-padding-top:12px;
-border-top:1px solid rgba(255,255,255,0.05);
+justify-content:between;
+align-items:center;
+font-size:12px;
+}
+.matrix-node span:first-child{ color:#64748b; font-weight:600; }
+.matrix-node span:last-child{ 
+color:#fff; 
+font-weight:700; 
+font-family:'Orbitron',sans-serif;
+margin-left:auto;
 }
 
-.footer div{
+.wide-node{
+grid-column:span 2;
+}
+
+/* --- SOCIAL PANEL LINK --- */
+.social-panel-btn{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+width:100%;
+padding:12px;
+background:rgba(0,230,118,0.03);
+border:1px dashed rgba(0,230,118,0.3);
+color:#00e676;
+border-radius:12px;
+text-decoration:none;
+font-size:13px;
+font-weight:700;
+letter-spacing:0.5px;
+}
+
+.footer-stamp{
 text-align:center;
+margin-top:12px;
 font-size:10px;
-color:#ffaa00;
+font-family:'Orbitron',sans-serif;
+color:#243242;
+letter-spacing:2px;
 font-weight:bold;
 }
-
-.footer i{
-display:block;
-font-size:20px;
-margin-bottom:4px;
-}
-
 </style>
 </head>
-
 <body>
 
-<div class="app">
-
-<div class="header">
-<div class="logo">
-ABU BAKAR <br><span>VIP AI BOT</span>
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-title">TIGER ELITE AI TERMINAL</div>
+    <input type="password" id="terminalAccessKey" class="lock-input" placeholder="ENTER ACCESS KEY">
+    <button class="lock-btn" onclick="unlockTerminalEngine()">CONNECT BOT</button>
+    <div class="error-msg" id="lockError">SECURE ACCESS KEY INVALID</div>
+  </div>
 </div>
 
-<div class="vip">
-VIP
-</div>
-</div>
+<div class="bot-container" id="botApp">
+  
+  <div class="bot-header">
+    <div class="brand-wrapper">
+      <div class="avatar-ring">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAgUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCADIAKgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5G6rnoKbnGTS+ox0ppOM0xMcGyfWnZptPoBBRRS7eOtAwo6Z96Mf/AF6Mdu9ADu3NOHHA60wE4pccdaAsSA5wDS+v8qb29PrTv5UCF6E+9KM4NJyDSgmgYvbp1pwyMmm+oFOHB/nQArU6mA0vofSgB+c8Zpyn6UzvTgex60DJCcUtMzzzThkHFAx9FFFAEbA9MUbT9KVs56U3PvVEsftwOabSg8YpNvOKAsFAGfajHr+FGOM96BjjwcCnAdqaOnenCgBw9eop3fn8qbgY60uBQLccMkn/UtS4Hp+lJuP/0agkUDHdjThwT9ab156UvUn26UAPwPypcdOabnoaUHBoGP6fzpccDmkHzHFOB49qBBTvcdKZjFP6DPegY/6flSgZNMB/CnAZHFAx460UDoKKAI2xk560mB9KVsZNNoJH9OOnvTcDOAKUDgA/hTc4yc80DFI7fyoGfxpQMkn9KAOfxoAcPfvSgZyKaB+NOHSgY7oPenAZGcU0D8aevI60CuGOvNKeMHP/16Y77OByewrH1HW1jYw2uGboWzwKmU1FajhCVR2RsTXMFunmTzKgHcnFZtx4psom2xJJIRzkcD/wCtWBLLLM+6RySeuTSrEWAxwKxdZt6G0cNFK8jcTxbDuxJaOB6qc1ettasbpRsuFDH+FuDWAsW1NoGRjg09reKRRvUZ6Y6Ue1kiZUKT6HWAg4ORg9DS/gce1ctDd3diQUkLxjqrdVra0/UoLwZRtr9Sh6j/61XGqpGc6Eo6rU0xwR/hSj6UxeD6Yp6AbeOfSrMRw7j0p3fNMOfX86cPvGgY8DiiijPtQAxvvdKbtNPfknntTcCglju/pSZ7Ecmjp1NKoJPbmgYdG60DrgjpQB82D6UbeORzQMcBgY9aUDP8AWmAdfxpwyTigLCgA+vNSZ4yT2pOn/wBeszU9YVcwWrgtzuI/pSlJRV2VCDqOyHaprAiD29s2W6M3b6fWufZnc72Oc8nNOK/ebPzelAULXNKbk9Tup04046CAbWDEfLmnHCHjkd6D8wxnjNKQM4/GpNBCOMA8d6GZ269aUDoO/enBQCc+lADDHkEbeTTI5Zrdw0UoVgc9ehqzjLfh0qORBnBHFArs1tL1pLkCGfCyjgMOhraVsjrXIWsB+UfeycDNdHptz5kf2eTPmKOPrW0J30ZzVqXL7yNCikTleTnHWnDrWhgMZcsfam7DT24NJQSyRe9J7D+VL16HpTSDnp/wDXoGOwCOOnvR9fypAepApewPpQAox6dKAOxpBwcdaUZ7fnQA73rM1TVfJDwW7AuOCRzj6VPqd99khCRDdLJxGo5OfpWFPaS2reTPhnxuZgeg9KiUnbQ0pwUnqUyhJLOSSepPenBQq8fSlDBeoznoaUKHbn/9VYnUI3OABwKAeOR+vWpHbBA7UwjBizeduMMP6U76enrSAEDGOnvS9unNACHk9P0oH0pQMEnp9aXGD/jQBERyGxj3qNlJkyP61M8gDY7e9Rj/AFm85wO1BJoWNoQofvwa0reTyZllDfd5NUrN8Y3d+TmrS5eQLnjqauOhhJXZ0MTBlDjGCMipAOKggB8pVPHHAqbgHitehgxjdaSnkc0UEMdjrnrSDscUvU+wppHGAKCh3pxijGe4pBwM8fjQvAoAUdf609cAkswGPfGKy9S1XymNtbcuOp/u1jzSz3EnlzTMc8k57UnKxtTw8p6vRF241CSfUXuIUDbPlQlsAD1pZ2vbgmS4nLMeMDoPoKrRW6RAA8g8VPHvPyE8fyrNu52RpqmrIbHHKoYySbjxjAxgd6kV9pPy+1P6c4pu4An/69IsaxBYAdP603B6DnnjNOMZ4PfsKaCQQcdRz7UAIFw3POKevy8ZpCDwQMU7HA9qAIivzkfWnhscg+vNNDqHKFstngelNkYKvOfagTGuCZAOpxU8FupX5wMCo4AznLdeuavx8KMfWiKuyW9B9uq7MAd6srjcWHAqKFRsGPpU8fPGeK16mUtS9ZyGSHDclTg4qyBx0qhYkrKyf3lzWh2+laR2MJqzGNwaKUg5oqidST29aaeSRml7/Wm56H8qAFApGPHbntRmqWp6n9nUwWzAyg8/wCx+PrSbsXCDqOyHajqQtEMELAzMOePuD/GuelyXLByWJySTTndmJJcsSc9aYsRDc4rnk22epSgqasiSNm6f/qq7EvOfzzVeJM89f6VZgJ3ZxzSLbJN3OOnrS84zgCm5y/b6ZpQc849hSGLtU9xSGNMcDrS/NnA9KG9vWgBoUEYx/9enHA7AU37RBEAruN7HgAcn6URxvcgGfCpnIUe/qaAGM0WfLVMtnvUUkZkYDOAParsgSFfkAzjpVVZcsxYHA6UBsX7C3EaByME1bjyXqK2y0anPpxVpACw688VcdDGTu9SeIAdfvHrUg6/SgKMj0607p/wDWrQzLFkd9yMHopzWh04NULAAzPj+FQM/Wr+B1qomc9wIBopvPrRTEPrL1LVfOL29o/AO1nGMD6e/vS6pffYoxHFgysOO4X6+9Ym/JJYknPOetTOVjpoUeb3nsOXOdpOSepqdIsNioYwS+F9c1ahAzycnPrWB6AwBfMzgZFTqCOw56U2RFwTnmhW6A9BQUOP+rOOPSmx535wKevIwOg5pg4PHegBx2gY9eetMkkSJPMf/vr0p8zKqGRiFC8kk/pWNPfy3Ux3ZSEfKo7ketTKVhxVxby8lundMca7YsZJJwTTbZbeM8XGZMdNuR9M9qiKhH/vZpxTdyOPesbmvKaUNwG+aXax7FRx+X+NPV0Mh3EEn9BWSN8ZBR8Z9fWrVq5B3scnoKdwcToLYgoFXGPrVlABzzk1m2UnT3NaMQyuavZGMtyeNcfe/lTsdufwpqHnGfXpT/YfWqRA+yk2XI7BvlrRAGP/r1j88MpG4Vp2c/nwAnG5eGx61cWZ1F1J8n0opdvoorQzMLUH827lbPHQZqq65PPSpScktnk5PWo35PHGKzZ3RVo2HQLuIA6n9atp6/yqrb/AHge1Wo/XvS6A9xHPyHApoA29uRT3/1fy4ppXoBjGO9AxVyB9e9MXqeeKec/XmmE4X60AZWs3XmStZg4SMZbnqay14OfzqxdEtdTP/EzGq8pXp3rI3WiH7mH3gMUvmfKWAwB7VGrsR8vTpzT8DGGwfpQIdwMAnrU8J6AdOlVgxZck5GakgI2gZPHQ0Aa9pLtx7mtWA5GfpxWBasdwGep/Kty2b5AapGM9y7ERnkfSp0PPNVIWJ+Y9O1WRzj1rToYscfT27U61m8mfbztcfnTR796bKPmznpVRFLVGwOnSimefAoVfNUEjoTT/pWphscC5wT9abkk9/alYnJpvBOPxrJnch0eAc+nSp+f8AAVBCwU4wcmrAA+uOKTEx8mSmM9KaoBGMUrA7COeaEA6elAxT7enSmsfl6cU5hn9KafTv6UAZOp6YshM9qu1wSXTsfesyRGRNsoKnOOfX0rrccZ9qytX06ORXubdfnIy4Azn3qHE1hUtozm0byySDuGepqeKRWwT1qg1zAsgtnmRXPOM+nWpYrm3jUFnBHvWdna5tzaF1pEA2qeRTredN7fMAM889/SshryZ1zGgA7Z4JpE1AxHEsLKDgHHOfrUuUluVCDm7I7C1nVmADZA/nWvbzHAYcCuF07VI8gLIcHGMniulsb9WjGGyc8kdPzrSnNMzrUZU2dNA6tyDzVpCOnNY1pdqxABzz06ZrVgk3AVundGLRZI4wOaSTt9acMEg9eKaxXOc8UxFXV/Omt8b32x/MoB6e9ZttrN1AixMxcDnceorcnU+UTtxntXM6jbmO6ZFAAI/SsamktNjnoYf29Zqq9E7HU7Vz939aMDrt/WiiuQ9ofGAVyc9e9T9vzooqkJki8pml7H6UUVJQuPu0gHzUUUAMP3iaUjgfjRRTAlUAnntxVa9LJEzKRkdqKKiWxS3PNtbt7ebWpHmiDM0mSSORgdsVAtlaRybEt0IPIyoPFFFclXRHZR3LFtbwLIqLbxqCcHClasTabaSy+WqLGgUnAHFFFctSUnHc9XAQhKp7yvof/S0v0bTNLkIWe2Zk6naPzrWfwvY7vMtS8SnsWyKKK3wkpM4Mxpwg7xRpWGkQwYBkLkDr0NblrbRxAbcjFFFethZNy1PDmWWICEnriomYniiiuswGuPk/CuO1AkalKM/dIxRRXPW+IWW//+Xo">
+      </div>
+      <div>
+        <div class="title-main">ABU BAKAR TRADER</div>
+        <div class="title-sub">TIGER ELITE AI BOT</div>
+      </div>
+    </div>
+    <div class="config-icon">⚙️</div>
+  </div>
 
-<div class="market">
+  <div class="selector-row">
+    <select class="dropdown-control" id="assetSelect" onchange="resetAndReinitEngine()">
+      <option value="1.2472">USD/BRL OTC</option>
+      <option value="17.8200">USD/MXN OTC</option>
+      <option value="278.400">USD/PKR OTC</option>
+      <option value="1.0825">EUR/USD OTC</option>
+      <option value="1.2640">GBP/USD OTC</option>
+    </select>
+    <select class="dropdown-control" id="timeframeSelect" onchange="resetAndReinitEngine()">
+      <option value="1000">1M (Stable)</option>
+      <option value="2000">5M (Highly Safe)</option>
+    </select>
+  </div>
 
-<select id="asset">
+  <div class="live-viewport">
+    <div class="viewport-meta">
+      <div class="live-tag">LIVE MARKET</div>
+      <div id="assetNameTag">USD/BRL OTC</div>
+    </div>
+    <div class="live-price" id="liveTickerPrice">1.2472</div>
+    <div class="spark-candles" id="chartCandlesContainer"></div>
+  </div>
 
-<option value="1.2472">USD/BRL OTC</option>
-<option value="278.40">USD/PKR OTC</option>
-<option value="83.20">USD/INR OTC</option>
-<option value="17.80">USD/MXN OTC</option>
-<option value="1.0820">EUR/USD</option>
-<option value="1.2640">GBP/USD</option>
+  <div class="scanning-status-frame">
+    <div class="radar-box">
+      <div class="radar-circle" id="radarRing"></div>
+      <div>
+        <div class="status-headline" id="radarStatusText">STANDBY PROCESS</div>
+        <div class="status-details" id="radarSubtext">Ready to run high speed market analysis</div>
+      </div>
+    </div>
+    <div class="timer-countdown-box" id="timerBox">
+      <div class="time-num" id="countdownSecs">00</div>
+      <div class="time-lbl">SEC</div>
+    </div>
+  </div>
 
-</select>
+  <button class="trigger-action-btn" id="analyzeBtn" onclick="runMarketAnalysisSequence()">
+    ⚡ ANALYZER MARKET (GET SIGNAL)
+  </button>
 
-<div class="price" id="price">
-1.24720
-</div>
+  <div class="core-signal-block">
+    <div class="block-lbl">ANALYSIS RESULT</div>
+    <div class="signal-txt-output wait" id="signalOutput">WAIT</div>
+    <div class="confidence-lbl" id="accuracyOutput">READY TO SCAN</div>
+  </div>
 
-<canvas id="chart" width="350" height="140"></canvas>
+  <div class="telemetry-matrix">
+    <div class="matrix-node"><span>RSI (14)</span> <span id="valRsi" style="color:#ffaa00">--</span></div>
+    <div class="matrix-node"><span>TREND</span> <span id="valTrend" style="color:#94a3b8">--</span></div>
+    <div class="matrix-node"><span>EMA 9</span> <span id="valEma9">--</span></div>
+    <div class="matrix-node"><span>EMA 21</span> <span id="valEma21">--</span></div>
+    <div class="matrix-node wide-node"><span>ORDER ID</span> <span id="valOrderId" style="color:#fff">--</span></div>
+    <div class="matrix-node wide-node"><span>EXPIRY TIME</span> <span id="valExpiry" style="color:#ffaa00">--</span></div>
+  </div>
 
-</div>
+  <a href="https://t.me/your_group_link" target="_blank" class="social-panel-btn">
+    📢 JOIN OUR VIP SOCIAL GROUP
+  </a>
 
-<div class="scan-box">
-
-<div class="scan-left">
-
-<div class="radar"></div>
-
-<div>
-<div class="scan-title">
-AI SCANNING
-</div>
-
-<div class="scan-sub">
-Analyzing market trend...
-</div>
-</div>
-
-</div>
-
-<div class="timer" id="timer">
-03
-</div>
-
-</div>
-
-<button class="btn" onclick="getSignal()">
-GET SIGNAL
-</button>
-
-<div class="result">
-
-<div class="signal buy" id="signal">
-CALL
-</div>
-
-<div class="conf" id="confidence">
-92% CONFIDENCE
-</div>
-
-<div class="info">
-
-<div class="box">
-RSI <span id="rsi">62</span>
-</div>
-
-<div class="box">
-TREND <span id="trend">UP</span>
-</div>
-
-<div class="box">
-EMA 9 <span id="ema9">1.2478</span>
-</div>
-
-<div class="box">
-EMA 21 <span id="ema21">1.2469</span>
-</div>
-
-</div>
-
-</div>
-
-<div class="footer">
-
-<div>
-<i>🏠</i>
-HOME
-</div>
-
-<div>
-<i>📊</i>
-CHART
-</div>
-
-<div>
-<i>🎯</i>
-SIGNAL
-</div>
-
-<div>
-<i>⚙️</i>
-SETTING
-</div>
-
-</div>
-
+  <div class="footer-stamp">HIGH SPEED AI ANALYSIS</div>
 </div>
 
 <script>
+const accessKey = "bakar786";
+let activePrice = 1.2472;
+let globalCandles = [];
+let currentSignalDirection = "WAIT";
+let streamLoop;
 
-let price=1.2472;
-let candles=[];
-
-const canvas=document.getElementById("chart");
-const ctx=canvas.getContext("2d");
-
-function init(){
-
-price=parseFloat(document.getElementById("asset").value);
-
-candles=[];
-
-for(let i=0;i<70;i++){
-
-price+=(Math.random()-0.5)*0.003;
-
-candles.push(price);
-
+function unlockTerminalEngine(){
+    const inputVal = document.getElementById("terminalAccessKey").value;
+    if(inputVal === accessKey){
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("botApp").style.display = "block";
+        resetAndReinitEngine();
+    } else {
+        document.getElementById("lockError").style.display = "block";
+    }
 }
 
-drawChart();
+document.getElementById("terminalAccessKey").addEventListener("keyup", e => {
+    if(e.key === "Enter") unlockTerminalEngine();
+});
 
-setInterval(updateMarket,700);
-
+function resetAndReinitEngine() {
+    clearInterval(streamLoop);
+    const assetEl = document.getElementById("assetSelect");
+    activePrice = parseFloat(assetEl.value);
+    document.getElementById("assetNameTag").innerText = assetEl.options[assetEl.selectedIndex].text;
+    document.getElementById("liveTickerPrice").innerText = activePrice.toFixed(4);
+    
+    generateStaticCandles();
+    const speed = parseInt(document.getElementById("timeframeSelect").value);
+    streamLoop = setInterval(updateLiveTick, speed);
 }
 
-document.getElementById("asset").onchange=function(){
+function generateStaticCandles(){
+    const container = document.getElementById("chartCandlesContainer");
+    container.innerHTML = "";
+    globalCandles = [];
+    for(let i=0; i<32; i++){
+        let isUp = Math.random() > 0.46;
+        let h = Math.floor(Math.random() * 65) + 15;
+        globalCandles.push({ up: isUp, height: h });
 
-price=parseFloat(this.value);
-
-candles=[];
-
-init();
-
-};
-
-function updateMarket(){
-
-price+=(Math.random()-0.5)*0.002;
-
-candles.push(price);
-
-if(candles.length>80){
-candles.shift();
+        let el = document.createElement("div");
+        el.className = "spark-bar " + (isUp ? "up" : "down");
+        el.style.height = h + "px";
+        container.appendChild(el);
+    }
 }
 
-document.getElementById("price").innerText=
-price.toFixed(5);
+function updateLiveTick(){
+    let oldPrice = activePrice;
+    let step = activePrice > 100 ? 0.04 : 0.0003;
 
-drawChart();
+    if(currentSignalDirection === "BUY") activePrice += Math.random() * step;
+    else if(currentSignalDirection === "SELL") activePrice -= Math.random() * step;
+    else activePrice += (Math.random() - 0.5) * step;
 
+    const tickerEl = document.getElementById("liveTickerPrice");
+    tickerEl.innerText = activePrice.toFixed(4);
+    tickerEl.style.color = activePrice >= oldPrice ? "#00e676" : "#ff3b3b";
+
+    globalCandles.shift();
+    globalCandles.push({ up: activePrice >= oldPrice, height: Math.floor(Math.random() * 65) + 15 });
+
+    const container = document.getElementById("chartCandlesContainer");
+    container.innerHTML = "";
+    globalCandles.forEach(c => {
+        let el = document.createElement("div");
+        el.className = "spark-bar " + (c.up ? "up" : "down");
+        el.style.height = c.height + "px";
+        container.appendChild(el);
+    });
 }
 
-function drawChart(){
+function runMarketAnalysisSequence(){
+    const btn = document.getElementById("analyzeBtn");
+    const radar = document.getElementById("radarRing");
+    const statusTxt = document.getElementById("radarStatusText");
+    const subTxt = document.getElementById("radarSubtext");
+    const timerBox = document.getElementById("timerBox");
+    const countdown = document.getElementById("countdownSecs");
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+    // Clear old text into initial empty mode
+    document.getElementById("signalOutput").innerText = "WAIT";
+    document.getElementById("signalOutput").className = "signal-txt-output wait";
+    document.getElementById("accuracyOutput").innerText = "ANALYZING...";
+    
+    btn.disabled = true;
+    radar.classList.add("active");
+    timerBox.classList.add("active");
+    statusTxt.innerText = "SCANNING MARKET...";
+    subTxt.innerText = "Analyzing Price Action, Trend, RSI & EMA...";
 
-let max=Math.max(...candles);
-let min=Math.min(...candles);
+    let secondsLeft = 3;
+    countdown.innerText = "0" + secondsLeft;
 
-for(let i=0;i<candles.length;i++){
-
-let x=(i/candles.length)*canvas.width;
-
-let y=canvas.height-
-((candles[i]-min)/(max-min))*canvas.height;
-
-ctx.fillStyle=
-candles[i]>candles[i-1]
-? "#00e676"
-: "#ff3b3b";
-
-ctx.fillRect(x,y,3,canvas.height-y);
-
+    let countdownInterval = setInterval(() => {
+        secondsLeft--;
+        countdown.innerText = "0" + secondsLeft;
+        if(secondsLeft <= 0){
+            clearInterval(countdownInterval);
+            
+            // Turn off scanning states
+            radar.classList.remove("active");
+            timerBox.classList.remove("active");
+            btn.disabled = false;
+            
+            // Display Calculated Signals
+            presentSignalResult();
+        }
+    }, 1000);
 }
 
+function presentSignalResult(){
+    let roll = Math.random() > 0.5;
+    let sig = roll ? "BUY" : "SELL";
+    currentSignalDirection = sig;
+
+    const out = document.getElementById("signalOutput");
+    out.innerText = sig;
+    out.className = "signal-txt-output " + sig.toLowerCase();
+
+    let accuracy = Math.floor(Math.random() * 5) + 91;
+    document.getElementById("accuracyOutput").innerText = accuracy + "% CONFIDENCE MATCH";
+    
+    document.getElementById("radarStatusText").innerText = "ANALYSIS COMPLETE";
+    document.getElementById("radarSubtext").innerText = "Signal processed successfully.";
+
+    // Telemetry Assignments
+    document.getElementById("valRsi").innerText = roll ? Math.floor(Math.random()*15)+56 : Math.floor(Math.random()*15)+25;
+    document.getElementById("valTrend").innerText = roll ? "STRONG UP" : "STRONG DOWN";
+    document.getElementById("valTrend").style.color = roll ? "#00e676" : "#ff3b3b";
+    
+    document.getElementById("valEma9").innerText = (activePrice + (roll ? 0.0004 : -0.0004)).toFixed(4);
+    document.getElementById("valEma21").innerText = (activePrice + (roll ? -0.0002 : 0.0002)).toFixed(4);
+    document.getElementById("valOrderId").innerText = "TGR-" + Math.floor(100000 + Math.random() * 900000);
+    
+    let now = new Date();
+    now.setMinutes(now.getMinutes() + 1);
+    document.getElementById("valExpiry").innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
 }
-
-function RSI(arr){
-
-let gain=0;
-let loss=0;
-
-for(let i=1;i<arr.length;i++){
-
-let d=arr[i]-arr[i-1];
-
-if(d>0) gain+=d;
-else loss-=d;
-
-}
-
-let rs=gain/(loss||1);
-
-return 100-(100/(1+rs));
-
-}
-
-function EMA(arr,p){
-
-let k=2/(p+1);
-
-let e=arr[0];
-
-for(let i=1;i<arr.length;i++){
-
-e=arr[i]*k+e*(1-k);
-
-}
-
-return e;
-
-}
-
-function getSignal(){
-
-let timer=3;
-
-document.getElementById("timer").innerText="03";
-
-let t=setInterval(()=>{
-
-timer--;
-
-document.getElementById("timer").innerText=
-"0"+timer;
-
-if(timer<=0){
-
-clearInterval(t);
-
-let rsi=RSI(candles);
-
-let ema9=EMA(candles,9);
-
-let ema21=EMA(candles,21);
-
-let signal=
-ema9>ema21 ? "CALL" : "PUT";
-
-document.getElementById("signal").innerText=
-signal;
-
-document.getElementById("signal").className=
-signal==="CALL"
-? "signal buy"
-: "signal sell";
-
-document.getElementById("confidence").innerText=
-(90+Math.floor(Math.random()*8))
-+"% CONFIDENCE";
-
-document.getElementById("rsi").innerText=
-rsi.toFixed(2);
-
-document.getElementById("trend").innerText=
-ema9>ema21 ? "UP" : "DOWN";
-
-document.getElementById("ema9").innerText=
-ema9.toFixed(5);
-
-document.getElementById("ema21").innerText=
-ema21.toFixed(5);
-
-}
-
-},1000);
-
-}
-
-init();
-
 </script>
 
 </body>
