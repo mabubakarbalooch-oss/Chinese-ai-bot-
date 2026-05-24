@@ -2,35 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chinese Signal Generator</title>
+<title>Chinese Signal Generator Pro</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-    
     body { background:#0a0e13; color:#fff; font-family:'Inter', sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0; }
 
-    /* Login Screen */
     #loginScreen { background:#1a1f26; padding:30px; border-radius:20px; border:1px solid #00ff88; text-align:center; width:350px; }
     #loginScreen input { width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #333; background:#0f1318; color:#fff; text-align:center; }
     #loginScreen button { width:100%; padding:12px; background:#00ff88; border:none; border-radius:8px; font-weight:700; cursor:pointer; }
 
-    /* Main Container */
-    #mainBoard { display:none; width:380px; background:#0f1318; border:2px solid #00ff88; border-radius:25px; padding:25px; box-shadow:0 0 30px rgba(0,255,136,0.3); }
+    #mainBoard { display:none; width:380px; background:#0f1318; border:2px solid #00ff88; border-radius:25px; padding:25px; box-shadow:0 0 30px rgba(0,255,136,0.2); }
     
-    h1 { color:#00ff88; font-size:22px; text-align:center; margin-bottom:5px; }
-    p { color:#8b949e; font-size:11px; text-align:center; margin-bottom:20px; }
-    .label { color:#8b949e; font-size:12px; margin-bottom:5px; display:block; }
+    h1 { color:#00ff88; font-size:20px; text-align:center; margin-bottom:20px; }
     .select-box { width:100%; padding:12px; background:#1a1f26; border:1px solid #30363d; border-radius:12px; color:#fff; margin-bottom:15px; }
     
-    .time-container { display:flex; gap:5px; margin-bottom:20px; }
-    .time-btn { flex:1; padding:10px 0; background:#1a1f26; border:1px solid #30363d; border-radius:8px; color:#8b949e; cursor:pointer; font-size:12px; text-align:center; }
-    .time-btn.active { border:1px solid #00ff88; color:#00ff88; background:rgba(0,255,136,0.1); }
+    .gen-btn { width:100%; padding:15px; background:linear-gradient(90deg, #00ff88, #00d977); border:none; border-radius:15px; font-weight:700; color:#000; cursor:pointer; margin-top:10px; }
     
-    .gen-btn { width:100%; padding:15px; background:linear-gradient(90deg, #00ff88, #00d977); border:none; border-radius:15px; font-weight:700; color:#000; cursor:pointer; }
-    
-    /* Image-like Bottom Indicators */
-    .indicator-box { display:flex; gap:8px; margin-top:20px; }
-    .ind-card { flex:1; background:#1a1f26; padding:10px 5px; border-radius:10px; border:1px solid #30363d; text-align:center; font-size:9px; color:#fff; }
+    /* سگنل باکس کا ڈیزائن */
+    #signalBox { margin-top:20px; padding:15px; border-radius:12px; text-align:center; font-size:20px; font-weight:bold; display:none; }
+    .buy-style { background:rgba(0, 255, 136, 0.2); border:1px solid #00ff88; color:#00ff88; }
+    .sell-style { background:rgba(255, 68, 68, 0.2); border:1px solid #ff4444; color:#ff4444; }
 </style>
 </head>
 <body>
@@ -43,26 +34,16 @@
 
 <div id="mainBoard">
     <h1>🚀 Chinese Signal Generator</h1>
-    <p>Generate high-precision trading signals with advanced AI algorithms</p>
     
-    <label class="label">Select Broker</label>
-    <select class="select-box"><option>Quotex</option><option>Pocket Option</option></select>
+    <label style="font-size:12px; color:#8b949e;">Select Broker</label>
+    <select class="select-box"><option>Quotex</option></select>
     
-    <label class="label">Trading Asset</label>
-    <select class="select-box"><option>NZD/CHF (OTC)</option><option>EUR/USD</option></select>
+    <label style="font-size:12px; color:#8b949e;">Trading Asset</label>
+    <select class="select-box"><option>NZD/CHF (OTC)</option></select>
 
-    <label class="label">Time Frame</label>
-    <div class="time-container">
-        <div class="time-btn">5s</div><div class="time-btn active">15s</div><div class="time-btn">30s</div><div class="time-btn">1m</div><div class="time-btn">5m</div>
-    </div>
+    <button class="gen-btn" onclick="gen()">⚡ GENERATE SIGNAL</button>
 
-    <button class="gen-btn" onclick="gen()">⚡ GENERATE SIGNAL ⚡</button>
-
-    <div class="indicator-box">
-        <div class="ind-card">RSI (14)<br><strong id="rsi" style="color:#00ff88">--</strong></div>
-        <div class="ind-card">Moving Avg<br><strong id="ma" style="color:#00ff88">--</strong></div>
-        <div class="ind-card">Confidence<br><strong id="conf" style="color:#00ff88">--</strong></div>
-    </div>
+    <div id="signalBox">---</div>
 </div>
 
 <script>
@@ -73,7 +54,15 @@
         } else { alert("Wrong Password!"); }
     }
     
-    function playSound(isBuy) {
+    function gen() {
+        let box = document.getElementById('signalBox');
+        let isBuy = Math.random() > 0.5;
+        
+        box.style.display = 'block';
+        box.innerText = isBuy ? "BUY SIGNAL" : "SELL SIGNAL";
+        box.className = isBuy ? "buy-style" : "sell-style";
+        
+        // ساؤنڈ پلے کرنا
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
         osc.frequency.value = isBuy ? 600 : 300;
@@ -81,18 +70,6 @@
         osc.start();
         osc.stop(ctx.currentTime + 0.3);
     }
-    
-    function gen() {
-        let rsi = Math.floor(Math.random() * 40 + 30);
-        let isBuy = Math.random() > 0.5;
-        document.getElementById('rsi').innerText = rsi;
-        document.getElementById('ma').innerText = "MA(50)";
-        document.getElementById('conf').innerText = "96% - High";
-        
-        playSound(isBuy);
-        alert(isBuy ? "SIGNAL: BUY" : "SIGNAL: SELL");
-    }
 </script>
-
 </body>
 </html>
