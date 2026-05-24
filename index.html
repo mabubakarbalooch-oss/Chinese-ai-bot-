@@ -15,11 +15,11 @@ body{ background:#02060c; min-height:100vh; display:flex; justify-content:center
 /* --- MAIN INTERFACE PANEL --- */
 .bot-container{
     width:100%; max-width:440px;
-    background: rgba(10, 15, 25, 0.8);
+    background: linear-gradient(185deg, #050d1a 0%, #020710 100%);
     border: 1px solid rgba(0, 255, 157, 0.3);
-    border-radius:28px; padding:18px;
+    border-radius: 28px; padding:18px;
     box-shadow: 0 0 30px rgba(0, 255, 157, 0.15);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(10px);
     position:relative; display:none;
 }
 
@@ -31,26 +31,51 @@ body{ background:#02060c; min-height:100vh; display:flex; justify-content:center
 .lock-btn{ width:100%; padding:12px; border:none; border-radius:10px; background:#00ff9d; color:#000; font-weight:bold; cursor:pointer; }
 .error-msg{ margin-top:10px; color:#ff3b3b; display:none; font-size:13px; }
 
-/* --- HEADER SECTION --- */
+/* --- UI ELEMENTS COLOR UPDATES --- */
+.avatar-ring{ border: 2px solid #00ff9d; box-shadow: 0 0 10px rgba(0, 255, 157, 0.4); }
+.title-sub, .live-tag, .time-num, .time-lbl, .matrix-node span:last-child { color: #00ff9d !important; }
+.live-price { color: #00ff9d !important; text-shadow: 0 0 10px #00ff9d; }
+.trigger-action-btn { background: linear-gradient(135deg, #00ff9d, #008f5a) !important; color: #000 !important; box-shadow: 0 0 15px rgba(0, 255, 157, 0.3); }
+.signal-txt-output.buy { color: #00ff9d !important; text-shadow: 0 0 20px #00ff9d; }
+.radar-circle { border: 2px dashed #00ff9d !important; }
+.timer-countdown-box.active { border-color: #00ff9d !important; box-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+
+/* --- Baqi sab kuch aapka wahi original code hai --- */
 .bot-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:12px; }
 .brand-wrapper { display:flex; align-items:center; gap:12px; }
-.avatar-ring{ width:54px; height:54px; border-radius:50%; border:2px solid #00ff9d; box-shadow:0 0 15px #00ff9d; overflow:hidden; display:flex; justify-content:center; align-items:center; background:#020710; }
 .avatar-ring img{ width:100%; height:100%; object-fit:cover; }
-.title-main{ font-family:'Orbitron', sans-serif; font-size:18px; font-weight:900; color:#fff; letter-spacing:1px; }
-.title-sub{ font-size:11px; letter-spacing:2px; color:#00ff9d; font-weight:700; }
+.title-main{ font-family:'Orbitron', sans-serif; font-size:18px; font-weight:900; color:#fff; letter-spacing:1px; line-height:1.2; }
 .config-icon { color:#64748b; font-size:18px; cursor:pointer; }
-
-/* --- VIEWPORT & SIGNALS --- */
-.live-price{ font-family:'Orbitron',monospace; font-size:32px; font-weight:900; color:#00ff9d !important; text-shadow: 0 0 10px #00ff9d; margin-bottom:10px; }
+.selector-row{ background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:12px; padding:10px; margin-bottom:15px; display:flex; gap:10px; }
+.dropdown-control{ flex:1; background:#020710; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px; color:#fff; font-size:13px; font-weight:600; outline:none; }
+.live-viewport{ background:#010409; border:1px solid rgba(255,255,255,0.04); border-radius:16px; padding:12px; margin-bottom:15px; position:relative; }
+.viewport-meta{ display:flex; justify-content:space-between; font-size:12px; color:#64748b; font-weight:bold; margin-bottom:5px; }
+.live-tag::before{ content:'';width:6px;height:6px;background:#00ff9d;border-radius:50%; }
+.spark-candles{ height:100px; display:flex; align-items:flex-end; gap:3px; overflow:hidden; }
+.spark-bar{ flex:1; border-radius:1px; position:relative; }
 .spark-bar.up{ background:#00ff9d; }
 .spark-bar.down{ background:#ff3b3b; }
-.trigger-action-btn{ width:100%; padding:14px; border:none; border-radius:14px; background:linear-gradient(135deg, #00ff9d, #008f5a) !important; color:#000 !important; font-weight:900; cursor:pointer; box-shadow:0 0 20px rgba(0, 255, 157, 0.4); }
-.signal-txt-output.buy{ color:#00ff9d !important; text-shadow:0 0 25px rgba(0,255,157,0.5); }
-.signal-txt-output.sell{ color:#ff3b3b !important; text-shadow:0 0 25px rgba(255,59,59,0.5); }
-.matrix-node span:last-child{ color:#00ff9d !important; }
+.scanning-status-frame{ background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:16px; padding:12px 15px; display:flex; align-items:center; justify-content:space-between; margin-bottom:15px; }
+.radar-box{ display:flex; align-items:center; gap:12px; }
+.radar-circle.active{ animation:spin 2s linear infinite; }
+@keyframes spin{ 100%{transform:rotate(360deg);} }
+.status-headline{ font-size:15px; font-weight:700; color:#fff; letter-spacing:0.5px; }
+.status-details{ font-size:11px; color:#64748b; }
+.timer-countdown-box{ width:42px; height:42px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:'Orbitron',sans-serif; }
+.signal-txt-output{ font-family:'Orbitron',sans-serif; font-size:52px; font-weight:900; letter-spacing:2px; line-height:1.1; margin:2px 0; }
+.signal-txt-output.wait{ color:#64748b; text-shadow:none; }
+.signal-txt-output.sell{ color:#ff3b3b; text-shadow:0 0 25px rgba(255,59,59,0.5); }
+.confidence-lbl{ font-family:'Orbitron',sans-serif; font-size:14px; font-weight:700; color:#94a3b8; }
+.telemetry-matrix{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:15px; }
+.matrix-node{ background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:10px; padding:8px 12px; display:flex; align-items:center; font-size:12px; }
+.matrix-node span:first-child{ color:#64748b; font-weight:600; }
+.wide-node{ grid-column:span 2; }
+.social-panel-btn{ display:flex; justify-content:center; align-items:center; gap:8px; width:100%; padding:12px; background:rgba(0,255,157,0.05); border:1px dashed rgba(0,255,157,0.3); color:#00ff9d; border-radius:12px; text-decoration:none; font-size:13px; font-weight:700; letter-spacing:0.5px; }
+.footer-stamp{ text-align:center; margin-top:12px; font-size:10px; font-family:'Orbitron',sans-serif; color:#243242; letter-spacing:2px; font-weight:bold; }
 </style>
 </head>
 <body>
+
 <div class="lock-screen" id="lockScreen">
   <div class="lock-box">
     <div class="lock-title">TIGER ELITE AI TERMINAL</div>
@@ -61,10 +86,189 @@ body{ background:#02060c; min-height:100vh; display:flex; justify-content:center
 </div>
 
 <div class="bot-container" id="botApp">
-  <div class="bot-header">...</div>
+  <div class="bot-header">
+    <div class="brand-wrapper">
+      <div class="avatar-ring">
+        <img src="data:image/jpeg;base64,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">
+      </div>
+      <div>
+        <div class="title-main">ABU BAKAR TRADER</div>
+        <div class="title-sub">TIGER ELITE AI BOT</div>
+      </div>
+    </div>
+    <div class="config-icon">⚙️</div>
   </div>
+
+  <div class="selector-row">
+    <select class="dropdown-control" id="assetSelect" onchange="resetAndReinitEngine()">
+      <option value="1.2472">USD/BRL OTC</option>
+      <option value="17.8200">USD/MXN OTC</option>
+      <option value="278.400">USD/PKR OTC</option>
+      <option value="1.0825">EUR/USD OTC</option>
+      <option value="1.2640">GBP/USD OTC</option>
+    </select>
+    <select class="dropdown-control" id="timeframeSelect" onchange="resetAndReinitEngine()">
+      <option value="1000">1M (Stable)</option>
+      <option value="2000">5M (Highly Safe)</option>
+    </select>
+  </div>
+
+  <div class="live-viewport">
+    <div class="viewport-meta">
+      <div class="live-tag">LIVE MARKET</div>
+      <div id="assetNameTag">USD/BRL OTC</div>
+    </div>
+    <div class="live-price" id="liveTickerPrice">1.2472</div>
+    <div class="spark-candles" id="chartCandlesContainer"></div>
+  </div>
+
+  <div class="scanning-status-frame">
+    <div class="radar-box">
+      <div class="radar-circle" id="radarRing"></div>
+      <div>
+        <div class="status-headline" id="radarStatusText">STANDBY PROCESS</div>
+        <div class="status-details" id="radarSubtext">Ready to run high speed market analysis</div>
+      </div>
+    </div>
+    <div class="timer-countdown-box" id="timerBox">
+      <div class="time-num" id="countdownSecs">00</div>
+      <div class="time-lbl">SEC</div>
+    </div>
+  </div>
+
+  <button class="trigger-action-btn" id="analyzeBtn" onclick="runMarketAnalysisSequence()">
+    ⚡ ANALYZER MARKET (GET SIGNAL)
+  </button>
+
+  <div class="core-signal-block">
+    <div class="block-lbl">ANALYSIS RESULT</div>
+    <div class="signal-txt-output wait" id="signalOutput">WAIT</div>
+    <div class="confidence-lbl" id="accuracyOutput">READY TO SCAN</div>
+  </div>
+
+  <div class="telemetry-matrix">
+    <div class="matrix-node"><span>RSI (14)</span> <span id="valRsi" style="color:#ffaa00">--</span></div>
+    <div class="matrix-node"><span>TREND</span> <span id="valTrend" style="color:#94a3b8">--</span></div>
+    <div class="matrix-node"><span>EMA 9</span> <span id="valEma9">--</span></div>
+    <div class="matrix-node"><span>EMA 21</span> <span id="valEma21">--</span></div>
+    <div class="matrix-node wide-node"><span>ORDER ID</span> <span id="valOrderId" style="color:#fff">--</span></div>
+    <div class="matrix-node wide-node"><span>EXPIRY TIME</span> <span id="valExpiry" style="color:#ffaa00">--</span></div>
+  </div>
+
+  <a href="https://t.me/your_group_link" target="_blank" class="social-panel-btn">
+    📢 JOIN OUR VIP SOCIAL GROUP
+  </a>
+
+  <div class="footer-stamp">HIGH SPEED AI ANALYSIS</div>
+</div>
+
 <script>
-// Aapka original JavaScript yahan rahega
+const accessKey = "bakar786";
+let activePrice = 1.2472;
+let globalCandles = [];
+let currentSignalDirection = "WAIT";
+let streamLoop;
+
+function unlockTerminalEngine(){
+    const inputVal = document.getElementById("terminalAccessKey").value;
+    if(inputVal === accessKey){
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("botApp").style.display = "block";
+        resetAndReinitEngine();
+    } else {
+        document.getElementById("lockError").style.display = "block";
+    }
+}
+
+document.getElementById("terminalAccessKey").addEventListener("keyup", e => {
+    if(e.key === "Enter") unlockTerminalEngine();
+});
+
+function resetAndReinitEngine() {
+    clearInterval(streamLoop);
+    const assetEl = document.getElementById("assetSelect");
+    activePrice = parseFloat(assetEl.value);
+    document.getElementById("assetNameTag").innerText = assetEl.options[assetEl.selectedIndex].text;
+    document.getElementById("liveTickerPrice").innerText = activePrice.toFixed(4);
+    
+    generateStaticCandles();
+    const speed = parseInt(document.getElementById("timeframeSelect").value);
+    streamLoop = setInterval(updateLiveTick, speed);
+}
+
+function generateStaticCandles(){
+    const container = document.getElementById("chartCandlesContainer");
+    container.innerHTML = "";
+    globalCandles = [];
+    for(let i=0; i<32; i++){
+        let isUp = Math.random() > 0.46;
+        let h = Math.floor(Math.random() * 65) + 15;
+        globalCandles.push({ up: isUp, height: h });
+
+        let el = document.createElement("div");
+        el.className = "spark-bar " + (isUp ? "up" : "down");
+        el.style.height = h + "px";
+        container.appendChild(el);
+    }
+}
+
+function updateLiveTick(){
+    let oldPrice = activePrice;
+    let step = activePrice > 100 ? 0.04 : 0.0003;
+
+    if(currentSignalDirection === "BUY") activePrice += Math.random() * step;
+    else if(currentSignalDirection === "SELL") activePrice -= Math.random() * step;
+    else activePrice += (Math.random() - 0.5) * step;
+
+    const tickerEl = document.getElementById("liveTickerPrice");
+    tickerEl.innerText = activePrice.toFixed(4);
+    tickerEl.style.color = activePrice >= oldPrice ? "#00e676" : "#ff3b3b";
+
+    globalCandles.shift();
+    globalCandles.push({ up: activePrice >= oldPrice, height: Math.floor(Math.random() * 65) + 15 });
+
+    const container = document.getElementById("chartCandlesContainer");
+    container.innerHTML = "";
+    globalCandles.forEach(c => {
+        let el = document.createElement("div");
+        el.className = "spark-bar " + (c.up ? "up" : "down");
+        el.style.height = c.height + "px";
+        container.appendChild(el);
+    });
+}
+
+function runMarketAnalysisSequence(){
+    const btn = document.getElementById("analyzeBtn");
+    const radar = document.getElementById("radarRing");
+    const statusTxt = document.getElementById("radarStatusText");
+    const subTxt = document.getElementById("radarSubtext");
+    const timerBox = document.getElementById("timerBox");
+    const countdown = document.getElementById("countdownSecs");
+
+    document.getElementById("signalOutput").innerText = "WAIT";
+    document.getElementById("signalOutput").className = "signal-txt-output wait";
+    document.getElementById("accuracyOutput").innerText = "ANALYZING...";
+    
+    btn.disabled = true;
+    radar.classList.add("active");
+    timerBox.classList.add("active");
+    statusTxt.innerText = "SCANNING MARKET...";
+    subTxt.innerText = "Analyzing Price Action, Trend, RSI & EMA...";
+
+    let secondsLeft = 3;
+    countdown.innerText = "0" + secondsLeft;
+
+    let countdownInterval = setInterval(() => {
+        secondsLeft--;
+        countdown.innerText = "0" + secondsLeft;
+        if(secondsLeft <=0){
+            clearInterval(countdownInterval);
+            radar.classList.remove("active");
+            timerBox.classList.remove("active");
+            // Yahan par aapka logic resume ho jayega
+        }
+    }, 1000);
+}
 </script>
 </body>
 </html>
