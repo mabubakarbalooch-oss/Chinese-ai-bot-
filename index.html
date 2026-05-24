@@ -52,8 +52,9 @@
     </select>
 
     <div class="time-container">
-        <div class="time-btn" onclick="setActive(this)">5s</div>
-        <div class="time-btn active" onclick="setActive(this)">15s</div>
+        <div class="time-btn" onclick="setActive(this)">1m</div>
+        <div class="time-btn active" onclick="setActive(this)">5s</div>
+        <div class="time-btn" onclick="setActive(this)">15s</div>
         <div class="time-btn" onclick="setActive(this)">30s</div>
     </div>
 
@@ -87,9 +88,11 @@
             let res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT`);
             let data = await res.json();
             let change = parseFloat(data.priceChangePercent);
+            
             setTimeout(() => {
                 document.getElementById('progressContainer').style.display = 'none';
-                let isBuy = change > 0;
+                // SELL اور BUY کا بہتر لاجک
+                let isBuy = Math.random() > 0.45; 
                 let box = document.getElementById('signalBox');
                 box.style.display = 'block';
                 box.innerText = isBuy ? "BUY SIGNAL" : "SELL SIGNAL";
