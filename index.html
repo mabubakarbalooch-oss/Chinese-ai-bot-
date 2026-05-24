@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ABU BAKAR TRADER - NOVA AI BOT</title>
+<title>ABU BAKAR TRADER - LIQUID AI BOT</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -15,54 +15,75 @@ font-family:'Rajdhani', sans-serif;
 }
 
 body{
-background:radial-gradient(circle at center, #0f0f1a 0%, #000 100%);
+background:#000;
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
 color:#fff;
+position:relative;
 }
 
-.circle-ui{
+/* Animated wave background */
+body::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+width:200%;
+height:200%;
+background:linear-gradient(45deg, 
+  #ff00ff 0%, 
+  #00ffff 25%, 
+  #ff00ff 50%, 
+  #00ffff 75%, 
+  #ff00ff 100%);
+animation:wave-move 15s linear infinite;
+opacity:0.15;
+}
+@keyframes wave-move{
+0%{transform:translate(-50%,-50%) rotate(0deg);}
+100%{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+.liquid-board{
 width:380px;
 height:680px;
-background:linear-gradient(135deg, rgba(255,0,150,0.1), rgba(0,200,255,0.1));
-border-radius:50px;
-border:2px solid rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.05);
+border-radius:40px;
+border:1px solid rgba(255,255,255,0.2);
+backdrop-filter:blur(40px);
 box-shadow:
- 0 0 60px rgba(255,0,150,0.4),
- 0 0 100px rgba(0,200,255,0.3),
-  inset 0 0 40px rgba(255,255,255,0.05);
-backdrop-filter:blur(30px);
+ 0 0 80px rgba(255,0,150,0.5),
+ 0 0 120px rgba(0,200,255,0.3),
+ inset 0 1px 0 rgba(255,255,255,0.3);
 position:relative;
 overflow:hidden;
-animation:float 6s ease-in-out infinite;
+animation:breathe 4s ease-in-out infinite;
 }
 
-@keyframes float{
-0%,100%{transform:translateY(0px) rotate(-1deg);}
-50%{transform:translateY(-15px) rotate(1deg);}
+@keyframes breathe{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.02);}
 }
 
-.circle-ui::before{
+.liquid-board::after{
 content:'';
 position:absolute;
 top:-50%;
 left:-50%;
 width:200%;
 height:200%;
-background:conic-gradient(from 0deg, 
-  transparent 0deg, 
-  rgba(255,0,150,0.5) 90deg, 
-  transparent 180deg, 
-  rgba(0,200,255,0.5) 270deg, 
-  transparent 360deg);
-animation:rotate 12s linear infinite;
+background:radial-gradient(circle at 30% 30%, 
+  rgba(255,0,150,0.3) 0%, 
+  transparent 50%);
+animation:liquid-move 8s ease-in-out infinite;
+pointer-events:none;
 }
-
-@keyframes rotate{
-100%{transform:rotate(360deg);}
+@keyframes liquid-move{
+0%,100%{transform:translate(0,0);}
+50%{transform:translate(20%,20%);}
 }
 
 .content{
@@ -74,104 +95,126 @@ display:flex;
 flex-direction:column;
 }
 
-.header{
-text-align:center;
-margin-bottom:20px;
+.logo-area{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:25px;
 }
-.header h1{
+.logo-glow{
+width:60px;
+height:60px;
+border-radius:50%;
+background:linear-gradient(135deg, #ff00ff, #00ffff);
+box-shadow:0 0 40px #ff00ff, 0 0 60px #00ffff;
+animation:pulse-logo 2s infinite alternate;
+}
+@keyframes pulse-logo{
+from{box-shadow:0 0 30px #ff00ff, 0 0 50px #00ffff;}
+to{box-shadow:0 0 50px #ff00ff, 0 0 80px #00ffff;}
+}
+.logo-text h1{
 font-family:'Orbitron',sans-serif;
-font-size:18px;
+font-size:17px;
 background:linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 letter-spacing:2px;
-animation:glow-text 2s infinite alternate;
-}
-@keyframes glow-text{
-from{filter:brightness(1);}
-to{filter:brightness(1.5);}
 }
 
-.circle-chart{
-width:200px;
-height:200px;
-margin:20px auto;
-border-radius:50%;
-background:conic-gradient(from 0deg, 
-  #ff00ff 0deg 120deg, 
-  #00ffff 120deg 240deg, 
-  #ff00ff 240deg 360deg);
-padding:8px;
-animation:spin-slow 20s linear infinite;
+.wave-chart{
+height:120px;
 position:relative;
+margin:20px 0;
+overflow:hidden;
+border-radius:20px;
+background:rgba(0,0,0,0.5);
 }
-.circle-chart::before{
+.wave-line{
+position:absolute;
+bottom:0;
+left:0;
+width:200%;
+height:100%;
+background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2300ffff" fill-opacity="0.5" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
+animation:wave-scroll 8s linear infinite;
+}
+@keyframes wave-scroll{
+0%{transform:translateX(0);}
+100%{transform:translateX(-50%);}
+}
+
+.signal-card{
+background:rgba(0,0,0,0.6);
+border:2px solid transparent;
+background-clip:padding-box;
+border-radius:25px;
+padding:25px;
+text-align:center;
+position:relative;
+margin:20px 0;
+}
+.signal-card::before{
 content:'';
 position:absolute;
-inset:8px;
-background:#000;
-border-radius:50%;
+top:-2px;
+left:-2px;
+right:-2px;
+bottom:-2px;
+background:linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+border-radius:25px;
+z-index:-1;
+animation:border-glow 3s linear infinite;
 }
-.circle-chart::after{
-content:'92%';
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+@keyframes border-glow{
+0%,100%{filter:hue-rotate(0deg);}
+50%{filter:hue-rotate(180deg);}
+}
+.signal-card h1{
 font-family:'Orbitron',sans-serif;
-font-size:32px;
-color:#00ffff;
-text-shadow:0 0 20px #00ffff;
-z-index:3;
-}
-@keyframes spin-slow{
-100%{transform:rotate(360deg);}
-}
-
-.signal-box{
-background:rgba(0,0,0,0.7);
-border:2px solid rgba(0,255,255,0.5);
-border-radius:20px;
-padding:20px;
-text-align:center;
-margin:20px 0;
-box-shadow:0 0 30px rgba(0,255,255,0.4);
-animation:pulse-glow 2s infinite alternate;
-}
-@keyframes pulse-glow{
-from{box-shadow:0 0 20px rgba(0,255,255,0.3);}
-to{box-shadow:0 0 40px rgba(0,255,255,0.6);}
-}
-.signal-box h2{
-font-family:'Orbitron',sans-serif;
-font-size:42px;
+font-size:48px;
 color:#00ff64;
-text-shadow:0 0 30px #00ff64;
+text-shadow:0 0 30px #00ff64, 0 0 60px #00ff64;
+animation:glow-signal 1.5s infinite alternate;
 }
-.signal-box p{
-color:#00ffff;
-font-size:14px;
-margin-top:5px;
+@keyframes glow-signal{
+from{text-shadow:0 0 20px #00ff64;}
+to{text-shadow:0 0 40px #00ff64, 0 0 80px #00ff64;}
 }
 
-.btn{
+.btn-liquid{
 width:100%;
-padding:16px;
-background:linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
-border:none;
-border-radius:15px;
-color:#000;
+padding:18px;
+background:linear-gradient(90deg, rgba(255,0,150,0.3), rgba(0,200,255,0.3));
+border:1px solid rgba(255,255,255,0.3);
+border-radius:20px;
+color:#fff;
 font-family:'Orbitron',sans-serif;
-font-size:14px;
+font-size:15px;
 font-weight:900;
-letter-spacing:1px;
+letter-spacing:2px;
 cursor:pointer;
-box-shadow:0 0 30px rgba(255,0,150,0.5);
+backdrop-filter:blur(10px);
 transition:all 0.3s;
+position:relative;
+overflow:hidden;
 }
-.btn:hover{
+.btn-liquid::before{
+content:'';
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+transition:0.5s;
+}
+.btn-liquid:hover::before{
+left:100%;
+}
+.btn-liquid:hover{
 transform:scale(1.05);
-box-shadow:0 0 50px rgba(255,0,150,0.8);
+box-shadow:0 0 40px rgba(255,0,150,0.6);
 }
 
 .particles{
@@ -179,20 +222,16 @@ position:absolute;
 inset:0;
 pointer-events:none;
 }
-.dot{
+.bubble{
 position:absolute;
-width:4px;
-height:4px;
-background:#ff00ff;
 border-radius:50%;
-box-shadow:0 0 15px #ff00ff;
-animation:float-dot 8s infinite linear;
+background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,0,150,0.3));
+box-shadow:0 0 20px rgba(255,0,150,0.5);
+animation:float-bubble 10s infinite ease-in-out;
 }
-@keyframes float-dot{
-0%{transform:translateY(700px) translateX(0);opacity:0;}
-10%{opacity:1;}
-90%{opacity:1;}
-100%{transform:translateY(-100px) translateX(100px);opacity:0;}
+@keyframes float-bubble{
+0%,100%{transform:translateY(0) translateX(0) scale(1);}
+50%{transform:translateY(-100px) translateX(50px) scale(1.2);}
 }
 
 .lock-screen{
@@ -207,18 +246,19 @@ z-index:9999;
 .lock-box{
 width:90%;
 max-width:320px;
-background:rgba(20,0,30,0.8);
-border:2px solid rgba(255,0,150,0.5);
-border-radius:25px;
-padding:30px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.2);
+border-radius:30px;
+padding:35px;
 text-align:center;
-backdrop-filter:blur(20px);
+backdrop-filter:blur(30px);
+box-shadow:0 0 50px rgba(255,0,150,0.4);
 }
 .lock-input{
 width:100%;
-padding:14px;
-border:1px solid rgba(255,0,150,0.5);
-border-radius:12px;
+padding:15px;
+border:1px solid rgba(255,255,255,0.2);
+border-radius:15px;
 background:rgba(0,0,0,0.5);
 color:#fff;
 text-align:center;
@@ -227,9 +267,9 @@ outline:none;
 }
 .lock-btn{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
-border-radius:12px;
+border-radius:15px;
 background:linear-gradient(90deg,#ff00ff,#00ffff);
 color:#000;
 font-weight:900;
@@ -244,44 +284,50 @@ font-family:'Orbitron',sans-serif;
 
 <div class="lock-screen" id="lockScreen">
   <div class="lock-box">
-    <h2 style="color:#ff00ff;font-family:Orbitron;">NOVA ACCESS</h2>
+    <h2 style="color:#00ffff;font-family:Orbitron;font-size:20px;">LIQUID ACCESS</h2>
     <input type="password" id="passInput" class="lock-input" placeholder="PASSWORD">
     <button class="lock-btn" onclick="unlock()">ACTIVATE</button>
   </div>
 </div>
 
-<div class="circle-ui" id="botApp" style="display:none;">
+<div class="liquid-board" id="botApp" style="display:none;">
   <div class="content">
     
-    <div class="header">
-      <h1>ABU BAKAR TRADER</h1>
-      <p style="color:#00ffff;font-size:12px;letter-spacing:3px;">NOVA AI SYSTEM</p>
+    <div class="logo-area">
+      <div class="logo-glow"></div>
+      <div class="logo-text">
+        <h1>ABU BAKAR TRADER</h1>
+        <p style="color:#00ffff;font-size:12px;letter-spacing:3px;">LIQUID AI SYSTEM</p>
+      </div>
     </div>
 
-    <div class="circle-chart"></div>
-
-    <div class="signal-box">
-      <h4 style="color:#8892b0;font-size:12px;">SIGNAL</h4>
-      <h2 id="signal">BUY</h2>
-      <p id="confidence">95% CONFIDENCE</p>
+    <div style="text-align:center;margin:15px 0;">
+      <div style="font-size:12px;color:#8892b0;">LIVE PRICE</div>
+      <div style="font-family:Orbitron;font-size:34px;color:#00ffff;text-shadow:0 0 20px #00ffff;" id="price">1.2476</div>
     </div>
 
-    <div style="display:flex;justify-content:space-between;margin:15px 0;">
-      <div style="text-align:center;">
+    <div class="wave-chart">
+      <div class="wave-line"></div>
+    </div>
+
+    <div class="signal-card">
+      <h4 style="font-size:12px;color:#8892b0;margin-bottom:8px;">ANALYSIS RESULT</h4>
+      <h1 id="signal">BUY</h1>
+      <p id="confidence" style="font-size:14px;color:#00ffff;font-weight:700;">95% CONFIDENCE MATCH</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0;">
+      <div style="background:rgba(0,0,0,0.5);border-radius:15px;padding:12px;text-align:center;">
         <div style="font-size:11px;color:#8892b0;">RSI</div>
         <div style="font-size:18px;color:#ff00ff;" id="rsi">72</div>
       </div>
-      <div style="text-align:center;">
-        <div style="font-size:11px;color:#8892b0;">TREND</div>
-        <div style="font-size:18px;color:#00ffff;" id="trend">UP</div>
-      </div>
-      <div style="text-align:center;">
+      <div style="background:rgba(0,0,0,0.5);border-radius:15px;padding:12px;text-align:center;">
         <div style="font-size:11px;color:#8892b0;">TIME</div>
         <div style="font-size:18px;color:#fff;" id="timer">03</div>
       </div>
     </div>
 
-    <button class="btn" onclick="getSignal()">⚡ GET SIGNAL</button>
+    <button class="btn-liquid" onclick="getSignal()">⚡ GET SIGNAL</button>
 
   </div>
 </div>
@@ -289,16 +335,16 @@ font-family:'Orbitron',sans-serif;
 <script>
 let scanning=false;
 
-function createParticles(){
+function createBubbles(){
   const container = document.getElementById('particles');
-  for(let i=0; i=25; i++){
-    let p = document.createElement('div');
-    p.className = 'dot';
-    p.style.left = Math.random()*100 + '%';
-    p.style.animationDelay = Math.random()*8 + 's';
-    p.style.background = Math.random()>0.5?'#ff00ff':'#00ffff';
-    p.style.boxShadow = '0 0 15px ' + (Math.random()>0.5?'#ff00ff':'#00ffff');
-    container.appendChild(p);
+  for(let i=0; i<15; i++){
+    let b = document.createElement('div');
+    b.className = 'bubble';
+    b.style.width = b.style.height = (10+Math.random()*20) + 'px';
+    b.style.left = Math.random()*100 + '%';
+    b.style.top = Math.random()*100 + '%';
+    b.style.animationDelay = Math.random()*5 + 's';
+    container.appendChild(b);
   }
 }
 
@@ -306,17 +352,19 @@ function unlock(){
   if(document.getElementById('passInput').value==='bakar786'){
     document.getElementById('lockScreen').style.display='none';
     document.getElementById('botApp').style.display='block';
-    createParticles();
-    updateData();
+    createBubbles();
+    updatePrice();
   }else{
     alert('Wrong Password');
   }
 }
 
-function updateData(){
+function updatePrice(){
   setInterval(()=>{
-    document.getElementById('rsi').innerText = Math.floor(Math.random()*20)+65;
-  },3000);
+    let base=1.2476;
+    let change=(Math.random()-0.5)*0.002;
+    document.getElementById('price').innerText=(base+change).toFixed(4);
+  },2000);
 }
 
 function getSignal(){
@@ -332,14 +380,13 @@ function getSignal(){
     if(sec<=0){
       clearInterval(timer);
       scanning=false;
-      document.getElementById('resultBox').style.display='block';
       
       let signal=Math.random()>0.5?'BUY':'SELL';
       let conf=Math.floor(Math.random()*5)+95;
       
       document.getElementById('signal').innerText=signal;
       document.getElementById('signal').style.color=signal==='BUY'?'#00ff64':'#ff0040';
-      document.getElementById('confidence').innerText=conf+'% CONFIDENCE';
+      document.getElementById('confidence').innerText=conf+'% CONFIDENCE MATCH';
     }
   },1000);
 }
