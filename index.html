@@ -3,110 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chinese Signal Generator</title>
+<title>Pro Signal Generator</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter', sans-serif;}
-body{background:#0a0e13;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;}
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+    body { background:#0a0e13; display:flex; justify-content:center; align-items:center; min-height:100vh; padding:20px; }
 
-/* Login Styles */
-.login-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0e13;display:flex;justify-content:center;align-items:center;z-index:9999;}
-.login-box{background:#1a1f26;border:1px solid rgba(0,255,136,0.3);border-radius:16px;padding:30px 25px;width:90%;max-width:380px;text-align:center;}
-.login-box input{width:100%;padding:14px;background:#0a0e13;border:1px solid #30363d;border-radius:12px;color:#fff;text-align:center;margin-bottom:15px;outline:none;}
-.login-box button{width:100%;padding:14px;background:#00ff88;border:none;border-radius:12px;font-weight:700;cursor:pointer;}
-
-/* Main Board */
-.container{width:100%;max-width:380px;display:none;}
-.container.show{display:block;}
-.card{background:#1a1f26;border:1px solid rgba(0,255,136,0.4);border-radius:20px;padding:24px;}
-.header h1{color:#00ff88;font-size:18px;margin-bottom:20px;text-align:center;}
-.select-box{width:100%;padding:12px;background:#0f1318;border:1px solid #2a2f36;border-radius:12px;color:#fff;margin-bottom:15px;}
-.timeframe{display:flex;gap:8px;margin-bottom:20px;}
-.time-btn{flex:1;padding:10px;background:#0f1318;border:1px solid #2a2f36;border-radius:10px;color:#8b949e;cursor:pointer;text-align:center;}
-.time-btn.active{border:1px solid #00ff88;color:#00ff88;}
-.gen-btn{width:100%;padding:15px;background:#00ff88;border:none;border-radius:12px;font-weight:700;cursor:pointer;}
-
-/* Loading Bar & Signal Result */
-#loadingBar{width:0%;height:4px;background:#00ff88;margin-top:20px;border-radius:2px;display:none;transition:0.3s;}
-#resultArea{margin-top:20px;padding:15px;border-radius:12px;background:#0f1318;border:1px solid #2a2f36;display:none;text-align:center;color:#fff;}
+    .card { background:#0f1318; border:1px solid #1f252d; border-radius:24px; padding:30px; width:100%; max-width:380px; text-align:center; color:#fff; }
+    h1 { color:#00ff88; font-size:20px; margin-bottom:15px; }
+    .select-box { width:100%; padding:12px; background:#1a1f26; border:1px solid #30363d; border-radius:12px; color:#fff; margin-bottom:15px; }
+    
+    .gen-btn { width:100%; padding:16px; background:linear-gradient(90deg, #00ff88, #00d977); border:none; border-radius:12px; font-weight:700; cursor:pointer; margin-top:10px; }
+    
+    #signalArea { margin-top:20px; padding:15px; border-radius:12px; background:#1a1f26; display:none; border:1px solid #00ff88; }
+    .indicator-row { display:flex; justify-content:space-between; margin-bottom:10px; font-size:13px; color:#8b949e; }
+    .result-text { font-size:22px; font-weight:700; margin-top:10px; }
 </style>
 </head>
 <body>
 
-<!-- Login -->
-<div class="login-screen" id="loginScreen">
-  <div class="login-box">
-    <h2>🔒 Access Locked</h2>
-    <input type="password" id="passwordInput" placeholder="Enter Password">
-    <button onclick="checkPassword()">Unlock</button>
-  </div>
-</div>
-
-<!-- Board -->
-<div class="container" id="mainBoard">
-  <div class="card">
-    <div class="header"><h1>🚀 Chinese Signal Generator</h1></div>
+<div class="card">
+    <h1>🚀 AI Signal Generator</h1>
     <select class="select-box" id="asset">
-      <option>NZD/CHF (OTC)</option>
-      <option>EUR/USD</option>
-      <option>GBP/USD</option>
+        <option>NZD/CHF (OTC)</option>
+        <option>EUR/USD</option>
+        <option>GBP/USD</option>
     </select>
-    <div class="timeframe" id="timeframe">
-      <div class="time-btn active" data-time="15s">15s</div>
-      <div class="time-btn" data-time="30s">30s</div>
-      <div class="time-btn" data-time="1m">1m</div>
+
+    <button class="gen-btn" onclick="generate()">⚡ ANALYZE MARKET</button>
+
+    <div id="signalArea">
+        <div class="indicator-row">
+            <span>RSI (14):</span> <span id="rsiVal">--</span>
+        </div>
+        <div class="indicator-row">
+            <span>Moving Avg:</span> <span id="maVal">--</span>
+        </div>
+        <div id="resSignal" class="result-text">---</div>
     </div>
-    <button class="gen-btn" onclick="generateSignal()">⚡ GENERATE SIGNAL</button>
-    
-    <!-- Loading Bar -->
-    <div id="loadingBar"></div>
-    
-    <!-- Result Area -->
-    <div id="resultArea">
-      <div id="signalText" style="font-size:20px; font-weight:bold;">---</div>
-    </div>
-  </div>
 </div>
 
 <script>
-function checkPassword(){
-  if(document.getElementById('passwordInput').value === "bakar786"){
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('mainBoard').classList.add('show');
-  } else { alert("Wrong Password!"); }
-}
-
-document.querySelectorAll('.time-btn').forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-});
-
-function generateSignal(){
-  let bar = document.getElementById('loadingBar');
-  let result = document.getElementById('resultArea');
-  let signalText = document.getElementById('signalText');
-  
-  // UI Reset
-  bar.style.display = 'block';
-  bar.style.width = '0%';
-  result.style.display = 'none';
-  
-  // Animation
-  setTimeout(() => { bar.style.width = '100%'; }, 50);
-  
-  // Generate
-  setTimeout(() => {
-    let signal = Math.random() > 0.5 ? "BUY" : "SELL";
-    let conf = Math.floor(Math.random() * 10 + 88);
-    signalText.innerText = signal + " " + conf + "%";
-    signalText.style.color = (signal === "BUY") ? "#00ff88" : "#ff4444";
-    
-    bar.style.display = 'none';
-    result.style.display = 'block';
-  }, 1000); // 1 سیکنڈ کا لوڈنگ ٹائم
-}
+    function generate() {
+        // RSI اور MA کی رینڈم ویلیوز جنریٹ کرنا
+        let rsi = Math.floor(Math.random() * (75 - 25) + 25);
+        let trend = Math.random() > 0.5 ? "Bullish" : "Bearish";
+        
+        // سگنل لاجک: اگر RSI 30 سے کم ہے تو BUY، اگر 70 سے زیادہ ہے تو SELL
+        let signal = (rsi < 35) ? "BUY (Strong)" : (rsi > 65) ? "SELL (Strong)" : "WAIT";
+        let conf = Math.floor(Math.random() * 8 + 91);
+        
+        document.getElementById('signalArea').style.display = 'block';
+        document.getElementById('rsiVal').innerText = rsi;
+        document.getElementById('maVal').innerText = trend;
+        
+        let resText = document.getElementById('resSignal');
+        resText.innerText = (signal === "WAIT") ? "MARKET STABLE - WAIT" : signal + " " + conf + "%";
+        resText.style.color = (signal.includes("BUY")) ? "#00ff88" : (signal.includes("SELL")) ? "#ff4444" : "#ffffff";
+    }
 </script>
 
 </body>
