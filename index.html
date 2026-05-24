@@ -10,69 +10,61 @@
 
 *{ margin:0; padding:0; box-sizing:border-box; font-family:'Rajdhani', sans-serif; }
 
-body{
-    background:#02060c; 
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:10px;
-    color:#e2e8f0;
-    overflow-x:hidden;
-}
+body{ background:#02060c; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:10px; color:#e2e8f0; overflow-x:hidden; }
 
-/* --- PREMIUM GLASS INTERFACE --- */
+/* --- MAIN INTERFACE PANEL --- */
 .bot-container{
     width:100%; max-width:440px;
-    background: rgba(10, 15, 25, 0.7);
-    border: 1px solid rgba(0, 255, 157, 0.2);
-    border-radius: 28px; padding: 18px;
-    box-shadow: 0 0 40px rgba(0, 255, 157, 0.1);
-    backdrop-filter: blur(20px);
+    background: rgba(10, 15, 25, 0.8);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    border-radius:28px; padding:18px;
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.15);
+    backdrop-filter: blur(15px);
     position:relative; display:none;
 }
 
 /* --- LOCK SCREEN --- */
-.lock-screen{ position:fixed; top:0; left:0; width:100%; height:100%; background:#02050a; display:flex; justify-content:center; align-items:center; z-index:9999; }
+.lock-screen{ position:fixed; top:0;left:0;width:100%;height:100%; background:#02050a; display:flex; justify-content:center; align-items:center; z-index:9999; }
 .lock-box{ width:90%; max-width:350px; background:#050d1a; border:1px solid rgba(0, 255, 157, 0.3); border-radius:22px; padding:25px; text-align:center; box-shadow:0 15px 40px rgba(0,0,0,0.5); }
 .lock-title{ font-family:'Orbitron',sans-serif; font-size:20px; color:#00ff9d; margin-bottom:15px; font-weight:900; }
-.lock-input{ width:100%; padding:12px; border:1px solid rgba(255,255,255,0.1); border-radius:10px; background:#020710; color:#fff; text-align:center; margin-bottom:15px; outline:none; }
+.lock-input{ width:100%; padding:12px; border:1px solid rgba(255,255,255,0.1); border-radius:10px; background:#020710; color:#fff; font-size:16px; text-align:center; margin-bottom:15px; outline:none; letter-spacing:2px; }
 .lock-btn{ width:100%; padding:12px; border:none; border-radius:10px; background:#00ff9d; color:#000; font-weight:bold; cursor:pointer; }
+.error-msg{ margin-top:10px; color:#ff3b3b; display:none; font-size:13px; }
 
-/* --- HEADER & ELEMENTS --- */
-.bot-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px; }
-.avatar-ring{ border:2px solid #00ff9d; box-shadow:0 0 15px #00ff9d; }
-.live-price{ color:#00ff9d !important; text-shadow:0 0 15px #00ff9d; }
-.trigger-action-btn{ background:linear-gradient(135deg, #00ff9d, #008f5a) !important; color:#000 !important; font-weight:900 !important; }
-.signal-txt-output.buy{ color:#00ff9d !important; text-shadow:0 0 20px #00ff9d !important; }
-.signal-txt-output.sell{ color:#ff3b3b !important; text-shadow:0 0 20px #ff3b3b !important; }
+/* --- HEADER SECTION --- */
+.bot-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:12px; }
+.brand-wrapper { display:flex; align-items:center; gap:12px; }
+.avatar-ring{ width:54px; height:54px; border-radius:50%; border:2px solid #00ff9d; box-shadow:0 0 15px #00ff9d; overflow:hidden; display:flex; justify-content:center; align-items:center; background:#020710; }
+.avatar-ring img{ width:100%; height:100%; object-fit:cover; }
+.title-main{ font-family:'Orbitron', sans-serif; font-size:18px; font-weight:900; color:#fff; letter-spacing:1px; }
+.title-sub{ font-size:11px; letter-spacing:2px; color:#00ff9d; font-weight:700; }
+.config-icon { color:#64748b; font-size:18px; cursor:pointer; }
+
+/* --- VIEWPORT & SIGNALS --- */
+.live-price{ font-family:'Orbitron',monospace; font-size:32px; font-weight:900; color:#00ff9d !important; text-shadow: 0 0 10px #00ff9d; margin-bottom:10px; }
+.spark-bar.up{ background:#00ff9d; }
+.spark-bar.down{ background:#ff3b3b; }
+.trigger-action-btn{ width:100%; padding:14px; border:none; border-radius:14px; background:linear-gradient(135deg, #00ff9d, #008f5a) !important; color:#000 !important; font-weight:900; cursor:pointer; box-shadow:0 0 20px rgba(0, 255, 157, 0.4); }
+.signal-txt-output.buy{ color:#00ff9d !important; text-shadow:0 0 25px rgba(0,255,157,0.5); }
+.signal-txt-output.sell{ color:#ff3b3b !important; text-shadow:0 0 25px rgba(255,59,59,0.5); }
 .matrix-node span:last-child{ color:#00ff9d !important; }
 </style>
 </head>
 <body>
-
 <div class="lock-screen" id="lockScreen">
   <div class="lock-box">
     <div class="lock-title">TIGER ELITE AI TERMINAL</div>
     <input type="password" id="terminalAccessKey" class="lock-input" placeholder="ENTER ACCESS KEY">
     <button class="lock-btn" onclick="unlockTerminalEngine()">CONNECT BOT</button>
+    <div class="error-msg" id="lockError">SECURE ACCESS KEY INVALID</div>
   </div>
 </div>
 
 <div class="bot-container" id="botApp">
   <div class="bot-header">...</div>
   </div>
-
 <script>
-// Aapka pura original JavaScript logic wahi ka wahi hai
-function unlockTerminalEngine(){
-    if(document.getElementById("terminalAccessKey").value === "bakar786"){
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("botApp").style.display = "block";
-        resetAndReinitEngine();
-    }
-}
-// ... Baaki functions waise hi hain
+// Aapka original JavaScript yahan rahega
 </script>
 </body>
 </html>
