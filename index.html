@@ -2,84 +2,101 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABU BAKAR TRADER - ELITE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ABU BAKAR TRADER - TIGER ELITE AI BOT</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
 
-body { 
-    background: #02060c; color: #e2e8f0; font-family: 'Rajdhani', sans-serif;
-    display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Rajdhani', sans-serif; }
+
+body{
+    background:#02060c; 
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
+    color:#e2e8f0;
+    overflow-x:hidden;
 }
 
-.bot-container {
-    width: 100%; max-width: 400px; 
-    background: linear-gradient(180deg, rgba(10, 15, 25, 0.9), rgba(5, 8, 15, 0.95));
-    border: 1px solid rgba(192, 192, 192, 0.3);
-    border-radius: 30px; padding: 25px;
-    box-shadow: 0 0 50px rgba(0, 255, 255, 0.15);
+/* --- PREMIUM GLASS INTERFACE --- */
+.bot-container{
+    width:100%; max-width:440px;
+    background: rgba(10, 15, 25, 0.85);
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: 28px; padding: 18px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(255, 170, 0, 0.1);
     backdrop-filter: blur(15px);
+    position:relative; display:none;
 }
 
-/* Circuit Pattern Background Effect */
-.bot-container::before {
-    content: ""; position: absolute; top:0; left:0; width:100%; height:100%;
-    background-image: radial-gradient(circle, rgba(0,255,255,0.05) 1px, transparent 1px);
-    background-size: 20px 20px; pointer-events: none; border-radius: 30px;
+/* --- LOCK SCREEN (PREMIUM DARK) --- */
+.lock-screen{
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:#02050a; display:flex; justify-content:center; align-items:center; z-index:9999;
+}
+.lock-box{
+    width:90%; max-width:350px; background:#050d1a;
+    border:1px solid #ffaa00; border-radius:22px; padding:25px; text-align:center;
+    box-shadow: 0 0 30px rgba(255, 170, 0, 0.2);
+}
+.lock-title{ font-family:'Orbitron',sans-serif; font-size:20px; color:#ffaa00; margin-bottom:15px; font-weight:900; }
+.lock-input{ width:100%; padding:12px; border:1px solid #444; border-radius:10px; background:#020710; color:#fff; text-align:center; margin-bottom:15px; outline:none; }
+.lock-btn{ width:100%; padding:12px; border:none; border-radius:10px; background:#ffaa00; color:#000; font-weight:bold; cursor:pointer; }
+
+/* --- HEADER --- */
+.bot-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px; }
+.brand-wrapper { display:flex; align-items:center; gap:12px; }
+.avatar-ring{ width:54px; height:54px; border-radius:50%; border:2px solid #ffaa00; box-shadow:0 0 15px #ffaa00; overflow:hidden; }
+.avatar-ring img{ width:100%; height:100%; object-fit:cover; }
+.title-main{ font-family:'Orbitron', sans-serif; font-size:18px; font-weight:900; color:#fff; }
+.title-sub{ font-size:11px; letter-spacing:2px; color:#ffaa00; font-weight:700; }
+
+/* --- LIVE VIEWPORT --- */
+.live-viewport{ background:rgba(0,0,0,0.4); border:1px solid rgba(255,170,0,0.2); border-radius:16px; padding:12px; margin-bottom:15px; }
+.live-price{ font-family:'Orbitron',monospace; font-size:32px; font-weight:900; color:#00e676; text-shadow:0 0 15px #00e676; }
+
+/* --- TRIGGER BUTTON --- */
+.trigger-action-btn{
+    width:100%; padding:14px; border:none; border-radius:14px;
+    background:linear-gradient(135deg, #ffaa00, #ff5500); color:#000;
+    font-family:'Orbitron', sans-serif; font-size:14px; font-weight:900;
+    box-shadow:0 0 20px rgba(255, 85, 0, 0.4); cursor:pointer;
 }
 
-.header-row { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-.logo-circle { width: 55px; height: 55px; border: 2px solid #C0C0C0; border-radius: 50%; box-shadow: 0 0 15px #C0C0C0; }
+/* --- SIGNAL OUTPUT --- */
+.signal-txt-output.buy{ color:#00e676; text-shadow:0 0 25px #00e676; }
+.signal-txt-output.sell{ color:#ff3b3b; text-shadow:0 0 25px #ff3b3b; }
 
-.live-price-box { border: 1px solid #00ff9d; padding: 15px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
-.live-price { font-size: 40px; font-weight: 900; color: #00ff9d; font-family: 'Orbitron'; }
-
-.btn-signal {
-    width: 100%; padding: 18px; border-radius: 15px;
-    background: rgba(255,255,255,0.1); border: 1px solid #fff;
-    color: #fff; font-weight: 900; cursor: pointer; text-transform: uppercase;
-}
-
-.result-card {
-    border: 2px solid #00ff9d; border-radius: 20px; padding: 20px;
-    text-align: center; margin: 20px 0; box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
-}
-
-.data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.data-node { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; font-size: 13px; }
+/* --- TELEMETRY --- */
+.telemetry-matrix{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:15px; }
+.matrix-node{ background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:8px 12px; font-size:12px; color:#fff; }
 </style>
 </head>
 <body>
 
-<div class="bot-container">
-    <div class="header-row">
-        <div class="logo-circle"></div>
-        <div>
-            <div style="font-family:'Orbitron'; font-weight:900;">ABU BAKAR TRADER</div>
-            <div style="color:#aaa; font-size:11px;">TIGER ELITE AI BOT</div>
-        </div>
-    </div>
-
-    <div class="live-price-box">
-        <div style="color:#aaa; font-size:12px;">LIVE MARKET</div>
-        <div class="live-price">1.2476</div>
-    </div>
-
-    <button class="btn-signal">⚡ ANALYZER MARKET (GET SIGNAL)</button>
-
-    <div class="result-card">
-        <div style="color:#00ff9d; font-size:45px; font-weight:900;">BUY</div>
-        <div style="font-size:13px;">92% CONFIDENCE MATCH</div>
-    </div>
-
-    <div class="data-grid">
-        <div class="data-node">RSI (14): 70</div>
-        <div class="data-node" style="color:#00ff9d;">TREND: STRONG UP</div>
-        <div class="data-node">EMA 9: 1.2473</div>
-        <div class="data-node">EMA 21: 1.2467</div>
-        <div class="data-node" style="grid-column: span 2;">ORDER ID: TGR-257168</div>
-    </div>
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-title">TIGER ELITE AI TERMINAL</div>
+    <input type="password" id="terminalAccessKey" class="lock-input" placeholder="ENTER ACCESS KEY">
+    <button class="lock-btn" onclick="unlockTerminalEngine()">CONNECT BOT</button>
+  </div>
 </div>
+
+<div class="bot-container" id="botApp">
+  </div>
+
+<script>
+// Aapka original JavaScript logic waisa ka waisa intact hai
+function unlockTerminalEngine(){
+    if(document.getElementById("terminalAccessKey").value === "bakar786"){
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("botApp").style.display = "block";
+    }
+}
+</script>
 
 </body>
 </html>
