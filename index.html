@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ABU BAKAR TRADER - TIGER ELITE AI BOT</title>
+<title>ABU BAKAR TRADER - HOLOGRAM AI BOT</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -15,308 +15,271 @@ font-family:'Rajdhani', sans-serif;
 }
 
 body{
-background:linear-gradient(135deg, #0a0f1c 0%, #1a2333 50%, #0a0f1c 100%);
+background:radial-gradient(circle at 50% 50%, #1e2a44 0%, #0a0f1c 100%);
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+perspective:1000px;
+overflow:hidden;
 color:#fff;
 }
 
-.phone-frame{
+.scene{
 width:100%;
-max-width:380px;
-background:linear-gradient(145deg, rgba(40,50,70,0.3) 0%, rgba(20,30,50,0.5) 100%);
-border:1px solid rgba(100,150,255,0.3);
-border-radius:45px;
-padding:20px;
+max-width:400px;
+height:700px;
+position:relative;
+transform-style:preserve-3d;
+animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0px) rotateX(5deg);}
+50%{transform:translateY(-20px) rotateX(-5deg);}
+}
+
+.phone-3d{
+width:100%;
+height:100%;
+background:linear-gradient(135deg, 
+  rgba(0,200,255,0.1) 0%, 
+  rgba(0,50,100,0.3) 50%, 
+  rgba(0,200,255,0.1) 100%);
+border:1px solid rgba(0,255,255,0.4);
+border-radius:50px;
+padding:25px;
 box-shadow:
- 0 0 60px rgba(0,150,255,0.2),
-  inset 0 1px 0 rgba(255,255,255,0.1),
-  inset 0 -1px 0 rgba(0,0,0,0.5);
-backdrop-filter:blur(20px);
+ 0 0 80px rgba(0,200,255,0.4),
+ 0 0 120px rgba(0,200,255,0.2),
+  inset 0 0 30px rgba(0,200,255,0.2);
+backdrop-filter:blur(25px);
+transform-style:preserve-3d;
 position:relative;
 overflow:hidden;
 }
 
-.phone-frame::before{
+.phone-3d::before{
 content:'';
 position:absolute;
-top:0;
-left:0;
-right:0;
-height:40%;
-background:linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:conic-gradient(from 0deg, 
+  transparent 0deg, 
+  rgba(0,255,255,0.3) 90deg, 
+  transparent 180deg, 
+  rgba(0,255,255,0.3) 270deg, 
+  transparent 360deg);
+animation:rotate-holo 8s linear infinite;
 pointer-events:none;
 }
 
-.phone-frame::after{
+@keyframes rotate-holo{
+100%{transform:rotate(360deg);}
+}
+
+.phone-3d::after{
 content:'';
 position:absolute;
 inset:0;
 background-image: 
-  linear-gradient(90deg, rgba(0,200,255,0.05) 1px, transparent 1px),
-  linear-gradient(180deg, rgba(0,200,255,0.05) 1px, transparent 1px);
-background-size:20px 20px;
+  linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px),
+  linear-gradient(180deg, rgba(0,255,255,0.1) 1px, transparent 1px);
+background-size:30px 30px;
 pointer-events:none;
-opacity:0.5;
+opacity:0.3;
 }
 
 .header{
 display:flex;
 align-items:center;
 justify-content:space-between;
-margin-bottom:18px;
+margin-bottom:20px;
 position:relative;
 z-index:2;
+transform:translateZ(20px);
 }
 .logo-ring{
-width:50px;
-height:50px;
+width:55px;
+height:55px;
 border-radius:50%;
-border:2px solid #00e5ff;
-box-shadow:0 0 25px #00e5ff, inset 0 0 15px #00e5ff;
+border:3px solid #00ffff;
+box-shadow:0 0 30px #00ffff, inset 0 0 20px #00ffff;
 position:relative;
-animation:glow-ring 2s infinite alternate;
+animation:pulse-glow 2s infinite alternate;
 }
-@keyframes glow-ring{
-from{box-shadow:0 0 15px #00e5ff, inset 0 0 10px #00e5ff;}
-to{box-shadow:0 0 30px #00e5ff, inset 0 0 20px #00e5ff;}
+@keyframes pulse-glow{
+from{box-shadow:0 0 20px #00ffff, inset 0 0 15px #00ffff;}
+to{box-shadow:0 0 40px #00ffff, inset 0 0 25px #00ffff;}
 }
 .header-text h1{
 font-family:'Orbitron',sans-serif;
-font-size:15px;
+font-size:16px;
 font-weight:900;
-color:#fff;
-letter-spacing:1.5px;
-text-shadow:0 0 15px rgba(0,200,255,0.6);
+background:linear-gradient(90deg, #00ffff, #0088ff, #00ffff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+letter-spacing:2px;
+text-shadow:0 0 20px rgba(0,255,255,0.8);
 }
 .header-text p{
-font-size:11px;
-color:#00e5ff;
-letter-spacing:2px;
+font-size:12px;
+color:#00ffff;
+letter-spacing:3px;
 }
 
 .dropdowns{
 display:flex;
-gap:10px;
-margin-bottom:15px;
+gap:12px;
+margin-bottom:18px;
 position:relative;
 z-index:2;
+transform:translateZ(15px);
 }
 .dropdown{
 flex:1;
-background:rgba(0,25,50,0.5);
-border:1px solid rgba(0,200,255,0.4);
-border-radius:15px;
-padding:12px;
+background:rgba(0,30,60,0.4);
+border:1px solid rgba(0,255,255,0.5);
+border-radius:18px;
+padding:14px;
 color:#fff;
-font-size:13px;
+font-size:14px;
 font-weight:600;
-backdrop-filter:blur(10px);
-box-shadow:inset 0 0 10px rgba(0,200,255,0.1);
+backdrop-filter:blur(15px);
+box-shadow:inset 0 0 15px rgba(0,255,255,0.2);
 }
 
 .live-box{
-background:rgba(0,0,0,0.8);
-border:1px solid rgba(0,255,100,0.5);
-border-radius:18px;
-padding:15px;
-margin-bottom:15px;
-box-shadow:0 0 25px rgba(0,255,100,0.3) inset;
+background:rgba(0,0,0,0.7);
+border:2px solid rgba(0,255,100,0.6);
+border-radius:20px;
+padding:18px;
+margin-bottom:18px;
+box-shadow:0 0 30px rgba(0,255,100,0.4) inset, 0 0 20px rgba(0,255,100,0.3);
 position:relative;
 z-index:2;
-}
-.live-header{
-display:flex;
-justify-content:space-between;
-font-size:12px;
-margin-bottom:10px;
-}
-.live-header .live{
-color:#00ff64;
-display:flex;
-align-items:center;
-gap:6px;
-}
-.live-dot{
-width:8px;
-height:8px;
-background:#00ff64;
-border-radius:50%;
-box-shadow:0 0 15px #00ff64;
-animation:pulse 1.5s infinite;
-}
-@keyframes pulse{
-0%,100%{opacity:1; transform:scale(1);}
-50%{opacity:0.5; transform:scale(1.2);}
+transform:translateZ(25px);
 }
 .price{
 font-family:'Orbitron',sans-serif;
-font-size:32px;
+font-size:36px;
 color:#00ff64;
-text-shadow:0 0 20px #00ff64;
-margin-bottom:10px;
+text-shadow:0 0 25px #00ff64, 0 0 50px #00ff64;
+margin-bottom:15px;
+animation:glow-price 2s infinite alternate;
 }
-.chart{
-height:70px;
-background:linear-gradient(90deg, 
-  #ff3b3b 0%, #ff3b3b 20%, 
-  #00ff64 20%, #00ff64 40%,
-  #ff3b3b 40%, #ff3b3b 60%,
-  #00ff64 60%, #00ff64 80%,
-  #ff3b3b 80%, #ff3b3b 100%);
-opacity:0.9;
-border-radius:10px;
-position:relative;
-overflow:hidden;
-box-shadow:0 0 20px rgba(0,255,100,0.3);
-}
-.chart::before{
-content:'';
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:linear-gradient(180deg, transparent 0%, rgba(0,255,100,0.2) 50%, transparent 100%);
-animation:wave 3s infinite linear;
-}
-@keyframes wave{
-0%{transform:translateX(-100%);}
-100%{transform:translateX(100%);}
+@keyframes glow-price{
+from{text-shadow:0 0 20px #00ff64;}
+to{text-shadow:0 0 35px #00ff64, 0 0 60px #00ff64;}
 }
 
-.analysis-box{
-background:rgba(0,25,50,0.5);
-border:1px solid rgba(0,200,255,0.4);
-border-radius:15px;
-padding:15px;
-margin-bottom:15px;
+/* 3D CANDLESTICK */
+.chart-3d{
+height:90px;
+position:relative;
+perspective:200px;
+}
+.candles-3d{
 display:flex;
-justify-content:space-between;
-align-items:center;
-position:relative;
-z-index:2;
-backdrop-filter:blur(10px);
-box-shadow:inset 0 0 15px rgba(0,200,255,0.1);
+align-items:flex-end;
+justify-content:space-around;
+height:100%;
+transform-style:preserve-3d;
+transform:rotateX(20deg);
 }
-.radar-icon{
-width:40px;
-height:40px;
-border:2px solid #00e5ff;
-border-radius:50%;
+.candle-3d{
+width:8px;
+height:100%;
 position:relative;
+transform-style:preserve-3d;
 }
-.radar-icon::before{
-content:'';
+.candle-face{
 position:absolute;
-top:50%;
-left:50%;
-width:2px;
-height:18px;
-background:linear-gradient(to top,transparent,#00e5ff);
-transform-origin:bottom;
-animation:spin 2s linear infinite;
+width:100%;
+height:100%;
+background:linear-gradient(180deg, currentColor, rgba(0,0,0,0.5));
+border-radius:2px;
+box-shadow:0 0 15px currentColor;
 }
-@keyframes spin{
-100%{transform:rotate(360deg);}
-}
-.timer{
-width:50px;
-height:50px;
-border:2px dashed #00e5ff;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:'Orbitron',sans-serif;
-font-size:18px;
-color:#00e5ff;
-animation:rotate 10s linear infinite;
-}
-@keyframes rotate{
-100%{transform:rotate(360deg);}
-}
+.candle-face.green{background:#00ff64;color:#00ff64;}
+.candle-face.red{background:#ff3b3b;color:#ff3b3b;}
+.candle-face.front{transform:translateZ(4px);}
+.candle-face.back{transform:translateZ(-4px) rotateY(180deg);}
+.candle-face.left{transform:rotateY(-90deg) translateZ(4px);}
+.candle-face.right{transform:rotateY(90deg) translateZ(4px);}
 
 .analyzer-btn{
 width:100%;
-padding:16px;
-background:linear-gradient(90deg, rgba(200,200,200,0.1), rgba(255,255,255,0.25), rgba(200,200,200,0.1));
-border:1px solid rgba(0,200,255,0.5);
-border-radius:15px;
+padding:18px;
+background:linear-gradient(90deg, 
+  rgba(0,255,255,0.2), 
+  rgba(255,255,255,0.4), 
+  rgba(0,255,255,0.2));
+border:2px solid rgba(0,255,255,0.6);
+border-radius:18px;
 color:#fff;
 font-family:'Orbitron',sans-serif;
-font-size:13px;
+font-size:14px;
 font-weight:900;
-letter-spacing:1px;
-margin-bottom:15px;
+letter-spacing:2px;
+margin-bottom:18px;
 cursor:pointer;
-box-shadow:0 0 25px rgba(0,200,255,0.4);
+box-shadow:0 0 30px rgba(0,255,255,0.5);
 position:relative;
 z-index:2;
+transform:translateZ(30px);
 transition:all 0.3s;
 }
 .analyzer-btn:hover{
-background:linear-gradient(90deg, rgba(0,200,255,0.3), rgba(0,200,255,0.5), rgba(0,200,255,0.3));
-box-shadow:0 0 40px rgba(0,200,255,0.6);
-transform:scale(1.02);
+transform:translateZ(40px) scale(1.05);
+box-shadow:0 0 50px rgba(0,255,255,0.8);
 }
 
 .result-box{
 background:rgba(0,0,0,0.8);
-border:2px solid #00ff64;
-border-radius:18px;
-padding:18px;
+border:3px solid #00ff64;
+border-radius:20px;
+padding:20px;
 text-align:center;
-margin-bottom:15px;
-box-shadow:0 0 35px rgba(0,255,100,0.5) inset;
+margin-bottom:18px;
+box-shadow:0 0 40px rgba(0,255,100,0.6) inset;
 position:relative;
 z-index:2;
+transform:translateZ(35px);
 display:none;
 }
 .result-box h1{
 font-family:'Orbitron',sans-serif;
-font-size:45px;
+font-size:50px;
 color:#00ff64;
-text-shadow:0 0 25px #00ff64, 0 0 40px #00ff64;
-animation:glow-text 1.5s infinite alternate;
+text-shadow:0 0 30px #00ff64, 0 0 60px #00ff64;
+animation:glow-huge 1.5s infinite alternate;
 }
-@keyframes glow-text{
-from{text-shadow:0 0 20px #00ff64;}
-to{text-shadow:0 0 30px #00ff64, 0 0 50px #00ff64;}
+@keyframes glow-huge{
+from{text-shadow:0 0 25px #00ff64;}
+to{text-shadow:0 0 40px #00ff64, 0 0 80px #00ff64;}
 }
 
-.info-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-bottom:15px;
-position:relative;
-z-index:2;
+.particles{
+position:absolute;
+inset:0;
+pointer-events:none;
+z-index:1;
 }
-.info-card{
-background:rgba(0,25,50,0.5);
-border:1px solid rgba(0,200,255,0.4);
-border-radius:12px;
-padding:12px;
-backdrop-filter:blur(10px);
-box-shadow:inset 0 0 10px rgba(0,200,255,0.1);
+.particle{
+position:absolute;
+width:2px;
+height:2px;
+background:#00ffff;
+border-radius:50%;
+box-shadow:0 0 10px #00ffff;
+animation:float-particle 10s infinite linear;
 }
-.info-card .label{
-font-size:11px;
-color:#8892b0;
-margin-bottom:5px;
-}
-.info-card .value{
-font-size:15px;
-font-weight:700;
-color:#fff;
-}
-.info-card .value.green{
-color:#00ff64;
-text-shadow:0 0 10px #00ff64;
+@keyframes float-particle{
+0%{transform:translateY(100vh) translateX(0);}
+100%{transform:translateY(-100vh) translateX(100px);}
 }
 
 .lock-screen{
@@ -331,19 +294,20 @@ z-index:9999;
 .lock-box{
 width:90%;
 max-width:320px;
-background:rgba(0,25,50,0.8);
-border:1px solid rgba(0,200,255,0.4);
-border-radius:25px;
-padding:30px;
+background:rgba(0,30,60,0.8);
+border:2px solid rgba(0,255,255,0.5);
+border-radius:30px;
+padding:35px;
 text-align:center;
-backdrop-filter:blur(15px);
-box-shadow:0 0 40px rgba(0,200,255,0.3);
+backdrop-filter:blur(20px);
+box-shadow:0 0 50px rgba(0,255,255,0.4);
+transform:translateZ(50px);
 }
 .lock-input{
 width:100%;
-padding:14px;
-border:1px solid rgba(0,200,255,0.4);
-border-radius:12px;
+padding:15px;
+border:1px solid rgba(0,255,255,0.5);
+border-radius:15px;
 background:rgba(0,0,0,0.5);
 color:#fff;
 text-align:center;
@@ -352,112 +316,149 @@ outline:none;
 }
 .lock-btn{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
-border-radius:12px;
-background:linear-gradient(90deg,#00e5ff,#00aaff);
+border-radius:15px;
+background:linear-gradient(90deg,#00ffff,#0088ff);
 color:#000;
 font-weight:900;
 cursor:pointer;
 font-family:'Orbitron',sans-serif;
+box-shadow:0 0 20px rgba(0,255,255,0.5);
 }
 </style>
 </head>
 <body>
 
+<div class="particles" id="particles"></div>
+
 <div class="lock-screen" id="lockScreen">
   <div class="lock-box">
-    <h2 style="color:#00e5ff;font-family:Orbitron">ACCESS KEY</h2>
-    <input type="password" id="passInput" class="lock-input" placeholder="PASSWORD">
-    <button class="lock-btn" onclick="unlock()">CONNECT BOT</button>
+    <h2 style="color:#00ffff;font-family:Orbitron;font-size:20px;">HOLOGRAM ACCESS</h2>
+    <input type="password" id="passInput" class="lock-input" placeholder="ENTER PASSWORD">
+    <button class="lock-btn" onclick="unlock()">ACTIVATE BOT</button>
   </div>
 </div>
 
-<div class="phone-frame" id="botApp" style="display:none;">
-  
-  <div class="header">
-    <div class="logo-ring"></div>
-    <div class="header-text">
-      <h1>ABU BAKAR TRADER</h1>
-      <p>TIGER ELITE AI BOT</p>
+<div class="scene" id="scene" style="display:none;">
+  <div class="phone-3d">
+    
+    <div class="header">
+      <div class="logo-ring"></div>
+      <div class="header-text">
+        <h1>ABU BAKAR TRADER</h1>
+        <p>TIGER ELITE HOLOGRAM</p>
+      </div>
+      <div style="font-size:28px;color:#00ffff;">⚙️</div>
     </div>
-    <div style="font-size:24px;color:#00e5ff;">⚙️</div>
-  </div>
 
-  <div class="dropdowns">
-    <select class="dropdown">
-      <option>USD/BRL OTC</option>
-      <option>EUR/USD OTC</option>
-    </select>
-    <select class="dropdown">
-      <option>1M (Stable)</option>
-      <option>5M</option>
-    </select>
-  </div>
-
-  <div class="live-box">
-    <div class="live-header">
-      <div class="live"><div class="live-dot"></div> LIVE MARKET</div>
-      <div>USD/BRL OTC</div>
+    <div class="dropdowns">
+      <select class="dropdown">
+        <option>USD/BRL OTC</option>
+        <option>EUR/USD OTC</option>
+      </select>
+      <select class="dropdown">
+        <option>1M (Stable)</option>
+        <option>5M</option>
+      </select>
     </div>
-    <div class="price" id="price">1.2476</div>
-    <div class="chart"></div>
-  </div>
 
-  <div class="analysis-box">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div class="radar-icon"></div>
-      <div>
-        <h3 id="status" style="font-size:14px;">ANALYSIS COMPLETE</h3>
-        <p style="font-size:11px;color:#8892b0;">Signal processed successfully.</p>
+    <div class="live-box">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:12px;">
+        <div style="color:#00ff64;display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;background:#00ff64;border-radius:50%;box-shadow:0 0 15px #00ff64;animation:pulse 1.5s infinite;"></div>
+          LIVE MARKET
+        </div>
+        <div>USD/BRL OTC</div>
+      </div>
+      <div class="price" id="price">1.2476</div>
+      <div class="chart-3d">
+        <div class="candles-3d" id="candles3d"></div>
       </div>
     </div>
-    <div class="timer" id="timer">00</div>
-  </div>
 
-  <button class="analyzer-btn" onclick="getSignal()">⚡ ANALYZER MARKET (GET SIGNAL)</button>
+    <div style="background:rgba(0,30,60,0.5);border:1px solid rgba(0,255,255,0.5);border-radius:18px;padding:18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;transform:translateZ(20px);">
+      <div style="display:flex;align-items:center;gap:15px;">
+        <div style="width:45px;height:45px;border:3px solid #00ffff;border-radius:50%;position:relative;">
+          <div style="position:absolute;top:50%;left:50%;width:3px;height:20px;background:linear-gradient(to top,transparent,#00ffff);transform-origin:bottom;animation:spin 2s linear infinite;"></div>
+        </div>
+        <div>
+          <h3 id="status" style="font-size:15px;">ANALYSIS COMPLETE</h3>
+          <p style="font-size:12px;color:#8892b0;">Signal processed successfully.</p>
+        </div>
+      </div>
+      <div style="width:55px;height:55px;border:3px dashed #00ffff;border-radius:50%;display:flex;justify-content:center;align-items:center;font-family:'Orbitron',sans-serif;font-size:20px;color:#00ffff;" id="timer">00</div>
+    </div>
 
-  <div class="result-box" id="resultBox">
-    <h4 style="font-size:12px;color:#8892b0;margin-bottom:8px;">ANALYSIS RESULT</h4>
-    <h1 id="signal">BUY</h1>
-    <p id="confidence" style="font-size:14px;color:#00ff64;font-weight:700;">92% CONFIDENCE MATCH</p>
-  </div>
+    <button class="analyzer-btn" onclick="getSignal()">⚡ ANALYZER MARKET (GET SIGNAL)</button>
 
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="label">RSI (14)</div>
-      <div class="value" id="rsi">70</div>
+    <div class="result-box" id="resultBox">
+      <h4 style="font-size:13px;color:#8892b0;margin-bottom:10px;">ANALYSIS RESULT</h4>
+      <h1 id="signal">BUY</h1>
+      <p id="confidence" style="font-size:15px;color:#00ff64;font-weight:700;">95% CONFIDENCE MATCH</p>
     </div>
-    <div class="info-card">
-      <div class="label">TREND</div>
-      <div class="value green" id="trend">STRONG UP</div>
-    </div>
-    <div class="info-card">
-      <div class="label">EMA 9</div>
-      <div class="value" id="ema9">1.2473</div>
-    </div>
-    <div class="info-card">
-      <div class="label">EMA 21</div>
-      <div class="value" id="ema21">1.2467</div>
-    </div>
-  </div>
 
-  <div style="display:flex;justify-content:space-between;font-size:11px;color:#8892b0;">
-    <div>ORDER ID</div>
-    <div style="color:#00e5ff;font-family:'Orbitron',sans-serif;" id="orderId">TGR-257168</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:rgba(0,30,60,0.5);border:1px solid rgba(0,255,255,0.5);border-radius:15px;padding:14px;">
+        <div style="font-size:12px;color:#8892b0;">RSI (14)</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;" id="rsi">70</div>
+      </div>
+      <div style="background:rgba(0,30,60,0.5);border:1px solid rgba(0,255,255,0.5);border-radius:15px;padding:14px;">
+        <div style="font-size:12px;color:#8892b0;">TREND</div>
+        <div style="font-size:16px;font-weight:700;color:#00ff64;text-shadow:0 0 10px #00ff64;" id="trend">STRONG UP</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
 let scanning=false;
 
+// Create floating particles
+function createParticles(){
+  const container = document.getElementById('particles');
+  for(let i=0; i<30; i++){
+    let p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random()*100 + '%';
+    p.style.animationDelay = Math.random()*10 + 's';
+    p.style.animationDuration = (8+Math.random()*5) + 's';
+    container.appendChild(p);
+  }
+}
+
 function unlock(){
   if(document.getElementById('passInput').value==='bakar786'){
     document.getElementById('lockScreen').style.display='none';
-    document.getElementById('botApp').style.display='block';
+    document.getElementById('scene').style.display='block';
+    createParticles();
+    generateCandles3D();
     updatePrice();
   }else{
     alert('Wrong Password');
+  }
+}
+
+function generateCandles3D(){
+  const container = document.getElementById('candles3d');
+  container.innerHTML = '';
+  
+  for(let i=0; i<20; i++){
+    let candle = document.createElement('div');
+    candle.className = 'candle-3d';
+    
+    let isGreen = Math.random() > 0.5;
+    let height = Math.random() * 50 + 30;
+    let offset = Math.random() * 20;
+    
+    candle.innerHTML = `
+      <div class="candle-face front ${isGreen?'green':'red'}" style="height:${height}px;top:${40-height/2+offset}px;"></div>
+      <div class="candle-face back ${isGreen?'green':'red'}" style="height:${height}px;top:${40-height/2+offset}px;"></div>
+      <div class="candle-face left ${isGreen?'green':'red'}" style="height:${height}px;top:${40-height/2+offset}px;"></div>
+      <div class="candle-face right ${isGreen?'green':'red'}" style="height:${height}px;top:${40-height/2+offset}px;"></div>
+    `;
+    container.appendChild(candle);
   }
 }
 
@@ -466,6 +467,10 @@ function updatePrice(){
     let base=1.2476;
     let change=(Math.random()-0.5)*0.002;
     document.getElementById('price').innerText=(base+change).toFixed(4);
+    
+    if(Math.random() > 0.8){
+      generateCandles3D();
+    }
   },2000);
 }
 
@@ -485,9 +490,10 @@ function getSignal(){
       scanning=false;
       document.getElementById('status').innerText='ANALYSIS COMPLETE';
       document.getElementById('resultBox').style.display='block';
+      generateCandles3D();
       
       let signal=Math.random()>0.5?'BUY':'SELL';
-      let conf=Math.floor(Math.random()*8)+92;
+      let conf=Math.floor(Math.random()*5)+95;
       
       document.getElementById('signal').innerText=signal;
       document.getElementById('signal').style.color=signal==='BUY'?'#00ff64':'#ff3b3b';
