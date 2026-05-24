@@ -3,28 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chinese Signal Generator</title>
+<title>Signal Generator</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter', sans-serif;
-}
-
 body{
 background:#0d1117;
 min-height:100vh;
-padding:15px;
+margin:0;
+font-family:Arial, sans-serif;
 color:#fff;
 display:flex;
 justify-content:center;
 align-items:center;
 }
 
-/* Password Screen */
 .login-screen{
 position:fixed;
 top:0;left:0;
@@ -33,258 +24,69 @@ background:#0d1117;
 display:flex;
 justify-content:center;
 align-items:center;
-z-index:9999;
-flex-direction:column;
-gap:15px;
 }
 
 .login-box{
-background:#161b22;
-border:1px solid rgba(0,255,136,0.3);
-border-radius:16px;
-padding:25px;
+background:#1e2329;
+border:1px solid #00ff88;
+border-radius:18px;
+padding:30px 25px;
 width:90%;
-max-width:350px;
-box-shadow:0 0 30px rgba(0,255,136,0.15);
+max-width:360px;
 text-align:center;
 }
 
-.login-box h2{
-color:#00ff88;
-margin-bottom:15px;
-font-size:20px;
-}
-
+.login-box h2{color:#00ff88;margin-bottom:12px;font-size:22px;}
+.login-box p{color:#8b949e;font-size:14px;margin-bottom:20px;}
 .login-box input{
 width:100%;
-padding:14px;
+padding:15px;
 background:#0d1117;
 border:1px solid #30363d;
 border-radius:12px;
 color:#fff;
-font-size:15px;
-margin-bottom:15px;
-outline:none;
+font-size:16px;
+margin-bottom:18px;
 text-align:center;
+outline:none;
+box-sizing:border-box;
 }
-
 .login-box button{
 width:100%;
-padding:14px;
-background:linear-gradient(90deg, #00ff88, #00d977);
+padding:15px;
+background:#00ff88;
 border:none;
 border-radius:12px;
 color:#000;
-font-size:15px;
+font-size:16px;
 font-weight:700;
 cursor:pointer;
 }
-
-.error{
-color:#ff4444;
-font-size:13px;
-margin-top:10px;
-display:none;
-}
+.error{color:#ff4444;font-size:13px;margin-top:12px;display:none;}
 
 .container{
 width:100%;
 max-width:450px;
 display:none;
-flex-direction:column;
-gap:15px;
+padding:15px;
+box-sizing:border-box;
 }
-
-.container.show{
-display:flex;
-}
-
 .card{
 background:#161b22;
-border:1px solid rgba(0,255,136,0.2);
-border-radius:16px;
-padding:18px;
-box-shadow:0 0 25px rgba(0,255,136,0.1);
-}
-
-.select-box{
-background:#0d1117;
-border:1px solid #30363d;
-border-radius:12px;
-padding:14px;
-color:#fff;
-font-size:15px;
-margin-bottom:15px;
-cursor:pointer;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.label{
-display:flex;
-align-items:center;
-gap:8px;
-font-size:13px;
-color:#8b949e;
-margin-bottom:8px;
-}
-
-.timeframe{
-display:flex;
-gap:8px;
-margin:15px 0;
-}
-.time-btn{
-flex:1;
-padding:12px;
-background:#21262d;
-border:1px solid #30363d;
-border-radius:10px;
-color:#8b949e;
-font-size:14px;
-font-weight:600;
-cursor:pointer;
-transition:0.2s;
-}
-.time-btn.active{
-background:rgba(0,255,136,0.15);
 border:1px solid #00ff88;
-color:#00ff88;
-box-shadow:0 0 15px rgba(0,255,136,0.3);
+border-radius:16px;
+padding:20px;
+text-align:center;
 }
-
 .gen-btn{
 width:100%;
 padding:14px;
-background:linear-gradient(90deg, #00ff88, #00d977);
+background:#00ff88;
 border:none;
 border-radius:12px;
 color:#000;
 font-size:15px;
 font-weight:700;
-cursor:pointer;
-margin:15px 0 10px;
-box-shadow:0 0 20px rgba(0,255,136,0.4);
-}
-.gen-btn:active{
-transform:scale(0.98);
-}
-
-.footer{
-text-align:center;
-font-size:11px;
-color:#6e7681;
-}
-
-.asset-dropdown{
-background:#161b22;
-border:1px solid rgba(0,255,136,0.2);
-border-radius:16px;
-padding:10px;
-max-height:0;
-overflow:hidden;
-transition:max-height 0.3s ease;
-}
-.asset-dropdown.open{
-max-height:400px;
-overflow-y:auto;
-}
-
-.asset-item{
-padding:14px 12px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #21262d;
-font-size:14px;
-color:#c9d1d9;
-cursor:pointer;
-}
-.asset-item:last-child{
-border-bottom:none;
-}
-.asset-item.active{
-color:#00ff88;
-}
-
-.radio{
-width:20px;
-height:20px;
-border:2px solid #30363d;
-border-radius:50%;
-position:relative;
-}
-.radio.active{
-border-color:#00ff88;
-}
-.radio.active::after{
-content:'';
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-width:10px;
-height:10px;
-background:#00ff88;
-border-radius:50%;
-box-shadow:0 0 10px #00ff88;
-}
-
-/* Popup */
-.modal-overlay{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.8);
-backdrop-filter:blur(8px);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-.modal-overlay.show{
-display:flex;
-}
-.modal{
-background:#1e2329;
-border:1px solid rgba(0,255,136,0.3);
-border-radius:16px;
-padding:25px;
-width:90%;
-max-width:350px;
-box-shadow:0 0 40px rgba(0,255,136,0.25);
-animation:popup 0.3s ease;
-}
-@keyframes popup{
-from{transform:scale(0.8);opacity:0;}
-to{transform:scale(1);opacity:1;}
-}
-.modal h3{
-color:#00ff88;
-margin-bottom:15px;
-font-size:20px;
-font-weight:700;
-}
-.modal p{
-color:#c9d1d9;
-margin-bottom:12px;
-font-size:15px;
-}
-.modal-signal{
-color:#00ff88;
-font-size:18px;
-font-weight:700;
-}
-.modal-btn{
-width:100%;
-padding:14px;
-background:#00ff88;
-border:none;
-border-radius:12px;
-color:#000;
-font-weight:700;
-font-size:16px;
 cursor:pointer;
 margin-top:15px;
 }
@@ -296,8 +98,8 @@ margin-top:15px;
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <h2>🔒 Access Locked</h2>
-    <p style="color:#8b949e;font-size:13px;margin-bottom:15px;">Password enter کریں بورڈ کھولنے کے لیے</p>
-    <input type="password" id="passwordInput" placeholder="Enter Password">
+    <p>Password enter karein board kholne ke liye</p>
+    <input type="password" id="passwordInput" placeholder="••••">
     <button onclick="checkPassword()">Unlock</button>
     <div class="error" id="errorMsg">Wrong Password!</div>
   </div>
@@ -305,109 +107,27 @@ margin-top:15px;
 
 <!-- Main Board -->
 <div class="container" id="mainBoard">
-  
   <div class="card">
-    <div class="select-box">Quotex</div>
-    
-    <div class="label">🔄 Trading Asset</div>
-    <div class="select-box" id="assetSelect" onclick="toggleAssetList()">
-      <span id="selectedAsset">USD/BRL (OTC)</span>
-      <span>▼</span>
-    </div>
-    
-    <div class="asset-dropdown" id="assetDropdown">
-      <div class="asset-item">USD/پاکستان (OTC) <div class="radio"></div></div>
-      <div class="asset-item">USD/PHP (OTC) <div class="radio"></div></div>
-      <div class="asset-item active">USD/BRL (OTC) <div class="radio active"></div></div>
-      <div class="asset-item">NZD/CHF (OTC) <div class="radio"></div></div>
-      <div class="asset-item">EUR/USD <div class="radio"></div></div>
-    </div>
-    
-    <div class="label">⏱ Time Frame</div>
-    <div class="timeframe" id="timeframe">
-      <div class="time-btn" data-time="5s">5s</div>
-      <div class="time-btn active" data-time="15s">15s</div>
-      <div class="time-btn" data-time="30s">30s</div>
-      <div class="time-btn" data-time="1m">1m</div>
-      <div class="time-btn" data-time="5m">5m</div>
-    </div>
-    
-    <button class="gen-btn" onclick="generateSignal()">⚡ GENERATE SIGNAL ⚡</button>
-    
-    <div class="footer">For educational purposes only. No financial advice.</div>
-  </div>
-</div>
-
-<!-- Signal Popup -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <h3>Signal Generated!</h3>
-    <p><strong>Asset:</strong> <span id="modalAsset">USD/BRL (OTC)</span></p>
-    <p><strong>Timeframe:</strong> <span id="modalTime">15s</span></p>
-    <p><strong>Signal:</strong> <span id="modalSignal" class="modal-signal">SELL 93%</span></p>
-    <button class="modal-btn" onclick="closeModal()">OK</button>
+    <h3 style="color:#00ff88;">Board Unlock Ho Gaya ✅</h3>
+    <p style="color:#8b949e;">Ab yahan aapka signal wala hisa aayega</p>
+    <button class="gen-btn" onclick="alert('Signal Generate ho gaya!')">GENERATE SIGNAL</button>
   </div>
 </div>
 
 <script>
-let selectedTime = '15s';
-let selectedAsset = 'USD/BRL (OTC)';
 const correctPassword = "bakar786";
 
 function checkPassword(){
-  let input = document.getElementById('passwordInput').value;
+  let input = document.getElementById('passwordInput').value.trim();
+  
   if(input === correctPassword){
     document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('mainBoard').classList.add('show');
+    document.getElementById('mainBoard').style.display = 'block';
   } else {
     document.getElementById('errorMsg').style.display = 'block';
+    document.getElementById('passwordInput').value = '';
   }
 }
-
-function toggleAssetList(){
-  document.getElementById('assetDropdown').classList.toggle('open');
-}
-
-document.querySelectorAll('.time-btn').forEach(btn=>{
-  btn.onclick=()=>{
-    document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedTime = btn.dataset.time;
-  }
-});
-
-document.querySelectorAll('.asset-item').forEach(item=>{
-  item.onclick=()=>{
-    document.querySelectorAll('.asset-item').forEach(i=>i.classList.remove('active'));
-    document.querySelectorAll('.radio').forEach(r=>r.classList.remove('active'));
-    item.classList.add('active');
-    item.querySelector('.radio').classList.add('active');
-    selectedAsset = item.textContent.trim();
-    document.getElementById('selectedAsset').innerText = selectedAsset;
-    document.getElementById('assetDropdown').classList.remove('open');
-  }
-});
-
-// یہاں فکس کیا ہے
-function generateSignal(){
-  let signal = Math.random() > 0.5 ? "BUY" : "SELL";
-  let confidence = Math.floor(Math.random() * 10 + 88);
-  
-  document.getElementById('modalAsset').innerText = selectedAsset;
-  document.getElementById('modalTime').innerText = selectedTime;
-  document.getElementById('modalSignal').innerText = signal + " + confidence + "%";
-  document.getElementById('modalOverlay').classList.add('show');
-}
-
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('show');
-}
-
-document.addEventListener('click', function(e){
-  if(!e.target.closest('#assetSelect') && !e.target.closest('#assetDropdown')){
-    document.getElementById('assetDropdown').classList.remove('open');
-  }
-});
 
 document.getElementById('passwordInput').addEventListener('keypress', function(e){
   if(e.key === 'Enter'){
