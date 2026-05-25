@@ -418,7 +418,44 @@ font-size:14px;
 
 <body>
 
-<div class="container">
+<!-- LOGIN SCREEN -->
+
+<div id="loginScreen" class="container">
+
+<div class="top">
+
+<div class="brand">
+
+<div class="logo">
+AI
+</div>
+
+<div>
+<h1>SECURE LOGIN</h1>
+<p>ENTER ACCESS PASSWORD</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="select-box">
+
+<label class="label">PASSWORD</label>
+
+<input type="password" id="password" placeholder="Enter Password">
+
+</div>
+
+<button class="gen-btn" onclick="login()">
+🔓 UNLOCK SYSTEM
+</button>
+
+</div>
+
+<!-- MAIN BOARD -->
+
+<div id="mainBoard" class="container" style="display:none;">
 
 <div class="top">
 
@@ -552,6 +589,28 @@ V6.0
 
 <script>
 
+/* LOGIN SYSTEM */
+
+function login(){
+
+let pass = document.getElementById('password').value;
+
+if(pass === "bakar786"){
+
+document.getElementById('loginScreen').style.display = "none";
+
+document.getElementById('mainBoard').style.display = "block";
+
+}else{
+
+alert("Wrong Password!");
+
+}
+
+}
+
+/* TIME BUTTON */
+
 function setActive(el){
 
 document.querySelectorAll('.time-btn')
@@ -560,6 +619,8 @@ document.querySelectorAll('.time-btn')
 el.classList.add('active');
 
 }
+
+/* SIGNAL SYSTEM */
 
 function generateSignal(){
 
