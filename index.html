@@ -21,7 +21,7 @@
     .time-btn.active { border:1px solid #00ff88; color:#00ff88; }
     
     .gen-btn { width:100%; padding:15px; background:#00ff88; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:15px; color:#000; }
-    #signalBox { margin-top:15px; padding:12px; border-radius:10px; text-align:center; font-weight:bold; display:none; }
+    #signalBox { margin-top:15px; padding:12px; border-radius:10px; text-align:center; font-weight:bold; display:none; font-size: 18px; }
     .buy-style { background:rgba(0, 255, 136, 0.2); border:1px solid #00ff88; color:#00ff88; }
     .sell-style { background:rgba(255, 68, 68, 0.2); border:1px solid #ff4444; color:#ff4444; }
     .ind-row { display:flex; gap:10px; margin-top:15px; }
@@ -81,9 +81,11 @@
         document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
         el.classList.add('active');
     }
+    
     async function startAnalysis() {
         let bar = document.getElementById('progressBar');
         document.getElementById('progressContainer').style.display = 'block';
+        
         try {
             let res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT`);
             let data = await res.json();
@@ -91,17 +93,30 @@
             
             setTimeout(() => {
                 document.getElementById('progressContainer').style.display = 'none';
-                // SELL اور BUY کا بہتر لاجک
-                let isBuy = Math.random() > 0.45; 
+                
+                // نیا بہتر لاجک: مارکیٹ ٹرینڈ کے ساتھ
+                let isBuy = change > -0.2; // کچھ حد تک خرید کا رجحان
                 let box = document.getElementById('signalBox');
                 box.style.display = 'block';
-                box.innerText = isBuy ? "BUY SIGNAL" : "SELL SIGNAL";
-                box.className = isBuy ? "buy-style" : "sell-style";
+                
+                // اب SELL سگنل بھی درست آئیں گے
+                if (change < -0.5) {
+                    box.innerText = "SELL SIGNAL";
+                    box.className = "sell-style";
+                    document.getElementById('ma').innerText = "DOWN";
+                } else {
+                    box.innerText = "BUY SIGNAL";
+                    box.className = "buy-style";
+                    document.getElementById('ma').innerText = "UP";
+                }
+                
                 document.getElementById('rsi').innerText = Math.floor(Math.random() * 40 + 30);
-                document.getElementById('ma').innerText = isBuy ? "UP" : "DOWN";
                 document.getElementById('conf').innerText = (Math.floor(Math.random() * 5) + 95) + "%";
             }, 2500);
-        } catch(e) { alert("Network Error"); document.getElementById('progressContainer').style.display = 'none'; }
+        } catch(e) { 
+            alert("Network Error"); 
+            document.getElementById('progressContainer').style.display = 'none'; 
+        }
     }
 </script>
 </body>
