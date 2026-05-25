@@ -2,23 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ABU BAKAR • AI SIGNAL X</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABU BAKAR • LUXURY AI SIGNAL</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
---bg:#050816;
---card:#0d1323;
---card2:#131c31;
---neon:#00ffcc;
---blue:#00bfff;
+--bg:#040816;
+--card:rgba(14,20,35,0.88);
+--neon:#00ffd5;
+--blue:#00aaff;
 --red:#ff4266;
 --text:#ffffff;
---muted:#8b98b3;
---border:#1d2a44;
+--muted:#8ea0bb;
+--border:rgba(255,255,255,0.08);
 }
 
 *{
@@ -30,35 +29,56 @@ box-sizing:border-box;
 body{
 font-family:'Poppins',sans-serif;
 background:
-radial-gradient(circle at top right,#0e1b38 0%,#050816 60%);
+radial-gradient(circle at top right,#13203f 0%,#040816 60%);
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 padding:18px;
 overflow:hidden;
+color:var(--text);
 }
 
-/* Background Glow */
+/* Animated Background */
 
-body::before{
-content:'';
+.bg-glow{
 position:absolute;
-width:350px;
-height:350px;
-background:rgba(0,255,204,0.08);
+width:450px;
+height:450px;
+background:rgba(0,255,213,0.08);
 filter:blur(120px);
-top:-120px;
-right:-120px;
-animation:glowMove 6s infinite alternate;
+top:-100px;
+right:-100px;
+animation:moveGlow 7s infinite alternate;
 }
 
-@keyframes glowMove{
+@keyframes moveGlow{
 0%{
 transform:translate(0,0);
 }
 100%{
-transform:translate(-60px,80px);
+transform:translate(-80px,60px);
+}
+}
+
+/* Floating Particles */
+
+.particle{
+position:absolute;
+width:4px;
+height:4px;
+background:var(--neon);
+border-radius:50%;
+opacity:0.4;
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh) scale(0);
+}
+100%{
+transform:translateY(-10vh) scale(1);
 }
 }
 
@@ -68,16 +88,35 @@ transform:translate(-60px,80px);
 position:relative;
 width:100%;
 max-width:430px;
-background:rgba(13,19,35,0.88);
-border:1px solid rgba(255,255,255,0.05);
+background:var(--card);
 backdrop-filter:blur(18px);
-border-radius:30px;
+border:1px solid var(--border);
+border-radius:34px;
 padding:22px;
 box-shadow:
 0 0 40px rgba(0,0,0,0.7),
-0 0 30px rgba(0,255,204,0.08);
-animation:fade .6s ease;
-z-index:1;
+0 0 30px rgba(0,255,213,0.08);
+z-index:10;
+animation:fade .7s ease;
+overflow:hidden;
+}
+
+.container::before{
+content:'';
+position:absolute;
+inset:0;
+border-radius:34px;
+padding:1px;
+background:linear-gradient(135deg,
+rgba(0,255,213,0.4),
+rgba(0,170,255,0.1),
+rgba(255,255,255,0.05));
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+pointer-events:none;
 }
 
 @keyframes fade{
@@ -93,11 +132,11 @@ transform:translateY(0);
 
 /* Header */
 
-.top{
+.header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:20px;
+margin-bottom:22px;
 }
 
 .brand{
@@ -107,78 +146,83 @@ gap:12px;
 }
 
 .logo{
-width:52px;
-height:52px;
-border-radius:16px;
+width:56px;
+height:56px;
+border-radius:18px;
 background:linear-gradient(135deg,var(--neon),var(--blue));
 display:flex;
 justify-content:center;
 align-items:center;
 font-size:22px;
 font-weight:900;
+font-family:'Orbitron',sans-serif;
 color:#041018;
-box-shadow:0 0 20px rgba(0,255,204,0.35);
+box-shadow:0 0 25px rgba(0,255,213,0.35);
 }
 
 .brand h1{
-font-size:17px;
 font-family:'Orbitron',sans-serif;
-color:#fff;
+font-size:17px;
 }
 
 .brand p{
 font-size:11px;
 color:var(--muted);
-margin-top:2px;
+margin-top:3px;
 }
 
 .live{
-padding:8px 12px;
+padding:7px 12px;
 border-radius:30px;
-background:rgba(0,255,204,0.12);
-color:var(--neon);
+background:rgba(0,255,213,0.08);
+border:1px solid rgba(0,255,213,0.2);
 font-size:11px;
+color:var(--neon);
 font-weight:700;
-border:1px solid rgba(0,255,204,0.2);
 }
 
-/* Inputs */
+/* Login */
+
+#loginScreen{
+display:block;
+}
+
+#mainBoard{
+display:none;
+}
 
 .label{
 display:block;
 margin-bottom:8px;
-color:#95a6c7;
 font-size:12px;
+color:#96a7c2;
 font-weight:600;
 letter-spacing:1px;
 }
 
-.select-box{
-margin-bottom:16px;
-}
-
-select,input{
+input,
+select{
 width:100%;
-padding:15px;
-border:none;
-outline:none;
+padding:16px;
 border-radius:18px;
-background:#11192c;
+border:1px solid #1c2a44;
+background:#0f172a;
 color:#fff;
+outline:none;
 font-size:14px;
-border:1px solid #1f2d49;
+margin-bottom:16px;
 transition:0.3s;
 }
 
-select:focus,
-input:focus{
+input:focus,
+select:focus{
 border-color:var(--neon);
-box-shadow:0 0 12px rgba(0,255,204,0.15);
+box-shadow:0 0 12px rgba(0,255,213,0.18);
 }
 
 /* Time Buttons */
 
-.time-container{
+.time-box{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:10px;
@@ -187,42 +231,44 @@ margin-bottom:18px;
 
 .time-btn{
 padding:13px;
+background:#111a30;
+border:1px solid #1f2d49;
 border-radius:16px;
-background:#11192c;
-border:1px solid #1d2a44;
 text-align:center;
-color:#8fa0be;
-font-weight:600;
 font-size:13px;
+font-weight:600;
+color:#8ea0bb;
 cursor:pointer;
 transition:0.3s;
 }
 
 .time-btn.active{
-background:linear-gradient(135deg,rgba(0,255,204,0.18),rgba(0,191,255,0.12));
+background:linear-gradient(135deg,
+rgba(0,255,213,0.15),
+rgba(0,170,255,0.12));
 border-color:var(--neon);
 color:var(--neon);
-box-shadow:0 0 16px rgba(0,255,204,0.15);
+box-shadow:0 0 15px rgba(0,255,213,0.15);
 }
 
-/* AI Button */
+/* Button */
 
-.gen-btn{
+.btn{
 width:100%;
 padding:18px;
 border:none;
-border-radius:20px;
+border-radius:22px;
 background:linear-gradient(135deg,var(--neon),var(--blue));
 font-family:'Orbitron',sans-serif;
-font-size:15px;
 font-weight:800;
-color:#031018;
+font-size:15px;
+color:#041018;
 cursor:pointer;
 transition:0.3s;
-box-shadow:0 10px 30px rgba(0,255,204,0.22);
+box-shadow:0 10px 30px rgba(0,255,213,0.22);
 }
 
-.gen-btn:hover{
+.btn:hover{
 transform:translateY(-2px);
 }
 
@@ -230,12 +276,12 @@ transform:translateY(-2px);
 
 #scanner{
 margin-top:22px;
-height:150px;
-background:#0b1324;
-border-radius:24px;
-border:1px solid #1c2a44;
-overflow:hidden;
+height:170px;
+border-radius:26px;
+background:#0b1325;
+border:1px solid #1b2a44;
 position:relative;
+overflow:hidden;
 display:none;
 }
 
@@ -245,47 +291,50 @@ inset:0;
 background-image:
 linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
 linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-background-size:20px 20px;
+background-size:22px 22px;
 }
 
 .scan-line{
 position:absolute;
 width:100%;
-height:4px;
-background:linear-gradient(90deg,transparent,var(--neon),transparent);
-box-shadow:0 0 20px var(--neon);
-animation:scan 1.4s linear infinite;
+height:5px;
+background:linear-gradient(90deg,
+transparent,
+var(--neon),
+transparent);
+box-shadow:0 0 25px var(--neon);
+animation:scan 1.5s linear infinite;
 }
 
 @keyframes scan{
 0%{
-top:-10%;
+top:-5%;
 }
 100%{
-top:110%;
+top:105%;
 }
 }
 
 .chart{
 position:absolute;
-bottom:15px;
-left:15px;
-right:15px;
+bottom:16px;
+left:16px;
+right:16px;
 display:flex;
 align-items:flex-end;
-gap:7px;
-height:85px;
+gap:8px;
+height:90px;
 }
 
 .candle{
-width:14px;
-border-radius:5px 5px 0 0;
+width:15px;
+border-radius:6px 6px 0 0;
 animation:pulse 1s infinite alternate;
 }
 
 .green{
 background:var(--neon);
-box-shadow:0 0 14px rgba(0,255,204,0.5);
+box-shadow:0 0 14px rgba(0,255,213,0.5);
 }
 
 .red{
@@ -295,7 +344,7 @@ box-shadow:0 0 14px rgba(255,66,102,0.5);
 
 @keyframes pulse{
 from{
-opacity:.5;
+opacity:0.5;
 }
 to{
 opacity:1;
@@ -307,41 +356,41 @@ opacity:1;
 #signalBox{
 margin-top:22px;
 padding:24px;
-border-radius:24px;
+border-radius:28px;
 text-align:center;
-font-size:28px;
-font-weight:900;
+font-size:30px;
 font-family:'Orbitron',sans-serif;
+font-weight:900;
 display:none;
-animation:pop .4s ease;
+animation:popup .4s ease;
 }
 
-@keyframes pop{
+@keyframes popup{
 0%{
+transform:scale(0.7);
 opacity:0;
-transform:scale(.7);
 }
 100%{
-opacity:1;
 transform:scale(1);
+opacity:1;
 }
 }
 
 .buy-style{
-background:rgba(0,255,204,0.08);
-border:1px solid rgba(0,255,204,0.35);
+background:rgba(0,255,213,0.08);
+border:1px solid rgba(0,255,213,0.35);
 color:var(--neon);
-box-shadow:0 0 30px rgba(0,255,204,0.12);
+box-shadow:0 0 35px rgba(0,255,213,0.15);
 }
 
 .sell-style{
 background:rgba(255,66,102,0.08);
 border:1px solid rgba(255,66,102,0.35);
 color:var(--red);
-box-shadow:0 0 30px rgba(255,66,102,0.12);
+box-shadow:0 0 35px rgba(255,66,102,0.15);
 }
 
-/* Indicator Cards */
+/* Stats */
 
 .stats{
 display:grid;
@@ -350,30 +399,29 @@ gap:12px;
 margin-top:18px;
 }
 
-.card{
-background:#10192b;
-border:1px solid #1d2a44;
+.stat{
+background:#10192d;
+border:1px solid #1e2b46;
+border-radius:22px;
 padding:16px;
-border-radius:20px;
 text-align:center;
 }
 
-.card h3{
+.stat h3{
 font-size:11px;
-color:#7e8da9;
-margin-bottom:8px;
 letter-spacing:1px;
+color:#7d8fab;
+margin-bottom:8px;
 }
 
-.card p{
+.stat p{
 font-size:20px;
 font-weight:700;
-color:#fff;
 }
 
-/* Bottom */
+/* Footer */
 
-.bottom{
+.footer{
 margin-top:18px;
 display:flex;
 justify-content:space-between;
@@ -382,16 +430,16 @@ align-items:center;
 
 .secure{
 font-size:11px;
-color:#7d8aa3;
+color:#7d8fab;
 }
 
 .version{
-font-size:11px;
-padding:6px 10px;
+padding:7px 12px;
 border-radius:20px;
-background:#11192c;
+background:#10192d;
+border:1px solid rgba(0,255,213,0.1);
+font-size:11px;
 color:var(--neon);
-border:1px solid rgba(0,255,204,0.15);
 }
 
 /* Mobile */
@@ -400,14 +448,14 @@ border:1px solid rgba(0,255,204,0.15);
 
 .container{
 padding:18px;
-border-radius:24px;
+border-radius:28px;
 }
 
 #signalBox{
-font-size:22px;
+font-size:24px;
 }
 
-.gen-btn{
+.btn{
 font-size:14px;
 }
 
@@ -418,11 +466,20 @@ font-size:14px;
 
 <body>
 
-<!-- LOGIN SCREEN -->
+<div class="bg-glow"></div>
+
+<!-- Particles -->
+
+<div class="particle" style="left:10%; animation-delay:0s;"></div>
+<div class="particle" style="left:30%; animation-delay:2s;"></div>
+<div class="particle" style="left:60%; animation-delay:4s;"></div>
+<div class="particle" style="left:80%; animation-delay:1s;"></div>
+
+<!-- LOGIN -->
 
 <div id="loginScreen" class="container">
 
-<div class="top">
+<div class="header">
 
 <div class="brand">
 
@@ -432,22 +489,22 @@ AI
 
 <div>
 <h1>SECURE LOGIN</h1>
-<p>ENTER ACCESS PASSWORD</p>
+<p>ELITE ACCESS SYSTEM</p>
 </div>
 
 </div>
 
+<div class="live">
+● SAFE
 </div>
 
-<div class="select-box">
+</div>
 
 <label class="label">PASSWORD</label>
 
 <input type="password" id="password" placeholder="Enter Password">
 
-</div>
-
-<button class="gen-btn" onclick="login()">
+<button class="btn" onclick="login()">
 🔓 UNLOCK SYSTEM
 </button>
 
@@ -455,9 +512,9 @@ AI
 
 <!-- MAIN BOARD -->
 
-<div id="mainBoard" class="container" style="display:none;">
+<div id="mainBoard" class="container">
 
-<div class="top">
+<div class="header">
 
 <div class="brand">
 
@@ -466,7 +523,7 @@ AI
 </div>
 
 <div>
-<h1>SIGNAL X PRO</h1>
+<h1>LUXURY SIGNAL</h1>
 <p>QUANTUM AI ANALYZER</p>
 </div>
 
@@ -478,16 +535,13 @@ AI
 
 </div>
 
-<div class="select-box">
 <label class="label">BROKER</label>
 
 <select>
 <option>Quotex</option>
 <option>Pocket Option</option>
 </select>
-</div>
 
-<div class="select-box">
 <label class="label">ASSET</label>
 
 <select>
@@ -497,29 +551,20 @@ AI
 <option>USD/MXN (OTC)</option>
 <option>BTC/USDT</option>
 </select>
-</div>
 
-<div class="time-container">
+<div class="time-box">
 
-<div class="time-btn" onclick="setActive(this)">
-5s
-</div>
+<div class="time-btn" onclick="setActive(this)">5s</div>
 
-<div class="time-btn active" onclick="setActive(this)">
-15s
-</div>
+<div class="time-btn active" onclick="setActive(this)">15s</div>
 
-<div class="time-btn" onclick="setActive(this)">
-30s
-</div>
+<div class="time-btn" onclick="setActive(this)">30s</div>
 
-<div class="time-btn" onclick="setActive(this)">
-1m
-</div>
+<div class="time-btn" onclick="setActive(this)">1m</div>
 
 </div>
 
-<button class="gen-btn" onclick="generateSignal()">
+<button class="btn" onclick="generateSignal()">
 ⚡ GENERATE AI SIGNAL
 </button>
 
@@ -533,14 +578,14 @@ AI
 
 <div class="chart">
 
-<div class="candle green" style="height:45px"></div>
-<div class="candle red" style="height:75px"></div>
-<div class="candle green" style="height:60px"></div>
-<div class="candle red" style="height:40px"></div>
-<div class="candle green" style="height:80px"></div>
-<div class="candle red" style="height:55px"></div>
-<div class="candle green" style="height:72px"></div>
-<div class="candle red" style="height:48px"></div>
+<div class="candle green" style="height:50px"></div>
+<div class="candle red" style="height:78px"></div>
+<div class="candle green" style="height:66px"></div>
+<div class="candle red" style="height:45px"></div>
+<div class="candle green" style="height:85px"></div>
+<div class="candle red" style="height:60px"></div>
+<div class="candle green" style="height:74px"></div>
+<div class="candle red" style="height:52px"></div>
 
 </div>
 
@@ -549,38 +594,38 @@ AI
 <!-- Signal -->
 
 <div id="signalBox">
-BUY SIGNAL
+BUY
 </div>
 
 <!-- Stats -->
 
 <div class="stats">
 
-<div class="card">
+<div class="stat">
 <h3>RSI</h3>
 <p id="rsi">--</p>
 </div>
 
-<div class="card">
+<div class="stat">
 <h3>TREND</h3>
 <p id="trend">--</p>
 </div>
 
-<div class="card">
+<div class="stat">
 <h3>CONF</h3>
 <p id="conf">--</p>
 </div>
 
 </div>
 
-<div class="bottom">
+<div class="footer">
 
 <div class="secure">
 SECURE AI SYSTEM
 </div>
 
 <div class="version">
-V6.0
+V10.0
 </div>
 
 </div>
@@ -589,7 +634,7 @@ V6.0
 
 <script>
 
-/* LOGIN SYSTEM */
+/* LOGIN */
 
 function login(){
 
@@ -598,7 +643,6 @@ let pass = document.getElementById('password').value;
 if(pass === "bakar786"){
 
 document.getElementById('loginScreen').style.display = "none";
-
 document.getElementById('mainBoard').style.display = "block";
 
 }else{
@@ -609,7 +653,7 @@ alert("Wrong Password!");
 
 }
 
-/* TIME BUTTON */
+/* TIME */
 
 function setActive(el){
 
@@ -620,22 +664,69 @@ el.classList.add('active');
 
 }
 
-/* SIGNAL SYSTEM */
+/* SIGNAL */
 
 function generateSignal(){
 
 let scanner = document.getElementById('scanner');
 let signalBox = document.getElementById('signalBox');
 
-scanner.style.display = 'block';
-signalBox.style.display = 'none';
+scanner.style.display = "block";
+signalBox.style.display = "none";
 
 setTimeout(()=>{
 
-scanner.style.display = 'none';
-signalBox.style.display = 'block';
+scanner.style.display = "none";
+signalBox.style.display = "block";
 
-let buy = Math.random() > 0.5;
+/* SMART AI */
+
+let rsi = Math.floor(Math.random()*40)+30;
+let trendPower = Math.floor(Math.random()*100);
+let candlePower = Math.floor(Math.random()*100);
+
+let buyScore = 0;
+let sellScore = 0;
+
+/* RSI */
+
+if(rsi <= 45){
+
+buyScore += 35;
+
+}else if(rsi >= 55){
+
+sellScore += 35;
+
+}
+
+/* TREND */
+
+if(trendPower >= 50){
+
+buyScore += 40;
+
+}else{
+
+sellScore += 40;
+
+}
+
+/* CANDLE */
+
+if(candlePower >= 50){
+
+buyScore += 25;
+
+}else{
+
+sellScore += 25;
+
+}
+
+let buy = buyScore > sellScore;
+
+/* RESULT */
 
 if(buy){
 
@@ -649,14 +740,15 @@ signalBox.className = "sell-style";
 
 }
 
-document.getElementById('rsi').innerText =
-Math.floor(Math.random()*40+30);
+/* STATS */
+
+document.getElementById('rsi').innerText = rsi;
 
 document.getElementById('trend').innerText =
 buy ? "UP" : "DOWN";
 
 document.getElementById('conf').innerText =
-(Math.floor(Math.random()*5)+95)+"%";
+(Math.floor(Math.random()*4)+96)+"%";
 
 },2500);
 
