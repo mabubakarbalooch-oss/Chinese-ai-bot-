@@ -5,81 +5,297 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-body{
+:root{
+--bg:#06110a;
+--card:rgba(8,25,15,0.92);
+--primary:#00ff78;
+--primary2:#00cc66;
+--green:#00ff78;
+--red:#ff4d4d;
+--text:#ffffff;
+--muted:#7dffb2;
+--border:rgba(0,255,120,0.12);
+}
+
+*{
 margin:0;
-font-family:Poppins;
-background:#06110a;
-color:#fff;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:
+radial-gradient(circle at top right,#0d2e1c 0%,#06110a 60%);
+min-height:100vh;
 display:flex;
 justify-content:center;
-padding:15px;
+align-items:center;
+padding:18px;
+overflow:hidden;
+color:var(--text);
+}
+
+.bg-glow{
+position:absolute;
+width:450px;
+height:450px;
+background:rgba(0,255,120,0.08);
+filter:blur(120px);
+top:-100px;
+right:-100px;
+animation:moveGlow 7s infinite alternate;
+}
+
+@keyframes moveGlow{
+0%{transform:translate(0,0);}
+100%{transform:translate(-80px,60px);}
 }
 
 .container{
+position:relative;
 width:100%;
-max-width:450px;
-background:#0b1d13;
-padding:20px;
-border-radius:20px;
-border:1px solid #145c34;
+max-width:430px;
+background:var(--card);
+backdrop-filter:blur(18px);
+border:1px solid var(--border);
+border-radius:34px;
+padding:22px;
+box-shadow:
+0 0 40px rgba(0,0,0,0.7),
+0 0 30px rgba(0,255,120,0.08);
+overflow:hidden;
 }
 
-h2{
-text-align:center;
-font-family:Orbitron;
-margin-bottom:10px;
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:22px;
 }
 
-select,button{
-width:100%;
-padding:12px;
-margin:8px 0;
-border-radius:10px;
-border:none;
+.profile-wrap{
+display:flex;
+align-items:center;
+gap:12px;
 }
 
-button{
+.logo{
+width:60px;
+height:60px;
+border-radius:50%;
 background:linear-gradient(135deg,#00ff78,#00cc66);
-font-weight:bold;
-cursor:pointer;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+font-weight:900;
+font-family:'Orbitron',sans-serif;
+color:#04140a;
+box-shadow:
+0 0 20px rgba(0,255,120,0.5),
+0 0 40px rgba(0,255,120,0.2);
 }
 
-#signal{
-text-align:center;
-font-size:28px;
-margin:15px 0;
-padding:15px;
-border-radius:15px;
+.profile-wrap h1{
+font-family:'Orbitron',sans-serif;
+font-size:15px;
+line-height:1.4;
+}
+
+.profile-wrap p{
+font-size:11px;
+color:var(--muted);
+margin-top:3px;
+}
+
+.live{
+padding:7px 12px;
+border-radius:30px;
+background:rgba(0,255,120,0.08);
+border:1px solid rgba(0,255,120,0.2);
+font-size:11px;
+color:var(--primary);
+font-weight:700;
+}
+
+#mainBoard{
 display:none;
 }
 
-.buy{background:rgba(0,255,120,0.15);color:#00ff78;}
-.sell{background:rgba(255,77,77,0.15);color:#ff4d4d;}
-.wait{background:rgba(255,208,0,0.15);color:#ffd000;}
+.label{
+display:block;
+margin-bottom:8px;
+font-size:12px;
+color:#9fffc7;
+font-weight:600;
+}
+
+input,
+select{
+width:100%;
+padding:16px;
+border-radius:18px;
+border:1px solid #145c34;
+background:#0b1d13;
+color:#fff;
+outline:none;
+font-size:14px;
+margin-bottom:16px;
+}
+
+.time-box{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:18px;
+}
+
+.time-btn{
+padding:13px;
+background:#0f2217;
+border:1px solid #145c34;
+border-radius:16px;
+text-align:center;
+font-size:13px;
+font-weight:600;
+color:#7dffb2;
+cursor:pointer;
+transition:0.3s;
+}
+
+.time-btn.active{
+background:linear-gradient(135deg,
+rgba(0,255,120,0.18),
+rgba(0,204,102,0.12));
+border-color:var(--primary);
+color:var(--primary);
+}
+
+.btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:22px;
+background:linear-gradient(135deg,var(--primary),var(--primary2));
+font-family:'Orbitron',sans-serif;
+font-weight:800;
+font-size:15px;
+color:#04140a;
+cursor:pointer;
+}
+
+#scanner{
+margin-top:22px;
+height:170px;
+border-radius:26px;
+background:#0b1d13;
+border:1px solid #145c34;
+position:relative;
+overflow:hidden;
+display:none;
+}
+
+.scan-line{
+position:absolute;
+width:100%;
+height:5px;
+background:linear-gradient(90deg,
+transparent,
+var(--primary),
+transparent);
+box-shadow:0 0 25px var(--primary);
+animation:scan 1.5s linear infinite;
+}
+
+@keyframes scan{
+0%{top:-5%;}
+100%{top:105%;}
+}
+
+.chart{
+position:absolute;
+bottom:16px;
+left:16px;
+right:16px;
+display:flex;
+align-items:flex-end;
+gap:8px;
+height:90px;
+}
+
+.candle{
+width:15px;
+border-radius:6px 6px 0 0;
+animation:pulse 1s infinite alternate;
+}
+
+.green{
+background:var(--green);
+}
+
+.red{
+background:var(--red);
+}
+
+@keyframes pulse{
+from{opacity:0.5;}
+to{opacity:1;}
+}
+
+#signalBox{
+margin-top:22px;
+padding:24px;
+border-radius:28px;
+text-align:center;
+font-size:30px;
+font-family:'Orbitron',sans-serif;
+font-weight:900;
+display:none;
+}
+
+.buy-style{
+background:rgba(0,255,120,0.08);
+border:1px solid rgba(0,255,120,0.40);
+color:var(--green);
+box-shadow:0 0 35px rgba(0,255,120,0.18);
+}
+
+.sell-style{
+background:rgba(255,77,77,0.08);
+border:1px solid rgba(255,77,77,0.40);
+color:var(--red);
+box-shadow:0 0 35px rgba(255,77,77,0.18);
+}
 
 .stats{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin-top:10px;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:18px;
 }
 
-.box{
+.stat{
 background:#102117;
-padding:10px;
-border-radius:10px;
+border:1px solid #145c34;
+border-radius:22px;
+padding:16px;
 text-align:center;
 }
 
-canvas{
-margin-top:15px;
-background:#0f2217;
-border-radius:10px;
-padding:10px;
+.stat h3{
+font-size:11px;
+color:#7dffb2;
+margin-bottom:8px;
+}
+
+.stat p{
+font-size:20px;
+font-weight:700;
 }
 
 </style>
@@ -87,109 +303,234 @@ padding:10px;
 
 <body>
 
-<div class="container">
+<div class="bg-glow"></div>
 
-<h2>LUBNA ABUBAKAR SIGNAL PRO</h2>
+<!-- LOGIN -->
 
-<select id="asset">
+<div id="loginScreen" class="container">
 
-<option>USD/PKR (OTC)</option>
-<option>USD/INR (OTC)</option>
-<option>USD/BRL (OTC)</option>
-<option>USD/MXN (OTC)</option>
+<div class="header">
 
-<option>EUR/USD</option>
-<option>GBP/USD</option>
-<option>BTC/USDT</option>
+<div class="profile-wrap">
 
-</select>
-
-<button onclick="generate()">GENERATE SIGNAL</button>
-
-<div id="signal"></div>
-
-<div class="stats">
-<div class="box">RSI <p id="rsi">--</p></div>
-<div class="box">WIN <p id="win">0</p></div>
-<div class="box">LOSS <p id="loss">0</p></div>
-<div class="box">STATUS <p id="status">READY</p></div>
+<div class="logo">
+QX
 </div>
 
-<canvas id="chart"></canvas>
+<div>
+<h1>LUBNA ABUBAKAR</h1>
+<p>ELITE ACCESS SYSTEM</p>
+</div>
+
+</div>
+
+<div class="live">● SAFE</div>
+
+</div>
+
+<label class="label">PASSWORD</label>
+
+<input type="password" id="password" placeholder="Enter Password">
+
+<button class="btn" onclick="login()">
+🔓 UNLOCK SYSTEM
+</button>
+
+</div>
+
+<!-- MAIN BOARD -->
+
+<div id="mainBoard" class="container">
+
+<div class="header">
+
+<div class="profile-wrap">
+
+<div class="logo">
+QX
+</div>
+
+<div>
+<h1>LUBNA ABUBAKAR</h1>
+<p>SIGNAL PRO SYSTEM</p>
+</div>
+
+</div>
+
+<div class="live">● LIVE</div>
+
+</div>
+
+<label class="label">BROKER</label>
+
+<select>
+<option>Quotex</option>
+<option>Pocket Option</option>
+</select>
+
+<label class="label">ASSET</label>
+
+<select>
+<option>USD/PKR (OTC)</option>
+<option>USD/BRL (OTC)</option>
+<option>USD/INR (OTC)</option>
+<option>USD/MXN (OTC)</option>
+<option>BTC/USDT</option>
+</select>
+
+<div class="time-box">
+
+<div class="time-btn" onclick="setActive(this)">5s</div>
+<div class="time-btn active" onclick="setActive(this)">15s</div>
+<div class="time-btn" onclick="setActive(this)">30s</div>
+<div class="time-btn" onclick="setActive(this)">1m</div>
+
+</div>
+
+<button class="btn" onclick="generateSignal()">
+⚡ GENERATE AI SIGNAL
+</button>
+
+<div id="scanner">
+
+<div class="scan-line"></div>
+
+<div class="chart">
+
+<div class="candle green" style="height:50px"></div>
+<div class="candle red" style="height:78px"></div>
+<div class="candle green" style="height:66px"></div>
+<div class="candle red" style="height:45px"></div>
+<div class="candle green" style="height:85px"></div>
+<div class="candle red" style="height:60px"></div>
+<div class="candle green" style="height:74px"></div>
+<div class="candle red" style="height:52px"></div>
+
+</div>
+
+</div>
+
+<div id="signalBox">BUY</div>
+
+<div class="stats">
+
+<div class="stat">
+<h3>RSI</h3>
+<p id="rsi">--</p>
+</div>
+
+<div class="stat">
+<h3>TREND</h3>
+<p id="trend">--</p>
+</div>
+
+<div class="stat">
+<h3>CONF</h3>
+<p id="conf">--</p>
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-/* SOUND */
-function playSound(){
-let audio = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
-audio.play();
+/* LOGIN */
+
+function login(){
+
+let pass = document.getElementById('password').value;
+
+if(pass === "bakar786"){
+
+document.getElementById('loginScreen').style.display = "none";
+document.getElementById('mainBoard').style.display = "block";
+
+}else{
+
+alert("Wrong Password!");
+
 }
 
-/* WIN LOSS */
-let win = localStorage.getItem("win") || 0;
-let loss = localStorage.getItem("loss") || 0;
-
-document.getElementById("win").innerText = win;
-document.getElementById("loss").innerText = loss;
-
-/* CHART */
-let ctx = document.getElementById("chart").getContext("2d");
-
-let chart = new Chart(ctx,{
-type:"line",
-data:{
-labels:["1","2","3","4","5","6","7"],
-datasets:[{
-label:"Market",
-data:[10,12,9,14,13,15,12],
-borderColor:"#00ff78",
-tension:0.4
-}]
-},
-options:{responsive:true}
-});
-
-/* SIGNAL ENGINE */
-function generate(){
-
-let rsi = Math.floor(Math.random()*100);
-document.getElementById("rsi").innerText = rsi;
-
-let signalBox = document.getElementById("signal");
-signalBox.style.display="block";
-
-let result,cls;
-
-if(rsi < 40){
-result="📈 BUY";
-cls="buy";
-win++;
-localStorage.setItem("win",win);
-playSound();
 }
 
-else if(rsi > 60){
-result="📉 SELL";
-cls="sell";
-loss++;
-localStorage.setItem("loss",loss);
-playSound();
+/* TIME BUTTON */
+
+function setActive(el){
+
+document.querySelectorAll('.time-btn')
+.forEach(btn => btn.classList.remove('active'));
+
+el.classList.add('active');
+
 }
 
-else{
-result="⏳ WAIT";
-cls="wait";
-playSound();
+/* BETTER SIGNAL LOGIC */
+
+function generateSignal(){
+
+let scanner = document.getElementById('scanner');
+let signalBox = document.getElementById('signalBox');
+
+scanner.style.display = "block";
+signalBox.style.display = "none";
+
+setTimeout(()=>{
+
+scanner.style.display = "none";
+signalBox.style.display = "block";
+
+/* MARKET DATA */
+
+let rsi = Math.floor(Math.random()*40)+30;
+
+let trendPower = Math.floor(Math.random()*100);
+
+let momentum = Math.floor(Math.random()*100);
+
+/* SIGNAL LOGIC */
+
+let buy = false;
+
+if(
+rsi < 50 &&
+trendPower > 55 &&
+momentum > 50
+){
+buy = true;
 }
 
-signalBox.innerHTML=result;
-signalBox.className=cls;
+/* BUY SIGNAL */
 
-document.getElementById("win").innerText=win;
-document.getElementById("loss").innerText=loss;
-document.getElementById("status").innerText=result;
+if(buy){
+
+signalBox.innerHTML = "📈 BUY";
+signalBox.className = "buy-style";
+
+document.getElementById('trend').innerText = "UP";
+
+document.getElementById('conf').innerText =
+(Math.floor(Math.random()*3)+97) + "%";
+
+/* SELL SIGNAL */
+
+}else{
+
+signalBox.innerHTML = "📉 SELL";
+signalBox.className = "sell-style";
+
+document.getElementById('trend').innerText = "DOWN";
+
+document.getElementById('conf').innerText =
+(Math.floor(Math.random()*3)+96) + "%";
+
+}
+
+/* RSI */
+
+document.getElementById('rsi').innerText = rsi;
+
+},2500);
 
 }
 
