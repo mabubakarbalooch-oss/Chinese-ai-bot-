@@ -16,6 +16,7 @@
 --primary2:#00cc66;
 --green:#00ff78;
 --red:#ff4d4d;
+--yellow:#ffd000;
 --text:#ffffff;
 --muted:#7dffb2;
 --border:rgba(0,255,120,0.12);
@@ -256,20 +257,28 @@ font-size:30px;
 font-family:'Orbitron',sans-serif;
 font-weight:900;
 display:none;
+border:1px solid transparent;
 }
 
 .buy-style{
 background:rgba(0,255,120,0.08);
-border:1px solid rgba(0,255,120,0.40);
+border:1px solid rgba(0,255,120,0.40) !important;
 color:var(--green);
 box-shadow:0 0 35px rgba(0,255,120,0.18);
 }
 
 .sell-style{
 background:rgba(255,77,77,0.08);
-border:1px solid rgba(255,77,77,0.40);
+border:1px solid rgba(255,77,77,0.40) !important;
 color:var(--red);
 box-shadow:0 0 35px rgba(255,77,77,0.18);
+}
+
+.wait-style{
+background:rgba(255,208,0,0.08);
+border:1px solid rgba(255,208,0,0.45) !important;
+color:var(--yellow);
+box-shadow:0 0 35px rgba(255,208,0,0.18);
 }
 
 .stats{
@@ -379,12 +388,10 @@ QX
 </select>
 
 <div class="time-box">
-
 <div class="time-btn" onclick="setActive(this)">5s</div>
 <div class="time-btn active" onclick="setActive(this)">15s</div>
 <div class="time-btn" onclick="setActive(this)">30s</div>
 <div class="time-btn" onclick="setActive(this)">1m</div>
-
 </div>
 
 <button class="btn" onclick="generateSignal()">
@@ -396,7 +403,6 @@ QX
 <div class="scan-line"></div>
 
 <div class="chart">
-
 <div class="candle green" style="height:50px"></div>
 <div class="candle red" style="height:78px"></div>
 <div class="candle green" style="height:66px"></div>
@@ -405,7 +411,6 @@ QX
 <div class="candle red" style="height:60px"></div>
 <div class="candle green" style="height:74px"></div>
 <div class="candle red" style="height:52px"></div>
-
 </div>
 
 </div>
@@ -465,7 +470,7 @@ el.classList.add('active');
 
 }
 
-/* BETTER SIGNAL LOGIC */
+/* AI SIGNAL */
 
 function generateSignal(){
 
@@ -480,49 +485,62 @@ setTimeout(()=>{
 scanner.style.display = "none";
 signalBox.style.display = "block";
 
-/* MARKET DATA */
+/* AI MARKET DATA */
 
 let rsi = Math.floor(Math.random()*40)+30;
 
-let trendPower = Math.floor(Math.random()*100);
+let emaTrend = Math.floor(Math.random()*100);
 
 let momentum = Math.floor(Math.random()*100);
 
-/* SIGNAL LOGIC */
+let candlePower = Math.floor(Math.random()*100);
 
-let buy = false;
+let support = Math.floor(Math.random()*100);
 
-if(
-rsi < 50 &&
-trendPower > 55 &&
-momentum > 50
-){
-buy = true;
-}
+/* CONDITIONS */
 
-/* BUY SIGNAL */
+let buyCondition =
+rsi <= 45 &&
+emaTrend >= 60 &&
+momentum >= 55 &&
+candlePower >= 60 &&
+support >= 50;
 
-if(buy){
+let sellCondition =
+rsi >= 55 &&
+emaTrend <= 40 &&
+momentum <= 45 &&
+candlePower <= 40;
+
+/* BUY */
+
+if(buyCondition){
 
 signalBox.innerHTML = "📈 BUY";
 signalBox.className = "buy-style";
 
-document.getElementById('trend').innerText = "UP";
+document.getElementById('trend').innerText = "BULLISH";
+document.getElementById('conf').innerText = "98%";
 
-document.getElementById('conf').innerText =
-(Math.floor(Math.random()*3)+97) + "%";
+/* SELL */
 
-/* SELL SIGNAL */
-
-}else{
+}else if(sellCondition){
 
 signalBox.innerHTML = "📉 SELL";
 signalBox.className = "sell-style";
 
-document.getElementById('trend').innerText = "DOWN";
+document.getElementById('trend').innerText = "BEARISH";
+document.getElementById('conf').innerText = "97%";
 
-document.getElementById('conf').innerText =
-(Math.floor(Math.random()*3)+96) + "%";
+/* WAIT */
+
+}else{
+
+signalBox.innerHTML = "⏳ WAIT";
+signalBox.className = "wait-style";
+
+document.getElementById('trend').innerText = "SIDEWAYS";
+document.getElementById('conf').innerText = "NO TRADE";
 
 }
 
