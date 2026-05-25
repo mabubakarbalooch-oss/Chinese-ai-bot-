@@ -3,120 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chinese Signal Generator Pro</title>
+<title>Pro Trading Signal</title>
 <style>
-    body { background:#0a0e13; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0; }
-    .container { width: 90%; max-width: 450px; background:#0f1318; border:2px solid #00ff88; border-radius:25px; padding:25px; box-shadow:0 0 20px rgba(0,255,136,0.3); }
-    h1 { color:#00ff88; font-size:20px; text-align:center; }
-    .label { color:#8b949e; font-size:13px; margin:10px 0 5px 0; display:block; }
-    select, input { width:100%; padding:12px; background:#1a1f26; border:1px solid #30363d; border-radius:10px; color:#fff; }
+    :root { --neon: #00ff88; --bg: #0b0e14; --card: #151921; }
+    body { background: var(--bg); font-family: 'Segoe UI', sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0; }
+    .container { width: 90%; max-width: 400px; background: var(--card); border: 1px solid #2a2e39; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    h1 { color: var(--neon); font-size: 22px; text-align: center; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
     
-    #progressContainer { width:100%; height:8px; background:#1a1f26; border-radius:4px; margin-top:15px; display:none; overflow:hidden; }
-    #progressBar { width:100%; height:100%; background:#00ff88; transform: translateX(-100%); }
-    @keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+    .label { color: #5f6673; font-size: 11px; margin-bottom: 5px; display: block; text-transform: uppercase; }
+    select { width: 100%; padding: 12px; background: #0b0e14; border: 1px solid #30363d; border-radius: 10px; color: #fff; margin-bottom: 15px; }
+    
+    .time-container { display: flex; gap: 8px; margin-bottom: 20px; }
+    .time-btn { flex: 1; padding: 8px; background: #1a1f26; border: 1px solid #30363d; border-radius: 8px; color: #8b949e; cursor: pointer; text-align: center; font-size: 12px; }
+    .time-btn.active { border-color: var(--neon); color: var(--neon); background: rgba(0,255,136,0.1); }
+    
+    .gen-btn { width: 100%; padding: 16px; background: linear-gradient(90deg, #00ff88, #00bb66); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; font-size: 15px; transition: 0.3s; }
+    .gen-btn:active { transform: scale(0.98); }
+    
+    #progressContainer { width: 100%; height: 6px; background: #0b0e14; border-radius: 3px; margin: 20px 0; display: none; overflow: hidden; }
+    #progressBar { width: 100%; height: 100%; background: var(--neon); box-shadow: 0 0 10px var(--neon); }
     .animate-line { animation: slide 2s linear infinite; }
+    @keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-    .time-container { display:flex; gap:5px; margin:10px 0; }
-    .time-btn { flex:1; padding:10px; background:#1a1f26; border:1px solid #30363d; border-radius:8px; color:#8b949e; cursor:pointer; text-align:center; font-size:12px; }
-    .time-btn.active { border:1px solid #00ff88; color:#00ff88; }
+    #signalBox { padding: 15px; border-radius: 12px; text-align: center; font-weight: bold; display: none; margin-bottom: 20px; font-size: 20px; }
+    .buy-style { border: 1px solid var(--neon); color: var(--neon); background: rgba(0,255,136,0.05); }
+    .sell-style { border: 1px solid #ff4444; color: #ff4444; background: rgba(255,68,68,0.05); }
     
-    .gen-btn { width:100%; padding:15px; background:#00ff88; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:15px; color:#000; }
-    #signalBox { margin-top:15px; padding:12px; border-radius:10px; text-align:center; font-weight:bold; display:none; font-size: 18px; }
-    .buy-style { background:rgba(0, 255, 136, 0.2); border:1px solid #00ff88; color:#00ff88; }
-    .sell-style { background:rgba(255, 68, 68, 0.2); border:1px solid #ff4444; color:#ff4444; }
-    .ind-row { display:flex; gap:10px; margin-top:15px; }
-    .ind-box { flex:1; background:#1a1f26; padding:10px; border-radius:8px; border:1px solid #30363d; text-align:center; font-size:10px; color:#8b949e; }
+    .ind-row { display: flex; gap: 10px; }
+    .ind-box { flex: 1; background: #0b0e14; padding: 10px; border-radius: 8px; text-align: center; font-size: 9px; color: #5f6673; border: 1px solid #2a2e39; }
 </style>
 </head>
 <body>
 
 <div id="loginScreen" class="container">
-    <h2 style="color:#00ff88; text-align:center;">🔒 Access Locked</h2>
-    <input type="password" id="pass" placeholder="Enter Password">
-    <button class="gen-btn" onclick="login()">Unlock</button>
+    <h1 style="font-size: 18px;">🔒 Secure Access</h1>
+    <input type="password" id="pass" placeholder="Enter Password" style="width:100%; padding:12px; box-sizing:border-box; background:#0b0e14; border:1px solid #30363d; border-radius:10px; color:#fff;">
+    <button class="gen-btn" style="margin-top:20px;" onclick="login()">Unlock</button>
 </div>
 
 <div id="mainBoard" class="container" style="display:none;">
-    <h1>🚀 Chinese Signal Generator</h1>
-    
-    <label class="label">Select Broker</label>
+    <h1>Signal Pro</h1>
+    <label class="label">Broker</label>
     <select><option>Quotex</option><option>Pocket Option</option></select>
-
     <label class="label">Asset</label>
     <select id="asset">
-        <option>USD/BRL (OTC)</option>
-        <option>USD/PKR (OTC)</option>
-        <option>USD/MXN (OTC)</option>
-        <option>USD/INR (OTC)</option>
-        <option>BTC/USDT</option>
+        <option>USD/BRL (OTC)</option><option>USD/PKR (OTC)</option>
+        <option>USD/MXN (OTC)</option><option>USD/INR (OTC)</option><option>BTC/USDT</option>
     </select>
-
     <div class="time-container">
         <div class="time-btn" onclick="setActive(this)">1m</div>
-        <div class="time-btn active" onclick="setActive(this)">5s</div>
+        <div class="time-btn" onclick="setActive(this)">5s</div>
         <div class="time-btn" onclick="setActive(this)">15s</div>
-        <div class="time-btn" onclick="setActive(this)">30s</div>
+        <div class="time-btn active" onclick="setActive(this)">30s</div>
     </div>
-
-    <button class="gen-btn" onclick="startAnalysis()">⚡ GENERATE SIGNAL ⚡</button>
-    
+    <button class="gen-btn" onclick="startAnalysis()">GENERATE SIGNAL</button>
     <div id="progressContainer"><div id="progressBar" class="animate-line"></div></div>
     <div id="signalBox">---</div>
-
     <div class="ind-row">
-        <div class="ind-box">RSI: <span id="rsi" style="color:#fff">--</span></div>
-        <div class="ind-box">TREND: <span id="ma" style="color:#fff">--</span></div>
-        <div class="ind-box">CONF: <span id="conf" style="color:#fff">--</span></div>
+        <div class="ind-box">RSI<br><span id="rsi" style="color:#fff">--</span></div>
+        <div class="ind-box">TREND<br><span id="ma" style="color:#fff">--</span></div>
+        <div class="ind-box">CONF<br><span id="conf" style="color:#fff">--</span></div>
     </div>
 </div>
 
 <script>
-    function login() {
-        if(document.getElementById('pass').value === "bakar786") {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainBoard').style.display = 'block';
-        } else { alert("Wrong Password!"); }
-    }
-    function setActive(el) {
-        document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-    }
-    
+    function login() { if(document.getElementById('pass').value === "bakar786") { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('mainBoard').style.display = 'block'; } else { alert("Wrong Password!"); } }
+    function setActive(el) { document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); }
     async function startAnalysis() {
-        let bar = document.getElementById('progressBar');
-        document.getElementById('progressContainer').style.display = 'block';
-        
+        let prog = document.getElementById('progressContainer'); prog.style.display = 'block';
         try {
             let res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT`);
             let data = await res.json();
             let change = parseFloat(data.priceChangePercent);
-            
             setTimeout(() => {
-                document.getElementById('progressContainer').style.display = 'none';
-                
-                // نیا بہتر لاجک: مارکیٹ ٹرینڈ کے ساتھ
-                let isBuy = change > -0.2; // کچھ حد تک خرید کا رجحان
-                let box = document.getElementById('signalBox');
-                box.style.display = 'block';
-                
-                // اب SELL سگنل بھی درست آئیں گے
-                if (change < -0.5) {
-                    box.innerText = "SELL SIGNAL";
-                    box.className = "sell-style";
-                    document.getElementById('ma').innerText = "DOWN";
-                } else {
-                    box.innerText = "BUY SIGNAL";
-                    box.className = "buy-style";
-                    document.getElementById('ma').innerText = "UP";
-                }
-                
+                prog.style.display = 'none';
+                let box = document.getElementById('signalBox'); box.style.display = 'block';
+                let isBuy = change > 0;
+                box.innerText = isBuy ? "BUY SIGNAL" : "SELL SIGNAL";
+                box.className = isBuy ? "buy-style" : "sell-style";
                 document.getElementById('rsi').innerText = Math.floor(Math.random() * 40 + 30);
+                document.getElementById('ma').innerText = isBuy ? "UP" : "DOWN";
                 document.getElementById('conf').innerText = (Math.floor(Math.random() * 5) + 95) + "%";
-            }, 2500);
-        } catch(e) { 
-            alert("Network Error"); 
-            document.getElementById('progressContainer').style.display = 'none'; 
-        }
+            }, 2000);
+        } catch(e) { alert("Network Error"); prog.style.display = 'none'; }
     }
 </script>
 </body>
