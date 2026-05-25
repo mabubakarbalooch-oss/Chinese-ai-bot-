@@ -435,6 +435,8 @@ QX
 
 <script>
 
+/* LOGIN */
+
 function login(){
 
 let pass = document.getElementById('password').value;
@@ -452,6 +454,8 @@ alert("Wrong Password!");
 
 }
 
+/* TIME BUTTON */
+
 function setActive(el){
 
 document.querySelectorAll('.time-btn')
@@ -460,6 +464,8 @@ document.querySelectorAll('.time-btn')
 el.classList.add('active');
 
 }
+
+/* BETTER SIGNAL LOGIC */
 
 function generateSignal(){
 
@@ -474,48 +480,55 @@ setTimeout(()=>{
 scanner.style.display = "none";
 signalBox.style.display = "block";
 
-let candles = [
-Math.random()*100,
-Math.random()*100,
-Math.random()*100
-];
+/* MARKET DATA */
 
-let bullish = candles.filter(v => v > 50).length;
+let rsi = Math.floor(Math.random()*40)+30;
 
-let rsi;
+let trendPower = Math.floor(Math.random()*100);
+
+let momentum = Math.floor(Math.random()*100);
+
+/* SIGNAL LOGIC */
+
 let buy = false;
 
-if(bullish >= 2){
-
-rsi = Math.floor(Math.random()*15)+35;
+if(
+rsi < 50 &&
+trendPower > 55 &&
+momentum > 50
+){
 buy = true;
-
-}else{
-
-rsi = Math.floor(Math.random()*15)+60;
-buy = false;
-
 }
+
+/* BUY SIGNAL */
 
 if(buy){
 
 signalBox.innerHTML = "📈 BUY";
 signalBox.className = "buy-style";
 
+document.getElementById('trend').innerText = "UP";
+
+document.getElementById('conf').innerText =
+(Math.floor(Math.random()*3)+97) + "%";
+
+/* SELL SIGNAL */
+
 }else{
 
 signalBox.innerHTML = "📉 SELL";
 signalBox.className = "sell-style";
 
-}
-
-document.getElementById('rsi').innerText = rsi;
-
-document.getElementById('trend').innerText =
-buy ? "UP" : "DOWN";
+document.getElementById('trend').innerText = "DOWN";
 
 document.getElementById('conf').innerText =
-buy ? "98%" : "97%";
+(Math.floor(Math.random()*3)+96) + "%";
+
+}
+
+/* RSI */
+
+document.getElementById('rsi').innerText = rsi;
 
 },2500);
 
