@@ -3,240 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR LIVE AI BOT</title>
+<title>LUBNA ABUBAKAR LIVE BOT</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-:root{
---bg:#06110a;
---card:rgba(8,25,15,0.92);
---primary:#00ff78;
---primary2:#00cc66;
---green:#00ff78;
---red:#ff4d4d;
---yellow:#ffd700;
---text:#ffffff;
---muted:#7dffb2;
---border:rgba(0,255,120,0.12);
-}
-
-*{
+body{
 margin:0;
 padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:'Poppins',sans-serif;
-background:radial-gradient(circle at top right,#0d2e1c 0%,#06110a 60%);
-min-height:100vh;
+font-family:Poppins,sans-serif;
+background:#06110a;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:18px;
+min-height:100vh;
+color:white;
 overflow:hidden;
-color:var(--text);
-}
-
-.bg-glow{
-position:absolute;
-width:500px;
-height:500px;
-background:rgba(0,255,120,0.08);
-filter:blur(130px);
-top:-120px;
-right:-100px;
-animation:moveGlow 6s infinite alternate;
-}
-
-@keyframes moveGlow{
-0%{transform:translate(0,0);}
-100%{transform:translate(-80px,70px);}
 }
 
 .container{
-position:relative;
-width:100%;
-max-width:430px;
-background:var(--card);
-backdrop-filter:blur(18px);
-border:1px solid var(--border);
-border-radius:34px;
-padding:22px;
-box-shadow:
-0 0 40px rgba(0,0,0,0.7),
-0 0 30px rgba(0,255,120,0.08);
-overflow:hidden;
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:22px;
-}
-
-.profile-wrap{
-display:flex;
-align-items:center;
-gap:12px;
+width:95%;
+max-width:420px;
+background:#0b1d13;
+border:1px solid #145c34;
+border-radius:30px;
+padding:20px;
+box-shadow:0 0 30px rgba(0,255,120,0.15);
 }
 
 .logo{
-width:60px;
-height:60px;
+width:65px;
+height:65px;
 border-radius:50%;
 background:linear-gradient(135deg,#00ff78,#00cc66);
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:22px;
+font-size:24px;
 font-weight:900;
-font-family:'Orbitron',sans-serif;
 color:#04140a;
-box-shadow:0 0 20px rgba(0,255,120,0.5);
+margin:auto;
+font-family:Orbitron,sans-serif;
 }
 
-.profile-wrap h1{
-font-family:'Orbitron',sans-serif;
-font-size:15px;
-line-height:1.4;
-}
-
-.profile-wrap p{
-font-size:11px;
-color:var(--muted);
-margin-top:3px;
-}
-
-.live{
-padding:7px 12px;
-border-radius:30px;
-background:rgba(0,255,120,0.08);
-border:1px solid rgba(0,255,120,0.2);
-font-size:11px;
-color:var(--primary);
-font-weight:700;
-}
-
-#mainBoard{
-display:none;
-}
-
-.label{
-display:block;
-margin-bottom:8px;
-font-size:12px;
-color:#9fffc7;
-font-weight:600;
-}
-
-input,
-select{
-width:100%;
-padding:16px;
-border-radius:18px;
-border:1px solid #145c34;
-background:#0b1d13;
-color:#fff;
-outline:none;
-font-size:14px;
-margin-bottom:16px;
-}
-
-.time-box{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-margin-bottom:18px;
-}
-
-.time-btn{
-padding:13px;
-background:#0f2217;
-border:1px solid #145c34;
-border-radius:16px;
+h1{
 text-align:center;
-font-size:13px;
-font-weight:600;
-color:#7dffb2;
-cursor:pointer;
-transition:0.3s;
+font-size:18px;
+font-family:Orbitron,sans-serif;
+margin-top:15px;
 }
 
-.time-btn.active{
-background:linear-gradient(135deg,
-rgba(0,255,120,0.18),
-rgba(0,204,102,0.12));
-border-color:var(--primary);
-color:var(--primary);
-box-shadow:0 0 15px rgba(0,255,120,0.2);
+p{
+text-align:center;
+color:#7dffb2;
+font-size:12px;
+margin-bottom:20px;
+}
+
+input,select{
+width:100%;
+padding:15px;
+margin-bottom:15px;
+border:none;
+outline:none;
+border-radius:15px;
+background:#102117;
+color:white;
+font-size:14px;
 }
 
 .btn{
 width:100%;
-padding:18px;
+padding:17px;
 border:none;
-border-radius:22px;
-background:linear-gradient(135deg,var(--primary),var(--primary2));
-font-family:'Orbitron',sans-serif;
-font-weight:800;
+border-radius:18px;
+background:linear-gradient(135deg,#00ff78,#00cc66);
 font-size:15px;
-color:#04140a;
+font-weight:700;
+font-family:Orbitron,sans-serif;
 cursor:pointer;
-transition:0.3s;
-}
-
-.btn:hover{
-transform:scale(1.02);
+color:#04140a;
 }
 
 #scanner{
-margin-top:22px;
-height:190px;
-border-radius:26px;
-background:#0b1d13;
-border:1px solid #145c34;
-position:relative;
+margin-top:20px;
+height:180px;
+border-radius:25px;
+background:#102117;
 overflow:hidden;
+position:relative;
 display:none;
+border:1px solid #145c34;
 }
 
 .scan-line{
 position:absolute;
 width:100%;
-height:5px;
-background:linear-gradient(90deg,
-transparent,
-var(--primary),
-transparent);
-box-shadow:0 0 25px var(--primary);
-animation:scan 1.4s linear infinite;
-z-index:10;
+height:4px;
+background:#00ff78;
+box-shadow:0 0 20px #00ff78;
+animation:scan 1.5s linear infinite;
 }
 
 @keyframes scan{
-0%{top:-5%;}
-100%{top:105%;}
+0%{top:-10px;}
+100%{top:100%;}
 }
 
 .chart{
 position:absolute;
-bottom:16px;
-left:16px;
-right:16px;
+bottom:15px;
+left:10px;
+right:10px;
 display:flex;
 align-items:flex-end;
-gap:8px;
+gap:6px;
 height:100px;
 }
 
 .candle{
-width:15px;
-border-radius:6px 6px 0 0;
-animation:pulse 1s infinite alternate;
+width:14px;
+border-radius:5px 5px 0 0;
 }
 
 .green{
@@ -247,98 +135,71 @@ background:#00ff78;
 background:#ff4d4d;
 }
 
-@keyframes pulse{
-from{opacity:0.5;}
-to{opacity:1;}
-}
-
 #signalBox{
-margin-top:22px;
-padding:24px;
-border-radius:28px;
+margin-top:20px;
+padding:25px;
+border-radius:25px;
 text-align:center;
 font-size:32px;
-font-family:'Orbitron',sans-serif;
 font-weight:900;
+font-family:Orbitron,sans-serif;
 display:none;
-animation:pop 0.4s ease;
 }
 
-@keyframes pop{
-0%{
-transform:scale(0.8);
-opacity:0;
-}
-100%{
-transform:scale(1);
-opacity:1;
-}
-}
-
-.buy-style{
+.buy{
 background:rgba(0,255,120,0.08);
-border:1px solid rgba(0,255,120,0.40);
+border:1px solid rgba(0,255,120,0.4);
 color:#00ff78;
-box-shadow:0 0 35px rgba(0,255,120,0.18);
 }
 
-.sell-style{
+.sell{
 background:rgba(255,77,77,0.08);
-border:1px solid rgba(255,77,77,0.40);
+border:1px solid rgba(255,77,77,0.4);
 color:#ff4d4d;
-box-shadow:0 0 35px rgba(255,77,77,0.18);
 }
 
-.wait-style{
+.wait{
 background:rgba(255,215,0,0.08);
 border:1px solid rgba(255,215,0,0.4);
 color:#ffd700;
-box-shadow:0 0 35px rgba(255,215,0,0.18);
 }
 
 .stats{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(3,1fr);
 gap:10px;
 margin-top:18px;
 }
 
 .stat{
 background:#102117;
-border:1px solid #145c34;
-border-radius:22px;
 padding:14px;
+border-radius:18px;
 text-align:center;
+border:1px solid #145c34;
 }
 
 .stat h3{
-font-size:10px;
+font-size:11px;
 color:#7dffb2;
-margin-bottom:6px;
+margin-bottom:5px;
 }
 
 .stat p{
-font-size:16px;
-font-weight:700;
+font-size:18px;
+color:white;
+margin:0;
 }
 
-.market-status{
-margin-top:16px;
-padding:14px;
-border-radius:18px;
+.status{
+margin-top:15px;
 background:#102117;
-border:1px solid #145c34;
+padding:14px;
+border-radius:16px;
 text-align:center;
-font-size:13px;
-font-weight:700;
+font-size:12px;
 color:#7dffb2;
-}
-
-.footer{
-margin-top:18px;
-text-align:center;
-font-size:11px;
-color:#6dffad;
+border:1px solid #145c34;
 }
 
 </style>
@@ -346,95 +207,47 @@ color:#6dffad;
 
 <body>
 
-<div class="bg-glow"></div>
-
-<div id="loginScreen" class="container">
-
-<div class="header">
-
-<div class="profile-wrap">
+<div class="container">
 
 <div class="logo">QX</div>
 
-<div>
 <h1>LUBNA ABUBAKAR</h1>
-<p>LIVE AI ACCESS</p>
-</div>
 
-</div>
-
-<div class="live">● SAFE</div>
-
-</div>
-
-<label class="label">PASSWORD</label>
+<p>LIVE AI SIGNAL BOT</p>
 
 <input type="password" id="password" placeholder="Enter Password">
 
 <button class="btn" onclick="login()">
-🔓 UNLOCK SYSTEM
+UNLOCK SYSTEM
 </button>
 
-</div>
-
-<div id="mainBoard" class="container">
-
-<div class="header">
-
-<div class="profile-wrap">
-
-<div class="logo">QX</div>
-
-<div>
-<h1>LUBNA ABUBAKAR</h1>
-<p>LIVE AI SIGNAL BOT</p>
-</div>
-
-</div>
-
-<div class="live">● LIVE</div>
-
-</div>
-
-<label class="label">BROKER</label>
-
-<select>
-<option>Quotex</option>
-<option>Pocket Option</option>
-<option>Binomo</option>
-</select>
-
-<label class="label">ASSET</label>
+<div id="main" style="display:none;">
 
 <select id="pair">
+
 <option value="BTCUSDT">BTC/USDT</option>
+
 <option value="ETHUSDT">ETH/USDT</option>
+
 <option value="BNBUSDT">BNB/USDT</option>
+
 <option value="SOLUSDT">SOL/USDT</option>
+
 </select>
 
-<div class="time-box">
-
-<div class="time-btn" onclick="setActive(this)">5s</div>
-<div class="time-btn active" onclick="setActive(this)">15s</div>
-<div class="time-btn" onclick="setActive(this)">30s</div>
-<div class="time-btn" onclick="setActive(this)">1m</div>
-
-</div>
-
 <button class="btn" onclick="generateSignal()">
-⚡ GENERATE LIVE SIGNAL
+GENERATE SIGNAL
 </button>
 
 <div id="scanner">
 
 <div class="scan-line"></div>
 
-<div class="chart"></div>
+<div class="chart" id="chart"></div>
 
 </div>
 
-<div id="signalBox">WAIT</div>
+<div id="signalBox"></div>
 
 <div class="stats">
 
@@ -453,36 +266,27 @@ color:#6dffad;
 <p id="conf">--</p>
 </div>
 
-<div class="stat">
-<h3>EMA</h3>
-<p id="ema">--</p>
 </div>
 
-</div>
-
-<div class="market-status" id="marketStatus">
+<div class="status" id="status">
 WAITING MARKET...
 </div>
 
-<div class="footer">
-POWERED BY ABUBAKAR AI ENGINE
 </div>
 
 </div>
 
 <script>
 
-/* LOGIN */
-
 function login(){
 
-let pass = document.getElementById('password').value;
+let pass =
+document.getElementById('password').value;
 
 if(pass === 'bakar786'){
 
-document.getElementById('loginScreen').style.display='none';
-
-document.getElementById('mainBoard').style.display='block';
+document.getElementById('main')
+.style.display='block';
 
 }else{
 
@@ -492,34 +296,24 @@ alert('Wrong Password');
 
 }
 
-/* TIME BUTTON */
-
-function setActive(el){
-
-document.querySelectorAll('.time-btn')
-.forEach(btn => btn.classList.remove('active'));
-
-el.classList.add('active');
-
-}
-
-/* RANDOM CANDLES */
-
 function randomCandles(){
 
-let chart = document.querySelector('.chart');
+let chart =
+document.getElementById('chart');
 
 chart.innerHTML='';
 
-for(let i=0;i<11;i++){
+for(let i=0;i<12;i++){
 
-let candle = document.createElement('div');
+let candle =
+document.createElement('div');
 
-let height = Math.floor(Math.random()*75)+20;
+let height =
+Math.floor(Math.random()*80)+20;
 
 candle.classList.add('candle');
 
-if(Math.random() > 0.5){
+if(Math.random()>0.5){
 
 candle.classList.add('green');
 
@@ -529,7 +323,7 @@ candle.classList.add('red');
 
 }
 
-candle.style.height = height + 'px';
+candle.style.height=height+'px';
 
 chart.appendChild(candle);
 
@@ -537,28 +331,26 @@ chart.appendChild(candle);
 
 }
 
-/* BINANCE DATA */
-
-async function getBinanceData(){
+async function getData(){
 
 let pair =
 document.getElementById('pair').value;
 
 try{
 
-let response = await fetch(
-`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=60`
+let response =
+await fetch(
+`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=50`
 );
 
-let data = await response.json();
+let data =
+await response.json();
 
-return data.map(candle =>
-parseFloat(candle[4])
+return data.map(
+x => parseFloat(x[4])
 );
 
-}catch(error){
-
-console.log(error);
+}catch{
 
 return null;
 
@@ -566,56 +358,53 @@ return null;
 
 }
 
-/* RSI */
+function rsi(closes){
 
-function calculateRSI(closes, period = 14){
+let gains=0;
+let losses=0;
 
-let gains = 0;
-let losses = 0;
+for(let i=1;i<15;i++){
 
-for(let i = 1; i <= period; i++){
+let diff =
+closes[i]-closes[i-1];
 
-let diff = closes[i] - closes[i - 1];
+if(diff>=0){
 
-if(diff >= 0){
-
-gains += diff;
+gains+=diff;
 
 }else{
 
-losses += Math.abs(diff);
+losses+=Math.abs(diff);
 
 }
 
 }
 
-let rs = gains / (losses || 1);
+let rs =
+gains/(losses||1);
 
 return Math.floor(
-100 - (100 / (1 + rs))
+100-(100/(1+rs))
 );
 
 }
 
-/* EMA */
+function ema(data,period){
 
-function calculateEMA(data, period){
+let k = 2/(period+1);
 
-let k = 2 / (period + 1);
+let value=data[0];
 
-let ema = data[0];
+for(let i=1;i<data.length;i++){
 
-for(let i = 1; i < data.length; i++){
-
-ema = data[i] * k + ema * (1 - k);
-
-}
-
-return ema;
+value=data[i]*k+
+value*(1-k);
 
 }
 
-/* SIGNAL */
+return value;
+
+}
 
 async function generateSignal(){
 
@@ -625,23 +414,25 @@ document.getElementById('scanner');
 let signalBox =
 document.getElementById('signalBox');
 
-let marketStatus =
-document.getElementById('marketStatus');
+let status =
+document.getElementById('status');
 
 scanner.style.display='block';
 
 signalBox.style.display='none';
 
-marketStatus.innerHTML =
-'CONNECTING LIVE MARKET...';
+status.innerHTML=
+'CONNECTING BINANCE...';
 
 randomCandles();
 
-let closes = await getBinanceData();
+let closes =
+await getData();
 
 if(!closes){
 
-marketStatus.innerHTML='API ERROR';
+status.innerHTML=
+'API ERROR';
 
 return;
 
@@ -653,88 +444,65 @@ scanner.style.display='none';
 
 signalBox.style.display='block';
 
-let rsi = calculateRSI(closes);
+let myRsi =
+rsi(closes);
 
-let emaFast = calculateEMA(closes,9);
+let fast =
+ema(closes,9);
 
-let emaSlow = calculateEMA(closes,21);
+let slow =
+ema(closes,21);
 
-let confidence =
-Math.floor(Math.random()*4)+95;
+let conf =
+Math.floor(Math.random()*5)+95;
 
-/* BUY */
-
-if(rsi < 45 && emaFast > emaSlow){
+if(myRsi < 45 && fast > slow){
 
 signalBox.innerHTML='📈 BUY';
 
-signalBox.className='buy-style';
+signalBox.className='buy';
 
 document.getElementById('trend')
 .innerText='UP';
 
-marketStatus.innerHTML =
-'LIVE BULLISH TREND';
+status.innerHTML=
+'LIVE BULLISH MARKET';
 
-/* SELL */
-
-}else if(rsi > 60 && emaFast < emaSlow){
+}else if(myRsi > 60 && fast < slow){
 
 signalBox.innerHTML='📉 SELL';
 
-signalBox.className='sell-style';
+signalBox.className='sell';
 
 document.getElementById('trend')
 .innerText='DOWN';
 
-marketStatus.innerHTML =
-'LIVE BEARISH TREND';
-
-/* WAIT */
+status.innerHTML=
+'LIVE BEARISH MARKET';
 
 }else{
 
 signalBox.innerHTML='⏳ WAIT';
 
-signalBox.className='wait-style';
+signalBox.className='wait';
 
 document.getElementById('trend')
 .innerText='WAIT';
 
-marketStatus.innerHTML =
+status.innerHTML=
 'MARKET NOT CLEAR';
 
 }
 
 document.getElementById('rsi')
-.innerText = rsi;
+.innerText=myRsi;
 
 document.getElementById('conf')
-.innerText = confidence + '%';
-
-document.getElementById('ema')
-.innerText =
-Math.floor(emaFast);
-
-/* SOUND */
-
-let audio = new Audio(
-'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3'
-);
-
-audio.play();
+.innerText=conf+'%';
 
 },2000);
 
 }
-
-/* AUTO SIGNAL */
-
-setInterval(()=>{
-
-generateSignal();
-
-},15000);
 
 </script>
 
