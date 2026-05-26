@@ -234,7 +234,7 @@ async function generateSignal(){
   scanner.style.display = 'block';
   signalBox.style.display = 'none';
   timerBox.style.display = 'none';
-  marketStatus.innerHTML = 'ANALYZING MARKET...';
+  marketStatus.innerHTML = 'LOADING DATA...';
 
   randomCandles();
   let closes = await getBinanceData();
@@ -254,8 +254,6 @@ async function generateSignal(){
     let ema200 = calculateEMA(closes, 200);
     let macd = calculateMACD(closes);
     let lastPrice = closes[closes.length - 1];
-    
-    let volatility = (Math.max(...closes.slice(-10)) - Math.min(...closes.slice(-10))) / lastPrice * 100;
 
     let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
     let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
@@ -264,42 +262,44 @@ async function generateSignal(){
 
     let buyScore = 0, sellScore = 0;
 
-    if(rsi >= 30 && rsi <= 70){
-      if(rsi < 40) buyScore += 2;
-      if(rsi > 60) sellScore += 2;
+    if(rsi < 30) {
+      buyScore += 2;
+      sellScore -= 1;
+    } else if(rsi > 70) {
+      sellScore += 2;
+      buyScore -= 1;
+    } else if(rsi < 45) {
+      buyScore += 1;
+    } else if(rsi > 55) {
+      sellScore += 1;
     }
-    
-    if(trendUp) buyScore += 3;
-    if(trendDown) sellScore += 3;
-    
+
+    if(trendUp) buyScore += 2;
+    if(trendDown) sellScore += 2;
     if(macdBull) buyScore += 2;
     if(macdBear) sellScore += 2;
-    
-    if(volatility < 0.15){
-      buyScore = 0;
-      sellScore = 0;
-    }
 
-    let confidence = Math.floor((Math.max(buyScore, sellScore) / 8) * 100);
+    let totalScore = buyScore + sellScore;
+    let confidence = totalScore > 0? Math.floor((Math.max(buyScore, sellScore) / totalScore) * 100) : 50;
 
-    if(buyScore >= 6){
+    if(buyScore >= 4){
       signalBox.innerHTML = '📈 BUY';
       signalBox.className = 'buy-style';
       document.getElementById('trend').innerText = 'UP';
-      marketStatus.innerHTML = 'STRONG BULLISH SIGNAL';
+      marketStatus.innerHTML = 'BULLISH SIGNAL - 1M';
       startEntryTimer();
-    }else if(sellScore >= 6){
+    }else if(sellScore >= 4){
       signalBox.innerHTML = '📉 SELL';
       signalBox.className = 'sell-style';
       document.getElementById('trend').innerText = 'DOWN';
-      marketStatus.innerHTML = 'STRONG BEARISH SIGNAL';
+      marketStatus.innerHTML = 'BEARISH SIGNAL - 1M';
       startEntryTimer();
     }else{
       signalBox.innerHTML = '⏸ WAIT';
       signalBox.className = '';
       document.getElementById('trend').innerText = 'SIDEWAYS';
-      marketStatus.innerHTML = 'NO STRONG SIGNAL - WAIT';
-      confidence = 0;
+      marketStatus.innerHTML = 'NO CLEAR SIGNAL - 1M';
+      confidence = 50;
       timerBox.style.display = 'none';
     }
 
@@ -307,10 +307,8 @@ async function generateSignal(){
     document.getElementById('conf').innerText = confidence + '%';
     document.getElementById('macd').innerText = macd.hist > 0? 'BULL' : 'BEAR';
 
-    if(buyScore >= 6 || sellScore >= 6){
-      let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-      audio.play();
-    }
+    let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+    audio.play();
 
   },800);
 }
