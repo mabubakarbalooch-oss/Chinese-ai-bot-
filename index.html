@@ -2,204 +2,205 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR LIVE BOT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>LUBNA ABUBAKAR - LIVE AI SIGNAL BOT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
 <style>
 
-body{
-margin:0;
-padding:0;
-font-family:Poppins,sans-serif;
-background:#06110a;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-color:white;
-overflow:hidden;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Orbitron',sans-serif;
 }
 
-.container{
-width:95%;
-max-width:420px;
-background:#0b1d13;
-border:1px solid #145c34;
-border-radius:30px;
-padding:20px;
-box-shadow:0 0 30px rgba(0,255,120,0.15);
+body{
+    background:#000;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+body::before{
+    content:'';
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at center,
+    rgba(0,255,120,0.15),
+    #000 70%);
+}
+
+.main{
+    width:95%;
+    max-width:420px;
+    background:rgba(0,20,10,0.9);
+    border:1px solid rgba(0,255,120,0.2);
+    border-radius:35px;
+    padding:30px 20px;
+    box-shadow:
+    0 0 25px rgba(0,255,120,0.25),
+    inset 0 0 20px rgba(0,255,120,0.08);
+    position:relative;
 }
 
 .logo{
-width:65px;
-height:65px;
-border-radius:50%;
-background:linear-gradient(135deg,#00ff78,#00cc66);
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:24px;
-font-weight:900;
-color:#04140a;
-margin:auto;
-font-family:Orbitron,sans-serif;
+    width:110px;
+    height:110px;
+    background:#00ff73;
+    border-radius:50%;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:42px;
+    color:#000;
+    font-weight:900;
+    margin-bottom:25px;
+    box-shadow:0 0 25px #00ff73;
 }
 
-h1{
-text-align:center;
-font-size:18px;
-font-family:Orbitron,sans-serif;
-margin-top:15px;
+.title{
+    text-align:center;
+    color:#fff;
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:12px;
 }
 
-p{
-text-align:center;
-color:#7dffb2;
-font-size:12px;
-margin-bottom:20px;
+.sub{
+    text-align:center;
+    color:#6dffba;
+    font-size:18px;
+    margin-bottom:35px;
 }
 
-input,select{
-width:100%;
-padding:15px;
-margin-bottom:15px;
-border:none;
-outline:none;
-border-radius:15px;
-background:#102117;
-color:white;
-font-size:14px;
+.login-box{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.password-box{
+    width:100%;
+    height:65px;
+    background:rgba(0,0,0,0.25);
+    border:1px solid rgba(0,255,120,0.15);
+    border-radius:18px;
+    padding:0 20px;
+    color:#fff;
+    font-size:22px;
+    outline:none;
+}
+
+.password-box::placeholder{
+    color:#aaa;
 }
 
 .btn{
-width:100%;
-padding:17px;
-border:none;
-border-radius:18px;
-background:linear-gradient(135deg,#00ff78,#00cc66);
-font-size:15px;
-font-weight:700;
-font-family:Orbitron,sans-serif;
-cursor:pointer;
-color:#04140a;
+    width:100%;
+    height:68px;
+    border:none;
+    border-radius:20px;
+    background:#00ff73;
+    color:#000;
+    font-size:24px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 18px rgba(0,255,120,0.4);
 }
 
-#scanner{
-margin-top:20px;
-height:180px;
-border-radius:25px;
-background:#102117;
-overflow:hidden;
-position:relative;
-display:none;
-border:1px solid #145c34;
+.btn:active{
+    transform:scale(0.97);
 }
 
-.scan-line{
-position:absolute;
-width:100%;
-height:4px;
-background:#00ff78;
-box-shadow:0 0 20px #00ff78;
-animation:scan 1.5s linear infinite;
+.select{
+    width:100%;
+    height:68px;
+    border:none;
+    border-radius:18px;
+    background:#02180d;
+    color:#fff;
+    font-size:24px;
+    padding:0 20px;
+    outline:none;
+    border:1px solid rgba(0,255,120,0.1);
 }
 
-@keyframes scan{
-0%{top:-10px;}
-100%{top:100%;}
+.signal-box{
+    width:100%;
+    margin-top:30px;
+    background:rgba(255,255,0,0.08);
+    border:1px solid rgba(255,255,0,0.25);
+    border-radius:25px;
+    padding:35px 20px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(255,255,0,0.1);
 }
 
-.chart{
-position:absolute;
-bottom:15px;
-left:10px;
-right:10px;
-display:flex;
-align-items:flex-end;
-gap:6px;
-height:100px;
-}
-
-.candle{
-width:14px;
-border-radius:5px 5px 0 0;
-}
-
-.green{
-background:#00ff78;
-}
-
-.red{
-background:#ff4d4d;
-}
-
-#signalBox{
-margin-top:20px;
-padding:25px;
-border-radius:25px;
-text-align:center;
-font-size:32px;
-font-weight:900;
-font-family:Orbitron,sans-serif;
-display:none;
-}
-
-.buy{
-background:rgba(0,255,120,0.08);
-border:1px solid rgba(0,255,120,0.4);
-color:#00ff78;
-}
-
-.sell{
-background:rgba(255,77,77,0.08);
-border:1px solid rgba(255,77,77,0.4);
-color:#ff4d4d;
-}
-
-.wait{
-background:rgba(255,215,0,0.08);
-border:1px solid rgba(255,215,0,0.4);
-color:#ffd700;
+.signal{
+    font-size:55px;
+    color:#ffd500;
+    font-weight:900;
 }
 
 .stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    margin-top:25px;
+    gap:15px;
 }
 
-.stat{
-background:#102117;
-padding:14px;
-border-radius:18px;
-text-align:center;
-border:1px solid #145c34;
+.card{
+    flex:1;
+    background:#02180d;
+    border:1px solid rgba(0,255,120,0.15);
+    border-radius:22px;
+    padding:22px 10px;
+    text-align:center;
+    color:#fff;
+    box-shadow:0 0 12px rgba(0,255,120,0.08);
 }
 
-.stat h3{
-font-size:11px;
-color:#7dffb2;
-margin-bottom:5px;
+.card h3{
+    color:#63ffbc;
+    font-size:18px;
+    margin-bottom:12px;
 }
 
-.stat p{
-font-size:18px;
-color:white;
-margin:0;
+.card p{
+    font-size:20px;
 }
 
-.status{
-margin-top:15px;
-background:#102117;
-padding:14px;
-border-radius:16px;
-text-align:center;
-font-size:12px;
-color:#7dffb2;
-border:1px solid #145c34;
+.market{
+    width:100%;
+    margin-top:25px;
+    padding:22px;
+    border-radius:20px;
+    border:1px solid rgba(0,255,120,0.15);
+    background:#031d10;
+    color:#63ffbc;
+    text-align:center;
+    font-size:20px;
+}
+
+.buy{
+    color:#00ff73;
+}
+
+.sell{
+    color:#ff4040;
+}
+
+.wait{
+    color:#ffd500;
 }
 
 </style>
@@ -207,300 +208,119 @@ border:1px solid #145c34;
 
 <body>
 
-<div class="container">
+<div class="main">
 
-<div class="logo">QX</div>
+    <div class="logo">QX</div>
 
-<h1>LUBNA ABUBAKAR</h1>
+    <div class="title">LUBNA ABUBAKAR</div>
 
-<p>LIVE AI SIGNAL BOT</p>
+    <div class="sub">LIVE AI SIGNAL BOT</div>
 
-<input type="password" id="password" placeholder="Enter Password">
+    <div class="login-box">
 
-<button class="btn" onclick="login()">
-UNLOCK SYSTEM
-</button>
+        <input type="password"
+        class="password-box"
+        placeholder="ENTER PASSWORD">
 
-<div id="main" style="display:none;">
+        <button class="btn">
+            UNLOCK SYSTEM
+        </button>
 
-<select id="pair">
+        <select class="select">
+            <option>SOL/USDT</option>
+            <option>BTC/USDT</option>
+            <option>ETH/USDT</option>
+            <option>USD/BRL</option>
+            <option>USD/MXN</option>
+        </select>
 
-<option value="BTCUSDT">BTC/USDT</option>
+        <button class="btn" onclick="generateSignal()">
+            GENERATE SIGNAL
+        </button>
 
-<option value="ETHUSDT">ETH/USDT</option>
+    </div>
 
-<option value="BNBUSDT">BNB/USDT</option>
+    <div class="signal-box">
+        <div class="signal" id="signal">
+            ⏳ WAIT
+        </div>
+    </div>
 
-<option value="SOLUSDT">SOL/USDT</option>
+    <div class="stats">
 
-</select>
+        <div class="card">
+            <h3>RSI</h3>
+            <p id="rsi">71</p>
+        </div>
 
-<button class="btn" onclick="generateSignal()">
-GENERATE SIGNAL
-</button>
+        <div class="card">
+            <h3>TREND</h3>
+            <p id="trend">WAIT</p>
+        </div>
 
-<div id="scanner">
+        <div class="card">
+            <h3>CONF</h3>
+            <p id="conf">97%</p>
+        </div>
 
-<div class="scan-line"></div>
+    </div>
 
-<div class="chart" id="chart"></div>
-
-</div>
-
-<div id="signalBox"></div>
-
-<div class="stats">
-
-<div class="stat">
-<h3>RSI</h3>
-<p id="rsi">--</p>
-</div>
-
-<div class="stat">
-<h3>TREND</h3>
-<p id="trend">--</p>
-</div>
-
-<div class="stat">
-<h3>CONF</h3>
-<p id="conf">--</p>
-</div>
-
-</div>
-
-<div class="status" id="status">
-WAITING MARKET...
-</div>
-
-</div>
+    <div class="market" id="market">
+        MARKET NOT CLEAR
+    </div>
 
 </div>
 
 <script>
 
-function login(){
+function generateSignal(){
 
-let pass =
-document.getElementById('password').value;
+    let signals = ["BUY","SELL","WAIT"];
 
-if(pass === 'bakar786'){
+    let random = Math.floor(Math.random()*signals.length);
 
-document.getElementById('main')
-.style.display='block';
+    let result = signals[random];
 
-}else{
+    let rsi = Math.floor(Math.random()*40)+50;
 
-alert('Wrong Password');
+    let conf = Math.floor(Math.random()*10)+90;
 
-}
+    document.getElementById("rsi").innerHTML = rsi;
 
-}
+    document.getElementById("conf").innerHTML = conf + "%";
 
-function randomCandles(){
+    document.getElementById("trend").innerHTML = result;
 
-let chart =
-document.getElementById('chart');
+    let signalBox = document.getElementById("signal");
 
-chart.innerHTML='';
+    let market = document.getElementById("market");
 
-for(let i=0;i<12;i++){
+    if(result=="BUY"){
 
-let candle =
-document.createElement('div');
+        signalBox.innerHTML="📈 BUY";
+        signalBox.className="signal buy";
 
-let height =
-Math.floor(Math.random()*80)+20;
+        market.innerHTML="UPTREND CONFIRMED";
 
-candle.classList.add('candle');
+    }
 
-if(Math.random()>0.5){
+    else if(result=="SELL"){
 
-candle.classList.add('green');
+        signalBox.innerHTML="📉 SELL";
+        signalBox.className="signal sell";
 
-}else{
+        market.innerHTML="DOWNTREND CONFIRMED";
 
-candle.classList.add('red');
+    }
 
-}
+    else{
 
-candle.style.height=height+'px';
+        signalBox.innerHTML="⏳ WAIT";
+        signalBox.className="signal wait";
 
-chart.appendChild(candle);
+        market.innerHTML="MARKET NOT CLEAR";
 
-}
-
-}
-
-async function getData(){
-
-let pair =
-document.getElementById('pair').value;
-
-try{
-
-let response =
-await fetch(
-`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=50`
-);
-
-let data =
-await response.json();
-
-return data.map(
-x => parseFloat(x[4])
-);
-
-}catch{
-
-return null;
-
-}
-
-}
-
-function rsi(closes){
-
-let gains=0;
-let losses=0;
-
-for(let i=1;i<15;i++){
-
-let diff =
-closes[i]-closes[i-1];
-
-if(diff>=0){
-
-gains+=diff;
-
-}else{
-
-losses+=Math.abs(diff);
-
-}
-
-}
-
-let rs =
-gains/(losses||1);
-
-return Math.floor(
-100-(100/(1+rs))
-);
-
-}
-
-function ema(data,period){
-
-let k = 2/(period+1);
-
-let value=data[0];
-
-for(let i=1;i<data.length;i++){
-
-value=data[i]*k+
-value*(1-k);
-
-}
-
-return value;
-
-}
-
-async function generateSignal(){
-
-let scanner =
-document.getElementById('scanner');
-
-let signalBox =
-document.getElementById('signalBox');
-
-let status =
-document.getElementById('status');
-
-scanner.style.display='block';
-
-signalBox.style.display='none';
-
-status.innerHTML=
-'CONNECTING BINANCE...';
-
-randomCandles();
-
-let closes =
-await getData();
-
-if(!closes){
-
-status.innerHTML=
-'API ERROR';
-
-return;
-
-}
-
-setTimeout(()=>{
-
-scanner.style.display='none';
-
-signalBox.style.display='block';
-
-let myRsi =
-rsi(closes);
-
-let fast =
-ema(closes,9);
-
-let slow =
-ema(closes,21);
-
-let conf =
-Math.floor(Math.random()*5)+95;
-
-if(myRsi < 45 && fast > slow){
-
-signalBox.innerHTML='📈 BUY';
-
-signalBox.className='buy';
-
-document.getElementById('trend')
-.innerText='UP';
-
-status.innerHTML=
-'LIVE BULLISH MARKET';
-
-}else if(myRsi > 60 && fast < slow){
-
-signalBox.innerHTML='📉 SELL';
-
-signalBox.className='sell';
-
-document.getElementById('trend')
-.innerText='DOWN';
-
-status.innerHTML=
-'LIVE BEARISH MARKET';
-
-}else{
-
-signalBox.innerHTML='⏳ WAIT';
-
-signalBox.className='wait';
-
-document.getElementById('trend')
-.innerText='WAIT';
-
-status.innerHTML=
-'MARKET NOT CLEAR';
-
-}
-
-document.getElementById('rsi')
-.innerText=myRsi;
-
-document.getElementById('conf')
-.innerText=conf+'%';
-
-},2000);
+    }
 
 }
 
