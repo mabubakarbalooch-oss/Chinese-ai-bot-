@@ -21,9 +21,8 @@ body{font-family:'Poppins',sans-serif;background:radial-gradient(circle at top r
 #mainBoard{display:none;}
 .label{display:block;margin-bottom:8px;font-size:12px;color:#9fffc7;font-weight:600;}
 input,select{width:100%;padding:16px;border-radius:18px;border:1px solid #145c34;background:#0b1d13;color:#fff;outline:none;font-size:14px;margin-bottom:16px;}
-.time-box{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
-.time-btn{padding:13px;background:#0f2217;border:1px solid #145c34;border-radius:16px;text-align:center;font-size:13px;font-weight:600;color:#7dffb2;cursor:pointer;transition:0.3s;}
-.time-btn.active{background:linear-gradient(135deg,rgba(0,255,120,0.18),rgba(0,204,102,0.12));border-color:var(--primary);color:var(--primary);box-shadow:0 0 15px rgba(0,255,120,0.2);}
+.time-box{display:flex;justify-content:center;margin-bottom:18px;}
+.time-badge{padding:13px 30px;background:linear-gradient(135deg,rgba(0,255,120,0.18),rgba(0,204,102,0.12));border:1px solid var(--primary);border-radius:16px;text-align:center;font-size:14px;font-weight:700;color:var(--primary);box-shadow:0 0 15px rgba(0,255,120,0.2);}
 .btn{width:100%;padding:18px;border:none;border-radius:22px;background:linear-gradient(135deg,var(--primary),var(--primary2));font-family:'Orbitron',sans-serif;font-weight:800;font-size:15px;color:#04140a;cursor:pointer;transition:0.3s;}
 .btn:hover{transform:scale(1.02);}
 #scanner{margin-top:22px;height:190px;border-radius:26px;background:#0b1d13;border:1px solid #145c34;position:relative;overflow:hidden;display:none;}
@@ -43,6 +42,7 @@ input,select{width:100%;padding:16px;border-radius:18px;border:1px solid #145c34
 .stat h3{font-size:10px;color:#7dffb2;margin-bottom:6px;}
 .stat p{font-size:16px;font-weight:700;}
 .market-status{margin-top:16px;padding:14px;border-radius:18px;background:#102117;border:1px solid #145c34;text-align:center;font-size:13px;font-weight:700;color:#7dffb2;}
+.entry-timer{display:none;margin-top:12px;padding:12px;border-radius:18px;background:rgba(0,255,120,0.08);border:1px solid rgba(0,255,120,0.30);text-align:center;font-size:14px;font-weight:700;color:#00ff78;}
 .footer{margin-top:18px;text-align:center;font-size:11px;color:#6dffad;}
 </style>
 </head>
@@ -72,28 +72,33 @@ input,select{width:100%;padding:16px;border-radius:18px;border:1px solid #145c34
 </div>
 
 <label class="label">BROKER</label>
-<select><option>Quotex</option><option>Pocket Option</option></select>
+<select><option>Pocket Option</option></select>
 
-<label class="label">ASSET</label>
+<label class="label">CURRENCY PAIR - OTC</label>
 <select id="assetSelect" onchange="changeAsset()">
-<option value="BTCUSDT">BTC/USDT</option>
-<option value="ETHUSDT">ETH/USDT</option>
-<option value="BNBUSDT">BNB/USDT</option>
-<option value="SOLUSDT">SOL/USDT</option>
-<option value="XRPUSDT">XRP/USDT</option>
+<option value="USDBRL">USDBRL</option>
+<option value="USDNGN">USDNGN</option>
+<option value="USDIDR">USDIDR</option>
+<option value="USDTRY">USDTRY</option>
+<option value="USDARS">USDARS</option>
+<option value="USDZAR">USDZAR</option>
+<option value="USDMXN">USDMXN</option>
+<option value="EURUSD">EURUSD</option>
+<option value="GBPUSD">GBPUSD</option>
+<option value="USDJPY">USDJPY</option>
+<option value="AUDUSD">AUDUSD</option>
+<option value="EURGBP">EURGBP</option>
 </select>
 
 <div class="time-box">
-<div class="time-btn" onclick="setActive(this)">5s</div>
-<div class="time-btn active" onclick="setActive(this)">15s</div>
-<div class="time-btn" onclick="setActive(this)">30s</div>
-<div class="time-btn" onclick="setActive(this)">1m</div>
+<div class="time-badge">TIMEFRAME: 1 MINUTE</div>
 </div>
 
 <button class="btn" onclick="generateSignal()">⚡ GENERATE AI SIGNAL</button>
 
 <div id="scanner"><div class="scan-line"></div><div class="chart"></div></div>
 <div id="signalBox">BUY</div>
+<div class="entry-timer" id="entryTimer">NEXT ENTRY IN: 00s</div>
 
 <div class="stats">
 <div class="stat"><h3>RSI</h3><p id="rsi">--</p></div>
@@ -107,21 +112,17 @@ input,select{width:100%;padding:16px;border-radius:18px;border:1px solid #145c34
 </div>
 
 <script>
-let pair = 'BTCUSDT';
+let pair = 'USDBRL';
 let cachedData = null;
 let lastFetchTime = 0;
+let timerInterval = null;
 
 function login(){
   let pass = document.getElementById('password').value;
-  if(pass === 'bakar786'){
+  if(pass === 'Lubna786'){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainBoard').style.display = 'block';
   }else{alert('Wrong Password!');}
-}
-
-function setActive(el){
-  document.querySelectorAll('.time-btn').forEach(btn => btn.classList.remove('active'));
-  el.classList.add('active');
 }
 
 function changeAsset(){
@@ -148,7 +149,8 @@ async function getBinanceData(){
     return cachedData;
   }
   try{
-    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=80`);
+    let symbol = pair.replace('USD', 'USDT');
+    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=80`);
     let data = await response.json();
     cachedData = data.map(candle => parseFloat(candle[4]));
     lastFetchTime = now;
@@ -190,20 +192,45 @@ function calculateMACD(closes){
   return {macd: macdLine[macdLine.length-1], signal: signalLine[signalLine.length-1], hist: histogram[histogram.length-1]};
 }
 
+function startEntryTimer(){
+  clearInterval(timerInterval);
+  let timerBox = document.getElementById('entryTimer');
+  timerBox.style.display = 'block';
+  
+  function updateTimer(){
+    let now = new Date();
+    let seconds = now.getSeconds();
+    let secondsLeft = 60 - seconds;
+    if(secondsLeft === 60) secondsLeft = 0;
+    
+    timerBox.innerHTML = `NEXT ENTRY IN: ${secondsLeft < 10 ? '0' + secondsLeft : secondsLeft}s`;
+    
+    if(secondsLeft === 0){
+      timerBox.innerHTML = 'ENTRY NOW!';
+      timerBox.style.background = 'rgba(0,255,120,0.15)';
+    }
+  }
+  
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
 async function generateSignal(){
   let scanner = document.getElementById('scanner');
   let signalBox = document.getElementById('signalBox');
   let marketStatus = document.getElementById('marketStatus');
+  let timerBox = document.getElementById('entryTimer');
 
   scanner.style.display = 'block';
   signalBox.style.display = 'none';
+  timerBox.style.display = 'none';
   marketStatus.innerHTML = 'LOADING DATA...';
 
   randomCandles();
   let closes = await getBinanceData();
 
   if(!closes || closes.length < 50){
-    marketStatus.innerHTML = 'API ERROR';
+    marketStatus.innerHTML = 'API ERROR - TRY ANOTHER PAIR';
     scanner.style.display = 'none';
     return;
   }
@@ -225,7 +252,6 @@ async function generateSignal(){
 
     let buyScore = 0, sellScore = 0;
 
-    // فکسڈ RSI لاجک
     if(rsi < 30) {
       buyScore += 2;
       sellScore -= 1;
@@ -250,18 +276,21 @@ async function generateSignal(){
       signalBox.innerHTML = '📈 BUY';
       signalBox.className = 'buy-style';
       document.getElementById('trend').innerText = 'UP';
-      marketStatus.innerHTML = 'BULLISH SIGNAL';
+      marketStatus.innerHTML = 'BULLISH SIGNAL - 1M';
+      startEntryTimer();
     }else if(sellScore >= 4){
       signalBox.innerHTML = '📉 SELL';
       signalBox.className = 'sell-style';
       document.getElementById('trend').innerText = 'DOWN';
-      marketStatus.innerHTML = 'BEARISH SIGNAL';
+      marketStatus.innerHTML = 'BEARISH SIGNAL - 1M';
+      startEntryTimer();
     }else{
       signalBox.innerHTML = '⏸ WAIT';
       signalBox.className = '';
       document.getElementById('trend').innerText = 'SIDEWAYS';
-      marketStatus.innerHTML = 'NO CLEAR SIGNAL';
+      marketStatus.innerHTML = 'NO CLEAR SIGNAL - 1M';
       confidence = 50;
+      timerBox.style.display = 'none';
     }
 
     document.getElementById('rsi').innerText = Math.floor(rsi);
