@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--bg:#0a0a0f;--card:#1a1a24;--primary:#00ff78;--red:#ff4d4d;--text:#ffffff;--muted:#8a8a9e;--border:#2a2a35;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -31,6 +32,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 #scanner{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);position:relative;overflow:hidden;display:none;margin-bottom:15px;}
 .scan-line{position:absolute;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--primary),transparent);box-shadow:0 0 20px var(--primary);animation:scan 1.5s linear infinite;}
 @keyframes scan{0%{top:0%;}100%{top:100%;}}
+#chartContainer{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);margin-bottom:15px;padding:10px;display:none;}
 #signalBox{padding:20px;border-radius:15px;text-align:center;font-size:28px;font-weight:900;font-family:'Orbitron';display:none;margin-bottom:15px;}
 .buy-style{background:rgba(0,255,120,0.1);border:1px solid rgba(0,255,120,0.3);color:var(--primary);}
 .sell-style{background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);color:var(--red);}
@@ -73,7 +75,6 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 
 <label class="label">SELECT PAIR</label>
 <select id="assetSelect" onchange="changeAsset()">
-<option value="EURNZD">EUR/NZD</option>
 <option value="EURUSD">EUR/USD</option>
 <option value="GBPUSD">GBP/USD</option>
 <option value="USDJPY">USD/JPY</option>
@@ -84,7 +85,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 <div class="pair-card">
 <div class="pair-header">
 <div class="pair-name">
-<span id="pairName">EUR/NZD</span>
+<span id="pairName">EUR/USD</span>
 </div>
 <div class="toggle active" id="toggleBtn" onclick="toggleSignal()"></div>
 </div>
@@ -98,6 +99,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 <button class="btn" onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
 
 <div id="scanner"><div class="scan-line"></div></div>
+<div id="chartContainer"><canvas id="candleChart"></canvas></div>
 <div id="signalBox">BUY</div>
 <div class="error-msg" id="errorMsg"></div>
 
@@ -110,10 +112,11 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 </div>
 
 <script>
-let pair = 'EURNZD';
+let pair = 'EURUSD';
 let signalActive = true;
 let cachedData = null;
 let lastFetchTime = 0;
+let chart = null;
 
 function login(){
   let pass = document.getElementById('password').value;
@@ -129,6 +132,7 @@ function changeAsset(){
   document.getElementById('pairName').innerText = name;
   document.getElementById('pairIdNum').innerText = Math.floor(Math.random()*99999);
   cachedData = null;
+  document.getElementById('chartContainer').style.display = 'none';
 }
 
 function toggleSignal(){
@@ -152,7 +156,12 @@ async function getBinanceData(){
     let data = await response.json();
     if(!data || data.length < 50) throw new Error('Not enough data');
 
-    cachedData = data.map(candle => parseFloat(candle[4]));
+    cachedData = data.map(candle => ({
+      open: parseFloat(candle[1]),
+      high: parseFloat(candle[2]),
+      low: parseFloat(candle[3]),
+      close: parseFloat(candle[4])
+    }));
     lastFetchTime = now;
     document.getElementById('errorMsg').style.display = 'none';
     return cachedData;
@@ -163,6 +172,47 @@ async function getBinanceData(){
     document.getElementById('errorMsg').style.display = 'block';
     return null;
   }
+}
+
+function drawChart(candles){
+  const ctx = document.getElementById('candleChart').getContext('2d');
+
+  if(chart) chart.destroy();
+
+  const labels = candles.map((_, i) => i);
+  const closeData = candles.map(c => c.close);
+
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: pair,
+        data: closeData,
+        borderColor: '#00ff78',
+        backgroundColor: 'rgba(0,255,120,0.1)',
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.1,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {display: false}
+      },
+      scales: {
+        x: {display: false},
+        y: {
+          display: true,
+          ticks: {color: '#8a8a9e', font: {size: 10}},
+          grid: {color: '#2a2a35'}
+        }
+      }
+    }
+  });
 }
 
 function calculateRSI(closes, period = 14){
@@ -208,24 +258,29 @@ async function generateSignal(){
   }
 
   document.getElementById('scanner').style.display = 'block';
+  document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
 
-  let closes = await getBinanceData();
+  let candles = await getBinanceData();
 
-  if(!closes){
+  if(!candles){
     document.getElementById('scanner').style.display = 'none';
     return;
   }
 
   setTimeout(()=>{
     document.getElementById('scanner').style.display = 'none';
+    document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('signalBox').style.display = 'block';
 
+    let closes = candles.map(c => c.close);
     let rsi = calculateRSI(closes);
     let ema50 = calculateEMA(closes, 50);
     let ema200 = calculateEMA(closes, 200);
     let macd = calculateMACD(closes);
     let lastPrice = closes[closes.length - 1];
+
+    drawChart(candles);
 
     let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
     let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
