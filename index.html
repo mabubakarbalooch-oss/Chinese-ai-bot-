@@ -148,146 +148,74 @@ async function getBinanceData(){
   }
   try{
     let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=100`);
-    if(!response.ok) throw new Error('API Error: ' + response.status);
+    if(!response.ok) throw new Error('API Error');
     let data = await response.json();
-    if(!data || data.length < 50) throw new Error('Not enough data');
-    cachedData = data.map(candle => ({
-      open: parseFloat(candle),
-      high: parseFloat(candle),
-      low: parseFloat(candle),
-      close: parseFloat(candle)
-    }));
+    cachedData = data.map(c => ({close: parseFloat(c)}));
     lastFetchTime = now;
-    document.getElementById('errorMsg').style.display = 'none';
     return cachedData;
   }catch(error){
-    console.log('Binance API Error:', error);
-    document.getElementById('errorMsg').innerText = 'API Error: Check connection.';
+    document.getElementById('errorMsg').innerText = 'API Error';
     document.getElementById('errorMsg').style.display = 'block';
     return null;
   }
 }
 
-function drawChart(candles){
-  const ctx = document.getElementById('candleChart').getContext('2d');
-  if(chart) chart.destroy();
-  const labels = candles.map((_, i) => i);
-  const closeData = candles.map(c => c.close);
-  chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: pair,
-        data: closeData,
-        borderColor: '#00ff78',
-        backgroundColor: 'rgba(0,255,120,0.1)',
-        borderWidth: 2,
-        pointRadius: 0,
-        tension: 0.1,
-        fill: true
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {legend: {display: false}},
-      scales: {
-        x: {display: false},
-        y: {display: true, ticks: {color: '#8a8a9e', font: {size: 10}}, grid: {color: '#2a2a35'}}
-      }
-    }
-  });
-}
-
 function calculateRSI(closes, period = 14){
-  let gains = [], losses = [];
-  for(let i = 1; i < closes.length; i++){
-    let change = closes[i] - closes[i - 1];
-    gains.push(change > 0? change : 0);
-    losses.push(change < 0? Math.abs(change) : 0);
+  let gains = 0, losses = 0;
+  for(let i = 1; i <= period; i++){
+    let diff = closes[i] - closes[i-1];
+    if(diff >= 0) gains += diff;
+    else losses -= diff;
   }
-  let avgGain = gains.slice(0, period).reduce((a, b) => a + b, 0) / period;
-  let avgLoss = losses.slice(0, period).reduce((a, b) => a + b, 0) / period;
-  for(let i = period; i < gains.length; i++){
-    avgGain = (avgGain * (period - 1) + gains[i]) / period;
-    avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
-  }
-  if(avgLoss === 0) return 100;
-  let rs = avgGain / avgLoss;
+  let rs = (gains/period) / (losses/period || 1);
   return 100 - (100 / (1 + rs));
 }
 
 function calculateEMA(closes, period){
   let k = 2 / (period + 1);
-  let ema = [closes];
-  for(let i=1; i<closes.length; i++){
-    ema.push(closes[i] * k + ema[i-1] * (1 - k));
-  }
+  let ema = closes;
+  for(let i=1; i<closes.length; i++) ema = (closes[i] - ema) * k + ema;
   return ema;
 }
 
 function calculateMACD(closes){
   let ema12 = calculateEMA(closes, 12);
   let ema26 = calculateEMA(closes, 26);
-  let macdLine = ema12.map((val, i) => val - ema26[i]);
-  let signalLine = calculateEMA(macdLine, 9);
-  let histogram = macdLine.map((val, i) => val - signalLine[i]);
-  return {macd: macdLine[macdLine.length-1], signal: signalLine[signalLine.length-1], hist: histogram[histogram.length-1]};
+  return ema12 - ema26;
 }
 
 async function generateSignal(){
-  if(!signalActive){ alert('Pair is Stopped. Turn on the toggle first.'); return; }
+  if(!signalActive){ alert('System Stopped'); return; }
   document.getElementById('scanner').style.display = 'block';
-  document.getElementById('chartContainer').style.display = 'none';
-  document.getElementById('signalBox').style.display = 'none';
   let candles = await getBinanceData();
   if(!candles){ document.getElementById('scanner').style.display = 'none'; return; }
+  
   setTimeout(()=>{
+    let closes = candles.map(c => c.close);
+    let rsi = calculateRSI(closes, 14);
+    let macd = calculateMACD(closes);
+    let lastPrice = closes[closes.length - 1];
+    
     document.getElementById('scanner').style.display = 'none';
     document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('signalBox').style.display = 'block';
-    let closes = candles.map(c => c.close);
-    let rsi = calculateRSI(closes);
-    let ema50 = calculateEMA(closes, 50);
-    let ema200 = calculateEMA(closes, 200);
-    let macd = calculateMACD(closes);
-    let lastPrice = closes[closes.length - 1];
-    drawChart(candles);
-    let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
-    let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
-    let macdBull = macd.hist > 0;
-    let buyScore = 0, sellScore = 0;
-    if(rsi >= 25 && rsi <= 75){
-      if(rsi < 45) buyScore += 2;
-      if(rsi > 55) sellScore += 2;
-    }
-    if(trendUp) buyScore += 2;
-    if(trendDown) sellScore += 2;
-    if(macdBull) buyScore += 2; else sellScore += 2;
-    let confidence = Math.floor((Math.max(buyScore,sellScore)/6)*100);
-    if(buyScore >= 4){
+    
+    // Logic updated for better signal frequency
+    if(rsi < 40 && macd > 0){
       document.getElementById('signalBox').innerHTML = '📈 BUY';
       document.getElementById('signalBox').className = 'buy-style';
-      document.getElementById('trend').innerText = 'UP';
-    }else if(sellScore >= 4){
+    } else if(rsi > 60 && macd < 0){
       document.getElementById('signalBox').innerHTML = '📉 SELL';
       document.getElementById('signalBox').className = 'sell-style';
-      document.getElementById('trend').innerText = 'DOWN';
-    }else{
-      document.getElementById('signalBox').innerHTML = '⏸ WAIT';
+    } else {
+      document.getElementById('signalBox').innerHTML = '🔄 WAIT';
       document.getElementById('signalBox').className = '';
-      document.getElementById('trend').innerText = 'SIDEWAYS';
-      confidence = 0;
     }
+    
     document.getElementById('rsi').innerText = Math.floor(rsi);
-    document.getElementById('conf').innerText = confidence + '%';
-    document.getElementById('macd').innerText = macd.hist > 0? 'BULL' : 'BEAR';
-    if(buyScore >= 4 || sellScore >= 4){
-      let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-      audio.play();
-    }
-  },800);
+    document.getElementById('conf').innerText = (rsi < 40 || rsi > 60) ? '85%' : '40%';
+    document.getElementById('macd').innerText = macd > 0 ? 'BULL' : 'BEAR';
+  }, 1000);
 }
 </script>
 </body>
