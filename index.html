@@ -75,17 +75,17 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 
 <label class="label">SELECT PAIR</label>
 <select id="assetSelect" onchange="changeAsset()">
-<option value="EURUSD">EUR/USD</option>
-<option value="GBPUSD">GBP/USD</option>
-<option value="USDJPY">USD/JPY</option>
-<option value="AUDUSD">AUD/USD</option>
-<option value="USDCAD">USD/CAD</option>
+<option value="BTCUSDT">BTC/USDT</option>
+<option value="ETHUSDT">ETH/USDT</option>
+<option value="SOLUSDT">SOL/USDT</option>
+<option value="BNBUSDT">BNB/USDT</option>
+<option value="XRPUSDT">XRP/USDT</option>
 </select>
 
 <div class="pair-card">
 <div class="pair-header">
 <div class="pair-name">
-<span id="pairName">EUR/USD</span>
+<span id="pairName">BTC/USDT</span>
 </div>
 <div class="toggle active" id="toggleBtn" onclick="toggleSignal()"></div>
 </div>
@@ -112,7 +112,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 </div>
 
 <script>
-let pair = 'EURUSD';
+let pair = 'BTCUSDT';
 let signalActive = true;
 let cachedData = null;
 let lastFetchTime = 0;
@@ -146,29 +146,23 @@ async function getBinanceData(){
   if(cachedData && (now - lastFetchTime) < 10000){
     return cachedData;
   }
-
   try{
-    let symbol = pair + 'T';
-    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=100`);
-
+    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=100`);
     if(!response.ok) throw new Error('API Error: ' + response.status);
-
     let data = await response.json();
     if(!data || data.length < 50) throw new Error('Not enough data');
-
     cachedData = data.map(candle => ({
-      open: parseFloat(candle[1]),
-      high: parseFloat(candle[2]),
-      low: parseFloat(candle[3]),
-      close: parseFloat(candle[4])
+      open: parseFloat(candle),
+      high: parseFloat(candle),
+      low: parseFloat(candle),
+      close: parseFloat(candle)
     }));
     lastFetchTime = now;
     document.getElementById('errorMsg').style.display = 'none';
     return cachedData;
-
   }catch(error){
     console.log('Binance API Error:', error);
-    document.getElementById('errorMsg').innerText = 'API Error: Pair not found on Binance. Try EUR/USD';
+    document.getElementById('errorMsg').innerText = 'API Error: Check connection.';
     document.getElementById('errorMsg').style.display = 'block';
     return null;
   }
@@ -176,12 +170,9 @@ async function getBinanceData(){
 
 function drawChart(candles){
   const ctx = document.getElementById('candleChart').getContext('2d');
-
   if(chart) chart.destroy();
-
   const labels = candles.map((_, i) => i);
   const closeData = candles.map(c => c.close);
-
   chart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -200,16 +191,10 @@ function drawChart(candles){
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: {display: false}
-      },
+      plugins: {legend: {display: false}},
       scales: {
         x: {display: false},
-        y: {
-          display: true,
-          ticks: {color: '#8a8a9e', font: {size: 10}},
-          grid: {color: '#2a2a35'}
-        }
+        y: {display: true, ticks: {color: '#8a8a9e', font: {size: 10}}, grid: {color: '#2a2a35'}}
       }
     }
   });
@@ -235,7 +220,7 @@ function calculateRSI(closes, period = 14){
 
 function calculateEMA(closes, period){
   let k = 2 / (period + 1);
-  let ema = [closes[0]];
+  let ema = [closes];
   for(let i=1; i<closes.length; i++){
     ema.push(closes[i] * k + ema[i-1] * (1 - k));
   }
@@ -252,40 +237,26 @@ function calculateMACD(closes){
 }
 
 async function generateSignal(){
-  if(!signalActive){
-    alert('Pair is Stopped. Turn on the toggle first.');
-    return;
-  }
-
+  if(!signalActive){ alert('Pair is Stopped. Turn on the toggle first.'); return; }
   document.getElementById('scanner').style.display = 'block';
   document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
-
   let candles = await getBinanceData();
-
-  if(!candles){
-    document.getElementById('scanner').style.display = 'none';
-    return;
-  }
-
+  if(!candles){ document.getElementById('scanner').style.display = 'none'; return; }
   setTimeout(()=>{
     document.getElementById('scanner').style.display = 'none';
     document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('signalBox').style.display = 'block';
-
     let closes = candles.map(c => c.close);
     let rsi = calculateRSI(closes);
     let ema50 = calculateEMA(closes, 50);
     let ema200 = calculateEMA(closes, 200);
     let macd = calculateMACD(closes);
     let lastPrice = closes[closes.length - 1];
-
     drawChart(candles);
-
     let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
     let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
     let macdBull = macd.hist > 0;
-
     let buyScore = 0, sellScore = 0;
     if(rsi >= 25 && rsi <= 75){
       if(rsi < 45) buyScore += 2;
@@ -293,11 +264,8 @@ async function generateSignal(){
     }
     if(trendUp) buyScore += 2;
     if(trendDown) sellScore += 2;
-    if(macdBull) buyScore += 2;
-    else sellScore += 2;
-
+    if(macdBull) buyScore += 2; else sellScore += 2;
     let confidence = Math.floor((Math.max(buyScore,sellScore)/6)*100);
-
     if(buyScore >= 4){
       document.getElementById('signalBox').innerHTML = '📈 BUY';
       document.getElementById('signalBox').className = 'buy-style';
@@ -312,16 +280,13 @@ async function generateSignal(){
       document.getElementById('trend').innerText = 'SIDEWAYS';
       confidence = 0;
     }
-
     document.getElementById('rsi').innerText = Math.floor(rsi);
     document.getElementById('conf').innerText = confidence + '%';
     document.getElementById('macd').innerText = macd.hist > 0? 'BULL' : 'BEAR';
-
     if(buyScore >= 4 || sellScore >= 4){
       let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
       audio.play();
     }
-
   },800);
 }
 </script>
