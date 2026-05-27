@@ -75,17 +75,17 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 
 <label class="label">SELECT PAIR</label>
 <select id="assetSelect" onchange="changeAsset()">
-<option value="BTCUSDT">BTC/USDT</option>
-<option value="ETHUSDT">ETH/USDT</option>
-<option value="SOLUSDT">SOL/USDT</option>
-<option value="BNBUSDT">BNB/USDT</option>
-<option value="XRPUSDT">XRP/USDT</option>
+<option value="EURUSD">EUR/USD</option>
+<option value="GBPUSD">GBP/USD</option>
+<option value="USDJPY">USD/JPY</option>
+<option value="AUDUSD">AUD/USD</option>
+<option value="USDCAD">USD/CAD</option>
 </select>
 
 <div class="pair-card">
 <div class="pair-header">
 <div class="pair-name">
-<span id="pairName">BTC/USDT</span>
+<span id="pairName">EUR/USD</span>
 </div>
 <div class="toggle active" id="toggleBtn" onclick="toggleSignal()"></div>
 </div>
@@ -112,84 +112,217 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 </div>
 
 <script>
-let pair = 'BTCUSDT';
+let pair = 'EURUSD';
 let signalActive = true;
+let cachedData = null;
+let lastFetchTime = 0;
 let chart = null;
 
 function login(){
-  if(document.getElementById('password').value === 'Lubna786'){
+  let pass = document.getElementById('password').value;
+  if(pass === 'Lubna786'){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainBoard').style.display = 'block';
-  } else { alert('Wrong Password!'); }
+  }else{alert('Wrong Password!');}
 }
 
 function changeAsset(){
   pair = document.getElementById('assetSelect').value;
-  document.getElementById('pairName').innerText = document.getElementById('assetSelect').options[document.getElementById('assetSelect').selectedIndex].text;
+  let name = document.getElementById('assetSelect').options[document.getElementById('assetSelect').selectedIndex].text;
+  document.getElementById('pairName').innerText = name;
+  document.getElementById('pairIdNum').innerText = Math.floor(Math.random()*99999);
+  cachedData = null;
   document.getElementById('chartContainer').style.display = 'none';
 }
 
 function toggleSignal(){
-  signalActive = !signalActive;
+  signalActive =!signalActive;
   document.getElementById('toggleBtn').classList.toggle('active');
-  document.getElementById('pairStatus').innerText = signalActive ? '● Connected' : '● Stopped';
+  document.getElementById('pairStatus').innerText = signalActive? '● Connected' : '● Stopped';
 }
 
 async function getBinanceData(){
+  let now = Date.now();
+  if(cachedData && (now - lastFetchTime) < 10000){
+    return cachedData;
+  }
+
   try{
-    let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=20`);
-    let data = await res.json();
-    return data.map(c => parseFloat(c));
-  } catch(e) { return null; }
+    let symbol = pair + 'T';
+    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=100`);
+
+    if(!response.ok) throw new Error('API Error: ' + response.status);
+
+    let data = await response.json();
+    if(!data || data.length < 50) throw new Error('Not enough data');
+
+    cachedData = data.map(candle => ({
+      open: parseFloat(candle[1]),
+      high: parseFloat(candle[2]),
+      low: parseFloat(candle[3]),
+      close: parseFloat(candle[4])
+    }));
+    lastFetchTime = now;
+    document.getElementById('errorMsg').style.display = 'none';
+    return cachedData;
+
+  }catch(error){
+    console.log('Binance API Error:', error);
+    document.getElementById('errorMsg').innerText = 'API Error: Pair not found on Binance. Try EUR/USD';
+    document.getElementById('errorMsg').style.display = 'block';
+    return null;
+  }
 }
 
-function drawChart(closes){
+function drawChart(candles){
   const ctx = document.getElementById('candleChart').getContext('2d');
+
   if(chart) chart.destroy();
+
+  const labels = candles.map((_, i) => i);
+  const closeData = candles.map(c => c.close);
+
   chart = new Chart(ctx, {
     type: 'line',
-    data: { labels: closes.map((_,i)=>i), datasets: [{ data: closes, borderColor: '#00ff78', tension: 0.4, fill: true, backgroundColor: 'rgba(0,255,120,0.1)' }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { ticks: { color: '#8a8a9e' } } } }
+    data: {
+      labels: labels,
+      datasets: [{
+        label: pair,
+        data: closeData,
+        borderColor: '#00ff78',
+        backgroundColor: 'rgba(0,255,120,0.1)',
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.1,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {display: false}
+      },
+      scales: {
+        x: {display: false},
+        y: {
+          display: true,
+          ticks: {color: '#8a8a9e', font: {size: 10}},
+          grid: {color: '#2a2a35'}
+        }
+      }
+    }
   });
 }
 
-function calculateRSI(closes){
-  let gain = 0, loss = 0;
-  for(let i=1; i<closes.length; i++){
-    let diff = closes[i] - closes[i-1];
-    diff >= 0 ? gain += diff : loss -= diff;
+function calculateRSI(closes, period = 14){
+  let gains = [], losses = [];
+  for(let i = 1; i < closes.length; i++){
+    let change = closes[i] - closes[i - 1];
+    gains.push(change > 0? change : 0);
+    losses.push(change < 0? Math.abs(change) : 0);
   }
-  let rs = (gain/14) / (loss/14 || 1);
+  let avgGain = gains.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  let avgLoss = losses.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  for(let i = period; i < gains.length; i++){
+    avgGain = (avgGain * (period - 1) + gains[i]) / period;
+    avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
+  }
+  if(avgLoss === 0) return 100;
+  let rs = avgGain / avgLoss;
   return 100 - (100 / (1 + rs));
 }
 
+function calculateEMA(closes, period){
+  let k = 2 / (period + 1);
+  let ema = [closes[0]];
+  for(let i=1; i<closes.length; i++){
+    ema.push(closes[i] * k + ema[i-1] * (1 - k));
+  }
+  return ema;
+}
+
+function calculateMACD(closes){
+  let ema12 = calculateEMA(closes, 12);
+  let ema26 = calculateEMA(closes, 26);
+  let macdLine = ema12.map((val, i) => val - ema26[i]);
+  let signalLine = calculateEMA(macdLine, 9);
+  let histogram = macdLine.map((val, i) => val - signalLine[i]);
+  return {macd: macdLine[macdLine.length-1], signal: signalLine[signalLine.length-1], hist: histogram[histogram.length-1]};
+}
+
 async function generateSignal(){
+  if(!signalActive){
+    alert('Pair is Stopped. Turn on the toggle first.');
+    return;
+  }
+
   document.getElementById('scanner').style.display = 'block';
   document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
-  
-  let closes = await getBinanceData();
-  if(!closes) return;
-  
+
+  let candles = await getBinanceData();
+
+  if(!candles){
+    document.getElementById('scanner').style.display = 'none';
+    return;
+  }
+
   setTimeout(()=>{
-    let rsi = calculateRSI(closes);
     document.getElementById('scanner').style.display = 'none';
     document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('signalBox').style.display = 'block';
-    drawChart(closes);
-    
-    if(rsi < 40){
+
+    let closes = candles.map(c => c.close);
+    let rsi = calculateRSI(closes);
+    let ema50 = calculateEMA(closes, 50);
+    let ema200 = calculateEMA(closes, 200);
+    let macd = calculateMACD(closes);
+    let lastPrice = closes[closes.length - 1];
+
+    drawChart(candles);
+
+    let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
+    let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
+    let macdBull = macd.hist > 0;
+
+    let buyScore = 0, sellScore = 0;
+    if(rsi >= 25 && rsi <= 75){
+      if(rsi < 45) buyScore += 2;
+      if(rsi > 55) sellScore += 2;
+    }
+    if(trendUp) buyScore += 2;
+    if(trendDown) sellScore += 2;
+    if(macdBull) buyScore += 2;
+    else sellScore += 2;
+
+    let confidence = Math.floor((Math.max(buyScore,sellScore)/6)*100);
+
+    if(buyScore >= 4){
       document.getElementById('signalBox').innerHTML = '📈 BUY';
       document.getElementById('signalBox').className = 'buy-style';
-    } else if(rsi > 60){
+      document.getElementById('trend').innerText = 'UP';
+    }else if(sellScore >= 4){
       document.getElementById('signalBox').innerHTML = '📉 SELL';
       document.getElementById('signalBox').className = 'sell-style';
-    } else {
-      document.getElementById('signalBox').innerHTML = '🔄 WAIT';
+      document.getElementById('trend').innerText = 'DOWN';
+    }else{
+      document.getElementById('signalBox').innerHTML = '⏸ WAIT';
       document.getElementById('signalBox').className = '';
+      document.getElementById('trend').innerText = 'SIDEWAYS';
+      confidence = 0;
     }
-    document.getElementById('rsi').innerText = Math.round(rsi);
-  }, 1000);
+
+    document.getElementById('rsi').innerText = Math.floor(rsi);
+    document.getElementById('conf').innerText = confidence + '%';
+    document.getElementById('macd').innerText = macd.hist > 0? 'BULL' : 'BEAR';
+
+    if(buyScore >= 4 || sellScore >= 4){
+      let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+      audio.play();
+    }
+
+  },800);
 }
 </script>
 </body>
