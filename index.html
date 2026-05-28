@@ -74,7 +74,13 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 <div class="status">● LIVE</div>
 </div>
 
-<div class="note">⚠️ Quotex پر 1 Minute Expiry استعمال کریں</div>
+<div class="note">⚠️ Quotex par 1 Minute Expiry use karein</div>
+
+<label class="label">DATA SOURCE</label>
+<select id="dataSource" onchange="changeSource()">
+<option value="binance">Binance Live</option>
+<option value="demo">Demo/OTC Mode</option>
+</select>
 
 <label class="label">SELECT PAIR</label>
 <select id="assetSelect" onchange="changeAsset()">
@@ -115,11 +121,20 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 </div>
 
 <script>
+let dataSource = 'binance';
 let pair = 'EURUSDT';
 let signalActive = true;
 let cachedData = null;
 let lastFetchTime = 0;
 let chart = null;
+
+const demoPairs = {
+  'EURUSDT': 'EURUSD OTC',
+  'GBPUSDT': 'GBPUSD OTC',
+  'BRLUSDT': 'USDNGN OTC',
+  'AUDUSDT': 'AUDUSD OTC',
+  'USDJPY': 'USDJPY OTC'
+};
 
 function login(){
   let pass = document.getElementById('password').value;
@@ -127,6 +142,40 @@ function login(){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainBoard').style.display = 'block';
   }else{alert('Wrong Password!');}
+}
+
+function changeSource(){
+  dataSource = document.getElementById('dataSource').value;
+  updatePairList();
+  cachedData = null;
+  document.getElementById('chartContainer').style.display = 'none';
+}
+
+function updatePairList(){
+  let select = document.getElementById('assetSelect');
+  select.innerHTML = '';
+
+  if(dataSource === 'binance'){
+    select.innerHTML = `
+      <option value="EURUSDT">EUR/USDT</option>
+      <option value="GBPUSDT">GBP/USDT</option>
+      <option value="BRLUSDT">BRL/USDT</option>
+      <option value="AUDUSDT">AUD/USDT</option>
+      <option value="USDJPY">USD/JPY</option>
+    `;
+    pair = 'EURUSDT';
+  }else{
+    select.innerHTML = `
+      <option value="EURUSDT">EURUSD OTC</option>
+      <option value="GBPUSDT">GBPUSD OTC</option>
+      <option value="BRLUSDT">USDNGN OTC</option>
+      <option value="AUDUSDT">AUDUSD OTC</option>
+      <option value="USDJPY">USDJPY OTC</option>
+    `;
+    pair = 'EURUSDT';
+  }
+
+  changeAsset();
 }
 
 function changeAsset(){
@@ -142,6 +191,21 @@ function toggleSignal(){
   signalActive =!signalActive;
   document.getElementById('toggleBtn').classList.toggle('active');
   document.getElementById('pairStatus').innerText = signalActive? '● Connected' : '● Stopped';
+}
+
+function getDemoData(){
+  let price = 1.5 + Math.random() * 0.5;
+  let data = [];
+  for(let i=0; i<100; i++){
+    price += (Math.random() - 0.5) * 0.01;
+    data.push({
+      open: price,
+      high: price + Math.random() * 0.005,
+      low: price - Math.random() * 0.005,
+      close: price + (Math.random() - 0.5) * 0.003
+    });
+  }
+  return data;
 }
 
 async function getBinanceData(){
@@ -257,7 +321,12 @@ async function generateSignal(){
   document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
 
-  let candles = await getBinanceData();
+  let candles;
+  if(dataSource === 'binance'){
+    candles = await getBinanceData();
+  }else{
+    candles = getDemoData();
+  }
 
   if(!candles){
     document.getElementById('scanner').style.display = 'none';
@@ -285,8 +354,8 @@ async function generateSignal(){
 
     let buyScore = 0, sellScore = 0;
 
-    if(rsi < 30) buyScore += 3;
-    if(rsi > 70) sellScore += 3;
+    if(rsi < 35) buyScore += 3;
+    if(rsi > 65) sellScore += 3;
     if(trendUp) buyScore += 4;
     if(trendDown) sellScore += 4;
     if(macdBull) buyScore += 3;
