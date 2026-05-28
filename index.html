@@ -41,6 +41,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 .stat h3{font-size:10px;color:var(--muted);margin-bottom:5px;}
 .stat p{font-size:15px;font-weight:700;}
 .error-msg{color:var(--red);font-size:12px;text-align:center;margin-top:10px;display:none;}
+.note{font-size:12px;color:#ffaa00;text-align:center;margin-bottom:15px;}
 </style>
 </head>
 <body>
@@ -67,32 +68,34 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 <div class="logo-icon">QX</div>
 <div>
 <h1>LUBNA ABUBAKAR</h1>
-<p>ULTRA AI SIGNAL - LIVE</p>
+<p>ULTRA AI SIGNAL - 1 MINUTE LIVE</p>
 </div>
 </div>
 <div class="status">● LIVE</div>
 </div>
 
+<div class="note">⚠️ Quotex پر 1 Minute Expiry استعمال کریں</div>
+
 <label class="label">SELECT PAIR</label>
 <select id="assetSelect" onchange="changeAsset()">
-<option value="EURUSD">EUR/USD</option>
-<option value="GBPUSD">GBP/USD</option>
+<option value="EURUSDT">EUR/USDT</option>
+<option value="GBPUSDT">GBP/USDT</option>
+<option value="BRLUSDT">BRL/USDT</option>
+<option value="AUDUSDT">AUD/USDT</option>
 <option value="USDJPY">USD/JPY</option>
-<option value="AUDUSD">AUD/USD</option>
-<option value="USDCAD">USD/CAD</option>
 </select>
 
 <div class="pair-card">
 <div class="pair-header">
 <div class="pair-name">
-<span id="pairName">EUR/USD</span>
+<span id="pairName">EUR/USDT</span>
 </div>
 <div class="toggle active" id="toggleBtn" onclick="toggleSignal()"></div>
 </div>
 <div class="pair-info">
 <span id="pairId">ID: <span id="pairIdNum">76554</span></span>
 <span id="pairStatus">● Connected</span>
-<span id="pairDate">Status: Live</span>
+<span id="pairDate">Timeframe: 1M</span>
 </div>
 </div>
 
@@ -112,7 +115,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 </div>
 
 <script>
-let pair = 'EURUSD';
+let pair = 'EURUSDT';
 let signalActive = true;
 let cachedData = null;
 let lastFetchTime = 0;
@@ -148,7 +151,7 @@ async function getBinanceData(){
   }
 
   try{
-    let symbol = pair + 'T';
+    let symbol = pair;
     let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=100`);
 
     if(!response.ok) throw new Error('API Error: ' + response.status);
@@ -168,7 +171,7 @@ async function getBinanceData(){
 
   }catch(error){
     console.log('Binance API Error:', error);
-    document.getElementById('errorMsg').innerText = 'API Error: Pair not found on Binance. Try EUR/USD';
+    document.getElementById('errorMsg').innerText = 'API Error: Pair not found. Try EURUSDT or BRLUSDT';
     document.getElementById('errorMsg').style.display = 'block';
     return null;
   }
@@ -176,7 +179,6 @@ async function getBinanceData(){
 
 function drawChart(candles){
   const ctx = document.getElementById('candleChart').getContext('2d');
-
   if(chart) chart.destroy();
 
   const labels = candles.map((_, i) => i);
@@ -200,16 +202,10 @@ function drawChart(candles){
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: {display: false}
-      },
+      plugins: {legend: {display: false}},
       scales: {
         x: {display: false},
-        y: {
-          display: true,
-          ticks: {color: '#8a8a9e', font: {size: 10}},
-          grid: {color: '#2a2a35'}
-        }
+        y: {display: true,ticks: {color: '#8a8a9e', font: {size: 10}},grid: {color: '#2a2a35'}}
       }
     }
   });
@@ -284,25 +280,26 @@ async function generateSignal(){
 
     let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
     let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
-    let macdBull = macd.hist > 0;
+    let macdBull = macd.hist > 0.0001;
+    let macdBear = macd.hist < -0.0001;
 
     let buyScore = 0, sellScore = 0;
-    if(rsi >= 25 && rsi <= 75){
-      if(rsi < 45) buyScore += 2;
-      if(rsi > 55) sellScore += 2;
-    }
-    if(trendUp) buyScore += 2;
-    if(trendDown) sellScore += 2;
-    if(macdBull) buyScore += 2;
-    else sellScore += 2;
 
-    let confidence = Math.floor((Math.max(buyScore,sellScore)/6)*100);
+    if(rsi < 30) buyScore += 3;
+    if(rsi > 70) sellScore += 3;
+    if(trendUp) buyScore += 4;
+    if(trendDown) sellScore += 4;
+    if(macdBull) buyScore += 3;
+    if(macdBear) sellScore += 3;
 
-    if(buyScore >= 4){
+    let totalScore = buyScore + sellScore;
+    let confidence = totalScore > 0? Math.floor((Math.max(buyScore,sellScore)/totalScore)*100) : 0;
+
+    if(buyScore >= 6 && buyScore > sellScore + 1){
       document.getElementById('signalBox').innerHTML = '📈 BUY';
       document.getElementById('signalBox').className = 'buy-style';
       document.getElementById('trend').innerText = 'UP';
-    }else if(sellScore >= 4){
+    }else if(sellScore >= 6 && sellScore > buyScore + 1){
       document.getElementById('signalBox').innerHTML = '📉 SELL';
       document.getElementById('signalBox').className = 'sell-style';
       document.getElementById('trend').innerText = 'DOWN';
@@ -317,7 +314,7 @@ async function generateSignal(){
     document.getElementById('conf').innerText = confidence + '%';
     document.getElementById('macd').innerText = macd.hist > 0? 'BULL' : 'BEAR';
 
-    if(buyScore >= 4 || sellScore >= 4){
+    if(confidence >= 70){
       let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
       audio.play();
     }
