@@ -296,8 +296,8 @@ transparent
 box-shadow:
 0 0 25px #00ffae;
 
-animation:scan 1.4s linear infinite;
 z-index:10;
+display:none;
 }
 
 @keyframes scan{
@@ -718,6 +718,13 @@ return 100 - (100/(1+rs));
 
 function generateSignal(){
 
+document.querySelector('.scan-line')
+.style.display='block';
+
+document.querySelector('.scan-line')
+.style.animation =
+'scan 1.4s linear infinite';
+
 let closes =
 candles.map(c=>c.c);
 
@@ -732,6 +739,10 @@ closes[closes.length-2];
 
 let signalBox =
 document.getElementById('signalBox');
+
+signalBox.style.display='none';
+
+setTimeout(()=>{
 
 signalBox.style.display='block';
 
@@ -766,6 +777,11 @@ last > prev ? 'BULL' : 'BEAR';
 document.getElementById('conf')
 .innerText =
 Math.floor(Math.random()*10+90)+'%';
+
+document.querySelector('.scan-line')
+.style.display='none';
+
+},1500);
 
 }
 
