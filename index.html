@@ -1,82 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUBNA ABUBAKAR - ULTRA AI BOT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@^3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@^1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.2.0"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUBNA ABUBAKAR - QUOTEX AI ELITE</title>
 
-    <style>
-        :root{--bg:#05060a;--card:#11131b;--primary:#00ff88;--red:#ff4d67;--text:#ffffff;--muted:#7d8597;--border:#1f2430;}
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Poppins',sans-serif;background:#05060a;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:15px;color:white;}
-        .container{width:100%;max-width:420px;background:#11131b;border-radius:25px;padding:20px;border:1px solid #1f2430;}
-        #chartContainer{height:250px; background:#090b10; border-radius:18px; border:1px solid #1f2430; padding:10px; margin-bottom:15px; position: relative;}
-        .btn{width:100%;padding:16px;border:none;border-radius:16px;background:linear-gradient(135deg,#00ff88,#00c96d);font-family:'Orbitron';font-weight:800;color:#000;cursor:pointer;margin-bottom:15px;}
-        /* بقیہ سٹائل آپ کے پرانے کوڈ والے ہی ہیں */
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+
+<style>
+
+:root{
+--bg:#050816;
+--card:#0e1324;
+--green:#00ffae;
+--red:#ff4d6d;
+--blue:#00c3ff;
+--text:#ffffff;
+--muted:#7f8da3;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:
+radial-gradient(circle at top,#101a35,#050816);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:15px;
+overflow:hidden;
+color:white;
+}
+
+body::before{
+content:'';
+position:absolute;
+width:200%;
+height:200%;
+background:
+linear-gradient(
+45deg,
+transparent,
+rgba(0,255,174,0.03),
+transparent
+);
+animation:bgMove 12s linear infinite;
+}
+
+@keyframes bgMove{
+
+0%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+.container{
+width:100%;
+max-width:430px;
+background:rgba(14,19,36,0.92);
+border-radius:30px;
+padding:20px;
+border:1px solid rgba(255,255,255,0.06);
+backdrop-filter:blur(20px);
+box-shadow:
+0 0 40px rgba(0,255,174,0.12);
+position:relative;
+z-index:2;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo-box{
+width:58px;
+height:58px;
+border-radius:18px;
+background:linear-gradient(135deg,#00ffae,#00c3ff);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+font-family:'Orbitron';
+font-weight:900;
+color:#000;
+box-shadow:
+0 0 30px rgba(0,255,174,0.4);
+}
+
+.logo h1{
+font-size:16px;
+font-weight:700;
+}
+
+.logo p{
+font-size:11px;
+color:var(--muted);
+}
+
+.live{
+padding:8px 16px;
+border-radius:30px;
+background:rgba(0,255,174,0.08);
+border:1px solid rgba(0,255,174,0.2);
+color:var(--green);
+font-size:11px;
+font-weight:700;
+}
+
+.live-price{
+font-size:38px;
+text-align:center;
+font-family:'Orbitron';
+font-weight:900;
+margin-bottom:15px;
+color:var(--green);
+text-shadow:
+0 0 20px rgba(0,255,174,0.45);
+}
+
+.select-box{
+margin-bottom:15px;
+}
+
+.label{
+font-size:12px;
+margin-bottom:8px;
+display:block;
+color:var(--muted);
+font-weight:600;
+}
+
+select,input{
+width:100%;
+padding:15px;
+border-radius:16px;
+background:#0a0f1d;
+border:1px solid rgba(255,255,255,0.06);
+color:white;
+font-size:14px;
+outline:none;
+}
+
+.market-card{
+background:#0a0f1d;
+border-radius:20px;
+padding:15px;
+margin-bottom:15px;
+border:1px solid rgba(255,255,255,0.06);
+}
+
+.market-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.market-name{
+font-size:18px;
+font-weight:700;
+}
+
+.toggle{
+width:55px;
+height:30px;
+background:#232c40;
+border-radius:30px;
+position:relative;
+cursor:pointer;
+transition:0.3s;
+}
+
+.toggle.active{
+background:var(--green);
+box-shadow:
+0 0 20px rgba(0,255,174,0.4);
+}
+
+.toggle::after{
+content:'';
+position:absolute;
+width:24px;
+height:24px;
+border-radius:50%;
+background:white;
+top:3px;
+left:3px;
+transition:0.3s;
+}
+
+.toggle.active::after{
+left:28px;
+}
+
+.market-info{
+font-size:11px;
+line-height:1.8;
+color:var(--muted);
+}
+
+.scan{
+height:170px;
+border-radius:20px;
+background:#0a0f1d;
+border:1px solid rgba(255,255,255,0.05);
+overflow:hidden;
+position:relative;
+margin-bottom:15px;
+display:none;
+}
+
+.scan-line{
+position:absolute;
+width:100%;
+height:4px;
+background:
+linear-gradient(
+90deg,
+transparent,
+#00ffae,
+transparent
+);
+box-shadow:
+0 0 20px #00ffae;
+animation:scanMove 1.5s linear infinite;
+}
+
+@keyframes scanMove{
+
+0%{
+top:0;
+}
+
+100%{
+top:100%;
+}
+
+}
+
+#chartContainer{
+height:240px;
+background:#0a0f1d;
+border-radius:20px;
+padding:10px;
+border:1px solid rgba(255,255,255,0.05);
+margin-bottom:15px;
+}
+
+.signal-box{
+padding:22px;
+border-radius:20px;
+text-align:center;
+font-size:34px;
+font-family:'Orbitron';
+font-weight:900;
+margin-bottom:15px;
+display:none;
+}
+
+.buy{
+background:rgba(0,255,174,0.08);
+border:1px solid rgba(0,255,174,0.2);
+color:var(--green);
+}
+
+.sell{
+background:rgba(255,77,109,0.08);
+border:1px solid rgba(255,77,109,0.2);
+color:var(--red);
+}
+
+.wait{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+color:white;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+}
+
+.stat{
+background:#0a0f1d;
+padding:12px;
+border-radius:16px;
+text-align:center;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.stat h3{
+font-size:10px;
+margin-bottom:5px;
+color:var(--muted);
+}
+
+.stat p{
+font-size:15px;
+font-weight:700;
+}
+
+.btn{
+width:100%;
+padding:17px;
+border:none;
+border-radius:18px;
+background:
+linear-gradient(
+135deg,
+#00ffae,
+#00c3ff
+);
+font-size:14px;
+font-family:'Orbitron';
+font-weight:800;
+cursor:pointer;
+color:#000;
+margin-bottom:15px;
+box-shadow:
+0 0 30px rgba(0,255,174,0.25);
+}
+
+</style>
 </head>
 
 <body>
-<div id="mainBoard" class="container">
-    <div class="live-price" id="livePrice" style="text-align:center;font-size:30px;color:#00ff88;margin-bottom:15px;">0.0000</div>
-    
-    <div id="chartContainer">
-        <canvas id="candleChart"></canvas>
-    </div>
 
-    <button class="btn" onclick="generateSignal()">⚡ GENERATE AI SIGNAL</button>
-    <div id="signalBox" style="padding:20px;text-align:center;font-size:24px;border-radius:15px;display:none;"></div>
+<div class="container">
+
+<div class="topbar">
+
+<div class="logo">
+
+<div class="logo-box">
+QX
+</div>
+
+<div>
+<h1>LUBNA ABUBAKAR</h1>
+<p>QUOTEX AI ELITE SYSTEM</p>
+</div>
+
+</div>
+
+<div class="live">
+● LIVE
+</div>
+
+</div>
+
+<div class="live-price" id="livePrice">
+0.0000
+</div>
+
+<div class="select-box">
+
+<label class="label">
+SELECT MARKET
+</label>
+
+<select id="pairSelect" onchange="changePair()">
+
+<option value="BTCUSDT">BTC/USDT</option>
+<option value="ETHUSDT">ETH/USDT</option>
+
+<option value="EURUSD-OTC">
+EUR/USD OTC
+</option>
+
+<option value="GBPUSD-OTC">
+GBP/USD OTC
+</option>
+
+<option value="USDJPY-OTC">
+USD/JPY OTC
+</option>
+
+<option value="USDPKR-OTC">
+USD/PKR OTC
+</option>
+
+<option value="USDINR-OTC">
+USD/INR OTC
+</option>
+
+</select>
+
+</div>
+
+<div class="market-card">
+
+<div class="market-head">
+
+<div class="market-name" id="pairName">
+BTC/USDT
+</div>
+
+<div class="toggle active" id="toggle"></div>
+
+</div>
+
+<div class="market-info">
+
+<div>● Live Market Connected</div>
+<div>● AI Scanner Running</div>
+<div>● Quotex OTC Supported</div>
+<div>● 1 Minute Signals</div>
+
+</div>
+
+</div>
+
+<button class="btn" onclick="generateSignal()">
+⚡ GENERATE SIGNAL
+</button>
+
+<div class="scan" id="scan">
+<div class="scan-line"></div>
+</div>
+
+<div id="chartContainer">
+<canvas id="chart"></canvas>
+</div>
+
+<div class="signal-box" id="signalBox">
+WAIT
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h3>RSI</h3>
+<p id="rsi">--</p>
+</div>
+
+<div class="stat">
+<h3>MACD</h3>
+<p id="macd">--</p>
+</div>
+
+<div class="stat">
+<h3>TREND</h3>
+<p id="trend">--</p>
+</div>
+
+<div class="stat">
+<h3>CONF</h3>
+<p id="conf">--</p>
+</div>
+
+</div>
+
 </div>
 
 <script>
-    let chart;
-    let liveCandles = [];
 
-    // چارٹ ڈرا کرنے کا فنکشن
-    function drawChart() {
-        const ctx = document.getElementById('candleChart').getContext('2d');
-        if (chart) chart.destroy();
+let pair = 'BTCUSDT';
 
-        chart = new Chart(ctx, {
-            type: 'candlestick',
-            data: {
-                datasets: [{
-                    label: 'Price',
-                    data: liveCandles,
-                    color: { up: '#00ff88', down: '#ff4d67' }
-                }]
-            },
-            options: { responsive: true, maintainAspectRatio: false }
-        });
-    }
+let chart;
 
-    // ڈیٹا جنریٹ کرنے کا فنکشن
-    function initData() {
-        for(let i=0; i<20; i++){
-            liveCandles.push({
-                x: new Date().getTime() + (i * 60000),
-                o: 100 + Math.random(),
-                h: 102,
-                l: 98,
-                c: 101
-            });
-        }
-        drawChart();
-    }
+let candles = [];
 
-    function generateSignal() {
-        const box = document.getElementById('signalBox');
-        box.style.display = 'block';
-        box.innerHTML = "📈 BUY";
-        box.className = 'buy-style';
-    }
+function changePair(){
 
-    window.onload = initData;
+pair =
+document.getElementById('pairSelect').value;
+
+document.getElementById('pairName')
+.innerText = pair;
+
+generateFakeCandles();
+
+}
+
+function generateFakeCandles(){
+
+candles = [];
+
+let price = 100;
+
+for(let i=0;i<40;i++){
+
+let open = price;
+
+let close =
+open + (Math.random()-0.5)*3;
+
+let high =
+Math.max(open,close)+Math.random();
+
+let low =
+Math.min(open,close)-Math.random();
+
+candles.push({
+
+x:i,
+o:open,
+h:high,
+l:low,
+c:close
+
+});
+
+price = close;
+
+}
+
+drawChart();
+
+}
+
+function drawChart(){
+
+const ctx =
+document.getElementById('chart')
+.getContext('2d');
+
+if(chart){
+chart.destroy();
+}
+
+chart = new Chart(ctx,{
+
+type:'candlestick',
+
+data:{
+datasets:[{
+
+label:pair,
+
+data:candles,
+
+color:{
+up:'#00ffae',
+down:'#ff4d6d',
+unchanged:'#999'
+}
+
+}]
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false,
+
+plugins:{
+legend:{display:false}
+},
+
+scales:{
+
+x:{
+ticks:{color:'#777'},
+grid:{color:'#1b2236'}
+},
+
+y:{
+ticks:{color:'#777'},
+grid:{color:'#1b2236'}
+}
+
+}
+
+}
+
+});
+
+}
+
+function generateSignal(){
+
+document.getElementById('scan')
+.style.display='block';
+
+document.getElementById('signalBox')
+.style.display='none';
+
+setTimeout(()=>{
+
+document.getElementById('scan')
+.style.display='none';
+
+let signalBox =
+document.getElementById('signalBox');
+
+signalBox.style.display='block';
+
+let random =
+Math.random();
+
+if(random > 0.5){
+
+signalBox.innerHTML='📈 BUY';
+
+signalBox.className=
+'signal-box buy';
+
+document.getElementById('trend')
+.innerText='UP';
+
+}else{
+
+signalBox.innerHTML='📉 SELL';
+
+signalBox.className=
+'signal-box sell';
+
+document.getElementById('trend')
+.innerText='DOWN';
+
+}
+
+document.getElementById('rsi')
+.innerText=
+Math.floor(Math.random()*40+40);
+
+document.getElementById('macd')
+.innerText=
+random > 0.5 ? 'BULL' : 'BEAR';
+
+document.getElementById('conf')
+.innerText=
+Math.floor(Math.random()*10+90)+'%';
+
+},1500);
+
+}
+
+generateFakeCandles();
+
+setInterval(()=>{
+
+let last =
+candles[candles.length-1];
+
+let open = last.c;
+
+let close =
+open + (Math.random()-0.5)*2;
+
+let high =
+Math.max(open,close)+Math.random();
+
+let low =
+Math.min(open,close)-Math.random();
+
+candles.push({
+
+x:candles.length,
+o:open,
+h:high,
+l:low,
+c:close
+
+});
+
+if(candles.length > 40){
+
+candles.shift();
+
+}
+
+document.getElementById('livePrice')
+.innerText=
+close.toFixed(2);
+
+drawChart();
+
+},2000);
+
 </script>
+
 </body>
 </html>
