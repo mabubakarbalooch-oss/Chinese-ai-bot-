@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR - QUOTEX AI ELITE</title>
+<title>LUBNA ABUBAKAR - AI ELITE</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -14,10 +14,10 @@
 
 :root{
 --bg:#050816;
---card:#0e1324;
+--card:#0f172a;
 --green:#00ffae;
 --red:#ff4d6d;
---blue:#00c3ff;
+--blue:#00cfff;
 --text:#ffffff;
 --muted:#7f8da3;
 }
@@ -31,7 +31,7 @@ box-sizing:border-box;
 body{
 font-family:'Poppins',sans-serif;
 background:
-radial-gradient(circle at top,#101a35,#050816);
+radial-gradient(circle at top,#0d1630,#050816);
 min-height:100vh;
 display:flex;
 justify-content:center;
@@ -53,10 +53,10 @@ transparent,
 rgba(0,255,174,0.03),
 transparent
 );
-animation:bgMove 12s linear infinite;
+animation:bgmove 12s linear infinite;
 }
 
-@keyframes bgMove{
+@keyframes bgmove{
 
 0%{
 transform:rotate(0deg);
@@ -71,79 +71,96 @@ transform:rotate(360deg);
 .container{
 width:100%;
 max-width:430px;
-background:rgba(14,19,36,0.92);
-border-radius:30px;
+background:rgba(15,23,42,0.92);
+backdrop-filter:blur(20px);
+border-radius:32px;
 padding:20px;
 border:1px solid rgba(255,255,255,0.06);
-backdrop-filter:blur(20px);
 box-shadow:
-0 0 40px rgba(0,255,174,0.12);
+0 0 40px rgba(0,255,174,0.15);
 position:relative;
 z-index:2;
 }
 
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
+/* LOGIN */
+
+#loginPage{
+animation:fade 1s ease;
+}
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
 }
 
 .logo{
 display:flex;
+flex-direction:column;
 align-items:center;
-gap:12px;
+margin-bottom:25px;
 }
 
 .logo-box{
-width:58px;
-height:58px;
-border-radius:18px;
-background:linear-gradient(135deg,#00ffae,#00c3ff);
+width:95px;
+height:95px;
+border-radius:28px;
+background:
+linear-gradient(
+135deg,
+#00ffae,
+#00cfff
+);
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:22px;
+font-size:34px;
 font-family:'Orbitron';
 font-weight:900;
 color:#000;
 box-shadow:
-0 0 30px rgba(0,255,174,0.4);
+0 0 40px rgba(0,255,174,0.45);
+margin-bottom:15px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.05);
+}
+
+100%{
+transform:scale(1);
+}
+
 }
 
 .logo h1{
-font-size:16px;
-font-weight:700;
+font-size:22px;
+font-family:'Orbitron';
+margin-bottom:5px;
 }
 
 .logo p{
-font-size:11px;
+font-size:12px;
 color:var(--muted);
 }
 
-.live{
-padding:8px 16px;
-border-radius:30px;
-background:rgba(0,255,174,0.08);
-border:1px solid rgba(0,255,174,0.2);
-color:var(--green);
-font-size:11px;
-font-weight:700;
-}
-
-.live-price{
-font-size:38px;
-text-align:center;
-font-family:'Orbitron';
-font-weight:900;
-margin-bottom:15px;
-color:var(--green);
-text-shadow:
-0 0 20px rgba(0,255,174,0.45);
-}
-
-.select-box{
-margin-bottom:15px;
+.input-box{
+margin-bottom:18px;
 }
 
 .label{
@@ -154,26 +171,113 @@ color:var(--muted);
 font-weight:600;
 }
 
-select,input{
+input,select{
 width:100%;
-padding:15px;
-border-radius:16px;
-background:#0a0f1d;
+padding:16px;
+border-radius:18px;
+background:#0a1020;
 border:1px solid rgba(255,255,255,0.06);
 color:white;
 font-size:14px;
 outline:none;
 }
 
-.market-card{
-background:#0a0f1d;
+.btn{
+width:100%;
+padding:17px;
+border:none;
 border-radius:20px;
-padding:15px;
+background:
+linear-gradient(
+135deg,
+#00ffae,
+#00cfff
+);
+font-family:'Orbitron';
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+color:#000;
+box-shadow:
+0 0 30px rgba(0,255,174,0.25);
+transition:0.3s;
 margin-bottom:15px;
-border:1px solid rgba(255,255,255,0.06);
 }
 
-.market-head{
+.btn:hover{
+transform:scale(1.02);
+}
+
+/* MAIN */
+
+#mainBoard{
+display:none;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.top-left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.small-logo{
+width:55px;
+height:55px;
+border-radius:18px;
+background:
+linear-gradient(
+135deg,
+#00ffae,
+#00cfff
+);
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Orbitron';
+font-size:22px;
+font-weight:900;
+color:#000;
+box-shadow:
+0 0 25px rgba(0,255,174,0.35);
+}
+
+.live{
+padding:8px 15px;
+border-radius:30px;
+background:rgba(0,255,174,0.08);
+border:1px solid rgba(0,255,174,0.15);
+color:var(--green);
+font-size:11px;
+font-weight:700;
+}
+
+.live-price{
+text-align:center;
+font-size:42px;
+font-family:'Orbitron';
+font-weight:900;
+margin-bottom:15px;
+color:var(--green);
+text-shadow:
+0 0 20px rgba(0,255,174,0.45);
+}
+
+.card{
+background:#0a1020;
+border-radius:22px;
+padding:15px;
+margin-bottom:15px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.card-top{
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -181,40 +285,8 @@ margin-bottom:10px;
 }
 
 .market-name{
-font-size:18px;
+font-size:19px;
 font-weight:700;
-}
-
-.toggle{
-width:55px;
-height:30px;
-background:#232c40;
-border-radius:30px;
-position:relative;
-cursor:pointer;
-transition:0.3s;
-}
-
-.toggle.active{
-background:var(--green);
-box-shadow:
-0 0 20px rgba(0,255,174,0.4);
-}
-
-.toggle::after{
-content:'';
-position:absolute;
-width:24px;
-height:24px;
-border-radius:50%;
-background:white;
-top:3px;
-left:3px;
-transition:0.3s;
-}
-
-.toggle.active::after{
-left:28px;
 }
 
 .market-info{
@@ -223,15 +295,15 @@ line-height:1.8;
 color:var(--muted);
 }
 
-.scan{
+#scanner{
 height:170px;
-border-radius:20px;
-background:#0a0f1d;
-border:1px solid rgba(255,255,255,0.05);
+border-radius:22px;
+background:#0a1020;
 overflow:hidden;
 position:relative;
-margin-bottom:15px;
 display:none;
+margin-bottom:15px;
+border:1px solid rgba(255,255,255,0.05);
 }
 
 .scan-line{
@@ -247,10 +319,10 @@ transparent
 );
 box-shadow:
 0 0 20px #00ffae;
-animation:scanMove 1.5s linear infinite;
+animation:scan 1.4s linear infinite;
 }
 
-@keyframes scanMove{
+@keyframes scan{
 
 0%{
 top:0;
@@ -262,18 +334,18 @@ top:100%;
 
 }
 
-#chartContainer{
-height:240px;
-background:#0a0f1d;
-border-radius:20px;
+#chartBox{
+height:250px;
+background:#0a1020;
+border-radius:22px;
 padding:10px;
-border:1px solid rgba(255,255,255,0.05);
 margin-bottom:15px;
+border:1px solid rgba(255,255,255,0.05);
 }
 
 .signal-box{
-padding:22px;
-border-radius:20px;
+padding:24px;
+border-radius:22px;
 text-align:center;
 font-size:34px;
 font-family:'Orbitron';
@@ -307,7 +379,7 @@ gap:8px;
 }
 
 .stat{
-background:#0a0f1d;
+background:#0a1020;
 padding:12px;
 border-radius:16px;
 text-align:center;
@@ -325,27 +397,6 @@ font-size:15px;
 font-weight:700;
 }
 
-.btn{
-width:100%;
-padding:17px;
-border:none;
-border-radius:18px;
-background:
-linear-gradient(
-135deg,
-#00ffae,
-#00c3ff
-);
-font-size:14px;
-font-family:'Orbitron';
-font-weight:800;
-cursor:pointer;
-color:#000;
-margin-bottom:15px;
-box-shadow:
-0 0 30px rgba(0,255,174,0.25);
-}
-
 </style>
 </head>
 
@@ -353,7 +404,9 @@ box-shadow:
 
 <div class="container">
 
-<div class="topbar">
+<!-- LOGIN -->
+
+<div id="loginPage">
 
 <div class="logo">
 
@@ -361,9 +414,45 @@ box-shadow:
 QX
 </div>
 
-<div>
 <h1>LUBNA ABUBAKAR</h1>
+
 <p>QUOTEX AI ELITE SYSTEM</p>
+
+</div>
+
+<div class="input-box">
+
+<label class="label">
+PASSWORD
+</label>
+
+<input type="password" id="password" placeholder="Enter Password">
+
+</div>
+
+<button class="btn" onclick="login()">
+🔓 ACCESS SYSTEM
+</button>
+
+</div>
+
+<!-- MAIN BOARD -->
+
+<div id="mainBoard">
+
+<div class="topbar">
+
+<div class="top-left">
+
+<div class="small-logo">
+QX
+</div>
+
+<div>
+<h3>LUBNA ABUBAKAR</h3>
+<p style="font-size:11px;color:#7f8da3;">
+LIVE AI MARKET
+</p>
 </div>
 
 </div>
@@ -374,11 +463,30 @@ QX
 
 </div>
 
-<div class="live-price" id="livePrice">
+<div class="live-price" id="price">
 0.0000
 </div>
 
-<div class="select-box">
+<div class="card">
+
+<div class="card-top">
+
+<div class="market-name" id="pairName">
+BTCUSDT
+</div>
+
+</div>
+
+<div class="market-info">
+
+<div>● Binance Live Connected</div>
+<div>● AI Scanner Active</div>
+<div>● 1 Minute Signals</div>
+<div>● OTC Supported</div>
+
+</div>
+
+</div>
 
 <label class="label">
 SELECT MARKET
@@ -386,70 +494,38 @@ SELECT MARKET
 
 <select id="pairSelect" onchange="changePair()">
 
-<option value="BTCUSDT">BTC/USDT</option>
-<option value="ETHUSDT">ETH/USDT</option>
-
-<option value="EURUSD-OTC">
-EUR/USD OTC
+<option value="btcusdt">
+BTC/USDT
 </option>
 
-<option value="GBPUSD-OTC">
-GBP/USD OTC
+<option value="ethusdt">
+ETH/USDT
 </option>
 
-<option value="USDJPY-OTC">
-USD/JPY OTC
+<option value="bnbusdt">
+BNB/USDT
 </option>
 
-<option value="USDPKR-OTC">
-USD/PKR OTC
-</option>
-
-<option value="USDINR-OTC">
-USD/INR OTC
+<option value="solusdt">
+SOL/USDT
 </option>
 
 </select>
-
-</div>
-
-<div class="market-card">
-
-<div class="market-head">
-
-<div class="market-name" id="pairName">
-BTC/USDT
-</div>
-
-<div class="toggle active" id="toggle"></div>
-
-</div>
-
-<div class="market-info">
-
-<div>● Live Market Connected</div>
-<div>● AI Scanner Running</div>
-<div>● Quotex OTC Supported</div>
-<div>● 1 Minute Signals</div>
-
-</div>
-
-</div>
 
 <button class="btn" onclick="generateSignal()">
 ⚡ GENERATE SIGNAL
 </button>
 
-<div class="scan" id="scan">
+<div id="scanner">
 <div class="scan-line"></div>
 </div>
 
-<div id="chartContainer">
+<div id="chartBox">
 <canvas id="chart"></canvas>
 </div>
 
 <div class="signal-box" id="signalBox">
-WAIT
+BUY
 </div>
 
 <div class="stats">
@@ -478,13 +554,40 @@ WAIT
 
 </div>
 
+</div>
+
 <script>
 
-let pair = 'BTCUSDT';
+let pair = 'btcusdt';
+
+let ws;
 
 let chart;
 
 let candles = [];
+
+function login(){
+
+let pass =
+document.getElementById('password').value;
+
+if(pass === 'Lubna786'){
+
+document.getElementById('loginPage')
+.style.display='none';
+
+document.getElementById('mainBoard')
+.style.display='block';
+
+startLiveMarket();
+
+}else{
+
+alert('Wrong Password');
+
+}
+
+}
 
 function changePair(){
 
@@ -492,46 +595,79 @@ pair =
 document.getElementById('pairSelect').value;
 
 document.getElementById('pairName')
-.innerText = pair;
+.innerText = pair.toUpperCase();
 
-generateFakeCandles();
-
-}
-
-function generateFakeCandles(){
-
-candles = [];
-
-let price = 100;
-
-for(let i=0;i<40;i++){
-
-let open = price;
-
-let close =
-open + (Math.random()-0.5)*3;
-
-let high =
-Math.max(open,close)+Math.random();
-
-let low =
-Math.min(open,close)-Math.random();
-
-candles.push({
-
-x:i,
-o:open,
-h:high,
-l:low,
-c:close
-
-});
-
-price = close;
+startLiveMarket();
 
 }
+
+async function loadHistory(){
+
+let response = await fetch(
+`https://api.binance.com/api/v3/klines?symbol=${pair.toUpperCase()}&interval=1m&limit=40`
+);
+
+let data = await response.json();
+
+candles = data.map((candle,index)=>({
+
+x:index,
+
+o:parseFloat(candle[1]),
+
+h:parseFloat(candle[2]),
+
+l:parseFloat(candle[3]),
+
+c:parseFloat(candle[4])
+
+}));
 
 drawChart();
+
+}
+
+async function startLiveMarket(){
+
+if(ws){
+ws.close();
+}
+
+await loadHistory();
+
+ws = new WebSocket(
+`wss://stream.binance.com:9443/ws/${pair}@kline_1m`
+);
+
+ws.onmessage = function(event){
+
+let data = JSON.parse(event.data);
+
+let k = data.k;
+
+let candle = {
+
+x:candles.length,
+
+o:parseFloat(k.o),
+
+h:parseFloat(k.h),
+
+l:parseFloat(k.l),
+
+c:parseFloat(k.c)
+
+};
+
+document.getElementById('price')
+.innerText =
+parseFloat(k.c).toFixed(2);
+
+candles[candles.length - 1] = candle;
+
+drawChart();
+
+};
 
 }
 
@@ -595,9 +731,36 @@ grid:{color:'#1b2236'}
 
 }
 
+function calculateRSI(data,period=14){
+
+let gains = 0;
+let losses = 0;
+
+for(let i=1;i<=period;i++){
+
+let diff = data[i]-data[i-1];
+
+if(diff >= 0){
+gains += diff;
+}else{
+losses -= diff;
+}
+
+}
+
+if(losses === 0){
+return 100;
+}
+
+let rs = gains / losses;
+
+return 100 - (100/(1+rs));
+
+}
+
 function generateSignal(){
 
-document.getElementById('scan')
+document.getElementById('scanner')
 .style.display='block';
 
 document.getElementById('signalBox')
@@ -605,23 +768,31 @@ document.getElementById('signalBox')
 
 setTimeout(()=>{
 
-document.getElementById('scan')
+document.getElementById('scanner')
 .style.display='none';
+
+let closes =
+candles.map(c=>c.c);
+
+let rsi =
+calculateRSI(closes);
+
+let last =
+closes[closes.length-1];
+
+let prev =
+closes[closes.length-2];
 
 let signalBox =
 document.getElementById('signalBox');
 
 signalBox.style.display='block';
 
-let random =
-Math.random();
-
-if(random > 0.5){
+if(last > prev){
 
 signalBox.innerHTML='📈 BUY';
 
-signalBox.className=
-'signal-box buy';
+signalBox.className='signal-box buy';
 
 document.getElementById('trend')
 .innerText='UP';
@@ -630,8 +801,7 @@ document.getElementById('trend')
 
 signalBox.innerHTML='📉 SELL';
 
-signalBox.className=
-'signal-box sell';
+signalBox.className='signal-box sell';
 
 document.getElementById('trend')
 .innerText='DOWN';
@@ -639,62 +809,20 @@ document.getElementById('trend')
 }
 
 document.getElementById('rsi')
-.innerText=
-Math.floor(Math.random()*40+40);
+.innerText =
+Math.floor(rsi);
 
 document.getElementById('macd')
-.innerText=
-random > 0.5 ? 'BULL' : 'BEAR';
+.innerText =
+last > prev ? 'BULL' : 'BEAR';
 
 document.getElementById('conf')
-.innerText=
+.innerText =
 Math.floor(Math.random()*10+90)+'%';
 
 },1500);
 
 }
-
-generateFakeCandles();
-
-setInterval(()=>{
-
-let last =
-candles[candles.length-1];
-
-let open = last.c;
-
-let close =
-open + (Math.random()-0.5)*2;
-
-let high =
-Math.max(open,close)+Math.random();
-
-let low =
-Math.min(open,close)-Math.random();
-
-candles.push({
-
-x:candles.length,
-o:open,
-h:high,
-l:low,
-c:close
-
-});
-
-if(candles.length > 40){
-
-candles.shift();
-
-}
-
-document.getElementById('livePrice')
-.innerText=
-close.toFixed(2);
-
-drawChart();
-
-},2000);
 
 </script>
 
