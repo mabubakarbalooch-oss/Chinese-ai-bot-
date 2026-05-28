@@ -3,232 +3,402 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lubna Abubakar Signal Bot</title>
+<title>LUBNA ABUBAKAR SIGNAL PRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background:#0d1117;
-  color:#fff;
-  margin:0;
-  padding:15px;
-}
-.container {
-  max-width:420px;
-  margin:auto;
-  background:#161b22;
-  padding:15px;
-  border-radius:12px;
-}
-label {
-  font-size:14px;
-  color:#8d96a0;
-}
-select, button {
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:8px;
-  border:none;
-  font-size:16px;
-  background:#21262d;
-  color:#fff;
-}
-button {
-  background:#2ea043;
-  color:#fff;
-  font-weight:bold;
-  cursor:pointer;
-}
-button:hover {background:#238636;}
-.card {
-  background:#21262d;
-  padding:15px;
-  margin-top:15px;
-  border-radius:10px;
-  text-align:center;
-}
-.signal {
-  font-size:28px;
-  font-weight:bold;
-  padding:15px;
-  border-radius:8px;
-  margin-top:10px;
-}
-.sell {background:#3d1f1f; color:#ff7b72;}
-.buy {background:#1f3d2f; color:#3fb950;}
-.chart {
-  width:100%;
-  height:150px;
-  background:#0d1117;
-  margin-top:10px;
-  border-radius:8px;
-}
-.stats {
-  display:flex;
-  justify-content:space-between;
-  margin-top:10px;
-}
-.stat-box {
-  background:#21262d;
-  padding:10px;
-  border-radius:8px;
-  width:23%;
-  text-align:center;
-}
-.stat-box h4 {margin:0; font-size:12px; color:#8d96a0;}
-.stat-box p {margin:5px 0 0; font-size:18px; font-weight:bold;}
+:root{--bg:#0a0a0f;--card:#1a1a24;--primary:#00ff78;--red:#ff4d4d;--text:#ffffff;--muted:#8a8a9e;--border:#2a2a35;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:15px;color:var(--text);}
+.container{width:100%;max-width:400px;background:var(--card);border-radius:20px;padding:20px;border:1px solid var(--border);}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:45px;height:45px;border-radius:12px;background:linear-gradient(135deg,#00ff78,#00cc66);display:flex;justify-content:center;align-items:center;font-weight:900;font-family:'Orbitron';color:#000;font-size:18px;}
+.logo h1{font-size:14px;font-weight:700;}
+.logo p{font-size:11px;color:var(--muted);}
+.status{padding:6px 12px;border-radius:20px;background:rgba(0,255,120,0.1);color:var(--primary);font-size:11px;font-weight:700;}
+.label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:#0f0f15;color:var(--text);font-size:14px;margin-bottom:15px;outline:none;}
+.btn{width:100%;padding:16px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),#00cc66);font-weight:800;font-family:'Orbitron';font-size:14px;color:#000;cursor:pointer;margin-bottom:15px;}
+.pair-card{background:#0f0f15;border:1px solid var(--border);border-radius:15px;padding:15px;margin-bottom:15px;}
+.pair-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.pair-name{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;}
+.toggle{width:50px;height:28px;background:#2a2a35;border-radius:20px;position:relative;cursor:pointer;transition:0.3s;}
+.toggle.active{background:var(--primary);}
+.toggle::after{content:'';position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;}
+.toggle.active::after{left:25px;}
+.pair-info{font-size:11px;color:var(--muted);}
+.pair-info span{display:block;margin-top:3px;}
+#scanner{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);position:relative;overflow:hidden;display:none;margin-bottom:15px;}
+.scan-line{position:absolute;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--primary),transparent);box-shadow:0 0 20px var(--primary);animation:scan 1.5s linear infinite;}
+@keyframes scan{0%{top:0%;}100%{top:100%;}}
+#chartContainer{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);margin-bottom:15px;padding:10px;display:none;}
+#signalBox{padding:20px;border-radius:15px;text-align:center;font-size:28px;font-weight:900;font-family:'Orbitron';display:none;margin-bottom:15px;}
+.buy-style{background:rgba(0,255,120,0.1);border:1px solid rgba(0,255,120,0.3);color:var(--primary);}
+.sell-style{background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);color:var(--red);}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.stat{background:#0f0f15;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;}
+.stat h3{font-size:10px;color:var(--muted);margin-bottom:5px;}
+.stat p{font-size:15px;font-weight:700;}
+.error-msg{color:var(--red);font-size:12px;text-align:center;margin-top:10px;display:none;}
+.note{font-size:12px;color:#ffaa00;text-align:center;margin-bottom:15px;}
 </style>
 </head>
 <body>
-<div class="container">
-<h2 style="text-align:center;color:#f0b90b;">⚠️ Quotex par 1 Minute Expiry use karein</h2>
 
-<label>DATA SOURCE</label>
-<select id="mode">
-  <option value="binance">Binance Live</option>
-  <option value="demo">Demo/OTC Mode</option>
-</select>
-
-<label>SELECT PAIR</label>
-<select id="pair">
-  <option value="AUDUSDT">AUD/USDT</option>
-  <option value="EURUSDT">EUR/USDT</option>
-  <option value="GBPUSDT">GBP/USDT</option>
-  <option value="BTCUSDT">BTC/USDT</option>
-</select>
-
-<div class="card">
-  <div style="display:flex;justify-content:space-between;align-items:center;">
-    <h3 id="pairName">AUD/USDT</h3>
-    <label style="color:#3fb950;">● Connected</label>
-  </div>
-  <p>ID: 36857</p>
-  <p>Timeframe: 1M</p>
+<div id="loginScreen" class="container">
+<div class="header">
+<div class="logo">
+<div class="logo-icon">QX</div>
+<div>
+<h1>LUBNA ABUBAKAR</h1>
+<p>ELITE ACCESS SYSTEM</p>
+</div>
+</div>
+<div class="status">● SAFE</div>
+</div>
+<label class="label">PASSWORD</label>
+<input type="password" id="password" placeholder="Enter Password">
+<button class="btn" onclick="login()">🔓 UNLOCK SYSTEM</button>
 </div>
 
-<button onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
-
-<canvas id="chart" class="chart"></canvas>
-
-<div id="signalBox" class="signal sell" style="display:none;">
-  <span>📉 SELL</span>
+<div id="mainBoard" class="container" style="display:none;">
+<div class="header">
+<div class="logo">
+<div class="logo-icon">QX</div>
+<div>
+<h1>LUBNA ABUBAKAR</h1>
+<p>ULTRA AI SIGNAL - 1 MINUTE LIVE</p>
 </div>
+</div>
+<div class="status">● LIVE</div>
+</div>
+
+<div class="note">⚠️ Quotex پر 1 Minute Expiry استعمال کریں</div>
+
+<label class="label">DATA SOURCE</label>
+<select id="dataSource" onchange="changeSource()">
+<option value="binance">Binance Live</option>
+<option value="demo">Demo/OTC Mode</option>
+</select>
+
+<label class="label">SELECT PAIR</label>
+<select id="assetSelect" onchange="changeAsset()">
+<option value="EURUSDT">EUR/USDT</option>
+<option value="GBPUSDT">GBP/USDT</option>
+<option value="BRLUSDT">BRL/USDT</option>
+<option value="AUDUSDT">AUD/USDT</option>
+<option value="USDJPY">USD/JPY</option>
+</select>
+
+<div class="pair-card">
+<div class="pair-header">
+<div class="pair-name">
+<span id="pairName">EUR/USDT</span>
+</div>
+<div class="toggle active" id="toggleBtn" onclick="toggleSignal()"></div>
+</div>
+<div class="pair-info">
+<span id="pairId">ID: <span id="pairIdNum">76554</span></span>
+<span id="pairStatus">● Connected</span>
+<span id="pairDate">Timeframe: 1M</span>
+</div>
+</div>
+
+<button class="btn" onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
+
+<div id="scanner"><div class="scan-line"></div></div>
+<div id="chartContainer"><canvas id="candleChart"></canvas></div>
+<div id="signalBox">BUY</div>
+<div class="error-msg" id="errorMsg"></div>
 
 <div class="stats">
-  <div class="stat-box"><h4>RSI</h4><p id="rsi">--</p></div>
-  <div class="stat-box"><h4>TREND</h4><p id="trend">--</p></div>
-  <div class="stat-box"><h4>CONF</h4><p id="conf">--</p></div>
-  <div class="stat-box"><h4>MACD</h4><p id="macd">--</p></div>
+<div class="stat"><h3>RSI</h3><p id="rsi">--</p></div>
+<div class="stat"><h3>TREND</h3><p id="trend">--</p></div>
+<div class="stat"><h3>CONF</h3><p id="conf">--</p></div>
+<div class="stat"><h3>MACD</h3><p id="macd">--</p></div>
 </div>
 </div>
 
 <script>
+let dataSource = 'binance';
+let pair = 'EURUSDT';
+let signalActive = true;
+let cachedData = null;
+let lastFetchTime = 0;
+let chart = null;
+
 const demoPairs = {
-  "EURUSD OTC": {base: 1.08, vol: 0.001},
-  "GBPUSD OTC": {base: 1.26, vol: 0.0015},
-  "AUDUSD OTC": {base: 0.65, vol: 0.002},
-  "USDMXN OTC": {base: 17.5, vol: 0.05},
-  "USDINR OTC": {base: 83.2, vol: 0.1},
-  "USDPKR OTC": {base: 278, vol: 0.5}
+  'EURUSDT': 'EURUSD OTC',
+  'GBPUSDT': 'GBPUSD OTC',
+  'BRLUSDT': 'USDNGN OTC',
+  'AUDUSDT': 'AUDUSD OTC',
+  'USDJPY': 'USDJPY OTC',
+  'USDMXN': 'USDMXN OTC',
+  'USDINR': 'USDINR OTC',
+  'USDPKR': 'USDPKR OTC'
 };
 
-async function generateSignal(){
-  const mode = document.getElementById('mode').value;
-  const pair = document.getElementById('pair').value;
-  document.getElementById('pairName').innerText = pair.replace('USDT','/USDT');
+function login(){
+  let pass = document.getElementById('password').value;
+  if(pass === 'Lubna786'){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainBoard').style.display = 'block';
+  }else{alert('غلط پاسورڈ!');}
+}
 
-  let closes, price, rsi, macd, trend;
+function changeSource(){
+  dataSource = document.getElementById('dataSource').value;
+  updatePairList();
+  cachedData = null;
+  document.getElementById('chartContainer').style.display = 'none';
+}
 
-  if(mode === 'binance'){
-    try{
-      let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=50`);
-      let data = await res.json();
-      closes = data.map(d => parseFloat(d[4]));
-    }catch(e){
-      alert("Pair not supported in Binance Live");
-      return;
+function updatePairList(){
+  let select = document.getElementById('assetSelect');
+  select.innerHTML = '';
+
+  if(dataSource === 'binance'){
+    select.innerHTML = `
+      <option value="EURUSDT">EUR/USDT</option>
+      <option value="GBPUSDT">GBP/USDT</option>
+      <option value="BRLUSDT">BRL/USDT</option>
+      <option value="AUDUSDT">AUD/USDT</option>
+      <option value="USDJPY">USD/JPY</option>
+    `;
+    pair = 'EURUSDT';
+  }else{
+    select.innerHTML = `
+      <option value="EURUSDT">EURUSD OTC</option>
+      <option value="GBPUSDT">GBPUSD OTC</option>
+      <option value="BRLUSDT">USDNGN OTC</option>
+      <option value="AUDUSDT">AUDUSD OTC</option>
+      <option value="USDJPY">USDJPY OTC</option>
+      <option value="USDMXN">USDMXN OTC</option>
+      <option value="USDINR">USDINR OTC</option>
+      <option value="USDPKR">USDPKR OTC</option>
+    `;
+    pair = 'EURUSDT';
+  }
+
+  changeAsset();
+}
+
+function changeAsset(){
+  pair = document.getElementById('assetSelect').value;
+  let name = document.getElementById('assetSelect').options[document.getElementById('assetSelect').selectedIndex].text;
+  document.getElementById('pairName').innerText = name;
+  document.getElementById('pairIdNum').innerText = Math.floor(Math.random()*99999);
+  cachedData = null;
+  document.getElementById('chartContainer').style.display = 'none';
+}
+
+function toggleSignal(){
+  signalActive =!signalActive;
+  document.getElementById('toggleBtn').classList.toggle('active');
+  document.getElementById('pairStatus').innerText = signalActive? '● Connected' : '● Stopped';
+}
+
+function getDemoData(){
+  let price = 1.5 + Math.random() * 0.5;
+  if(pair === 'USDMXN') price = 17.5 + Math.random();
+  if(pair === 'USDINR') price = 83.2 + Math.random();
+  if(pair === 'USDPKR') price = 278 + Math.random()*2;
+
+  let data = [];
+  for(let i=0; i<100; i++){
+    price += (Math.random() - 0.5) * 0.01 * (price/10);
+    data.push({
+      open: price,
+      high: price + Math.random() * 0.005 * (price/10),
+      low: price - Math.random() * 0.005 * (price/10),
+      close: price + (Math.random() - 0.5) * 0.003 * (price/10)
+    });
+  }
+  return data;
+}
+
+async function getBinanceData(){
+  let now = Date.now();
+  if(cachedData && (now - lastFetchTime) < 10000){
+    return cachedData;
+  }
+
+  try{
+    let symbol = pair;
+    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=100`);
+
+    if(!response.ok) throw new Error('API Error: ' + response.status);
+
+    let data = await response.json();
+    if(!data || data.length < 50) throw new Error('Not enough data');
+
+    cachedData = data.map(candle => ({
+      open: parseFloat(candle[1]),
+      high: parseFloat(candle[2]),
+      low: parseFloat(candle[3]),
+      close: parseFloat(candle[4])
+    }));
+    lastFetchTime = now;
+    document.getElementById('errorMsg').style.display = 'none';
+    return cachedData;
+
+  }catch(error){
+    console.log('Binance API Error:', error);
+    document.getElementById('errorMsg').innerText = 'API Error: Pair not found. Try EURUSDT or BRLUSDT';
+    document.getElementById('errorMsg').style.display = 'block';
+    return null;
+  }
+}
+
+function drawChart(candles){
+  const ctx = document.getElementById('candleChart').getContext('2d');
+  if(chart) chart.destroy();
+
+  const labels = candles.map((_, i) => i);
+  const closeData = candles.map(c => c.close);
+
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: pair,
+        data: closeData,
+        borderColor: '#00ff78',
+        backgroundColor: 'rgba(0,255,120,0.1)',
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.1,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {legend: {display: false}},
+      scales: {
+        x: {display: false},
+        y: {display: true,ticks: {color: '#8a8a9e', font: {size: 10}},grid: {color: '#2a2a35'}}
+      }
     }
-  } else {
-    let d = demoPairs[pair] || demoPairs["EURUSD OTC"];
-    closes = [];
-    let p = d.base;
-    for(let i=0;i<50;i++){
-      p += (Math.random()-0.5)*d.vol;
-      closes.push(p);
-    }
-  }
-
-  price = closes[closes.length-1];
-  rsi = calcRSI(closes);
-  macd = calcMACD(closes);
-  trend = closes[closes.length-1] > closes[closes.length-5]? "UP" : "DOWN";
-
-  let signal = "WAIT";
-  let conf = Math.floor(Math.random()*30)+60;
-  if(rsi < 30 && macd > 0 && trend === "UP"){signal = "BUY";}
-  if(rsi > 70 && macd < 0 && trend === "DOWN"){signal = "SELL";}
-
-  document.getElementById('rsi').innerText = rsi;
-  document.getElementById('trend').innerText = trend;
-  document.getElementById('conf').innerText = conf + "%";
-  document.getElementById('macd').innerText = macd > 0? "BULL" : "BEAR";
-
-  const signalBox = document.getElementById('signalBox');
-  signalBox.style.display = "block";
-  if(signal === "BUY"){
-    signalBox.className = "signal buy";
-    signalBox.innerHTML = "<span>📈 BUY</span>";
-  } else if(signal === "SELL"){
-    signalBox.className = "signal sell";
-    signalBox.innerHTML = "<span>📉 SELL</span>";
-  } else {
-    signalBox.style.display = "none";
-  }
-
-  drawChart(closes);
+  });
 }
 
-function calcRSI(closes, period=14){
-  let gains=0, losses=0;
-  for(let i=1;i<=period;i++){
-    let change = closes[i]-closes[i-1];
-    if(change>0) gains+=change; else losses-=change;
+function calculateRSI(closes, period = 14){
+  let gains = [], losses = [];
+  for(let i = 1; i < closes.length; i++){
+    let change = closes[i] - closes[i - 1];
+    gains.push(change > 0? change : 0);
+    losses.push(change < 0? Math.abs(change) : 0);
   }
-  let avgGain=gains/period, avgLoss=losses/period;
-  let rs = avgGain/avgLoss;
-  return (100 - (100/(1+rs))).toFixed(0);
+  let avgGain = gains.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  let avgLoss = losses.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  for(let i = period; i < gains.length; i++){
+    avgGain = (avgGain * (period - 1) + gains[i]) / period;
+    avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
+  }
+  if(avgLoss === 0) return 100;
+  let rs = avgGain / avgLoss;
+  return 100 - (100 / (1 + rs));
 }
 
-function calcMACD(closes){
-  let ema12 = EMA(closes,12);
-  let ema26 = EMA(closes,26);
-  return (ema12-ema26).toFixed(4);
-}
-
-function EMA(closes, period){
-  let k=2/(period+1);
-  let ema=closes[0];
-  for(let i=1;i<closes.length;i++){
-    ema = closes[i]*k + ema*(1-k);
+function calculateEMA(closes, period){
+  let k = 2 / (period + 1);
+  let ema = [closes[0]];
+  for(let i=1; i<closes.length; i++){
+    ema.push(closes[i] * k + ema[i-1] * (1 - k));
   }
   return ema;
 }
 
-function drawChart(closes){
-  const canvas = document.getElementById('chart');
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.strokeStyle = "#3fb950";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  const min = Math.min(...closes);
-  const max = Math.max(...closes);
-  for(let i=0;i<closes.length;i++){
-    let x = (i/closes.length)*canvas.width;
-    let y = canvas.height - ((closes[i]-min)/(max-min))*canvas.height;
-    if(i==0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+function calculateMACD(closes){
+  let ema12 = calculateEMA(closes, 12);
+  let ema26 = calculateEMA(closes, 26);
+  let macdLine = ema12.map((val, i) => val - ema26[i]);
+  let signalLine = calculateEMA(macdLine, 9);
+  let histogram = macdLine.map((val, i) => val - signalLine[i]);
+  return {macd: macdLine[macdLine.length-1], signal: signalLine[signalLine.length-1], hist: histogram[histogram.length-1]};
+}
+
+async function generateSignal(){
+  if(!signalActive){
+    alert('Pair stopped ہے۔ پہلے toggle آن کریں۔');
+    return;
   }
-  ctx.stroke();
+
+  document.getElementById('scanner').style.display = 'block';
+  document.getElementById('chartContainer').style.display = 'none';
+  document.getElementById('signalBox').style.display = 'none';
+
+  let candles;
+  if(dataSource === 'binance'){
+    candles = await getBinanceData();
+  }else{
+    candles = getDemoData();
+  }
+
+  if(!candles){
+    document.getElementById('scanner').style.display = 'none';
+    return;
+  }
+
+  setTimeout(()=>{
+    document.getElementById('scanner').style.display = 'none';
+    document.getElementById('chartContainer').style.display = 'block';
+    document.getElementById('signalBox').style.display = 'block';
+
+    let closes = candles.map(c => c.close);
+    let rsi = calculateRSI(closes);
+    let ema50 = calculateEMA(closes, 50);
+    let ema200 = calculateEMA(closes, 200);
+    let macd = calculateMACD(closes);
+    let lastPrice = closes[closes.length - 1];
+
+    drawChart(candles);
+
+    let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
+    let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
+    let macdBull = macd.hist > 0.0001;
+    let macdBear = macd.hist < -0.0001;
+
+    let buyScore = 0, sellScore = 0;
+
+    if(rsi < 35) buyScore += 3;
+    if(rsi > 65) sellScore += 3;
+    if(trendUp) buyScore += 4;
+    if(trendDown) sellScore += 4;
+    if(macdBull) buyScore += 3;
+    if(macdBear) sellScore += 3;
+
+    let totalScore = buyScore + sellScore;
+    let confidence = totalScore > 0? Math.floor((Math.max(buyScore,sellScore)/totalScore)*100) : 0;
+
+    if(buyScore >= 6 && buyScore > sellScore + 1){
+      document.getElementById('signalBox').innerHTML = '📈 BUY';
+      document.getElementById('signalBox').className = 'buy-style';
+      document.getElementById('trend').innerText = 'UP';
+    }else if(sellScore >= 6 && sellScore > buyScore + 1){
+      document.getElementById('signalBox').innerHTML = '📉 SELL';
+      document.getElementById('signalBox').className = 'sell-style';
+      document.getElementById('trend').innerText = 'DOWN';
+    }else{
+      document.getElementById('signalBox').innerHTML = '⏸ WAIT';
+      document.getElementById('signalBox').className = '';
+      document.getElementById('trend').innerText = 'SIDEWAYS';
+      confidence = 0;
+    }
+
+    document.getElementById('rsi').innerText = Math.floor(rsi);
+    document.getElementById('conf').innerText = confidence + '%';
+    document.getElementById('macd').innerText = macd.hist > 0? 'BULL' : 'BEAR';
+
+    if(confidence >= 70){
+      let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+      audio.play();
+    }
+
+  },800);
 }
 </script>
 </body>
