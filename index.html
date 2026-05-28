@@ -124,7 +124,8 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 </div>
 
 <script>
-Chart.register(Chart.ChartFinancial);
+const { CandlestickController, CandlestickElement } = window['chartjs-chart-financial'];
+Chart.register(CandlestickController, CandlestickElement);
 
 let dataSource = 'binance';
 let pair = 'EURUSDT';
@@ -132,17 +133,6 @@ let signalActive = true;
 let cachedData = null;
 let lastFetchTime = 0;
 let chart = null;
-
-const demoPairs = {
-  'EURUSDT': 'EURUSD OTC',
-  'GBPUSDT': 'GBPUSD OTC',
-  'BRLUSDT': 'USDNGN OTC',
-  'AUDUSDT': 'AUDUSD OTC',
-  'USDJPY': 'USDJPY OTC',
-  'USDMXN': 'USDMXN OTC',
-  'USDINR': 'USDINR OTC',
-  'USDPKR': 'USDPKR OTC'
-};
 
 function login(){
   let pass = document.getElementById('password').value;
