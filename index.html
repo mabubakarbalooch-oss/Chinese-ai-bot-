@@ -158,9 +158,6 @@ function updatePairList(){
       <option value="BRLUSDT">BRL/USDT</option>
       <option value="AUDUSDT">AUD/USDT</option>
       <option value="USDJPY">USD/JPY</option>
-      <option value="USDMXN">USD/MXN</option>
-      <option value="USDINR">USD/INR</option>
-      <option value="USDPKR">USD/PKR</option>
     `;
     pair = 'EURUSDT';
   }else{
@@ -198,6 +195,11 @@ function toggleSignal(){
 function initChart(){
   if(chart) chart.remove();
   const container = document.getElementById('chartContainer');
+
+  if(container.clientWidth === 0){
+    container.style.width = '100%';
+  }
+
   chart = LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: 180,
@@ -265,7 +267,7 @@ async function getBinanceData(){
     return cachedData;
 
   }catch(error){
-    document.getElementById('errorMsg').innerText = 'API Error: Pair not found. Try EURUSDT or BRLUSDT';
+    document.getElementById('errorMsg').innerText = 'API Error: Ye pair Binance par nahi hai. EURUSDT try karein';
     document.getElementById('errorMsg').style.display = 'block';
     return null;
   }
@@ -309,7 +311,7 @@ function calculateMACD(closes){
 
 async function generateSignal(){
   if(!signalActive){
-    alert('Pair stopped ہے۔ پہلے toggle آن کریں۔');
+    alert('Pair stopped hai. Pehle toggle on karein.');
     return;
   }
 
@@ -335,6 +337,7 @@ async function generateSignal(){
     document.getElementById('signalBox').style.display = 'block';
 
     initChart();
+    chart.resize(document.getElementById('chartContainer').clientWidth, 180);
     candlestickSeries.setData(candles);
 
     let closes = candles.map(c => c.close);
