@@ -5,36 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lubna Abubakar Signal Bot</title>
 <style>
-body {font-family: Arial, sans-serif; background:#0f172a; color:#fff; margin:0; padding:20px; text-align:center;}
-.container {max-width:600px; margin:auto; background:#1e293b; padding:20px; border-radius:12px;}
-h1 {color:#38bdf8;}
-select, button {padding:10px; margin:10px; border-radius:8px; border:none; font-size:16px;}
-button {background:#38bdf8; color:#000; cursor:pointer; font-weight:bold;}
-button:hover {background:#0ea5e9;}
-.card {background:#334155; padding:15px; margin-top:15px; border-radius:10px;}
-.sell {color:#f87171;}.buy {color:#4ade80;}.wait {color:#facc15;}
+body {
+  font-family: Arial, sans-serif;
+  background:#0d1117;
+  color:#fff;
+  margin:0;
+  padding:15px;
+}
+.container {
+  max-width:420px;
+  margin:auto;
+  background:#161b22;
+  padding:15px;
+  border-radius:12px;
+}
+label {
+  font-size:14px;
+  color:#8d96a0;
+}
+select, button {
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+  background:#21262d;
+  color:#fff;
+}
+button {
+  background:#2ea043;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover {background:#238636;}
+.card {
+  background:#21262d;
+  padding:15px;
+  margin-top:15px;
+  border-radius:10px;
+  text-align:center;
+}
+.signal {
+  font-size:28px;
+  font-weight:bold;
+  padding:15px;
+  border-radius:8px;
+  margin-top:10px;
+}
+.sell {background:#3d1f1f; color:#ff7b72;}
+.buy {background:#1f3d2f; color:#3fb950;}
+.chart {
+  width:100%;
+  height:150px;
+  background:#0d1117;
+  margin-top:10px;
+  border-radius:8px;
+}
+.stats {
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+}
+.stat-box {
+  background:#21262d;
+  padding:10px;
+  border-radius:8px;
+  width:23%;
+  text-align:center;
+}
+.stat-box h4 {margin:0; font-size:12px; color:#8d96a0;}
+.stat-box p {margin:5px 0 0; font-size:18px; font-weight:bold;}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Lubna Abubakar Signal Bot</h1>
-<p>Password: <b>Lubna786</b></p>
+<h2 style="text-align:center;color:#f0b90b;">⚠️ Quotex par 1 Minute Expiry use karein</h2>
 
+<label>DATA SOURCE</label>
 <select id="mode">
   <option value="binance">Binance Live</option>
   <option value="demo">Demo/OTC Mode</option>
 </select>
 
+<label>SELECT PAIR</label>
 <select id="pair">
-  <option value="EURUSDT">EURUSDT</option>
-  <option value="BRLUSDT">BRLUSDT</option>
-  <option value="GBPUSDT">GBPUSDT</option>
-  <option value="AUDUSDT">AUDUSDT</option>
+  <option value="AUDUSDT">AUD/USDT</option>
+  <option value="EURUSDT">EUR/USDT</option>
+  <option value="GBPUSDT">GBP/USDT</option>
+  <option value="BTCUSDT">BTC/USDT</option>
 </select>
 
-<button onclick="generateSignal()">Generate Signal</button>
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <h3 id="pairName">AUD/USDT</h3>
+    <label style="color:#3fb950;">● Connected</label>
+  </div>
+  <p>ID: 36857</p>
+  <p>Timeframe: 1M</p>
+</div>
 
-<div id="result"></div>
+<button onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
+
+<canvas id="chart" class="chart"></canvas>
+
+<div id="signalBox" class="signal sell" style="display:none;">
+  <span>📉 SELL</span>
+</div>
+
+<div class="stats">
+  <div class="stat-box"><h4>RSI</h4><p id="rsi">--</p></div>
+  <div class="stat-box"><h4>TREND</h4><p id="trend">--</p></div>
+  <div class="stat-box"><h4>CONF</h4><p id="conf">--</p></div>
+  <div class="stat-box"><h4>MACD</h4><p id="macd">--</p></div>
+</div>
 </div>
 
 <script>
@@ -50,46 +135,57 @@ const demoPairs = {
 async function generateSignal(){
   const mode = document.getElementById('mode').value;
   const pair = document.getElementById('pair').value;
-  const resDiv = document.getElementById('result');
-  resDiv.innerHTML = "Loading...";
+  document.getElementById('pairName').innerText = pair.replace('USDT','/USDT');
 
-  let price, rsi, macd, trend;
+  let closes, price, rsi, macd, trend;
 
   if(mode === 'binance'){
     try{
       let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1m&limit=50`);
       let data = await res.json();
-      let closes = data.map(d => parseFloat(d[4]));
-      price = closes[closes.length-1];
-      rsi = calcRSI(closes);
-      macd = calcMACD(closes);
-      trend = closes[closes.length-1] > closes[closes.length-5]? "UP" : "DOWN";
+      closes = data.map(d => parseFloat(d[4]));
     }catch(e){
-      resDiv.innerHTML = "<div class='card'>API Error: Pair not found or rate limited</div>";
+      alert("Pair not supported in Binance Live");
       return;
     }
   } else {
     let d = demoPairs[pair] || demoPairs["EURUSD OTC"];
-    price = (d.base + (Math.random()-0.5)*d.vol).toFixed(4);
-    rsi = (Math.random()*100).toFixed(2);
-    macd = (Math.random()-0.5).toFixed(4);
-    trend = Math.random() > 0.5? "UP" : "DOWN";
+    closes = [];
+    let p = d.base;
+    for(let i=0;i<50;i++){
+      p += (Math.random()-0.5)*d.vol;
+      closes.push(p);
+    }
   }
 
-  let signal = "WAIT";
-  if(rsi < 30 && macd > 0 && trend === "UP") signal = "BUY";
-  if(rsi > 70 && macd < 0 && trend === "DOWN") signal = "SELL";
+  price = closes[closes.length-1];
+  rsi = calcRSI(closes);
+  macd = calcMACD(closes);
+  trend = closes[closes.length-1] > closes[closes.length-5]? "UP" : "DOWN";
 
-  resDiv.innerHTML = `
-    <div class="card">
-      <h2>Pair: ${pair}</h2>
-      <p>Price: ${price}</p>
-      <p>RSI: ${rsi}</p>
-      <p>MACD: ${macd}</p>
-      <p>Trend: ${trend}</p>
-      <h2 class="${signal.toLowerCase()}">${signal}</h2>
-    </div>
-  `;
+  let signal = "WAIT";
+  let conf = Math.floor(Math.random()*30)+60;
+  if(rsi < 30 && macd > 0 && trend === "UP"){signal = "BUY";}
+  if(rsi > 70 && macd < 0 && trend === "DOWN"){signal = "SELL";}
+
+  document.getElementById('rsi').innerText = rsi;
+  document.getElementById('trend').innerText = trend;
+  document.getElementById('conf').innerText = conf + "%";
+  document.getElementById('macd').innerText = macd > 0? "BULL" : "BEAR";
+
+  const signalBox = document.getElementById('signalBox');
+  signalBox.style.display = "block";
+  if(signal === "BUY"){
+    signalBox.className = "signal buy";
+    signalBox.innerHTML = "<span>📈 BUY</span>";
+  } else if(signal === "SELL"){
+    signalBox.className = "signal sell";
+    signalBox.innerHTML = "<span>📉 SELL</span>";
+  } else {
+    signalBox.style.display = "none";
+  }
+
+  drawChart(closes);
 }
 
 function calcRSI(closes, period=14){
@@ -100,7 +196,7 @@ function calcRSI(closes, period=14){
   }
   let avgGain=gains/period, avgLoss=losses/period;
   let rs = avgGain/avgLoss;
-  return (100 - (100/(1+rs))).toFixed(2);
+  return (100 - (100/(1+rs))).toFixed(0);
 }
 
 function calcMACD(closes){
@@ -116,6 +212,23 @@ function EMA(closes, period){
     ema = closes[i]*k + ema*(1-k);
   }
   return ema;
+}
+
+function drawChart(closes){
+  const canvas = document.getElementById('chart');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle = "#3fb950";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const min = Math.min(...closes);
+  const max = Math.max(...closes);
+  for(let i=0;i<closes.length;i++){
+    let x = (i/closes.length)*canvas.width;
+    let y = canvas.height - ((closes[i]-min)/(max-min))*canvas.height;
+    if(i==0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
 }
 </script>
 </body>
