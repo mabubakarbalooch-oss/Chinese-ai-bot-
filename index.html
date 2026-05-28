@@ -89,9 +89,6 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 <option value="BRLUSDT">BRL/USDT</option>
 <option value="AUDUSDT">AUD/USDT</option>
 <option value="USDJPY">USD/JPY</option>
-<option value="USDMXN">USD/MXN</option>
-<option value="USDINR">USD/INR</option>
-<option value="USDPKR">USD/PKR</option>
 </select>
 
 <div class="pair-card">
@@ -196,10 +193,6 @@ function initChart(){
   if(chart) chart.remove();
   const container = document.getElementById('chartContainer');
 
-  if(container.clientWidth === 0){
-    container.style.width = '100%';
-  }
-
   chart = LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: 180,
@@ -211,7 +204,7 @@ function initChart(){
       vertLines: { color: '#2a2a35' },
       horzLines: { color: '#2a2a35' },
     },
-    timeScale: { timeVisible: false, secondsVisible: false },
+    timeScale: { timeVisible: true, secondsVisible: false },
   });
 
   candlestickSeries = chart.addCandlestickSeries({
@@ -225,7 +218,7 @@ function initChart(){
 }
 
 function getDemoData(){
-  let price = pair === 'USDMXN'? 17.5 : pair === 'USDINR'? 83.2 : pair === 'USDPKR'? 278 : 1.5;
+  let price = 1.5;
   let data = [];
   let time = Math.floor(Date.now() / 1000) - 50 * 60;
   for(let i=0; i<50; i++){
@@ -248,11 +241,15 @@ async function getBinanceData(){
 
   try{
     let symbol = pair;
-    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=50`);
+    // CORS proxy lagaya hai
+    let url = `https://api.allorigins.win/raw?url=https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=50`;
+    console.log("Fetching:", url);
 
-    if(!response.ok) throw new Error('API Error: ' + response.status);
-
+    let response = await fetch(url);
     let data = await response.json();
+
+    console.log("Data received:", data);
+
     if(!data || data.length < 20) throw new Error('Not enough data');
 
     cachedData = data.map(candle => ({
@@ -267,7 +264,8 @@ async function getBinanceData(){
     return cachedData;
 
   }catch(error){
-    document.getElementById('errorMsg').innerText = 'API Error: Ye pair Binance par nahi hai. EURUSDT try karein';
+    console.log("Error:", error);
+    document.getElementById('errorMsg').innerText = 'API Error: ' + error.message;
     document.getElementById('errorMsg').style.display = 'block';
     return null;
   }
