@@ -4,22 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
 <style>
 :root{
-  --bg:#050508;
-  --card:#0f0f14;
-  --card2:#16161e;
+  --bg:#000000;
+  --card:rgba(15,15,25,0.85);
+  --glass:rgba(255,255,255,0.03);
   --primary:#00ff88;
-  --primary-dim:#00cc6e;
-  --red:#ff4757;
-  --red-dim:#cc3845;
+  --primary-glow:rgba(0,255,136,0.4);
+  --red:#ff2d55;
+  --red-glow:rgba(255,45,85,0.4);
+  --gold:#ffd700;
+  --gold-glow:rgba(255,215,0,0.3);
   --text:#ffffff;
-  --muted:#6c6c7e;
-  --border:#1e1e28;
-  --glow:rgba(0,255,136,0.15);
-  --glow-red:rgba(255,71,87,0.15);
+  --muted:#8a8a9e;
+  --border:rgba(255,255,255,0.08);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -34,129 +34,297 @@ body{
   padding:15px;
   color:var(--text);
   overflow-x:hidden;
+  position:relative;
 }
 
-/* ===== ANIMATED BACKGROUND ===== */
-.bg-animation{
+/* ===== ANIMATED PARTICLE BACKGROUND ===== */
+.particles{
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  z-index:-2;
+  background:radial-gradient(ellipse at 50% 0%, #0a0a1a 0%, #000000 70%);
+}
+
+.particle{
+  position:absolute;
+  border-radius:50%;
+  background:var(--primary);
+  opacity:0;
+  animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(100vh) scale(0);opacity:0;}
+  10%{opacity:0.6;}
+  90%{opacity:0.6;}
+  100%{transform:translateY(-10vh) scale(1);opacity:0;}
+}
+
+/* ===== GRID OVERLAY ===== */
+.grid-overlay{
   position:fixed;
   top:0;left:0;width:100%;height:100%;
   z-index:-1;
-  background:
-    radial-gradient(ellipse at 20% 80%, rgba(0,255,136,0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(0,100,255,0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(255,0,100,0.02) 0%, transparent 50%);
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size:50px 50px;
+  animation:gridMove 20s linear infinite;
+}
+
+@keyframes gridMove{
+  0%{background-position:0 0;}
+  100%{background-position:50px 50px;}
 }
 
 /* ===== LOGIN SCREEN ===== */
-.login-container{
+.login-wrapper{
   width:100%;
   max-width:420px;
+  position:relative;
+}
+
+.login-glow{
+  position:absolute;
+  top:-100px;left:50%;
+  transform:translateX(-50%);
+  width:300px;height:300px;
+  background:radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  filter:blur(60px);
+  animation:glowPulse 3s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes glowPulse{
+  0%,100%{opacity:0.5;transform:translateX(-50%) scale(1);}
+  50%{opacity:0.8;transform:translateX(-50%) scale(1.2);}
+}
+
+.login-card{
   background:var(--card);
-  border-radius:24px;
-  padding:40px 30px;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:28px;
+  padding:50px 35px;
   border:1px solid var(--border);
   position:relative;
   overflow:hidden;
+  box-shadow:
+    0 25px 50px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
-.login-container::before{
+/* Animated border */
+.login-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  border-radius:28px;
+  padding:1.5px;
+  background:linear-gradient(135deg, var(--primary), transparent, #0066ff, transparent, var(--primary));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  animation:borderRotate 4s linear infinite;
+  opacity:0.6;
+}
+
+@keyframes borderRotate{
+  0%{background:linear-gradient(0deg, var(--primary), transparent, #0066ff);}
+  25%{background:linear-gradient(90deg, var(--primary), transparent, #0066ff);}
+  50%{background:linear-gradient(180deg, var(--primary), transparent, #0066ff);}
+  75%{background:linear-gradient(270deg, var(--primary), transparent, #0066ff);}
+  100%{background:linear-gradient(360deg, var(--primary), transparent, #0066ff);}
+}
+
+/* Holographic shine */
+.login-card::after{
   content:'';
   position:absolute;
   top:-50%;left:-50%;
   width:200%;height:200%;
-  background:conic-gradient(from 0deg, transparent, var(--primary), transparent 30%);
-  animation:rotate 4s linear infinite;
-  opacity:0.03;
+  background:linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255,255,255,0.02) 50%,
+    transparent 70%
+  );
+  animation:shine 6s ease-in-out infinite;
+  pointer-events:none;
 }
 
-@keyframes rotate{100%{transform:rotate(360deg);}}
+@keyframes shine{
+  0%{transform:translateX(-100%) rotate(45deg);}
+  100%{transform:translateX(100%) rotate(45deg);}
+}
 
 .login-header{
   text-align:center;
-  margin-bottom:40px;
+  margin-bottom:45px;
   position:relative;
   z-index:1;
 }
 
-.login-logo{
-  width:80px;height:80px;
-  margin:0 auto 20px;
-  border-radius:24px;
-  background:linear-gradient(135deg, var(--primary), #0066ff);
+/* 3D Logo */
+.logo-3d{
+  width:100px;height:100px;
+  margin:0 auto 25px;
+  position:relative;
+  perspective:1000px;
+}
+
+.logo-inner{
+  width:100%;height:100%;
+  border-radius:28px;
+  background:linear-gradient(135deg, var(--primary), #0066ff, var(--primary));
+  background-size:200% 200%;
   display:flex;
   justify-content:center;
   align-items:center;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:28px;
+  font-size:36px;
   color:#000;
-  box-shadow:0 0 40px rgba(0,255,136,0.3);
-  animation:pulse 2s ease-in-out infinite;
+  box-shadow:
+    0 0 40px var(--primary-glow),
+    0 0 80px rgba(0,255,136,0.2),
+    inset 0 2px 4px rgba(255,255,255,0.3);
+  animation:logoFloat 3s ease-in-out infinite, gradientShift 4s ease infinite;
+  transform-style:preserve-3d;
 }
 
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 40px rgba(0,255,136,0.3);}
-  50%{box-shadow:0 0 60px rgba(0,255,136,0.5);}
+@keyframes logoFloat{
+  0%,100%{transform:translateY(0) rotateX(0deg);}
+  50%{transform:translateY(-10px) rotateX(5deg);}
+}
+
+@keyframes gradientShift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Rings around logo */
+.logo-ring{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid rgba(0,255,136,0.2);
+  animation:ringExpand 2s ease-out infinite;
+}
+
+.logo-ring:nth-child(2){animation-delay:0.5s;}
+.logo-ring:nth-child(3){animation-delay:1s;}
+
+@keyframes ringExpand{
+  0%{width:100px;height:100px;opacity:1;}
+  100%{width:180px;height:180px;opacity:0;}
 }
 
 .login-header h1{
   font-family:'Orbitron',sans-serif;
-  font-size:22px;
+  font-size:26px;
   font-weight:900;
-  letter-spacing:2px;
-  margin-bottom:8px;
-  background:linear-gradient(135deg, var(--text), var(--primary));
+  letter-spacing:4px;
+  margin-bottom:10px;
+  background:linear-gradient(135deg, #fff, var(--primary), #fff);
+  background-size:200% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:textShine 3s linear infinite;
 }
 
-.login-header p{
-  font-size:13px;
+@keyframes textShine{
+  0%{background-position:0% center;}
+  100%{background-position:200% center;}
+}
+
+.login-header .subtitle{
+  font-size:12px;
   color:var(--muted);
-  letter-spacing:3px;
+  letter-spacing:6px;
   text-transform:uppercase;
+  font-weight:500;
 }
 
-.login-input-group{
+.login-header .version{
+  display:inline-block;
+  margin-top:15px;
+  padding:6px 16px;
+  background:rgba(0,255,136,0.08);
+  border:1px solid rgba(0,255,136,0.15);
+  border-radius:50px;
+  font-size:10px;
+  color:var(--primary);
+  letter-spacing:3px;
+  font-family:'Orbitron',sans-serif;
+}
+
+/* Input styling */
+.input-group{
   position:relative;
-  margin-bottom:25px;
+  margin-bottom:30px;
   z-index:1;
 }
 
-.login-input-group label{
+.input-group label{
   display:block;
-  font-size:11px;
+  font-size:10px;
   color:var(--muted);
-  margin-bottom:10px;
+  margin-bottom:12px;
   text-transform:uppercase;
-  letter-spacing:2px;
+  letter-spacing:3px;
   font-weight:600;
 }
 
-.login-input-group input{
+.input-wrapper{
+  position:relative;
+}
+
+.input-wrapper input{
   width:100%;
-  padding:16px 20px;
+  padding:18px 20px 18px 50px;
   border-radius:16px;
   border:1px solid var(--border);
-  background:var(--bg);
+  background:rgba(0,0,0,0.4);
   color:var(--text);
   font-size:15px;
   outline:none;
-  transition:all 0.3s;
+  transition:all 0.4s;
   font-family:'Poppins',sans-serif;
 }
 
-.login-input-group input:focus{
+.input-wrapper input:focus{
   border-color:var(--primary);
-  box-shadow:0 0 20px var(--glow);
+  box-shadow:0 0 30px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.05);
+  background:rgba(0,255,136,0.03);
 }
 
-.login-btn{
+.input-icon{
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+  opacity:0.5;
+  transition:0.3s;
+}
+
+.input-wrapper input:focus + .input-icon{
+  opacity:1;
+  color:var(--primary);
+}
+
+/* Unlock button */
+.unlock-btn{
   width:100%;
-  padding:18px;
+  padding:20px;
   border:none;
   border-radius:16px;
   background:linear-gradient(135deg, var(--primary), #0066ff);
+  background-size:200% 200%;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
   font-size:14px;
@@ -164,82 +332,156 @@ body{
   cursor:pointer;
   position:relative;
   z-index:1;
-  transition:all 0.3s;
-  letter-spacing:2px;
+  transition:all 0.4s;
+  letter-spacing:3px;
   text-transform:uppercase;
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,255,136,0.2);
 }
 
-.login-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 40px rgba(0,255,136,0.3);
+.unlock-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 20px 60px rgba(0,255,136,0.3);
+  background-position:100% 0;
 }
 
-.login-btn:active{transform:translateY(0);}
+.unlock-btn:active{transform:translateY(-1px);}
+
+/* Button ripple effect */
+.unlock-btn .ripple{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,0.4);
+  transform:scale(0);
+  animation:rippleEffect 0.6s linear;
+  pointer-events:none;
+}
+
+@keyframes rippleEffect{
+  to{transform:scale(4);opacity:0;}
+}
 
 .login-footer{
   text-align:center;
-  margin-top:30px;
-  font-size:11px;
-  color:var(--muted);
-  letter-spacing:1px;
+  margin-top:35px;
   position:relative;
   z-index:1;
 }
 
+.login-footer .lock-icon{
+  font-size:20px;
+  margin-bottom:10px;
+  display:block;
+  animation:lockPulse 2s ease-in-out infinite;
+}
+
+@keyframes lockPulse{
+  0%,100%{opacity:0.5;transform:scale(1);}
+  50%{opacity:1;transform:scale(1.1);}
+}
+
+.login-footer p{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:2px;
+}
+
+.login-footer .dots{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:15px;
+}
+
+.login-footer .dots span{
+  width:4px;height:4px;
+  border-radius:50%;
+  background:var(--primary);
+  animation:dotBounce 1.4s ease-in-out infinite;
+}
+
+.login-footer .dots span:nth-child(2){animation-delay:0.2s;}
+.login-footer .dots span:nth-child(3){animation-delay:0.4s;}
+
+@keyframes dotBounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
 /* ===== MAIN DASHBOARD ===== */
-.main-container{
+.main-wrapper{
   width:100%;
-  max-width:460px;
+  max-width:480px;
   display:none;
 }
 
-/* Top Bar */
-.top-bar{
+/* Floating header */
+.dash-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  margin-bottom:25px;
   padding:0 5px;
 }
 
-.top-bar .brand{
+.dash-brand{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:14px;
 }
 
-.brand-icon{
-  width:48px;height:48px;
-  border-radius:16px;
+.brand-logo{
+  width:52px;height:52px;
+  border-radius:18px;
   background:linear-gradient(135deg, var(--primary), #0066ff);
   display:flex;
   justify-content:center;
   align-items:center;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:20px;
+  font-size:22px;
   color:#000;
-  box-shadow:0 0 30px rgba(0,255,136,0.2);
+  box-shadow:0 0 30px var(--primary-glow);
+  position:relative;
+  overflow:hidden;
 }
 
-.brand-text h1{
+.brand-logo::after{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation:logoShine 3s ease-in-out infinite;
+}
+
+@keyframes logoShine{
+  0%{transform:translateX(-100%) rotate(45deg);}
+  100%{transform:translateX(100%) rotate(45deg);}
+}
+
+.brand-info h1{
   font-family:'Orbitron',sans-serif;
-  font-size:16px;
+  font-size:18px;
   font-weight:900;
-  letter-spacing:1px;
+  letter-spacing:2px;
+  background:linear-gradient(135deg, #fff, var(--primary));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.brand-text p{
+.brand-info p{
   font-size:11px;
   color:var(--muted);
-  letter-spacing:1px;
+  letter-spacing:2px;
+  margin-top:3px;
 }
 
-.live-badge{
+.live-pill{
   display:flex;
   align-items:center;
-  gap:6px;
-  padding:8px 16px;
+  gap:8px;
+  padding:10px 20px;
   border-radius:50px;
   background:rgba(0,255,136,0.08);
   border:1px solid rgba(0,255,136,0.15);
@@ -247,56 +489,482 @@ body{
   font-weight:700;
   color:var(--primary);
   font-family:'Orbitron',sans-serif;
-}
-
-.live-dot{
-  width:8px;height:8px;
-  border-radius:50%;
-  background:var(--primary);
-  animation:blink 1.5s ease-in-out infinite;
-}
-
-@keyframes blink{
-  0%,100%{opacity:1;transform:scale(1);}
-  50%{opacity:0.3;transform:scale(0.8);}
-}
-
-/* Card Style */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:15px;
+  letter-spacing:2px;
   position:relative;
   overflow:hidden;
 }
 
-.card::after{
+.live-pill::before{
+  content:'';
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg, transparent, rgba(0,255,136,0.1), transparent);
+  animation:pillShine 2s ease-in-out infinite;
+}
+
+@keyframes pillShine{
+  0%{left:-100%;}
+  100%{left:100%;}
+}
+
+.pulse-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--primary);
+  box-shadow:0 0 10px var(--primary);
+  animation:pulseDot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseDot{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.3;transform:scale(0.6);}
+}
+
+/* Cards */
+.glass-card{
+  background:var(--card);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+}
+
+.glass-card::before{
   content:'';
   position:absolute;
   top:0;left:0;right:0;
   height:1px;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
 }
 
-/* Warning Note */
-.warning-note{
+/* Warning banner */
+.warning-banner{
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:14px 16px;
-  background:rgba(255,170,0,0.05);
-  border:1px solid rgba(255,170,0,0.1);
-  border-radius:14px;
-  margin-bottom:15px;
+  gap:12px;
+  padding:16px 20px;
+  background:linear-gradient(135deg, rgba(255,170,0,0.08), rgba(255,170,0,0.02));
+  border:1px solid rgba(255,170,0,0.12);
+  border-radius:18px;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+}
+
+.warning-banner::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:3px;height:100%;
+  background:linear-gradient(180deg, #ffaa00, transparent);
+}
+
+.warning-banner span:first-child{
+  font-size:20px;
+  animation:warningShake 2s ease-in-out infinite;
+}
+
+@keyframes warningShake{
+  0%,100%{transform:rotate(0deg);}
+  10%{transform:rotate(-10deg);}
+  20%{transform:rotate(10deg);}
+  30%{transform:rotate(0deg);}
+}
+
+.warning-banner p{
   font-size:12px;
+  color:#ffaa00;
+  line-height:1.5;
+  font-weight:500;
+}
+
+/* Inputs */
+.field-label{
+  font-size:10px;
+  color:var(--muted);
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.field-label::before{
+  content:'';
+  width:8px;height:2px;
+  background:var(--primary);
+  border-radius:2px;
+}
+
+.glass-select{
+  width:100%;
+  padding:16px 20px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,0.4);
+  color:var(--text);
+  font-size:14px;
+  margin-bottom:16px;
+  outline:none;
+  font-family:'Poppins',sans-serif;
+  cursor:pointer;
+  transition:all 0.4s;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236c6c7e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 18px center;
+}
+
+.glass-select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 25px var(--primary-glow);
+}
+
+/* Pair card */
+.pair-section{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+
+.pair-info{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.pair-icon{
+  width:48px;height:48px;
+  border-radius:16px;
+  background:linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,100,255,0.1));
+  border:1px solid rgba(0,255,136,0.15);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:22px;
+  box-shadow:0 0 20px rgba(0,255,136,0.05);
+}
+
+.pair-details h3{
+  font-family:'Orbitron',sans-serif;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+.pair-details span{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+
+/* Toggle */
+.toggle-switch{
+  width:56px;height:32px;
+  background:rgba(255,255,255,0.05);
+  border-radius:32px;
+  position:relative;
+  cursor:pointer;
+  transition:0.4s;
+  border:1px solid var(--border);
+}
+
+.toggle-switch.active{
+  background:linear-gradient(135deg, var(--primary), #00cc6e);
+  border-color:transparent;
+  box-shadow:0 0 20px var(--primary-glow);
+}
+
+.toggle-switch::after{
+  content:'';
+  position:absolute;
+  width:26px;height:26px;
+  background:#fff;
+  border-radius:50%;
+  top:2px;left:2px;
+  transition:0.4s cubic-bezier(0.68,-0.55,0.27,1.55);
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+.toggle-switch.active::after{
+  left:27px;
+  background:#fff;
+}
+
+.pair-stats{
+  display:flex;
+  gap:24px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.pair-stats span{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* Live price display */
+.price-display{
+  text-align:center;
+  padding:16px;
+  background:rgba(0,255,136,0.03);
+  border:1px solid rgba(0,255,136,0.08);
+  border-radius:16px;
+  margin-bottom:16px;
+  display:none;
+}
+
+.price-display .price-label{
+  font-size:10px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  margin-bottom:6px;
+}
+
+.price-display .price-value{
+  font-family:'Orbitron',sans-serif;
+  font-size:24px;
+  font-weight:900;
+  color:var(--primary);
+  text-shadow:0 0 20px var(--primary-glow);
+}
+
+.price-display .price-change{
+  font-size:12px;
+  margin-top:4px;
+}
+
+/* Generate button */
+.generate-btn{
+  width:100%;
+  padding:22px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(135deg, var(--primary), #0066ff, var(--primary));
+  background-size:200% 200%;
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:15px;
+  color:#000;
+  cursor:pointer;
+  margin-bottom:16px;
+  transition:all 0.4s;
+  letter-spacing:3px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 15px 50px rgba(0,255,136,0.25);
+  animation:gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.generate-btn::before{
+  content:'';
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition:0.6s;
+}
+
+.generate-btn:hover::before{
+  left:100%;
+}
+
+.generate-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 25px 60px rgba(0,255,136,0.35);
+}
+
+.generate-btn:active{
+  transform:translateY(-1px);
+}
+
+/* Scanner */
+.scanner-box{
+  height:200px;
+  background:rgba(0,0,0,0.5);
+  border-radius:20px;
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  display:none;
+  margin-bottom:16px;
+}
+
+.scanner-line{
+  position:absolute;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--primary), transparent);
+  box-shadow:0 0 30px var(--primary), 0 0 60px var(--primary-glow);
+  animation:scannerMove 1.5s linear infinite;
+}
+
+@keyframes scannerMove{
+  0%{top:0%;opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:1;}
+  100%{top:100%;opacity:0;}
+}
+
+.scanner-text{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+}
+
+.scanner-text h3{
+  font-family:'Orbitron',sans-serif;
+  font-size:16px;
+  color:var(--primary);
+  letter-spacing:6px;
+  margin-bottom:10px;
+  animation:textPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes textPulse{
+  0%,100%{opacity:0.4;}
+  50%{opacity:1;}
+}
+
+.scanner-text p{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:2px;
+}
+
+.scanner-rings{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+}
+
+.scanner-rings .ring{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid rgba(0,255,136,0.15);
+  animation:ringPulse 2s ease-out infinite;
+}
+
+.scanner-rings .ring:nth-child(2){animation-delay:0.5s;}
+.scanner-rings .ring:nth-child(3){animation-delay:1s;}
+
+@keyframes ringPulse{
+  0%{width:40px;height:40px;opacity:1;}
+  100%{width:200px;height:200px;opacity:0;}
+}
+
+/* Chart */
+#chartContainer{
+  height:240px;
+  background:rgba(0,0,0,0.4);
+  border-radius:20px;
+  border:1px solid var(--border);
+  margin-bottom:16px;
+  display:none;
+  width:100%;
+}
+
+/* Signal box */
+.signal-result{
+  padding:28px;
+  border-radius:20px;
+  text-align:center;
+  font-size:36px;
+  font-weight:900;
+  font-family:'Orbitron',sans-serif;
+  display:none;
+  margin-bottom:16px;
+  letter-spacing:4px;
+  position:relative;
+  overflow:hidden;
+  animation:signalPop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55);
+}
+
+@keyframes signalPop{
+  0%{transform:scale(0.5);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
+}
+
+.signal-buy{
+  background:linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,255,136,0.02));
+  border:1px solid rgba(0,255,136,0.2);
+  color:var(--primary);
+  box-shadow:0 0 40px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.signal-sell{
+  background:linear-gradient(135deg, rgba(255,45,85,0.1), rgba(255,45,85,0.02));
+  border:1px solid rgba(255,45,85,0.2);
+  color:var(--red);
+  box-shadow:0 0 40px var(--red-glow), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.signal-wait{
+  background:linear-gradient(135deg, rgba(255,170,0,0.08), rgba(255,170,0,0.02));
+  border:1px solid rgba(255,170,0,0.15);
   color:#ffaa00;
 }
 
-/* Selects */
-.input-label{
-  font-size:11px;
+/* Stats */
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.stat-item{
+  background:rgba(0,0,0,0.4);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px 8px;
+  text-align:center;
+  transition:all 0.4s;
+  position:relative;
+  overflow:hidden;
+}
+
+.stat-item::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity:0;
+  transition:0.4s;
+}
+
+.stat-item:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,255,255,0.1);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.stat-item:hover::before{
+  opacity:1;
+}
+
+.stat-item h4{
+  font-size:9px;
   color:var(--muted);
   margin-bottom:10px;
   text-transform:uppercase;
@@ -304,371 +972,189 @@ body{
   font-weight:600;
 }
 
-select{
-  width:100%;
-  padding:14px 16px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:var(--bg);
-  color:var(--text);
-  font-size:14px;
-  margin-bottom:15px;
-  outline:none;
-  font-family:'Poppins',sans-serif;
-  cursor:pointer;
-  transition:all 0.3s;
-  appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c6c7e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 16px center;
-}
-
-select:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 15px var(--glow);
-}
-
-/* Pair Card */
-.pair-card-inner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-}
-
-.pair-name-big{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-family:'Orbitron',sans-serif;
-  font-weight:700;
+.stat-item p{
   font-size:18px;
+  font-weight:800;
+  font-family:'Orbitron',sans-serif;
 }
 
-.pair-flag{
-  width:36px;height:36px;
-  border-radius:12px;
-  background:var(--card2);
+/* API Status */
+.api-bar{
   display:flex;
+  align-items:center;
   justify-content:center;
-  align-items:center;
-  font-size:16px;
-}
-
-.toggle-modern{
-  width:52px;height:30px;
-  background:var(--bg);
-  border-radius:30px;
-  position:relative;
-  cursor:pointer;
-  transition:0.3s;
-  border:1px solid var(--border);
-}
-
-.toggle-modern.active{
-  background:var(--primary);
-  border-color:var(--primary);
-}
-
-.toggle-modern::after{
-  content:'';
-  position:absolute;
-  width:24px;height:24px;
-  background:#fff;
-  border-radius:50%;
-  top:2px;left:2px;
-  transition:0.3s;
-  box-shadow:0 2px 8px rgba(0,0,0,0.3);
-}
-
-.toggle-modern.active::after{left:25px;}
-
-.pair-meta{
-  display:flex;
-  gap:20px;
-  font-size:12px;
-  color:var(--muted);
-}
-
-.pair-meta span{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-/* Generate Button */
-.gen-btn{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:16px;
-  background:linear-gradient(135deg, var(--primary), #0066ff);
-  font-family:'Orbitron',sans-serif;
-  font-weight:900;
-  font-size:14px;
-  color:#000;
-  cursor:pointer;
-  margin-bottom:15px;
-  transition:all 0.3s;
-  letter-spacing:2px;
-  position:relative;
-  overflow:hidden;
-}
-
-.gen-btn::before{
-  content:'';
-  position:absolute;
-  top:0;left:-100%;
-  width:100%;height:100%;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition:0.5s;
-}
-
-.gen-btn:hover::before{left:100%;}
-
-.gen-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 40px rgba(0,255,136,0.3);
-}
-
-.gen-btn:active{transform:translateY(0);}
-
-/* Scanner */
-#scanner{
-  height:180px;
-  background:var(--bg);
-  border-radius:16px;
-  border:1px solid var(--border);
-  position:relative;
-  overflow:hidden;
-  display:none;
-  margin-bottom:15px;
-}
-
-.scan-line{
-  position:absolute;
-  width:100%;
-  height:2px;
-  background:linear-gradient(90deg, transparent, var(--primary), transparent);
-  box-shadow:0 0 30px var(--primary), 0 0 60px var(--primary);
-  animation:scan 1.2s linear infinite;
-}
-
-@keyframes scan{0%{top:0%;opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{top:100%;opacity:0;}}
-
-.scan-text{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  font-family:'Orbitron',sans-serif;
-  font-size:14px;
-  color:var(--primary);
-  letter-spacing:4px;
-  animation:scanText 1.2s ease-in-out infinite;
-}
-
-@keyframes scanText{
-  0%,100%{opacity:0.3;}
-  50%{opacity:1;}
-}
-
-/* Chart */
-#chartContainer{
-  height:220px;
-  background:var(--bg);
-  border-radius:16px;
-  border:1px solid var(--border);
-  margin-bottom:15px;
-  display:none;
-  width:100%;
-}
-
-/* Signal Box */
-#signalBox{
-  padding:24px;
-  border-radius:16px;
-  text-align:center;
-  font-size:32px;
-  font-weight:900;
-  font-family:'Orbitron',sans-serif;
-  display:none;
-  margin-bottom:15px;
-  letter-spacing:3px;
-  position:relative;
-  overflow:hidden;
-}
-
-.signal-buy{
-  background:var(--glow);
-  border:1px solid rgba(0,255,136,0.2);
-  color:var(--primary);
-  box-shadow:0 0 40px var(--glow);
-}
-
-.signal-sell{
-  background:var(--glow-red);
-  border:1px solid rgba(255,71,87,0.2);
-  color:var(--red);
-  box-shadow:0 0 40px var(--glow-red);
-}
-
-.signal-wait{
-  background:rgba(255,170,0,0.05);
-  border:1px solid rgba(255,170,0,0.15);
-  color:#ffaa00;
-}
-
-/* Stats Grid */
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
   gap:10px;
-}
-
-.stat-box{
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px 8px;
-  text-align:center;
-  transition:all 0.3s;
-}
-
-.stat-box:hover{
-  border-color:rgba(255,255,255,0.1);
-  transform:translateY(-2px);
-}
-
-.stat-box h3{
-  font-size:9px;
+  padding:12px;
+  margin-bottom:16px;
+  font-size:11px;
   color:var(--muted);
-  margin-bottom:8px;
-  text-transform:uppercase;
   letter-spacing:1px;
-  font-weight:600;
 }
 
-.stat-box p{
-  font-size:16px;
-  font-weight:700;
-  font-family:'Orbitron',sans-serif;
+.api-bar .status-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--primary);
+  box-shadow:0 0 10px var(--primary);
+  animation:statusBlink 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink{
+  0%,100%{opacity:1;}
+  50%{opacity:0.3;}
 }
 
 /* Animations */
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(30px);}
   to{opacity:1;transform:translateY(0);}
 }
 
-.fade-in{animation:fadeIn 0.5s ease-out forwards;}
+.animate-in{animation:fadeInUp 0.6s ease-out forwards;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--muted);}
 </style>
 </head>
 <body>
 
-<div class="bg-animation"></div>
+<!-- Particles Background -->
+<div class="particles" id="particles"></div>
+<div class="grid-overlay"></div>
 
 <!-- ===== LOGIN SCREEN ===== -->
-<div id="loginScreen" class="login-container">
-  <div class="login-header">
-    <div class="login-logo">QX</div>
-    <h1>LUBNA ABUBAKAR</h1>
-    <p>Elite Signal System</p>
-  </div>
-  
-  <div class="login-input-group">
-    <label>Secure Access Key</label>
-    <input type="password" id="password" placeholder="Enter your password" onkeypress="if(event.key==='Enter')login()">
-  </div>
-  
-  <button class="login-btn" onclick="login()">🔓 Unlock System</button>
-  
-  <div class="login-footer">
-    🔒 End-to-End Encrypted &bull; v2.0 Pro
+<div id="loginScreen" class="login-wrapper">
+  <div class="login-glow"></div>
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-3d">
+        <div class="logo-ring"></div>
+        <div class="logo-ring"></div>
+        <div class="logo-ring"></div>
+        <div class="logo-inner">QX</div>
+      </div>
+      <h1>LUBNA ABUBAKAR</h1>
+      <p class="subtitle">Elite Signal System</p>
+      <span class="version">PRO v3.0 LIVE</span>
+    </div>
+    
+    <div class="input-group">
+      <label>Secure Access Key</label>
+      <div class="input-wrapper">
+        <input type="password" id="password" placeholder="Enter your password" onkeypress="if(event.key==='Enter')login()">
+        <span class="input-icon">🔐</span>
+      </div>
+    </div>
+    
+    <button class="unlock-btn" onclick="login()">🔓 UNLOCK SYSTEM</button>
+    
+    <div class="login-footer">
+      <span class="lock-icon">🔒</span>
+      <p>End-to-End Encrypted Connection</p>
+      <div class="dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- ===== MAIN DASHBOARD ===== -->
-<div id="mainBoard" class="main-container">
+<div id="mainBoard" class="main-wrapper">
   
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="brand">
-      <div class="brand-icon">QX</div>
-      <div class="brand-text">
+  <div class="dash-header">
+    <div class="dash-brand">
+      <div class="brand-logo">QX</div>
+      <div class="brand-info">
         <h1>LUBNA ABUBAKAR</h1>
         <p>Ultra AI Signal - 1M Live</p>
       </div>
     </div>
-    <div class="live-badge">
-      <div class="live-dot"></div>
+    <div class="live-pill">
+      <div class="pulse-dot"></div>
       LIVE
     </div>
   </div>
 
-  <!-- Warning -->
-  <div class="warning-note">
+  <div class="warning-banner">
     <span>⚠️</span>
-    <span>Quotex / Pocket Option پر 1 Minute Expiry استعمال کریں</span>
+    <p>Quotex / Pocket Option پر 1 Minute Expiry استعمال کریں<br><small>Crypto pairs mein Binance Live API active hai</small></p>
   </div>
 
-  <!-- Broker Select -->
-  <div class="input-label">Select Broker</div>
-  <select id="brokerSelect" onchange="changeBroker()">
-    <option value="quotex">Quotex</option>
-    <option value="pocket">Pocket Option</option>
+  <div class="api-bar">
+    <div class="status-dot" id="apiDot"></div>
+    <span id="apiText">Binance API: Connecting...</span>
+  </div>
+
+  <div class="field-label">Select Broker / Exchange</div>
+  <select id="brokerSelect" class="glass-select" onchange="changeBroker()">
+    <option value="binance">🟢 Binance (LIVE API)</option>
+    <option value="quotex">🔵 Quotex (DEMO)</option>
+    <option value="pocket">🟠 Pocket Option (DEMO)</option>
   </select>
 
-  <!-- Asset Select -->
-  <div class="input-label">Select Asset</div>
-  <select id="assetSelect" onchange="changeAsset()"></select>
+  <div class="field-label">Select Trading Asset</div>
+  <select id="assetSelect" class="glass-select" onchange="changeAsset()"></select>
 
-  <!-- Pair Card -->
-  <div class="card">
-    <div class="pair-card-inner">
-      <div class="pair-name-big">
-        <div class="pair-flag" id="pairFlag">💱</div>
-        <span id="pairName">EUR/USD</span>
+  <div class="price-display" id="priceDisplay">
+    <div class="price-label">Live Market Price</div>
+    <div class="price-value" id="priceValue">--</div>
+    <div class="price-change" id="priceChange">--</div>
+  </div>
+
+  <div class="glass-card">
+    <div class="pair-section">
+      <div class="pair-info">
+        <div class="pair-icon" id="pairIcon">₿</div>
+        <div class="pair-details">
+          <h3 id="pairName">BTC/USDT</h3>
+          <span id="pairSub">Binance Spot</span>
+        </div>
       </div>
-      <div class="toggle-modern active" id="toggleBtn" onclick="toggleSignal()"></div>
+      <div class="toggle-switch active" id="toggleBtn" onclick="toggleSignal()"></div>
     </div>
-    <div class="pair-meta">
-      <span>🏢 <span id="brokerName">Quotex</span></span>
+    <div class="pair-stats">
+      <span>🏢 <span id="brokerName">Binance</span></span>
       <span id="pairStatus" style="color:var(--primary);">● Connected</span>
       <span>⏱ 1M</span>
     </div>
   </div>
 
-  <!-- Generate Button -->
-  <button class="gen-btn" onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
+  <button class="generate-btn" onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
 
-  <!-- Scanner -->
-  <div id="scanner">
-    <div class="scan-line"></div>
-    <div class="scan-text">SCANNING MARKET</div>
+  <div class="scanner-box" id="scanner">
+    <div class="scanner-rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+    <div class="scanner-line"></div>
+    <div class="scanner-text">
+      <h3>SCANNING MARKET</h3>
+      <p>Analyzing price action & indicators...</p>
+    </div>
   </div>
 
-  <!-- Chart -->
   <div id="chartContainer"></div>
+  <div id="signalBox" class="signal-result">BUY</div>
 
-  <!-- Signal -->
-  <div id="signalBox">BUY</div>
-
-  <!-- Stats -->
-  <div class="stats-grid">
-    <div class="stat-box">
-      <h3>RSI</h3>
+  <div class="stats-row">
+    <div class="stat-item">
+      <h4>RSI</h4>
       <p id="rsi" style="color:var(--muted);">--</p>
     </div>
-    <div class="stat-box">
-      <h3>Trend</h3>
+    <div class="stat-item">
+      <h4>Trend</h4>
       <p id="trend" style="color:var(--muted);">--</p>
     </div>
-    <div class="stat-box">
-      <h3>Conf</h3>
+    <div class="stat-item">
+      <h4>Conf</h4>
       <p id="conf" style="color:var(--muted);">--</p>
     </div>
-    <div class="stat-box">
-      <h3>MACD</h3>
+    <div class="stat-item">
+      <h4>MACD</h4>
       <p id="macd" style="color:var(--muted);">--</p>
     </div>
   </div>
@@ -676,72 +1162,163 @@ select:focus{
 </div>
 
 <script>
-let broker = 'quotex';
-let pair = 'EURUSD-OTC';
+// ===== PARTICLES =====
+function createParticles(){
+  const container = document.getElementById('particles');
+  for(let i=0; i<30; i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    container.appendChild(p);
+  }
+}
+createParticles();
+
+// ===== APP STATE =====
+let broker = 'binance';
+let pair = 'BTCUSDT';
 let signalActive = true;
 let chart = null;
 let candlestickSeries = null;
+let livePriceInterval = null;
+let currentLivePrice = null;
+let prevLivePrice = null;
 
 const pairEmojis = {
-  'EURUSD-OTC': '🇪🇺🇺🇸', 'GBPUSD-OTC': '🇬🇧🇺🇸', 'USDJPY-OTC': '🇺🇸🇯🇵',
-  'AUDUSD-OTC': '🇦🇺🇺🇸', 'USDNGN-OTC': '🇺🇸🇳🇬', 'USDBRL-OTC': '🇺🇸🇧🇷',
-  'USDINR-OTC': '🇺🇸🇮🇳', 'USDPKR-OTC': '🇺🇸🇵🇰', 'USDMXN-OTC': '🇺🇸🇲🇽'
+  'BTCUSDT': '₿', 'ETHUSDT': 'Ξ', 'BNBUSDT': '🔶', 'SOLUSDT': '◎',
+  'ADAUSDT': '₳', 'XRPUSDT': '✕', 'DOTUSDT': '●', 'DOGEUSDT': 'Ð',
+  'MATICUSDT': '⬡', 'LTCUSDT': 'Ł', 'EURUSD-OTC': '💶', 'GBPUSD-OTC': '💷',
+  'USDJPY-OTC': '💴', 'AUDUSD-OTC': '🇦🇺', 'USDNGN-OTC': '🇳🇬',
+  'USDBRL-OTC': '🇧🇷', 'USDINR-OTC': '🇮🇳', 'USDPKR-OTC': '🇵🇰', 'USDMXN-OTC': '🇲🇽'
 };
 
+const binanceSymbols = {
+  'BTCUSDT': 'BTC/USDT', 'ETHUSDT': 'ETH/USDT', 'BNBUSDT': 'BNB/USDT',
+  'SOLUSDT': 'SOL/USDT', 'ADAUSDT': 'ADA/USDT', 'XRPUSDT': 'XRP/USDT',
+  'DOTUSDT': 'DOT/USDT', 'DOGEUSDT': 'DOGE/USDT', 'MATICUSDT': 'MATIC/USDT',
+  'LTCUSDT': 'LTC/USDT'
+};
+
+// ===== LOGIN =====
 function login(){
   let pass = document.getElementById('password').value;
   if(pass === 'Lubna786'){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainBoard').style.display = 'block';
-    document.getElementById('mainBoard').classList.add('fade-in');
+    document.getElementById('mainBoard').classList.add('animate-in');
     changeBroker();
   }else{
-    alert('❌ غلط پاسورڈ! دوبارہ کوشش کریں۔');
-    document.getElementById('password').style.borderColor = 'var(--red)';
+    // Shake animation
+    const card = document.querySelector('.login-card');
+    card.style.animation = 'none';
     setTimeout(() => {
-      document.getElementById('password').style.borderColor = 'var(--border)';
+      card.style.animation = 'shake 0.5s ease-in-out';
+    }, 10);
+    
+    const input = document.getElementById('password');
+    input.style.borderColor = 'var(--red)';
+    input.style.boxShadow = '0 0 20px var(--red-glow)';
+    setTimeout(() => {
+      input.style.borderColor = 'var(--border)';
+      input.style.boxShadow = 'none';
     }, 1000);
   }
 }
 
+// Add shake keyframe dynamically
+const style = document.createElement('style');
+style.innerHTML = `@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-10px);}40%{transform:translateX(10px);}60%{transform:translateX(-10px);}80%{transform:translateX(10px);}}`;
+document.head.appendChild(style);
+
+// ===== BROKER CHANGE =====
 function changeBroker(){
   broker = document.getElementById('brokerSelect').value;
-  document.getElementById('brokerName').innerText = broker === 'quotex' ? 'Quotex' : 'Pocket Option';
+  let bName = broker === 'binance' ? 'Binance' : broker === 'quotex' ? 'Quotex' : 'Pocket Option';
+  document.getElementById('brokerName').innerText = bName;
+  document.getElementById('pairSub').innerText = broker === 'binance' ? 'Binance Spot' : 'OTC Market';
 
   let select = document.getElementById('assetSelect');
   select.innerHTML = '';
 
-  if(broker === 'quotex'){
+  if(broker === 'binance'){
     select.innerHTML = `
-      <option value="EURUSD-OTC">EUR/USD OTC</option>
-      <option value="GBPUSD-OTC">GBP/USD OTC</option>
-      <option value="USDJPY-OTC">USD/JPY OTC</option>
-      <option value="AUDUSD-OTC">AUD/USD OTC</option>
-      <option value="USDNGN-OTC">USD/NGN OTC</option>
+      <option value="BTCUSDT">₿ Bitcoin / USDT</option>
+      <option value="ETHUSDT">Ξ Ethereum / USDT</option>
+      <option value="BNBUSDT">🔶 BNB / USDT</option>
+      <option value="SOLUSDT">◎ Solana / USDT</option>
+      <option value="ADAUSDT">₳ Cardano / USDT</option>
+      <option value="XRPUSDT">✕ Ripple / USDT</option>
+      <option value="DOTUSDT">● Polkadot / USDT</option>
+      <option value="DOGEUSDT">Ð Dogecoin / USDT</option>
+      <option value="MATICUSDT">⬡ Polygon / USDT</option>
+      <option value="LTCUSDT">Ł Litecoin / USDT</option>
     `;
+    pair = 'BTCUSDT';
+    startLivePrice();
+    document.getElementById('priceDisplay').style.display = 'block';
+    updateApiStatus(true, '🟢 Binance API: Live Data Active');
+  }else if(broker === 'quotex'){
+    select.innerHTML = `
+      <option value="EURUSD-OTC">💶 EUR/USD OTC</option>
+      <option value="GBPUSD-OTC">💷 GBP/USD OTC</option>
+      <option value="USDJPY-OTC">💴 USD/JPY OTC</option>
+      <option value="AUDUSD-OTC">🇦🇺 AUD/USD OTC</option>
+      <option value="USDNGN-OTC">🇳🇬 USD/NGN OTC</option>
+    `;
+    pair = 'EURUSD-OTC';
+    stopLivePrice();
+    document.getElementById('priceDisplay').style.display = 'none';
+    updateApiStatus(false, '🟡 Quotex: Demo Mode');
   }else{
     select.innerHTML = `
-      <option value="EURUSD-OTC">EUR/USD OTC</option>
-      <option value="GBPUSD-OTC">GBP/USD OTC</option>
-      <option value="USDJPY-OTC">USD/JPY OTC</option>
-      <option value="AUDUSD-OTC">AUD/USD OTC</option>
-      <option value="USDBRL-OTC">USD/BRL OTC</option>
-      <option value="USDINR-OTC">USD/INR OTC</option>
-      <option value="USDPKR-OTC">USD/PKR OTC</option>
-      <option value="USDMXN-OTC">USD/MXN OTC</option>
+      <option value="EURUSD-OTC">💶 EUR/USD OTC</option>
+      <option value="GBPUSD-OTC">💷 GBP/USD OTC</option>
+      <option value="USDJPY-OTC">💴 USD/JPY OTC</option>
+      <option value="AUDUSD-OTC">🇦🇺 AUD/USD OTC</option>
+      <option value="USDBRL-OTC">🇧🇷 USD/BRL OTC</option>
+      <option value="USDINR-OTC">🇮🇳 USD/INR OTC</option>
+      <option value="USDPKR-OTC">🇵🇰 USD/PKR OTC</option>
+      <option value="USDMXN-OTC">🇲🇽 USD/MXN OTC</option>
     `;
+    pair = 'EURUSD-OTC';
+    stopLivePrice();
+    document.getElementById('priceDisplay').style.display = 'none';
+    updateApiStatus(false, '🟡 Pocket Option: Demo Mode');
   }
-  pair = 'EURUSD-OTC';
   changeAsset();
+}
+
+function updateApiStatus(connected, text){
+  let dot = document.getElementById('apiDot');
+  let txt = document.getElementById('apiText');
+  txt.innerText = text;
+  if(connected){
+    dot.style.background = 'var(--primary)';
+    dot.style.boxShadow = '0 0 10px var(--primary)';
+    dot.style.animation = 'statusBlink 2s ease-in-out infinite';
+  }else{
+    dot.style.background = '#ffaa00';
+    dot.style.boxShadow = '0 0 10px rgba(255,170,0,0.5)';
+    dot.style.animation = 'none';
+  }
 }
 
 function changeAsset(){
   pair = document.getElementById('assetSelect').value;
   let name = document.getElementById('assetSelect').options[document.getElementById('assetSelect').selectedIndex].text;
-  document.getElementById('pairName').innerText = name;
-  document.getElementById('pairFlag').innerText = pairEmojis[pair] || '💱';
+  document.getElementById('pairName').innerText = name.split(' ')[0] + ' ' + name.split(' ')[1];
+  document.getElementById('pairIcon').innerText = pairEmojis[pair] || '💱';
   document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
+  
+  if(broker === 'binance'){
+    startLivePrice();
+  }
 }
 
 function toggleSignal(){
@@ -757,6 +1334,80 @@ function toggleSignal(){
   }
 }
 
+// ===== LIVE PRICE =====
+function startLivePrice(){
+  stopLivePrice();
+  if(broker !== 'binance') return;
+  
+  fetchLivePrice();
+  livePriceInterval = setInterval(fetchLivePrice, 2000);
+}
+
+function stopLivePrice(){
+  if(livePriceInterval){
+    clearInterval(livePriceInterval);
+    livePriceInterval = null;
+  }
+}
+
+async function fetchLivePrice(){
+  try{
+    let response = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${pair}`);
+    let data = await response.json();
+    if(data.lastPrice){
+      let price = parseFloat(data.lastPrice);
+      let change = parseFloat(data.priceChangePercent);
+      
+      currentLivePrice = price;
+      
+      let priceEl = document.getElementById('priceValue');
+      let changeEl = document.getElementById('priceChange');
+      
+      priceEl.innerText = price.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: price > 1000 ? 2 : 6
+      }) + ' USDT';
+      
+      let changeColor = change >= 0 ? 'var(--primary)' : 'var(--red)';
+      let changeIcon = change >= 0 ? '▲' : '▼';
+      changeEl.innerHTML = `<span style="color:${changeColor}">${changeIcon} ${Math.abs(change).toFixed(2)}%</span>`;
+      changeEl.style.display = 'block';
+      
+      // Flash effect on price change
+      if(prevLivePrice && price !== prevLivePrice){
+        priceEl.style.color = price > prevLivePrice ? 'var(--primary)' : 'var(--red)';
+        setTimeout(() => {
+          priceEl.style.color = 'var(--primary)';
+        }, 500);
+      }
+      prevLivePrice = price;
+    }
+  }catch(e){
+    console.error('Price fetch error:', e);
+    document.getElementById('priceValue').innerText = '⚠️ Connection Error';
+  }
+}
+
+// ===== FETCH BINANCE KLINES =====
+async function fetchBinanceKlines(symbol, interval = '1m', limit = 50){
+  try{
+    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`);
+    let data = await response.json();
+    
+    return data.map(k => ({
+      time: Math.floor(k[0] / 1000),
+      open: parseFloat(k[1]),
+      high: parseFloat(k[2]),
+      low: parseFloat(k[3]),
+      close: parseFloat(k[4])
+    }));
+  }catch(e){
+    console.error('Klines fetch error:', e);
+    return null;
+  }
+}
+
+// ===== DEMO DATA =====
 function getDemoData(){
   let basePrice = pair.includes('JPY') ? 150 : pair.includes('BRL') ? 5.2 : pair.includes('INR') ? 83 : pair.includes('PKR') ? 278 : pair.includes('MXN') ? 17.5 : pair.includes('NGN') ? 1500 : 1.5;
   let data = [];
@@ -783,6 +1434,7 @@ function getDemoData(){
   return data;
 }
 
+// ===== CHART =====
 function initChart(){
   if(chart){
     chart.remove();
@@ -794,42 +1446,42 @@ function initChart(){
   container.innerHTML = '';
   
   if(typeof LightweightCharts === 'undefined'){
-    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:var(--red);font-size:13px;">❌ Library Load Error</div>';
+    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:var(--red);font-size:13px;">❌ Chart Library Error</div>';
     return;
   }
   
   try {
     chart = LightweightCharts.createChart(container, {
       width: container.clientWidth,
-      height: 220,
+      height: 240,
       layout: { 
-        background: { type: 'solid', color: '#0a0a0f' }, 
+        background: { type: 'solid', color: 'transparent' }, 
         textColor: '#6c6c7e' 
       },
       grid: { 
-        vertLines: { color: '#1e1e28' }, 
-        horzLines: { color: '#1e1e28' } 
+        vertLines: { color: 'rgba(255,255,255,0.03)' }, 
+        horzLines: { color: 'rgba(255,255,255,0.03)' } 
       },
       timeScale: { 
         timeVisible: true, 
-        borderColor: '#1e1e28' 
+        borderColor: 'rgba(255,255,255,0.05)' 
       },
       rightPriceScale: { 
-        borderColor: '#1e1e28' 
+        borderColor: 'rgba(255,255,255,0.05)' 
       },
       crosshair: {
         mode: LightweightCharts.CrosshairMode.Normal,
-        vertLine: { color: 'rgba(255,255,255,0.1)', width: 1 },
-        horzLine: { color: 'rgba(255,255,255,0.1)', width: 1 },
+        vertLine: { color: 'rgba(0,255,136,0.2)', width: 1 },
+        horzLine: { color: 'rgba(0,255,136,0.2)', width: 1 },
       },
     });
 
     candlestickSeries = chart.addCandlestickSeries({
       upColor: '#00ff88', 
-      downColor: '#ff4757',
-      borderDownColor: '#ff4757', 
+      downColor: '#ff2d55',
+      borderDownColor: '#ff2d55', 
       borderUpColor: '#00ff88',
-      wickDownColor: '#ff4757', 
+      wickDownColor: '#ff2d55', 
       wickUpColor: '#00ff88',
     });
   } catch(e) {
@@ -837,24 +1489,21 @@ function initChart(){
   }
 }
 
+// ===== INDICATORS =====
 function calculateRSI(closes, period = 14){
   if(closes.length < period + 1) return 50;
-  
   let gains = [], losses = [];
   for(let i = 1; i < closes.length; i++){
     let change = closes[i] - closes[i - 1];
     gains.push(change > 0 ? change : 0);
     losses.push(change < 0 ? Math.abs(change) : 0);
   }
-  
   let avgGain = gains.slice(0, period).reduce((a, b) => a + b, 0) / period;
   let avgLoss = losses.slice(0, period).reduce((a, b) => a + b, 0) / period;
-  
   for(let i = period; i < gains.length; i++){
     avgGain = (avgGain * (period - 1) + gains[i]) / period;
     avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
   }
-  
   if(avgLoss === 0) return 100;
   let rs = avgGain / avgLoss;
   let rsi = 100 - (100 / (1 + rs));
@@ -863,10 +1512,8 @@ function calculateRSI(closes, period = 14){
 
 function calculateEMA(closes, period){
   if(closes.length < period) return closes;
-  
   let k = 2 / (period + 1);
   let ema = [closes[0]];
-  
   for(let i = 1; i < closes.length; i++){
     ema.push(closes[i] * k + ema[i - 1] * (1 - k));
   }
@@ -876,19 +1523,16 @@ function calculateEMA(closes, period){
 function calculateMACD(closes){
   let ema12 = calculateEMA(closes, 12);
   let ema26 = calculateEMA(closes, 26);
-  
   if(ema12.length !== ema26.length) return {hist: 0};
-  
   let macdLine = ema12.map((val, i) => val - ema26[i]);
   let signalLine = calculateEMA(macdLine, 9);
-  
   if(macdLine.length !== signalLine.length) return {hist: 0};
-  
   let histogram = macdLine.map((val, i) => val - signalLine[i]);
   return {hist: histogram[histogram.length - 1] || 0};
 }
 
-function generateSignal(){
+// ===== GENERATE SIGNAL =====
+async function generateSignal(){
   if(!signalActive){
     alert('⚠️ Pair stopped hai. Pehle toggle on karein.');
     return;
@@ -898,7 +1542,19 @@ function generateSignal(){
   document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
 
-  let candles = getDemoData();
+  let candles = [];
+  let isLive = false;
+
+  if(broker === 'binance'){
+    candles = await fetchBinanceKlines(pair, '1m', 50);
+    if(candles && candles.length > 0){
+      isLive = true;
+    }else{
+      candles = getDemoData();
+    }
+  }else{
+    candles = getDemoData();
+  }
 
   setTimeout(() => {
     document.getElementById('scanner').style.display = 'none';
@@ -950,19 +1606,21 @@ function generateSignal(){
     let confEl = document.getElementById('conf');
     let macdEl = document.getElementById('macd');
     
+    let liveTag = isLive ? '🔴 LIVE ' : '';
+    
     if(buyScore >= 6 && buyScore > sellScore + 1){
-      signalBox.innerHTML = '📈 BUY';
-      signalBox.className = 'signal-buy';
+      signalBox.innerHTML = liveTag + '📈 BUY';
+      signalBox.className = 'signal-result signal-buy';
       trendEl.innerText = 'UP';
       trendEl.style.color = 'var(--primary)';
     }else if(sellScore >= 6 && sellScore > buyScore + 1){
-      signalBox.innerHTML = '📉 SELL';
-      signalBox.className = 'signal-sell';
+      signalBox.innerHTML = liveTag + '📉 SELL';
+      signalBox.className = 'signal-result signal-sell';
       trendEl.innerText = 'DOWN';
       trendEl.style.color = 'var(--red)';
     }else{
-      signalBox.innerHTML = '⏸ WAIT';
-      signalBox.className = 'signal-wait';
+      signalBox.innerHTML = liveTag + '⏸ WAIT';
+      signalBox.className = 'signal-result signal-wait';
       trendEl.innerText = 'SIDEWAYS';
       trendEl.style.color = '#ffaa00';
     }
@@ -976,7 +1634,7 @@ function generateSignal(){
     macdEl.innerText = macd.hist > 0 ? 'BULL' : macd.hist < 0 ? 'BEAR' : 'NEUTRAL';
     macdEl.style.color = macd.hist > 0 ? 'var(--primary)' : macd.hist < 0 ? 'var(--red)' : 'var(--muted)';
 
-  }, 800);
+  }, isLive ? 500 : 800);
 }
 
 window.addEventListener('resize', () => {
