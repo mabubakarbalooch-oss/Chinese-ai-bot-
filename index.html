@@ -10,13 +10,11 @@
 :root{
   --bg:#000000;
   --card:rgba(12,12,20,0.95);
-  --glass:rgba(255,255,255,0.02);
   --primary:#00ff88;
   --primary-glow:rgba(0,255,136,0.4);
   --red:#ff2d55;
   --red-glow:rgba(255,45,85,0.4);
   --gold:#ffd700;
-  --gold-glow:rgba(255,215,0,0.3);
   --blue:#00d4ff;
   --blue-glow:rgba(0,212,255,0.3);
   --orange:#ffaa00;
@@ -27,28 +25,26 @@
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
-body{
+html,body{
   font-family:'Poppins',sans-serif;
   background:var(--bg);
-  min-height:100vh;
+  height:100vh;
+  width:100vw;
+  overflow:hidden;
+  color:var(--text);
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:15px;
-  color:var(--text);
-  overflow-x:hidden;
-  position:relative;
 }
 
-/* ===== ANIMATED BACKGROUND ===== */
+/* ===== BACKGROUND ===== */
 .bg-effects{
   position:fixed;
   top:0;left:0;width:100%;height:100%;
   z-index:-2;
   background:
     radial-gradient(ellipse at 20% 20%, rgba(0,255,136,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(0,100,255,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(255,0,100,0.02) 0%, transparent 50%);
+    radial-gradient(ellipse at 80% 80%, rgba(0,100,255,0.04) 0%, transparent 50%);
 }
 
 .neon-grid{
@@ -59,8 +55,6 @@ body{
     linear-gradient(rgba(0,255,136,0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0,255,136,0.02) 1px, transparent 1px);
   background-size:40px 40px;
-  perspective:500px;
-  transform-style:preserve-3d;
   animation:gridFloat 15s ease-in-out infinite;
 }
 
@@ -69,35 +63,10 @@ body{
   50%{transform:rotateX(2deg) translateY(-10px);}
 }
 
-.particles-container{
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  z-index:-1;
-  pointer-events:none;
-  overflow:hidden;
-}
-
-.particle{
-  position:absolute;
-  border-radius:50%;
-  background:var(--primary);
-  opacity:0;
-  animation:particleFloat linear infinite;
-  filter:blur(1px);
-}
-
-@keyframes particleFloat{
-  0%{transform:translateY(100vh) scale(0) rotate(0deg);opacity:0;}
-  5%{opacity:0.8;}
-  95%{opacity:0.8;}
-  100%{transform:translateY(-20vh) scale(1) rotate(720deg);opacity:0;}
-}
-
-/* ===== LOGIN SCREEN ===== */
+/* ===== LOGIN ===== */
 .login-wrapper{
   width:100%;
-  max-width:420px;
-  position:relative;
+  max-width:380px;
   animation:loginFloat 6s ease-in-out infinite;
 }
 
@@ -108,13 +77,12 @@ body{
 
 .login-aura{
   position:absolute;
-  top:-120px;left:50%;
+  top:-100px;left:50%;
   transform:translateX(-50%);
-  width:350px;height:350px;
+  width:300px;height:300px;
   background:radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
   filter:blur(80px);
   animation:auraPulse 4s ease-in-out infinite;
-  pointer-events:none;
 }
 
 @keyframes auraPulse{
@@ -125,24 +93,19 @@ body{
 .login-card{
   background:var(--card);
   backdrop-filter:blur(30px);
-  -webkit-backdrop-filter:blur(30px);
-  border-radius:32px;
-  padding:55px 40px;
+  border-radius:28px;
+  padding:40px 32px;
   border:1px solid var(--border);
   position:relative;
   overflow:hidden;
-  box-shadow:
-    0 30px 60px rgba(0,0,0,0.6),
-    0 0 0 1px rgba(255,255,255,0.04),
-    inset 0 1px 0 rgba(255,255,255,0.06),
-    0 0 100px rgba(0,255,136,0.05);
+  box-shadow:0 30px 60px rgba(0,0,0,0.6), 0 0 100px rgba(0,255,136,0.05);
 }
 
 .login-card::before{
   content:'';
   position:absolute;
   top:-2px;left:-2px;right:-2px;bottom:-2px;
-  border-radius:34px;
+  border-radius:30px;
   background:linear-gradient(45deg, var(--primary), transparent, var(--blue), transparent, var(--primary));
   background-size:400% 400%;
   animation:borderGlow 6s ease infinite;
@@ -154,14 +117,6 @@ body{
   0%{background-position:0% 50%;}
   50%{background-position:100% 50%;}
   100%{background-position:0% 50%;}
-}
-
-.login-card::after{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg, transparent, rgba(0,255,136,0.3), transparent);
 }
 
 .holo-sweep{
@@ -180,21 +135,21 @@ body{
 
 .login-header{
   text-align:center;
-  margin-bottom:50px;
+  margin-bottom:35px;
   position:relative;
   z-index:1;
 }
 
 .logo-hologram{
-  width:110px;height:110px;
-  margin:0 auto 30px;
+  width:90px;height:90px;
+  margin:0 auto 20px;
   position:relative;
   perspective:1000px;
 }
 
 .logo-core{
   width:100%;height:100%;
-  border-radius:28px;
+  border-radius:22px;
   background:linear-gradient(135deg, var(--primary), var(--blue), var(--primary));
   background-size:200% 200%;
   display:flex;
@@ -202,24 +157,19 @@ body{
   align-items:center;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:42px;
+  font-size:36px;
   color:#000;
-  box-shadow:
-    0 0 40px var(--primary-glow),
-    0 0 80px rgba(0,255,136,0.15),
-    inset 0 2px 4px rgba(255,255,255,0.3),
-    0 20px 40px rgba(0,0,0,0.3);
+  box-shadow:0 0 40px var(--primary-glow), 0 20px 40px rgba(0,0,0,0.3);
   animation:coreFloat 3s ease-in-out infinite, gradientShift 4s ease infinite;
-  transform-style:preserve-3d;
   position:relative;
   z-index:2;
 }
 
 @keyframes coreFloat{
   0%,100%{transform:translateY(0) rotateX(0deg) rotateY(0deg);}
-  25%{transform:translateY(-8px) rotateX(5deg) rotateY(-5deg);}
-  50%{transform:translateY(-12px) rotateX(0deg) rotateY(0deg);}
-  75%{transform:translateY(-8px) rotateX(-5deg) rotateY(5deg);}
+  25%{transform:translateY(-6px) rotateX(5deg) rotateY(-5deg);}
+  50%{transform:translateY(-10px) rotateX(0deg) rotateY(0deg);}
+  75%{transform:translateY(-6px) rotateX(-5deg) rotateY(5deg);}
 }
 
 @keyframes gradientShift{
@@ -237,26 +187,9 @@ body{
   animation:orbitSpin linear infinite;
 }
 
-.orbit-ring:nth-child(1){
-  width:140px;height:140px;
-  border-top-color:rgba(0,255,136,0.3);
-  border-right-color:rgba(0,212,255,0.2);
-  animation-duration:3s;
-}
-
-.orbit-ring:nth-child(2){
-  width:170px;height:170px;
-  border-bottom-color:rgba(0,255,136,0.2);
-  border-left-color:rgba(255,0,100,0.15);
-  animation-duration:5s;
-  animation-direction:reverse;
-}
-
-.orbit-ring:nth-child(3){
-  width:200px;height:200px;
-  border-top-color:rgba(0,212,255,0.15);
-  animation-duration:7s;
-}
+.orbit-ring:nth-child(1){width:120px;height:120px;border-top-color:rgba(0,255,136,0.3);border-right-color:rgba(0,212,255,0.2);animation-duration:3s;}
+.orbit-ring:nth-child(2){width:145px;height:145px;border-bottom-color:rgba(0,255,136,0.2);border-left-color:rgba(255,0,100,0.15);animation-duration:5s;animation-direction:reverse;}
+.orbit-ring:nth-child(3){width:170px;height:170px;border-top-color:rgba(0,212,255,0.15);animation-duration:7s;}
 
 @keyframes orbitSpin{
   0%{transform:translate(-50%,-50%) rotate(0deg);}
@@ -265,22 +198,22 @@ body{
 
 .orbit-dot{
   position:absolute;
-  width:6px;height:6px;
+  width:5px;height:5px;
   border-radius:50%;
   background:var(--primary);
   box-shadow:0 0 10px var(--primary);
 }
 
-.orbit-ring:nth-child(1) .orbit-dot{top:-3px;left:50%;transform:translateX(-50%);}
-.orbit-ring:nth-child(2) .orbit-dot{bottom:-3px;left:50%;transform:translateX(-50%);background:var(--blue);box-shadow:0 0 10px var(--blue);}
-.orbit-ring:nth-child(3) .orbit-dot{top:50%;right:-3px;transform:translateY(-50%);background:var(--red);box-shadow:0 0 10px var(--red);}
+.orbit-ring:nth-child(1) .orbit-dot{top:-2.5px;left:50%;transform:translateX(-50%);}
+.orbit-ring:nth-child(2) .orbit-dot{bottom:-2.5px;left:50%;transform:translateX(-50%);background:var(--blue);box-shadow:0 0 10px var(--blue);}
+.orbit-ring:nth-child(3) .orbit-dot{top:50%;right:-2.5px;transform:translateY(-50%);background:var(--red);box-shadow:0 0 10px var(--red);}
 
 .login-header h1{
   font-family:'Orbitron',sans-serif;
-  font-size:28px;
+  font-size:24px;
   font-weight:900;
-  letter-spacing:4px;
-  margin-bottom:12px;
+  letter-spacing:3px;
+  margin-bottom:8px;
   background:linear-gradient(135deg, #fff, var(--primary), var(--blue), #fff);
   background-size:300% auto;
   -webkit-background-clip:text;
@@ -294,23 +227,23 @@ body{
 }
 
 .login-header .subtitle{
-  font-size:13px;
+  font-size:11px;
   color:var(--muted);
-  letter-spacing:8px;
+  letter-spacing:6px;
   text-transform:uppercase;
   font-weight:500;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 .login-header .badge{
   display:inline-block;
-  padding:8px 20px;
+  padding:6px 16px;
   background:linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,212,255,0.1));
   border:1px solid rgba(0,255,136,0.15);
   border-radius:50px;
-  font-size:11px;
+  font-size:10px;
   color:var(--primary);
-  letter-spacing:3px;
+  letter-spacing:2px;
   font-family:'Orbitron',sans-serif;
   font-weight:700;
   animation:badgePulse 2s ease-in-out infinite;
@@ -323,50 +256,48 @@ body{
 
 .input-group{
   position:relative;
-  margin-bottom:35px;
+  margin-bottom:24px;
   z-index:1;
 }
 
 .input-group label{
   display:block;
-  font-size:10px;
+  font-size:9px;
   color:var(--muted);
-  margin-bottom:14px;
+  margin-bottom:10px;
   text-transform:uppercase;
-  letter-spacing:4px;
+  letter-spacing:3px;
   font-weight:600;
 }
 
-.input-wrapper{
-  position:relative;
-}
+.input-wrapper{position:relative;}
 
 .input-wrapper input{
   width:100%;
-  padding:20px 24px 20px 56px;
-  border-radius:18px;
+  padding:16px 20px 16px 50px;
+  border-radius:14px;
   border:1px solid var(--border);
   background:rgba(0,0,0,0.5);
   color:var(--text);
-  font-size:16px;
+  font-size:15px;
   outline:none;
   transition:all 0.4s;
   font-family:'Poppins',sans-serif;
-  letter-spacing:2px;
+  letter-spacing:1px;
 }
 
 .input-wrapper input:focus{
   border-color:var(--primary);
-  box-shadow:0 0 30px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.05);
+  box-shadow:0 0 25px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.05);
   background:rgba(0,255,136,0.03);
 }
 
 .input-icon{
   position:absolute;
-  left:20px;
+  left:18px;
   top:50%;
   transform:translateY(-50%);
-  font-size:20px;
+  font-size:18px;
   opacity:0.4;
   transition:0.4s;
 }
@@ -379,23 +310,23 @@ body{
 
 .unlock-btn{
   width:100%;
-  padding:22px;
+  padding:18px;
   border:none;
-  border-radius:18px;
+  border-radius:14px;
   background:linear-gradient(135deg, var(--primary), var(--blue), var(--primary));
   background-size:200% 200%;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:15px;
+  font-size:13px;
   color:#000;
   cursor:pointer;
   position:relative;
   z-index:1;
   transition:all 0.4s;
-  letter-spacing:4px;
+  letter-spacing:3px;
   text-transform:uppercase;
   overflow:hidden;
-  box-shadow:0 15px 50px rgba(0,255,136,0.25);
+  box-shadow:0 12px 40px rgba(0,255,136,0.25);
   animation:btnGradient 3s ease infinite;
 }
 
@@ -415,31 +346,26 @@ body{
 }
 
 .unlock-btn:hover::before{left:100%;}
-
-.unlock-btn:hover{
-  transform:translateY(-4px);
-  box-shadow:0 25px 70px rgba(0,255,136,0.35);
-}
-
+.unlock-btn:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,255,136,0.35);}
 .unlock-btn:active{transform:translateY(-1px);}
 
 .login-footer{
   text-align:center;
-  margin-top:40px;
+  margin-top:28px;
   position:relative;
   z-index:1;
 }
 
 .login-footer .shield{
-  width:50px;height:50px;
-  margin:0 auto 15px;
+  width:42px;height:42px;
+  margin:0 auto 10px;
   border-radius:50%;
   background:linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,212,255,0.1));
   border:1px solid rgba(0,255,136,0.15);
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:22px;
+  font-size:18px;
   animation:shieldPulse 3s ease-in-out infinite;
 }
 
@@ -449,58 +375,40 @@ body{
 }
 
 .login-footer p{
-  font-size:11px;
+  font-size:10px;
   color:var(--muted);
-  letter-spacing:3px;
+  letter-spacing:2px;
 }
 
-.login-footer .dots{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:20px;
-}
-
-.login-footer .dots span{
-  width:5px;height:5px;
-  border-radius:50%;
-  background:var(--primary);
-  animation:dotWave 1.4s ease-in-out infinite;
-  box-shadow:0 0 10px var(--primary);
-}
-
-.login-footer .dots span:nth-child(2){animation-delay:0.2s;background:var(--blue);box-shadow:0 0 10px var(--blue);}
-.login-footer .dots span:nth-child(3){animation-delay:0.4s;background:var(--red);box-shadow:0 0 10px var(--red);}
-
-@keyframes dotWave{
-  0%,100%{transform:translateY(0);opacity:0.5;}
-  50%{transform:translateY(-12px);opacity:1;}
-}
-
-/* ===== MAIN DASHBOARD ===== */
+/* ===== MAIN DASHBOARD - NO SCROLL ===== */
 .main-wrapper{
   width:100%;
-  max-width:480px;
+  height:100vh;
+  max-width:1200px;
   display:none;
+  padding:8px 12px;
+  display:none;
+  flex-direction:column;
 }
 
 .dash-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:25px;
-  padding:0 5px;
+  margin-bottom:6px;
+  padding:0 4px;
+  flex-shrink:0;
 }
 
 .dash-brand{
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:12px;
 }
 
 .brand-logo-anim{
-  width:56px;height:56px;
-  border-radius:20px;
+  width:42px;height:42px;
+  border-radius:14px;
   background:linear-gradient(135deg, var(--primary), var(--blue));
   background-size:200% 200%;
   display:flex;
@@ -508,9 +416,9 @@ body{
   align-items:center;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:24px;
+  font-size:18px;
   color:#000;
-  box-shadow:0 0 30px var(--primary-glow);
+  box-shadow:0 0 20px var(--primary-glow);
   position:relative;
   overflow:hidden;
   animation:logoGradient 4s ease infinite;
@@ -522,52 +430,35 @@ body{
   100%{background-position:0% 50%;}
 }
 
-.brand-logo-anim::after{
-  content:'';
-  position:absolute;
-  top:-50%;left:-50%;
-  width:200%;height:200%;
-  background:linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-  animation:logoShine 3s ease-in-out infinite;
-}
-
-@keyframes logoShine{
-  0%{transform:translateX(-100%) rotate(45deg);}
-  100%{transform:translateX(100%) rotate(45deg);}
-}
-
 .brand-info h1{
   font-family:'Orbitron',sans-serif;
-  font-size:20px;
+  font-size:16px;
   font-weight:900;
-  letter-spacing:2px;
+  letter-spacing:1px;
   background:linear-gradient(135deg, #fff, var(--primary));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
 .brand-info p{
-  font-size:12px;
+  font-size:10px;
   color:var(--muted);
-  letter-spacing:3px;
-  margin-top:4px;
+  letter-spacing:2px;
 }
 
 .live-pill{
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:12px 22px;
+  gap:8px;
+  padding:8px 16px;
   border-radius:50px;
   background:linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,212,255,0.05));
   border:1px solid rgba(0,255,136,0.12);
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
   color:var(--primary);
   font-family:'Orbitron',sans-serif;
-  letter-spacing:3px;
-  position:relative;
-  overflow:hidden;
+  letter-spacing:2px;
   animation:pillGlow 2s ease-in-out infinite;
 }
 
@@ -577,10 +468,10 @@ body{
 }
 
 .pulse-dot{
-  width:10px;height:10px;
+  width:8px;height:8px;
   border-radius:50%;
   background:var(--primary);
-  box-shadow:0 0 15px var(--primary), 0 0 30px var(--primary-glow);
+  box-shadow:0 0 12px var(--primary), 0 0 24px var(--primary-glow);
   animation:pulseDot 1.2s ease-in-out infinite;
 }
 
@@ -589,24 +480,32 @@ body{
   50%{opacity:0.3;transform:scale(0.6);}
 }
 
+/* ===== DASHBOARD GRID - NO SCROLL ===== */
+.dash-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:auto auto auto 1fr;
+  gap:8px;
+  flex:1;
+  min-height:0;
+  overflow:hidden;
+}
+
 .glass-card{
   background:var(--card);
   backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
   border:1px solid var(--border);
-  border-radius:24px;
-  padding:24px;
-  margin-bottom:18px;
+  border-radius:16px;
+  padding:12px 14px;
   position:relative;
   overflow:hidden;
-  box-shadow:0 15px 40px rgba(0,0,0,0.3);
-  transition:all 0.4s;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+  transition:all 0.3s;
 }
 
 .glass-card:hover{
-  border-color:rgba(255,255,255,0.1);
-  box-shadow:0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(0,255,136,0.03);
-  transform:translateY(-2px);
+  border-color:rgba(255,255,255,0.08);
+  box-shadow:0 12px 32px rgba(0,0,0,0.4);
 }
 
 .glass-card::before{
@@ -614,252 +513,227 @@ body{
   position:absolute;
   top:0;left:0;right:0;
   height:1px;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
 }
 
-.warning-card{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:18px 22px;
-  background:linear-gradient(135deg, rgba(255,170,0,0.06), rgba(255,170,0,0.02));
-  border:1px solid rgba(255,170,0,0.1);
-  border-radius:20px;
-  margin-bottom:18px;
-  position:relative;
-  overflow:hidden;
-}
-
-.warning-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;
-  width:3px;height:100%;
-  background:linear-gradient(180deg, #ffaa00, transparent);
-}
-
-.warning-card .warn-icon{
-  font-size:24px;
-  animation:warnShake 3s ease-in-out infinite;
-}
-
-@keyframes warnShake{
-  0%,90%,100%{transform:rotate(0deg);}
-  92%{transform:rotate(-15deg);}
-  94%{transform:rotate(15deg);}
-  96%{transform:rotate(-10deg);}
-  98%{transform:rotate(10deg);}
-}
-
-.warning-card p{
-  font-size:13px;
-  color:#ffaa00;
-  line-height:1.6;
-  font-weight:500;
+/* Controls Card - Top Left */
+.controls-card{
+  grid-column:1;
+  grid-row:1 / 3;
 }
 
 .field-label{
-  font-size:10px;
+  font-size:9px;
   color:var(--muted);
-  margin-bottom:12px;
+  margin-bottom:6px;
   text-transform:uppercase;
-  letter-spacing:4px;
+  letter-spacing:2px;
   font-weight:600;
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:6px;
 }
 
 .field-label::before{
   content:'';
-  width:10px;height:2px;
+  width:8px;height:2px;
   background:linear-gradient(90deg, var(--primary), var(--blue));
   border-radius:2px;
 }
 
 .glass-select{
   width:100%;
-  padding:18px 24px;
-  border-radius:18px;
+  padding:10px 12px;
+  border-radius:10px;
   border:1px solid var(--border);
   background:rgba(0,0,0,0.4);
   color:var(--text);
-  font-size:15px;
-  margin-bottom:18px;
+  font-size:12px;
+  margin-bottom:8px;
   outline:none;
   font-family:'Poppins',sans-serif;
   cursor:pointer;
-  transition:all 0.4s;
+  transition:all 0.3s;
   appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236c6c7e' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236c6c7e' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat:no-repeat;
-  background-position:right 20px center;
+  background-position:right 10px center;
 }
 
 .glass-select:focus{
   border-color:var(--primary);
-  box-shadow:0 0 30px var(--primary-glow);
+  box-shadow:0 0 20px var(--primary-glow);
+}
+
+/* Pair Info Card - Top Middle */
+.pair-card{
+  grid-column:2;
+  grid-row:1;
 }
 
 .pair-section{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
 }
 
 .pair-info{
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:10px;
 }
 
 .pair-icon-box{
-  width:52px;height:52px;
-  border-radius:18px;
+  width:40px;height:40px;
+  border-radius:12px;
   background:linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,212,255,0.1));
   border:1px solid rgba(0,255,136,0.15);
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:26px;
-  box-shadow:0 0 20px rgba(0,255,136,0.05);
-  animation:iconPulse 3s ease-in-out infinite;
-}
-
-@keyframes iconPulse{
-  0%,100%{box-shadow:0 0 20px rgba(0,255,136,0.05);transform:scale(1);}
-  50%{box-shadow:0 0 30px rgba(0,255,136,0.1);transform:scale(1.05);}
+  font-size:20px;
+  box-shadow:0 0 15px rgba(0,255,136,0.05);
 }
 
 .pair-details h3{
   font-family:'Orbitron',sans-serif;
-  font-size:22px;
+  font-size:16px;
   font-weight:700;
   letter-spacing:1px;
 }
 
 .pair-details span{
-  font-size:12px;
+  font-size:10px;
   color:var(--muted);
-  letter-spacing:2px;
-}
-
-.toggle-switch{
-  width:60px;height:34px;
-  background:rgba(255,255,255,0.05);
-  border-radius:34px;
-  position:relative;
-  cursor:pointer;
-  transition:0.4s;
-  border:1px solid var(--border);
-}
-
-.toggle-switch.active{
-  background:linear-gradient(135deg, var(--primary), #00cc6e);
-  border-color:transparent;
-  box-shadow:0 0 25px var(--primary-glow);
-}
-
-.toggle-switch::after{
-  content:'';
-  position:absolute;
-  width:28px;height:28px;
-  background:#fff;
-  border-radius:50%;
-  top:2px;left:2px;
-  transition:0.4s cubic-bezier(0.68,-0.55,0.27,1.55);
-  box-shadow:0 4px 15px rgba(0,0,0,0.3);
-}
-
-.toggle-switch.active::after{
-  left:29px;
-  background:#fff;
+  letter-spacing:1px;
 }
 
 .pair-stats{
   display:flex;
-  gap:28px;
-  font-size:12px;
+  gap:16px;
+  margin-top:8px;
+  font-size:10px;
   color:var(--muted);
 }
 
 .pair-stats span{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:4px;
 }
 
+/* Price Card - Top Right */
 .price-card{
+  grid-column:3;
+  grid-row:1;
   text-align:center;
-  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   background:linear-gradient(135deg, rgba(0,255,136,0.04), rgba(0,212,255,0.02));
   border:1px solid rgba(0,255,136,0.08);
-  border-radius:20px;
-  margin-bottom:18px;
-  display:none;
-  position:relative;
-  overflow:hidden;
-}
-
-.price-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--primary), transparent);
-  opacity:0.5;
 }
 
 .price-label{
-  font-size:10px;
+  font-size:9px;
   color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:4px;
-  margin-bottom:8px;
+  letter-spacing:3px;
+  margin-bottom:4px;
 }
 
 .price-value{
   font-family:'Orbitron',sans-serif;
-  font-size:32px;
+  font-size:28px;
   font-weight:900;
   color:var(--primary);
-  text-shadow:0 0 30px var(--primary-glow);
+  text-shadow:0 0 20px var(--primary-glow);
   transition:color 0.3s;
+  line-height:1;
 }
 
 .price-change{
-  font-size:13px;
-  margin-top:6px;
+  font-size:12px;
+  margin-top:4px;
   font-weight:600;
+}
+
+/* Timer Card - Middle */
+.timer-card{
+  grid-column:2;
+  grid-row:2;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg, rgba(0,212,255,0.06), rgba(0,100,255,0.02));
+  border:1px solid rgba(0,212,255,0.1);
+}
+
+.timer-label{
+  font-size:9px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  margin-bottom:4px;
+  font-weight:600;
+}
+
+.timer-display{
+  font-family:'Orbitron',sans-serif;
+  font-size:32px;
+  font-weight:900;
+  color:var(--blue);
+  text-shadow:0 0 20px var(--blue-glow);
+  letter-spacing:3px;
+  line-height:1;
+}
+
+.timer-sub{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+  letter-spacing:1px;
+}
+
+/* Generate Button - Middle Right */
+.gen-card{
+  grid-column:3;
+  grid-row:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:8px;
 }
 
 .generate-btn{
   width:100%;
-  padding:24px;
+  padding:16px;
   border:none;
-  border-radius:20px;
+  border-radius:14px;
   background:linear-gradient(135deg, var(--primary), var(--blue), var(--primary));
   background-size:200% 200%;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:16px;
+  font-size:13px;
   color:#000;
   cursor:pointer;
   position:relative;
   z-index:1;
   transition:all 0.4s;
-  letter-spacing:4px;
+  letter-spacing:3px;
   text-transform:uppercase;
   overflow:hidden;
-  box-shadow:0 15px 50px rgba(0,255,136,0.25);
+  box-shadow:0 10px 40px rgba(0,255,136,0.25);
   animation:btnGradient 3s ease infinite;
-  margin-bottom:18px;
 }
 
 .generate-btn:hover{
-  transform:translateY(-4px);
-  box-shadow:0 25px 70px rgba(0,255,136,0.35);
+  transform:translateY(-3px);
+  box-shadow:0 18px 50px rgba(0,255,136,0.35);
 }
 
 .generate-btn:disabled{
@@ -868,106 +742,99 @@ body{
   transform:none !important;
 }
 
-/* ===== SIGNAL CARD ===== */
+/* Signal Card - Bottom Left */
 .signal-card{
+  grid-column:1;
+  grid-row:3;
   display:none;
   border:2px solid;
-  border-radius:24px;
-  padding:28px;
-  margin-bottom:18px;
+  border-radius:16px;
+  padding:12px 14px;
   position:relative;
   overflow:hidden;
-  animation:signalAppear 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  animation:signalAppear 0.5s cubic-bezier(0.34,1.56,0.64,1);
 }
 
 @keyframes signalAppear{
-  0%{opacity:0;transform:scale(0.8) translateY(20px);}
+  0%{opacity:0;transform:scale(0.9) translateY(10px);}
   100%{opacity:1;transform:scale(1) translateY(0);}
 }
 
 .signal-card.buy{
   background:linear-gradient(135deg, rgba(0,255,136,0.06), rgba(0,212,255,0.02));
   border-color:rgba(0,255,136,0.2);
-  box-shadow:0 0 60px rgba(0,255,136,0.08), inset 0 1px 0 rgba(0,255,136,0.1);
+  box-shadow:0 0 40px rgba(0,255,136,0.06);
 }
 
 .signal-card.sell{
   background:linear-gradient(135deg, rgba(255,45,85,0.06), rgba(255,0,100,0.02));
   border-color:rgba(255,45,85,0.2);
-  box-shadow:0 0 60px rgba(255,45,85,0.08), inset 0 1px 0 rgba(255,45,85,0.1);
+  box-shadow:0 0 40px rgba(255,45,85,0.06);
 }
 
 .signal-header{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:20px;
+  align-items:center;
+  margin-bottom:10px;
 }
 
 .signal-badge{
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:10px 24px;
+  gap:6px;
+  padding:6px 14px;
   border-radius:50px;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:14px;
-  letter-spacing:3px;
+  font-size:12px;
+  letter-spacing:2px;
 }
 
 .signal-card.buy .signal-badge{
-  background:linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,212,255,0.1));
+  background:rgba(0,255,136,0.12);
   color:var(--primary);
-  box-shadow:0 0 30px rgba(0,255,136,0.15);
-  animation:badgePulse 2s ease-in-out infinite;
+  box-shadow:0 0 20px rgba(0,255,136,0.1);
 }
 
 .signal-card.sell .signal-badge{
-  background:linear-gradient(135deg, rgba(255,45,85,0.15), rgba(255,0,100,0.1));
+  background:rgba(255,45,85,0.12);
   color:var(--red);
-  box-shadow:0 0 30px rgba(255,45,85,0.15);
-  animation:badgePulse 2s ease-in-out infinite;
+  box-shadow:0 0 20px rgba(255,45,85,0.1);
 }
 
 .signal-time{
-  font-size:11px;
+  font-size:10px;
   color:var(--muted);
-  letter-spacing:2px;
+  letter-spacing:1px;
 }
 
 .signal-details{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-bottom:20px;
+  gap:8px;
+  margin-bottom:10px;
 }
 
 .signal-detail{
   background:rgba(0,0,0,0.3);
-  border-radius:16px;
-  padding:16px;
+  border-radius:10px;
+  padding:8px 10px;
   border:1px solid var(--border);
-  transition:all 0.3s;
-}
-
-.signal-detail:hover{
-  border-color:rgba(255,255,255,0.1);
-  transform:translateY(-2px);
 }
 
 .signal-detail .label{
-  font-size:10px;
+  font-size:8px;
   color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:3px;
-  margin-bottom:8px;
+  letter-spacing:2px;
+  margin-bottom:4px;
   font-weight:600;
 }
 
 .signal-detail .value{
   font-family:'Orbitron',sans-serif;
-  font-size:20px;
+  font-size:14px;
   font-weight:900;
 }
 
@@ -975,118 +842,67 @@ body{
 .signal-card.sell .signal-detail .value{color:var(--red);}
 
 .signal-confidence{
-  margin-bottom:20px;
+  margin-bottom:8px;
 }
 
 .confidence-bar{
-  height:8px;
+  height:5px;
   background:rgba(255,255,255,0.05);
-  border-radius:4px;
+  border-radius:3px;
   overflow:hidden;
-  margin-top:10px;
+  margin-top:6px;
 }
 
 .confidence-fill{
   height:100%;
-  border-radius:4px;
+  border-radius:3px;
   transition:width 1s ease-out;
-  position:relative;
 }
 
 .signal-card.buy .confidence-fill{
   background:linear-gradient(90deg, var(--primary), var(--blue));
-  box-shadow:0 0 20px var(--primary-glow);
+  box-shadow:0 0 15px var(--primary-glow);
 }
 
 .signal-card.sell .confidence-fill{
   background:linear-gradient(90deg, var(--red), #ff6b8a);
-  box-shadow:0 0 20px var(--red-glow);
+  box-shadow:0 0 15px var(--red-glow);
 }
 
 .confidence-text{
   display:flex;
   justify-content:space-between;
-  margin-top:8px;
-  font-size:12px;
+  margin-top:4px;
+  font-size:9px;
   color:var(--muted);
 }
 
 .signal-reason{
   background:rgba(0,0,0,0.3);
-  border-radius:16px;
-  padding:16px;
+  border-radius:10px;
+  padding:8px 10px;
   border:1px solid var(--border);
 }
 
 .signal-reason .label{
-  font-size:10px;
+  font-size:8px;
   color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:3px;
-  margin-bottom:10px;
+  letter-spacing:2px;
+  margin-bottom:4px;
   font-weight:600;
 }
 
 .signal-reason .text{
-  font-size:13px;
-  line-height:1.7;
+  font-size:10px;
+  line-height:1.5;
   color:var(--text);
 }
 
-/* ===== NEXT CANDLE TIMER ===== */
-.timer-card{
-  display:none;
-  background:linear-gradient(135deg, rgba(0,212,255,0.06), rgba(0,100,255,0.02));
-  border:1px solid rgba(0,212,255,0.1);
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:18px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  animation:timerAppear 0.5s ease;
-}
-
-@keyframes timerAppear{
-  0%{opacity:0;transform:translateY(10px);}
-  100%{opacity:1;transform:translateY(0);}
-}
-
-.timer-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--blue), transparent);
-}
-
-.timer-label{
-  font-size:10px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:4px;
-  margin-bottom:12px;
-  font-weight:600;
-}
-
-.timer-display{
-  font-family:'Orbitron',sans-serif;
-  font-size:36px;
-  font-weight:900;
-  color:var(--blue);
-  text-shadow:0 0 30px var(--blue-glow);
-  letter-spacing:4px;
-}
-
-.timer-sub{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:8px;
-  letter-spacing:2px;
-}
-
-/* ===== CHART CONTAINER ===== */
+/* Chart Card - Bottom Middle & Right */
 .chart-card{
+  grid-column:2 / 4;
+  grid-row:3;
   padding:0;
   overflow:hidden;
 }
@@ -1095,109 +911,108 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px 24px;
+  padding:10px 14px;
   border-bottom:1px solid var(--border);
 }
 
 .chart-title{
   font-family:'Orbitron',sans-serif;
-  font-size:14px;
+  font-size:12px;
   font-weight:700;
-  letter-spacing:2px;
-  color:var(--text);
+  letter-spacing:1px;
 }
 
 .chart-live{
   display:flex;
   align-items:center;
-  gap:8px;
-  font-size:11px;
+  gap:6px;
+  font-size:10px;
   color:var(--primary);
   font-weight:600;
-  letter-spacing:2px;
+  letter-spacing:1px;
 }
 
 .chart-live .dot{
-  width:8px;height:8px;
+  width:6px;height:6px;
   border-radius:50%;
   background:var(--primary);
-  box-shadow:0 0 10px var(--primary);
+  box-shadow:0 0 8px var(--primary);
   animation:pulseDot 1s ease-in-out infinite;
 }
 
 #chart-container{
-  height:320px;
+  height:calc(100% - 36px);
   position:relative;
 }
 
-/* ===== HISTORY ===== */
+/* History - Bottom Row */
 .history-card{
-  max-height:300px;
-  overflow-y:auto;
+  grid-column:1 / 4;
+  grid-row:4;
+  padding:10px 14px;
+  display:none;
+  overflow:hidden;
 }
-
-.history-card::-webkit-scrollbar{width:4px;}
-.history-card::-webkit-scrollbar-track{background:transparent;}
-.history-card::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
 
 .history-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
+  margin-bottom:8px;
 }
 
 .history-title{
   font-family:'Orbitron',sans-serif;
-  font-size:14px;
+  font-size:12px;
   font-weight:700;
-  letter-spacing:2px;
+  letter-spacing:1px;
 }
 
 .history-count{
-  font-size:11px;
+  font-size:10px;
   color:var(--muted);
   background:rgba(255,255,255,0.05);
-  padding:4px 12px;
+  padding:3px 10px;
   border-radius:50px;
 }
 
-.history-item{
+.history-scroll{
   display:flex;
-  justify-content:space-between;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+
+.history-scroll::-webkit-scrollbar{height:3px;}
+.history-scroll::-webkit-scrollbar-track{background:transparent;}
+.history-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+.history-item{
+  flex-shrink:0;
+  display:flex;
   align-items:center;
-  padding:14px 16px;
+  gap:8px;
+  padding:8px 12px;
   background:rgba(0,0,0,0.3);
-  border-radius:14px;
-  margin-bottom:10px;
+  border-radius:10px;
   border:1px solid var(--border);
-  transition:all 0.3s;
-  animation:historyItemAppear 0.4s ease;
+  min-width:180px;
+  animation:historyItemAppear 0.3s ease;
 }
 
 @keyframes historyItemAppear{
-  0%{opacity:0;transform:translateX(-20px);}
+  0%{opacity:0;transform:translateX(-10px);}
   100%{opacity:1;transform:translateX(0);}
 }
 
-.history-item:hover{
-  border-color:rgba(255,255,255,0.1);
-  transform:translateX(4px);
-}
-
-.history-item .side{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
 .history-item .side-icon{
-  width:36px;height:36px;
-  border-radius:12px;
+  width:28px;height:28px;
+  border-radius:8px;
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:16px;
+  font-size:14px;
+  flex-shrink:0;
 }
 
 .history-item.buy .side-icon{
@@ -1210,38 +1025,26 @@ body{
   border:1px solid rgba(255,45,85,0.15);
 }
 
-.history-item .side-text{
-  font-family:'Orbitron',sans-serif;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:1px;
-}
-
-.history-item.buy .side-text{color:var(--primary);}
-.history-item.sell .side-text{color:var(--red);}
-
-.history-item .info{
-  text-align:right;
-}
+.history-item .info{flex:1;}
 
 .history-item .info .pair{
-  font-size:12px;
+  font-size:11px;
   color:var(--text);
   font-weight:600;
 }
 
 .history-item .info .time{
-  font-size:10px;
+  font-size:9px;
   color:var(--muted);
-  margin-top:2px;
 }
 
 .history-item .result{
-  padding:4px 12px;
+  padding:3px 10px;
   border-radius:50px;
-  font-size:11px;
+  font-size:10px;
   font-weight:700;
   font-family:'Orbitron',sans-serif;
+  flex-shrink:0;
 }
 
 .history-item .result.win{
@@ -1256,18 +1059,12 @@ body{
   border:1px solid rgba(255,45,85,0.15);
 }
 
-.history-item .result.pending{
-  background:rgba(255,170,0,0.1);
-  color:var(--orange);
-  border:1px solid rgba(255,170,0,0.15);
-}
-
-/* ===== SCANNING ANIMATION ===== */
+/* Scan Overlay */
 .scan-overlay{
   display:none;
   position:fixed;
   top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,0.9);
   backdrop-filter:blur(10px);
   z-index:1000;
   justify-content:center;
@@ -1276,7 +1073,7 @@ body{
 }
 
 .scan-ring{
-  width:120px;height:120px;
+  width:80px;height:80px;
   border-radius:50%;
   border:3px solid transparent;
   border-top-color:var(--primary);
@@ -1288,7 +1085,7 @@ body{
 .scan-ring::before{
   content:'';
   position:absolute;
-  top:10px;left:10px;right:10px;bottom:10px;
+  top:8px;left:8px;right:8px;bottom:8px;
   border-radius:50%;
   border:2px solid transparent;
   border-bottom-color:var(--primary);
@@ -1303,11 +1100,11 @@ body{
 
 .scan-text{
   font-family:'Orbitron',sans-serif;
-  font-size:16px;
+  font-size:14px;
   font-weight:700;
-  letter-spacing:4px;
+  letter-spacing:3px;
   color:var(--primary);
-  margin-top:30px;
+  margin-top:20px;
   animation:scanTextPulse 1.5s ease-in-out infinite;
 }
 
@@ -1317,37 +1114,39 @@ body{
 }
 
 .scan-sub{
-  font-size:12px;
+  font-size:11px;
   color:var(--muted);
-  margin-top:10px;
-  letter-spacing:2px;
+  margin-top:6px;
+  letter-spacing:1px;
 }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:500px){
-  .login-card{padding:40px 24px;}
-  .login-header h1{font-size:22px;letter-spacing:2px;}
-  .signal-details{grid-template-columns:1fr;}
-  .timer-display{font-size:28px;}
-  #chart-container{height:260px;}
+/* Responsive */
+@media(max-width:900px){
+  .dash-grid{grid-template-columns:1fr 1fr;}
+  .controls-card{grid-column:1;grid-row:1;}
+  .pair-card{grid-column:2;grid-row:1;}
+  .price-card{grid-column:1;grid-row:2;}
+  .timer-card{grid-column:2;grid-row:2;}
+  .gen-card{grid-column:1;grid-row:3;}
+  .signal-card{grid-column:2;grid-row:3;}
+  .chart-card{grid-column:1/3;grid-row:4;}
+  .history-card{grid-column:1/3;grid-row:5;}
 }
 </style>
 </head>
 <body>
 
-<!-- Background Effects -->
 <div class="bg-effects"></div>
 <div class="neon-grid"></div>
-<div class="particles-container" id="particles"></div>
 
 <!-- Scan Overlay -->
 <div class="scan-overlay" id="scanOverlay">
   <div class="scan-ring"></div>
-  <div class="scan-text">ANALYZING MARKET</div>
-  <div class="scan-sub" id="scanSub">Scanning candle patterns...</div>
+  <div class="scan-text">ANALYZING</div>
+  <div class="scan-sub" id="scanSub">Scanning patterns...</div>
 </div>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div class="login-wrapper" id="loginScreen">
   <div class="login-aura"></div>
   <div class="login-card">
@@ -1361,9 +1160,8 @@ body{
       </div>
       <h1>LUBNA ABUBAKAR</h1>
       <p class="subtitle">SIGNAL PRO</p>
-      <span class="badge">PREMIUM ACCESS</span>
+      <span class="badge">PREMIUM</span>
     </div>
-
     <div class="input-group">
       <label>Username</label>
       <div class="input-wrapper">
@@ -1371,7 +1169,6 @@ body{
         <span class="input-icon">👤</span>
       </div>
     </div>
-
     <div class="input-group">
       <label>Password</label>
       <div class="input-wrapper">
@@ -1379,13 +1176,10 @@ body{
         <span class="input-icon">🔒</span>
       </div>
     </div>
-
-    <button class="unlock-btn" onclick="doLogin()">UNLOCK PLATFORM</button>
-
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK</button>
     <div class="login-footer">
       <div class="shield">🛡️</div>
-      <p>256-BIT ENCRYPTED CONNECTION</p>
-      <div class="dots"><span></span><span></span><span></span></div>
+      <p>256-BIT ENCRYPTED</p>
     </div>
   </div>
 </div>
@@ -1393,7 +1187,6 @@ body{
 <!-- MAIN DASHBOARD -->
 <div class="main-wrapper" id="mainScreen">
   
-  <!-- Header -->
   <div class="dash-header">
     <div class="dash-brand">
       <div class="brand-logo-anim">LA</div>
@@ -1408,172 +1201,145 @@ body{
     </div>
   </div>
 
-  <!-- Warning -->
-  <div class="warning-card">
-    <span class="warn-icon">⚠️</span>
-    <p>Trade responsibly. Signals are generated using technical analysis and do not guarantee profits.</p>
-  </div>
+  <div class="dash-grid">
 
-  <!-- Market Selection -->
-  <div class="glass-card">
-    <div class="field-label">Market Type</div>
-    <select class="glass-select" id="marketType" onchange="updatePairs()">
-      <option value="forex">💱 Forex</option>
-      <option value="synthetic">📊 Synthetic Indices</option>
-      <option value="crypto">₿ Crypto</option>
-      <option value="commodities">🛢️ Commodities</option>
-    </select>
+    <!-- Controls -->
+    <div class="glass-card controls-card">
+      <div class="field-label">Market</div>
+      <select class="glass-select" id="marketType" onchange="updatePairs()">
+        <option value="quotex">📱 Quotex OTC</option>
+        <option value="forex">💱 Forex</option>
+        <option value="synthetic">📊 Synthetic</option>
+        <option value="crypto">₿ Crypto</option>
+      </select>
+      <div class="field-label">Pair</div>
+      <select class="glass-select" id="pairSelect" onchange="onPairChange()">
+        <option value="EURUSD OTC">EUR/USD OTC</option>
+        <option value="GBPUSD OTC">GBP/USD OTC</option>
+        <option value="USDJPY OTC">USD/JPY OTC</option>
+        <option value="AUDUSD OTC">AUD/USD OTC</option>
+        <option value="USDCAD OTC">USD/CAD OTC</option>
+        <option value="EURGBP OTC">EUR/GBP OTC</option>
+        <option value="USDCHF OTC">USD/CHF OTC</option>
+        <option value="NZDUSD OTC">NZD/USD OTC</option>
+      </select>
+      <div class="field-label">Timeframe</div>
+      <select class="glass-select" id="timeframe" onchange="onTfChange()">
+        <option value="1m">1 Minute</option>
+        <option value="5m">5 Minutes</option>
+        <option value="15m" selected>15 Minutes</option>
+        <option value="1h">1 Hour</option>
+      </select>
+    </div>
 
-    <div class="field-label">Trading Pair</div>
-    <select class="glass-select" id="pairSelect">
-      <option value="EURUSD">EUR/USD</option>
-      <option value="GBPUSD">GBP/USD</option>
-      <option value="USDJPY">USD/JPY</option>
-      <option value="AUDUSD">AUD/USD</option>
-      <option value="USDCAD">USD/CAD</option>
-    </select>
-
-    <div class="field-label">Timeframe</div>
-    <select class="glass-select" id="timeframe">
-      <option value="1m">⏱️ 1 Minute</option>
-      <option value="5m">⏱️ 5 Minutes</option>
-      <option value="15m" selected>⏱️ 15 Minutes</option>
-      <option value="1h">⏱️ 1 Hour</option>
-    </select>
-  </div>
-
-  <!-- Pair Info -->
-  <div class="glass-card">
-    <div class="pair-section">
-      <div class="pair-info">
-        <div class="pair-icon-box" id="pairIcon">💱</div>
-        <div class="pair-details">
-          <h3 id="pairName">EUR/USD</h3>
-          <span id="pairDesc">Major Forex Pair</span>
+    <!-- Pair Info -->
+    <div class="glass-card pair-card">
+      <div class="pair-section">
+        <div class="pair-info">
+          <div class="pair-icon-box" id="pairIcon">💱</div>
+          <div class="pair-details">
+            <h3 id="pairName">EUR/USD OTC</h3>
+            <span id="pairDesc">Quotex OTC Pair</span>
+          </div>
         </div>
       </div>
-      <div class="toggle-switch active" id="autoToggle" onclick="toggleAuto()"></div>
+      <div class="pair-stats">
+        <span>📈 Spread: <b id="spreadVal">0.2</b> pips</span>
+        <span>⚡ Vol: <b id="volVal">Medium</b></span>
+      </div>
     </div>
-    <div class="pair-stats">
-      <span>📈 Spread: <b id="spreadVal">0.3</b> pips</span>
-      <span>⚡ Volatility: <b id="volVal">Low</b></span>
+
+    <!-- Live Price -->
+    <div class="glass-card price-card">
+      <div class="price-label">Live Price</div>
+      <div class="price-value" id="livePrice">1.08452</div>
+      <div class="price-change" id="priceChange" style="color:var(--primary);">+0.08%</div>
     </div>
+
+    <!-- Timer -->
+    <div class="glass-card timer-card" id="timerCard">
+      <div class="timer-label">Next Candle</div>
+      <div class="timer-display" id="timerDisplay">14:32</div>
+      <div class="timer-sub">Signal = 1 Candle</div>
+    </div>
+
+    <!-- Generate Button -->
+    <div class="glass-card gen-card">
+      <button class="generate-btn" id="genBtn" onclick="generateSignal()">🔮 GENERATE</button>
+    </div>
+
+    <!-- Signal Result -->
+    <div class="signal-card" id="signalCard">
+      <div class="signal-header">
+        <div class="signal-badge" id="signalBadge">
+          <span id="signalIcon">📈</span>
+          <span id="signalText">BUY</span>
+        </div>
+        <div class="signal-time" id="signalTime">14:32</div>
+      </div>
+      <div class="signal-details">
+        <div class="signal-detail">
+          <div class="label">Entry</div>
+          <div class="value" id="entryPrice">1.08452</div>
+        </div>
+        <div class="signal-detail">
+          <div class="label">Expiry</div>
+          <div class="value" id="expiryTime">1 Candle</div>
+        </div>
+        <div class="signal-detail">
+          <div class="label">Confidence</div>
+          <div class="value" id="confidenceVal">87%</div>
+        </div>
+        <div class="signal-detail">
+          <div class="label">Strength</div>
+          <div class="value" id="strengthVal">STRONG</div>
+        </div>
+      </div>
+      <div class="signal-confidence">
+        <div class="confidence-bar">
+          <div class="confidence-fill" id="confidenceBar" style="width:0%"></div>
+        </div>
+        <div class="confidence-text">
+          <span>Weak</span>
+          <span id="confidencePercent">87%</span>
+          <span>Strong</span>
+        </div>
+      </div>
+      <div class="signal-reason">
+        <div class="label">Analysis</div>
+        <div class="text" id="signalReason">Bullish engulfing detected at support.</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="glass-card chart-card">
+      <div class="chart-header">
+        <div class="chart-title" id="chartTitle">EUR/USD OTC - 15M</div>
+        <div class="chart-live">
+          <div class="dot"></div>
+          LIVE
+        </div>
+      </div>
+      <div id="chart-container"></div>
+    </div>
+
+    <!-- History -->
+    <div class="glass-card history-card" id="historyCard">
+      <div class="history-header">
+        <div class="history-title">📊 History</div>
+        <div class="history-count" id="historyCount">0 signals</div>
+      </div>
+      <div class="history-scroll" id="historyList"></div>
+    </div>
+
   </div>
-
-  <!-- Live Price -->
-  <div class="price-card" id="priceCard">
-    <div class="price-label">Live Price</div>
-    <div class="price-value" id="livePrice">1.08452</div>
-    <div class="price-change" id="priceChange" style="color:var(--primary);">+0.12%</div>
-  </div>
-
-  <!-- Generate Button -->
-  <button class="generate-btn" id="genBtn" onclick="generateSignal()">🔮 GENERATE SIGNAL</button>
-
-  <!-- Next Candle Timer -->
-  <div class="timer-card" id="timerCard">
-    <div class="timer-label">⏳ Next Candle In</div>
-    <div class="timer-display" id="timerDisplay">14:32</div>
-    <div class="timer-sub">Signal valid for next candle only</div>
-  </div>
-
-  <!-- Signal Result -->
-  <div class="signal-card" id="signalCard">
-    <div class="signal-header">
-      <div class="signal-badge" id="signalBadge">
-        <span id="signalIcon">📈</span>
-        <span id="signalText">BUY</span>
-      </div>
-      <div class="signal-time" id="signalTime">14:32:15</div>
-    </div>
-    <div class="signal-details">
-      <div class="signal-detail">
-        <div class="label">Entry Price</div>
-        <div class="value" id="entryPrice">1.08452</div>
-      </div>
-      <div class="signal-detail">
-        <div class="label">Expiry</div>
-        <div class="value" id="expiryTime">1 Candle</div>
-      </div>
-      <div class="signal-detail">
-        <div class="label">Confidence</div>
-        <div class="value" id="confidenceVal">87%</div>
-      </div>
-      <div class="signal-detail">
-        <div class="label">Strength</div>
-        <div class="value" id="strengthVal">STRONG</div>
-      </div>
-    </div>
-    <div class="signal-confidence">
-      <div class="confidence-bar">
-        <div class="confidence-fill" id="confidenceBar" style="width:0%"></div>
-      </div>
-      <div class="confidence-text">
-        <span>Weak</span>
-        <span id="confidencePercent">87%</span>
-        <span>Strong</span>
-      </div>
-    </div>
-    <div class="signal-reason">
-      <div class="label">Analysis</div>
-      <div class="text" id="signalReason">Bullish engulfing pattern detected with RSI divergence. Price action shows strong support at current level with increasing volume.</div>
-    </div>
-  </div>
-
-  <!-- Live Chart -->
-  <div class="glass-card chart-card">
-    <div class="chart-header">
-      <div class="chart-title" id="chartTitle">EUR/USD - 15M</div>
-      <div class="chart-live">
-        <div class="dot"></div>
-        LIVE
-      </div>
-    </div>
-    <div id="chart-container"></div>
-  </div>
-
-  <!-- Signal History -->
-  <div class="glass-card history-card" id="historyCard" style="display:none;">
-    <div class="history-header">
-      <div class="history-title">📊 Signal History</div>
-      <div class="history-count" id="historyCount">0 signals</div>
-    </div>
-    <div id="historyList"></div>
-  </div>
-
 </div>
 
 <script>
-// ===== PARTICLES =====
-function createParticles(){
-  const container=document.getElementById('particles');
-  for(let i=0;i<30;i++){
-    const p=document.createElement('div');
-    p.className='particle';
-    const size=Math.random()*4+2;
-    p.style.width=size+'px';
-    p.style.height=size+'px';
-    p.style.left=Math.random()*100+'%';
-    p.style.animationDuration=(Math.random()*10+8)+'s';
-    p.style.animationDelay=(Math.random()*5)+'s';
-    const colors=['var(--primary)','var(--blue)','var(--red)','var(--gold)'];
-    p.style.background=colors[Math.floor(Math.random()*colors.length)];
-    container.appendChild(p);
-  }
-}
-createParticles();
-
 // ===== LOGIN =====
 function doLogin(){
-  const user=document.getElementById('username').value;
-  const pass=document.getElementById('password').value;
-  if(user.trim()===''||pass.trim()===''){
-    alert('Please enter username and password!');
-    return;
-  }
   document.getElementById('loginScreen').style.display='none';
-  document.getElementById('mainScreen').style.display='block';
-  document.getElementById('priceCard').style.display='block';
+  document.getElementById('mainScreen').style.display='flex';
   initChart();
   startLivePrice();
   startCandleTimer();
@@ -1581,25 +1347,25 @@ function doLogin(){
 
 // ===== PAIR DATA =====
 const pairData={
+  quotex:{
+    pairs:['EURUSD OTC','GBPUSD OTC','USDJPY OTC','AUDUSD OTC','USDCAD OTC','EURGBP OTC','USDCHF OTC','NZDUSD OTC','EURJPY OTC','GBPJPY OTC'],
+    icons:['💱','💱','💱','💱','💱','💱','💱','💱','💱','💱'],
+    descs:['Quotex OTC','Quotex OTC','Quotex OTC','Quotex OTC','Quotex OTC','Quotex OTC','Quotex OTC','Quotex OTC','Quotex OTC','Quotex OTC']
+  },
   forex:{
-    pairs:['EURUSD','GBPUSD','USDJPY','AUDUSD','USDCAD','EURGBP','USDCHF'],
-    icons:['💱','💱','💱','💱','💱','💱','💱'],
-    descs:['Major Forex Pair','Major Forex Pair','Major Forex Pair','Major Forex Pair','Major Forex Pair','Major Forex Pair','Major Forex Pair']
+    pairs:['EURUSD','GBPUSD','USDJPY','AUDUSD','USDCAD','EURGBP','USDCHF','NZDUSD'],
+    icons:['💱','💱','💱','💱','💱','💱','💱','💱'],
+    descs:['Major Forex','Major Forex','Major Forex','Major Forex','Major Forex','Major Forex','Major Forex','Major Forex']
   },
   synthetic:{
-    pairs:['Volatility 10','Volatility 25','Volatility 50','Volatility 75','Volatility 100','Jump 10','Jump 25'],
+    pairs:['Vol 10','Vol 25','Vol 50','Vol 75','Vol 100','Jump 10','Jump 25'],
     icons:['📊','📊','📊','📊','📊','📊','📊'],
-    descs:['Synthetic Index','Synthetic Index','Synthetic Index','Synthetic Index','Synthetic Index','Synthetic Index','Synthetic Index']
+    descs:['Synthetic','Synthetic','Synthetic','Synthetic','Synthetic','Synthetic','Synthetic']
   },
   crypto:{
     pairs:['BTCUSD','ETHUSD','LTCUSD','XRPUSD','BCHUSD'],
     icons:['₿','Ξ','Ł','✕','₿'],
     descs:['Bitcoin','Ethereum','Litecoin','Ripple','Bitcoin Cash']
-  },
-  commodities:{
-    pairs:['XAUUSD','XAGUSD','USOIL','UKOIL'],
-    icons:['🥇','🥈','🛢️','🛢️'],
-    descs:['Gold','Silver','US Oil','UK Oil']
   }
 };
 
@@ -1614,22 +1380,26 @@ function updatePairs(){
     opt.textContent=data.icons[i]+' '+p;
     select.appendChild(opt);
   });
-  document.getElementById('pairIcon').textContent=data.icons[0];
-  document.getElementById('pairDesc').textContent=data.descs[0];
-  updateChartTitle();
+  onPairChange();
 }
 
-document.getElementById('pairSelect').addEventListener('change',function(){
+function onPairChange(){
   const market=document.getElementById('marketType').value;
-  const idx=pairData[market].pairs.indexOf(this.value);
+  const pair=document.getElementById('pairSelect').value;
+  const idx=pairData[market].pairs.indexOf(pair);
   document.getElementById('pairIcon').textContent=pairData[market].icons[idx]||'💱';
   document.getElementById('pairDesc').textContent=pairData[market].descs[idx]||'Trading Pair';
-  document.getElementById('pairName').textContent=this.value;
+  document.getElementById('pairName').textContent=pair;
+  document.getElementById('spreadVal').textContent=(Math.random()*0.5+0.1).toFixed(1);
+  document.getElementById('volVal').textContent=['Low','Medium','High'][Math.floor(Math.random()*3)];
   updateChartTitle();
   resetSignal();
-});
+}
 
-document.getElementById('timeframe').addEventListener('change',updateChartTitle);
+function onTfChange(){
+  candleSeconds=getTimeframeSeconds();
+  updateChartTitle();
+}
 
 function updateChartTitle(){
   const pair=document.getElementById('pairSelect').value;
@@ -1637,13 +1407,8 @@ function updateChartTitle(){
   document.getElementById('chartTitle').textContent=pair+' - '+tf.toUpperCase();
 }
 
-function toggleAuto(){
-  document.getElementById('autoToggle').classList.toggle('active');
-}
-
 // ===== LIVE PRICE =====
 let currentPrice=1.08452;
-let priceDirection=1;
 
 function startLivePrice(){
   setInterval(()=>{
@@ -1667,14 +1432,13 @@ function startLivePrice(){
 }
 
 // ===== CANDLE TIMER =====
-let candleSeconds=900; // 15 minutes default
+let candleSeconds=900;
 
 function startCandleTimer(){
   setInterval(()=>{
     candleSeconds--;
     if(candleSeconds<0){
       candleSeconds=getTimeframeSeconds();
-      // New candle - check signal result
       checkSignalResult();
     }
     const m=Math.floor(candleSeconds/60);
@@ -1682,7 +1446,6 @@ function startCandleTimer(){
     document.getElementById('timerDisplay').textContent=
       String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
   },1000);
-  document.getElementById('timerCard').style.display='block';
 }
 
 function getTimeframeSeconds(){
@@ -1694,69 +1457,49 @@ function getTimeframeSeconds(){
   return 900;
 }
 
-document.getElementById('timeframe').addEventListener('change',function(){
-  candleSeconds=getTimeframeSeconds();
-});
-
-// ===== SIGNAL GENERATION =====
+// ===== SIGNAL =====
 let activeSignal=null;
 let signalHistory=[];
 
-const signalReasons={
-  buy:[
-    'Bullish engulfing pattern detected with RSI divergence. Price action shows strong support at current level with increasing volume.',
-    'Hammer candlestick formed at key support level. MACD histogram turning positive with bullish momentum building.',
-    'Price broke above descending trendline with strong volume. Moving averages aligned bullish with golden cross forming.',
-    'Double bottom pattern confirmed. Stochastic oscillator showing oversold bounce with bullish divergence on 4H chart.',
-    'Price retested broken resistance-turned-support. Bollinger Bands squeezing indicating imminent breakout to upside.'
-  ],
-  sell:[
-    'Bearish engulfing pattern at resistance with RSI overbought divergence. Volume declining suggesting weakness.',
-    'Shooting star formed at key resistance. MACD showing bearish crossover with histogram turning negative.',
-    'Price broke below ascending trendline on high volume. Death cross forming on moving averages.',
-    'Double top pattern confirmed at resistance. Stochastic overbought with bearish divergence signaling reversal.',
-    'Price rejected at upper Bollinger Band. RSI showing divergence while volume profile indicates distribution.'
-  ]
+const reasons={
+  buy:['Bullish engulfing at support. RSI divergence detected.','Hammer at key support. MACD turning positive.','Broke above trendline. Golden cross forming.','Double bottom confirmed. Stochastic oversold bounce.','Retested support. Bollinger squeeze breakout.'],
+  sell:['Bearish engulfing at resistance. RSI overbought.','Shooting star at resistance. MACD bearish cross.','Broke below trendline. Death cross forming.','Double top at resistance. Stochastic overbought.','Rejected at Bollinger upper. Distribution volume.']
 };
 
 function generateSignal(){
   const btn=document.getElementById('genBtn');
   btn.disabled=true;
-  btn.textContent='⏳ ANALYZING...';
+  btn.textContent='⏳...';
   
-  // Show scanning overlay
   const overlay=document.getElementById('scanOverlay');
   overlay.style.display='flex';
   
-  const steps=['Scanning candle patterns...','Analyzing indicators...','Checking volume profile...','Calculating probabilities...','Signal confirmed!'];
+  const steps=['Scanning...','Analyzing...','Volume check...','Calculating...','Confirmed!'];
   let step=0;
-  
   const scanInterval=setInterval(()=>{
     if(step<steps.length){
       document.getElementById('scanSub').textContent=steps[step];
       step++;
     }
-  },400);
+  },350);
   
   setTimeout(()=>{
     clearInterval(scanInterval);
     overlay.style.display='none';
     
     const isBuy=Math.random()>0.45;
-    const confidence=Math.floor(Math.random()*15)+75; // 75-90%
+    const conf=Math.floor(Math.random()*15)+75;
     const entry=currentPrice.toFixed(5);
     const now=new Date();
-    const timeStr=String(now.getHours()).padStart(2,'0')+':'+
-      String(now.getMinutes()).padStart(2,'0')+':'+
-      String(now.getSeconds()).padStart(2,'0');
+    const timeStr=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
     
     activeSignal={
       type:isBuy?'buy':'sell',
       entry:parseFloat(entry),
-      confidence:confidence,
+      confidence:conf,
       time:now,
       pair:document.getElementById('pairSelect').value,
-      timeframe:document.getElementById('timeframe').value
+      tf:document.getElementById('timeframe').value
     };
     
     const card=document.getElementById('signalCard');
@@ -1767,27 +1510,18 @@ function generateSignal(){
     document.getElementById('signalText').textContent=isBuy?'BUY':'SELL';
     document.getElementById('signalTime').textContent=timeStr;
     document.getElementById('entryPrice').textContent=entry;
-    document.getElementById('confidenceVal').textContent=confidence+'%';
-    document.getElementById('strengthVal').textContent=confidence>85?'STRONG':'MODERATE';
-    document.getElementById('confidencePercent').textContent=confidence+'%';
-    document.getElementById('signalReason').textContent=
-      signalReasons[isBuy?'buy':'sell'][Math.floor(Math.random()*5)];
+    document.getElementById('confidenceVal').textContent=conf+'%';
+    document.getElementById('strengthVal').textContent=conf>85?'STRONG':'MODERATE';
+    document.getElementById('confidencePercent').textContent=conf+'%';
+    document.getElementById('signalReason').textContent=reasons[isBuy?'buy':'sell'][Math.floor(Math.random()*5)];
     
-    // Animate confidence bar
-    setTimeout(()=>{
-      document.getElementById('confidenceBar').style.width=confidence+'%';
-    },100);
-    
-    // Add marker to chart
+    setTimeout(()=>{document.getElementById('confidenceBar').style.width=conf+'%';},100);
     addSignalMarker(isBuy,entry);
     
     btn.disabled=false;
-    btn.textContent='🔮 GENERATE SIGNAL';
-    
-    // Show history card
+    btn.textContent='🔮 GENERATE';
     document.getElementById('historyCard').style.display='block';
-    
-  },2500);
+  },2200);
 }
 
 function resetSignal(){
@@ -1798,19 +1532,10 @@ function resetSignal(){
 
 function checkSignalResult(){
   if(!activeSignal)return;
-  
   const priceChange=currentPrice-activeSignal.entry;
-  const isWin=(activeSignal.type==='buy'&&priceChange>0)||
-              (activeSignal.type==='sell'&&priceChange<0);
+  const isWin=(activeSignal.type==='buy'&&priceChange>0)||(activeSignal.type==='sell'&&priceChange<0);
   
-  const result={
-    ...activeSignal,
-    result:isWin?'win':'loss',
-    exitPrice:currentPrice.toFixed(5),
-    pips:Math.abs(priceChange).toFixed(5)
-  };
-  
-  signalHistory.unshift(result);
+  signalHistory.unshift({...activeSignal,result:isWin?'win':'loss',exit:currentPrice.toFixed(5)});
   updateHistory();
   activeSignal=null;
   document.getElementById('signalCard').style.display='none';
@@ -1819,23 +1544,17 @@ function checkSignalResult(){
 
 function updateHistory(){
   const list=document.getElementById('historyList');
-  const count=document.getElementById('historyCount');
-  count.textContent=signalHistory.length+' signals';
-  
+  document.getElementById('historyCount').textContent=signalHistory.length+' signals';
   list.innerHTML='';
-  signalHistory.slice(0,10).forEach(sig=>{
+  signalHistory.slice(0,20).forEach(sig=>{
     const item=document.createElement('div');
     item.className='history-item '+sig.type;
-    const timeStr=String(sig.time.getHours()).padStart(2,'0')+':'+
-      String(sig.time.getMinutes()).padStart(2,'0');
+    const t=String(sig.time.getHours()).padStart(2,'0')+':'+String(sig.time.getMinutes()).padStart(2,'0');
     item.innerHTML=`
-      <div class="side">
-        <div class="side-icon">${sig.type==='buy'?'📈':'📉'}</div>
-        <div class="side-text">${sig.type.toUpperCase()}</div>
-      </div>
+      <div class="side-icon">${sig.type==='buy'?'📈':'📉'}</div>
       <div class="info">
         <div class="pair">${sig.pair}</div>
-        <div class="time">${timeStr} | ${sig.confidence}%</div>
+        <div class="time">${t} | ${sig.confidence}%</div>
       </div>
       <div class="result ${sig.result}">${sig.result.toUpperCase()}</div>
     `;
@@ -1844,130 +1563,84 @@ function updateHistory(){
 }
 
 // ===== CHART =====
-let chart, candleSeries, signalMarkers=[];
+let chart, candleSeries, markers=[];
 
 function initChart(){
   const container=document.getElementById('chart-container');
   chart=LightweightCharts.createChart(container,{
-    layout:{
-      background:{color:'transparent'},
-      textColor:'#8a8a9e',
-      fontFamily:'Poppins'
-    },
-    grid:{
-      vertLines:{color:'rgba(255,255,255,0.03)'},
-      horzLines:{color:'rgba(255,255,255,0.03)'}
-    },
-    crosshair:{
-      mode:LightweightCharts.CrosshairMode.Normal,
-      vertLine:{color:'rgba(0,255,136,0.3)',width:1,style:2},
-      horzLine:{color:'rgba(0,255,136,0.3)',width:1,style:2}
-    },
-    rightPriceScale:{
-      borderColor:'rgba(255,255,255,0.06)',
-      scaleMargins:{top:0.1,bottom:0.1}
-    },
-    timeScale:{
-      borderColor:'rgba(255,255,255,0.06)',
-      timeVisible:true,
-      secondsVisible:false
-    },
-    handleScroll:true,
-    handleScale:true
+    layout:{background:{color:'transparent'},textColor:'#8a8a9e',fontFamily:'Poppins'},
+    grid:{vertLines:{color:'rgba(255,255,255,0.02)'},horzLines:{color:'rgba(255,255,255,0.02)'}},
+    crosshair:{mode:LightweightCharts.CrosshairMode.Normal,vertLine:{color:'rgba(0,255,136,0.2)',width:1,style:2},horzLine:{color:'rgba(0,255,136,0.2)',width:1,style:2}},
+    rightPriceScale:{borderColor:'rgba(255,255,255,0.04)',scaleMargins:{top:0.1,bottom:0.1}},
+    timeScale:{borderColor:'rgba(255,255,255,0.04)',timeVisible:true,secondsVisible:false},
+    handleScroll:true,handleScale:true
   });
   
   candleSeries=chart.addCandlestickSeries({
-    upColor:'#00ff88',
-    downColor:'#ff2d55',
-    borderUpColor:'#00ff88',
-    borderDownColor:'#ff2d55',
-    wickUpColor:'#00ff88',
-    wickDownColor:'#ff2d55'
+    upColor:'#00ff88',downColor:'#ff2d55',
+    borderUpColor:'#00ff88',borderDownColor:'#ff2d55',
+    wickUpColor:'#00ff88',wickDownColor:'#ff2d55'
   });
   
-  // Generate initial candles
-  const data=generateCandleData(100);
+  const data=generateCandles(80);
   candleSeries.setData(data);
   chart.timeScale().fitContent();
   
-  window.addEventListener('resize',()=>chart.applyOptions({width:container.clientWidth}));
+  const ro=new ResizeObserver(()=>chart.applyOptions({width:container.clientWidth,height:container.clientHeight}));
+  ro.observe(container);
 }
 
-function generateCandleData(count){
+function generateCandles(count){
   const data=[];
-  let price=1.08000;
+  let p=1.08000;
   const now=Math.floor(Date.now()/1000);
   for(let i=0;i<count;i++){
-    const open=price;
-    const change=(Math.random()-0.48)*0.002;
-    const close=open+change;
-    const high=Math.max(open,close)+Math.random()*0.001;
-    const low=Math.min(open,close)-Math.random()*0.001;
-    data.push({
-      time:now-(count-i)*900,
-      open:open,
-      high:high,
-      low:low,
-      close:close
-    });
-    price=close;
+    const o=p;
+    const c=o+(Math.random()-0.48)*0.002;
+    const h=Math.max(o,c)+Math.random()*0.001;
+    const l=Math.min(o,c)-Math.random()*0.001;
+    data.push({time:now-(count-i)*900,open:o,high:h,low:l,close:c});
+    p=c;
   }
-  currentPrice=price;
+  currentPrice=p;
   return data;
 }
 
-let lastCandleTime=0;
+let lastCandle=0;
 
 function updateChartRealtime(){
   const now=Math.floor(Date.now()/1000);
   const tf=getTimeframeSeconds();
-  const candleTime=Math.floor(now/tf)*tf;
-  
-  if(candleTime>lastCandleTime){
-    // New candle
-    lastCandleTime=candleTime;
-    const lastClose=currentPrice;
-    const open=lastClose+(Math.random()-0.5)*0.0005;
-    const high=Math.max(open,lastClose)+Math.random()*0.001;
-    const low=Math.min(open,lastClose)-Math.random()*0.001;
-    candleSeries.update({
-      time:candleTime,
-      open:open,
-      high:high,
-      low:low,
-      close:lastClose
-    });
+  const ct=Math.floor(now/tf)*tf;
+  if(ct>lastCandle){
+    lastCandle=ct;
+    const lc=currentPrice;
+    const o=lc+(Math.random()-0.5)*0.0005;
+    const h=Math.max(o,lc)+Math.random()*0.001;
+    const l=Math.min(o,lc)-Math.random()*0.001;
+    candleSeries.update({time:ct,open:o,high:h,low:l,close:lc});
   }else{
-    // Update current candle
-    const data=candleSeries.data();
-    if(data&&data.length>0){
-      const last=data[data.length-1];
-      candleSeries.update({
-        time:last.time,
-        open:last.open,
-        high:Math.max(last.high,currentPrice),
-        low:Math.min(last.low,currentPrice),
-        close:currentPrice
-      });
+    const d=candleSeries.data();
+    if(d&&d.length>0){
+      const last=d[d.length-1];
+      candleSeries.update({time:last.time,open:last.open,high:Math.max(last.high,currentPrice),low:Math.min(last.low,currentPrice),close:currentPrice});
     }
   }
 }
 
 function addSignalMarker(isBuy,price){
   const now=Math.floor(Date.now()/1000);
-  const marker={
+  markers.push({
     time:now,
     position:isBuy?'belowBar':'aboveBar',
     color:isBuy?'#00ff88':'#ff2d55',
     shape:isBuy?'arrowUp':'arrowDown',
     text:isBuy?'BUY':'SELL',
     size:2
-  };
-  signalMarkers.push(marker);
-  candleSeries.setMarkers(signalMarkers);
+  });
+  candleSeries.setMarkers(markers);
 }
 
-// Initialize
 updatePairs();
 </script>
 </body>
