@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 <style>
 :root{--bg:#0a0a0f;--card:#1a1a24;--primary:#00ff78;--red:#ff4d4d;--text:#ffffff;--muted:#8a8a9e;--border:#2a2a35;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -32,7 +32,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 #scanner{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);position:relative;overflow:hidden;display:none;margin-bottom:15px;}
 .scan-line{position:absolute;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--primary),transparent);box-shadow:0 0 20px var(--primary);animation:scan 1.5s linear infinite;}
 @keyframes scan{0%{top:0%;}100%{top:100%;}}
-#chartContainer{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);margin-bottom:15px;padding:10px;display:none;}
+#chartContainer{height:180px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);margin-bottom:15px;display:none;width:100%;}
 #signalBox{padding:20px;border-radius:15px;text-align:center;font-size:28px;font-weight:900;font-family:'Orbitron';display:none;margin-bottom:15px;}
 .buy-style{background:rgba(0,255,120,0.1);border:1px solid rgba(0,255,120,0.3);color:var(--primary);}
 .sell-style{background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);color:var(--red);}
@@ -40,7 +40,6 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 .stat{background:#0f0f15;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;}
 .stat h3{font-size:10px;color:var(--muted);margin-bottom:5px;}
 .stat p{font-size:15px;font-weight:700;}
-.error-msg{color:var(--red);font-size:12px;text-align:center;margin-top:10px;display:none;}
 .note{font-size:12px;color:#ffaa00;text-align:center;margin-bottom:15px;}
 </style>
 </head>
@@ -74,26 +73,27 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 <div class="status">● LIVE</div>
 </div>
 
-<div class="note">⚠️ Quotex پر 1 Minute Expiry استعمال کریں</div>
+<div class="note">⚠️ Quotex/Pocket Option پر 1 Minute Expiry استعمال کریں</div>
 
-<label class="label">SELECT PAIR</label>
+<label class="label">BROKER SELECT</label>
+<select id="brokerSelect" onchange="changeBroker()">
+<option value="quotex">Quotex</option>
+<option value="pocket">Pocket Option</option>
+</select>
+
+<label class="label">SELECT CURRENCY</label>
 <select id="assetSelect" onchange="changeAsset()">
-<option value="EURUSDT">EUR/USDT</option>
-<option value="GBPUSDT">GBP/USDT</option>
-<option value="BRLUSDT">BRL/USDT</option>
-<option value="AUDUSDT">AUD/USDT</option>
-<option value="USDJPY">USD/JPY</option>
 </select>
 
 <div class="pair-card">
 <div class="pair-header">
 <div class="pair-name">
-<span id="pairName">EUR/USDT</span>
+<span id="pairName">EUR/USD</span>
 </div>
 <div class="toggle active" id="toggleBtn" onclick="toggleSignal()"></div>
 </div>
 <div class="pair-info">
-<span id="pairId">ID: <span id="pairIdNum">76554</span></span>
+<span id="pairId">Broker: <span id="brokerName">Quotex</span></span>
 <span id="pairStatus">● Connected</span>
 <span id="pairDate">Timeframe: 1M</span>
 </div>
@@ -102,9 +102,8 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 <button class="btn" onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
 
 <div id="scanner"><div class="scan-line"></div></div>
-<div id="chartContainer"><canvas id="candleChart"></canvas></div>
+<div id="chartContainer"></div>
 <div id="signalBox">BUY</div>
-<div class="error-msg" id="errorMsg"></div>
 
 <div class="stats">
 <div class="stat"><h3>RSI</h3><p id="rsi">--</p></div>
@@ -115,26 +114,57 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 </div>
 
 <script>
-let pair = 'EURUSDT';
+let broker = 'quotex';
+let pair = 'EURUSD-OTC';
 let signalActive = true;
-let cachedData = null;
-let lastFetchTime = 0;
 let chart = null;
+let candlestickSeries = null;
 
 function login(){
   let pass = document.getElementById('password').value;
   if(pass === 'Lubna786'){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainBoard').style.display = 'block';
-  }else{alert('Wrong Password!');}
+    changeBroker();
+  }else{alert('غلط پاسورڈ!');}
+}
+
+function changeBroker(){
+  broker = document.getElementById('brokerSelect').value;
+  document.getElementById('brokerName').innerText = broker === 'quotex'? 'Quotex' : 'Pocket Option';
+
+  let select = document.getElementById('assetSelect');
+  select.innerHTML = '';
+
+  if(broker === 'quotex'){
+    select.innerHTML = `
+      <option value="EURUSD-OTC">EUR/USD OTC</option>
+      <option value="GBPUSD-OTC">GBP/USD OTC</option>
+      <option value="USDJPY-OTC">USD/JPY OTC</option>
+      <option value="AUDUSD-OTC">AUD/USD OTC</option>
+      <option value="USDNGN-OTC">USD/NGN OTC</option>
+    `;
+    pair = 'EURUSD-OTC';
+  }else{
+    select.innerHTML = `
+      <option value="EURUSD-OTC">EUR/USD OTC</option>
+      <option value="GBPUSD-OTC">GBP/USD OTC</option>
+      <option value="USDJPY-OTC">USD/JPY OTC</option>
+      <option value="AUDUSD-OTC">AUD/USD OTC</option>
+      <option value="USDBRL-OTC">USD/BRL OTC</option>
+      <option value="USDINR-OTC">USD/INR OTC</option>
+      <option value="USDPKR-OTC">USD/PKR OTC</option>
+      <option value="USDMXN-OTC">USD/MXN OTC</option>
+    `;
+    pair = 'EURUSD-OTC';
+  }
+  changeAsset();
 }
 
 function changeAsset(){
   pair = document.getElementById('assetSelect').value;
   let name = document.getElementById('assetSelect').options[document.getElementById('assetSelect').selectedIndex].text;
   document.getElementById('pairName').innerText = name;
-  document.getElementById('pairIdNum').innerText = Math.floor(Math.random()*99999);
-  cachedData = null;
   document.getElementById('chartContainer').style.display = 'none';
 }
 
@@ -144,70 +174,37 @@ function toggleSignal(){
   document.getElementById('pairStatus').innerText = signalActive? '● Connected' : '● Stopped';
 }
 
-async function getBinanceData(){
-  let now = Date.now();
-  if(cachedData && (now - lastFetchTime) < 10000){
-    return cachedData;
+function getDemoData(){
+  let basePrice = pair.includes('JPY')? 150 : pair.includes('BRL')? 5.2 : pair.includes('INR')? 83 : pair.includes('PKR')? 278 : pair.includes('MXN')? 17.5 : 1.5;
+  let data = [];
+  let time = Math.floor(Date.now() / 1000) - 50 * 60;
+  for(let i=0; i<50; i++){
+    let change = (Math.random() - 0.5) * 0.02 * basePrice;
+    let close = basePrice + change;
+    let high = Math.max(basePrice, close) + Math.random() * 0.01 * basePrice;
+    let low = Math.min(basePrice, close) - Math.random() * 0.01 * basePrice;
+    data.push({time: time + i*60, open: basePrice, high, low, close});
+    basePrice = close;
   }
-
-  try{
-    let symbol = pair;
-    let response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=100`);
-
-    if(!response.ok) throw new Error('API Error: ' + response.status);
-
-    let data = await response.json();
-    if(!data || data.length < 50) throw new Error('Not enough data');
-
-    cachedData = data.map(candle => ({
-      open: parseFloat(candle[1]),
-      high: parseFloat(candle[2]),
-      low: parseFloat(candle[3]),
-      close: parseFloat(candle[4])
-    }));
-    lastFetchTime = now;
-    document.getElementById('errorMsg').style.display = 'none';
-    return cachedData;
-
-  }catch(error){
-    console.log('Binance API Error:', error);
-    document.getElementById('errorMsg').innerText = 'API Error: Pair not found. Try EURUSDT or BRLUSDT';
-    document.getElementById('errorMsg').style.display = 'block';
-    return null;
-  }
+  return data;
 }
 
-function drawChart(candles){
-  const ctx = document.getElementById('candleChart').getContext('2d');
-  if(chart) chart.destroy();
+function initChart(){
+  if(chart) chart.remove();
+  const container = document.getElementById('chartContainer');
 
-  const labels = candles.map((_, i) => i);
-  const closeData = candles.map(c => c.close);
+  chart = LightweightCharts.createChart(container, {
+    width: container.clientWidth,
+    height: 180,
+    layout: { background: { color: '#0f0f15' }, textColor: '#8a8a9e' },
+    grid: { vertLines: { color: '#2a2a35' }, horzLines: { color: '#2a2a35' } },
+    timeScale: { timeVisible: true },
+  });
 
-  chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: pair,
-        data: closeData,
-        borderColor: '#00ff78',
-        backgroundColor: 'rgba(0,255,120,0.1)',
-        borderWidth: 2,
-        pointRadius: 0,
-        tension: 0.1,
-        fill: true
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {legend: {display: false}},
-      scales: {
-        x: {display: false},
-        y: {display: true,ticks: {color: '#8a8a9e', font: {size: 10}},grid: {color: '#2a2a35'}}
-      }
-    }
+  candlestickSeries = chart.addCandlestickSeries({
+    upColor: '#00ff78', downColor: '#ff4d4d',
+    borderDownColor: '#ff4d4d', borderUpColor: '#00ff78',
+    wickDownColor: '#ff4d4d', wickUpColor: '#00ff78',
   });
 }
 
@@ -244,12 +241,12 @@ function calculateMACD(closes){
   let macdLine = ema12.map((val, i) => val - ema26[i]);
   let signalLine = calculateEMA(macdLine, 9);
   let histogram = macdLine.map((val, i) => val - signalLine[i]);
-  return {macd: macdLine[macdLine.length-1], signal: signalLine[signalLine.length-1], hist: histogram[histogram.length-1]};
+  return {hist: histogram[histogram.length-1]};
 }
 
-async function generateSignal(){
+function generateSignal(){
   if(!signalActive){
-    alert('Pair is Stopped. Turn on the toggle first.');
+    alert('Pair stopped hai. Pehle toggle on karein.');
     return;
   }
 
@@ -257,17 +254,18 @@ async function generateSignal(){
   document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
 
-  let candles = await getBinanceData();
-
-  if(!candles){
-    document.getElementById('scanner').style.display = 'none';
-    return;
-  }
+  let candles = getDemoData();
 
   setTimeout(()=>{
     document.getElementById('scanner').style.display = 'none';
     document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('signalBox').style.display = 'block';
+
+    setTimeout(()=>{
+      initChart();
+      chart.resize(document.getElementById('chartContainer').clientWidth, 180);
+      candlestickSeries.setData(candles);
+    }, 100);
 
     let closes = candles.map(c => c.close);
     let rsi = calculateRSI(closes);
@@ -276,17 +274,14 @@ async function generateSignal(){
     let macd = calculateMACD(closes);
     let lastPrice = closes[closes.length - 1];
 
-    drawChart(candles);
-
     let trendUp = ema50[ema50.length-1] > ema200[ema200.length-1] && lastPrice > ema50[ema50.length-1];
     let trendDown = ema50[ema50.length-1] < ema200[ema200.length-1] && lastPrice < ema50[ema50.length-1];
-    let macdBull = macd.hist > 0.0001;
-    let macdBear = macd.hist < -0.0001;
+    let macdBull = macd.hist > 0;
+    let macdBear = macd.hist < 0;
 
     let buyScore = 0, sellScore = 0;
-
-    if(rsi < 30) buyScore += 3;
-    if(rsi > 70) sellScore += 3;
+    if(rsi < 35) buyScore += 3;
+    if(rsi > 65) sellScore += 3;
     if(trendUp) buyScore += 4;
     if(trendDown) sellScore += 4;
     if(macdBull) buyScore += 3;
@@ -314,13 +309,14 @@ async function generateSignal(){
     document.getElementById('conf').innerText = confidence + '%';
     document.getElementById('macd').innerText = macd.hist > 0? 'BULL' : 'BEAR';
 
-    if(confidence >= 70){
-      let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-      audio.play();
-    }
-
   },800);
 }
+
+window.addEventListener('resize', () => {
+  if(chart){
+    chart.applyOptions({ width: document.getElementById('chartContainer').clientWidth });
+  }
+});
 </script>
 </body>
 </html>
