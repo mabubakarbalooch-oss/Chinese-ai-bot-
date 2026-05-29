@@ -4,116 +4,675 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
 <style>
-:root{--bg:#0a0a0f;--card:#1a1a24;--primary:#00ff78;--red:#ff4d4d;--text:#ffffff;--muted:#8a8a9e;--border:#2a2a35;}
+:root{
+  --bg:#050508;
+  --card:#0f0f14;
+  --card2:#16161e;
+  --primary:#00ff88;
+  --primary-dim:#00cc6e;
+  --red:#ff4757;
+  --red-dim:#cc3845;
+  --text:#ffffff;
+  --muted:#6c6c7e;
+  --border:#1e1e28;
+  --glow:rgba(0,255,136,0.15);
+  --glow-red:rgba(255,71,87,0.15);
+}
+
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Poppins',sans-serif;background:var(--bg);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:15px;color:var(--text);}
-.container{width:100%;max-width:400px;background:var(--card);border-radius:20px;padding:20px;border:1px solid var(--border);}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-.logo{display:flex;align-items:center;gap:10px;}
-.logo-icon{width:45px;height:45px;border-radius:12px;background:linear-gradient(135deg,#00ff78,#00cc66);display:flex;justify-content:center;align-items:center;font-weight:900;font-family:'Orbitron',sans-serif;color:#000;font-size:18px;}
-.logo h1{font-size:14px;font-weight:700;}
-.logo p{font-size:11px;color:var(--muted);}
-.status{padding:6px 12px;border-radius:20px;background:rgba(0,255,120,0.1);color:var(--primary);font-size:11px;font-weight:700;}
-.label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;}
-select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:#0f0f15;color:var(--text);font-size:14px;margin-bottom:15px;outline:none;}
-.btn{width:100%;padding:16px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),#00cc66);font-weight:800;font-family:'Orbitron',sans-serif;font-size:14px;color:#000;cursor:pointer;margin-bottom:15px;transition:opacity 0.2s;}
-.btn:hover{opacity:0.9;}
-.btn:active{transform:scale(0.98);}
-.pair-card{background:#0f0f15;border:1px solid var(--border);border-radius:15px;padding:15px;margin-bottom:15px;}
-.pair-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.pair-name{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;}
-.toggle{width:50px;height:28px;background:#2a2a35;border-radius:20px;position:relative;cursor:pointer;transition:0.3s;}
-.toggle.active{background:var(--primary);}
-.toggle::after{content:'';position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;}
-.toggle.active::after{left:25px;}
-.pair-info{font-size:11px;color:var(--muted);}
-.pair-info span{display:block;margin-top:3px;}
-#scanner{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);position:relative;overflow:hidden;display:none;margin-bottom:15px;}
-.scan-line{position:absolute;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--primary),transparent);box-shadow:0 0 20px var(--primary);animation:scan 1.5s linear infinite;}
-@keyframes scan{0%{top:0%;}100%{top:100%;}}
-#chartContainer{height:200px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);margin-bottom:15px;display:none;width:100%;}
-#signalBox{padding:20px;border-radius:15px;text-align:center;font-size:28px;font-weight:900;font-family:'Orbitron',sans-serif;display:none;margin-bottom:15px;}
-.buy-style{background:rgba(0,255,120,0.1);border:1px solid rgba(0,255,120,0.3);color:var(--primary);}
-.sell-style{background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);color:var(--red);}
-.wait-style{background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.3);color:#ffaa00;}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.stat{background:#0f0f15;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;}
-.stat h3{font-size:10px;color:var(--muted);margin-bottom:5px;}
-.stat p{font-size:15px;font-weight:700;}
-.note{font-size:12px;color:#ffaa00;text-align:center;margin-bottom:15px;}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ===== ANIMATED BACKGROUND ===== */
+.bg-animation{
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  z-index:-1;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(0,255,136,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,100,255,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255,0,100,0.02) 0%, transparent 50%);
+}
+
+/* ===== LOGIN SCREEN ===== */
+.login-container{
+  width:100%;
+  max-width:420px;
+  background:var(--card);
+  border-radius:24px;
+  padding:40px 30px;
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+
+.login-container::before{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:conic-gradient(from 0deg, transparent, var(--primary), transparent 30%);
+  animation:rotate 4s linear infinite;
+  opacity:0.03;
+}
+
+@keyframes rotate{100%{transform:rotate(360deg);}}
+
+.login-header{
+  text-align:center;
+  margin-bottom:40px;
+  position:relative;
+  z-index:1;
+}
+
+.login-logo{
+  width:80px;height:80px;
+  margin:0 auto 20px;
+  border-radius:24px;
+  background:linear-gradient(135deg, var(--primary), #0066ff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:28px;
+  color:#000;
+  box-shadow:0 0 40px rgba(0,255,136,0.3);
+  animation:pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 40px rgba(0,255,136,0.3);}
+  50%{box-shadow:0 0 60px rgba(0,255,136,0.5);}
+}
+
+.login-header h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:8px;
+  background:linear-gradient(135deg, var(--text), var(--primary));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.login-header p{
+  font-size:13px;
+  color:var(--muted);
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.login-input-group{
+  position:relative;
+  margin-bottom:25px;
+  z-index:1;
+}
+
+.login-input-group label{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-weight:600;
+}
+
+.login-input-group input{
+  width:100%;
+  padding:16px 20px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font-size:15px;
+  outline:none;
+  transition:all 0.3s;
+  font-family:'Poppins',sans-serif;
+}
+
+.login-input-group input:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 20px var(--glow);
+}
+
+.login-btn{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg, var(--primary), #0066ff);
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:14px;
+  color:#000;
+  cursor:pointer;
+  position:relative;
+  z-index:1;
+  transition:all 0.3s;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.login-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 40px rgba(0,255,136,0.3);
+}
+
+.login-btn:active{transform:translateY(0);}
+
+.login-footer{
+  text-align:center;
+  margin-top:30px;
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:1px;
+  position:relative;
+  z-index:1;
+}
+
+/* ===== MAIN DASHBOARD ===== */
+.main-container{
+  width:100%;
+  max-width:460px;
+  display:none;
+}
+
+/* Top Bar */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  padding:0 5px;
+}
+
+.top-bar .brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-icon{
+  width:48px;height:48px;
+  border-radius:16px;
+  background:linear-gradient(135deg, var(--primary), #0066ff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:20px;
+  color:#000;
+  box-shadow:0 0 30px rgba(0,255,136,0.2);
+}
+
+.brand-text h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:16px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.brand-text p{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+
+.live-badge{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 16px;
+  border-radius:50px;
+  background:rgba(0,255,136,0.08);
+  border:1px solid rgba(0,255,136,0.15);
+  font-size:11px;
+  font-weight:700;
+  color:var(--primary);
+  font-family:'Orbitron',sans-serif;
+}
+
+.live-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--primary);
+  animation:blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.3;transform:scale(0.8);}
+}
+
+/* Card Style */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:15px;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+}
+
+/* Warning Note */
+.warning-note{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 16px;
+  background:rgba(255,170,0,0.05);
+  border:1px solid rgba(255,170,0,0.1);
+  border-radius:14px;
+  margin-bottom:15px;
+  font-size:12px;
+  color:#ffaa00;
+}
+
+/* Selects */
+.input-label{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-weight:600;
+}
+
+select{
+  width:100%;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+  margin-bottom:15px;
+  outline:none;
+  font-family:'Poppins',sans-serif;
+  cursor:pointer;
+  transition:all 0.3s;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c6c7e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 16px center;
+}
+
+select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 15px var(--glow);
+}
+
+/* Pair Card */
+.pair-card-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.pair-name-big{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-family:'Orbitron',sans-serif;
+  font-weight:700;
+  font-size:18px;
+}
+
+.pair-flag{
+  width:36px;height:36px;
+  border-radius:12px;
+  background:var(--card2);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:16px;
+}
+
+.toggle-modern{
+  width:52px;height:30px;
+  background:var(--bg);
+  border-radius:30px;
+  position:relative;
+  cursor:pointer;
+  transition:0.3s;
+  border:1px solid var(--border);
+}
+
+.toggle-modern.active{
+  background:var(--primary);
+  border-color:var(--primary);
+}
+
+.toggle-modern::after{
+  content:'';
+  position:absolute;
+  width:24px;height:24px;
+  background:#fff;
+  border-radius:50%;
+  top:2px;left:2px;
+  transition:0.3s;
+  box-shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+
+.toggle-modern.active::after{left:25px;}
+
+.pair-meta{
+  display:flex;
+  gap:20px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.pair-meta span{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* Generate Button */
+.gen-btn{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg, var(--primary), #0066ff);
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:14px;
+  color:#000;
+  cursor:pointer;
+  margin-bottom:15px;
+  transition:all 0.3s;
+  letter-spacing:2px;
+  position:relative;
+  overflow:hidden;
+}
+
+.gen-btn::before{
+  content:'';
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition:0.5s;
+}
+
+.gen-btn:hover::before{left:100%;}
+
+.gen-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 40px rgba(0,255,136,0.3);
+}
+
+.gen-btn:active{transform:translateY(0);}
+
+/* Scanner */
+#scanner{
+  height:180px;
+  background:var(--bg);
+  border-radius:16px;
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  display:none;
+  margin-bottom:15px;
+}
+
+.scan-line{
+  position:absolute;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--primary), transparent);
+  box-shadow:0 0 30px var(--primary), 0 0 60px var(--primary);
+  animation:scan 1.2s linear infinite;
+}
+
+@keyframes scan{0%{top:0%;opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{top:100%;opacity:0;}}
+
+.scan-text{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Orbitron',sans-serif;
+  font-size:14px;
+  color:var(--primary);
+  letter-spacing:4px;
+  animation:scanText 1.2s ease-in-out infinite;
+}
+
+@keyframes scanText{
+  0%,100%{opacity:0.3;}
+  50%{opacity:1;}
+}
+
+/* Chart */
+#chartContainer{
+  height:220px;
+  background:var(--bg);
+  border-radius:16px;
+  border:1px solid var(--border);
+  margin-bottom:15px;
+  display:none;
+  width:100%;
+}
+
+/* Signal Box */
+#signalBox{
+  padding:24px;
+  border-radius:16px;
+  text-align:center;
+  font-size:32px;
+  font-weight:900;
+  font-family:'Orbitron',sans-serif;
+  display:none;
+  margin-bottom:15px;
+  letter-spacing:3px;
+  position:relative;
+  overflow:hidden;
+}
+
+.signal-buy{
+  background:var(--glow);
+  border:1px solid rgba(0,255,136,0.2);
+  color:var(--primary);
+  box-shadow:0 0 40px var(--glow);
+}
+
+.signal-sell{
+  background:var(--glow-red);
+  border:1px solid rgba(255,71,87,0.2);
+  color:var(--red);
+  box-shadow:0 0 40px var(--glow-red);
+}
+
+.signal-wait{
+  background:rgba(255,170,0,0.05);
+  border:1px solid rgba(255,170,0,0.15);
+  color:#ffaa00;
+}
+
+/* Stats Grid */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.stat-box{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px 8px;
+  text-align:center;
+  transition:all 0.3s;
+}
+
+.stat-box:hover{
+  border-color:rgba(255,255,255,0.1);
+  transform:translateY(-2px);
+}
+
+.stat-box h3{
+  font-size:9px;
+  color:var(--muted);
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-weight:600;
+}
+
+.stat-box p{
+  font-size:16px;
+  font-weight:700;
+  font-family:'Orbitron',sans-serif;
+}
+
+/* Animations */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.fade-in{animation:fadeIn 0.5s ease-out forwards;}
 </style>
 </head>
 <body>
 
-<div id="loginScreen" class="container">
-<div class="header">
-<div class="logo">
-<div class="logo-icon">QX</div>
-<div>
-<h1>LUBNA ABUBAKAR</h1>
-<p>ELITE ACCESS SYSTEM</p>
-</div>
-</div>
-<div class="status">● SAFE</div>
-</div>
-<label class="label">PASSWORD</label>
-<input type="password" id="password" placeholder="Enter Password" onkeypress="if(event.key==='Enter')login()">
-<button class="btn" onclick="login()">🔓 UNLOCK SYSTEM</button>
+<div class="bg-animation"></div>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="loginScreen" class="login-container">
+  <div class="login-header">
+    <div class="login-logo">QX</div>
+    <h1>LUBNA ABUBAKAR</h1>
+    <p>Elite Signal System</p>
+  </div>
+  
+  <div class="login-input-group">
+    <label>Secure Access Key</label>
+    <input type="password" id="password" placeholder="Enter your password" onkeypress="if(event.key==='Enter')login()">
+  </div>
+  
+  <button class="login-btn" onclick="login()">🔓 Unlock System</button>
+  
+  <div class="login-footer">
+    🔒 End-to-End Encrypted &bull; v2.0 Pro
+  </div>
 </div>
 
-<div id="mainBoard" class="container" style="display:none;">
-<div class="header">
-<div class="logo">
-<div class="logo-icon">QX</div>
-<div>
-<h1>LUBNA ABUBAKAR</h1>
-<p>ULTRA AI SIGNAL - 1 MINUTE LIVE</p>
-</div>
-</div>
-<div class="status">● LIVE</div>
-</div>
+<!-- ===== MAIN DASHBOARD ===== -->
+<div id="mainBoard" class="main-container">
+  
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="brand">
+      <div class="brand-icon">QX</div>
+      <div class="brand-text">
+        <h1>LUBNA ABUBAKAR</h1>
+        <p>Ultra AI Signal - 1M Live</p>
+      </div>
+    </div>
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      LIVE
+    </div>
+  </div>
 
-<div class="note">⚠️ Quotex/Pocket Option پر 1 Minute Expiry استعمال کریں</div>
+  <!-- Warning -->
+  <div class="warning-note">
+    <span>⚠️</span>
+    <span>Quotex / Pocket Option پر 1 Minute Expiry استعمال کریں</span>
+  </div>
 
-<label class="label">BROKER SELECT</label>
-<select id="brokerSelect" onchange="changeBroker()">
-<option value="quotex">Quotex</option>
-<option value="pocket">Pocket Option</option>
-</select>
+  <!-- Broker Select -->
+  <div class="input-label">Select Broker</div>
+  <select id="brokerSelect" onchange="changeBroker()">
+    <option value="quotex">Quotex</option>
+    <option value="pocket">Pocket Option</option>
+  </select>
 
-<label class="label">SELECT CURRENCY</label>
-<select id="assetSelect" onchange="changeAsset()">
-</select>
+  <!-- Asset Select -->
+  <div class="input-label">Select Asset</div>
+  <select id="assetSelect" onchange="changeAsset()"></select>
 
-<div class="pair-card">
-<div class="pair-header">
-<div class="pair-name">
-<span id="pairName">EUR/USD</span>
-</div>
-<div class="toggle active" id="toggleBtn" onclick="toggleSignal()"></div>
-</div>
-<div class="pair-info">
-<span id="pairId">Broker: <span id="brokerName">Quotex</span></span>
-<span id="pairStatus">● Connected</span>
-<span id="pairDate">Timeframe: 1M</span>
-</div>
-</div>
+  <!-- Pair Card -->
+  <div class="card">
+    <div class="pair-card-inner">
+      <div class="pair-name-big">
+        <div class="pair-flag" id="pairFlag">💱</div>
+        <span id="pairName">EUR/USD</span>
+      </div>
+      <div class="toggle-modern active" id="toggleBtn" onclick="toggleSignal()"></div>
+    </div>
+    <div class="pair-meta">
+      <span>🏢 <span id="brokerName">Quotex</span></span>
+      <span id="pairStatus" style="color:var(--primary);">● Connected</span>
+      <span>⏱ 1M</span>
+    </div>
+  </div>
 
-<button class="btn" onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
+  <!-- Generate Button -->
+  <button class="gen-btn" onclick="generateSignal()">⚡ GENERATE LIVE SIGNAL</button>
 
-<div id="scanner"><div class="scan-line"></div></div>
-<div id="chartContainer"></div>
-<div id="signalBox">BUY</div>
+  <!-- Scanner -->
+  <div id="scanner">
+    <div class="scan-line"></div>
+    <div class="scan-text">SCANNING MARKET</div>
+  </div>
 
-<div class="stats">
-<div class="stat"><h3>RSI</h3><p id="rsi">--</p></div>
-<div class="stat"><h3>TREND</h3><p id="trend">--</p></div>
-<div class="stat"><h3>CONF</h3><p id="conf">--</p></div>
-<div class="stat"><h3>MACD</h3><p id="macd">--</p></div>
-</div>
+  <!-- Chart -->
+  <div id="chartContainer"></div>
+
+  <!-- Signal -->
+  <div id="signalBox">BUY</div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <h3>RSI</h3>
+      <p id="rsi" style="color:var(--muted);">--</p>
+    </div>
+    <div class="stat-box">
+      <h3>Trend</h3>
+      <p id="trend" style="color:var(--muted);">--</p>
+    </div>
+    <div class="stat-box">
+      <h3>Conf</h3>
+      <p id="conf" style="color:var(--muted);">--</p>
+    </div>
+    <div class="stat-box">
+      <h3>MACD</h3>
+      <p id="macd" style="color:var(--muted);">--</p>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -123,14 +682,25 @@ let signalActive = true;
 let chart = null;
 let candlestickSeries = null;
 
+const pairEmojis = {
+  'EURUSD-OTC': '🇪🇺🇺🇸', 'GBPUSD-OTC': '🇬🇧🇺🇸', 'USDJPY-OTC': '🇺🇸🇯🇵',
+  'AUDUSD-OTC': '🇦🇺🇺🇸', 'USDNGN-OTC': '🇺🇸🇳🇬', 'USDBRL-OTC': '🇺🇸🇧🇷',
+  'USDINR-OTC': '🇺🇸🇮🇳', 'USDPKR-OTC': '🇺🇸🇵🇰', 'USDMXN-OTC': '🇺🇸🇲🇽'
+};
+
 function login(){
   let pass = document.getElementById('password').value;
   if(pass === 'Lubna786'){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainBoard').style.display = 'block';
+    document.getElementById('mainBoard').classList.add('fade-in');
     changeBroker();
   }else{
-    alert('غلط پاسورڈ! دوبارہ کوشش کریں۔');
+    alert('❌ غلط پاسورڈ! دوبارہ کوشش کریں۔');
+    document.getElementById('password').style.borderColor = 'var(--red)';
+    setTimeout(() => {
+      document.getElementById('password').style.borderColor = 'var(--border)';
+    }, 1000);
   }
 }
 
@@ -169,6 +739,7 @@ function changeAsset(){
   pair = document.getElementById('assetSelect').value;
   let name = document.getElementById('assetSelect').options[document.getElementById('assetSelect').selectedIndex].text;
   document.getElementById('pairName').innerText = name;
+  document.getElementById('pairFlag').innerText = pairEmojis[pair] || '💱';
   document.getElementById('chartContainer').style.display = 'none';
   document.getElementById('signalBox').style.display = 'none';
 }
@@ -176,8 +747,14 @@ function changeAsset(){
 function toggleSignal(){
   signalActive = !signalActive;
   document.getElementById('toggleBtn').classList.toggle('active');
-  document.getElementById('pairStatus').innerText = signalActive ? '● Connected' : '● Stopped';
-  document.getElementById('pairStatus').style.color = signalActive ? 'var(--primary)' : 'var(--red)';
+  let statusEl = document.getElementById('pairStatus');
+  if(signalActive){
+    statusEl.innerText = '● Connected';
+    statusEl.style.color = 'var(--primary)';
+  }else{
+    statusEl.innerText = '● Stopped';
+    statusEl.style.color = 'var(--red)';
+  }
 }
 
 function getDemoData(){
@@ -207,7 +784,6 @@ function getDemoData(){
 }
 
 function initChart(){
-  // Pehle purana chart destroy karo
   if(chart){
     chart.remove();
     chart = null;
@@ -215,54 +791,49 @@ function initChart(){
   }
   
   const container = document.getElementById('chartContainer');
-  
-  // Container clear karo
   container.innerHTML = '';
   
-  // Check karo ke library load hui hai
   if(typeof LightweightCharts === 'undefined'){
-    console.error('LightweightCharts library load nahi hui!');
-    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:#ff4d4d;font-size:14px;">❌ Chart Library Error - Refresh Karein</div>';
+    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:var(--red);font-size:13px;">❌ Library Load Error</div>';
     return;
   }
   
   try {
     chart = LightweightCharts.createChart(container, {
       width: container.clientWidth,
-      height: 200,
+      height: 220,
       layout: { 
-        background: { type: 'solid', color: '#0f0f15' }, 
-        textColor: '#8a8a9e' 
+        background: { type: 'solid', color: '#0a0a0f' }, 
+        textColor: '#6c6c7e' 
       },
       grid: { 
-        vertLines: { color: '#2a2a35' }, 
-        horzLines: { color: '#2a2a35' } 
+        vertLines: { color: '#1e1e28' }, 
+        horzLines: { color: '#1e1e28' } 
       },
       timeScale: { 
         timeVisible: true, 
-        borderColor: '#2a2a35' 
+        borderColor: '#1e1e28' 
       },
       rightPriceScale: { 
-        borderColor: '#2a2a35' 
+        borderColor: '#1e1e28' 
       },
       crosshair: {
         mode: LightweightCharts.CrosshairMode.Normal,
+        vertLine: { color: 'rgba(255,255,255,0.1)', width: 1 },
+        horzLine: { color: 'rgba(255,255,255,0.1)', width: 1 },
       },
     });
 
     candlestickSeries = chart.addCandlestickSeries({
-      upColor: '#00ff78', 
-      downColor: '#ff4d4d',
-      borderDownColor: '#ff4d4d', 
-      borderUpColor: '#00ff78',
-      wickDownColor: '#ff4d4d', 
-      wickUpColor: '#00ff78',
+      upColor: '#00ff88', 
+      downColor: '#ff4757',
+      borderDownColor: '#ff4757', 
+      borderUpColor: '#00ff88',
+      wickDownColor: '#ff4757', 
+      wickUpColor: '#00ff88',
     });
-    
-    console.log('Chart successfully created!');
   } catch(e) {
-    console.error('Chart create error:', e);
-    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:#ff4d4d;font-size:14px;">❌ Chart Error: ' + e.message + '</div>';
+    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:var(--red);font-size:13px;">❌ Chart Error</div>';
   }
 }
 
@@ -319,7 +890,7 @@ function calculateMACD(closes){
 
 function generateSignal(){
   if(!signalActive){
-    alert('Pair stopped hai. Pehle toggle on karein.');
+    alert('⚠️ Pair stopped hai. Pehle toggle on karein.');
     return;
   }
 
@@ -334,21 +905,16 @@ function generateSignal(){
     document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('signalBox').style.display = 'block';
 
-    // Chart init aur data set karo
     initChart();
     
     if(chart && candlestickSeries){
       try {
         candlestickSeries.setData(candles);
-        
-        // Fit content safely
         if(chart.timeScale && typeof chart.timeScale().fitContent === 'function'){
           chart.timeScale().fitContent();
         }
-        
-        console.log('Candles set successfully:', candles.length);
       } catch(e) {
-        console.error('Set data error:', e);
+        console.error('Chart data error:', e);
       }
     }
 
@@ -379,25 +945,36 @@ function generateSignal(){
     let confidence = totalScore > 0 ? Math.floor((Math.max(buyScore, sellScore) / totalScore) * 100) : 0;
 
     let signalBox = document.getElementById('signalBox');
+    let rsiEl = document.getElementById('rsi');
+    let trendEl = document.getElementById('trend');
+    let confEl = document.getElementById('conf');
+    let macdEl = document.getElementById('macd');
     
     if(buyScore >= 6 && buyScore > sellScore + 1){
       signalBox.innerHTML = '📈 BUY';
-      signalBox.className = 'buy-style';
-      document.getElementById('trend').innerText = 'UP';
+      signalBox.className = 'signal-buy';
+      trendEl.innerText = 'UP';
+      trendEl.style.color = 'var(--primary)';
     }else if(sellScore >= 6 && sellScore > buyScore + 1){
       signalBox.innerHTML = '📉 SELL';
-      signalBox.className = 'sell-style';
-      document.getElementById('trend').innerText = 'DOWN';
+      signalBox.className = 'signal-sell';
+      trendEl.innerText = 'DOWN';
+      trendEl.style.color = 'var(--red)';
     }else{
       signalBox.innerHTML = '⏸ WAIT';
-      signalBox.className = 'wait-style';
-      document.getElementById('trend').innerText = 'SIDEWAYS';
-      confidence = 0;
+      signalBox.className = 'signal-wait';
+      trendEl.innerText = 'SIDEWAYS';
+      trendEl.style.color = '#ffaa00';
     }
 
-    document.getElementById('rsi').innerText = Math.floor(rsi);
-    document.getElementById('conf').innerText = confidence + '%';
-    document.getElementById('macd').innerText = macd.hist > 0 ? 'BULL' : macd.hist < 0 ? 'BEAR' : 'NEUTRAL';
+    rsiEl.innerText = Math.floor(rsi);
+    rsiEl.style.color = rsi < 35 ? 'var(--primary)' : rsi > 65 ? 'var(--red)' : 'var(--muted)';
+    
+    confEl.innerText = confidence + '%';
+    confEl.style.color = confidence > 70 ? 'var(--primary)' : confidence > 40 ? '#ffaa00' : 'var(--muted)';
+    
+    macdEl.innerText = macd.hist > 0 ? 'BULL' : macd.hist < 0 ? 'BEAR' : 'NEUTRAL';
+    macdEl.style.color = macd.hist > 0 ? 'var(--primary)' : macd.hist < 0 ? 'var(--red)' : 'var(--muted)';
 
   }, 800);
 }
