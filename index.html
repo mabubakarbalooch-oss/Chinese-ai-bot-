@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script type="text/javascript" src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+<script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
 <style>
 :root{--bg:#0a0a0f;--card:#1a1a24;--primary:#00ff78;--red:#ff4d4d;--text:#ffffff;--muted:#8a8a9e;--border:#2a2a35;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -34,7 +34,7 @@ select,input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--b
 #scanner{height:160px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);position:relative;overflow:hidden;display:none;margin-bottom:15px;}
 .scan-line{position:absolute;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--primary),transparent);box-shadow:0 0 20px var(--primary);animation:scan 1.5s linear infinite;}
 @keyframes scan{0%{top:0%;}100%{top:100%;}}
-#chartContainer{height:180px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);margin-bottom:15px;display:none;width:100%;}
+#chartContainer{height:200px;background:#0f0f15;border-radius:15px;border:1px solid var(--border);margin-bottom:15px;display:none;width:100%;}
 #signalBox{padding:20px;border-radius:15px;text-align:center;font-size:28px;font-weight:900;font-family:'Orbitron',sans-serif;display:none;margin-bottom:15px;}
 .buy-style{background:rgba(0,255,120,0.1);border:1px solid rgba(0,255,120,0.3);color:var(--primary);}
 .sell-style{background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);color:var(--red);}
@@ -207,30 +207,63 @@ function getDemoData(){
 }
 
 function initChart(){
+  // Pehle purana chart destroy karo
   if(chart){
     chart.remove();
     chart = null;
+    candlestickSeries = null;
   }
   
   const container = document.getElementById('chartContainer');
   
-  chart = LightweightCharts.createChart(container, {
-    width: container.clientWidth,
-    height: 180,
-    layout: { background: { color: '#0f0f15' }, textColor: '#8a8a9e' },
-    grid: { vertLines: { color: '#2a2a35' }, horzLines: { color: '#2a2a35' } },
-    timeScale: { timeVisible: true, borderColor: '#2a2a35' },
-    rightPriceScale: { borderColor: '#2a2a35' },
-  });
+  // Container clear karo
+  container.innerHTML = '';
+  
+  // Check karo ke library load hui hai
+  if(typeof LightweightCharts === 'undefined'){
+    console.error('LightweightCharts library load nahi hui!');
+    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:#ff4d4d;font-size:14px;">❌ Chart Library Error - Refresh Karein</div>';
+    return;
+  }
+  
+  try {
+    chart = LightweightCharts.createChart(container, {
+      width: container.clientWidth,
+      height: 200,
+      layout: { 
+        background: { type: 'solid', color: '#0f0f15' }, 
+        textColor: '#8a8a9e' 
+      },
+      grid: { 
+        vertLines: { color: '#2a2a35' }, 
+        horzLines: { color: '#2a2a35' } 
+      },
+      timeScale: { 
+        timeVisible: true, 
+        borderColor: '#2a2a35' 
+      },
+      rightPriceScale: { 
+        borderColor: '#2a2a35' 
+      },
+      crosshair: {
+        mode: LightweightCharts.CrosshairMode.Normal,
+      },
+    });
 
-  candlestickSeries = chart.addCandlestickSeries({
-    upColor: '#00ff78', 
-    downColor: '#ff4d4d',
-    borderDownColor: '#ff4d4d', 
-    borderUpColor: '#00ff78',
-    wickDownColor: '#ff4d4d', 
-    wickUpColor: '#00ff78',
-  });
+    candlestickSeries = chart.addCandlestickSeries({
+      upColor: '#00ff78', 
+      downColor: '#ff4d4d',
+      borderDownColor: '#ff4d4d', 
+      borderUpColor: '#00ff78',
+      wickDownColor: '#ff4d4d', 
+      wickUpColor: '#00ff78',
+    });
+    
+    console.log('Chart successfully created!');
+  } catch(e) {
+    console.error('Chart create error:', e);
+    container.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:#ff4d4d;font-size:14px;">❌ Chart Error: ' + e.message + '</div>';
+  }
 }
 
 function calculateRSI(closes, period = 14){
@@ -301,11 +334,23 @@ function generateSignal(){
     document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('signalBox').style.display = 'block';
 
-    setTimeout(() => {
-      initChart();
-      candlestickSeries.setData(candles);
-      chart.timeScale().fitContent();
-    }, 100);
+    // Chart init aur data set karo
+    initChart();
+    
+    if(chart && candlestickSeries){
+      try {
+        candlestickSeries.setData(candles);
+        
+        // Fit content safely
+        if(chart.timeScale && typeof chart.timeScale().fitContent === 'function'){
+          chart.timeScale().fitContent();
+        }
+        
+        console.log('Candles set successfully:', candles.length);
+      } catch(e) {
+        console.error('Set data error:', e);
+      }
+    }
 
     let closes = candles.map(c => c.close);
     let rsi = calculateRSI(closes);
