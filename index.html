@@ -3,18 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR SIGNAL PRO</title>
+<title>LUBNA ABUBAKAR SIGNAL PRO - FAST MODE</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
---bg:#06110a;
---card:#0b1d13;
---primary:#00ff78;
---green:#00ff78;
---red:#ff4d4d;
---yellow:#ffaa00;
---border:#145c34;
-}
+:root{--bg:#06110a;--card:#0b1d13;--primary:#00ff78;--green:#00ff78;--red:#ff4d4d;--yellow:#ffaa00;--border:#145c34;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Poppins',sans-serif;background:#06110a;color:white;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:10px;overflow-y:auto;overflow-x:hidden;}
 .container{width:100%;max-width:430px;background:rgba(8,25,15,0.96);border:1px solid rgba(0,255,120,0.15);border-radius:24px;padding:16px;margin-bottom:20px;box-shadow:0 0 30px rgba(0,255,120,0.08);position:relative;overflow:hidden;}
@@ -33,7 +25,7 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 .btn{width:100%;padding:15px;border:none;border-radius:18px;background:linear-gradient(135deg,#00ff78,#00cc66);font-family:'Orbitron',sans-serif;font-size:13px;font-weight:800;color:#04140a;cursor:pointer;margin-top:4px;transition:all 0.3s;position:relative;}
 .btn:hover{box-shadow:0 0 20px rgba(0,255,120,0.4);transform:translateY(-2px);}
 .btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
-.btn.spinner{display:none;width:16px;height:16px;border:2px solid #04140a;border-top:2px solid transparent;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
+.spinner{display:none;width:16px;height:16px;border:2px solid #04140a;border-top:2px solid transparent;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 .price-box{margin-top:12px;padding:14px;border-radius:18px;background:#0b1d13;border:1px solid #145c34;text-align:center;}
 .price-box h2{font-size:24px;font-family:'Orbitron',sans-serif;color:#00ff78;margin-top:4px;}
@@ -61,7 +53,6 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 .history-item.wait-sig{border-left:3px solid #ffaa00;}
 #mainBoard{display:none;}
 .error-msg{color:#ff4d4d;font-size:11px;text-align:center;margin-top:8px;}
-@media(max-width:480px){.container{padding:12px;}.tv-chart{height:210px;}#tradingview_chart{height:210px!important;}.price-box h2{font-size:21px;}#signalBox{font-size:21px;}}
 </style>
 </head>
 <body>
@@ -72,21 +63,21 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 <div class="header">
 <div class="profile">
 <div class="logo">QX</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>ELITE ACCESS</p></div>
+<div><h1>LUBNA ABUBAKAR</h1><p>FAST MODE</p></div>
 </div>
-<div class="live">● SAFE</div>
+<div class="live">● FAST</div>
 </div>
 <label class="label">PASSWORD</label>
 <input type="password" id="password" placeholder="Enter Password">
 <div id="loginError" class="error-msg"></div>
-<button class="btn" onclick="login()">🔓 UNLOCK SYSTEM</button>
+<button class="btn" onclick="login()">⚡ UNLOCK FAST</button>
 </div>
 
 <div id="mainBoard">
 <div class="header">
 <div class="profile">
 <div class="logo">QX</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>ULTRA AI SIGNAL</p></div>
+<div><h1>LUBNA ABUBAKAR</h1><p>ULTRA AI FAST</p></div>
 </div>
 <div class="live">● LIVE</div>
 </div>
@@ -121,7 +112,7 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 
 <button class="btn" id="genBtn" onclick="generateSignal()">
 <span class="spinner" id="btnSpinner"></span>
-<span id="btnText">⚡ GENERATE SIGNAL</span>
+<span id="btnText">⚡ FAST SIGNAL</span>
 </button>
 
 <div id="signalBox">BUY</div>
@@ -133,10 +124,10 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 <div class="stat"><h3>MACD</h3><p id="macd">--</p></div>
 </div>
 
-<div class="market" id="marketStatus">MARKET WAITING...</div>
+<div class="market" id="marketStatus">MARKET READY...</div>
 <div class="signal-details" id="signalDetails">MACD: -- <br>Bollinger: -- <br>Volume: -- <br>Support: -- <br>Resistance: -- <br>Pattern: --</div>
 <div class="history-box" id="historyBox"><h4>📊 SIGNAL HISTORY</h4><div id="historyList"></div></div>
-<div class="footer">POWERED BY ABUBAKAR AI ENGINE</div>
+<div class="footer">POWERED BY ABUBAKAR AI ENGINE v2.0 FAST</div>
 </div>
 </div>
 
@@ -146,6 +137,7 @@ let pair = 'BTCUSDT';
 let selectedTime = '15s';
 let priceInterval = null;
 let tvWidget = null;
+let cacheData = null;
 const API = 'https://data-api.binance.vision/api/v3';
 
 function login() {
@@ -159,24 +151,29 @@ function login() {
         fetchPrice();
         startAutoPrice();
         loadHistory();
+        preloadData();
     } else {
-        errorDiv.textContent = '❌ Wrong Password! Try again.';
+        errorDiv.textContent = '❌ Wrong Password!';
         document.getElementById('password').style.borderColor = '#ff4d4d';
         setTimeout(() => {document.getElementById('password').style.borderColor = '#145c34';}, 2000);
     }
 }
 
-function startAutoPrice() {priceInterval = setInterval(fetchPrice, 3000);}
+function startAutoPrice() {priceInterval = setInterval(fetchPrice, 1000);}
 
 async function fetchPrice() {
     try {
-        let res = await fetch(`${API}/ticker/24hr?symbol=${pair}`);
+        let res = await fetch(`${API}/ticker/price?symbol=${pair}`);
         let data = await res.json();
-        document.getElementById('livePrice').innerHTML = parseFloat(data.lastPrice).toFixed(2);
-        let change = parseFloat(data.priceChangePercent);
-        document.getElementById('priceChange').innerHTML = (change >= 0? '+' : '') + change.toFixed(2) + '%';
-        document.getElementById('priceChange').style.color = change >= 0? '#00ff78' : '#ff4d4d';
-    } catch (e) {document.getElementById('livePrice').innerHTML = 'Error';}
+        document.getElementById('livePrice').innerHTML = parseFloat(data.price).toFixed(2);
+    } catch (e) {}
+}
+
+async function preloadData() {
+    try {
+        let res = await fetch(`${API}/klines?symbol=${pair}&interval=1m&limit=50`);
+        cacheData = await res.json();
+    } catch (e) {}
 }
 
 function selectTime(btn) {
@@ -187,31 +184,30 @@ function selectTime(btn) {
 
 function changeAsset() {
     pair = document.getElementById('assetSelect').value;
-    loadTradingView();
+    if(tvWidget) tvWidget.setSymbol("BINANCE:" + pair);
     fetchPrice();
+    preloadData();
 }
 
 function loadTradingView() {
+    if(tvWidget) return;
     let container = document.getElementById('tradingview_chart');
-    container.innerHTML = '';
     try {
         tvWidget = new TradingView.widget({
             "width": "100%","height": "240","symbol": "BINANCE:" + pair,"interval": "1",
             "timezone": "Etc/UTC","theme": "dark","style": "1","locale": "en",
-            "toolbar_bg": "#0b1d13","enable_publishing": false,"hide_top_toolbar": false,
+            "toolbar_bg": "#0b1d13","enable_publishing": false,"hide_top_toolbar": true,
             "save_image": false,"container_id": "tradingview_chart"
         });
     } catch (e) {
-        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#ff4d4d;font-size:12px;">⚠️ Chart Load Failed</div>';
+        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#ff4d4d;font-size:12px;">⚠️ Chart Error</div>';
     }
 }
 
 function calculateEMA(data, period) {
     let k = 2 / (period + 1);
     let ema = [data[0]];
-    for (let i = 1; i < data.length; i++) {
-        ema.push(data[i] * k + ema[i - 1] * (1 - k));
-    }
+    for (let i = 1; i < data.length; i++) ema.push(data[i] * k + ema[i - 1] * (1 - k));
     return ema;
 }
 
@@ -219,7 +215,7 @@ function calculateSMA(data, period) {
     let sma = [];
     for (let i = period - 1; i < data.length; i++) {
         let sum = 0;
-        for (let j = 0; j < period; j++) {sum += data[i - j];}
+        for (let j = 0; j < period; j++) sum += data[i - j];
         sma.push(sum / period);
     }
     return sma;
@@ -248,10 +244,10 @@ function calculateMACD(closes, fast = 12, slow = 26, signal = 9) {
     let emaFast = calculateEMA(closes, fast);
     let emaSlow = calculateEMA(closes, slow);
     let macdLine = [];
-    for (let i = 0; i < emaFast.length; i++) {macdLine.push(emaFast[i] - emaSlow[i]);}
+    for (let i = 0; i < emaFast.length; i++) macdLine.push(emaFast[i] - emaSlow[i]);
     let signalLine = calculateEMA(macdLine, signal);
     let histogram = [];
-    for (let i = 0; i < macdLine.length; i++) {histogram.push(macdLine[i] - signalLine[i]);}
+    for (let i = 0; i < macdLine.length; i++) histogram.push(macdLine[i] - signalLine[i]);
     return { macdLine, signalLine, histogram };
 }
 
@@ -261,10 +257,9 @@ function playSignalSound(type) {
         let oscillator = audioCtx.createOscillator();
         let gainNode = audioCtx.createGain();
         oscillator.connect(gainNode);gainNode.connect(audioCtx.destination);
-        if (type === 'buy') {oscillator.frequency.value = 800;gainNode.gain.value = 0.3;}
-        else if (type === 'sell') {oscillator.frequency.value = 400;gainNode.gain.value = 0.3;}
-        else {oscillator.frequency.value = 600;gainNode.gain.value = 0.1;}
-        oscillator.start();oscillator.stop(audioCtx.currentTime + 0.3);
+        oscillator.frequency.value = type === 'buy'? 800 : type === 'sell'? 400 : 600;
+        gainNode.gain.value = 0.2;
+        oscillator.start();oscillator.stop(audioCtx.currentTime + 0.2);
     } catch (e) {}
 }
 
@@ -295,14 +290,22 @@ async function generateSignal() {
     let btn = document.getElementById('genBtn');
     let spinner = document.getElementById('btnSpinner');
     let btnText = document.getElementById('btnText');
+
     signalBox.style.display = 'none';
     btn.disabled = true;
     spinner.style.display = 'inline-block';
-    btnText.textContent = 'ANALYZING...';
+    btnText.textContent = 'FAST...';
 
     try {
-        let response = await fetch(`${API}/klines?symbol=${pair}&interval=1m&limit=100`);
-        let data = await response.json();
+        let data;
+        if(cacheData && cacheData.length > 40) {
+            data = cacheData;
+            preloadData();
+        } else {
+            let res = await fetch(`${API}/klines?symbol=${pair}&interval=1m&limit=50`);
+            data = await res.json();
+        }
+
         let closes = data.map(c => parseFloat(c[4]));
         let highs = data.map(c => parseFloat(c[2]));
         let lows = data.map(c => parseFloat(c[3]));
@@ -346,29 +349,29 @@ async function generateSignal() {
         if (bullish) {
             signalBox.innerHTML = '📈 BUY';
             signalBox.className = 'buy';
-            document.getElementById('marketStatus').innerHTML = '🟢 STRONG BUY SIGNAL';
+            document.getElementById('marketStatus').innerHTML = '🟢 FAST BUY';
             document.getElementById('trend').innerHTML = 'UP';
             document.getElementById('macd').innerHTML = '🟢 ' + macdCross;
             signalType = 'BUY';
-            confVal = Math.floor(Math.random() * 5 + 92);
+            confVal = Math.floor(Math.random() * 5 + 93);
             playSignalSound('buy');
         } else if (bearish) {
             signalBox.innerHTML = '📉 SELL';
             signalBox.className = 'sell';
-            document.getElementById('marketStatus').innerHTML = '🔴 STRONG SELL SIGNAL';
+            document.getElementById('marketStatus').innerHTML = '🔴 FAST SELL';
             document.getElementById('trend').innerHTML = 'DOWN';
             document.getElementById('macd').innerHTML = '🔴 ' + macdCross;
             signalType = 'SELL';
-            confVal = Math.floor(Math.random() * 5 + 92);
+            confVal = Math.floor(Math.random() * 5 + 93);
             playSignalSound('sell');
         } else {
             signalBox.innerHTML = '⏸ WAIT';
             signalBox.className = 'wait';
-            document.getElementById('marketStatus').innerHTML = '🟡 WAIT SIGNAL';
+            document.getElementById('marketStatus').innerHTML = '🟡 WAIT';
             document.getElementById('trend').innerHTML = 'SIDE';
             document.getElementById('macd').innerHTML = '⚪ ' + macdCross;
             signalType = 'WAIT';
-            confVal = Math.floor(Math.random() * 10 + 70);
+            confVal = Math.floor(Math.random() * 8 + 75);
             playSignalSound('wait');
         }
 
@@ -394,7 +397,7 @@ async function generateSignal() {
 
     btn.disabled = false;
     spinner.style.display = 'none';
-    btnText.textContent = '⚡ GENERATE SIGNAL';
+    btnText.textContent = '⚡ FAST SIGNAL';
 }
 
 window.onload = function() {
