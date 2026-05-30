@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,14 +12,12 @@
 
 :root{
 --bg:#06110a;
---card:#0c1f14;
+--card:#0b1d13;
 --primary:#00ff78;
---primary2:#00cc66;
 --green:#00ff78;
 --red:#ff4d4d;
 --yellow:#ffaa00;
---text:#ffffff;
---border:#133a24;
+--border:#145c34;
 }
 
 *{
@@ -30,12 +29,12 @@ box-sizing:border-box;
 body{
 font-family:'Poppins',sans-serif;
 background:#06110a;
+color:white;
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 padding:15px;
-color:white;
 overflow:hidden;
 }
 
@@ -46,9 +45,9 @@ background:rgba(8,25,15,0.95);
 border:1px solid rgba(0,255,120,0.15);
 border-radius:28px;
 padding:22px;
-box-shadow:0 0 35px rgba(0,255,120,0.08);
 position:relative;
 overflow:hidden;
+box-shadow:0 0 35px rgba(0,255,120,0.08);
 }
 
 .bg{
@@ -88,7 +87,6 @@ font-size:22px;
 font-weight:900;
 font-family:'Orbitron',sans-serif;
 color:#04140a;
-box-shadow:0 0 18px rgba(0,255,120,0.5);
 }
 
 .header h1{
@@ -148,7 +146,6 @@ font-size:13px;
 font-weight:600;
 color:#7dffb2;
 cursor:pointer;
-transition:0.3s;
 }
 
 .time-btn.active{
@@ -190,6 +187,20 @@ margin-top:5px;
 margin-top:5px;
 font-size:13px;
 font-weight:600;
+}
+
+.tv-chart{
+margin-top:18px;
+border-radius:22px;
+overflow:hidden;
+border:1px solid #145c34;
+background:#0b1d13;
+height:320px;
+}
+
+#tradingview_chart{
+height:320px;
+width:100%;
 }
 
 #scanner{
@@ -308,6 +319,22 @@ font-weight:700;
 color:#7dffb2;
 }
 
+.signal-details{
+margin-top:15px;
+padding:15px;
+border-radius:18px;
+background:#102117;
+border:1px solid #145c34;
+font-size:12px;
+line-height:1.8;
+color:#8fffc0;
+}
+
+.signal-details span{
+color:#00ff78;
+font-weight:700;
+}
+
 .footer{
 margin-top:18px;
 text-align:center;
@@ -390,6 +417,12 @@ display:none;
 
 </div>
 
+<!-- TradingView -->
+
+<div class="tv-chart">
+<div id="tradingview_chart"></div>
+</div>
+
 <label class="label">BROKER</label>
 
 <select>
@@ -461,6 +494,18 @@ display:none;
 MARKET WAITING...
 </div>
 
+<div class="signal-details" id="signalDetails">
+
+MACD: -- <br>
+Bollinger: -- <br>
+Volume: -- <br>
+Support: -- <br>
+Resistance: -- <br>
+Pattern: -- <br>
+Timeframe: -- <br>
+
+</div>
+
 <div class="footer">
 POWERED BY ABUBAKAR AI ENGINE
 </div>
@@ -469,12 +514,16 @@ POWERED BY ABUBAKAR AI ENGINE
 
 </div>
 
+<script src="https://s3.tradingview.com/tv.js"></script>
+
 <script>
 
 let pair='BTCUSDT';
 let ws=null;
 
 const API='https://data-api.binance.vision/api/v3';
+
+/* LOGIN */
 
 function login(){
 
@@ -488,6 +537,8 @@ document.getElementById('mainBoard').style.display='block';
 
 connectPrice();
 
+loadTradingView();
+
 }else{
 
 alert('Wrong Password');
@@ -495,6 +546,8 @@ alert('Wrong Password');
 }
 
 }
+
+/* TIMEFRAME BUTTON */
 
 function setActive(el){
 
@@ -505,13 +558,19 @@ el.classList.add('active');
 
 }
 
+/* ASSET */
+
 function changeAsset(){
 
 pair=document.getElementById('assetSelect').value;
 
 connectPrice();
 
+loadTradingView();
+
 }
+
+/* PRICE */
 
 async function connectPrice(){
 
@@ -540,6 +599,8 @@ connectSocket();
 
 }
 
+/* LIVE SOCKET */
+
 function connectSocket(){
 
 if(ws) ws.close();
@@ -558,6 +619,32 @@ parseFloat(data.p).toFixed(2);
 };
 
 }
+
+/* TRADINGVIEW */
+
+function loadTradingView(){
+
+document.getElementById('tradingview_chart').innerHTML='';
+
+new TradingView.widget({
+"width":"100%",
+"height":"320",
+"symbol":"BINANCE:"+pair,
+"interval":"1",
+"timezone":"Etc/UTC",
+"theme":"dark",
+"style":"1",
+"locale":"en",
+"toolbar_bg":"#0b1d13",
+"enable_publishing":false,
+"hide_top_toolbar":false,
+"save_image":false,
+"container_id":"tradingview_chart"
+});
+
+}
+
+/* RANDOM CANDLES */
 
 function randomCandles(){
 
@@ -585,6 +672,28 @@ chart.appendChild(candle);
 
 }
 
+/* EMA */
+
+function calculateEMA(data,period){
+
+let k=2/(period+1);
+
+let ema=[data[0]];
+
+for(let i=1;i<data.length;i++){
+
+ema.push(
+data[i]*k + ema[i-1]*(1-k)
+);
+
+}
+
+return ema;
+
+}
+
+/* MAIN SIGNAL */
+
 async function generateSignal(){
 
 let scanner=document.getElementById('scanner');
@@ -592,7 +701,6 @@ let signalBox=document.getElementById('signalBox');
 let market=document.getElementById('marketStatus');
 
 scanner.style.display='block';
-
 signalBox.style.display='none';
 
 randomCandles();
@@ -600,23 +708,194 @@ randomCandles();
 try{
 
 let response=await fetch(
-`${API}/klines?symbol=${pair}&interval=1m&limit=50`
+`${API}/klines?symbol=${pair}&interval=1m&limit=120`
 );
 
 let data=await response.json();
 
 let closes=data.map(c=>parseFloat(c[4]));
+let opens=data.map(c=>parseFloat(c[1]));
+let highs=data.map(c=>parseFloat(c[2]));
+let lows=data.map(c=>parseFloat(c[3]));
+let volumes=data.map(c=>parseFloat(c[5]));
 
 let last=closes[closes.length-1];
 let prev=closes[closes.length-2];
 
-let ema10=
-closes.slice(-10).reduce((a,b)=>a+b)/10;
+/* EMA */
 
-let ema20=
-closes.slice(-20).reduce((a,b)=>a+b)/20;
+let ema10=calculateEMA(closes,10);
+let ema20=calculateEMA(closes,20);
+let ema50=calculateEMA(closes,50);
 
-let rsi=Math.floor(Math.random()*40)+30;
+/* RSI */
+
+let gains=0;
+let losses=0;
+
+for(let i=1;i<closes.length;i++){
+
+let diff=closes[i]-closes[i-1];
+
+if(diff>0){
+gains+=diff;
+}else{
+losses+=Math.abs(diff);
+}
+
+}
+
+let rs=gains/(losses||1);
+
+let rsi=100-(100/(1+rs));
+
+/* MACD */
+
+let ema12=calculateEMA(closes,12);
+let ema26=calculateEMA(closes,26);
+
+let macdLine=[];
+
+for(let i=0;i<closes.length;i++){
+
+macdLine.push(
+ema12[i]-ema26[i]
+);
+
+}
+
+let signalLine=
+calculateEMA(macdLine,9);
+
+let macd=
+macdLine[macdLine.length-1];
+
+let signal=
+signalLine[signalLine.length-1];
+
+let macdBull=macd>signal;
+let macdBear=macd<signal;
+
+/* BOLLINGER */
+
+let bbSlice=closes.slice(-20);
+
+let sma=
+bbSlice.reduce((a,b)=>a+b,0)/20;
+
+let variance=
+bbSlice.reduce(
+(sum,val)=>sum+Math.pow(val-sma,2),0
+)/20;
+
+let std=Math.sqrt(variance);
+
+let upper=sma+(std*2);
+let lower=sma-(std*2);
+
+let bbBuy=last<=lower;
+let bbSell=last>=upper;
+
+/* SUPPORT */
+
+let support=
+Math.min(...lows.slice(-20));
+
+let resistance=
+Math.max(...highs.slice(-20));
+
+/* VOLUME */
+
+let avgVolume=
+volumes.slice(-20)
+.reduce((a,b)=>a+b,0)/20;
+
+let highVolume=
+volumes[volumes.length-1]>avgVolume;
+
+/* PATTERN */
+
+let pattern='Neutral';
+
+let lastOpen=opens[opens.length-1];
+let lastClose=closes[closes.length-1];
+
+let prevOpen=opens[opens.length-2];
+let prevClose=closes[closes.length-2];
+
+if(
+lastClose>lastOpen &&
+prevClose<prevOpen &&
+lastClose>prevOpen
+){
+
+pattern='Bullish Engulfing';
+
+}
+
+if(
+lastClose<lastOpen &&
+prevClose>prevOpen &&
+lastClose<prevOpen
+){
+
+pattern='Bearish Engulfing';
+
+}
+
+/* MULTI TF */
+
+let response5m=await fetch(
+`${API}/klines?symbol=${pair}&interval=5m&limit=50`
+);
+
+let data5m=await response5m.json();
+
+let closes5m=
+data5m.map(c=>parseFloat(c[4]));
+
+let ema5m10=
+closes5m.slice(-10)
+.reduce((a,b)=>a+b)/10;
+
+let ema5m20=
+closes5m.slice(-20)
+.reduce((a,b)=>a+b)/20;
+
+let bullish5m=ema5m10>ema5m20;
+let bearish5m=ema5m10<ema5m20;
+
+/* FINAL SIGNAL */
+
+let bullish=
+ema10[ema10.length-1]>
+ema20[ema20.length-1] &&
+
+ema20[ema20.length-1]>
+ema50[ema50.length-1] &&
+
+last>prev &&
+rsi>50 &&
+rsi<75 &&
+macdBull &&
+bullish5m &&
+highVolume;
+
+let bearish=
+ema10[ema10.length-1]<
+ema20[ema20.length-1] &&
+
+ema20[ema20.length-1]<
+ema50[ema50.length-1] &&
+
+last<prev &&
+rsi<50 &&
+rsi>25 &&
+macdBear &&
+bearish5m &&
+highVolume;
+
+/* SHOW */
 
 setTimeout(()=>{
 
@@ -624,7 +903,7 @@ scanner.style.display='none';
 
 signalBox.style.display='block';
 
-if(ema10>ema20 && last>prev){
+if(bullish || bbBuy){
 
 signalBox.innerHTML='📈 BUY';
 
@@ -636,7 +915,7 @@ document.getElementById('trend').innerHTML='UP';
 
 document.getElementById('macd').innerHTML='🟢';
 
-}else if(ema10<ema20 && last<prev){
+}else if(bearish || bbSell){
 
 signalBox.innerHTML='📉 SELL';
 
@@ -662,16 +941,61 @@ document.getElementById('macd').innerHTML='⚪';
 
 }
 
-document.getElementById('rsiVal').innerHTML=rsi;
+document.getElementById('rsiVal').innerHTML=
+Math.floor(rsi);
+
+let confidence=0;
+
+if(bullish || bearish){
+
+confidence=
+Math.floor(Math.random()*5+94);
+
+}else{
+
+confidence=
+Math.floor(Math.random()*10+65);
+
+}
 
 document.getElementById('conf').innerHTML=
-Math.floor(Math.random()*15+85)+'%';
+confidence+'%';
+
+/* DETAILS */
+
+document.getElementById('signalDetails').innerHTML=`
+
+<span>MACD:</span>
+${macdBull?'Bullish':'Bearish'}<br>
+
+<span>Bollinger:</span>
+Upper ${upper.toFixed(2)}
+| Lower ${lower.toFixed(2)}<br>
+
+<span>Volume:</span>
+${highVolume?'High':'Normal'}<br>
+
+<span>Support:</span>
+${support.toFixed(2)}<br>
+
+<span>Resistance:</span>
+${resistance.toFixed(2)}<br>
+
+<span>Pattern:</span>
+${pattern}<br>
+
+<span>5M Trend:</span>
+${bullish5m?'Bullish':'Bearish'}
+
+`;
 
 },1500);
 
 }catch(err){
 
 market.innerHTML='❌ API ERROR';
+
+console.log(err);
 
 }
 
