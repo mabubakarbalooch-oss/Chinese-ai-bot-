@@ -46,10 +46,10 @@ background:rgba(8,25,15,0.96);
 border:1px solid rgba(0,255,120,0.15);
 border-radius:24px;
 padding:16px;
-position:relative;
-overflow:visible;
 margin-bottom:20px;
 box-shadow:0 0 30px rgba(0,255,120,0.08);
+position:relative;
+overflow:hidden;
 }
 
 .bg{
@@ -187,67 +187,24 @@ color:#00ff78;
 margin-top:4px;
 }
 
+#priceChange{
+margin-top:5px;
+font-size:12px;
+font-weight:700;
+}
+
 .tv-chart{
 margin-top:14px;
 border-radius:18px;
 overflow:hidden;
 border:1px solid #145c34;
 background:#0b1d13;
-height:210px;
+height:240px;
 }
 
 #tradingview_chart{
-height:210px !important;
+height:240px !important;
 width:100%;
-}
-
-#scanner{
-margin-top:16px;
-height:150px;
-border-radius:20px;
-background:#0b1d13;
-border:1px solid #145c34;
-overflow:hidden;
-position:relative;
-display:none;
-}
-
-.scan{
-position:absolute;
-width:100%;
-height:5px;
-background:linear-gradient(90deg,transparent,#00ff78,transparent);
-box-shadow:0 0 25px #00ff78;
-animation:scan 1.3s linear infinite;
-}
-
-@keyframes scan{
-0%{top:-5%;}
-100%{top:105%;}
-}
-
-.chart{
-position:absolute;
-bottom:12px;
-left:12px;
-right:12px;
-display:flex;
-align-items:flex-end;
-gap:5px;
-height:80px;
-}
-
-.candle{
-width:10px;
-border-radius:4px 4px 0 0;
-}
-
-.green{
-background:#00ff78;
-}
-
-.red{
-background:#ff4d4d;
 }
 
 #signalBox{
@@ -341,6 +298,30 @@ color:#6dffad;
 
 #mainBoard{
 display:none;
+}
+
+@media(max-width:480px){
+
+.container{
+padding:12px;
+}
+
+.tv-chart{
+height:210px;
+}
+
+#tradingview_chart{
+height:210px !important;
+}
+
+.price-box h2{
+font-size:21px;
+}
+
+#signalBox{
+font-size:21px;
+}
+
 }
 
 </style>
@@ -442,14 +423,6 @@ display:none;
 <button class="btn" onclick="generateSignal()">
 ⚡ GENERATE SIGNAL
 </button>
-
-<div id="scanner">
-
-<div class="scan"></div>
-
-<div class="chart"></div>
-
-</div>
 
 <div id="signalBox">BUY</div>
 
@@ -571,7 +544,7 @@ document.getElementById('tradingview_chart').innerHTML='';
 
 new TradingView.widget({
 "width":"100%",
-"height":"210",
+"height":"240",
 "symbol":"BINANCE:"+pair,
 "interval":"1",
 "timezone":"Etc/UTC",
@@ -584,32 +557,6 @@ new TradingView.widget({
 "save_image":false,
 "container_id":"tradingview_chart"
 });
-
-}
-
-function randomCandles(){
-
-let chart=document.querySelector('.chart');
-
-chart.innerHTML='';
-
-for(let i=0;i<12;i++){
-
-let candle=document.createElement('div');
-
-let h=Math.floor(Math.random()*80)+20;
-
-candle.classList.add('candle');
-
-candle.classList.add(
-Math.random()>0.5 ? 'green' : 'red'
-);
-
-candle.style.height=h+'px';
-
-chart.appendChild(candle);
-
-}
 
 }
 
@@ -633,14 +580,9 @@ return ema;
 
 async function generateSignal(){
 
-let scanner=document.getElementById('scanner');
 let signalBox=document.getElementById('signalBox');
 
-scanner.style.display='block';
-
 signalBox.style.display='none';
-
-randomCandles();
 
 try{
 
@@ -700,10 +642,6 @@ ema50[ema50.length-1] &&
 
 rsi<50 &&
 last<prev;
-
-setTimeout(()=>{
-
-scanner.style.display='none';
 
 signalBox.style.display='block';
 
@@ -775,8 +713,6 @@ Trend Analysis Active<br>
 AI Smart Scanner
 
 `;
-
-},1500);
 
 }catch(err){
 
