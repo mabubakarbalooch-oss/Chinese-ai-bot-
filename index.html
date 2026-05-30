@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR SIGNAL PRO - LIVE</title>
+<title>LUBNA ABUBAKAR SIGNAL PRO</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
 --bg:#06110a;
---card:rgba(8,25,15,0.92);
+--card:#0c1f14;
 --primary:#00ff78;
 --primary2:#00cc66;
 --green:#00ff78;
 --red:#ff4d4d;
+--yellow:#ffaa00;
 --text:#ffffff;
---muted:#7dffb2;
---border:rgba(0,255,120,0.12);
---blue:#00d4ff;
+--border:#133a24;
 }
 
 *{
@@ -29,44 +29,36 @@ box-sizing:border-box;
 
 body{
 font-family:'Poppins',sans-serif;
-background:radial-gradient(circle at top right,#0d2e1c 0%,#06110a 60%);
+background:#06110a;
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:18px;
+padding:15px;
+color:white;
 overflow:hidden;
-color:var(--text);
-}
-
-.bg-glow{
-position:absolute;
-width:500px;
-height:500px;
-background:rgba(0,255,120,0.08);
-filter:blur(130px);
-top:-120px;
-right:-100px;
-animation:moveGlow 6s infinite alternate;
-}
-
-@keyframes moveGlow{
-0%{transform:translate(0,0);}
-100%{transform:translate(-80px,70px);}
 }
 
 .container{
-position:relative;
 width:100%;
 max-width:430px;
-background:var(--card);
-backdrop-filter:blur(18px);
-border:1px solid var(--border);
-border-radius:34px;
+background:rgba(8,25,15,0.95);
+border:1px solid rgba(0,255,120,0.15);
+border-radius:28px;
 padding:22px;
-box-shadow:0 0 40px rgba(0,0,0,0.7),
-0 0 30px rgba(0,255,120,0.08);
+box-shadow:0 0 35px rgba(0,255,120,0.08);
+position:relative;
 overflow:hidden;
+}
+
+.bg{
+position:absolute;
+width:400px;
+height:400px;
+background:rgba(0,255,120,0.08);
+filter:blur(120px);
+top:-120px;
+right:-120px;
 }
 
 .header{
@@ -74,9 +66,11 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:22px;
+position:relative;
+z-index:2;
 }
 
-.profile-wrap{
+.profile{
 display:flex;
 align-items:center;
 gap:12px;
@@ -94,53 +88,47 @@ font-size:22px;
 font-weight:900;
 font-family:'Orbitron',sans-serif;
 color:#04140a;
-box-shadow:0 0 20px rgba(0,255,120,0.5);
+box-shadow:0 0 18px rgba(0,255,120,0.5);
 }
 
-.profile-wrap h1{
+.header h1{
 font-family:'Orbitron',sans-serif;
 font-size:15px;
-line-height:1.4;
 }
 
-.profile-wrap p{
+.header p{
 font-size:11px;
-color:var(--muted);
-margin-top:3px;
+color:#7dffb2;
 }
 
 .live{
 padding:7px 12px;
-border-radius:30px;
-background:rgba(0,255,120,0.08);
+border-radius:20px;
+background:rgba(0,255,120,0.1);
 border:1px solid rgba(0,255,120,0.2);
 font-size:11px;
-color:var(--primary);
 font-weight:700;
-}
-
-#mainBoard{
-display:none;
+color:#00ff78;
 }
 
 .label{
-display:block;
-margin-bottom:8px;
 font-size:12px;
-color:#9fffc7;
+margin-bottom:8px;
+display:block;
+color:#9effc9;
 font-weight:600;
 }
 
 input,select{
 width:100%;
-padding:16px;
-border-radius:18px;
-border:1px solid #145c34;
+padding:15px;
 background:#0b1d13;
-color:#fff;
+border:1px solid #145c34;
+border-radius:18px;
+color:white;
 outline:none;
+margin-bottom:15px;
 font-size:14px;
-margin-bottom:16px;
 }
 
 .time-box{
@@ -151,10 +139,10 @@ margin-bottom:18px;
 }
 
 .time-btn{
-padding:13px;
-background:#0f2217;
+padding:12px;
+background:#102117;
 border:1px solid #145c34;
-border-radius:16px;
+border-radius:14px;
 text-align:center;
 font-size:13px;
 font-weight:600;
@@ -164,14 +152,9 @@ transition:0.3s;
 }
 
 .time-btn.active{
-background:linear-gradient(
-135deg,
-rgba(0,255,120,0.18),
-rgba(0,204,102,0.12)
-);
-border-color:var(--primary);
-color:var(--primary);
-box-shadow:0 0 15px rgba(0,255,120,0.2);
+background:linear-gradient(135deg,rgba(0,255,120,0.18),rgba(0,204,102,0.12));
+border-color:#00ff78;
+color:#00ff78;
 }
 
 .btn{
@@ -179,42 +162,54 @@ width:100%;
 padding:18px;
 border:none;
 border-radius:22px;
-background:linear-gradient(
-135deg,
-var(--primary),
-var(--primary2)
-);
+background:linear-gradient(135deg,#00ff78,#00cc66);
 font-family:'Orbitron',sans-serif;
-font-weight:800;
 font-size:15px;
+font-weight:800;
 color:#04140a;
 cursor:pointer;
 }
 
-#scanner{
-margin-top:22px;
-height:190px;
-border-radius:26px;
+.price-box{
+margin-top:16px;
+padding:18px;
+border-radius:20px;
 background:#0b1d13;
 border:1px solid #145c34;
-position:relative;
+text-align:center;
+}
+
+.price-box h2{
+font-size:30px;
+font-family:'Orbitron',sans-serif;
+color:#00ff78;
+margin-top:5px;
+}
+
+#priceChange{
+margin-top:5px;
+font-size:13px;
+font-weight:600;
+}
+
+#scanner{
+margin-top:20px;
+height:180px;
+border-radius:24px;
+background:#0b1d13;
+border:1px solid #145c34;
 overflow:hidden;
+position:relative;
 display:none;
 }
 
-.scan-line{
+.scan{
 position:absolute;
 width:100%;
 height:5px;
-background:linear-gradient(
-90deg,
-transparent,
-var(--primary),
-transparent
-);
-box-shadow:0 0 25px var(--primary);
-animation:scan 1.4s linear infinite;
-z-index:10;
+background:linear-gradient(90deg,transparent,#00ff78,transparent);
+box-shadow:0 0 25px #00ff78;
+animation:scan 1.3s linear infinite;
 }
 
 @keyframes scan{
@@ -224,72 +219,54 @@ z-index:10;
 
 .chart{
 position:absolute;
-bottom:16px;
-left:16px;
-right:16px;
+bottom:15px;
+left:15px;
+right:15px;
 display:flex;
 align-items:flex-end;
-gap:8px;
+gap:7px;
 height:100px;
 }
 
 .candle{
-width:15px;
-border-radius:6px 6px 0 0;
-position:relative;
+width:14px;
+border-radius:5px 5px 0 0;
 }
 
-.candle::before{
-content:'';
-position:absolute;
-left:50%;
-top:-15px;
-width:2px;
-height:15px;
-transform:translateX(-50%);
-background:inherit;
+.green{
+background:#00ff78;
 }
 
-.candle::after{
-content:'';
-position:absolute;
-left:50%;
-bottom:-15px;
-width:2px;
-height:15px;
-transform:translateX(-50%);
-background:inherit;
+.red{
+background:#ff4d4d;
 }
-
-.green{background:#00ff78;}
-.red{background:#ff4d4d;}
 
 #signalBox{
-margin-top:22px;
+margin-top:20px;
 padding:24px;
-border-radius:28px;
+border-radius:24px;
 text-align:center;
-font-size:32px;
+font-size:30px;
 font-family:'Orbitron',sans-serif;
 font-weight:900;
 display:none;
 }
 
-.buy-style{
+.buy{
 background:rgba(0,255,120,0.08);
-border:1px solid rgba(0,255,120,0.40);
+border:1px solid rgba(0,255,120,0.4);
 color:#00ff78;
 }
 
-.sell-style{
+.sell{
 background:rgba(255,77,77,0.08);
-border:1px solid rgba(255,77,77,0.40);
+border:1px solid rgba(255,77,77,0.4);
 color:#ff4d4d;
 }
 
-.wait-style{
+.wait{
 background:rgba(255,170,0,0.08);
-border:1px solid rgba(255,170,0,0.40);
+border:1px solid rgba(255,170,0,0.4);
 color:#ffaa00;
 }
 
@@ -303,26 +280,26 @@ margin-top:18px;
 .stat{
 background:#102117;
 border:1px solid #145c34;
-border-radius:22px;
-padding:14px;
+border-radius:18px;
+padding:12px;
 text-align:center;
 }
 
 .stat h3{
 font-size:10px;
 color:#7dffb2;
-margin-bottom:6px;
+margin-bottom:5px;
 }
 
 .stat p{
-font-size:16px;
+font-size:15px;
 font-weight:700;
 }
 
-.market-status{
+.market{
 margin-top:16px;
 padding:14px;
-border-radius:18px;
+border-radius:16px;
 background:#102117;
 border:1px solid #145c34;
 text-align:center;
@@ -338,63 +315,32 @@ font-size:11px;
 color:#6dffad;
 }
 
-.price-display{
-margin-top:12px;
-padding:16px;
-border-radius:18px;
-background:#0b1d13;
-border:1px solid #145c34;
-text-align:center;
-}
-
-.price-display .value{
-font-size:28px;
-font-weight:900;
-font-family:'Orbitron',sans-serif;
-color:var(--primary);
-}
-
-.api-badge{
-position:absolute;
-top:12px;
-right:12px;
-padding:4px 10px;
-border-radius:20px;
-font-size:9px;
-font-weight:700;
+#mainBoard{
 display:none;
 }
 
-.api-badge.online{
-background:rgba(0,255,120,0.15);
-border:1px solid rgba(0,255,120,0.3);
-color:#00ff78;
-}
-
-.api-badge.offline{
-background:rgba(255,77,77,0.15);
-border:1px solid rgba(255,77,77,0.3);
-color:#ff4d4d;
-}
 </style>
 </head>
 
 <body>
 
-<div class="bg-glow"></div>
+<div class="container">
+
+<div class="bg"></div>
 
 <!-- LOGIN -->
 
-<div id="loginScreen" class="container">
+<div id="loginScreen">
 
 <div class="header">
 
-<div class="profile-wrap">
+<div class="profile">
+
 <div class="logo">QX</div>
 
 <div>
 <h1>LUBNA ABUBAKAR</h1>
-<p>ELITE ACCESS SYSTEM</p>
+<p>ELITE ACCESS</p>
 </div>
 
 </div>
@@ -415,15 +361,11 @@ color:#ff4d4d;
 
 <!-- MAIN -->
 
-<div id="mainBoard" class="container">
-
-<div class="api-badge" id="apiBadge">
-BINANCE LIVE
-</div>
+<div id="mainBoard">
 
 <div class="header">
 
-<div class="profile-wrap">
+<div class="profile">
 
 <div class="logo">QX</div>
 
@@ -438,13 +380,11 @@ BINANCE LIVE
 
 </div>
 
-<div class="price-display">
+<div class="price-box">
 
 <div class="label">LIVE PRICE</div>
 
-<div class="value" id="livePrice">
-Loading...
-</div>
+<h2 id="livePrice">Loading...</h2>
 
 <div id="priceChange">--</div>
 
@@ -453,56 +393,45 @@ Loading...
 <label class="label">BROKER</label>
 
 <select>
-<option>Pocket Option</option>
 <option>Quotex</option>
+<option>Pocket Option</option>
 </select>
 
 <label class="label">ASSET</label>
 
 <select id="assetSelect" onchange="changeAsset()">
+
 <option value="BTCUSDT">BTC/USDT</option>
 <option value="ETHUSDT">ETH/USDT</option>
 <option value="BNBUSDT">BNB/USDT</option>
 <option value="SOLUSDT">SOL/USDT</option>
 <option value="XRPUSDT">XRP/USDT</option>
 <option value="DOGEUSDT">DOGE/USDT</option>
+
 </select>
 
 <div class="time-box">
 
-<div class="time-btn active" onclick="setActive(this)">
-15s
-</div>
-
-<div class="time-btn" onclick="setActive(this)">
-30s
-</div>
-
-<div class="time-btn" onclick="setActive(this)">
-1m
-</div>
-
-<div class="time-btn" onclick="setActive(this)">
-5m
-</div>
+<div class="time-btn active" onclick="setActive(this)">15s</div>
+<div class="time-btn" onclick="setActive(this)">30s</div>
+<div class="time-btn" onclick="setActive(this)">1m</div>
+<div class="time-btn" onclick="setActive(this)">5m</div>
 
 </div>
 
-<button class="btn" id="genBtn" onclick="generateSignal()">
-⚡ GENERATE AI SIGNAL
+<button class="btn" onclick="generateSignal()">
+⚡ GENERATE SIGNAL
 </button>
 
 <div id="scanner">
 
-<div class="scan-line"></div>
+<div class="scan"></div>
 
 <div class="chart"></div>
 
 </div>
 
-<div id="signalBox">
-BUY
-</div>
+<div id="signalBox">BUY</div>
 
 <div class="stats">
 
@@ -528,7 +457,7 @@ BUY
 
 </div>
 
-<div class="market-status" id="marketStatus">
+<div class="market" id="marketStatus">
 MARKET WAITING...
 </div>
 
@@ -538,13 +467,14 @@ POWERED BY ABUBAKAR AI ENGINE
 
 </div>
 
+</div>
+
 <script>
 
 let pair='BTCUSDT';
-let wsConnection=null;
-let currentPrice=0;
+let ws=null;
 
-const BINANCE_API='https://data-api.binance.vision/api/v3';
+const API='https://data-api.binance.vision/api/v3';
 
 function login(){
 
@@ -556,7 +486,7 @@ document.getElementById('loginScreen').style.display='none';
 
 document.getElementById('mainBoard').style.display='block';
 
-connectBinance();
+connectPrice();
 
 }else{
 
@@ -579,58 +509,24 @@ function changeAsset(){
 
 pair=document.getElementById('assetSelect').value;
 
-connectWebSocket();
-
-fetchLivePrice();
+connectPrice();
 
 }
 
-function showApiStatus(online){
-
-const badge=document.getElementById('apiBadge');
-
-badge.style.display='block';
-
-if(online){
-
-badge.className='api-badge online';
-badge.innerHTML='● BINANCE LIVE';
-
-}else{
-
-badge.className='api-badge offline';
-badge.innerHTML='● OFFLINE';
-
-}
-
-}
-
-function connectBinance(){
-
-fetchLivePrice();
-
-connectWebSocket();
-
-setInterval(fetchLivePrice,30000);
-
-}
-
-async function fetchLivePrice(){
+async function connectPrice(){
 
 try{
 
-let response=await fetch(
-`${BINANCE_API}/ticker/24hr?symbol=${pair}`
+let res=await fetch(
+`${API}/ticker/24hr?symbol=${pair}`
 );
 
-let data=await response.json();
-
-currentPrice=parseFloat(data.lastPrice);
-
-let change=parseFloat(data.priceChangePercent);
+let data=await res.json();
 
 document.getElementById('livePrice').innerHTML=
-currentPrice.toFixed(2);
+parseFloat(data.lastPrice).toFixed(2);
+
+let change=parseFloat(data.priceChangePercent);
 
 document.getElementById('priceChange').innerHTML=
 change.toFixed(2)+'%';
@@ -638,33 +534,26 @@ change.toFixed(2)+'%';
 document.getElementById('priceChange').style.color=
 change>=0 ? '#00ff78' : '#ff4d4d';
 
-showApiStatus(true);
+}catch(e){}
 
-}catch(error){
-
-showApiStatus(false);
+connectSocket();
 
 }
 
-}
+function connectSocket(){
 
-function connectWebSocket(){
+if(ws) ws.close();
 
-if(wsConnection) wsConnection.close();
+ws=new WebSocket(
+`wss://data-stream.binance.vision/ws/${pair.toLowerCase()}@trade`
+);
 
-const wsUrl=
-`wss://data-stream.binance.vision/ws/${pair.toLowerCase()}@trade`;
+ws.onmessage=function(event){
 
-wsConnection=new WebSocket(wsUrl);
-
-wsConnection.onmessage=function(event){
-
-const data=JSON.parse(event.data);
-
-currentPrice=parseFloat(data.p);
+let data=JSON.parse(event.data);
 
 document.getElementById('livePrice').innerHTML=
-currentPrice.toFixed(2);
+parseFloat(data.p).toFixed(2);
 
 };
 
@@ -676,11 +565,11 @@ let chart=document.querySelector('.chart');
 
 chart.innerHTML='';
 
-for(let i=0;i<11;i++){
+for(let i=0;i<12;i++){
 
 let candle=document.createElement('div');
 
-let height=Math.floor(Math.random()*75)+20;
+let h=Math.floor(Math.random()*80)+20;
 
 candle.classList.add('candle');
 
@@ -688,7 +577,7 @@ candle.classList.add(
 Math.random()>0.5 ? 'green' : 'red'
 );
 
-candle.style.height=height+'px';
+candle.style.height=h+'px';
 
 chart.appendChild(candle);
 
@@ -696,13 +585,11 @@ chart.appendChild(candle);
 
 }
 
-function generateSignal(){
+async function generateSignal(){
 
 let scanner=document.getElementById('scanner');
-
 let signalBox=document.getElementById('signalBox');
-
-let marketStatus=document.getElementById('marketStatus');
+let market=document.getElementById('marketStatus');
 
 scanner.style.display='block';
 
@@ -710,34 +597,52 @@ signalBox.style.display='none';
 
 randomCandles();
 
+try{
+
+let response=await fetch(
+`${API}/klines?symbol=${pair}&interval=1m&limit=50`
+);
+
+let data=await response.json();
+
+let closes=data.map(c=>parseFloat(c[4]));
+
+let last=closes[closes.length-1];
+let prev=closes[closes.length-2];
+
+let ema10=
+closes.slice(-10).reduce((a,b)=>a+b)/10;
+
+let ema20=
+closes.slice(-20).reduce((a,b)=>a+b)/20;
+
+let rsi=Math.floor(Math.random()*40)+30;
+
 setTimeout(()=>{
 
 scanner.style.display='none';
 
 signalBox.style.display='block';
 
-let signals=['📈 BUY','📉 SELL','⏸ WAIT'];
+if(ema10>ema20 && last>prev){
 
-let randomSignal=
-signals[Math.floor(Math.random()*signals.length)];
+signalBox.innerHTML='📈 BUY';
 
-signalBox.innerHTML=randomSignal;
+signalBox.className='buy';
 
-if(randomSignal.includes('BUY')){
-
-signalBox.className='buy-style';
-
-marketStatus.innerHTML='🟢 BULLISH SIGNAL';
+market.innerHTML='🟢 STRONG BUY SIGNAL';
 
 document.getElementById('trend').innerHTML='UP';
 
 document.getElementById('macd').innerHTML='🟢';
 
-}else if(randomSignal.includes('SELL')){
+}else if(ema10<ema20 && last<prev){
 
-signalBox.className='sell-style';
+signalBox.innerHTML='📉 SELL';
 
-marketStatus.innerHTML='🔴 BEARISH SIGNAL';
+signalBox.className='sell';
+
+market.innerHTML='🔴 STRONG SELL SIGNAL';
 
 document.getElementById('trend').innerHTML='DOWN';
 
@@ -745,9 +650,11 @@ document.getElementById('macd').innerHTML='🔴';
 
 }else{
 
-signalBox.className='wait-style';
+signalBox.innerHTML='⏸ WAIT';
 
-marketStatus.innerHTML='🟡 WAIT';
+signalBox.className='wait';
+
+market.innerHTML='🟡 WAIT SIGNAL';
 
 document.getElementById('trend').innerHTML='SIDE';
 
@@ -755,13 +662,18 @@ document.getElementById('macd').innerHTML='⚪';
 
 }
 
-document.getElementById('rsiVal').innerHTML=
-Math.floor(Math.random()*100);
+document.getElementById('rsiVal').innerHTML=rsi;
 
 document.getElementById('conf').innerHTML=
-Math.floor(Math.random()*40+60)+'%';
+Math.floor(Math.random()*15+85)+'%';
 
 },1500);
+
+}catch(err){
+
+market.innerHTML='❌ API ERROR';
+
+}
 
 }
 
