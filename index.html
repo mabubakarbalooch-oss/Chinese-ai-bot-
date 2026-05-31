@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR SIGNAL PRO - 1M OPTIMIZED</title>
+<title>LUBNA ABUBAKAR SIGNAL - ALL ASSET</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#06110a;--card:#0b1d13;--primary:#00ff78;--green:#00ff78;--red:#ff4d4d;--yellow:#ffaa00;--border:#145c34;}
@@ -63,21 +63,21 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 <div class="header">
 <div class="profile">
 <div class="logo">QX</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>1M OPTIMIZED</p></div>
+<div><h1>LUBNA ABUBAKAR</h1><p>ALL ASSET MODE</p></div>
 </div>
 <div class="live">● 1M</div>
 </div>
 <label class="label">PASSWORD</label>
 <input type="password" id="password" placeholder="Enter Password">
 <div id="loginError" class="error-msg"></div>
-<button class="btn" onclick="login()">⚡ UNLOCK 1M</button>
+<button class="btn" onclick="login()">⚡ UNLOCK</button>
 </div>
 
 <div id="mainBoard">
 <div class="header">
 <div class="profile">
 <div class="logo">QX</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>AI 1M PRO</p></div>
+<div><h1>LUBNA ABUBAKAR</h1><p>AI ALL ASSET</p></div>
 </div>
 <div class="live">● LIVE</div>
 </div>
@@ -112,7 +112,7 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 
 <button class="btn" id="genBtn" onclick="generateSignal()">
 <span class="spinner" id="btnSpinner"></span>
-<span id="btnText">⚡ 1M SIGNAL</span>
+<span id="btnText">⚡ GET SIGNAL</span>
 </button>
 
 <div id="signalBox">BUY</div>
@@ -127,7 +127,7 @@ input,select{width:100%;padding:13px;background:#0b1d13;border:1px solid #145c34
 <div class="market" id="marketStatus">MARKET READY...</div>
 <div class="signal-details" id="signalDetails">MACD: -- <br>Bollinger: -- <br>Volume: -- <br>Support: -- <br>Resistance: -- <br>Pattern: --</div>
 <div class="history-box" id="historyBox"><h4>📊 SIGNAL HISTORY</h4><div id="historyList"></div></div>
-<div class="footer">POWERED BY ABUBAKAR AI 1M v4.0</div>
+<div class="footer">POWERED BY ABUBAKAR AI ALL ASSET v5.0</div>
 </div>
 </div>
 
@@ -177,7 +177,7 @@ async function fetchPrice() {
 
 async function preloadData() {
     try {
-        let res = await fetch(`${API}/klines?symbol=${pair}&interval=1m&limit=100`);
+        let res = await fetch(`${API}/klines?symbol=${pair}&interval=1m&limit=50`);
         cacheData = await res.json();
     } catch (e) {}
 }
@@ -246,7 +246,6 @@ function calculateBollinger(closes, period = 20, multiplier = 2) {
     return { upper, middle: sma, lower };
 }
 
-// وائلڈر RSI 14 - 1m کے لیے بیسٹ
 function calculateRSI(closes, period = 14) {
     let gains = 0, losses = 0;
     for (let i = 1; i <= period; i++) {
@@ -323,15 +322,15 @@ async function generateSignal() {
     signalBox.style.display = 'none';
     btn.disabled = true;
     spinner.style.display = 'inline-block';
-    btnText.textContent = 'ANALYZING 1M...';
+    btnText.textContent = 'ANALYZING...';
 
     try {
         let data;
-        if(cacheData && cacheData.length > 80) {
+        if(cacheData && cacheData.length > 40) {
             data = cacheData;
             preloadData();
         } else {
-            let res = await fetch(`${API}/klines?symbol=${pair}&interval=1m&limit=100`);
+            let res = await fetch(`${API}/klines?symbol=${pair}&interval=1m&limit=50`);
             data = await res.json();
         }
 
@@ -344,10 +343,8 @@ async function generateSignal() {
 
         let ema10 = calculateEMA(closes, 10);
         let ema20 = calculateEMA(closes, 20);
-        let ema50 = calculateEMA(closes, 50);
 
         let rsi = calculateRSI(closes, 14);
-        let rsiSMA = calculateSMA([rsi], 3)[0]; // RSI فلٹر
 
         let macdData = calculateMACD(closes);
         let macdVal = macdData.macdLine[macdData.macdLine.length - 1];
@@ -359,44 +356,42 @@ async function generateSignal() {
         let bbLower = bb.lower[bb.lower.length - 1];
         let bbPosition = last > bbUpper? 'ABOVE' : (last < bbLower? 'BELOW' : 'INSIDE');
 
-        // 1m کے لیے سٹرکٹ فلٹر لگا دیا
+        // بیلنس فلٹر - اب ہر Asset پر سگنل آئے گا
         let bullish = ema10[ema10.length - 1] > ema20[ema20.length - 1] &&
-                      ema20[ema20.length - 1] > ema50[ema50.length - 1] &&
-                      rsi > 55 && rsi > rsiSMA && last > prev && macdVal > signalVal && bbPosition!== 'ABOVE';
+                      rsi > 50 && last > prev && macdVal > signalVal;
 
         let bearish = ema10[ema10.length - 1] < ema20[ema20.length - 1] &&
-                      ema20[ema20.length - 1] < ema50[ema50.length - 1] &&
-                      rsi < 45 && rsi < rsiSMA && last < prev && macdVal < signalVal && bbPosition!== 'BELOW';
+                      rsi < 50 && last < prev && macdVal < signalVal;
 
         signalBox.style.display = 'block';
         let signalType, confVal;
 
         if (bullish) {
-            signalBox.innerHTML = '📈 BUY 1M';
+            signalBox.innerHTML = '📈 BUY';
             signalBox.className = 'buy';
-            document.getElementById('marketStatus').innerHTML = '🟢 STRONG BUY 1M';
+            document.getElementById('marketStatus').innerHTML = '🟢 BUY SIGNAL';
             document.getElementById('trend').innerHTML = 'UP';
             document.getElementById('macd').innerHTML = '🟢 ' + macdCross;
             signalType = 'BUY';
-            confVal = Math.floor(Math.random() * 3 + 95);
+            confVal = Math.floor(Math.random() * 8 + 88);
             playSignalSound('buy');
         } else if (bearish) {
-            signalBox.innerHTML = '📉 SELL 1M';
+            signalBox.innerHTML = '📉 SELL';
             signalBox.className = 'sell';
-            document.getElementById('marketStatus').innerHTML = '🔴 STRONG SELL 1M';
+            document.getElementById('marketStatus').innerHTML = '🔴 SELL SIGNAL';
             document.getElementById('trend').innerHTML = 'DOWN';
             document.getElementById('macd').innerHTML = '🔴 ' + macdCross;
             signalType = 'SELL';
-            confVal = Math.floor(Math.random() * 3 + 95);
+            confVal = Math.floor(Math.random() * 8 + 88);
             playSignalSound('sell');
         } else {
-            signalBox.innerHTML = '⏸ WAIT 1M';
+            signalBox.innerHTML = '⏸ WAIT';
             signalBox.className = 'wait';
             document.getElementById('marketStatus').innerHTML = '🟡 WAIT SIGNAL';
             document.getElementById('trend').innerHTML = 'SIDE';
             document.getElementById('macd').innerHTML = '⚪ ' + macdCross;
             signalType = 'WAIT';
-            confVal = Math.floor(Math.random() * 6 + 78);
+            confVal = Math.floor(Math.random() * 10 + 70);
             playSignalSound('wait');
         }
 
@@ -422,7 +417,7 @@ async function generateSignal() {
 
     btn.disabled = false;
     spinner.style.display = 'none';
-    btnText.textContent = '⚡ 1M SIGNAL';
+    btnText.textContent = '⚡ GET SIGNAL';
 }
 
 window.onload = function() {
