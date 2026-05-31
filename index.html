@@ -3,29 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR v13 - QUOTEX SYNTHETIC</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>LUBNA ABUBAKAR v14 - CIRCLE SCANNER</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#060a10;--card:#0b1220;--primary:#ffaa00;--green:#00ff88;--red:#ff4d4d;--border:#1a2a40;}
+:root{--bg:#060a10;--primary:#ffaa00;--green:#00ff88;--red:#ff4d4d;--border:#1a2a40;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:white;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:10px;}
 .container{width:100%;max-width:430px;background:rgba(8,18,32,0.96);border:1px solid rgba(255,170,0,0.15);border-radius:24px;padding:16px;margin-bottom:20px;box-shadow:0 0 30px rgba(255,170,0,0.08);position:relative;}
 .bg{position:absolute;width:350px;height:350px;background:rgba(255,170,0,0.06);filter:blur(120px);top:-100px;right:-100px;}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;position:relative;z-index:2;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
 .profile{display:flex;align-items:center;gap:10px;}
 .logo{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ffaa00,#ff8800);display:flex;justify-content:center;align-items:center;font-size:18px;font-weight:900;font-family:'Orbitron',sans-serif;color:#001a24;}
 .header h1{font-size:13px;font-family:'Orbitron',sans-serif;}
-.header p{font-size:10px;color:#ffc966;}
 .live{padding:6px 10px;font-size:10px;border-radius:18px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.2);color:#ffaa00;font-weight:700;}
 .label{font-size:11px;margin-bottom:7px;display:block;margin-top:12px;color:#ffc966;font-weight:600;}
+
+/* بلیک پاس ورڈ باکس */
+input[type="password"]{
+    width:100%;padding:14px;background:#000;border:1px solid rgba(255,170,0,0.3);
+    border-radius:16px;color:#ffaa00;outline:none;margin-bottom:12px;font-size:14px;
+    font-family:'Orbitron',sans-serif;font-weight:600;text-align:center;letter-spacing:3px;
+    transition:all 0.3s;box-shadow:0 0 15px rgba(255,170,0,0.1) inset;
+}
+input[type="password"]:focus{border-color:#ffaa00;box-shadow:0 0 20px rgba(255,170,0,0.4);}
 select{width:100%;padding:13px;background:#0b1220;border:1px solid #1a2a40;border-radius:16px;color:white;outline:none;margin-bottom:12px;font-size:13px;}
 .time-box{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
 .time-btn{padding:10px;background:#0f172a;border:1px solid #1a2a40;border-radius:12px;text-align:center;font-size:11px;font-weight:600;color:#ffc966;cursor:pointer;}
 .time-btn.active{background:rgba(255,170,0,0.18);border-color:#ffaa00;color:#ffaa00;}
-.btn{width:100%;padding:15px;border:none;border-radius:18px;background:linear-gradient(135deg,#ffaa00,#ff8800);font-family:'Orbitron',sans-serif;font-size:13px;font-weight:800;color:#001a24;cursor:pointer;margin-top:4px;}
+.btn{width:100%;padding:15px;border:none;border-radius:18px;background:linear-gradient(135deg,#ffaa00,#ff8800);font-family:'Orbitron',sans-serif;font-size:13px;font-weight:800;color:#001a24;cursor:pointer;margin-top:4px;position:relative;}
+.btn:hover{box-shadow:0 0 25px rgba(255,170,0,0.5);transform:translateY(-2px);}
 .btn:disabled{opacity:0.6;cursor:not-allowed;}
-.spinner{display:none;width:16px;height:16px;border:2px solid #001a24;border-top:2px solid transparent;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
-@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+/* گول اسکینر انڈا - بیچ میں */
+.scanner-egg{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:120px;height:120px;border-radius:50%;display:none;z-index:20;
+    background:radial-gradient(circle,rgba(255,170,0,0.1) 0%,transparent 70%);
+}
+.scanner-egg.active{display:block;animation:eggSpin 2s linear forwards;}
+.scanner-egg::before{
+    content:'';position:absolute;top:-5px;left:-5px;right:-5px;bottom:-5px;
+    border-radius:50%;border:3px solid transparent;
+    border-top-color:#ffaa00;border-right-color:#ff8800;
+    animation:rotate 1s linear infinite;
+    box-shadow:0 0 30px #ffaa00;
+}
+.scanner-egg::after{
+    content:'SCANNING';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-size:10px;font-family:'Orbitron',sans-serif;color:#ffaa00;font-weight:700;
+    letter-spacing:2px;
+}
+@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+@keyframes eggSpin{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5);}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
+
 .price-box{margin-top:12px;padding:14px;border-radius:18px;background:#0b1220;border:1px solid #1a2a40;text-align:center;}
 .price-box h2{font-size:22px;font-family:'Orbitron',sans-serif;color:#ffaa00;margin-top:4px;}
 #signalBox{margin-top:15px;padding:18px;border-radius:20px;text-align:center;font-size:24px;font-family:'Orbitron',sans-serif;font-weight:900;display:none;animation:popIn 0.5s ease;}
@@ -41,7 +71,8 @@ select{width:100%;padding:13px;background:#0b1220;border:1px solid #1a2a40;borde
 .signal-details{margin-top:12px;padding:12px;border-radius:14px;background:#0f172a;border:1px solid #1a2a40;font-size:10px;line-height:1.7;color:#ffc966;}
 .signal-details span{color:#ffaa00;font-weight:700;}
 #mainBoard{display:none;}
-.error-msg{color:#ff4d4d;font-size:11px;text-align:center;margin-top:8px;}
+.tv-chart{margin-top:14px;border-radius:18px;overflow:hidden;border:1px solid #1a2a40;background:#0b1220;height:240px;position:relative;}
+#tradingview_chart{height:240px!important;width:100%;}
 </style>
 </head>
 <body>
@@ -50,30 +81,29 @@ select{width:100%;padding:13px;background:#0b1220;border:1px solid #1a2a40;borde
 
 <div id="loginScreen">
 <div class="header">
-<div class="profile">
-<div class="logo">Q</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>QUOTEX SYN v13</p></div>
+<div class="profile"><div class="logo">Q</div><div><h1>LUBNA ABUBAKAR</h1><p>QUOTEX v14</p></div></div>
+<div class="live">● CIRCLE SCAN</div>
 </div>
-<div class="live">● SYNTHETIC</div>
-</div>
-<label class="label">PASSWORD</label>
-<input type="password" id="password" placeholder="Enter Password">
-<div id="loginError" class="error-msg"></div>
-<button class="btn" onclick="login()">⚡ UNLOCK</button>
+<label class="label">🔒 PASSWORD</label>
+<input type="password" id="password" placeholder="●">
+<button class="btn" onclick="login()">⚡ UNLOCK PRO</button>
 </div>
 
 <div id="mainBoard">
 <div class="header">
-<div class="profile">
-<div class="logo">Q</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>AI v13 SYNTHETIC</p></div>
-</div>
-<div class="live">● QUOTEX</div>
+<div class="profile"><div class="logo">Q</div><div><h1>LUBNA ABUBAKAR</h1><p>AI v14 CIRCLE</p></div></div>
+<div class="live">● LIVE</div>
 </div>
 
 <div class="price-box">
 <div class="label">SYNTHETIC MODE</div>
-<h2 id="livePrice">AERO / USG / USDINR</h2>
+<h2 id="livePrice">AERO / USG</h2>
+</div>
+
+<div class="tv-chart">
+<div id="tradingview_chart"></div>
+<!-- گول اسکینر انڈا -->
+<div class="scanner-egg" id="scannerEgg"></div>
 </div>
 
 <label class="label">SELECT PAIR</label>
@@ -81,48 +111,43 @@ select{width:100%;padding:13px;background:#0b1220;border:1px solid #1a2a40;borde
 <option value="AERO">AERO</option>
 <option value="USG">USG</option>
 <option value="USDINR">USD/INR</option>
-<option value="USDPRI">USD/PRI</option>
 </select>
 
 <div class="time-box">
-<div class="time-btn" data-time="1m" onclick="selectTime(this)" class="active">1m</div>
+<div class="time-btn active" data-time="1m" onclick="selectTime(this)">1m</div>
 <div class="time-btn" data-time="2m" onclick="selectTime(this)">2m</div>
 <div class="time-btn" data-time="3m" onclick="selectTime(this)">3m</div>
 <div class="time-btn" data-time="5m" onclick="selectTime(this)">5m</div>
 </div>
 
 <button class="btn" id="genBtn" onclick="generateSignal()">
-<span class="spinner" id="btnSpinner"></span>
-<span id="btnText">⚡ SCAN SYNTHETIC</span>
+<span id="btnText">⚡ SCAN & SIGNAL</span>
 </button>
 
 <div id="signalBox">BUY</div>
 
 <div class="stats">
 <div class="stat"><h3>PATTERN</h3><p id="pattern">--</p></div>
-<div class="stat"><h3>FREQ</h3><p id="freq">--</p></div>
+<div class="stat"><h3>MODE</h3><p id="freq">CIRCLE</p></div>
 <div class="stat"><h3>CONF %</h3><p id="conf">--</p></div>
 </div>
 
 <div class="market" id="marketStatus">READY...</div>
-<div class="signal-details" id="signalDetails">Synthetic Algorithm Active</div>
+<div class="signal-details" id="signalDetails">Circle Scanner v14 Active</div>
 </div>
 </div>
 
+<script src="https://s3.tradingview.com/tv.js"></script>
 <script>
 let asset = 'AERO';
 let selectedTime = '1m';
-let candleHistory = [];
+let candleCounter = 0;
 
 function login() {
-    let pass = document.getElementById('password').value;
-    let errorDiv = document.getElementById('loginError');
-    if (pass === 'Lubna786') {
-        errorDiv.textContent = '';
+    if(document.getElementById('password').value === 'Lubna786') {
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('mainBoard').style.display = 'block';
-    } else {
-        errorDiv.textContent = '❌ Wrong Password!';
+        loadTradingView();
     }
 }
 
@@ -134,19 +159,24 @@ function selectTime(btn) {
 
 function changeAsset() {
     asset = document.getElementById('assetSelect').value;
-    candleHistory = [];
-    document.getElementById('marketStatus').innerHTML = asset + ' SELECTED';
 }
 
-// Synthetic ڈیٹا جنریٹر - Quotex پیٹرن میچ
+function loadTradingView() {
+    try {
+        new TradingView.widget({
+            "width":"100%","height":"240","symbol":"FX:EURUSD","interval":"1",
+            "theme":"dark","style":"1","container_id":"tradingview_chart",
+            "hide_top_toolbar":true,"save_image":false
+        });
+    } catch(e) {}
+}
+
 function generateSyntheticData() {
-    let data = [];
-    let base = 1.0000 + (asset.charCodeAt(0) * 0.001);
+    let data = []; let base = 1.0000 + (asset.charCodeAt(0) * 0.001);
     for(let i=0; i<30; i++) {
         let move = (Math.sin(i/3 + asset.length) * 0.002) + (Math.random()-0.5)*0.001;
         base += move;
-        let o = base;
-        let c = base + (Math.random()-0.5)*0.0008;
+        let o = base; let c = base + (Math.random()-0.5)*0.0008;
         let h = Math.max(o,c) + Math.random()*0.0004;
         let l = Math.min(o,c) - Math.random()*0.0004;
         data.push({o,h,l,c});
@@ -154,78 +184,77 @@ function generateSyntheticData() {
     return data;
 }
 
-// پیٹرن ڈیٹیکشن - Synthetic کے لیے بیسٹ
 function detectPattern(candles) {
     let last3 = candles.slice(-3);
     let bullish = 0, bearish = 0;
-
-    last3.forEach(c => {
-        if(c.c > c.o) bullish++;
-        else bearish++;
-    });
-
-    if(bullish === 3) return {type: 'BUY', name: '3 GREEN', strength: 3};
-    if(bearish === 3) return {type: 'SELL', name: '3 RED', strength: 3};
-    if(last3[2].c > last3[1].c && last3[1].c > last3[0].c) return {type: 'BUY', name: 'UPTREND', strength: 2};
-    if(last3[2].c < last3[1].c && last3[1].c < last3[0].c) return {type: 'SELL', name: 'DOWNTREND', strength: 2};
-
-    return {type: last3[2].c > last3[1].c? 'BUY' : 'SELL', name: 'SINGLE', strength: 1};
+    last3.forEach(c => {if(c.c > c.o) bullish++; else bearish++;});
+    if(bullish === 3) return {type:'BUY', name:'3 GREEN', strength:3};
+    if(bearish === 3) return {type:'SELL', name:'3 RED', strength:3};
+    return {type:last3[2].c > last3[1].c?'BUY':'SELL', name:'SINGLE', strength:1};
 }
 
 async function generateSignal() {
     let signalBox = document.getElementById('signalBox');
     let btn = document.getElementById('genBtn');
-    let spinner = document.getElementById('btnSpinner');
-    let btnText = document.getElementById('btnText');
+    let scanner = document.getElementById('scannerEgg');
 
     signalBox.style.display = 'none';
     btn.disabled = true;
-    spinner.style.display = 'inline-block';
     btnText.textContent = 'SCANNING...';
-    document.getElementById('marketStatus').innerHTML = '🔍 ANALYZING ' + asset + '...';
+
+    // گول اسکینر چلائیں
+    scanner.classList.remove('active');
+    void scanner.offsetWidth;
+    scanner.classList.add('active');
+    document.getElementById('marketStatus').innerHTML = '🔄 CIRCLE SCANNING...';
+
+    // 2 کینڈل وارم اپ
+    candleCounter++;
+    if(candleCounter < 2) {
+        setTimeout(() => {
+            scanner.classList.remove('active');
+            signalBox.style.display = 'block';
+            signalBox.innerHTML = '⏳ WARM UP';
+            signalBox.className = 'wait';
+            document.getElementById('marketStatus').innerHTML = '⏳ کینڈل ' + candleCounter + '/2';
+            document.getElementById('conf').innerHTML = '50%';
+            btn.disabled = false;
+            btnText.textContent = '⚡ SCAN & SIGNAL';
+        }, 2000);
+        return;
+    }
+    candleCounter = 0;
 
     setTimeout(() => {
+        scanner.classList.remove('active');
+
         let data = generateSyntheticData();
-        candleHistory = data;
-
         let pattern = detectPattern(data);
-        let lastCandle = data[data.length-1];
-        let prevCandle = data[data.length-2];
-
         let score = pattern.strength;
-        if(lastCandle.c > prevCandle.c) score++;
-        else score--;
+        let confVal = 70 + (score * 8);
+        if(confVal > 95) confVal = 95;
 
         signalBox.style.display = 'block';
-        let confVal = 70 + (score * 8); // 70% سے 95% تک
-        if(confVal > 95) confVal = 95;
-        if(confVal < 70) confVal = 70;
-
         if(score > 0) {
             signalBox.innerHTML = '📈 BUY';
             signalBox.className = 'buy';
-            document.getElementById('marketStatus').innerHTML = '✅ ' + asset + ' BUY SIGNAL';
+            document.getElementById('marketStatus').innerHTML = '✅ CIRCLE SCAN COMPLETE - BUY';
         } else {
             signalBox.innerHTML = '📉 SELL';
             signalBox.className = 'sell';
-            document.getElementById('marketStatus').innerHTML = '✅ ' + asset + ' SELL SIGNAL';
+            document.getElementById('marketStatus').innerHTML = '✅ CIRCLE SCAN COMPLETE - SELL';
         }
 
         document.getElementById('pattern').innerHTML = pattern.name;
-        document.getElementById('freq').innerHTML = 'SYN v1.3';
         document.getElementById('conf').innerHTML = confVal + '%';
-
         document.getElementById('signalDetails').innerHTML = `
-            <span>Pair:</span> ${asset}<br>
+            <span>Mode:</span> Circle Scanner v14<br>
             <span>Pattern:</span> ${pattern.name}<br>
-            <span>Strength:</span> ${score}/4<br>
-            <span>Algorithm:</span> SYNTHETIC v13<br>
-            <span>Note:</span> OTC Synthetic - Trade with caution
+            <span>Pair:</span> ${asset}
         `;
 
         btn.disabled = false;
-        spinner.style.display = 'none';
-        btnText.textContent = '⚡ SCAN SYNTHETIC';
+        btnText.textContent = '⚡ SCAN & SIGNAL';
     }, 2000);
 }
 </script>
