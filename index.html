@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lubna Abubakar v18.3 - LIVE</title>
+<title>Lubna Abubakar v18.4 - Fixed</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <style>
 body{font-family:'Poppins',sans-serif;background:#060a10;color:#fff;display:flex;justify-content:center;padding:10px;margin:0}
@@ -12,43 +12,39 @@ body{font-family:'Poppins',sans-serif;background:#060a10;color:#fff;display:flex
 .login-screen h1{font-family:'Orbitron',sans-serif;color:#ffaa00;font-size:22px;margin-bottom:10px}
 input[type="password"]{width:100%;padding:14px;background:#000;border:2px solid #ffaa00;border-radius:16px;color:#ffaa00;outline:none;margin-bottom:12px;font-size:14px;font-family:'Orbitron',sans-serif;font-weight:700;text-align:center;letter-spacing:3px}
 .btn{width:100%;padding:15px;border:none;border-radius:18px;background:linear-gradient(135deg,#ffaa00,#ffb700);font-family:'Orbitron',sans-serif;font-size:13px;font-weight:900;color:#000;cursor:pointer;box-shadow:0 0 25px rgba(255,170,0,0.4)}
-.btn:disabled{opacity:0.6;cursor:not-allowed;background:#555}
+.btn:disabled{opacity:0.6;cursor:not-allowed}
 .error{color:#ff4d4d;font-size:11px;text-align:center;margin-top:8px;font-weight:700}
 #mainBoard{display:none}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .logo{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ffaa00,#ffb700);display:flex;justify-content:center;align-items:center;font-size:18px;font-weight:900;font-family:'Orbitron',sans-serif;color:#000}
-.live{padding:6px 10px;font-size:10px;border-radius:18px;background:rgba(0,255,136,0.2);border:2px solid #00ff88;color:#00ff88;font-weight:700;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.5}}
+.live{padding:6px 10px;font-size:10px;border-radius:18px;background:rgba(0,255,136,0.2);border:2px solid #00ff88;color:#00ff88;font-weight:700}
 .price-box{padding:14px;border-radius:18px;background:#0b1220;border:2px solid #ffaa00;text-align:center;margin-bottom:12px}
 .price-box h2{font-size:26px;font-family:'Orbitron',sans-serif;color:#ffaa00;text-shadow:0 0 15px rgba(255,170,0,0.5)}
-.live-dot{display:inline-block;width:8px;height:8px;background:#00ff88;border-radius:50%;margin-right:5px;animation:blink 1s infinite}
 select{width:100%;padding:13px;background:#0b1220;border:2px solid #ffaa00;border-radius:16px;color:#ffaa00;font-weight:600;margin-bottom:12px}
 .time-box{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
 .time-btn{padding:10px;background:#0f172a;border:2px solid #334155;border-radius:12px;text-align:center;font-weight:700;color:#ffc966;cursor:pointer}
 .time-btn.active{background:linear-gradient(135deg,#ffaa00,#ffb700);color:#000}
 .scanner-egg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:140px;height:140px;border-radius:50%;display:none;z-index:50}
-.scanner-egg.active{display:block;animation:fadeIn 0.3s ease}
+.scanner-egg.active{display:block}
 .scanner-egg::before{content:'';position:absolute;top:-5px;left:-5px;right:-5px;bottom:-5px;border-radius:50%;border:5px solid transparent;border-top-color:#ffaa00;border-right-color:#ffb700;animation:rotate 0.8s linear infinite;box-shadow:0 0 50px #ffaa00}
-.scanner-egg::after{content:'SCANNING LIVE...';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:10px;font-family:'Orbitron',sans-serif;color:#ffaa00;font-weight:900;letter-spacing:2px;text-shadow:0 0 10px #ffaa00;animation:pulse 1s infinite}
+.scanner-egg::after{content:'SCANNING LIVE...';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:10px;font-family:'Orbitron',sans-serif;color:#ffaa00;font-weight:900;letter-spacing:2px}
 @keyframes rotate{100%{transform:rotate(360deg)}}
-@keyframes fadeIn{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
 .tv-chart{margin-top:14px;border-radius:18px;overflow:hidden;border:2px solid #ffaa00;background:#0b1220;height:240px;position:relative}
-#signalBox{margin-top:15px;padding:20px;border-radius:20px;text-align:center;font-size:28px;font-family:'Orbitron',sans-serif;font-weight:900;display:none;border:3px solid;animation:popIn 0.5s ease}
-@keyframes popIn{0%{transform:scale(0.5);opacity:0}100%{transform:scale(1);opacity:1}}
+#signalBox{margin-top:15px;padding:20px;border-radius:20px;text-align:center;font-size:28px;font-family:'Orbitron',sans-serif;font-weight:900;display:none;border:3px solid}
 .buy{background:rgba(0,255,136,0.15);border-color:#00ff88;color:#00ff88}
 .sell{background:rgba(255,77,77,0.15);border-color:#ff4d4d;color:#ff4d4d}
 .wait{background:rgba(255,170,0,0.15);border-color:#ffaa00;color:#ffaa00}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
 .stat{background:#0f172a;border:2px solid #ffaa00;border-radius:16px;padding:10px;text-align:center}
 .stat h3{font-size:9px;color:#ffc966}.stat p{font-size:13px;font-weight:800;color:#ffaa00}
+.label{font-size:11px;color:#ffaa00;font-weight:600;margin-bottom:7px;display:block}
 </style>
 </head>
 <body>
 <div class="container">
 
 <div id="loginScreen" class="login-screen">
-<h1>LUBNA ABUBAKAR v18.3</h1>
+<h1>LUBNA ABUBAKAR v18.4</h1>
 <p style="color:#ffc966;font-size:12px;margin-bottom:20px">LIVE DATA PROTECTED</p>
 <input type="password" id="password" placeholder="Enter Password">
 <div id="loginError" class="error"></div>
@@ -59,14 +55,14 @@ select{width:100%;padding:13px;background:#0b1220;border:2px solid #ffaa00;borde
 <div class="header">
 <div style="display:flex;align-items:center;gap:10px">
 <div class="logo">L</div>
-<div><h1 style="font-size:14px;font-family:Orbitron;color:#ffaa00;margin:0">LUBNA ABUBAKAR v18.3</h1><p style="font-size:10px;color:#ffc966;margin:0">LIVE DATA MODE</p></div>
+<div><h1 style="font-size:14px;font-family:Orbitron;color:#ffaa00;margin:0">LUBNA ABUBAKAR v18.4</h1><p style="font-size:10px;color:#ffc966;margin:0">FIXED VERSION</p></div>
 </div>
-<div class="live"><span class="live-dot"></span>LIVE</div>
+<div class="live" id="brokerStatus">● BINANCE</div>
 </div>
 
 <div class="price-box">
-<div style="font-size:11px;color:#ffaa00;font-weight:600">BINANCE LIVE PRICE</div>
-<h2 id="livePrice">CONNECTING...</h2>
+<div class="label" id="priceLabel">BINANCE LIVE PRICE</div>
+<h2 id="livePrice">LOADING...</h2>
 </div>
 
 <div class="tv-chart">
@@ -74,18 +70,14 @@ select{width:100%;padding:13px;background:#0b1220;border:2px solid #ffaa00;borde
 <div class="scanner-egg" id="scannerEgg"></div>
 </div>
 
-<label style="font-size:11px;color:#ffaa00;font-weight:600">BROKER SELECT</label>
+<label class="label">BROKER SELECT</label>
 <select id="brokerSelect" onchange="changeBroker()">
 <option value="binance">Binance - Crypto LIVE</option>
 <option value="pocket">Pocket Option - OTC</option>
 </select>
 
-<label style="font-size:11px;color:#ffaa00;font-weight:600">CURRENCY PAIR</label>
-<select id="assetSelect" onchange="changeAsset()">
-<option value="BTCUSDT">BTC/USDT</option>
-<option value="ETHUSDT">ETH/USDT</option>
-<option value="BNBUSDT">BNB/USDT</option>
-</select>
+<label class="label">CURRENCY PAIR</label>
+<select id="assetSelect" onchange="changeAsset()"></select>
 
 <div class="time-box">
 <div class="time-btn active" onclick="selectTime(this,'1m')">1m</div>
@@ -114,7 +106,8 @@ let asset = 'BTCUSDT';
 let broker = 'binance';
 let priceInterval;
 
-const pocketPairs = ['EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDINR', 'EURJPY'];
+const binancePairs = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT'];
+const pocketPairs = ['EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDINR', 'EURJPY', 'GBPJPY', 'USDCHF'];
 
 function login(){
 let pass = document.getElementById('password').value;
@@ -123,33 +116,45 @@ if(pass === 'Lubna786'){
 error.innerText = '';
 document.getElementById('loginScreen').style.display = 'none';
 document.getElementById('mainBoard').style.display = 'block';
-loadTradingView();
+loadPairs(); // پہلے ہی کرنسی لوڈ کر دو
 fetchPrice();
-priceInterval = setInterval(fetchPrice, 2000); // ہر 2 سیکنڈ لائیو
+priceInterval = setInterval(fetchPrice, 2000);
 } else {
 error.innerText = '❌ Wrong Password';
 document.getElementById('password').value = '';
 }
 }
 
-function changeBroker(){
-broker = document.getElementById('brokerSelect').value;
+function loadPairs(){
 let assetSelect = document.getElementById('assetSelect');
-let brokerStatus = document.getElementById('brokerStatus');
 assetSelect.innerHTML = '';
-
 if(broker === 'binance'){
-brokerStatus.innerHTML = '<span class="live-dot"></span>BINANCE LIVE';
-assetSelect.innerHTML = `<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option>`;
+binancePairs.forEach(p => {
+assetSelect.innerHTML += `<option value="${p}">${p}</option>`;
+});
 asset = 'BTCUSDT';
 } else {
-brokerStatus.innerHTML = '● POCKET OTC';
-assetSelect.innerHTML = '';
 pocketPairs.forEach(p => {
 assetSelect.innerHTML += `<option value="${p}">${p}</option>`;
 });
 asset = 'EURUSD';
 }
+}
+
+function changeBroker(){
+broker = document.getElementById('brokerSelect').value;
+let brokerStatus = document.getElementById('brokerStatus');
+let priceLabel = document.getElementById('priceLabel');
+
+if(broker === 'binance'){
+brokerStatus.innerHTML = '● BINANCE';
+priceLabel.innerHTML = 'BINANCE LIVE PRICE';
+} else {
+brokerStatus.innerHTML = '● POCKET OTC';
+priceLabel.innerHTML = 'POCKET OTC PRICE';
+}
+
+loadPairs(); // کرنسی دوبارہ لوڈ
 fetchPrice();
 loadTradingView();
 }
@@ -168,15 +173,20 @@ loadTradingView();
 async function fetchPrice(){
 if(broker === 'binance'){
 try{
-// Binance ریئل لائیو API
 let res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${asset}`);
 let data = await res.json();
-document.getElementById('livePrice').innerHTML = '$' + parseFloat(data.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+document.getElementById('livePrice').innerHTML = '$' + parseFloat(data.price).toLocaleString();
 }catch(e){
 document.getElementById('livePrice').innerHTML = 'API ERROR';
 }
 } else {
-// Pocket OTC - TradingView لائیو
+// Pocket OTC - TradingView کے مطابق پرائس
+try{
+let res = await fetch(`https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v8/finance/chart/${asset}=X`);
+let data = await res.json();
+let price = data.chart.result[0].meta.regularMarketPrice;
+document.getElementById('livePrice').innerHTML = price.toFixed(4);
+}catch(e){
 let base = 1.0850 + Math.sin(Date.now()/8000) * 0.0015;
 document.getElementById('livePrice').innerHTML = base.toFixed(4);
 }
@@ -218,13 +228,13 @@ scan.classList.remove('active');
 try{
 let prices = [];
 if(broker === 'binance'){
-// Binance سے 50 لائیو کینڈل
 let r=await fetch(`https://api.binance.com/api/v3/klines?symbol=${asset}&interval=1m&limit=50`);
 let d=await r.json();
 prices = d.map(c=>parseFloat(c[4]));
 } else {
-// Pocket OTC سمارٹ لائیو ڈیٹا
-prices = Array.from({length:50}, (_,i) => 1.0850 + Math.sin((Date.now()/1000 + i)/10)*0.0015 + (Math.random()-0.5)*0.0006);
+let r=await fetch(`https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v8/finance/chart/${asset}=X?range=1d&interval=1m`);
+let d=await r.json();
+prices = d.chart.result[0].indicators.quote[0].close.filter(p=>p!=null);
 }
 
 let rsi=calcRSI(prices), ema10=calcEMA(prices,10), ema20=calcEMA(prices,20), macd=calcMACD(prices);
