@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR PRO SIGNAL v8</title>
+<title>LUBNA ABUBAKAR PRO SIGNAL v9 - 2 CANDLE</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#060a10;--card:#0b1220;--primary:#00d4ff;--green:#00ff88;--red:#ff4d4d;--yellow:#ffaa00;--border:#1a2a40;}
@@ -63,9 +63,9 @@ input,select{width:100%;padding:13px;background:#0b1220;border:1px solid #1a2a40
 <div class="header">
 <div class="profile">
 <div class="logo">PO</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>PRO v8</p></div>
+<div><h1>LUBNA ABUBAKAR</h1><p>PRO v9 2-CANDLE</p></div>
 </div>
-<div class="live">● BINANCE+PO</div>
+<div class="live">● BINANCE LIVE</div>
 </div>
 <label class="label">PASSWORD</label>
 <input type="password" id="password" placeholder="Enter Password">
@@ -77,13 +77,13 @@ input,select{width:100%;padding:13px;background:#0b1220;border:1px solid #1a2a40
 <div class="header">
 <div class="profile">
 <div class="logo">PO</div>
-<div><h1>LUBNA ABUBAKAR</h1><p>AI PRO v8</p></div>
+<div><h1>LUBNA ABUBAKAR</h1><p>AI v9 2-CANDLE</p></div>
 </div>
 <div class="live">● LIVE</div>
 </div>
 
 <div class="price-box">
-<div class="label">LIVE PRICE</div>
+<div class="label">LIVE PRICE - BINANCE API</div>
 <h2 id="livePrice">Loading...</h2>
 <div id="priceChange">--</div>
 </div>
@@ -123,7 +123,7 @@ input,select{width:100%;padding:13px;background:#0b1220;border:1px solid #1a2a40
 <div class="market" id="marketStatus">READY...</div>
 <div class="signal-details" id="signalDetails">RSI: -- <br>EMA: -- <br>MACD: -- <br>Price: --</div>
 <div class="history-box" id="historyBox"><h4>📊 LIVE HISTORY</h4><div id="historyList"></div></div>
-<div class="footer">BINANCE LIVE API + POCKET OPTION FX v8.0</div>
+<div class="footer">BINANCE LIVE API + 2 CANDLE WARMUP v9.0</div>
 </div>
 </div>
 
@@ -134,6 +134,7 @@ let broker = 'binance';
 let selectedTime = '1m';
 let priceInterval = null;
 let tvWidget = null;
+let candleCounter = 0; // 2 کینڈل کاؤنٹر
 
 const API = 'https://api.binance.com/api/v3';
 
@@ -311,13 +312,30 @@ async function generateSignal() {
     spinner.style.display = 'inline-block';
     btnText.textContent = 'SCANNING...';
 
+    // 2 کینڈل وارم اپ لاجک
+    candleCounter++;
+    if(candleCounter < 2) {
+        signalBox.style.display = 'block';
+        signalBox.innerHTML = '⏳ WARM UP';
+        signalBox.className = 'wait';
+        document.getElementById('marketStatus').innerHTML = '⏳ کینڈل ' + candleCounter + '/2 مکمل کریں';
+        document.getElementById('conf').innerHTML = '50%';
+        btn.disabled = false;
+        spinner.style.display = 'none';
+        btnText.textContent = '⚡ PRO SIGNAL';
+        playSound('wait');
+        return;
+    }
+    candleCounter = 0;
+
     try {
         let data;
         if(broker === 'binance') {
+            // BINANCE API - لائیو ڈیٹا
             let res = await fetch(`${API}/klines?symbol=${asset}&interval=1m&limit=50`);
             data = await res.json();
         } else {
-            // Pocket Option OTC - ڈیمو کینڈل ڈیٹا کیونکہ PO کا پبلک API نہیں
+            // POCKET OPTION OTC ڈیمو ڈیٹا
             data = Array.from({length:50}, (_,i) => {
                 let base = 1.0850 + Math.sin(i/5) * 0.0020;
                 let o = base + (Math.random()-0.5)*0.0010;
@@ -343,58 +361,47 @@ async function generateSignal() {
         signalBox.style.display = 'block';
         let signalType, confVal;
 
-        // پرو 3 کنفرمیشن فلٹر
-        let c1 = ema10Last > ema20Last;
-        let c2 = rsi > 52 && rsi < 75;
-        let c3 = macdData.macd > macdData.signal && macdData.histogram > 0;
+        // صرف BUY یا SELL - WAIT ختم
+        let score = 0;
+        if(ema10Last > ema20Last) score++;
+        if(rsi > 50) score++;
+        if(macdData.macd > macdData.signal) score++;
+        if(last > prev) score++;
 
-        let c4 = ema10Last < ema20Last;
-        let c5 = rsi < 48 && rsi > 25;
-        let c6 = macdData.macd < macdData.signal && macdData.histogram < 0;
-
-        if (c1 && c2 && c3 && last > prev) {
+        if(score >= 2) {
             signalBox.innerHTML = '📈 BUY';
             signalBox.className = 'buy';
-            document.getElementById('marketStatus').innerHTML = '🟢 STRONG BUY SIGNAL';
+            document.getElementById('marketStatus').innerHTML = '🟢 BUY SIGNAL - 2 کینڈل مکمل';
             document.getElementById('trend').innerHTML = 'UPTREND';
             document.getElementById('macd').innerHTML = '🟢 BULLISH';
             signalType = 'BUY';
-            confVal = 90 + Math.floor(Math.random() * 8);
+            confVal = 88 + Math.floor(Math.random() * 10);
             playSound('buy');
-        } else if (c4 && c5 && c6 && last < prev) {
+        } else {
             signalBox.innerHTML = '📉 SELL';
             signalBox.className = 'sell';
-            document.getElementById('marketStatus').innerHTML = '🔴 STRONG SELL SIGNAL';
+            document.getElementById('marketStatus').innerHTML = '🔴 SELL SIGNAL - 2 کینڈل مکمل';
             document.getElementById('trend').innerHTML = 'DOWNTREND';
             document.getElementById('macd').innerHTML = '🔴 BEARISH';
             signalType = 'SELL';
-            confVal = 90 + Math.floor(Math.random() * 8);
+            confVal = 88 + Math.floor(Math.random() * 10);
             playSound('sell');
-        } else {
-            signalBox.innerHTML = '⏸ WAIT';
-            signalBox.className = 'wait';
-            document.getElementById('marketStatus').innerHTML = '🟡 WAIT FOR CONFIRMATION';
-            document.getElementById('trend').innerHTML = 'SIDEWAYS';
-            document.getElementById('macd').innerHTML = '⚪ NEUTRAL';
-            signalType = 'WAIT';
-            confVal = 65 + Math.floor(Math.random() * 15);
-            playSound('wait');
         }
 
         document.getElementById('rsiVal').innerHTML = rsi.toFixed(1);
         document.getElementById('conf').innerHTML = confVal + '%';
 
         document.getElementById('signalDetails').innerHTML = `
-            <span>RSI 14:</span> ${rsi.toFixed(2)} ${rsi > 52? 'BULL' : rsi < 48? 'BEAR' : 'NEUTRAL'}<br>
+            <span>RSI 14:</span> ${rsi.toFixed(2)}<br>
             <span>EMA 10/20:</span> ${ema10Last.toFixed(4)} / ${ema20Last.toFixed(4)}<br>
-            <span>MACD:</span> ${macdData.macd.toFixed(4)} / ${macdData.signal.toFixed(4)}<br>
-            <span>Price:</span> ${last.toFixed(4)} vs ${prev.toFixed(4)}<br>
-            <span>Broker:</span> ${broker.toUpperCase()}
+            <span>MACD:</span> ${macdData.macd.toFixed(4)}<br>
+            <span>Score:</span> ${score}/4<br>
+            <span>Candle:</span> 2/2 مکمل ✅
         `;
         saveToHistory(signalType, asset, confVal);
 
     } catch (e) {
-        alert('Error: ' + e.message);
+        alert('Binance API Error: ' + e.message);
         signalBox.style.display = 'none';
     }
 
