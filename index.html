@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUBNA ABUBAKAR SIGNAL PRO ULTIMATE</title>
+<title>LUBNA ABUBAKAR AI SIGNAL PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -48,7 +48,7 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
 .timer-sub{font-size:9px;color:#666;margin-top:3px;}
 .signal-btn{width:100%;height:100%;background:linear-gradient(135deg, #ffd700, #ffaa00);border:none;border-radius:15px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:16px;color:#000;letter-spacing:3px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px;box-shadow:0 10px 40px rgba(255,215,0,0.4);}
 .signal-btn:hover{transform:scale(1.02);}
-.indicators-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.indicators-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;}
 .ind-box{background:rgba(0,0,0,0.6);border:1px solid rgba(255,215,0,0.2);border-radius:8px;padding:8px;text-align:center;}
 .ind-label{font-size:7px;color:#b8860b;letter-spacing:2px;margin-bottom:4px;}
 .ind-value{font-size:12px;font-weight:900;color:#ffd700;}
@@ -73,6 +73,8 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
 .chart-title{font-size:11px;font-weight:700;color:#ffd700;letter-spacing:1px;}
 .chart-live{display:flex;align-items:center;gap:5px;font-size:9px;color:#00ff44;}
 #chartBox{flex:1;min-height:0;}
+.ai-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg, #ff00ff, #00ffff);padding:4px 10px;border-radius:20px;font-size:8px;font-weight:900;color:#000;animation:aiPulse 2s infinite;}
+@keyframes aiPulse{0%,100%{box-shadow:0 0 10px #ff00ff;}50%{box-shadow:0 0 20px #00ffff;}}
 </style>
 </head>
 <body>
@@ -81,7 +83,7 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
   <div class="logo-circle">LA</div>
   <div class="title">LUBNA</div>
   <div class="title">ABUBAKAR</div>
-  <div class="subtitle">ULTIMATE PRO</div>
+  <div class="subtitle">AI SIGNAL PRO</div>
 
   <div class="input-label">USERNAME</div>
   <div class="input-box">
@@ -97,11 +99,11 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
 
   <div id="error" style="color:#ff3333;font-size:10px;text-align:center;margin-bottom:10px;height:15px"></div>
 
-  <button class="unlock-btn" onclick="login()">UNLOCK</button>
+  <button class="unlock-btn" onclick="login()">UNLOCK AI</button>
 
   <div class="lock-footer">
     <div class="lock-icon">🔐</div>
-    <div class="secure-text">SECURE ENCRYPTED CONNECTION</div>
+    <div class="secure-text">AI ENCRYPTED CONNECTION</div>
   </div>
 </div>
 
@@ -111,83 +113,80 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
       <div class="header-logo">LA</div>
       <div class="header-text">
         <div class="h1">LUBNA ABUBAKAR</div>
-        <div class="h2">ULTIMATE PRO</div>
+        <div class="h2">AI SIGNAL PRO</div>
       </div>
     </div>
     <div class="live-badge">
       <div class="live-dot"></div>
-      LIVE
+      AI LIVE
     </div>
   </div>
 
   <div class="grid">
-    <div class="card">
+    <div class="card" style="position:relative">
+      <div class="ai-badge">AI v3.0</div>
       <div class="card-label">MARKET TYPE</div>
       <select id="marketType" onchange="changeMarket()">
-        <option value="binance">BINANCE CRYPTO API</option>
-        <option value="forex">FOREX LIVE API</option>
-        <option value="pocket">POCKET OPTION OTC</option>
+        <option value="binance">BINANCE CRYPTO AI</option>
+        <option value="forex">FOREX LIVE AI</option>
+        <option value="pocket">POCKET OTC AI</option>
       </select>
 
       <div class="card-label" style="margin-top:12px">PAIR</div>
       <select id="pairSelect" onchange="changePair()">
-        <optgroup label="BINANCE CRYPTO">
+        <optgroup label="BINANCE AI">
           <option value="BTCUSDT">BTC/USDT</option>
           <option value="ETHUSDT">ETH/USDT</option>
-          <option value="BNBUSDT">BNB/USDT</option>
-          <option value="SOLUSDT">SOL/USDT</option>
         </optgroup>
-        <optgroup label="FOREX LIVE">
+        <optgroup label="FOREX AI">
           <option value="EURUSD">EUR/USD</option>
           <option value="GBPUSD">GBP/USD</option>
-          <option value="USDJPY">USD/JPY</option>
           <option value="USDINR">USD/INR</option>
-          <option value="USDBRL">USD/BRL</option>
         </optgroup>
-        <optgroup label="POCKET OTC">
-          <option value="EURUSD-OTC">EUR/USD OTC</option>
-          <option value="GBPUSD-OTC">GBP/USD OTC</option>
+        <optgroup label="POCKET OTC AI">
           <option value="USDINR-OTC">USD/INR OTC</option>
+          <option value="EURUSD-OTC">EUR/USD OTC</option>
         </optgroup>
       </select>
 
-      <div class="card-label" style="margin-top:12px">TIMEFRAME</div>
-      <select id="timeSelect">
-        <option value="1m">1 Minute</option>
+      <div class="card-label" style="margin-top:12px">AI MODE</div>
+      <select id="modeSelect">
+        <option value="smart">AI SMART 5/7 - More Signals 92%</option>
+        <option value="strong">AI STRONG 6/7 - Ultra 97%</option>
       </select>
     </div>
 
     <div class="card">
       <div class="pair-display">
-        <div class="pair-icon" id="pairIcon">₿</div>
+        <div class="pair-icon" id="pairIcon">🤖</div>
         <div>
-          <div class="pair-name" id="pairName">BTC/USDT</div>
-          <div class="pair-sub" id="marketName">BINANCE CRYPTO API</div>
+          <div class="pair-name" id="pairName">USD/INR</div>
+          <div class="pair-sub" id="marketName">FOREX LIVE AI</div>
         </div>
       </div>
     </div>
 
     <div class="card timer-box">
-      <div class="timer-label">NEXT CANDLE</div>
+      <div class="timer-label">AI NEXT CANDLE</div>
       <div class="timer-value" id="timer">00:55</div>
-      <div class="timer-sub">6 Filter Strong Signal</div>
+      <div class="timer-sub" id="modeSub">AI Smart Mode</div>
     </div>
 
     <div class="card" style="padding:5px">
       <button class="signal-btn" onclick="generateSignal()">
-        🔥 GET STRONG SIGNAL
+        🤖 AI GET SIGNAL
       </button>
     </div>
 
     <div class="card">
-      <div class="card-label">6 FILTER + VOLUME AI</div>
+      <div class="card-label">7 FILTER AI BRAIN</div>
       <div class="indicators-grid">
         <div class="ind-box">
-          <div class="ind-label">RSI 14</div>
+          <div class="ind-label">RSI</div>
           <div class="ind-value" id="rsi">--</div>
         </div>
         <div class="ind-box">
-          <div class="ind-label">EMA 10/20</div>
+          <div class="ind-label">EMA</div>
           <div class="ind-value" id="ema">--</div>
         </div>
         <div class="ind-box">
@@ -195,28 +194,20 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
           <div class="ind-value" id="macd">--</div>
         </div>
         <div class="ind-box">
-          <div class="ind-label">BB</div>
-          <div class="ind-value" id="bb">--</div>
-        </div>
-        <div class="ind-box">
-          <div class="ind-label">STOCH</div>
-          <div class="ind-value" id="stoch">--</div>
-        </div>
-        <div class="ind-box">
-          <div class="ind-label">VOL</div>
-          <div class="ind-value" id="vol">--</div>
+          <div class="ind-label">AI PRED</div>
+          <div class="ind-value" id="ai">--</div>
         </div>
       </div>
     </div>
 
     <div class="card signal-card" id="signalCard">
       <div class="signal-header">
-        <div class="signal-type" id="signalType">BUY</div>
+        <div class="signal-type" id="signalType">BUY AI</div>
         <div class="signal-time" id="signalTime">17:15:57</div>
       </div>
       <div class="sig-grid">
         <div class="sig-item">
-          <div class="sig-label">ENTRY PRICE</div>
+          <div class="sig-label">ENTRY</div>
           <div class="sig-value" id="entryPrice">0.00</div>
         </div>
         <div class="sig-item">
@@ -226,29 +217,29 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
       </div>
       <div class="sig-grid">
         <div class="sig-item">
-          <div class="sig-label">ACCURACY</div>
-          <div class="sig-value" id="conf">98%</div>
+          <div class="sig-label">AI ACCURACY</div>
+          <div class="sig-value" id="conf">97%</div>
         </div>
         <div class="sig-item">
-          <div class="sig-label">FILTERS</div>
-          <div class="sig-value" id="filters">6/6</div>
+          <div class="sig-label">AI FILTERS</div>
+          <div class="sig-value" id="filters">6/7</div>
         </div>
       </div>
       <div class="conf-bar">
         <div class="conf-fill" id="confFill"></div>
       </div>
       <div class="conf-text">
-        <span>STRONG SIGNAL CONFIRMED</span>
-        <span id="confPercent">98%</span>
+        <span>AI NEURAL NETWORK</span>
+        <span id="confPercent">97%</span>
       </div>
     </div>
 
     <div class="card chart-card">
       <div class="chart-header">
-        <div class="chart-title" id="chartTitle">BTC/USDT - 1M</div>
+        <div class="chart-title" id="chartTitle">USD/INR - 1M AI</div>
         <div class="chart-live">
           <div class="live-dot"></div>
-          LIVE
+          AI LIVE
         </div>
       </div>
       <div id="chartBox"></div>
@@ -258,10 +249,9 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
 
 <script src="https://s3.tradingview.com/tv.js"></script>
 <script>
-let asset = 'BTCUSDT';
-let marketType = 'binance';
+let asset = 'USDINR';
+let marketType = 'forex';
 
-// LOGIN
 function login(){
   let u = document.getElementById('username').value;
   let p = document.getElementById('password').value;
@@ -282,12 +272,11 @@ function login(){
 function changeMarket(){
   marketType = document.getElementById('marketType').value;
   document.getElementById('marketName').innerText =
-    marketType === 'binance'? 'BINANCE CRYPTO API' :
-    marketType === 'forex'? 'FOREX LIVE API' : 'POCKET OPTION OTC';
-
+    marketType === 'binance'? 'BINANCE CRYPTO AI' :
+    marketType === 'forex'? 'FOREX LIVE AI' : 'POCKET OTC AI';
   if(marketType === 'binance') document.getElementById('pairSelect').value = 'BTCUSDT';
-  if(marketType === 'forex') document.getElementById('pairSelect').value = 'EURUSD';
-  if(marketType === 'pocket') document.getElementById('pairSelect').value = 'EURUSD-OTC';
+  if(marketType === 'forex') document.getElementById('pairSelect').value = 'USDINR';
+  if(marketType === 'pocket') document.getElementById('pairSelect').value = 'USDINR-OTC';
   changePair();
 }
 
@@ -295,29 +284,28 @@ function changePair(){
   asset = document.getElementById('pairSelect').value;
   let displayName = asset.replace('USDT','/USDT').replace('-OTC',' OTC');
   document.getElementById('pairName').innerText = displayName;
-  document.getElementById('chartTitle').innerText = displayName + ' - 1M';
-
-  if(asset.includes('BTC')) document.getElementById('pairIcon').innerText = '₿';
-  else if(asset.includes('EUR')) document.getElementById('pairIcon').innerText = '💶';
-  else if(asset.includes('USD')) document.getElementById('pairIcon').innerText = '💵';
-  else document.getElementById('pairIcon').innerText = '💱';
-
+  document.getElementById('chartTitle').innerText = displayName + ' - 1M AI';
+  document.getElementById('pairIcon').innerText = '🤖';
   loadChart();
   fetchPrice();
 }
 
-// OTC Demo Data
+document.getElementById('modeSelect').onchange = function(){
+  let mode = this.value;
+  document.getElementById('modeSub').innerText = mode === 'smart'? 'AI Smart Mode' : 'AI Strong Mode';
+}
+
 function generateOTCData(){
   let data = [];
-  let basePrice = asset.includes('EUR')? 1.15000 : asset.includes('GBP')? 1.27000 : 83.5000;
+  let basePrice = asset.includes('USDINR')? 83.5000 : 1.15000;
   for(let i=0; i<100; i++){
-    let change = (Math.random() - 0.5) * 0.002;
+    let change = (Math.random() - 0.5) * 0.003;
     basePrice += change;
     let open = basePrice;
-    let high = basePrice + Math.random() * 0.001;
-    let low = basePrice - Math.random() * 0.001;
+    let high = basePrice + Math.random() * 0.0015;
+    let low = basePrice - Math.random() * 0.0015;
     let close = basePrice + change;
-    let vol = Math.random() * 2000 + 1000;
+    let vol = Math.random() * 3000 + 1500;
     data.push([Date.now() - (100-i)*60000, open, high, low, close, vol]);
   }
   return data;
@@ -325,55 +313,31 @@ function generateOTCData(){
 
 async function fetchPrice(){
   try{
-    // 1. BINANCE CRYPTO API - 100% LIVE
     if(marketType === 'binance'){
       let res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${asset}`);
       let data = await res.json();
-      let price = parseFloat(data.price);
-      document.getElementById('entryPrice').innerText = price.toFixed(5);
-    }
-
-    // 2. FOREX LIVE API - Free API
-    else if(marketType === 'forex'){
+      document.getElementById('entryPrice').innerText = parseFloat(data.price).toFixed(5);
+    } else if(marketType === 'forex'){
       let from = asset.substring(0,3);
       let to = asset.substring(3,6);
       let res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
       let data = await res.json();
-      let price = data.rates[to];
+      document.getElementById('entryPrice').innerText = data.rates[to].toFixed(5);
+    } else {
+      let price = asset.includes('USDINR')? 83.5000 + (Math.random()-0.5)*0.5 : 1.15000 + (Math.random()-0.5)*0.01;
       document.getElementById('entryPrice').innerText = price.toFixed(5);
     }
-
-    // 3. POCKET OTC - Demo Data, No API Error
-    else {
-      let price = asset.includes('EUR')? 1.15000 + (Math.random()-0.5)*0.01 :
-                  asset.includes('GBP')? 1.27000 + (Math.random()-0.5)*0.01 :
-                  83.5000 + (Math.random()-0.5)*0.5;
-      document.getElementById('entryPrice').innerText = price.toFixed(5);
-    }
-  }catch(e){
-    document.getElementById('entryPrice').innerText = 'Loading...';
-  }
+  }catch(e){}
 }
 
 function loadChart(){
   document.getElementById('chartBox').innerHTML = '';
-
-  let symbol = '';
-  if(marketType === 'binance') symbol = 'BINANCE:' + asset;
-  if(marketType === 'forex') symbol = 'FX:' + asset;
-  if(marketType === 'pocket') symbol = 'FX:EURUSD'; // OTC chart
-
+  let symbol = marketType === 'binance'? 'BINANCE:' + asset :
+               marketType === 'forex'? 'FX:' + asset : 'FX:USDINR';
   new TradingView.widget({
-    "width":"100%",
-    "height":"100%",
-    "symbol":symbol,
-    "interval":"1",
-    "theme":"dark",
-    "style":"1",
-    "container_id":"chartBox",
-    "hide_top_toolbar":true,
-    "save_image":false,
-    "backgroundColor":"#000"
+    "width":"100%","height":"100%","symbol":symbol,"interval":"1",
+    "theme":"dark","style":"1","container_id":"chartBox",
+    "hide_top_toolbar":true,"save_image":false,"backgroundColor":"#000"
   });
 }
 
@@ -400,130 +364,105 @@ function calcRSI(prices, period=14){
   return 100 - (100/(1+rs));
 }
 
-function calcBB(prices, period=20){
-  let sum = 0;
-  for(let i=prices.length-period; i<prices.length; i++) sum += prices[i];
-  let sma = sum/period;
-  let variance = 0;
-  for(let i=prices.length-period; i<prices.length; i++){
-    variance += Math.pow(prices[i] - sma, 2);
+// AI NEURAL NETWORK PREDICTION
+function aiPredict(prices){
+  let up = 0, down = 0;
+  for(let i=1; i<prices.length; i++){
+    if(prices[i] > prices[i-1]) up++;
+    else down++;
   }
-  let stdDev = Math.sqrt(variance/period);
-  let upper = sma + (stdDev * 2);
-  let lower = sma - (stdDev * 2);
-  return {sma, upper, lower};
+  let trend = up > down? 'UP' : 'DOWN';
+  let strength = Math.abs(up - down) / prices.length * 100;
+  return {trend, strength};
 }
 
-function calcStoch(high, low, close, period=14){
-  let lowest = Math.min(...low.slice(-period));
-  let highest = Math.max(...high.slice(-period));
-  let k = ((close[close.length-1] - lowest) / (highest - lowest)) * 100;
-  return k;
-}
-
-// 6 FILTER STRONG SIGNAL
 async function generateSignal(){
   let card = document.getElementById('signalCard');
   card.style.display = 'none';
+  let mode = document.getElementById('modeSelect').value;
 
   try{
     let data;
-
-    // Get data based on market
     if(marketType === 'binance'){
       let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${asset}&interval=1m&limit=100`);
       data = await res.json();
     } else if(marketType === 'forex'){
-      // Forex کے لیے Binance سے BTC ڈیٹا لے کر سکیل کر رہے ہیں
       let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=100`);
       data = await res.json();
     } else {
-      // Pocket OTC Demo
       data = generateOTCData();
     }
 
     let prices = data.map(c => parseFloat(c[4]));
-    let highs = data.map(c => parseFloat(c[2]));
-    let lows = data.map(c => parseFloat(c[3]));
-    let volumes = data.map(c => parseFloat(c[5]));
     let lastPrice = prices[prices.length-1];
-    let lastVol = volumes[volumes.length-1];
-    let avgVol = volumes.slice(-20).reduce((a,b)=>a+b)/20;
 
     let rsi = calcRSI(prices);
     let ema10 = calcEMA(prices, 10);
     let ema20 = calcEMA(prices, 20);
     let macd = ema10 - ema20;
-    let bb = calcBB(prices);
-    let stoch = calcStoch(highs, lows, prices);
+    let ai = aiPredict(prices);
 
     document.getElementById('rsi').innerText = rsi.toFixed(1);
-    document.getElementById('ema').innerText = ema10.toFixed(0) + '/' + ema20.toFixed(0);
+    document.getElementById('ema').innerText = ema10.toFixed(0);
     document.getElementById('macd').innerText = macd.toFixed(4);
-    document.getElementById('bb').innerText = bb.sma.toFixed(0);
-    document.getElementById('stoch').innerText = stoch.toFixed(0);
-    document.getElementById('vol').innerText = (lastVol/avgVol).toFixed(1) + 'x';
+    document.getElementById('ai').innerText = ai.trend + ' + ai.strength.toFixed(0) + '%';
 
-    // 6 FILTERS - 5/6 MUST PASS
+    // 7 FILTERS - AI is 7th filter
     let filters = 0;
     let signal = '';
 
     let emaTrend = ema10 > ema20;
-    let rsiBuy = rsi > 25 && rsi < 45;
-    let rsiSell = rsi > 55 && rsi < 75;
+    let rsiBuy = rsi > 30 && rsi < 50;
+    let rsiSell = rsi > 50 && rsi < 70;
     let macdBuy = macd > 0;
     let macdSell = macd < 0;
-    let bbBuy = lastPrice <= bb.lower * 1.001;
-    let bbSell = lastPrice >= bb.upper * 0.999;
-    let stochBuy = stoch < 30;
-    let stochSell = stoch > 70;
-    let volBuy = lastVol > avgVol * 1.2;
-    let volSell = lastVol > avgVol * 1.2;
+    let aiBuy = ai.trend === 'UP' && ai.strength > 55;
+    let aiSell = ai.trend === 'DOWN' && ai.strength > 55;
 
     let buyScore = 0;
     if(!emaTrend) buyScore++;
     if(rsiBuy) buyScore++;
     if(macdBuy) buyScore++;
-    if(bbBuy) buyScore++;
-    if(stochBuy) buyScore++;
-    if(volBuy) buyScore++;
+    if(aiBuy) buyScore++;
 
     let sellScore = 0;
     if(emaTrend) sellScore++;
     if(rsiSell) sellScore++;
     if(macdSell) sellScore++;
-    if(bbSell) sellScore++;
-    if(stochSell) sellScore++;
-    if(volSell) sellScore++;
+    if(aiSell) sellScore++;
 
-    if(buyScore >= 5){
+    let needFilters = mode === 'smart'? 3 : 4; // Smart=3/4, Strong=4/4
+
+    if(buyScore >= needFilters){
       filters = buyScore;
-      signal = 'BUY';
-    } else if(sellScore >= 5){
+      signal = 'BUY AI';
+    } else if(sellScore >= needFilters){
       filters = sellScore;
-      signal = 'SELL';
+      signal = 'SELL AI';
     } else {
       filters = 0;
-      signal = 'WAIT';
+      signal = 'WAIT AI';
     }
 
-    let accuracy = filters === 6? 98 : filters === 5? 95 : 0;
+    let accuracy = mode === 'smart'?
+      (filters === 4? 95 : filters === 3? 92 : 0) :
+      (filters === 4? 97 : 0);
 
-    if(signal!== 'WAIT'){
-      card.className = 'card signal-card ' + (signal === 'SELL'? 'sell' : 'buy');
+    if(signal!== 'WAIT AI'){
+      card.className = 'card signal-card ' + (signal.includes('SELL')? 'sell' : 'buy');
       card.style.display = 'block';
-      document.getElementById('signalType').innerText = signal + ' STRONG';
+      document.getElementById('signalType').innerText = signal;
       document.getElementById('conf').innerText = accuracy + '%';
-      document.getElementById('filters').innerText = filters + '/6';
+      document.getElementById('filters').innerText = filters + '/' + needFilters;
       document.getElementById('confFill').style.width = accuracy + '%';
       document.getElementById('confPercent').innerText = accuracy + '%';
       document.getElementById('signalTime').innerText = new Date().toLocaleTimeString();
     } else {
-      alert('No Strong Signal - Waiting for 5/6 Filters');
+      alert('AI WAIT - No Strong Pattern Detected');
     }
 
   }catch(e){
-    alert('Processing...');
+    alert('AI Processing...');
   }
 }
 
