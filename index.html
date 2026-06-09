@@ -99,7 +99,7 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
 
   <div id="error" style="color:#ff3333;font-size:10px;text-align:center;margin-bottom:10px;height:15px"></div>
 
-  <button class="unlock-btn" onclick="login()">UNLOCK AI</button>
+  <button class="unlock-btn" onclick="doLogin()">UNLOCK AI</button>
 
   <div class="lock-footer">
     <div class="lock-icon">🔐</div>
@@ -173,9 +173,7 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
     </div>
 
     <div class="card" style="padding:5px">
-      <button class="signal-btn" onclick="generateSignal()">
-        🤖 AI GET SIGNAL
-      </button>
+      <button class="signal-btn" onclick="generateSignal()">🤖 AI GET SIGNAL</button>
     </div>
 
     <div class="card">
@@ -252,12 +250,14 @@ body{font-family:'Orbitron',sans-serif;background:#000;height:100vh;width:100vw;
 let asset = 'USDINR';
 let marketType = 'forex';
 
-function login(){
+// FIXED LOGIN FUNCTION NAME
+function doLogin(){
   let u = document.getElementById('username').value;
   let p = document.getElementById('password').value;
+  let err = document.getElementById('error');
 
   if(u === 'Lubna' && p === 'Abubakar786'){
-    document.getElementById('error').innerText = '';
+    err.innerText = '';
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'block';
     loadChart();
@@ -265,7 +265,7 @@ function login(){
     setInterval(fetchPrice, 2000);
     startTimer();
   } else {
-    document.getElementById('error').innerText = 'Wrong Password';
+    err.innerText = 'Wrong Username or Password';
   }
 }
 
@@ -364,7 +364,6 @@ function calcRSI(prices, period=14){
   return 100 - (100/(1+rs));
 }
 
-// AI NEURAL NETWORK PREDICTION
 function aiPredict(prices){
   let up = 0, down = 0;
   for(let i=1; i<prices.length; i++){
@@ -405,9 +404,8 @@ async function generateSignal(){
     document.getElementById('rsi').innerText = rsi.toFixed(1);
     document.getElementById('ema').innerText = ema10.toFixed(0);
     document.getElementById('macd').innerText = macd.toFixed(4);
-    document.getElementById('ai').innerText = ai.trend + ' + ai.strength.toFixed(0) + '%';
+    document.getElementById('ai').innerText = ai.trend + ' ' + ai.strength.toFixed(0) + '%';
 
-    // 7 FILTERS - AI is 7th filter
     let filters = 0;
     let signal = '';
 
@@ -431,7 +429,7 @@ async function generateSignal(){
     if(macdSell) sellScore++;
     if(aiSell) sellScore++;
 
-    let needFilters = mode === 'smart'? 3 : 4; // Smart=3/4, Strong=4/4
+    let needFilters = mode === 'smart'? 3 : 4;
 
     if(buyScore >= needFilters){
       filters = buyScore;
@@ -474,6 +472,11 @@ function startTimer(){
     document.getElementById('timer').innerText = '00:' + (seconds < 10? '0' : '') + seconds;
   }, 1000);
 }
+
+// ENTER KEY سے بھی لاگ ان ہو جائے
+document.getElementById('password').addEventListener('keypress', function(e){
+  if(e.key === 'Enter') doLogin();
+});
 </script>
 </body>
 </html>
