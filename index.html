@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LUBNA ABUBAKAR v44.2 FAST</title>
+<title>LUBNA ABUBAKAR v44.3 AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -92,7 +92,7 @@ input,select,button{font-size:16px!important;}
   <div class="logo-circle">LA</div>
   <div class="title">LUBNA</div>
   <div class="title">ABUBAKAR</div>
-  <div class="subtitle">FAST SCAN v44.2</div>
+  <div class="subtitle">AI v44.3 FIX</div>
 
   <div class="input-label">USERNAME</div>
   <div class="input-box">
@@ -117,7 +117,7 @@ input,select,button{font-size:16px!important;}
       <div class="header-logo">LA</div>
       <div class="header-text">
         <div class="h1">LUBNA ABUBAKAR</div>
-        <div class="h2">FAST SCAN v44.2</div>
+        <div class="h2">AI v44.3</div>
       </div>
     </div>
     <div class="live-badge">
@@ -128,7 +128,7 @@ input,select,button{font-size:16px!important;}
 
   <div class="grid">
     <div class="card" style="position:relative">
-      <div class="ai-badge">v44.2</div>
+      <div class="ai-badge">AI v44.3</div>
       <div class="card-label">MARKET LIVE</div>
       <select id="marketType" onchange="changeMarket()">
         <option value="binance">BINANCE LIVE</option>
@@ -151,16 +151,16 @@ input,select,button{font-size:16px!important;}
         </optgroup>
       </select>
 
-      <div class="card-label" style="margin-top:10px">SPEED MODE</div>
+      <div class="card-label" style="margin-top:10px">AI SPEED MODE</div>
       <select id="modeSelect">
         <option value="ultra">ULTRA 7/10 - 99% FAST</option>
         <option value="pro">PRO 6/10 - 97% VERY FAST</option>
         <option value="zeroloss">ZERO LOSS 8/10 - 99.9% SLOW</option>
       </select>
-      <div class="status-text" id="statusText">Auto Scan: ON</div>
+      <div class="status-text" id="statusText">AI Auto Scan: ON</div>
       <div class="zero-loss">BUY=GREEN SELL=RED WAIT=ORANGE</div>
       <div class="auto-toggle">
-        AUTO SCAN <div class="toggle-switch active" id="autoToggle" onclick="toggleAuto()"></div> ON
+        AUTO AI <div class="toggle-switch active" id="autoToggle" onclick="toggleAuto()"></div> ON
       </div>
     </div>
 
@@ -175,13 +175,13 @@ input,select,button{font-size:16px!important;}
     </div>
 
     <div class="card timer-box">
-      <div class="timer-label">NEXT SCAN IN</div>
+      <div class="timer-label">AI SCAN IN</div>
       <div class="timer-value" id="timer">00:03</div>
-      <div class="timer-sub" id="modeSub">Auto 3 Sec Scan</div>
+      <div class="timer-sub" id="modeSub">Auto 3 Sec AI Scan</div>
     </div>
 
     <div class="card" style="padding:8px">
-      <button class="signal-btn" id="signalBtn" onclick="generateSignal()">⚡ LUBNA SIGNAL</button>
+      <button class="signal-btn" id="signalBtn" onclick="generateSignal()">⚡ LUBNA AI SIGNAL</button>
     </div>
 
     <div class="card">
@@ -227,14 +227,14 @@ input,select,button{font-size:16px!important;}
           <div class="sig-value" id="conf">99%</div>
         </div>
         <div class="sig-item">
-          <div class="sig-label">FILTERS</div>
+          <div class="sig-label">AI FILTERS</div>
           <div class="sig-value" id="filters">7/10</div>
         </div>
       </div>
       <div class="conf-bar">
         <div class="conf-fill" id="confFill"></div>
       </div>
-      <div class="candle-check" id="candleDetail">L1: 7/10 | L2: 4/1 | L3: Trend</div>
+      <div class="candle-check" id="candleDetail">AI L1:7/10 L2:4/1 L3:Trend</div>
     </div>
 
     <div class="card chart-card">
@@ -242,7 +242,7 @@ input,select,button{font-size:16px!important;}
         <div class="chart-title" id="chartTitle">USD/INR - 1M LIVE</div>
         <div class="chart-live">
           <div class="live-dot"></div>
-          FULL
+          AI LIVE
         </div>
       </div>
       <div id="chartBox"></div>
@@ -261,11 +261,11 @@ let autoScan = true;
 let scanCount = 3;
 
 function doLogin(){
-  let u = document.getElementById('username').value;
-  let p = document.getElementById('password').value;
+  let u = document.getElementById('username').value.trim().toLowerCase();
+  let p = document.getElementById('password').value.trim();
   let err = document.getElementById('error');
 
-  if(u === 'Lubna' && p === 'Abubakar786'){
+  if(u === 'lubna' && p === 'Abubakar786'){
     err.innerText = '';
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'block';
@@ -274,7 +274,7 @@ function doLogin(){
     setInterval(fetchPrice, 1000);
     startAutoScan();
   } else {
-    err.innerText = 'Wrong Password';
+    err.innerText = 'غلط! Username: Lubna Password: Abubakar786';
   }
 }
 
@@ -283,11 +283,11 @@ function toggleAuto(){
   let toggle = document.getElementById('autoToggle');
   if(autoScan){
     toggle.className = 'toggle-switch active';
-    document.getElementById('statusText').innerText = 'Auto Scan: ON';
+    document.getElementById('statusText').innerText = 'AI Auto Scan: ON';
     startAutoScan();
   } else {
     toggle.className = 'toggle-switch';
-    document.getElementById('statusText').innerText = 'Auto Scan: OFF';
+    document.getElementById('statusText').innerText = 'AI Auto Scan: OFF';
     clearInterval(autoScanTimer);
     scanCount = 3;
     document.getElementById('timer').innerText = '00:03';
@@ -474,7 +474,7 @@ function layer3_trend(prices){
 function resetButton(){
   let btn = document.getElementById('signalBtn');
   btn.className = 'signal-btn';
-  btn.innerHTML = '⚡ LUBNA SIGNAL';
+  btn.innerHTML = '⚡ LUBNA AI SIGNAL';
 }
 
 async function generateSignal(){
@@ -484,7 +484,7 @@ async function generateSignal(){
   resetButton();
   card.style.display = 'none';
   btn.className = 'signal-btn scanning';
-  btn.innerHTML = '🔄 SCANNING...';
+  btn.innerHTML = '🔄 AI SCANNING...';
 
   if(signalTimer) clearTimeout(signalTimer);
 
@@ -545,16 +545,16 @@ async function generateSignal(){
     if(signal!== 'WAIT'){
       if(signal === 'SELL'){
         btn.className = 'signal-btn sell';
-        btn.innerHTML = '🔻 SELL';
+        btn.innerHTML = '🔻 SELL AI';
         card.className = 'card signal-card sell';
-        document.getElementById('signalType').innerText = 'SELL LUBNA';
+        document.getElementById('signalType').innerText = 'SELL LUBNA AI';
         document.getElementById('conf').style.color = '#ff0000';
         document.getElementById('entryPrice').style.color = '#ff0000';
       } else {
         btn.className = 'signal-btn buy';
-        btn.innerHTML = '🔺 BUY';
+        btn.innerHTML = '🔺 BUY AI';
         card.className = 'card signal-card buy';
-        document.getElementById('signalType').innerText = 'BUY LUBNA';
+        document.getElementById('signalType').innerText = 'BUY LUBNA AI';
         document.getElementById('conf').style.color = '#00ff44';
         document.getElementById('entryPrice').style.color = '#00ff44';
       }
@@ -564,4 +564,28 @@ async function generateSignal(){
       document.getElementById('filters').innerText = filters + '/10';
       document.getElementById('confFill').style.width = accuracy + '%';
       document.getElementById('signalTime').innerText = new Date().toLocaleTimeString();
-      document.getElementById('candleDetail').innerText = `L1:${layer1}/10 L2:${
+      document.getElementById('candleDetail').innerText = `AI L1:${layer1}/10 L2:${layer2.up}/${layer2.down} L3:${layer3}`;
+
+      signalTimer = setTimeout(() => {
+        resetButton();
+      }, 60000);
+
+    } else {
+      btn.className = 'signal-btn wait';
+      btn.innerHTML = '⏸️ AI WAIT - No Signal';
+      signalTimer = setTimeout(() => {
+        resetButton();
+      }, 3000);
+    }
+
+  }catch(e){
+    resetButton();
+  }
+}
+
+document.getElementById('password').addEventListener('keypress', function(e){
+  if(e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>
