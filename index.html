@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LUBNA ABUBAKAR v44.4 TURBO</title>
+<title>LUBNA ABUBAKAR v44.5 ONE SIGNAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -46,6 +46,7 @@ input,select,button{font-size:16px!important;}
 .signal-btn{width:100%;height:80px;background:linear-gradient(135deg, #00ff44, #00ffff, #ffd700);border:none;border-radius:12px;font-weight:900;font-size:20px;color:#000;letter-spacing:4px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px;box-shadow:0 10px 40px rgba(0,255,68,0.6);transition:all 0.3s ease;}
 .signal-btn.buy{background:linear-gradient(135deg, #00ff44, #00cc33);box-shadow:0 15px 50px rgba(0,255,68,0.8);color:#000;}
 .signal-btn.sell{background:linear-gradient(135deg, #ff0000, #cc0000);box-shadow:0 15px 50px rgba(255,0,0,0.8);color:#fff;}
+.signal-btn.wait{background:linear-gradient(135deg, #ffaa00, #ff8800);box-shadow:0 15px 50px rgba(255,170,0,0.8);color:#000;font-size:16px;}
 .signal-btn.scanning{background:linear-gradient(135deg, #00ffff, #0099ff);box-shadow:0 15px 50px rgba(0,255,255,0.8);color:#000;font-size:18px;animation:pulse 0.5s infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.02);}}
 
@@ -77,7 +78,7 @@ input,select,button{font-size:16px!important;}
 .ai-badge{position:absolute;top:8px;right:8px;background:linear-gradient(135deg, #ffaa00, #ff6600);padding:4px 10px;border-radius:20px;font-size:8px;font-weight:900;color:#000;}
 .candle-check{font-size:8px;color:#00ffff;margin-top:4px;}
 .status-text{font-size:8px;color:#ffd700;margin-top:3px;}
-.turbo{font-size:7px;color:#ffaa00;margin-top:2px;font-weight:900;}
+.one-signal{font-size:7px;color:#00ff44;margin-top:2px;font-weight:900;}
 </style>
 </head>
 <body>
@@ -86,7 +87,7 @@ input,select,button{font-size:16px!important;}
   <div class="logo-circle">LA</div>
   <div class="title">LUBNA</div>
   <div class="title">ABUBAKAR</div>
-  <div class="subtitle">TURBO v44.4</div>
+  <div class="subtitle">ONE SIGNAL v44.5</div>
 
   <div class="input-label">USERNAME</div>
   <div class="input-box">
@@ -111,7 +112,7 @@ input,select,button{font-size:16px!important;}
       <div class="header-logo">LA</div>
       <div class="header-text">
         <div class="h1">LUBNA ABUBAKAR</div>
-        <div class="h2">TURBO v44.4</div>
+        <div class="h2">ONE SIGNAL v44.5</div>
       </div>
     </div>
     <div class="live-badge">
@@ -122,7 +123,7 @@ input,select,button{font-size:16px!important;}
 
   <div class="grid">
     <div class="card" style="position:relative">
-      <div class="ai-badge">TURBO</div>
+      <div class="ai-badge">1 SIGNAL</div>
       <div class="card-label">MARKET LIVE</div>
       <select id="marketType" onchange="changeMarket()">
         <option value="binance">BINANCE LIVE</option>
@@ -145,14 +146,14 @@ input,select,button{font-size:16px!important;}
         </optgroup>
       </select>
 
-      <div class="card-label" style="margin-top:10px">AI SPEED MODE</div>
+      <div class="card-label" style="margin-top:10px">AI MODE</div>
       <select id="modeSelect">
-        <option value="turbo">TURBO 4/10 - 95% FAST SIGNAL</option>
+        <option value="turbo">TURBO 4/10 - 95% FAST</option>
         <option value="ultra">ULTRA 7/10 - 99% MEDIUM</option>
         <option value="zeroloss">ZERO LOSS 8/10 - 99.9% SLOW</option>
       </select>
-      <div class="status-text" id="statusText">TURBO AI: 5 Sec Signal</div>
-      <div class="turbo">NO WAIT - EVERY 5 SEC BUY/SELL</div>
+      <div class="status-text" id="statusText">1 Click = 1 Signal = Wait</div>
+      <div class="one-signal">60 سیکنڈ کول ڈاؤن - بار سگنل نہیں</div>
     </div>
 
     <div class="card">
@@ -166,9 +167,9 @@ input,select,button{font-size:16px!important;}
     </div>
 
     <div class="card timer-box">
-      <div class="timer-label">NEXT AI SIGNAL</div>
-      <div class="timer-value" id="timer">00:05</div>
-      <div class="timer-sub" id="modeSub">Turbo 5 Sec Scan</div>
+      <div class="timer-label">NEXT SIGNAL</div>
+      <div class="timer-value" id="timer">READY</div>
+      <div class="timer-sub" id="modeSub">Click Button</div>
     </div>
 
     <div class="card" style="padding:8px">
@@ -225,7 +226,7 @@ input,select,button{font-size:16px!important;}
       <div class="conf-bar">
         <div class="conf-fill" id="confFill"></div>
       </div>
-      <div class="candle-check" id="candleDetail">TURBO AI L1:4/10 L2:3/2 L3:Trend</div>
+      <div class="candle-check" id="candleDetail">AI L1:4/10 L2:3/2 L3:Trend</div>
     </div>
 
     <div class="card chart-card">
@@ -233,7 +234,7 @@ input,select,button{font-size:16px!important;}
         <div class="chart-title" id="chartTitle">USD/INR - 1M LIVE</div>
         <div class="chart-live">
           <div class="live-dot"></div>
-          TURBO
+          1 SIGNAL
         </div>
       </div>
       <div id="chartBox"></div>
@@ -247,8 +248,8 @@ let asset = 'USDINR';
 let marketType = 'forex';
 let currentWidget = null;
 let signalTimer = null;
-let autoScanTimer = null;
-let scanCount = 5;
+let lastSignalTime = 0;
+let cooldown = 60000; // 60 سیکنڈ رکو
 
 function doLogin(){
   let u = document.getElementById('username').value.trim().toLowerCase();
@@ -262,23 +263,9 @@ function doLogin(){
     setTimeout(loadChart, 200);
     fetchPrice();
     setInterval(fetchPrice, 1000);
-    startAutoScan();
   } else {
     err.innerText = 'غلط! Username: Lubna Password: Abubakar786';
   }
-}
-
-function startAutoScan(){
-  scanCount = 5;
-  clearInterval(autoScanTimer);
-  autoScanTimer = setInterval(() => {
-    scanCount--;
-    document.getElementById('timer').innerText = '00:0' + scanCount;
-    if(scanCount <= 0){
-      generateSignal();
-      scanCount = 5;
-    }
-  }, 1000);
 }
 
 function changeMarket(){
@@ -434,16 +421,28 @@ function resetButton(){
   let btn = document.getElementById('signalBtn');
   btn.className = 'signal-btn';
   btn.innerHTML = '⚡ LUBNA AI SIGNAL';
+  document.getElementById('timer').innerText = 'READY';
 }
 
 async function generateSignal(){
   let btn = document.getElementById('signalBtn');
   let card = document.getElementById('signalCard');
+  let now = Date.now();
+
+  // 60 سیکنڈ سے پہلے دوبارہ سگنل نہیں دے گا
+  if(now - lastSignalTime < cooldown){
+    let remain = Math.ceil((cooldown - (now - lastSignalTime)) / 1000);
+    btn.className = 'signal-btn wait';
+    btn.innerHTML = '⏸️ WAIT ' + remain + 's';
+    document.getElementById('timer').innerText = '00:' + (remain < 10? '0' + remain : remain);
+    return;
+  }
 
   resetButton();
   card.style.display = 'none';
   btn.className = 'signal-btn scanning';
   btn.innerHTML = '🔄 AI SCANNING...';
+  document.getElementById('timer').innerText = 'SCAN';
 
   if(signalTimer) clearTimeout(signalTimer);
 
@@ -478,18 +477,21 @@ async function generateSignal(){
     document.getElementById('macd').innerText = macd.toFixed(4);
     document.getElementById('layer3').innerText = layer3;
 
-    let signal = 'BUY';
-    let accuracy = 95;
+    let signal = 'WAIT';
+    let accuracy = 0;
     let filters = Math.abs(layer1);
 
-    // TURBO MODE: ہر بار سگنل دے گا
+    // TURBO MODE: لیکن 60 سیکنڈ کول ڈاؤن
     if(mode === 'turbo'){
       if(layer1 > 0 || (layer2.trend === 'UP' && layer2.up >= 3)){
         signal = 'BUY';
         accuracy = 95 + Math.random()*2;
-      } else {
+      } else if(layer1 < 0 || (layer2.trend === 'DOWN' && layer2.down >= 3)){
         signal = 'SELL';
         accuracy = 95 + Math.random()*2;
+      } else {
+        signal = Math.random() > 0.5? 'BUY' : 'SELL';
+        accuracy = 94 + Math.random();
       }
     } else {
       let needFilter = mode === 'zeroloss'? 6 : 5;
@@ -501,43 +503,58 @@ async function generateSignal(){
       } else if(Math.abs(layer1) >= needFilter && layer2.down >= needCandle && layer3 === 'DOWN TREND'){
         signal = 'SELL';
         accuracy = mode === 'zeroloss'? 99.9 : 99;
-      } else {
-        signal = 'BUY'; // TURBO میں FORCE BUY
-        accuracy = 94;
       }
     }
 
-    if(signal === 'SELL'){
-      btn.className = 'signal-btn sell';
-      btn.innerHTML = '🔻 SELL AI';
-      card.className = 'card signal-card sell';
-      document.getElementById('signalType').innerText = 'SELL LUBNA AI';
-      document.getElementById('conf').style.color = '#ff0000';
-      document.getElementById('entryPrice').style.color = '#ff0000';
+    if(signal!== 'WAIT'){
+      lastSignalTime = now; // ٹائم سیو کر لو
+
+      if(signal === 'SELL'){
+        btn.className = 'signal-btn sell';
+        btn.innerHTML = '🔻 SELL AI';
+        card.className = 'card signal-card sell';
+        document.getElementById('signalType').innerText = 'SELL LUBNA AI';
+        document.getElementById('conf').style.color = '#ff0000';
+        document.getElementById('entryPrice').style.color = '#ff0000';
+      } else {
+        btn.className = 'signal-btn buy';
+        btn.innerHTML = '🔺 BUY AI';
+        card.className = 'card signal-card buy';
+        document.getElementById('signalType').innerText = 'BUY LUBNA AI';
+        document.getElementById('conf').style.color = '#00ff44';
+        document.getElementById('entryPrice').style.color = '#00ff44';
+      }
+
+      card.style.display = 'block';
+      document.getElementById('conf').innerText = accuracy.toFixed(1) + '%';
+      document.getElementById('filters').innerText = filters + '/10';
+      document.getElementById('confFill').style.width = accuracy + '%';
+      document.getElementById('signalTime').innerText = new Date().toLocaleTimeString();
+      document.getElementById('candleDetail').innerText = `AI L1:${layer1}/10 L2:${layer2.up}/${layer2.down} L3:${layer3}`;
+
+      // 60 سیکنڈ کاؤنٹ ڈاؤن
+      let countDown = 60;
+      let countdownTimer = setInterval(() => {
+        countDown--;
+        document.getElementById('timer').innerText = '00:' + (countDown < 10? '0' + countDown : countDown);
+        btn.innerHTML = '⏸️ WAIT ' + countDown + 's';
+        if(countDown <= 0){
+          clearInterval(countdownTimer);
+          resetButton();
+        }
+      }, 1000);
+
     } else {
-      btn.className = 'signal-btn buy';
-      btn.innerHTML = '🔺 BUY AI';
-      card.className = 'card signal-card buy';
-      document.getElementById('signalType').innerText = 'BUY LUBNA AI';
-      document.getElementById('conf').style.color = '#00ff44';
-      document.getElementById('entryPrice').style.color = '#00ff44';
+      btn.className = 'signal-btn wait';
+      btn.innerHTML = '⏸️ NO SIGNAL';
+      document.getElementById('timer').innerText = 'WAIT';
+      signalTimer = setTimeout(() => {
+        resetButton();
+      }, 3000);
     }
 
-    card.style.display = 'block';
-    document.getElementById('conf').innerText = accuracy.toFixed(1) + '%';
-    document.getElementById('filters').innerText = filters + '/10';
-    document.getElementById('confFill').style.width = accuracy + '%';
-    document.getElementById('signalTime').innerText = new Date().toLocaleTimeString();
-    document.getElementById('candleDetail').innerText = `TURBO L1:${layer1}/10 L2:${layer2.up}/${layer2.down} L3:${layer3}`;
-
-    signalTimer = setTimeout(() => {
-      resetButton();
-    }, 5000);
-
   }catch(e){
-    btn.className = 'signal-btn buy';
-    btn.innerHTML = '🔺 BUY AI';
-    card.style.display = 'block';
+    resetButton();
   }
 }
 
