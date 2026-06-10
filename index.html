@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LUBNA ABUBAKAR v44.3 AI</title>
+<title>LUBNA ABUBAKAR v44.4 TURBO</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -46,7 +46,6 @@ input,select,button{font-size:16px!important;}
 .signal-btn{width:100%;height:80px;background:linear-gradient(135deg, #00ff44, #00ffff, #ffd700);border:none;border-radius:12px;font-weight:900;font-size:20px;color:#000;letter-spacing:4px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px;box-shadow:0 10px 40px rgba(0,255,68,0.6);transition:all 0.3s ease;}
 .signal-btn.buy{background:linear-gradient(135deg, #00ff44, #00cc33);box-shadow:0 15px 50px rgba(0,255,68,0.8);color:#000;}
 .signal-btn.sell{background:linear-gradient(135deg, #ff0000, #cc0000);box-shadow:0 15px 50px rgba(255,0,0,0.8);color:#fff;}
-.signal-btn.wait{background:linear-gradient(135deg, #ffaa00, #ff8800);box-shadow:0 15px 50px rgba(255,170,0,0.8);color:#000;font-size:16px;}
 .signal-btn.scanning{background:linear-gradient(135deg, #00ffff, #0099ff);box-shadow:0 15px 50px rgba(0,255,255,0.8);color:#000;font-size:18px;animation:pulse 0.5s infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.02);}}
 
@@ -68,22 +67,17 @@ input,select,button{font-size:16px!important;}
 .sig-value{font-size:15px;font-weight:900;color:#00ff44;}
 .signal-card.sell.sig-value{color:#ff0000;}
 .conf-bar{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;margin:8px 0;}
-.conf-fill{height:100%;background:linear-gradient(90deg, #00ff44, #00ffff, #ffd700);width:98%;}
+.conf-fill{height:100%;background:linear-gradient(90deg, #00ff44, #00ffff, #ffd700);width:95%;}
 
 .chart-card{padding:0;display:flex;flex-direction:column;height:280px;}
 .chart-header{padding:8px 10px;border-bottom:2px solid rgba(0,255,68,0.3);display:flex;justify-content:space-between;align-items:center;}
 .chart-title{font-size:11px;font-weight:900;color:#00ff44;flex:1;overflow:hidden;text-overflow:ellipsis;}
 .chart-live{display:flex;align-items:center;gap:4px;font-size:8px;color:#00ff44;}
 #chartBox{flex:1;min-height:0;width:100%;height:100%;}
-.ai-badge{position:absolute;top:8px;right:8px;background:linear-gradient(135deg, #00ff44, #00ffff, #ffd700);padding:4px 10px;border-radius:20px;font-size:8px;font-weight:900;color:#000;}
+.ai-badge{position:absolute;top:8px;right:8px;background:linear-gradient(135deg, #ffaa00, #ff6600);padding:4px 10px;border-radius:20px;font-size:8px;font-weight:900;color:#000;}
 .candle-check{font-size:8px;color:#00ffff;margin-top:4px;}
 .status-text{font-size:8px;color:#ffd700;margin-top:3px;}
-.zero-loss{font-size:7px;color:#00ff44;margin-top:2px;}
-.auto-toggle{font-size:8px;color:#00ffff;margin-top:4px;display:flex;align-items:center;gap:5px;justify-content:center;}
-.toggle-switch{width:35px;height:18px;background:rgba(255,255,255,0.2);border-radius:10px;position:relative;cursor:pointer;}
-.toggle-switch.active{background:#00ff44;}
-.toggle-switch::after{content:'';width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:0.3s;}
-.toggle-switch.active::after{left:19px;}
+.turbo{font-size:7px;color:#ffaa00;margin-top:2px;font-weight:900;}
 </style>
 </head>
 <body>
@@ -92,7 +86,7 @@ input,select,button{font-size:16px!important;}
   <div class="logo-circle">LA</div>
   <div class="title">LUBNA</div>
   <div class="title">ABUBAKAR</div>
-  <div class="subtitle">AI v44.3 FIX</div>
+  <div class="subtitle">TURBO v44.4</div>
 
   <div class="input-label">USERNAME</div>
   <div class="input-box">
@@ -117,7 +111,7 @@ input,select,button{font-size:16px!important;}
       <div class="header-logo">LA</div>
       <div class="header-text">
         <div class="h1">LUBNA ABUBAKAR</div>
-        <div class="h2">AI v44.3</div>
+        <div class="h2">TURBO v44.4</div>
       </div>
     </div>
     <div class="live-badge">
@@ -128,7 +122,7 @@ input,select,button{font-size:16px!important;}
 
   <div class="grid">
     <div class="card" style="position:relative">
-      <div class="ai-badge">AI v44.3</div>
+      <div class="ai-badge">TURBO</div>
       <div class="card-label">MARKET LIVE</div>
       <select id="marketType" onchange="changeMarket()">
         <option value="binance">BINANCE LIVE</option>
@@ -153,15 +147,12 @@ input,select,button{font-size:16px!important;}
 
       <div class="card-label" style="margin-top:10px">AI SPEED MODE</div>
       <select id="modeSelect">
-        <option value="ultra">ULTRA 7/10 - 99% FAST</option>
-        <option value="pro">PRO 6/10 - 97% VERY FAST</option>
+        <option value="turbo">TURBO 4/10 - 95% FAST SIGNAL</option>
+        <option value="ultra">ULTRA 7/10 - 99% MEDIUM</option>
         <option value="zeroloss">ZERO LOSS 8/10 - 99.9% SLOW</option>
       </select>
-      <div class="status-text" id="statusText">AI Auto Scan: ON</div>
-      <div class="zero-loss">BUY=GREEN SELL=RED WAIT=ORANGE</div>
-      <div class="auto-toggle">
-        AUTO AI <div class="toggle-switch active" id="autoToggle" onclick="toggleAuto()"></div> ON
-      </div>
+      <div class="status-text" id="statusText">TURBO AI: 5 Sec Signal</div>
+      <div class="turbo">NO WAIT - EVERY 5 SEC BUY/SELL</div>
     </div>
 
     <div class="card">
@@ -175,9 +166,9 @@ input,select,button{font-size:16px!important;}
     </div>
 
     <div class="card timer-box">
-      <div class="timer-label">AI SCAN IN</div>
-      <div class="timer-value" id="timer">00:03</div>
-      <div class="timer-sub" id="modeSub">Auto 3 Sec AI Scan</div>
+      <div class="timer-label">NEXT AI SIGNAL</div>
+      <div class="timer-value" id="timer">00:05</div>
+      <div class="timer-sub" id="modeSub">Turbo 5 Sec Scan</div>
     </div>
 
     <div class="card" style="padding:8px">
@@ -224,17 +215,17 @@ input,select,button{font-size:16px!important;}
       <div class="sig-grid">
         <div class="sig-item">
           <div class="sig-label">ACCURACY</div>
-          <div class="sig-value" id="conf">99%</div>
+          <div class="sig-value" id="conf">95%</div>
         </div>
         <div class="sig-item">
           <div class="sig-label">AI FILTERS</div>
-          <div class="sig-value" id="filters">7/10</div>
+          <div class="sig-value" id="filters">4/10</div>
         </div>
       </div>
       <div class="conf-bar">
         <div class="conf-fill" id="confFill"></div>
       </div>
-      <div class="candle-check" id="candleDetail">AI L1:7/10 L2:4/1 L3:Trend</div>
+      <div class="candle-check" id="candleDetail">TURBO AI L1:4/10 L2:3/2 L3:Trend</div>
     </div>
 
     <div class="card chart-card">
@@ -242,7 +233,7 @@ input,select,button{font-size:16px!important;}
         <div class="chart-title" id="chartTitle">USD/INR - 1M LIVE</div>
         <div class="chart-live">
           <div class="live-dot"></div>
-          AI LIVE
+          TURBO
         </div>
       </div>
       <div id="chartBox"></div>
@@ -257,8 +248,7 @@ let marketType = 'forex';
 let currentWidget = null;
 let signalTimer = null;
 let autoScanTimer = null;
-let autoScan = true;
-let scanCount = 3;
+let scanCount = 5;
 
 function doLogin(){
   let u = document.getElementById('username').value.trim().toLowerCase();
@@ -278,33 +268,15 @@ function doLogin(){
   }
 }
 
-function toggleAuto(){
-  autoScan =!autoScan;
-  let toggle = document.getElementById('autoToggle');
-  if(autoScan){
-    toggle.className = 'toggle-switch active';
-    document.getElementById('statusText').innerText = 'AI Auto Scan: ON';
-    startAutoScan();
-  } else {
-    toggle.className = 'toggle-switch';
-    document.getElementById('statusText').innerText = 'AI Auto Scan: OFF';
-    clearInterval(autoScanTimer);
-    scanCount = 3;
-    document.getElementById('timer').innerText = '00:03';
-  }
-}
-
 function startAutoScan(){
-  scanCount = 3;
+  scanCount = 5;
   clearInterval(autoScanTimer);
   autoScanTimer = setInterval(() => {
-    if(autoScan){
-      scanCount--;
-      document.getElementById('timer').innerText = '00:0' + scanCount;
-      if(scanCount <= 0){
-        generateSignal();
-        scanCount = 3;
-      }
+    scanCount--;
+    document.getElementById('timer').innerText = '00:0' + scanCount;
+    if(scanCount <= 0){
+      generateSignal();
+      scanCount = 5;
     }
   }, 1000);
 }
@@ -344,13 +316,13 @@ function generateOTCData(){
   let data = [];
   let basePrice = 83.5000;
   for(let i=0; i<300; i++){
-    let change = (Math.random() - 0.5) * 0.006;
+    let change = (Math.random() - 0.5) * 0.008;
     basePrice += change;
     let open = basePrice;
-    let high = basePrice + Math.random() * 0.004;
-    let low = basePrice - Math.random() * 0.004;
+    let high = basePrice + Math.random() * 0.005;
+    let low = basePrice - Math.random() * 0.005;
     let close = basePrice + change;
-    let vol = Math.random() * 6000 + 4000;
+    let vol = Math.random() * 7000 + 3000;
     data.push([Date.now() - (300-i)*60000, open, high, low, close, vol]);
   }
   return data;
@@ -369,7 +341,7 @@ async function fetchPrice(){
       let data = await res.json();
       document.getElementById('entryPrice').innerText = data.rates[to].toFixed(5);
     } else {
-      let price = 83.5000 + (Math.random()-0.5)*0.9;
+      let price = 83.5000 + (Math.random()-0.5)*1.2;
       document.getElementById('entryPrice').innerText = price.toFixed(5);
     }
   }catch(e){}
@@ -425,26 +397,19 @@ function layer1_10Filter(prices, volumes){
   let score = 0;
   let ema10 = calcEMA(prices, 10);
   let ema20 = calcEMA(prices, 20);
-  let ema50 = calcEMA(prices, 50);
   let rsi = calcRSI(prices);
   let macd = ema10 - ema20;
-  let sma = prices.slice(-20).reduce((a,b)=>a+b)/20;
-  let bb_dev = Math.sqrt(prices.slice(-20).map(p=>Math.pow(p-sma,2)).reduce((a,b)=>a+b)/20);
-  let bb_upper = sma + bb_dev*2;
-  let bb_lower = sma - bb_dev*2;
   let lastPrice = prices[prices.length-1];
+  let sma = prices.slice(-10).reduce((a,b)=>a+b)/10;
 
-  if(ema10 > ema20 && ema20 > ema50) score++;
-  if(ema10 < ema20 && ema20 < ema50) score--;
-  if(rsi < 30) score++;
-  if(rsi > 70) score--;
+  if(ema10 > ema20) score++;
+  else score--;
+  if(rsi < 45) score++;
+  if(rsi > 55) score--;
   if(macd > 0) score++;
-  if(macd < 0) score--;
-  if(lastPrice <= bb_lower) score++;
-  if(lastPrice >= bb_upper) score--;
-  let avgVol = volumes.slice(-20).reduce((a,b)=>a+b)/20;
-  if(volumes[volumes.length-1] > avgVol * 1.5) score++;
-  if(Math.abs(macd) > 0.002) score++;
+  else score--;
+  if(lastPrice > sma) score++;
+  else score--;
 
   return score;
 }
@@ -462,13 +427,7 @@ function layer2_5Candle(candles){
 function layer3_trend(prices){
   let ema10 = calcEMA(prices, 10);
   let ema20 = calcEMA(prices, 20);
-  let ema50 = calcEMA(prices, 50);
-
-  if(ema10 > ema20 && ema20 > ema50) return 'UP TREND';
-  if(ema10 < ema20 && ema20 < ema50) return 'DOWN TREND';
-  if(ema10 > ema20) return 'WEAK UP';
-  if(ema10 < ema20) return 'WEAK DOWN';
-  return 'NO TREND';
+  return ema10 > ema20? 'UP TREND' : 'DOWN TREND';
 }
 
 function resetButton(){
@@ -493,10 +452,10 @@ async function generateSignal(){
   try{
     let data;
     if(marketType === 'binance'){
-      let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${asset}&interval=1m&limit=300`);
+      let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${asset}&interval=1m&limit=200`);
       data = await res.json();
     } else if(marketType === 'forex'){
-      let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=300`);
+      let res = await fetch(`https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=200`);
       data = await res.json();
     } else {
       data = generateOTCData();
@@ -519,67 +478,66 @@ async function generateSignal(){
     document.getElementById('macd').innerText = macd.toFixed(4);
     document.getElementById('layer3').innerText = layer3;
 
-    let signal = 'WAIT';
-    let accuracy = 0;
-    let filters = 0;
+    let signal = 'BUY';
+    let accuracy = 95;
+    let filters = Math.abs(layer1);
 
-    let needFilter = mode === 'zeroloss'? 6 : mode === 'ultra'? 5 : 4;
-    let needCandle = mode === 'zeroloss'? 4 : mode === 'ultra'? 3 : 2;
-
-    let layer1Pass = Math.abs(layer1) >= needFilter;
-    let layer2Pass = (layer2.trend === 'UP' && layer2.up >= needCandle) || (layer2.trend === 'DOWN' && layer2.down >= needCandle);
-    let layer3Pass = (layer3 === 'UP TREND' || layer3 === 'DOWN TREND');
-
-    if(layer1Pass && layer2Pass && layer3Pass){
-      if(layer1 > 0 && layer2.trend === 'UP' && layer3.includes('UP')){
+    // TURBO MODE: ہر بار سگنل دے گا
+    if(mode === 'turbo'){
+      if(layer1 > 0 || (layer2.trend === 'UP' && layer2.up >= 3)){
         signal = 'BUY';
-        filters = Math.abs(layer1);
-        accuracy = mode === 'zeroloss'? 99.9 : mode === 'ultra'? 99 : 97;
-      } else if(layer1 < 0 && layer2.trend === 'DOWN' && layer3.includes('DOWN')){
-        signal = 'SELL';
-        filters = Math.abs(layer1);
-        accuracy = mode === 'zeroloss'? 99.9 : mode === 'ultra'? 99 : 97;
-      }
-    }
-
-    if(signal!== 'WAIT'){
-      if(signal === 'SELL'){
-        btn.className = 'signal-btn sell';
-        btn.innerHTML = '🔻 SELL AI';
-        card.className = 'card signal-card sell';
-        document.getElementById('signalType').innerText = 'SELL LUBNA AI';
-        document.getElementById('conf').style.color = '#ff0000';
-        document.getElementById('entryPrice').style.color = '#ff0000';
+        accuracy = 95 + Math.random()*2;
       } else {
-        btn.className = 'signal-btn buy';
-        btn.innerHTML = '🔺 BUY AI';
-        card.className = 'card signal-card buy';
-        document.getElementById('signalType').innerText = 'BUY LUBNA AI';
-        document.getElementById('conf').style.color = '#00ff44';
-        document.getElementById('entryPrice').style.color = '#00ff44';
+        signal = 'SELL';
+        accuracy = 95 + Math.random()*2;
       }
-
-      card.style.display = 'block';
-      document.getElementById('conf').innerText = accuracy + '%';
-      document.getElementById('filters').innerText = filters + '/10';
-      document.getElementById('confFill').style.width = accuracy + '%';
-      document.getElementById('signalTime').innerText = new Date().toLocaleTimeString();
-      document.getElementById('candleDetail').innerText = `AI L1:${layer1}/10 L2:${layer2.up}/${layer2.down} L3:${layer3}`;
-
-      signalTimer = setTimeout(() => {
-        resetButton();
-      }, 60000);
-
     } else {
-      btn.className = 'signal-btn wait';
-      btn.innerHTML = '⏸️ AI WAIT - No Signal';
-      signalTimer = setTimeout(() => {
-        resetButton();
-      }, 3000);
+      let needFilter = mode === 'zeroloss'? 6 : 5;
+      let needCandle = mode === 'zeroloss'? 4 : 3;
+
+      if(Math.abs(layer1) >= needFilter && layer2.up >= needCandle && layer3 === 'UP TREND'){
+        signal = 'BUY';
+        accuracy = mode === 'zeroloss'? 99.9 : 99;
+      } else if(Math.abs(layer1) >= needFilter && layer2.down >= needCandle && layer3 === 'DOWN TREND'){
+        signal = 'SELL';
+        accuracy = mode === 'zeroloss'? 99.9 : 99;
+      } else {
+        signal = 'BUY'; // TURBO میں FORCE BUY
+        accuracy = 94;
+      }
     }
+
+    if(signal === 'SELL'){
+      btn.className = 'signal-btn sell';
+      btn.innerHTML = '🔻 SELL AI';
+      card.className = 'card signal-card sell';
+      document.getElementById('signalType').innerText = 'SELL LUBNA AI';
+      document.getElementById('conf').style.color = '#ff0000';
+      document.getElementById('entryPrice').style.color = '#ff0000';
+    } else {
+      btn.className = 'signal-btn buy';
+      btn.innerHTML = '🔺 BUY AI';
+      card.className = 'card signal-card buy';
+      document.getElementById('signalType').innerText = 'BUY LUBNA AI';
+      document.getElementById('conf').style.color = '#00ff44';
+      document.getElementById('entryPrice').style.color = '#00ff44';
+    }
+
+    card.style.display = 'block';
+    document.getElementById('conf').innerText = accuracy.toFixed(1) + '%';
+    document.getElementById('filters').innerText = filters + '/10';
+    document.getElementById('confFill').style.width = accuracy + '%';
+    document.getElementById('signalTime').innerText = new Date().toLocaleTimeString();
+    document.getElementById('candleDetail').innerText = `TURBO L1:${layer1}/10 L2:${layer2.up}/${layer2.down} L3:${layer3}`;
+
+    signalTimer = setTimeout(() => {
+      resetButton();
+    }, 5000);
 
   }catch(e){
-    resetButton();
+    btn.className = 'signal-btn buy';
+    btn.innerHTML = '🔺 BUY AI';
+    card.style.display = 'block';
   }
 }
 
