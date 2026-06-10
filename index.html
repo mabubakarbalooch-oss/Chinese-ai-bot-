@@ -2,50 +2,139 @@
 <html lang="ur">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --yellow:#ffd700;
   --yellow-glow:rgba(255,215,0,0.4);
   --black:#000;
-  --dark:#0a0a0a;
-  --card:#111;
   --green:#00ff44;
   --red:#ff3333;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
+html,body{
   background:var(--black);
   color:white;
   font-family:'Poppins',sans-serif;
-  padding:10px;
-  min-height:100vh;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
 }
 
-.container{
-  max-width:420px;
-  margin:0 auto;
+/* LOGIN SCREEN */
+.login-wrapper{
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+.login-card{
+  width:100%;
+  max-width:380px;
+  background:linear-gradient(145deg,#141414,#080808);
+  border:2px solid var(--yellow);
+  border-radius:20px;
+  padding:35px 25px;
+  box-shadow:0 0 50px var(--yellow-glow);
+}
+.login-logo{
+  width:80px;
+  height:80px;
+  margin:0 auto 20px;
+  background:linear-gradient(135deg,var(--yellow),#ffaa00);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:35px;
+  color:var(--black);
+  box-shadow:0 0 30px var(--yellow-glow);
+}
+.login-header h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:22px;
+  color:var(--yellow);
+  text-align:center;
+  letter-spacing:2px;
+  margin-bottom:5px;
+}
+.login-header p{
+  text-align:center;
+  font-size:11px;
+  color:#888;
+  letter-spacing:3px;
+  margin-bottom:25px;
+}
+.input-group{margin-bottom:18px}
+.input-group label{
+  font-size:10px;
+  color:#999;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-weight:700;
+  margin-bottom:6px;
+  display:block;
+}
+.input-box input{
+  width:100%;
+  padding:14px;
+  background:#080808;
+  border:1.5px solid rgba(255,215,0,0.3);
+  border-radius:12px;
+  color:var(--yellow);
+  font-size:14px;
+  font-weight:700;
+  outline:none;
+}
+.unlock-btn{
+  width:100%;
+  padding:16px;
+  background:linear-gradient(135deg,var(--yellow),#ffaa00);
+  border:none;
+  border-radius:12px;
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:14px;
+  color:var(--black);
+  letter-spacing:3px;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+/* MAIN SCREEN */
+.main-wrapper{
+  width:100%;
+  height:100vh;
+  display:none;
+  flex-direction:column;
+  padding:8px;
+  overflow-y:auto;
 }
 
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:15px;
+  margin-bottom:10px;
+  flex-shrink:0;
 }
 
 .logo{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:8px;
 }
 
 .logo-box{
-  width:45px;
-  height:45px;
+  width:42px;
+  height:42px;
   background:linear-gradient(135deg,var(--yellow),#ffaa00);
   border-radius:12px;
   display:flex;
@@ -53,156 +142,158 @@ body{
   justify-content:center;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:20px;
+  font-size:18px;
   color:var(--black);
   box-shadow:0 0 20px var(--yellow-glow);
 }
 
 .brand h1{
   font-family:'Orbitron',sans-serif;
-  font-size:16px;
+  font-size:14px;
   color:var(--yellow);
-  letter-spacing:2px;
-  text-shadow:0 0 10px var(--yellow-glow);
+  letter-spacing:1.5px;
 }
 .brand p{
-  font-size:10px;
-  color:#888;
-  letter-spacing:1px;
+  font-size:9px;
+  color:#999;
+  letter-spacing:1.5px;
 }
 
 .live-badge{
   display:flex;
   align-items:center;
-  gap:6px;
-  padding:8px 15px;
-  background:rgba(255,215,0,0.1);
-  border:1px solid var(--yellow);
+  gap:5px;
+  padding:6px 12px;
+  background:rgba(255,215,0,0.08);
+  border:1.5px solid var(--yellow);
   border-radius:50px;
-  font-size:11px;
-  font-weight:700;
+  font-size:10px;
+  font-weight:900;
   color:var(--yellow);
   font-family:'Orbitron',sans-serif;
 }
 .live-dot{
-  width:8px;
-  height:8px;
+  width:7px;
+  height:7px;
   background:var(--green);
   border-radius:50%;
-  box-shadow:0 0 10px var(--green);
   animation:blink 1s infinite;
 }
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 
 .card{
-  background:linear-gradient(145deg,#141414,#0a0a0a);
-  border:1px solid rgba(255,215,0,0.2);
+  background:linear-gradient(145deg,#141414,#080808);
+  border:1.5px solid rgba(255,215,0,0.25);
   border-radius:16px;
-  padding:12px;
-  margin-bottom:10px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  padding:10px 12px;
+  margin-bottom:8px;
+  flex-shrink:0;
 }
 
 .label{
-  font-size:9px;
-  color:#888;
+  font-size:8px;
+  color:#999;
   text-transform:uppercase;
   letter-spacing:2px;
   font-weight:700;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 select{
   width:100%;
-  padding:12px;
-  background:#0a0a0a;
-  border:1px solid rgba(255,215,0,0.3);
+  padding:11px;
+  background:#080808;
+  border:1.5px solid rgba(255,215,0,0.3);
   border-radius:10px;
   color:var(--yellow);
-  font-size:13px;
-  font-weight:600;
+  font-size:12px;
+  font-weight:700;
   outline:none;
 }
 
 .grid-2{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:8px;
 }
 
 .timer-box{
   text-align:center;
-  padding:15px;
+  padding:14px 8px;
 }
-.timer-box.label{text-align:center}
+.timer-label{
+  font-size:8px;
+  color:#999;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-weight:700;
+  margin-bottom:6px;
+}
 .timer-value{
   font-family:'Orbitron',sans-serif;
-  font-size:36px;
+  font-size:32px;
   font-weight:900;
   color:var(--yellow);
   text-shadow:0 0 20px var(--yellow-glow);
   line-height:1;
+  letter-spacing:2px;
 }
 .timer-sub{
-  font-size:9px;
+  font-size:8px;
   color:#666;
   margin-top:4px;
 }
 
 .get-btn{
   width:100%;
-  padding:20px;
+  padding:18px;
   background:linear-gradient(135deg,var(--yellow),#ffaa00);
   border:none;
   border-radius:16px;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:16px;
+  font-size:15px;
   color:var(--black);
   letter-spacing:3px;
   cursor:pointer;
-  box-shadow:0 10px 30px rgba(255,215,0,0.3);
-  transition:all 0.3s;
+  box-shadow:0 10px 30px rgba(255,215,0,0.4);
 }
-.get-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 15px 40px rgba(255,215,0,0.5);
-}
-.get-btn:disabled{opacity:0.5;cursor:not-allowed}
+.get-btn:disabled{opacity:0.6}
 
 .indicator-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:8px;
+  gap:6px;
 }
 .ind-box{
-  background:#0a0a0a;
-  border:1px solid rgba(255,215,0,0.1);
+  background:#080808;
+  border:1.5px solid rgba(255,215,0,0.15);
   border-radius:10px;
-  padding:10px;
+  padding:8px 6px;
   text-align:center;
 }
 .ind-label{
-  font-size:8px;
-  color:#666;
+  font-size:7px;
+  color:#777;
   text-transform:uppercase;
   letter-spacing:1px;
-  margin-bottom:5px;
+  margin-bottom:4px;
+  font-weight:700;
 }
 .ind-value{
   font-family:'Orbitron',sans-serif;
-  font-size:14px;
-  font-weight:700;
+  font-size:13px;
+  font-weight:900;
   color:var(--yellow);
 }
 
 .signal-card{
   background:linear-gradient(145deg,#1a0a0a,#0a0505);
-  border:2px solid var(--red);
+  border:2.5px solid var(--red);
   border-radius:16px;
   padding:12px;
   display:none;
-  animation:pop 0.4s ease;
+  animation:pop 0.5s ease;
 }
 @keyframes pop{
  0%{transform:scale(0.9);opacity:0}
@@ -221,50 +312,52 @@ select{
 .signal-badge{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:6px;
   padding:6px 14px;
   border-radius:50px;
-  background:rgba(255,51,51,0.2);
-  border:1px solid var(--red);
+  background:rgba(255,51,51,0.25);
+  border:2px solid var(--red);
   color:var(--red);
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:14px;
+  font-size:13px;
   letter-spacing:2px;
 }
 .signal-card.buy.signal-badge{
-  background:rgba(0,255,68,0.2);
+  background:rgba(0,255,68,0.25);
   border-color:var(--green);
   color:var(--green);
 }
 .signal-time{
-  font-size:10px;
-  color:#666;
+  font-size:9px;
+  color:#777;
+  font-weight:600;
 }
 
 .signal-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:8px;
+  gap:6px;
   margin-bottom:10px;
 }
 .sig-item{
-  background:#0a0a0a;
-  border:1px solid rgba(255,215,0,0.1);
+  background:#080808;
+  border:1.5px solid rgba(255,215,0,0.15);
   border-radius:10px;
   padding:8px;
   text-align:center;
 }
 .sig-label{
-  font-size:8px;
-  color:#666;
+  font-size:7px;
+  color:#777;
   text-transform:uppercase;
   letter-spacing:1px;
   margin-bottom:4px;
+  font-weight:700;
 }
 .sig-value{
   font-family:'Orbitron',sans-serif;
-  font-size:16px;
+  font-size:15px;
   font-weight:900;
   color:var(--red);
 }
@@ -272,7 +365,7 @@ select{
 
 .conf-bar{
   height:5px;
-  background:#0a0a0a;
+  background:#080808;
   border-radius:3px;
   overflow:hidden;
   margin:8px 0;
@@ -281,27 +374,29 @@ select{
   height:100%;
   background:linear-gradient(90deg,var(--red),#ff6666);
   width:0%;
-  transition:width 1s ease;
-}
-.signal-card.buy.conf-fill{
-  background:linear-gradient(90deg,var(--green),#66ff88);
+  transition:width 1.2s ease-out;
 }
 
 .chart-card{
   padding:0;
   overflow:hidden;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-height:160px;
 }
 .chart-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:10px 12px;
-  border-bottom:1px solid rgba(255,215,0,0.1);
+  border-bottom:1.5px solid rgba(255,215,0,0.15);
+  flex-shrink:0;
 }
 .chart-title{
   font-family:'Orbitron',sans-serif;
   font-size:11px;
-  font-weight:700;
+  font-weight:900;
   color:var(--yellow);
   letter-spacing:1px;
 }
@@ -309,148 +404,187 @@ select{
   display:flex;
   align-items:center;
   gap:5px;
-  font-size:9px;
+  font-size:8px;
   color:var(--green);
-  font-weight:700;
+  font-weight:900;
 }
 
 #chart{
   width:100%;
-  height:180px;
-  background:#050505;
+  flex:1;
+  display:block;
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-
-<div class="header">
-  <div class="logo">
-    <div class="logo-box">LA</div>
-    <div class="brand">
+<!-- LOGIN SCREEN -->
+<div class="login-wrapper" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">LA</div>
+    <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
       <p>SIGNAL PRO</p>
     </div>
-  </div>
-  <div class="live-badge">
-    <div class="live-dot"></div>
-    <span>LIVE</span>
+    <div class="input-group">
+      <label>Username</label>
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Enter username" value="Lubna">
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Password</label>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Enter password" value="pro123">
+      </div>
+    </div>
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK SYSTEM</button>
   </div>
 </div>
 
-<div class="card">
-  <div class="label">MARKET</div>
-  <select id="broker" onchange="updatePairs()">
-    <option value="quotex">📱 Quotex OTC</option>
-    <option value="pocket">📱 Pocket OTC</option>
-    <option value="binance">₿ Binance Crypto</option>
-  </select>
+<!-- MAIN SCREEN -->
+<div class="main-wrapper" id="mainScreen">
 
-  <div class="label" style="margin-top:10px">PAIR</div>
-  <select id="pair" onchange="onPairChange()">
-    <option value="EURUSD-OTC">💱 EUR/USD OTC</option>
-  </select>
-
-  <div class="label" style="margin-top:10px">TIMEFRAME</div>
-  <select id="tf" onchange="onTfChange()">
-    <option value="15m" selected>15 Minutes</option>
-    <option value="5m">5 Minutes</option>
-    <option value="1m">1 Minute</option>
-  </select>
-</div>
-
-<div class="grid-2">
-  <div class="card timer-box">
-    <div class="label">NEXT CANDLE</div>
-    <div class="timer-value" id="timer">14:52</div>
-    <div class="timer-sub">Signal = 1 Candle Only</div>
-  </div>
-
-  <div class="card" style="padding:8px;display:flex;align-items:center">
-    <button class="get-btn" id="btn" onclick="getSignal()">🔮 GET SIGNAL</button>
-  </div>
-</div>
-
-<div class="grid-2">
-  <div class="card">
-    <div class="label">INDICATORS</div>
-    <div class="indicator-grid">
-      <div class="ind-box">
-        <div class="ind-label">RSI 14</div>
-        <div class="ind-value" id="rsi">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">EMA</div>
-        <div class="ind-value" id="ema">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">MACD</div>
-        <div class="ind-value" id="macd">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">TREND</div>
-        <div class="ind-value" id="trend">--</div>
+  <div class="header">
+    <div class="logo">
+      <div class="logo-box">LA</div>
+      <div class="brand">
+        <h1>LUBNA ABUBAKAR</h1>
+        <p>SIGNAL PRO</p>
       </div>
     </div>
-  </div>
-
-  <div class="signal-card" id="signalCard">
-    <div class="signal-header">
-      <div class="signal-badge" id="badge">
-        <span>📉</span>
-        <span id="sigText">SELL</span>
-      </div>
-      <div class="signal-time" id="sigTime">17:15:45</div>
-    </div>
-
-    <div class="signal-grid">
-      <div class="sig-item">
-        <div class="sig-label">ENTRY</div>
-        <div class="sig-value" id="entry">1.08091</div>
-      </div>
-      <div class="sig-item">
-        <div class="sig-label">EXPIRY</div>
-        <div class="sig-value">1 Candle</div>
-      </div>
-      <div class="sig-item">
-        <div class="sig-label">CONFIDENCE</div>
-        <div class="sig-value" id="conf">94%</div>
-      </div>
-      <div class="sig-item">
-        <div class="sig-label">STRENGTH</div>
-        <div class="sig-value" id="strength">STRONG</div>
-      </div>
-    </div>
-
-    <div class="conf-bar">
-      <div class="conf-fill" id="confBar"></div>
-    </div>
-  </div>
-</div>
-
-<div class="card chart-card">
-  <div class="chart-header">
-    <div class="chart-title" id="chartTitle">EUR/USD OTC - 15M</div>
-    <div class="chart-status">
+    <div class="live-badge">
       <div class="live-dot"></div>
-      LIVE
+      <span>LIVE</span>
     </div>
   </div>
-  <canvas id="chart"></canvas>
-</div>
+
+  <div class="card">
+    <div class="label">MARKET</div>
+    <select id="broker" onchange="updatePairs()">
+      <option value="quotex">📱 Quotex OTC</option>
+      <option value="pocket">📱 Pocket OTC</option>
+      <option value="binance">₿ Binance Crypto</option>
+    </select>
+
+    <div class="label" style="margin-top:10px">PAIR</div>
+    <select id="pair" onchange="onPairChange()">
+      <option value="EURUSD-OTC">💱 EUR/USD OTC</option>
+    </select>
+
+    <div class="label" style="margin-top:10px">TIMEFRAME</div>
+    <select id="tf" onchange="onTfChange()">
+      <option value="15m" selected>15 Minutes</option>
+      <option value="5m">5 Minutes</option>
+      <option value="1m">1 Minute</option>
+    </select>
+  </div>
+
+  <div class="grid-2">
+    <div class="card timer-box">
+      <div class="timer-label">NEXT CANDLE</div>
+      <div class="timer-value" id="timer">14:52</div>
+      <div class="timer-sub">Signal = 1 Candle Only</div>
+    </div>
+
+    <div class="card" style="padding:6px;display:flex;align-items:center">
+      <button class="get-btn" id="btn" onclick="getSignal()">🔮 GET SIGNAL</button>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="label">INDICATORS</div>
+      <div class="indicator-grid">
+        <div class="ind-box">
+          <div class="ind-label">RSI 14</div>
+          <div class="ind-value" id="rsi">--</div>
+        </div>
+        <div class="ind-box">
+          <div class="ind-label">EMA</div>
+          <div class="ind-value" id="ema">--</div>
+        </div>
+        <div class="ind-box">
+          <div class="ind-label">MACD</div>
+          <div class="ind-value" id="macd">--</div>
+        </div>
+        <div class="ind-box">
+          <div class="ind-label">TREND</div>
+          <div class="ind-value" id="trend">--</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal-card" id="signalCard">
+      <div class="signal-header">
+        <div class="signal-badge" id="badge">
+          <span>📉</span>
+          <span id="sigText">SELL</span>
+        </div>
+        <div class="signal-time" id="sigTime">17:15:45</div>
+      </div>
+
+      <div class="signal-grid">
+        <div class="sig-item">
+          <div class="sig-label">ENTRY</div>
+          <div class="sig-value" id="entry">1.08091</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-label">EXPIRY</div>
+          <div class="sig-value">1 Candle</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-label">CONFIDENCE</div>
+          <div class="sig-value" id="conf">94%</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-label">STRENGTH</div>
+          <div class="sig-value" id="strength">STRONG</div>
+        </div>
+      </div>
+
+      <div class="conf-bar">
+        <div class="conf-fill" id="confBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card chart-card">
+    <div class="chart-header">
+      <div class="chart-title" id="chartTitle">EUR/USD OTC - 15M</div>
+      <div class="chart-status">
+        <div class="live-dot"></div>
+        LIVE
+      </div>
+    </div>
+    <canvas id="chart"></canvas>
+  </div>
 
 </div>
 
 <script>
 let candleData = [];
-let candleSeconds = 900; // 15 min
+let candleSeconds = 900;
 let activeSignal = null;
 
+function doLogin(){
+  let u = document.getElementById('username').value.trim();
+  let p = document.getElementById('password').value.trim();
+
+  if(u === 'Lubna' && p === 'pro123'){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainScreen').style.display = 'flex';
+    updatePairs();
+    startTimer();
+  } else {
+    alert('غلط! Username: Lubna Password: pro123');
+  }
+}
+
 const pairs = {
-  quotex: ["EURUSD-OTC","GBPUSD-OTC","USDJPY-OTC","AUDUSD-OTC","USDCAD-OTC","EURGBP-OTC"],
+  quotex: ["EURUSD-OTC","GBPUSD-OTC","USDJPY-OTC","AUDUSD-OTC","USDCAD-OTC"],
   pocket: ["EURUSD-OTC","GBPUSD-OTC","USDJPY-OTC","AUDUSD-OTC"],
-  binance: ["BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT","XRPUSDT"]
+  binance: ["BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT"]
 };
 
 function updatePairs(){
@@ -506,7 +640,6 @@ function updateIndicators(){
 
   const closes = candleData.map(c => c.c);
 
-  // RSI 14
   let gains = 0, losses = 0;
   for(let i = candleData.length - 14; i < candleData.length; i++){
     let diff = closes[i] - closes[i-1];
@@ -518,7 +651,6 @@ function updateIndicators(){
   document.getElementById('rsi').textContent = rsi.toFixed(1);
   document.getElementById('rsi').style.color = rsi > 70? 'var(--red)' : rsi < 30? 'var(--green)' : 'var(--yellow)';
 
-  // EMA 9 vs 21
   function ema(arr, period){
     let k = 2/(period+1);
     let ema = [arr[0]];
@@ -529,12 +661,12 @@ function updateIndicators(){
   }
   let ema9 = ema(closes, 9);
   let ema21 = ema(closes, 21);
-  document.getElementById('ema').textContent = ema9 > ema21? 'BULL ▲' : 'BEAR ▼';
-  document.getElementById('ema').style.color = ema9 > ema21? 'var(--green)' : 'var(--red)';
-  document.getElementById('trend').textContent = ema9 > ema21? 'UP' : 'DOWN';
-  document.getElementById('trend').style.color = ema9 > ema21? 'var(--green)' : 'var(--red)';
+  let bullish = ema9 > ema21;
+  document.getElementById('ema').textContent = bullish? 'BULL ▲' : 'BEAR ▼';
+  document.getElementById('ema').style.color = bullish? 'var(--green)' : 'var(--red)';
+  document.getElementById('trend').textContent = bullish? 'UP' : 'DOWN';
+  document.getElementById('trend').style.color = bullish? 'var(--green)' : 'var(--red)';
 
-  // MACD simplified
   let macd = ema9 - ema21;
   document.getElementById('macd').textContent = macd > 0? '+' + macd.toFixed(4) : macd.toFixed(4);
   document.getElementById('macd').style.color = macd > 0? 'var(--green)' : 'var(--red)';
@@ -555,30 +687,23 @@ function getSignal(){
     let body2 = Math.abs(c2.c - c2.o);
 
     let isBuy = false;
-    let conf = 70;
-    let reason = '';
+    let conf = 72;
 
-    // 2 CANDLE AI LOGIC
     if(!c1Bull && c2Bull && c2.c > c1.o && body2 > body1 * 1.3){
       isBuy = true;
       conf = 94;
-      reason = 'Bullish Engulfing';
     } else if(c1Bull &&!c2Bull && c2.c < c1.o && body2 > body1 * 1.3){
       isBuy = false;
       conf = 94;
-      reason = 'Bearish Engulfing';
     } else if(c1Bull && c2Bull){
       isBuy = true;
-      conf = 82;
-      reason = '2 Green Candles';
+      conf = 84;
     } else if(!c1Bull &&!c2Bull){
       isBuy = false;
-      conf = 82;
-      reason = '2 Red Candles';
+      conf = 84;
     } else {
       isBuy = c2Bull;
-      conf = 72;
-      reason = 'C2 Momentum';
+      conf = 75;
     }
 
     const now = new Date();
@@ -610,14 +735,14 @@ function getSignal(){
 
     document.getElementById('btn').disabled = false;
 
-  }, 1500);
+  }, 1000);
 }
 
 function drawChart(){
   const canvas = document.getElementById('chart');
   const ctx = canvas.getContext('2d');
   const w = canvas.parentElement.clientWidth;
-  const h = 180;
+  const h = canvas.parentElement.clientHeight;
   canvas.width = w;
   canvas.height = h;
 
@@ -625,12 +750,12 @@ function drawChart(){
 
   if(candleData.length < 2) return;
 
-  const visible = candleData.slice(-30);
+  const visible = candleData.slice(-25);
   const min = Math.min(...visible.map(c => c.l));
   const max = Math.max(...visible.map(c => c.h));
   const range = max - min || 1;
   const spacing = w / visible.length;
-  const candleW = spacing * 0.7;
+  const candleW = spacing * 0.6;
 
   visible.forEach((c, i) => {
     const x = i * spacing + spacing / 2;
@@ -644,29 +769,15 @@ function drawChart(){
     ctx.fillStyle = isGreen? '#00ff44' : '#ff3333';
     ctx.lineWidth = 2;
 
-    // Wick
     ctx.beginPath();
     ctx.moveTo(x, hY);
     ctx.lineTo(x, lY);
     ctx.stroke();
 
-    // Body
     const bodyH = Math.abs(cY - oY);
     const bodyY = Math.min(oY, cY);
     ctx.fillRect(x - candleW/2, bodyY, candleW, Math.max(2, bodyH));
   });
-
-  // Signal line
-  if(activeSignal){
-    const markerY = h - ((activeSignal.entry - min) / range) * h * 0.8;
-    ctx.strokeStyle = activeSignal.type === 'buy'? 'rgba(0,255,68,0.5)' : 'rgba(255,51,51,0.5)';
-    ctx.setLineDash([5,5]);
-    ctx.beginPath();
-    ctx.moveTo(0, markerY);
-    ctx.lineTo(w, markerY);
-    ctx.stroke();
-    ctx.setLineDash([]);
-  }
 }
 
 function startTimer(){
@@ -689,9 +800,6 @@ function resetSignal(){
   document.getElementById('signalCard').style.display = 'none';
   activeSignal = null;
 }
-
-updatePairs();
-startTimer();
 </script>
 </body>
 </html>
