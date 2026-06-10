@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LUBNA ABUBAKAR v44.1 NO ALERT</title>
+<title>LUBNA ABUBAKAR v44.2 FAST</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -47,6 +47,8 @@ input,select,button{font-size:16px!important;}
 .signal-btn.buy{background:linear-gradient(135deg, #00ff44, #00cc33);box-shadow:0 15px 50px rgba(0,255,68,0.8);color:#000;}
 .signal-btn.sell{background:linear-gradient(135deg, #ff0000, #cc0000);box-shadow:0 15px 50px rgba(255,0,0,0.8);color:#fff;}
 .signal-btn.wait{background:linear-gradient(135deg, #ffaa00, #ff8800);box-shadow:0 15px 50px rgba(255,170,0,0.8);color:#000;font-size:16px;}
+.signal-btn.scanning{background:linear-gradient(135deg, #00ffff, #0099ff);box-shadow:0 15px 50px rgba(0,255,255,0.8);color:#000;font-size:18px;animation:pulse 0.5s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.02);}}
 
 .indicators-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 .ind-box{background:rgba(0,0,0,0.9);border:2px solid rgba(0,255,68,0.4);border-radius:8px;padding:8px;text-align:center;}
@@ -77,6 +79,11 @@ input,select,button{font-size:16px!important;}
 .candle-check{font-size:8px;color:#00ffff;margin-top:4px;}
 .status-text{font-size:8px;color:#ffd700;margin-top:3px;}
 .zero-loss{font-size:7px;color:#00ff44;margin-top:2px;}
+.auto-toggle{font-size:8px;color:#00ffff;margin-top:4px;display:flex;align-items:center;gap:5px;justify-content:center;}
+.toggle-switch{width:35px;height:18px;background:rgba(255,255,255,0.2);border-radius:10px;position:relative;cursor:pointer;}
+.toggle-switch.active{background:#00ff44;}
+.toggle-switch::after{content:'';width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:0.3s;}
+.toggle-switch.active::after{left:19px;}
 </style>
 </head>
 <body>
@@ -85,7 +92,7 @@ input,select,button{font-size:16px!important;}
   <div class="logo-circle">LA</div>
   <div class="title">LUBNA</div>
   <div class="title">ABUBAKAR</div>
-  <div class="subtitle">ZERO LOSS v44.1</div>
+  <div class="subtitle">FAST SCAN v44.2</div>
 
   <div class="input-label">USERNAME</div>
   <div class="input-box">
@@ -110,7 +117,7 @@ input,select,button{font-size:16px!important;}
       <div class="header-logo">LA</div>
       <div class="header-text">
         <div class="h1">LUBNA ABUBAKAR</div>
-        <div class="h2">ZERO LOSS v44.1</div>
+        <div class="h2">FAST SCAN v44.2</div>
       </div>
     </div>
     <div class="live-badge">
@@ -121,7 +128,7 @@ input,select,button{font-size:16px!important;}
 
   <div class="grid">
     <div class="card" style="position:relative">
-      <div class="ai-badge">v44.1</div>
+      <div class="ai-badge">v44.2</div>
       <div class="card-label">MARKET LIVE</div>
       <select id="marketType" onchange="changeMarket()">
         <option value="binance">BINANCE LIVE</option>
@@ -144,14 +151,17 @@ input,select,button{font-size:16px!important;}
         </optgroup>
       </select>
 
-      <div class="card-label" style="margin-top:10px">ZERO LOSS MODE</div>
+      <div class="card-label" style="margin-top:10px">SPEED MODE</div>
       <select id="modeSelect">
-        <option value="zeroloss">ZERO LOSS 8/10 - 99.9%</option>
-        <option value="ultra">ULTRA 7/10 - 99%</option>
-        <option value="pro">PRO 6/10 - 97%</option>
+        <option value="ultra">ULTRA 7/10 - 99% FAST</option>
+        <option value="pro">PRO 6/10 - 97% VERY FAST</option>
+        <option value="zeroloss">ZERO LOSS 8/10 - 99.9% SLOW</option>
       </select>
-      <div class="status-text" id="statusText">No Popup Alert</div>
+      <div class="status-text" id="statusText">Auto Scan: ON</div>
       <div class="zero-loss">BUY=GREEN SELL=RED WAIT=ORANGE</div>
+      <div class="auto-toggle">
+        AUTO SCAN <div class="toggle-switch active" id="autoToggle" onclick="toggleAuto()"></div> ON
+      </div>
     </div>
 
     <div class="card">
@@ -165,9 +175,9 @@ input,select,button{font-size:16px!important;}
     </div>
 
     <div class="card timer-box">
-      <div class="timer-label">3 LAYER SCAN</div>
-      <div class="timer-value" id="timer">00:55</div>
-      <div class="timer-sub" id="modeSub">10 Filter + 5 Candle + Trend</div>
+      <div class="timer-label">NEXT SCAN IN</div>
+      <div class="timer-value" id="timer">00:03</div>
+      <div class="timer-sub" id="modeSub">Auto 3 Sec Scan</div>
     </div>
 
     <div class="card" style="padding:8px">
@@ -214,17 +224,17 @@ input,select,button{font-size:16px!important;}
       <div class="sig-grid">
         <div class="sig-item">
           <div class="sig-label">ACCURACY</div>
-          <div class="sig-value" id="conf">99.9%</div>
+          <div class="sig-value" id="conf">99%</div>
         </div>
         <div class="sig-item">
           <div class="sig-label">FILTERS</div>
-          <div class="sig-value" id="filters">8/10</div>
+          <div class="sig-value" id="filters">7/10</div>
         </div>
       </div>
       <div class="conf-bar">
         <div class="conf-fill" id="confFill"></div>
       </div>
-      <div class="candle-check" id="candleDetail">L1: 10 Filter | L2: 5 Candle | L3: Trend</div>
+      <div class="candle-check" id="candleDetail">L1: 7/10 | L2: 4/1 | L3: Trend</div>
     </div>
 
     <div class="card chart-card">
@@ -246,6 +256,9 @@ let asset = 'USDINR';
 let marketType = 'forex';
 let currentWidget = null;
 let signalTimer = null;
+let autoScanTimer = null;
+let autoScan = true;
+let scanCount = 3;
 
 function doLogin(){
   let u = document.getElementById('username').value;
@@ -259,10 +272,41 @@ function doLogin(){
     setTimeout(loadChart, 200);
     fetchPrice();
     setInterval(fetchPrice, 1000);
-    startTimer();
+    startAutoScan();
   } else {
     err.innerText = 'Wrong Password';
   }
+}
+
+function toggleAuto(){
+  autoScan =!autoScan;
+  let toggle = document.getElementById('autoToggle');
+  if(autoScan){
+    toggle.className = 'toggle-switch active';
+    document.getElementById('statusText').innerText = 'Auto Scan: ON';
+    startAutoScan();
+  } else {
+    toggle.className = 'toggle-switch';
+    document.getElementById('statusText').innerText = 'Auto Scan: OFF';
+    clearInterval(autoScanTimer);
+    scanCount = 3;
+    document.getElementById('timer').innerText = '00:03';
+  }
+}
+
+function startAutoScan(){
+  scanCount = 3;
+  clearInterval(autoScanTimer);
+  autoScanTimer = setInterval(() => {
+    if(autoScan){
+      scanCount--;
+      document.getElementById('timer').innerText = '00:0' + scanCount;
+      if(scanCount <= 0){
+        generateSignal();
+        scanCount = 3;
+      }
+    }
+  }, 1000);
 }
 
 function changeMarket(){
@@ -288,7 +332,6 @@ function changePair(){
   let displayName = asset.replace('USDT','/USDT').replace('-OTC',' OTC');
   document.getElementById('pairName').innerText = displayName;
   document.getElementById('chartTitle').innerText = displayName + ' - 1M LIVE';
-  document.getElementById('statusText').innerText = 'No Alert: ' + displayName;
   if(asset.includes('BTC')) document.getElementById('pairIcon').innerText = '₿';
   else if(asset.includes('ETH')) document.getElementById('pairIcon').innerText = 'Ξ';
   else if(asset.includes('EUR')) document.getElementById('pairIcon').innerText = '€';
@@ -440,6 +483,8 @@ async function generateSignal(){
 
   resetButton();
   card.style.display = 'none';
+  btn.className = 'signal-btn scanning';
+  btn.innerHTML = '🔄 SCANNING...';
 
   if(signalTimer) clearTimeout(signalTimer);
 
@@ -478,8 +523,11 @@ async function generateSignal(){
     let accuracy = 0;
     let filters = 0;
 
-    let layer1Pass = Math.abs(layer1) >= (mode === 'zeroloss'? 6 : mode === 'ultra'? 5 : 4);
-    let layer2Pass = (layer2.trend === 'UP' && layer2.up >= 4) || (layer2.trend === 'DOWN' && layer2.down >= 4);
+    let needFilter = mode === 'zeroloss'? 6 : mode === 'ultra'? 5 : 4;
+    let needCandle = mode === 'zeroloss'? 4 : mode === 'ultra'? 3 : 2;
+
+    let layer1Pass = Math.abs(layer1) >= needFilter;
+    let layer2Pass = (layer2.trend === 'UP' && layer2.up >= needCandle) || (layer2.trend === 'DOWN' && layer2.down >= needCandle);
     let layer3Pass = (layer3 === 'UP TREND' || layer3 === 'DOWN TREND');
 
     if(layer1Pass && layer2Pass && layer3Pass){
@@ -516,39 +564,4 @@ async function generateSignal(){
       document.getElementById('filters').innerText = filters + '/10';
       document.getElementById('confFill').style.width = accuracy + '%';
       document.getElementById('signalTime').innerText = new Date().toLocaleTimeString();
-      document.getElementById('candleDetail').innerText = `L1:${layer1}/10 L2:${layer2.up}/${layer2.down} L3:${layer3}`;
-
-      signalTimer = setTimeout(() => {
-        resetButton();
-      }, 60000);
-
-    } else {
-      // NO ALERT - SIRF BUTTON CHANGE
-      btn.className = 'signal-btn wait';
-      btn.innerHTML = '⏸️ WAIT - No Signal';
-
-      signalTimer = setTimeout(() => {
-        resetButton();
-      }, 3000);
-    }
-
-  }catch(e){
-    resetButton();
-  }
-}
-
-function startTimer(){
-  let seconds = 55;
-  setInterval(() => {
-    seconds--;
-    if(seconds < 0) seconds = 59;
-    document.getElementById('timer').innerText = '00:' + (seconds < 10? '0' : '') + seconds;
-  }, 1000);
-}
-
-document.getElementById('password').addEventListener('keypress', function(e){
-  if(e.key === 'Enter') doLogin();
-});
-</script>
-</body>
-</html>
+      document.getElementById('candleDetail').innerText = `L1:${layer1}/10 L2:${
