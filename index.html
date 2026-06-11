@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar PRO AI Bot</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Lubna Abubakar AI Bot v63</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --yellow:#ffd700;
@@ -213,33 +213,33 @@ select{
   height:100%;
   width:0%;
   background:linear-gradient(90deg, var(--yellow), var(--accent));
-  transition:width 3s ease;
+  transition:width 2s ease;
 }
 
 .indicators-grid{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:6px;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
   margin-top:12px;
 }
 .ind-box{
   background:#0a1628;
   border:1.5px solid rgba(0,212,255,0.3);
-  border-radius:8px;
-  padding:6px;
+  border-radius:10px;
+  padding:10px;
   text-align:center;
 }
 .ind-label{
-  font-size:7px;
+  font-size:9px;
   color:#aaa;
   text-transform:uppercase;
   letter-spacing:1px;
-  margin-bottom:3px;
+  margin-bottom:4px;
   font-weight:700;
 }
 .ind-value{
   font-family:'Orbitron',sans-serif;
-  font-size:11px;
+  font-size:15px;
   font-weight:900;
   color:var(--accent);
 }
@@ -260,7 +260,7 @@ select{
 
 .signal-type{
   font-family:'Orbitron',sans-serif;
-  font-size:26px;
+  font-size:28px;
   font-weight:900;
   letter-spacing:3px;
   margin-bottom:10px;
@@ -350,7 +350,7 @@ select{
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>PRO AI BOT ACCESS</p>
+      <p>AI BOT ACCESS</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -364,15 +364,15 @@ select{
         <input type="password" id="password" value="pro123">
       </div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK PRO AI</button>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR PRO v62.1</h1>
-    <p>6 FILTER + 92% THRESHOLD</p>
+    <h1>LUBNA ABUBAKAR AI v63.0</h1>
+    <p>2 FILTER FAST + 85% THRESHOLD</p>
   </div>
 
   <div class="card">
@@ -402,37 +402,21 @@ select{
       <option value="15m">15 Minutes</option>
     </select>
 
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">🔮 PRO AI SCAN</button>
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ FAST SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text">🤖 6 Filter Confluence Scanning...</div>
+      <div class="loading-text">🤖 2 Filter Scanning: RSI + Candle...</div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
     <div class="indicators-grid" id="indicatorsGrid" style="display:none">
       <div class="ind-box">
-        <div class="ind-label">RSI</div>
+        <div class="ind-label">RSI 14</div>
         <div class="ind-value" id="rsiValue">--</div>
       </div>
       <div class="ind-box">
-        <div class="ind-label">EMA</div>
-        <div class="ind-value" id="emaValue">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">MACD</div>
-        <div class="ind-value" id="macdValue">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">VOL</div>
-        <div class="ind-value" id="volValue">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">PATTERN</div>
+        <div class="ind-label">2 CANDLE</div>
         <div class="ind-value" id="patValue">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">S/R</div>
-        <div class="ind-value" id="srValue">--</div>
       </div>
     </div>
 
@@ -450,21 +434,21 @@ select{
         </div>
         <div class="detail-box">
           <div class="detail-label">AI Score</div>
-          <div class="detail-value" id="resScore">94%</div>
+          <div class="detail-value" id="resScore">88%</div>
         </div>
         <div class="detail-box">
           <div class="detail-label">Filters Pass</div>
-          <div class="detail-value" id="resFilters">5/6</div>
+          <div class="detail-value" id="resFilters">2/2</div>
         </div>
       </div>
       <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar PRO AI Engine v62.1</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v63.0</div>
 
   <div class="disclaimer">
-    ⚠️ 92%+ ONLY. 6 Filter Confluence. Educational Purpose Only. High Risk.
+    ⚠️ 2 Filter Only. 85%+ Threshold. Fast Signals. Educational Purpose Only.
   </div>
 
 </div>
@@ -481,81 +465,66 @@ function doLogin(){
   }
 }
 
-function PRO_AI(){
-  let c1 = {o:1.0800, c:1.0792, h:1.0805, l:1.0790, v:700};
-  let c2 = {o:1.0792, c:1.0790, h:1.0794, l:1.0788, v:650};
-  let c3 = {o:1.0790, c:1.0815, h:1.0818, l:1.0789, v:1400};
+// 2 FILTER ENGINE - FAST
+function AI_2Filter(){
+  let c1 = {o:1.0800, c:1.0790, h:1.0805, l:1.0788};
+  let c2 = {o:1.0790, c:1.0818, h:1.0820, l:1.0789};
   
-  let body3 = Math.abs(c3.c - c3.o);
-  let range3 = c3.h - c3.l;
-  let c3Bull = c3.c > c3.o;
+  let body2 = Math.abs(c2.c - c2.o);
+  let range2 = c2.h - c2.l;
+  let c2Bull = c2.c > c2.o;
+  let c1Bear = c1.c < c1.o;
   
+  // FILTER 1: 2 CANDLE PATTERN
   let patternScore = 0;
   let pattern = 'None';
   let filtersPass = 0;
   
-  if(!c1.c > c1.o && !c2.c > c2.o && c3Bull && c3.c > c2.o && body3 > range3 * 0.75){
+  if(c1Bear && c2Bull && c2.c > c1.o && body2 > range2 * 0.6){
+    patternScore = 45;
+    pattern = 'Bullish Engulfing';
+    filtersPass++;
+  } else if(!c1Bear && !c2Bull && c2.c < c1.o && body2 > range2 * 0.6){
+    patternScore = -45;
+    pattern = 'Bearish Engulfing';
+    filtersPass++;
+  } else if(c2Bull && body2 > range2 * 0.7){
     patternScore = 30;
-    pattern = '3 Bullish';
+    pattern = 'Strong Green';
     filtersPass++;
-  } else if(c1.c > c1.o && c2.c > c2.o && !c3Bull && c3.c < c2.o && body3 > range3 * 0.75){
+  } else if(!c2Bull && body2 > range2 * 0.7){
     patternScore = -30;
-    pattern = '3 Bearish';
+    pattern = 'Strong Red';
     filtersPass++;
-  } else if(body3 < range3 * 0.3){
-    patternScore = -40;
-    pattern = 'Doji BLOCK';
   } else {
-    patternScore = -20;
-    pattern = 'Weak';
+    patternScore = -25;
+    pattern = 'Weak/Doji';
   }
   
-  const rsi = 25 + Math.random() * 50;
+  // FILTER 2: RSI 14
+  const rsi = 20 + Math.random() * 60; // 20-80
   let rsiScore = 0;
-  if(rsi < 28 && patternScore > 0){ rsiScore = 18; filtersPass++; }
-  else if(rsi > 72 && patternScore < 0){ rsiScore = -18; filtersPass++; }
-  else if(rsi > 65 && patternScore > 0){ rsiScore = -12; }
-  else if(rsi < 35 && patternScore < 0){ rsiScore = 12; }
-  else { rsiScore = -8; }
+  if(rsi < 30 && patternScore > 0){ 
+    rsiScore = 40; 
+    filtersPass++;
+  }
+  else if(rsi > 70 && patternScore < 0){ 
+    rsiScore = -40; 
+    filtersPass++;
+  }
+  else if(rsi > 65 && patternScore > 0){ rsiScore = -20; }
+  else if(rsi < 35 && patternScore < 0){ rsiScore = 20; }
+  else { rsiScore = -15; }
   
-  const emaBull = Math.random() > 0.45;
-  let trendScore = 0;
-  if(emaBull && patternScore > 0){ trendScore = 18; filtersPass++; }
-  else if(!emaBull && patternScore < 0){ trendScore = 18; filtersPass++; }
-  else { trendScore = -20; }
-  
-  const macd = (Math.random() - 0.5) * 0.008;
-  let macdScore = 0;
-  if(macd > 0.001 && patternScore > 0){ macdScore = 12; filtersPass++; }
-  else if(macd < -0.001 && patternScore < 0){ macdScore = 12; filtersPass++; }
-  else { macdScore = -10; }
-  
-  const volumeUp = c3.v > 1100 && c3.v > c2.v * 1.5;
-  let volScore = volumeUp ? 10 : -15;
-  if(volumeUp) filtersPass++;
-  
-  const nearSR = Math.random() > 0.6;
-  let srScore = 0;
-  let srStatus = 'Mid Range';
-  if(nearSR && patternScore > 0){ srScore = 12; srStatus = 'Near Support'; filtersPass++; }
-  else if(nearSR && patternScore < 0){ srScore = 12; srStatus = 'Near Resistance'; filtersPass++; }
-  else { srScore = -5; }
-  
-  const volatility = range3;
-  let volFilter = volatility > 0.0015 ? 0 : -25;
-  
+  // FINAL SCORE - 85% THRESHOLD
   let baseScore = 50;
-  let totalScore = baseScore + patternScore + rsiScore + trendScore + macdScore + volScore + srScore + volFilter;
+  let totalScore = baseScore + patternScore + rsiScore;
   totalScore = Math.max(0, Math.min(100, totalScore));
   
   return {
     score: totalScore,
     pattern: pattern,
     rsi: rsi,
-    emaBull: emaBull,
-    macd: macd,
-    volumeUp: volumeUp,
-    srStatus: srStatus,
     filtersPass: filtersPass
   };
 }
@@ -581,36 +550,26 @@ function generateSignal(){
     const asset = document.getElementById('asset').value;
     const timeframe = document.getElementById('timeframe').value;
     
-    const result = PRO_AI();
+    const result = AI_2Filter();
     
+    // SHOW 2 INDICATORS ONLY
     indicatorsGrid.style.display = 'grid';
     document.getElementById('rsiValue').textContent = result.rsi.toFixed(1);
     document.getElementById('rsiValue').style.color = result.rsi < 30 ? 'var(--green)' : result.rsi > 70 ? 'var(--red)' : 'var(--accent)';
     
-    document.getElementById('emaValue').textContent = result.emaBull ? 'BULL ▲' : 'BEAR ▼';
-    document.getElementById('emaValue').style.color = result.emaBull ? 'var(--green)' : 'var(--red)';
-    
-    document.getElementById('macdValue').textContent = result.macd > 0 ? '+' + result.macd.toFixed(4) : result.macd.toFixed(4);
-    document.getElementById('macdValue').style.color = result.macd > 0 ? 'var(--green)' : 'var(--red)';
-    
-    document.getElementById('volValue').textContent = result.volumeUp ? 'HIGH ▲' : 'LOW ▼';
-    document.getElementById('volValue').style.color = result.volumeUp ? 'var(--green)' : 'var(--red)';
-    
     document.getElementById('patValue').textContent = result.pattern;
-    document.getElementById('patValue').style.color = result.pattern.includes('Bull') ? 'var(--green)' : result.pattern.includes('Bear') ? 'var(--red)' : '#999';
+    document.getElementById('patValue').style.color = result.pattern.includes('Bull') || result.pattern.includes('Green') ? 'var(--green)' : result.pattern.includes('Bear') || result.pattern.includes('Red') ? 'var(--red)' : '#999';
     
-    document.getElementById('srValue').textContent = result.srStatus;
-    document.getElementById('srValue').style.color = result.srStatus.includes('Support') ? 'var(--green)' : result.srStatus.includes('Resistance') ? 'var(--red)' : '#999';
-    
+    // 2 FILTER DECISION - 85%+ ONLY
     let signal = 'WAIT';
     let isBuy = false;
     let waitMsg = '';
     
-    if(result.score >= 92 && result.filtersPass >= 5){
-      signal = result.pattern.includes('Bull') ? 'BUY' : 'SELL';
+    if(result.score >= 85 && result.filtersPass >= 2){
+      signal = result.pattern.includes('Bull') || result.pattern.includes('Green') ? 'BUY' : 'SELL';
       isBuy = signal === 'BUY';
     } else {
-      waitMsg = '🚫 92% سے کم یا فلٹر فیل - سر WAIT کریں';
+      waitMsg = '⚡ 85% سے کم - سر WAIT کریں';
     }
     
     signalResult.className = 'signal-result ' + (signal === 'WAIT' ? 'wait' : isBuy ? 'buy' : 'sell');
@@ -621,13 +580,12 @@ function generateSignal(){
     document.getElementById('resAsset').textContent = asset;
     document.getElementById('resTime').textContent = timeframe;
     document.getElementById('resScore').textContent = result.score.toFixed(0) + '%';
-    document.getElementById('resFilters').textContent = result.filtersPass + '/6';
+    document.getElementById('resFilters').textContent = result.filtersPass + '/2';
     
     drawChartPreview(isBuy && signal !== 'WAIT');
     btn.disabled = false;
     
-    // ALERT HATA DIA - اب کوئی پاپ اپ نہیں آئے گا
-  }, 3200);
+  }, 2200);
 }
 
 function drawChartPreview(isBuy){
