@@ -2,7 +2,7 @@
 <html lang="ur">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Lubna Abubakar AI Signal Bot</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -15,28 +15,37 @@
   --text:#e0e0e0;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{
+html,body{
   background:linear-gradient(135deg, #0a0e27 0%, #16213e 100%);
   color:var(--text);
   font-family:'Poppins',sans-serif;
-  min-height:100vh;
-  padding:12px;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
 }
-.container{max-width:420px;margin:0 auto}
 
-.header{
-  text-align:center;
-  margin-bottom:20px;
-  padding:18px;
-  background:linear-gradient(145deg, rgba(255,215,0,0.12), rgba(0,212,255,0.12));
+/* LOGIN SCREEN */
+.login-wrapper{
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+.login-card{
+  width:100%;
+  max-width:380px;
+  background:linear-gradient(145deg, #0f1729, #1a2338);
   border:2px solid var(--yellow);
   border-radius:20px;
-  box-shadow:0 0 35px rgba(255,215,0,0.3);
+  padding:35px 25px;
+  box-shadow:0 0 50px rgba(255,215,0,0.4);
 }
-.logo-box{
-  width:65px;
-  height:65px;
-  margin:0 auto 10px;
+.login-logo{
+  width:80px;
+  height:80px;
+  margin:0 auto 20px;
   background:linear-gradient(135deg,var(--yellow),#ffaa00);
   border-radius:50%;
   display:flex;
@@ -44,18 +53,91 @@ body{
   justify-content:center;
   font-family:'Orbitron',sans-serif;
   font-weight:900;
-  font-size:26px;
+  font-size:35px;
   color:#000;
+  box-shadow:0 0 30px rgba(255,215,0,0.5);
+}
+.login-header h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:22px;
+  color:var(--yellow);
+  text-align:center;
+  letter-spacing:2px;
+  margin-bottom:5px;
+}
+.login-header p{
+  text-align:center;
+  font-size:11px;
+  color:var(--accent);
+  letter-spacing:3px;
+  margin-bottom:25px;
+  font-weight:700;
+}
+.input-group{margin-bottom:18px}
+.input-group label{
+  font-size:10px;
+  color:#aaa;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-weight:700;
+  margin-bottom:6px;
+  display:block;
+}
+.input-box input{
+  width:100%;
+  padding:14px;
+  background:#0a1628;
+  border:1.5px solid rgba(255,215,0,0.4);
+  border-radius:12px;
+  color:var(--text);
+  font-size:14px;
+  font-weight:600;
+  outline:none;
+}
+.unlock-btn{
+  width:100%;
+  padding:16px;
+  background:linear-gradient(135deg, var(--yellow), #ffaa00);
+  border:none;
+  border-radius:12px;
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:14px;
+  color:#000;
+  letter-spacing:3px;
+  cursor:pointer;
+  margin-top:10px;
+  box-shadow:0 10px 30px rgba(255,215,0,0.4);
+}
+
+/* MAIN SCREEN */
+.main-wrapper{
+  width:100%;
+  height:100vh;
+  display:none;
+  flex-direction:column;
+  padding:12px;
+  overflow-y:auto;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:15px;
+  padding:15px;
+  background:linear-gradient(145deg, rgba(255,215,0,0.12), rgba(0,212,255,0.12));
+  border:2px solid var(--yellow);
+  border-radius:18px;
+  flex-shrink:0;
 }
 .header h1{
   font-family:'Orbitron',sans-serif;
-  font-size:17px;
+  font-size:16px;
   color:var(--yellow);
   letter-spacing:2px;
   margin-bottom:3px;
 }
 .header p{
-  font-size:10px;
+  font-size:9px;
   color:var(--accent);
   letter-spacing:2px;
   font-weight:700;
@@ -65,8 +147,9 @@ body{
   background:linear-gradient(145deg, #0f1729, #1a2338);
   border:1.5px solid rgba(255,215,0,0.4);
   border-radius:16px;
-  padding:15px;
-  margin-bottom:12px;
+  padding:14px;
+  margin-bottom:10px;
+  flex-shrink:0;
 }
 
 .label{
@@ -77,7 +160,6 @@ body{
   color:var(--yellow);
   font-weight:700;
   margin-bottom:8px;
-  letter-spacing:1px;
 }
 
 select{
@@ -94,7 +176,7 @@ select{
 
 .analyze-btn{
   width:100%;
-  padding:16px;
+  padding:15px;
   background:linear-gradient(135deg, var(--yellow), #ffaa00);
   border:none;
   border-radius:12px;
@@ -168,7 +250,7 @@ select{
 .signal-result{
   display:none;
   margin-top:12px;
-  padding:18px;
+  padding:16px;
   border-radius:14px;
   border:2.5px solid;
   text-align:center;
@@ -180,10 +262,10 @@ select{
 
 .signal-type{
   font-family:'Orbitron',sans-serif;
-  font-size:28px;
+  font-size:26px;
   font-weight:900;
   letter-spacing:3px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 .signal-result.buy.signal-type{color:var(--green);text-shadow:0 0 15px var(--green)}
 .signal-result.sell.signal-type{color:var(--red);text-shadow:0 0 15px var(--red)}
@@ -192,7 +274,7 @@ select{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
-  margin-top:12px;
+  margin-top:10px;
 }
 .detail-box{
   background:#0a1628;
@@ -209,143 +291,189 @@ select{
 }
 .detail-value{
   font-family:'Orbitron',sans-serif;
-  font-size:13px;
+  font-size:12px;
   font-weight:800;
   color:var(--yellow);
 }
 
 .footer{
   text-align:center;
-  margin-top:12px;
+  margin-top:10px;
   font-size:8px;
   color:var(--yellow);
   letter-spacing:1.5px;
   font-weight:700;
+  flex-shrink:0;
 }
 
 .disclaimer{
-  margin-top:15px;
-  padding:10px;
+  margin-top:10px;
+  padding:8px;
   background:rgba(255,71,87,0.1);
   border:1px solid var(--red);
   border-radius:8px;
-  font-size:8px;
+  font-size:7px;
   color:#ff9999;
   text-align:center;
   line-height:1.4;
+  flex-shrink:0;
 }
 
 .chart-preview{
-  height:100px;
+  height:90px;
   background:#0a1628;
   border-radius:10px;
-  margin-top:12px;
+  margin-top:10px;
   border:1px solid rgba(255,215,0,0.2);
   position:relative;
   overflow:hidden;
 }
 .candle{
   position:absolute;
-  bottom:15px;
-  width:10px;
+  bottom:12px;
+  width:9px;
   border-radius:2px;
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-
-<div class="header">
-  <div class="logo-box">LA</div>
-  <h1>LUBNA ABUBAKAR</h1>
-  <p>AI SIGNAL BOT PRO v58.0</p>
-</div>
-
-<div class="card">
-  <div class="label">🎯 Select Broker</div>
-  <select id="broker">
-    <option value="quotex">📱 Quotex</option>
-    <option value="pocket">📱 Pocket Option</option>
-    <option value="binance">₿ Binance</option>
-  </select>
-
-  <div class="label" style="margin-top:12px">💱 Trading Asset</div>
-  <select id="asset">
-    <option value="EURUSD-OTC">EUR/USD OTC</option>
-    <option value="GBPUSD-OTC">GBP/USD OTC</option>
-    <option value="USDJPY-OTC">USD/JPY OTC</option>
-    <option value="AUDUSD-OTC">AUD/USD OTC</option>
-    <option value="BTCUSDT">BTC/USDT</option>
-  </select>
-
-  <div class="label" style="margin-top:12px">⏱ Time Frame</div>
-  <select id="timeframe">
-    <option value="1m">1 Minute</option>
-    <option value="5m">5 Minutes</option>
-    <option value="15m">15 Minutes</option>
-  </select>
-
-  <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">🔮 ANALYZE WITH AI</button>
-
-  <div class="analyzing" id="analyzingBox">
-    <div class="loading-text">🤖 Lubna AI: Scanning RSI + EMA + MACD + Volume...</div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
-
-  <!-- INDICATORS SHOW -->
-  <div class="indicators-grid" id="indicatorsGrid" style="display:none">
-    <div class="ind-box">
-      <div class="ind-label">RSI 14</div>
-      <div class="ind-value" id="rsiValue">--</div>
+<!-- LOGIN SCREEN -->
+<div class="login-wrapper" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">LA</div>
+    <div class="login-header">
+      <h1>LUBNA ABUBAKAR</h1>
+      <p>AI SIGNAL BOT ACCESS</p>
     </div>
-    <div class="ind-box">
-      <div class="ind-label">EMA 9/21</div>
-      <div class="ind-value" id="emaValue">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">MACD</div>
-      <div class="ind-value" id="macdValue">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">VOLUME</div>
-      <div class="ind-value" id="volValue">--</div>
-    </div>
-  </div>
-
-  <div class="signal-result" id="signalResult">
-    <div class="signal-type" id="signalType">BUY</div>
-    <div class="signal-details">
-      <div class="detail-box">
-        <div class="detail-label">Asset</div>
-        <div class="detail-value" id="resAsset">EUR/USD</div>
-      </div>
-      <div class="detail-box">
-        <div class="detail-label">Time</div>
-        <div class="detail-value" id="resTime">1m</div>
-      </div>
-      <div class="detail-box">
-        <div class="detail-label">AI Score</div>
-        <div class="detail-value" id="resScore">94%</div>
-      </div>
-      <div class="detail-box">
-        <div class="detail-label">Signal</div>
-        <div class="detail-value" id="resSignal">STRONG</div>
+    <div class="input-group">
+      <label>Username</label>
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Enter username" value="Lubna">
       </div>
     </div>
-    <div class="chart-preview" id="chartPreview"></div>
+    <div class="input-group">
+      <label>Password</label>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Enter password" value="pro123">
+      </div>
+    </div>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI SYSTEM</button>
   </div>
 </div>
 
-<div class="footer">Powered by Lubna Abubakar AI Engine v58.0</div>
+<!-- MAIN SCREEN -->
+<div class="main-wrapper" id="mainScreen">
 
-<div class="disclaimer">
-  ⚠️ RSI+EMA+MACD+Volume based AI. Educational only. High risk in trading.
-</div>
+  <div class="header">
+    <h1>LUBNA ABUBAKAR AI BOT</h1>
+    <p>RSI + EMA + MACD + VOLUME</p>
+  </div>
+
+  <div class="card">
+    <div class="label">🎯 Select Broker</div>
+    <select id="broker">
+      <option value="quotex">📱 Quotex</option>
+      <option value="pocket">📱 Pocket Option</option>
+      <option value="binance">₿ Binance</option>
+    </select>
+
+    <div class="label" style="margin-top:12px">💱 Trading Asset</div>
+    <select id="asset">
+      <!-- Major Pairs -->
+      <option value="EURUSD-OTC">EUR/USD OTC</option>
+      <option value="GBPUSD-OTC">GBP/USD OTC</option>
+      <option value="USDJPY-OTC">USD/JPY OTC</option>
+      <option value="AUDUSD-OTC">AUD/USD OTC</option>
+      
+      <!-- NEW PAIRS ADDED -->
+      <option value="USDBRL-OTC">🇧🇷 USD/BRL OTC</option>
+      <option value="USDMXN-OTC">🇲🇽 USD/MXN OTC</option>
+      <option value="USDINR-OTC">🇮🇳 USD/INR OTC</option>
+      
+      <!-- Crypto -->
+      <option value="BTCUSDT">₿ BTC/USDT</option>
+    </select>
+
+    <div class="label" style="margin-top:12px">⏱ Time Frame</div>
+    <select id="timeframe">
+      <option value="1m">1 Minute</option>
+      <option value="5m">5 Minutes</option>
+      <option value="15m">15 Minutes</option>
+    </select>
+
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">🔮 ANALYZE WITH AI</button>
+
+    <div class="analyzing" id="analyzingBox">
+      <div class="loading-text">🤖 Lubna AI: Scanning RSI + EMA + MACD + Volume...</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <!-- INDICATORS SHOW -->
+    <div class="indicators-grid" id="indicatorsGrid" style="display:none">
+      <div class="ind-box">
+        <div class="ind-label">RSI 14</div>
+        <div class="ind-value" id="rsiValue">--</div>
+      </div>
+      <div class="ind-box">
+        <div class="ind-label">EMA 9/21</div>
+        <div class="ind-value" id="emaValue">--</div>
+      </div>
+      <div class="ind-box">
+        <div class="ind-label">MACD</div>
+        <div class="ind-value" id="macdValue">--</div>
+      </div>
+      <div class="ind-box">
+        <div class="ind-label">VOLUME</div>
+        <div class="ind-value" id="volValue">--</div>
+      </div>
+    </div>
+
+    <div class="signal-result" id="signalResult">
+      <div class="signal-type" id="signalType">BUY</div>
+      <div class="signal-details">
+        <div class="detail-box">
+          <div class="detail-label">Asset</div>
+          <div class="detail-value" id="resAsset">EUR/USD</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">Time</div>
+          <div class="detail-value" id="resTime">1m</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">AI Score</div>
+          <div class="detail-value" id="resScore">94%</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">Signal</div>
+          <div class="detail-value" id="resSignal">STRONG</div>
+        </div>
+      </div>
+      <div class="chart-preview" id="chartPreview"></div>
+    </div>
+  </div>
+
+  <div class="footer">Powered by Lubna Abubakar AI Engine v60.0</div>
+
+  <div class="disclaimer">
+    ⚠️ Educational Purpose Only. RSI+EMA+MACD based AI. Trading has high risk.
+  </div>
 
 </div>
 
 <script>
+function doLogin(){
+  let u = document.getElementById('username').value.trim();
+  let p = document.getElementById('password').value.trim();
+
+  if(u === 'Lubna' && p === 'pro123'){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainScreen').style.display = 'flex';
+  } else {
+    alert('غلط Username یا Password!\nUsername: Lubna\nPassword: pro123');
+  }
+}
+
 function generateSignal(){
   const btn = document.getElementById('analyzeBtn');
   const analyzingBox = document.getElementById('analyzingBox');
@@ -370,7 +498,7 @@ function generateSignal(){
     const timeframe = document.getElementById('timeframe').value;
     
     // AI CALCULATION WITH INDICATORS
-    const rsi = 20 + Math.random() * 60; // 20-80
+    const rsi = 20 + Math.random() * 60;
     const emaBull = Math.random() > 0.5;
     const macd = (Math.random() - 0.5) * 0.01;
     const volumeUp = Math.random() > 0.4;
@@ -389,23 +517,19 @@ function generateSignal(){
     document.getElementById('volValue').textContent = volumeUp ? 'UP ▲' : 'DOWN ▼';
     document.getElementById('volValue').style.color = volumeUp ? 'var(--green)' : 'var(--red)';
     
-    // AI SIGNAL LOGIC BASED ON INDICATORS
+    // AI SIGNAL LOGIC
     let score = 50;
     let isBuy = false;
     
-    // RSI Logic
     if(rsi < 30) { score += 20; isBuy = true; }
     else if(rsi > 70) { score -= 20; isBuy = false; }
     
-    // EMA Logic
     if(emaBull) score += 15;
     else score -= 15;
     
-    // MACD Logic
     if(macd > 0) score += 10;
     else score -= 10;
     
-    // Volume Logic
     if(volumeUp) score += 5;
     
     score = Math.max(0, Math.min(100, score));
@@ -429,12 +553,12 @@ function drawChartPreview(isBuy){
   const preview = document.getElementById('chartPreview');
   preview.innerHTML = '';
   
-  for(let i = 0; i < 15; i++){
+  for(let i = 0; i < 14; i++){
     const candle = document.createElement('div');
     candle.className = 'candle';
-    const height = 30 + Math.random() * 50;
-    const left = i * 26 + 10;
-    const isGreen = i > 10 ? isBuy : Math.random() > 0.5;
+    const height = 25 + Math.random() * 45;
+    const left = i * 28 + 8;
+    const isGreen = i > 9 ? isBuy : Math.random() > 0.5;
     
     candle.style.height = height + 'px';
     candle.style.left = left + 'px';
