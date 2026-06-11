@@ -269,6 +269,14 @@ select{
 .signal-result.sell.signal-type{color:var(--red);text-shadow:0 0 15px var(--red)}
 .signal-result.wait.signal-type{color:var(--accent);text-shadow:0 0 15px var(--accent)}
 
+.wait-message{
+  font-size:9px;
+  color:var(--accent);
+  margin-top:8px;
+  letter-spacing:1px;
+  font-weight:600;
+}
+
 .signal-details{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -363,7 +371,7 @@ select{
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR PRO v62.0</h1>
+    <h1>LUBNA ABUBAKAR PRO v62.1</h1>
     <p>6 FILTER + 92% THRESHOLD</p>
   </div>
 
@@ -430,6 +438,7 @@ select{
 
     <div class="signal-result" id="signalResult">
       <div class="signal-type" id="signalType">BUY</div>
+      <div class="wait-message" id="waitMessage"></div>
       <div class="signal-details">
         <div class="detail-box">
           <div class="detail-label">Asset</div>
@@ -445,14 +454,14 @@ select{
         </div>
         <div class="detail-box">
           <div class="detail-label">Filters Pass</div>
-          <div class="detail-value" id="resFilters">5/5</div>
+          <div class="detail-value" id="resFilters">5/6</div>
         </div>
       </div>
       <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar PRO AI Engine v62.0</div>
+  <div class="footer">Powered by Lubna Abubakar PRO AI Engine v62.1</div>
 
   <div class="disclaimer">
     ⚠️ 92%+ ONLY. 6 Filter Confluence. Educational Purpose Only. High Risk.
@@ -472,9 +481,7 @@ function doLogin(){
   }
 }
 
-// PRO AI ENGINE - 6 FILTER CONFLUENCE
 function PRO_AI(){
-  // 3 CANDLE DATA SIMULATION
   let c1 = {o:1.0800, c:1.0792, h:1.0805, l:1.0790, v:700};
   let c2 = {o:1.0792, c:1.0790, h:1.0794, l:1.0788, v:650};
   let c3 = {o:1.0790, c:1.0815, h:1.0818, l:1.0789, v:1400};
@@ -483,7 +490,6 @@ function PRO_AI(){
   let range3 = c3.h - c3.l;
   let c3Bull = c3.c > c3.o;
   
-  // FILTER 1: 2/3 CANDLE PATTERN
   let patternScore = 0;
   let pattern = 'None';
   let filtersPass = 0;
@@ -497,15 +503,14 @@ function PRO_AI(){
     pattern = '3 Bearish';
     filtersPass++;
   } else if(body3 < range3 * 0.3){
-    patternScore = -40; // Doji = BLOCK
+    patternScore = -40;
     pattern = 'Doji BLOCK';
   } else {
     patternScore = -20;
     pattern = 'Weak';
   }
   
-  // FILTER 2: RSI 14
-  const rsi = 25 + Math.random() * 50; // 25-75
+  const rsi = 25 + Math.random() * 50;
   let rsiScore = 0;
   if(rsi < 28 && patternScore > 0){ rsiScore = 18; filtersPass++; }
   else if(rsi > 72 && patternScore < 0){ rsiScore = -18; filtersPass++; }
@@ -513,26 +518,22 @@ function PRO_AI(){
   else if(rsi < 35 && patternScore < 0){ rsiScore = 12; }
   else { rsiScore = -8; }
   
-  // FILTER 3: EMA 9/21 TREND
   const emaBull = Math.random() > 0.45;
   let trendScore = 0;
   if(emaBull && patternScore > 0){ trendScore = 18; filtersPass++; }
   else if(!emaBull && patternScore < 0){ trendScore = 18; filtersPass++; }
-  else { trendScore = -20; } // Against trend = BLOCK
+  else { trendScore = -20; }
   
-  // FILTER 4: MACD
   const macd = (Math.random() - 0.5) * 0.008;
   let macdScore = 0;
   if(macd > 0.001 && patternScore > 0){ macdScore = 12; filtersPass++; }
   else if(macd < -0.001 && patternScore < 0){ macdScore = 12; filtersPass++; }
   else { macdScore = -10; }
   
-  // FILTER 5: VOLUME
   const volumeUp = c3.v > 1100 && c3.v > c2.v * 1.5;
   let volScore = volumeUp ? 10 : -15;
   if(volumeUp) filtersPass++;
   
-  // FILTER 6: SUPPORT/RESISTANCE
   const nearSR = Math.random() > 0.6;
   let srScore = 0;
   let srStatus = 'Mid Range';
@@ -540,11 +541,9 @@ function PRO_AI(){
   else if(nearSR && patternScore < 0){ srScore = 12; srStatus = 'Near Resistance'; filtersPass++; }
   else { srScore = -5; }
   
-  // VOLATILITY FILTER
   const volatility = range3;
-  let volFilter = volatility > 0.0015 ? 0 : -25; // Low volatility = BLOCK
+  let volFilter = volatility > 0.0015 ? 0 : -25;
   
-  // FINAL CALCULATION - 92% THRESHOLD
   let baseScore = 50;
   let totalScore = baseScore + patternScore + rsiScore + trendScore + macdScore + volScore + srScore + volFilter;
   totalScore = Math.max(0, Math.min(100, totalScore));
@@ -584,7 +583,6 @@ function generateSignal(){
     
     const result = PRO_AI();
     
-    // SHOW ALL 6 INDICATORS
     indicatorsGrid.style.display = 'grid';
     document.getElementById('rsiValue').textContent = result.rsi.toFixed(1);
     document.getElementById('rsiValue').style.color = result.rsi < 30 ? 'var(--green)' : result.rsi > 70 ? 'var(--red)' : 'var(--accent)';
@@ -604,19 +602,22 @@ function generateSignal(){
     document.getElementById('srValue').textContent = result.srStatus;
     document.getElementById('srValue').style.color = result.srStatus.includes('Support') ? 'var(--green)' : result.srStatus.includes('Resistance') ? 'var(--red)' : '#999';
     
-    // PRO DECISION - 92%+ ONLY
     let signal = 'WAIT';
     let isBuy = false;
+    let waitMsg = '';
     
     if(result.score >= 92 && result.filtersPass >= 5){
       signal = result.pattern.includes('Bull') ? 'BUY' : 'SELL';
       isBuy = signal === 'BUY';
+    } else {
+      waitMsg = '🚫 92% سے کم یا فلٹر فیل - سر WAIT کریں';
     }
     
     signalResult.className = 'signal-result ' + (signal === 'WAIT' ? 'wait' : isBuy ? 'buy' : 'sell');
     signalResult.style.display = 'block';
     
     document.getElementById('signalType').textContent = signal;
+    document.getElementById('waitMessage').textContent = waitMsg;
     document.getElementById('resAsset').textContent = asset;
     document.getElementById('resTime').textContent = timeframe;
     document.getElementById('resScore').textContent = result.score.toFixed(0) + '%';
@@ -625,9 +626,7 @@ function generateSignal(){
     drawChartPreview(isBuy && signal !== 'WAIT');
     btn.disabled = false;
     
-    if(signal === 'WAIT'){
-      alert('🚫 PRO AI: سگنل ریجیکٹ\nسبب: 92% سے کم یا فلٹر فیل\nسر WAIT کریں، اگلا سگنل پکا ہو گا۔');
-    }
+    // ALERT HATA DIA - اب کوئی پاپ اپ نہیں آئے گا
   }, 3200);
 }
 
