@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v66 LIVE</title>
+<title>Lubna Abubakar AI Bot v66.1 LIVE</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -384,7 +384,7 @@ select{
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v66.0 LIVE</h1>
+    <h1>LUBNA ABUBAKAR AI v66.1 LIVE</h1>
     <p>BINANCE + FOREX LIVE DATA</p>
   </div>
 
@@ -402,6 +402,7 @@ select{
       <option value="BTCUSDT">BTC/USDT</option>
       <option value="ETHUSDT">ETH/USDT</option>
       <option value="BNBUSDT">BNB/USDT</option>
+      <option value="SOLUSDT">SOL/USDT</option>
     </select>
 
     <div class="label" style="margin-top:12px">⏱ Time Frame</div>
@@ -453,10 +454,10 @@ select{
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v66.0 LIVE</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v66.1 LIVE</div>
 
   <div class="disclaimer">
-    ⚠️ LIVE DATA API. 88%+ Threshold. Educational Purpose Only. High Risk.
+    ⚠️ LIVE DATA API + AUTO DEMO MODE. 88%+ Threshold. Educational Purpose Only. High Risk Trading.
   </div>
 
 </div>
@@ -515,10 +516,9 @@ async function fetchBinanceKlines(symbol, interval, limit=6){
   }
 }
 
-// FOREX LIVE API - Free API
+// FOREX LIVE API - TwelveData Free
 async function fetchForexKlines(pair, interval){
   try{
-    // TwelveData Free API - Demo Key
     const url = `https://api.twelvedata.com/time_series?symbol=${pair}&interval=${interval}&outputsize=6&apikey=demo`;
     const res = await fetch(url);
     const data = await res.json();
@@ -536,6 +536,22 @@ async function fetchForexKlines(pair, interval){
     console.log('Forex API Error:', e);
     return null;
   }
+}
+
+// DEMO CANDLES - API fail ہونے پر
+function generateDemoCandles(){
+  let candles = [];
+  let base = Math.random() * 100 + 1;
+  for(let i = 0; i < 6; i++){
+    let change = (Math.random() - 0.5) * 0.002 * base;
+    let o = base;
+    let c = base + change;
+    let h = Math.max(o,c) + Math.random()*0.001*base;
+    let l = Math.min(o,c) - Math.random()*0.001*base;
+    candles.push({o,h,l,c});
+    base = c;
+  }
+  return candles;
 }
 
 // RSI 5 LIVE CALCULATION
@@ -611,21 +627,33 @@ async function generateSignal(){
     const timeframe = document.getElementById('timeframe').value;
 
     let candles = null;
+    let isLive = false;
 
-    // LIVE DATA FETCH
+    // LIVE DATA TRY
     if(market === 'binance'){
       candles = await fetchBinanceKlines(asset, timeframe, 6);
     } else {
       candles = await fetchForexKlines(asset, timeframe);
     }
 
+    // اگر LIVE نہ ملے تو DEMO MODE
     if(!candles || candles.length < 5){
-      alert('⚠️ Live Data نہیں ملا سر۔ انٹرنیٹ چیک کریں یا Demo Mode استعمال کریں');
-      btn.disabled = false;
-      return;
-    }
+      isLive = false;
+      liveStatus.textContent = '📊 DEMO MODE - No API';
+      liveStatus.style.background = 'rgba(255,165,0,0.1)';
+      liveStatus.style.borderColor = 'orange';
+      liveStatus.style.color = 'orange';
+      liveStatus.style.display = 'block';
 
-    liveStatus.style.display = 'block';
+      candles = generateDemoCandles();
+    } else {
+      isLive = true;
+      liveStatus.textContent = '📡 LIVE DATA CONNECTED ✅';
+      liveStatus.style.background = 'rgba(0,255,136,0.1)';
+      liveStatus.style.borderColor = 'var(--green)';
+      liveStatus.style.color = 'var(--green)';
+      liveStatus.style.display = 'block';
+    }
 
     // LIVE RSI + PATTERN
     const rsi = calculateRSI(candles, 5);
@@ -668,7 +696,7 @@ async function generateSignal(){
     document.getElementById('resAsset').textContent = asset;
     document.getElementById('resTime').textContent = timeframe;
     document.getElementById('resScore').textContent = score.toFixed(0) + '%';
-    document.getElementById('resData').textContent = 'LIVE ✅';
+    document.getElementById('resData').textContent = isLive? 'LIVE ✅' : 'DEMO';
 
     drawChartPreview(candles, isBuy && signal!== 'WAIT');
     btn.disabled = false;
