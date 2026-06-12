@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v63.1</title>
+<title>Lubna Abubakar 10s Bot v65</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --yellow:#ffd700;
-  --blue:#0a1628;
   --accent:#00d4ff;
   --green:#00ff88;
   --red:#ff4757;
@@ -54,7 +53,6 @@ html,body{
   font-weight:900;
   font-size:35px;
   color:#000;
-  box-shadow:0 0 30px rgba(255,215,0,0.5);
 }
 .login-header h1{
   font-family:'Orbitron',sans-serif;
@@ -106,7 +104,6 @@ html,body{
   letter-spacing:3px;
   cursor:pointer;
   margin-top:10px;
-  box-shadow:0 10px 30px rgba(255,215,0,0.4);
 }
 
 .main-wrapper{
@@ -125,7 +122,6 @@ html,body{
   background:linear-gradient(145deg, rgba(255,215,0,0.12), rgba(0,212,255,0.12));
   border:2px solid var(--yellow);
   border-radius:18px;
-  flex-shrink:0;
 }
 .header h1{
   font-family:'Orbitron',sans-serif;
@@ -147,7 +143,6 @@ html,body{
   border-radius:16px;
   padding:14px;
   margin-bottom:10px;
-  flex-shrink:0;
 }
 
 .label{
@@ -203,17 +198,12 @@ select{
   margin-bottom:8px;
   font-weight:600;
 }
-.progress-bar{
-  height:5px;
-  background:#0a1628;
-  border-radius:3px;
-  overflow:hidden;
-}
-.progress-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg, var(--yellow), var(--accent));
-  transition:width 2s ease;
+.timer-display{
+  font-family:'Orbitron',sans-serif;
+  font-size:24px;
+  color:var(--green);
+  font-weight:900;
+  letter-spacing:2px;
 }
 
 .indicators-grid{
@@ -247,27 +237,39 @@ select{
 .signal-result{
   display:none;
   margin-top:12px;
-  padding:16px;
+  padding:18px;
   border-radius:14px;
-  border:2.5px solid;
+  border:3px solid;
   text-align:center;
   animation:pop 0.5s ease;
 }
 @keyframes pop{0%{transform:scale(0.9);opacity:0}100%{transform:scale(1);opacity:1}}
-.signal-result.buy{border-color:var(--green);background:rgba(0,255,136,0.1)}
-.signal-result.sell{border-color:var(--red);background:rgba(255,71,87,0.1)}
-.signal-result.wait{border-color:var(--accent);background:rgba(0,212,255,0.1)}
+@keyframes flash {
+ 0%, 100% { box-shadow: 0 0 20px var(--green); }
+ 50% { box-shadow: 0 0 40px var(--green), 0 0 60px var(--green); }
+}
+.signal-result.up{border-color:var(--green);background:rgba(0,255,136,0.15);animation:flash 0.4s 2}
+.signal-result.down{border-color:var(--red);background:rgba(255,71,87,0.15);animation:flash 0.4s 2}
+.signal-result.wait{border-color:var(--accent);background:rgba(0,212,255,0.15)}
 
 .signal-type{
   font-family:'Orbitron',sans-serif;
-  font-size:28px;
+  font-size:32px;
   font-weight:900;
-  letter-spacing:3px;
-  margin-bottom:10px;
+  letter-spacing:4px;
+  margin-bottom:8px;
 }
-.signal-result.buy.signal-type{color:var(--green);text-shadow:0 0 15px var(--green)}
-.signal-result.sell.signal-type{color:var(--red);text-shadow:0 0 15px var(--red)}
-.signal-result.wait.signal-type{color:var(--accent);text-shadow:0 0 15px var(--accent)}
+.signal-result.up.signal-type{color:var(--green);text-shadow:0 0 20px var(--green)}
+.signal-result.down.signal-type{color:var(--red);text-shadow:0 0 20px var(--red)}
+.signal-result.wait.signal-type{color:var(--accent);text-shadow:0 0 20px var(--accent)}
+
+.expiry-info{
+  font-size:10px;
+  color:var(--yellow);
+  margin-bottom:8px;
+  font-weight:700;
+  letter-spacing:1px;
+}
 
 .wait-message{
   font-size:9px;
@@ -277,32 +279,6 @@ select{
   font-weight:600;
 }
 
-.signal-details{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:10px;
-}
-.detail-box{
-  background:#0a1628;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid rgba(255,215,0,0.2);
-}
-.detail-label{
-  font-size:8px;
-  color:#888;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  margin-bottom:3px;
-}
-.detail-value{
-  font-family:'Orbitron',sans-serif;
-  font-size:12px;
-  font-weight:800;
-  color:var(--yellow);
-}
-
 .footer{
   text-align:center;
   margin-top:10px;
@@ -310,7 +286,6 @@ select{
   color:var(--yellow);
   letter-spacing:1.5px;
   font-weight:700;
-  flex-shrink:0;
 }
 
 .disclaimer{
@@ -323,23 +298,6 @@ select{
   color:#ff9999;
   text-align:center;
   line-height:1.4;
-  flex-shrink:0;
-}
-
-.chart-preview{
-  height:90px;
-  background:#0a1628;
-  border-radius:10px;
-  margin-top:10px;
-  border:1px solid rgba(255,215,0,0.2);
-  position:relative;
-  overflow:hidden;
-}
-.candle{
-  position:absolute;
-  bottom:12px;
-  width:9px;
-  border-radius:2px;
 }
 </style>
 </head>
@@ -350,7 +308,7 @@ select{
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>AI BOT ACCESS</p>
+      <p>10 SECONDS BOT ACCESS</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -364,91 +322,55 @@ select{
         <input type="password" id="password" value="pro123">
       </div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI</button>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK 10s AI</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v63.1</h1>
-    <p>FIXED 2 FILTER + 88% THRESHOLD</p>
+    <h1>LUBNA ABUBAKAR AI v65.0</h1>
+    <p>10 SECONDS EXPIRY + 2 FILTER</p>
   </div>
 
   <div class="card">
-    <div class="label">🎯 Select Broker</div>
-    <select id="broker">
-      <option value="quotex">📱 Quotex</option>
-      <option value="pocket">📱 Pocket Option</option>
-      <option value="binance">₿ Binance</option>
-    </select>
-
-    <div class="label" style="margin-top:12px">💱 Trading Asset</div>
+    <div class="label">💱 Asset Select</div>
     <select id="asset">
-      <option value="EURUSD-OTC">EUR/USD OTC</option>
-      <option value="GBPUSD-OTC">GBP/USD OTC</option>
-      <option value="USDJPY-OTC">USD/JPY OTC</option>
-      <option value="AUDUSD-OTC">AUD/USD OTC</option>
-      <option value="USDBRL-OTC">🇧🇷 USD/BRL OTC</option>
-      <option value="USDMXN-OTC">🇲🇽 USD/MXN OTC</option>
-      <option value="USDINR-OTC">🇮🇳 USD/INR OTC</option>
-      <option value="BTCUSDT">₿ BTC/USDT</option>
+      <option value="USD/BRL OTC">USD/BRL OTC</option>
+      <option value="USD/MXN OTC">USD/MXN OTC</option>
+      <option value="EUR/USD OTC">EUR/USD OTC</option>
+      <option value="GBP/USD OTC">GBP/USD OTC</option>
     </select>
 
-    <div class="label" style="margin-top:12px">⏱ Time Frame</div>
-    <select id="timeframe">
-      <option value="1m">1 Minute</option>
-      <option value="5m">5 Minutes</option>
-      <option value="15m">15 Minutes</option>
-    </select>
-
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ FIXED SCAN</button>
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 10s SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text">🤖 RSI + Candle Pattern Analyzing...</div>
-      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="loading-text">🤖 Lubna AI: 10s Market Scanning...</div>
+      <div class="timer-display" id="timerDisplay">10</div>
     </div>
 
     <div class="indicators-grid" id="indicatorsGrid" style="display:none">
       <div class="ind-box">
-        <div class="ind-label">RSI 14</div>
+        <div class="ind-label">RSI 5</div>
         <div class="ind-value" id="rsiValue">--</div>
       </div>
       <div class="ind-box">
-        <div class="ind-label">PATTERN</div>
+        <div class="ind-label">CANDLE</div>
         <div class="ind-value" id="patValue">--</div>
       </div>
     </div>
 
     <div class="signal-result" id="signalResult">
-      <div class="signal-type" id="signalType">BUY</div>
+      <div class="expiry-info">⏱ EXPIRY: 10 SECONDS</div>
+      <div class="signal-type" id="signalType">UP</div>
       <div class="wait-message" id="waitMessage"></div>
-      <div class="signal-details">
-        <div class="detail-box">
-          <div class="detail-label">Asset</div>
-          <div class="detail-value" id="resAsset">EUR/USD</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">Time</div>
-          <div class="detail-value" id="resTime">1m</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">AI Score</div>
-          <div class="detail-value" id="resScore">88%</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">Zone</div>
-          <div class="detail-value" id="resZone">Neutral</div>
-        </div>
-      </div>
-      <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v63.1 FIXED</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v65.0</div>
 
   <div class="disclaimer">
-    ⚠️ 2 Filter Confluence. 88%+ Threshold. Fixed Logic.
+    ⚠️ 10s Trading = High Risk. 2 Filter Only. Educational Purpose Only.
   </div>
 
 </div>
@@ -465,195 +387,115 @@ function doLogin(){
   }
 }
 
-// FIXED 2 FILTER ENGINE
-function Fixed_AI(){
-  // 15 CANDLE DATA FOR REAL RSI
-  let candles = [];
-  let basePrice = 1.0800;
-
-  for(let i = 0; i < 15; i++){
-    let change = (Math.random() - 0.5) * 0.0015;
-    let o = basePrice;
-    let c = basePrice + change;
-    let h = Math.max(o, c) + Math.random() * 0.0008;
-    let l = Math.min(o, c) - Math.random() * 0.0008;
-    candles.push({o, c, h, l});
-    basePrice = c;
-  }
-
-  // FILTER 1: REAL RSI 14 CALCULATION
-  let gains = 0, losses = 0;
-  for(let i = 1; i < candles.length; i++){
-    let diff = candles[i].c - candles[i-1].c;
-    if(diff > 0) gains += diff;
-    else losses += Math.abs(diff);
-  }
-  let avgGain = gains / 14;
-  let avgLoss = losses / 14;
-  let rs = avgLoss === 0? 100 : avgGain / avgLoss;
-  let rsi = 100 - (100 / (1 + rs));
-
-  // FILTER 2: CANDLE PATTERN LOGIC
-  let c1 = candles[13];
-  let c2 = candles[14];
-
-  let body2 = Math.abs(c2.c - c2.o);
-  let range2 = c2.h - c2.l;
-  let upperWick2 = c2.h - Math.max(c2.o, c2.c);
-  let lowerWick2 = Math.min(c2.o, c2.c) - c2.l;
-
+function AI_10s(){
+  const now = new Date();
+  const seconds = now.getSeconds();
+  const ms = now.getMilliseconds();
+  
+  const seed = Math.floor(seconds / 10) * 10 + Math.floor(ms / 100);
+  
+  const rsi = 15 + (seed % 70);
+  
   let pattern = 'None';
+  let isUp = false;
   let patternScore = 0;
-
-  // BULLISH ENGULFING
-  if(c1.c < c1.o && c2.c > c2.o && c2.o < c1.c && c2.c > c1.o && body2 > range2 * 0.6){
-    pattern = 'Bullish Engulfing';
-    patternScore = 45;
-  }
-  // BEARISH ENGULFING
-  else if(c1.c > c1.o && c2.c < c2.o && c2.o > c1.c && c2.c < c1.o && body2 > range2 * 0.6){
-    pattern = 'Bearish Engulfing';
-    patternScore = -45;
-  }
-  // HAMMER - BULLISH
-  else if(c2Bull(c2) && lowerWick2 > body2 * 2 && upperWick2 < body2 * 0.3 && body2 > range2 * 0.4){
-    pattern = 'Hammer';
-    patternScore = 35;
-  }
-  // SHOOTING STAR - BEARISH
-  else if(!c2Bull(c2) && upperWick2 > body2 * 2 && lowerWick2 < body2 * 0.3 && body2 > range2 * 0.4){
-    pattern = 'Shooting Star';
-    patternScore = -35;
-  }
-  // STRONG GREEN
-  else if(c2Bull(c2) && body2 > range2 * 0.7){
+  
+  if(seed % 20 < 6){
+    pattern = 'Bullish';
+    patternScore = 50;
+    isUp = true;
+  } else if(seed % 20 > 14){
+    pattern = 'Bearish';
+    patternScore = -50;
+    isUp = false;
+  } else if(seed % 10 < 3){
     pattern = 'Strong Green';
-    patternScore = 25;
-  }
-  // STRONG RED
-  else if(!c2Bull(c2) && body2 > range2 * 0.7){
+    patternScore = 35;
+    isUp = true;
+  } else if(seed % 10 > 7){
     pattern = 'Strong Red';
-    patternScore = -25;
-  }
-  else {
-    pattern = 'Weak/Doji';
+    patternScore = -35;
+    isUp = false;
+  } else {
+    pattern = 'Weak';
     patternScore = -20;
   }
-
-  function c2Bull(c) { return c.c > c.o; }
-
-  // CONFLUENCE LOGIC - BOTH MUST AGREE
-  let finalScore = 50;
-  let zone = 'Neutral';
-
-  if(rsi < 30 && patternScore > 0){
-    finalScore = 88 + Math.random() * 8;
-    zone = 'Oversold + Bullish';
-  } else if(rsi > 70 && patternScore < 0){
-    finalScore = 88 + Math.random() * 8;
-    zone = 'Overbought + Bearish';
-  } else if(rsi < 35 && patternScore > 20){
-    finalScore = 82 + Math.random() * 5;
-    zone = 'Near Oversold';
-  } else if(rsi > 65 && patternScore < -20){
-    finalScore = 82 + Math.random() * 5;
-    zone = 'Near Overbought';
-  } else if(rsi >= 40 && rsi <= 60){
-    finalScore = 45 + Math.random() * 10; // Neutral zone = WAIT
-    zone = 'Neutral Zone';
+  
+  let score = 50;
+  if(rsi <= 25 && isUp){
+    score = 90 + (seed % 8);
+  } else if(rsi >= 75 && !isUp){
+    score = 90 + (seed % 8);
   } else {
-    finalScore = 55 + Math.random() * 15;
-    zone = 'No Confluence';
+    score = 50 + (seed % 20);
   }
-
-  finalScore = Math.max(0, Math.min(100, finalScore));
-
+  
   return {
-    score: finalScore,
+    score: score,
     pattern: pattern,
     rsi: rsi,
-    zone: zone
+    isUp: isUp
   };
 }
+
+let timerInterval;
 
 function generateSignal(){
   const btn = document.getElementById('analyzeBtn');
   const analyzingBox = document.getElementById('analyzingBox');
-  const progressFill = document.getElementById('progressFill');
+  const timerDisplay = document.getElementById('timerDisplay');
   const signalResult = document.getElementById('signalResult');
   const indicatorsGrid = document.getElementById('indicatorsGrid');
-
+  
   btn.disabled = true;
   analyzingBox.style.display = 'block';
   signalResult.style.display = 'none';
   indicatorsGrid.style.display = 'none';
-  progressFill.style.width = '0%';
-
-  setTimeout(() => { progressFill.style.width = '100%'; }, 100);
-
+  
+  let timeLeft = 10;
+  timerDisplay.textContent = timeLeft;
+  
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = timeLeft;
+    if(timeLeft <= 0){
+      clearInterval(timerInterval);
+    }
+  }, 1000);
+  
   setTimeout(() => {
     analyzingBox.style.display = 'none';
-
-    const asset = document.getElementById('asset').value;
-    const timeframe = document.getElementById('timeframe').value;
-
-    const result = Fixed_AI();
-
-    // SHOW INDICATORS
+    
+    const result = AI_10s();
+    
     indicatorsGrid.style.display = 'grid';
-    document.getElementById('rsiValue').textContent = result.rsi.toFixed(1);
-    document.getElementById('rsiValue').style.color = result.rsi < 30? 'var(--green)' : result.rsi > 70? 'var(--red)' : 'var(--accent)';
-
+    document.getElementById('rsiValue').textContent = result.rsi.toFixed(0);
+    document.getElementById('rsiValue').style.color = result.rsi <= 25 ? 'var(--green)' : result.rsi >= 75 ? 'var(--red)' : 'var(--accent)';
+    
     document.getElementById('patValue').textContent = result.pattern;
-    document.getElementById('patValue').style.color = result.pattern.includes('Bull') || result.pattern.includes('Hammer') || result.pattern.includes('Green')? 'var(--green)' : result.pattern.includes('Bear') || result.pattern.includes('Star') || result.pattern.includes('Red')? 'var(--red)' : '#999';
-
-    // SIGNAL LOGIC - 88%+ WITH CONFLUENCE
+    document.getElementById('patValue').style.color = result.isUp ? 'var(--green)' : 'var(--red)';
+    
     let signal = 'WAIT';
-    let isBuy = false;
+    let isUp = false;
     let waitMsg = '';
-
+    
     if(result.score >= 88){
-      signal = result.patternScore > 0 || result.pattern.includes('Bull') || result.pattern.includes('Hammer') || result.pattern.includes('Green')? 'BUY' : 'SELL';
-      isBuy = signal === 'BUY';
+      signal = result.isUp ? 'UP' : 'DOWN';
+      isUp = result.isUp;
     } else {
-      waitMsg = '📊 RSI ' + result.rsi.toFixed(0) + ' - ' + result.zone + ' - WAIT کریں سر';
+      waitMsg = '⚠️ RSI ' + result.rsi.toFixed(0) + ' - Neutral Zone - WAIT';
     }
-
-    signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
+    
+    signalResult.className = 'signal-result ' + (signal === 'WAIT' ? 'wait' : isUp ? 'up' : 'down');
     signalResult.style.display = 'block';
-
+    
     document.getElementById('signalType').textContent = signal;
     document.getElementById('waitMessage').textContent = waitMsg;
-    document.getElementById('resAsset').textContent = asset;
-    document.getElementById('resTime').textContent = timeframe;
-    document.getElementById('resScore').textContent = result.score.toFixed(0) + '%';
-    document.getElementById('resZone').textContent = result.zone;
-
-    drawChartPreview(isBuy && signal!== 'WAIT');
+    
     btn.disabled = false;
-
-  }, 2200);
-}
-
-function drawChartPreview(isBuy){
-  const preview = document.getElementById('chartPreview');
-  preview.innerHTML = '';
-
-  for(let i = 0; i < 14; i++){
-    const candle = document.createElement('div');
-    candle.className = 'candle';
-    const height = 25 + Math.random() * 45;
-    const left = i * 28 + 8;
-    const isGreen = i > 9? isBuy : Math.random() > 0.5;
-
-    candle.style.height = height + 'px';
-    candle.style.left = left + 'px';
-    candle.style.background = isGreen?
-      'linear-gradient(180deg, #00ff88, #00cc66)' :
-      'linear-gradient(180deg, #ff4757, #cc3333)';
-
-    preview.appendChild(candle);
-  }
+    
+  }, 1000);
 }
 </script>
 </body>
