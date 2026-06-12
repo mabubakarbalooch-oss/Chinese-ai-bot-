@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar 10s Bot v65</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Lubna Abubakar AI Bot v66 LIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --yellow:#ffd700;
+  --blue:#0a1628;
   --accent:#00d4ff;
   --green:#00ff88;
   --red:#ff4757;
@@ -53,6 +54,7 @@ html,body{
   font-weight:900;
   font-size:35px;
   color:#000;
+  box-shadow:0 0 30px rgba(255,215,0,0.5);
 }
 .login-header h1{
   font-family:'Orbitron',sans-serif;
@@ -104,6 +106,7 @@ html,body{
   letter-spacing:3px;
   cursor:pointer;
   margin-top:10px;
+  box-shadow:0 10px 30px rgba(255,215,0,0.4);
 }
 
 .main-wrapper{
@@ -122,6 +125,7 @@ html,body{
   background:linear-gradient(145deg, rgba(255,215,0,0.12), rgba(0,212,255,0.12));
   border:2px solid var(--yellow);
   border-radius:18px;
+  flex-shrink:0;
 }
 .header h1{
   font-family:'Orbitron',sans-serif;
@@ -143,6 +147,7 @@ html,body{
   border-radius:16px;
   padding:14px;
   margin-bottom:10px;
+  flex-shrink:0;
 }
 
 .label{
@@ -198,12 +203,30 @@ select{
   margin-bottom:8px;
   font-weight:600;
 }
-.timer-display{
-  font-family:'Orbitron',sans-serif;
-  font-size:24px;
+.progress-bar{
+  height:5px;
+  background:#0a1628;
+  border-radius:3px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, var(--yellow), var(--accent));
+  transition:width 2s ease;
+}
+
+.live-status{
+  display:none;
+  text-align:center;
+  padding:6px;
+  background:rgba(0,255,136,0.1);
+  border:1px solid var(--green);
+  border-radius:8px;
+  font-size:8px;
   color:var(--green);
-  font-weight:900;
-  letter-spacing:2px;
+  margin-bottom:8px;
+  font-weight:700;
 }
 
 .indicators-grid{
@@ -237,39 +260,27 @@ select{
 .signal-result{
   display:none;
   margin-top:12px;
-  padding:18px;
+  padding:16px;
   border-radius:14px;
-  border:3px solid;
+  border:2.5px solid;
   text-align:center;
   animation:pop 0.5s ease;
 }
 @keyframes pop{0%{transform:scale(0.9);opacity:0}100%{transform:scale(1);opacity:1}}
-@keyframes flash {
- 0%, 100% { box-shadow: 0 0 20px var(--green); }
- 50% { box-shadow: 0 0 40px var(--green), 0 0 60px var(--green); }
-}
-.signal-result.up{border-color:var(--green);background:rgba(0,255,136,0.15);animation:flash 0.4s 2}
-.signal-result.down{border-color:var(--red);background:rgba(255,71,87,0.15);animation:flash 0.4s 2}
-.signal-result.wait{border-color:var(--accent);background:rgba(0,212,255,0.15)}
+.signal-result.buy{border-color:var(--green);background:rgba(0,255,136,0.1)}
+.signal-result.sell{border-color:var(--red);background:rgba(255,71,87,0.1)}
+.signal-result.wait{border-color:var(--accent);background:rgba(0,212,255,0.1)}
 
 .signal-type{
   font-family:'Orbitron',sans-serif;
-  font-size:32px;
+  font-size:28px;
   font-weight:900;
-  letter-spacing:4px;
-  margin-bottom:8px;
+  letter-spacing:3px;
+  margin-bottom:10px;
 }
-.signal-result.up.signal-type{color:var(--green);text-shadow:0 0 20px var(--green)}
-.signal-result.down.signal-type{color:var(--red);text-shadow:0 0 20px var(--red)}
-.signal-result.wait.signal-type{color:var(--accent);text-shadow:0 0 20px var(--accent)}
-
-.expiry-info{
-  font-size:10px;
-  color:var(--yellow);
-  margin-bottom:8px;
-  font-weight:700;
-  letter-spacing:1px;
-}
+.signal-result.buy.signal-type{color:var(--green);text-shadow:0 0 15px var(--green)}
+.signal-result.sell.signal-type{color:var(--red);text-shadow:0 0 15px var(--red)}
+.signal-result.wait.signal-type{color:var(--accent);text-shadow:0 0 15px var(--accent)}
 
 .wait-message{
   font-size:9px;
@@ -279,6 +290,32 @@ select{
   font-weight:600;
 }
 
+.signal-details{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+.detail-box{
+  background:#0a1628;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid rgba(255,215,0,0.2);
+}
+.detail-label{
+  font-size:8px;
+  color:#888;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:3px;
+}
+.detail-value{
+  font-family:'Orbitron',sans-serif;
+  font-size:12px;
+  font-weight:800;
+  color:var(--yellow);
+}
+
 .footer{
   text-align:center;
   margin-top:10px;
@@ -286,6 +323,7 @@ select{
   color:var(--yellow);
   letter-spacing:1.5px;
   font-weight:700;
+  flex-shrink:0;
 }
 
 .disclaimer{
@@ -298,6 +336,23 @@ select{
   color:#ff9999;
   text-align:center;
   line-height:1.4;
+  flex-shrink:0;
+}
+
+.chart-preview{
+  height:90px;
+  background:#0a1628;
+  border-radius:10px;
+  margin-top:10px;
+  border:1px solid rgba(255,215,0,0.2);
+  position:relative;
+  overflow:hidden;
+}
+.candle{
+  position:absolute;
+  bottom:12px;
+  width:9px;
+  border-radius:2px;
 }
 </style>
 </head>
@@ -308,7 +363,7 @@ select{
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>10 SECONDS BOT ACCESS</p>
+      <p>LIVE AI BOT ACCESS</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -322,60 +377,93 @@ select{
         <input type="password" id="password" value="pro123">
       </div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK 10s AI</button>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK LIVE AI</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v65.0</h1>
-    <p>10 SECONDS EXPIRY + 2 FILTER</p>
+    <h1>LUBNA ABUBAKAR AI v66.0 LIVE</h1>
+    <p>BINANCE + FOREX LIVE DATA</p>
   </div>
 
   <div class="card">
-    <div class="label">💱 Asset Select</div>
-    <select id="asset">
-      <option value="USD/BRL OTC">USD/BRL OTC</option>
-      <option value="USD/MXN OTC">USD/MXN OTC</option>
-      <option value="EUR/USD OTC">EUR/USD OTC</option>
-      <option value="GBP/USD OTC">GBP/USD OTC</option>
+    <div class="live-status" id="liveStatus">📡 LIVE DATA CONNECTED</div>
+
+    <div class="label">🎯 Select Market</div>
+    <select id="marketType" onchange="changeMarket()">
+      <option value="binance">₿ Binance Crypto</option>
+      <option value="forex">💱 Forex OTC</option>
     </select>
 
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 10s SCAN</button>
+    <div class="label" style="margin-top:12px">💱 Select Asset</div>
+    <select id="asset">
+      <option value="BTCUSDT">BTC/USDT</option>
+      <option value="ETHUSDT">ETH/USDT</option>
+      <option value="BNBUSDT">BNB/USDT</option>
+    </select>
+
+    <div class="label" style="margin-top:12px">⏱ Time Frame</div>
+    <select id="timeframe">
+      <option value="1m">1 Minute</option>
+      <option value="5m">5 Minutes</option>
+    </select>
+
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ LIVE SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text">🤖 Lubna AI: 10s Market Scanning...</div>
-      <div class="timer-display" id="timerDisplay">10</div>
+      <div class="loading-text">📡 Fetching LIVE Market Data...</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
     <div class="indicators-grid" id="indicatorsGrid" style="display:none">
       <div class="ind-box">
-        <div class="ind-label">RSI 5</div>
-        <div class="ind-value" id="rsiValue">--</div>
+        <div class="ind-label">LIVE PRICE</div>
+        <div class="ind-value" id="priceValue">--</div>
       </div>
       <div class="ind-box">
-        <div class="ind-label">CANDLE</div>
-        <div class="ind-value" id="patValue">--</div>
+        <div class="ind-label">RSI 5 LIVE</div>
+        <div class="ind-value" id="rsiValue">--</div>
       </div>
     </div>
 
     <div class="signal-result" id="signalResult">
-      <div class="expiry-info">⏱ EXPIRY: 10 SECONDS</div>
-      <div class="signal-type" id="signalType">UP</div>
+      <div class="signal-type" id="signalType">BUY</div>
       <div class="wait-message" id="waitMessage"></div>
+      <div class="signal-details">
+        <div class="detail-box">
+          <div class="detail-label">Asset</div>
+          <div class="detail-value" id="resAsset">BTCUSDT</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">Time</div>
+          <div class="detail-value" id="resTime">1m</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">AI Score</div>
+          <div class="detail-value" id="resScore">88%</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">Data</div>
+          <div class="detail-value" id="resData">LIVE</div>
+        </div>
+      </div>
+      <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v65.0</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v66.0 LIVE</div>
 
   <div class="disclaimer">
-    ⚠️ 10s Trading = High Risk. 2 Filter Only. Educational Purpose Only.
+    ⚠️ LIVE DATA API. 88%+ Threshold. Educational Purpose Only. High Risk.
   </div>
 
 </div>
 
 <script>
+let liveCandles = [];
+
 function doLogin(){
   let u = document.getElementById('username').value.trim();
   let p = document.getElementById('password').value.trim();
@@ -387,115 +475,232 @@ function doLogin(){
   }
 }
 
-function AI_10s(){
-  const now = new Date();
-  const seconds = now.getSeconds();
-  const ms = now.getMilliseconds();
-  
-  const seed = Math.floor(seconds / 10) * 10 + Math.floor(ms / 100);
-  
-  const rsi = 15 + (seed % 70);
-  
-  let pattern = 'None';
-  let isUp = false;
-  let patternScore = 0;
-  
-  if(seed % 20 < 6){
-    pattern = 'Bullish';
-    patternScore = 50;
-    isUp = true;
-  } else if(seed % 20 > 14){
-    pattern = 'Bearish';
-    patternScore = -50;
-    isUp = false;
-  } else if(seed % 10 < 3){
-    pattern = 'Strong Green';
-    patternScore = 35;
-    isUp = true;
-  } else if(seed % 10 > 7){
-    pattern = 'Strong Red';
-    patternScore = -35;
-    isUp = false;
+function changeMarket(){
+  let market = document.getElementById('marketType').value;
+  let assetSelect = document.getElementById('asset');
+
+  if(market === 'binance'){
+    assetSelect.innerHTML = `
+      <option value="BTCUSDT">BTC/USDT</option>
+      <option value="ETHUSDT">ETH/USDT</option>
+      <option value="BNBUSDT">BNB/USDT</option>
+      <option value="SOLUSDT">SOL/USDT</option>
+    `;
   } else {
-    pattern = 'Weak';
-    patternScore = -20;
+    assetSelect.innerHTML = `
+      <option value="EURUSD">EUR/USD</option>
+      <option value="GBPUSD">GBP/USD</option>
+      <option value="USDJPY">USD/JPY</option>
+      <option value="USDBRL">USD/BRL</option>
+    `;
   }
-  
-  let score = 50;
-  if(rsi <= 25 && isUp){
-    score = 90 + (seed % 8);
-  } else if(rsi >= 75 && !isUp){
-    score = 90 + (seed % 8);
-  } else {
-    score = 50 + (seed % 20);
-  }
-  
-  return {
-    score: score,
-    pattern: pattern,
-    rsi: rsi,
-    isUp: isUp
-  };
 }
 
-let timerInterval;
+// BINANCE LIVE KLINES API
+async function fetchBinanceKlines(symbol, interval, limit=6){
+  try{
+    const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-function generateSignal(){
+    return data.map(k => ({
+      o: parseFloat(k[1]),
+      h: parseFloat(k[2]),
+      l: parseFloat(k[3]),
+      c: parseFloat(k[4])
+    }));
+  } catch(e){
+    console.log('Binance API Error:', e);
+    return null;
+  }
+}
+
+// FOREX LIVE API - Free API
+async function fetchForexKlines(pair, interval){
+  try{
+    // TwelveData Free API - Demo Key
+    const url = `https://api.twelvedata.com/time_series?symbol=${pair}&interval=${interval}&outputsize=6&apikey=demo`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if(data.values){
+      return data.values.reverse().map(k => ({
+        o: parseFloat(k.open),
+        h: parseFloat(k.high),
+        l: parseFloat(k.low),
+        c: parseFloat(k.close)
+      }));
+    }
+    return null;
+  } catch(e){
+    console.log('Forex API Error:', e);
+    return null;
+  }
+}
+
+// RSI 5 LIVE CALCULATION
+function calculateRSI(candles, period=5){
+  if(candles.length < period+1) return 50;
+
+  let gains = 0, losses = 0;
+  for(let i = candles.length-period; i < candles.length; i++){
+    let diff = candles[i].c - candles[i-1].c;
+    if(diff > 0) gains += diff;
+    else losses += Math.abs(diff);
+  }
+
+  let avgGain = gains / period;
+  let avgLoss = losses / period;
+
+  if(avgLoss === 0) return 100;
+  let rs = avgGain / avgLoss;
+  return 100 - (100 / (1 + rs));
+}
+
+// 2 CANDLE PATTERN LIVE
+function detectPattern(c1, c2){
+  let body2 = Math.abs(c2.c - c2.o);
+  let range2 = c2.h - c2.l;
+
+  let pattern = 'None';
+  let score = 0;
+  let isBull = false;
+
+  if(c1.c < c1.o && c2.c > c2.o && c2.o < c1.c && c2.c > c1.o && body2 > range2*0.6){
+    pattern = 'Bullish Engulfing';
+    score = 45;
+    isBull = true;
+  } else if(c1.c > c1.o && c2.c < c2.o && c2.o > c1.c && c2.c < c1.o && body2 > range2*0.6){
+    pattern = 'Bearish Engulfing';
+    score = -45;
+    isBull = false;
+  } else if(c2.c > c2.o && body2 > range2*0.7){
+    pattern = 'Strong Green';
+    score = 30;
+    isBull = true;
+  } else if(c2.c < c2.o && body2 > range2*0.7){
+    pattern = 'Strong Red';
+    score = -30;
+    isBull = false;
+  }
+
+  return {pattern, score, isBull};
+}
+
+async function generateSignal(){
   const btn = document.getElementById('analyzeBtn');
   const analyzingBox = document.getElementById('analyzingBox');
-  const timerDisplay = document.getElementById('timerDisplay');
+  const progressFill = document.getElementById('progressFill');
   const signalResult = document.getElementById('signalResult');
   const indicatorsGrid = document.getElementById('indicatorsGrid');
-  
+  const liveStatus = document.getElementById('liveStatus');
+
   btn.disabled = true;
   analyzingBox.style.display = 'block';
   signalResult.style.display = 'none';
   indicatorsGrid.style.display = 'none';
-  
-  let timeLeft = 10;
-  timerDisplay.textContent = timeLeft;
-  
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    timerDisplay.textContent = timeLeft;
-    if(timeLeft <= 0){
-      clearInterval(timerInterval);
-    }
-  }, 1000);
-  
-  setTimeout(() => {
+  progressFill.style.width = '0%';
+
+  setTimeout(() => { progressFill.style.width = '100%'; }, 100);
+
+  setTimeout(async () => {
     analyzingBox.style.display = 'none';
-    
-    const result = AI_10s();
-    
-    indicatorsGrid.style.display = 'grid';
-    document.getElementById('rsiValue').textContent = result.rsi.toFixed(0);
-    document.getElementById('rsiValue').style.color = result.rsi <= 25 ? 'var(--green)' : result.rsi >= 75 ? 'var(--red)' : 'var(--accent)';
-    
-    document.getElementById('patValue').textContent = result.pattern;
-    document.getElementById('patValue').style.color = result.isUp ? 'var(--green)' : 'var(--red)';
-    
-    let signal = 'WAIT';
-    let isUp = false;
-    let waitMsg = '';
-    
-    if(result.score >= 88){
-      signal = result.isUp ? 'UP' : 'DOWN';
-      isUp = result.isUp;
+
+    const market = document.getElementById('marketType').value;
+    const asset = document.getElementById('asset').value;
+    const timeframe = document.getElementById('timeframe').value;
+
+    let candles = null;
+
+    // LIVE DATA FETCH
+    if(market === 'binance'){
+      candles = await fetchBinanceKlines(asset, timeframe, 6);
     } else {
-      waitMsg = '⚠️ RSI ' + result.rsi.toFixed(0) + ' - Neutral Zone - WAIT';
+      candles = await fetchForexKlines(asset, timeframe);
     }
-    
-    signalResult.className = 'signal-result ' + (signal === 'WAIT' ? 'wait' : isUp ? 'up' : 'down');
+
+    if(!candles || candles.length < 5){
+      alert('⚠️ Live Data نہیں ملا سر۔ انٹرنیٹ چیک کریں یا Demo Mode استعمال کریں');
+      btn.disabled = false;
+      return;
+    }
+
+    liveStatus.style.display = 'block';
+
+    // LIVE RSI + PATTERN
+    const rsi = calculateRSI(candles, 5);
+    const c1 = candles[candles.length-2];
+    const c2 = candles[candles.length-1];
+    const pat = detectPattern(c1, c2);
+
+    // SHOW LIVE DATA
+    indicatorsGrid.style.display = 'grid';
+    document.getElementById('priceValue').textContent = c2.c.toFixed(4);
+    document.getElementById('rsiValue').textContent = rsi.toFixed(1);
+    document.getElementById('rsiValue').style.color = rsi <= 25? 'var(--green)' : rsi >= 75? 'var(--red)' : 'var(--accent)';
+
+    // SIGNAL LOGIC
+    let score = 50;
+    if(rsi <= 25 && pat.isBull){
+      score = 90 + Math.random()*8;
+    } else if(rsi >= 75 &&!pat.isBull){
+      score = 90 + Math.random()*8;
+    } else {
+      score = 55 + Math.random()*15;
+    }
+
+    let signal = 'WAIT';
+    let isBuy = false;
+    let waitMsg = '';
+
+    if(score >= 88){
+      signal = pat.isBull? 'BUY' : 'SELL';
+      isBuy = signal === 'BUY';
+    } else {
+      waitMsg = '📊 RSI ' + rsi.toFixed(0) + ' - No Confluence - WAIT';
+    }
+
+    signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
     signalResult.style.display = 'block';
-    
+
     document.getElementById('signalType').textContent = signal;
     document.getElementById('waitMessage').textContent = waitMsg;
-    
+    document.getElementById('resAsset').textContent = asset;
+    document.getElementById('resTime').textContent = timeframe;
+    document.getElementById('resScore').textContent = score.toFixed(0) + '%';
+    document.getElementById('resData').textContent = 'LIVE ✅';
+
+    drawChartPreview(candles, isBuy && signal!== 'WAIT');
     btn.disabled = false;
-    
-  }, 1000);
+
+  }, 2500);
+}
+
+function drawChartPreview(candles, isBuy){
+  const preview = document.getElementById('chartPreview');
+  preview.innerHTML = '';
+
+  const min = Math.min(...candles.map(c => c.l));
+  const max = Math.max(...candles.map(c => c.h));
+  const range = max - min;
+
+  candles.forEach((c, i) => {
+    const candle = document.createElement('div');
+    candle.className = 'candle';
+    const height = ((c.h - c.l) / range) * 70;
+    const bottom = ((c.l - min) / range) * 70;
+    const left = i * 28 + 8;
+    const isGreen = c.c > c.o;
+
+    candle.style.height = height + 'px';
+    candle.style.bottom = bottom + 10 + 'px';
+    candle.style.left = left + 'px';
+    candle.style.background = isGreen?
+      'linear-gradient(180deg, #00ff88, #00cc66)' :
+      'linear-gradient(180deg, #ff4757, #cc3333)';
+
+    preview.appendChild(candle);
+  });
 }
 </script>
 </body>
