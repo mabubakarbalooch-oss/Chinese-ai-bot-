@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v66.3 LIVE</title>
+<title>Lubna Abubakar AI Bot v66.4 LIVE</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -367,8 +367,8 @@ select{
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v66.3 LIVE</h1>
-    <p>BINANCE + FOREX FINNHUB LIVE</p>
+    <h1>LUBNA ABUBAKAR AI v66.4 LIVE</h1>
+    <p>BINANCE + FOREX FINNHUB PROXY</p>
   </div>
 
   <div class="card">
@@ -437,16 +437,16 @@ select{
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v66.3 LIVE</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v66.4 LIVE</div>
 
   <div class="disclaimer">
-    ⚠️ Binance Live + Forex Finnhub Live. Auto Demo Mode. 88%+ Threshold. High Risk Trading.
+    ⚠️ Binance Live + Forex Finnhub Proxy. Auto Demo Mode. 88%+ Threshold. High Risk Trading.
   </div>
 
 </div>
 
 <script>
-// ✅ سر آپ کی Finnhub API Key لگ چکی ہے
+// ✅ سر آپ کی Finnhub API Key
 const finnhubKey = 'd8lo9ohr01qnkjl7rfmgd8lo9ohr01qnkjl7rfn0';
 
 let liveCandles = [];
@@ -502,14 +502,17 @@ async function fetchBinanceKlines(symbol, interval, limit=6){
   }
 }
 
-// FOREX LIVE API - FINNHUB
+// FOREX LIVE API - FINNHUB + CORS PROXY ✅
 async function fetchForexKlines(pair, interval){
   try{
     const url = `https://finnhub.io/api/v1/quote?symbol=OANDA:${pair}&token=${finnhubKey}`;
-    const res = await fetch(url);
+    // CORS Proxy لگا دیا سر - GitHub Pages کا بلاک ختم
+    const proxyUrl = `https://cors.isomorphic-git.org/${url}`;
+
+    const res = await fetch(proxyUrl);
     const data = await res.json();
 
-    if(data.c){
+    if(data.c && data.c > 0){
       let candles = [];
       let price = data.c;
       for(let i = 5; i >= 0; i--){
@@ -631,7 +634,7 @@ async function generateSignal(){
     }
 
     // اگر LIVE نہ ملے تو DEMO MODE
-    if(!candles || candles.length < 5){
+    if(!candles || candles.length < 5 || candles[0].c < 0.5){
       isLive = false;
       liveStatus.textContent = '📊 DEMO MODE - No API';
       liveStatus.style.background = 'rgba(255,165,0,0.1)';
