@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v66.7 SET LOGIC</title>
+<title>Lubna Abubakar AI Bot v66.8 ALL PAIRS</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
@@ -63,7 +63,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>LIVE AI BOT SET LOGIC</p>
+      <p>ALL CURRENCY PAIRS</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -84,8 +84,8 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v66.7 SET</h1>
-    <p>BINANCE + FOREX NO RANDOM</p>
+    <h1>LUBNA ABUBAKAR AI v66.8</h1>
+    <p>USD/BRL USD/MXN USD/INR USD/PKR ADDED</p>
   </div>
 
   <div class="card">
@@ -154,10 +154,10 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v66.7 SET</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v66.8</div>
 
   <div class="disclaimer">
-    ⚠️ 100% SET Logic. No Random. RSI + Candle Only. Live Data.
+    ⚠️ EURUSD/GBPUSD/USDJPY = LIVE API. USD/BRL/MXN/INR/PKR = Demo Mode on Free API.
   </div>
 
 </div>
@@ -182,7 +182,16 @@ function changeMarket(){
   if(market === 'binance'){
     assetSelect.innerHTML = `<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option>`;
   } else {
-    assetSelect.innerHTML = `<option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="USDJPY">USD/JPY</option>`;
+    // ✅ سر تمام کرنسیاں ڈال دیں
+    assetSelect.innerHTML = `
+      <option value="EURUSD">EUR/USD ✅ LIVE</option>
+      <option value="GBPUSD">GBP/USD ✅ LIVE</option>
+      <option value="USDJPY">USD/JPY ✅ LIVE</option>
+      <option value="USDBRL">USD/BRL 📊 Demo</option>
+      <option value="USDMXN">USD/MXN 📊 Demo</option>
+      <option value="USDINR">USD/INR 📊 Demo</option>
+      <option value="USDPKR">USD/PKR 📊 Demo</option>
+    `;
   }
 }
 
@@ -197,10 +206,12 @@ async function fetchBinanceKlines(symbol, interval, limit=6){
 
 async function fetchForexKlines(pair, interval){
   try{
+    // ✅ سر تمام 7 پیر Finnhub سے ٹرائی ہوں گے
     const url = `https://finnhub.io/api/v1/quote?symbol=OANDA:${pair}&token=${finnhubKey}`;
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
     const res = await fetch(proxyUrl);
     const data = await res.json();
+
     if(data.c && data.c > 0.5){
       let candles = [];
       let price = data.c;
@@ -213,7 +224,10 @@ async function fetchForexKlines(pair, interval){
       return candles;
     }
     return null;
-  } catch(e){return null}
+  } catch(e){
+    console.log('Forex Error:', pair, e);
+    return null;
+  }
 }
 
 function generateDemoCandles(){
@@ -325,38 +339,28 @@ async function generateSignal(){
     document.getElementById('rsiValue').textContent = rsi.toFixed(1);
     document.getElementById('rsiValue').style.color = rsi <= 30? 'var(--green)' : rsi >= 70? 'var(--red)' : 'var(--accent)';
 
-    // ✅✅ سر RANDOM ختم - 100% SET LOGIC
     let signal = 'WAIT';
     let isBuy = false;
     let score = 0;
     let waitMsg = '';
 
-    // Rule 1: RSI ≤ 30 + Bullish Candle = BUY 92%
     if(rsi <= 30 && pat.isBull){
       signal = 'BUY';
       score = 92;
       isBuy = true;
-    }
-    // Rule 2: RSI ≥ 70 + Bearish Candle = SELL 92%
-    else if(rsi >= 70 &&!pat.isBull){
+    } else if(rsi >= 70 &&!pat.isBull){
       signal = 'SELL';
       score = 92;
       isBuy = false;
-    }
-    // Rule 3: RSI 30-40 + Strong Green = BUY 85%
-    else if(rsi >= 30 && rsi <= 40 && pat.pattern === 'Strong Green'){
+    } else if(rsi >= 30 && rsi <= 40 && pat.pattern === 'Strong Green'){
       signal = 'BUY';
       score = 85;
       isBuy = true;
-    }
-    // Rule 4: RSI 60-70 + Strong Red = SELL 85%
-    else if(rsi >= 60 && rsi <= 70 && pat.pattern === 'Strong Red'){
+    } else if(rsi >= 60 && rsi <= 70 && pat.pattern === 'Strong Red'){
       signal = 'SELL';
       score = 85;
       isBuy = false;
-    }
-    // Rule 5: ورنہ WAIT
-    else {
+    } else {
       signal = 'WAIT';
       score = 60;
       waitMsg = '📊 RSI ' + rsi.toFixed(0) + ' + ' + pat.pattern + ' - WAIT';
@@ -368,7 +372,7 @@ async function generateSignal(){
     document.getElementById('waitMessage').textContent = waitMsg;
     document.getElementById('resAsset').textContent = asset;
     document.getElementById('resTime').textContent = timeframe;
-    document.getElementById('resScore').textContent = score + '%'; // ✅ No Random
+    document.getElementById('resScore').textContent = score + '%';
     document.getElementById('resData').textContent = isLive? 'LIVE ✅' : 'DEMO';
     drawChartPreview(candles, isBuy && signal!== 'WAIT');
     btn.disabled = false;
