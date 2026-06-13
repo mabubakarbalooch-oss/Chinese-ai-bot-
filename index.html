@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v66.8 ALL PAIRS</title>
+<title>Lubna Abubakar AI Bot v67.0 Quotex</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
@@ -63,7 +63,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>ALL CURRENCY PAIRS</p>
+      <p>QUOTEX + FOREX + BINANCE</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -84,8 +84,8 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v66.8</h1>
-    <p>USD/BRL USD/MXN USD/INR USD/PKR ADDED</p>
+    <h1>LUBNA ABUBAKAR AI v67.0</h1>
+    <p>QUOTEX SIGNALS READY</p>
   </div>
 
   <div class="card">
@@ -95,6 +95,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <select id="marketType" onchange="changeMarket()">
       <option value="binance">₿ Binance Crypto</option>
       <option value="forex">💱 Forex Live</option>
+      <option value="quotex">🎯 Quotex OTC</option>
     </select>
 
     <div class="label" style="margin-top:12px">💱 Select Asset</div>
@@ -134,6 +135,10 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
       <div class="wait-message" id="waitMessage"></div>
       <div class="signal-details">
         <div class="detail-box">
+          <div class="detail-label">Market</div>
+          <div class="detail-value" id="resMarket">BINANCE</div>
+        </div>
+        <div class="detail-box">
           <div class="detail-label">Asset</div>
           <div class="detail-value" id="resAsset">BTCUSDT</div>
         </div>
@@ -145,19 +150,15 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
           <div class="detail-label">AI Score</div>
           <div class="detail-value" id="resScore">88%</div>
         </div>
-        <div class="detail-box">
-          <div class="detail-label">Data</div>
-          <div class="detail-value" id="resData">LIVE</div>
-        </div>
       </div>
       <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v66.8</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v67.0 Quotex</div>
 
   <div class="disclaimer">
-    ⚠️ EURUSD/GBPUSD/USDJPY = LIVE API. USD/BRL/MXN/INR/PKR = Demo Mode on Free API.
+    ⚠️ Quotex OTC = Demo Data. Forex EURUSD/GBPUSD/USDJPY = LIVE. 92% SET Logic.
   </div>
 
 </div>
@@ -179,19 +180,15 @@ function doLogin(){
 function changeMarket(){
   let market = document.getElementById('marketType').value;
   let assetSelect = document.getElementById('asset');
+
+  // ✅ سر Quotex کے پئیر ڈال دیے
   if(market === 'binance'){
     assetSelect.innerHTML = `<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option>`;
+  } else if(market === 'forex'){
+    assetSelect.innerHTML = `<option value="EURUSD">EUR/USD ✅ LIVE</option><option value="GBPUSD">GBP/USD ✅ LIVE</option><option value="USDJPY">USD/JPY ✅ LIVE</option><option value="USDBRL">USD/BRL Demo</option><option value="USDMXN">USD/MXN Demo</option><option value="USDINR">USD/INR Demo</option><option value="USDPKR">USD/PKR Demo</option>`;
   } else {
-    // ✅ سر تمام کرنسیاں ڈال دیں
-    assetSelect.innerHTML = `
-      <option value="EURUSD">EUR/USD ✅ LIVE</option>
-      <option value="GBPUSD">GBP/USD ✅ LIVE</option>
-      <option value="USDJPY">USD/JPY ✅ LIVE</option>
-      <option value="USDBRL">USD/BRL 📊 Demo</option>
-      <option value="USDMXN">USD/MXN 📊 Demo</option>
-      <option value="USDINR">USD/INR 📊 Demo</option>
-      <option value="USDPKR">USD/PKR 📊 Demo</option>
-    `;
+    // Quotex OTC pairs
+    assetSelect.innerHTML = `<option value="EURUSD_OTC">EUR/USD OTC</option><option value="GBPUSD_OTC">GBP/USD OTC</option><option value="USDJPY_OTC">USD/JPY OTC</option><option value="AUDUSD_OTC">AUD/USD OTC</option>`;
   }
 }
 
@@ -206,12 +203,10 @@ async function fetchBinanceKlines(symbol, interval, limit=6){
 
 async function fetchForexKlines(pair, interval){
   try{
-    // ✅ سر تمام 7 پیر Finnhub سے ٹرائی ہوں گے
     const url = `https://finnhub.io/api/v1/quote?symbol=OANDA:${pair}&token=${finnhubKey}`;
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
     const res = await fetch(proxyUrl);
     const data = await res.json();
-
     if(data.c && data.c > 0.5){
       let candles = [];
       let price = data.c;
@@ -224,10 +219,7 @@ async function fetchForexKlines(pair, interval){
       return candles;
     }
     return null;
-  } catch(e){
-    console.log('Forex Error:', pair, e);
-    return null;
-  }
+  } catch(e){return null}
 }
 
 function generateDemoCandles(){
@@ -290,93 +282,117 @@ async function generateSignal(){
   const indicatorsGrid = document.getElementById('indicatorsGrid');
   const liveStatus = document.getElementById('liveStatus');
 
-  btn.disabled = true;
-  analyzingBox.style.display = 'block';
-  signalResult.style.display = 'none';
-  indicatorsGrid.style.display = 'none';
-  progressFill.style.width = '0%';
-  setTimeout(() => { progressFill.style.width = '100%'; }, 100);
+  try{
+    btn.disabled = true;
+    analyzingBox.style.display = 'block';
+    signalResult.style.display = 'none';
+    indicatorsGrid.style.display = 'none';
+    progressFill.style.width = '0%';
+    setTimeout(() => { progressFill.style.width = '100%'; }, 100);
 
-  setTimeout(async () => {
-    analyzingBox.style.display = 'none';
-    const market = document.getElementById('marketType').value;
-    const asset = document.getElementById('asset').value;
-    const timeframe = document.getElementById('timeframe').value;
+    setTimeout(async () => {
+      try{
+        analyzingBox.style.display = 'none';
+        const market = document.getElementById('marketType').value;
+        const asset = document.getElementById('asset').value;
+        const timeframe = document.getElementById('timeframe').value;
 
-    let candles = null;
-    let isLive = false;
+        let candles = null;
+        let isLive = false;
 
-    if(market === 'binance'){
-      candles = await fetchBinanceKlines(asset, timeframe, 6);
-    } else {
-      candles = await fetchForexKlines(asset, timeframe);
-    }
+        if(market === 'binance'){
+          candles = await fetchBinanceKlines(asset, timeframe, 6);
+        } else if(market === 'forex'){
+          candles = await fetchForexKlines(asset, timeframe);
+        } else {
+          // ✅ Quotex = Demo Data
+          isLive = false;
+          liveStatus.textContent = '🎯 QUOTEX OTC MODE';
+          liveStatus.style.background = 'rgba(0,212,255,0.1)';
+          liveStatus.style.borderColor = 'var(--accent)';
+          liveStatus.style.color = 'var(--accent)';
+          liveStatus.style.display = 'block';
+          candles = generateDemoCandles();
+        }
 
-    if(!candles || candles.length < 5 || candles[0].c < 0.5){
-      isLive = false;
-      liveStatus.textContent = '📊 DEMO MODE - No API';
-      liveStatus.style.background = 'rgba(255,165,0,0.1)';
-      liveStatus.style.borderColor = 'orange';
-      liveStatus.style.color = 'orange';
-      liveStatus.style.display = 'block';
-      candles = generateDemoCandles();
-    } else {
-      isLive = true;
-      liveStatus.textContent = '📡 LIVE DATA CONNECTED ✅';
-      liveStatus.style.background = 'rgba(0,255,136,0.1)';
-      liveStatus.style.borderColor = 'var(--green)';
-      liveStatus.style.color = 'var(--green)';
-      liveStatus.style.display = 'block';
-    }
+        if(!candles || candles.length < 5 || candles[0].c < 0.5){
+          if(market!== 'quotex'){
+            isLive = false;
+            liveStatus.textContent = '📊 DEMO MODE - No API';
+            liveStatus.style.background = 'rgba(255,165,0,0.1)';
+            liveStatus.style.borderColor = 'orange';
+            liveStatus.style.color = 'orange';
+            liveStatus.style.display = 'block';
+          }
+          candles = generateDemoCandles();
+        } else {
+          if(market === 'forex'){
+            isLive = true;
+            liveStatus.textContent = '📡 LIVE DATA CONNECTED ✅';
+            liveStatus.style.background = 'rgba(0,255,136,0.1)';
+            liveStatus.style.borderColor = 'var(--green)';
+            liveStatus.style.color = 'var(--green)';
+            liveStatus.style.display = 'block';
+          }
+        }
 
-    const rsi = calculateRSI(candles, 5);
-    const c1 = candles[candles.length-2];
-    const c2 = candles[candles.length-1];
-    const pat = detectPattern(c1, c2);
+        const rsi = calculateRSI(candles, 5);
+        const c1 = candles[candles.length-2];
+        const c2 = candles[candles.length-1];
+        const pat = detectPattern(c1, c2);
 
-    indicatorsGrid.style.display = 'grid';
-    document.getElementById('priceValue').textContent = c2.c.toFixed(4);
-    document.getElementById('rsiValue').textContent = rsi.toFixed(1);
-    document.getElementById('rsiValue').style.color = rsi <= 30? 'var(--green)' : rsi >= 70? 'var(--red)' : 'var(--accent)';
+        indicatorsGrid.style.display = 'grid';
+        document.getElementById('priceValue').textContent = c2.c.toFixed(4);
+        document.getElementById('rsiValue').textContent = rsi.toFixed(1);
+        document.getElementById('rsiValue').style.color = rsi <= 30? 'var(--green)' : rsi >= 70? 'var(--red)' : 'var(--accent)';
 
-    let signal = 'WAIT';
-    let isBuy = false;
-    let score = 0;
-    let waitMsg = '';
+        let signal = 'WAIT';
+        let isBuy = false;
+        let score = 0;
+        let waitMsg = '';
 
-    if(rsi <= 30 && pat.isBull){
-      signal = 'BUY';
-      score = 92;
-      isBuy = true;
-    } else if(rsi >= 70 &&!pat.isBull){
-      signal = 'SELL';
-      score = 92;
-      isBuy = false;
-    } else if(rsi >= 30 && rsi <= 40 && pat.pattern === 'Strong Green'){
-      signal = 'BUY';
-      score = 85;
-      isBuy = true;
-    } else if(rsi >= 60 && rsi <= 70 && pat.pattern === 'Strong Red'){
-      signal = 'SELL';
-      score = 85;
-      isBuy = false;
-    } else {
-      signal = 'WAIT';
-      score = 60;
-      waitMsg = '📊 RSI ' + rsi.toFixed(0) + ' + ' + pat.pattern + ' - WAIT';
-    }
+        if(rsi <= 30 && pat.isBull){
+          signal = 'BUY';
+          score = 92;
+          isBuy = true;
+        } else if(rsi >= 70 &&!pat.isBull){
+          signal = 'SELL';
+          score = 92;
+          isBuy = false;
+        } else if(rsi >= 30 && rsi <= 40 && pat.pattern === 'Strong Green'){
+          signal = 'BUY';
+          score = 85;
+          isBuy = true;
+        } else if(rsi >= 60 && rsi <= 70 && pat.pattern === 'Strong Red'){
+          signal = 'SELL';
+          score = 85;
+          isBuy = false;
+        } else {
+          signal = 'WAIT';
+          score = 60;
+          waitMsg = '📊 RSI ' + rsi.toFixed(0) + ' + ' + pat.pattern + ' - WAIT';
+        }
 
-    signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
-    signalResult.style.display = 'block';
-    document.getElementById('signalType').textContent = signal;
-    document.getElementById('waitMessage').textContent = waitMsg;
-    document.getElementById('resAsset').textContent = asset;
-    document.getElementById('resTime').textContent = timeframe;
-    document.getElementById('resScore').textContent = score + '%';
-    document.getElementById('resData').textContent = isLive? 'LIVE ✅' : 'DEMO';
-    drawChartPreview(candles, isBuy && signal!== 'WAIT');
+        signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
+        signalResult.style.display = 'block';
+        document.getElementById('signalType').textContent = signal;
+        document.getElementById('waitMessage').textContent = waitMsg;
+        document.getElementById('resMarket').textContent = market.toUpperCase();
+        document.getElementById('resAsset').textContent = asset;
+        document.getElementById('resTime').textContent = timeframe;
+        document.getElementById('resScore').textContent = score + '%';
+        drawChartPreview(candles, isBuy && signal!== 'WAIT');
+        btn.disabled = false;
+      } catch(err){
+        alert('Error: ' + err.message);
+        btn.disabled = false;
+        analyzingBox.style.display = 'none';
+      }
+    }, 2500);
+  } catch(err){
+    alert('Bot Error: ' + err.message);
     btn.disabled = false;
-  }, 2500);
+  }
 }
 
 function drawChartPreview(candles, isBuy){
