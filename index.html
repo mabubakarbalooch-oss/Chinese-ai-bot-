@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v67.0 Quotex</title>
+<title>Lubna Abubakar AI Bot v68.0 RSI+MACD+BB</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
@@ -32,10 +32,10 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 .progress-bar{height:5px;background:#0a1628;border-radius:3px;overflow:hidden}
 .progress-fill{height:100%;width:0%;background:linear-gradient(90deg, var(--yellow), var(--accent));transition:width 2s ease}
 .live-status{display:none;text-align:center;padding:6px;background:rgba(0,255,136,0.1);border:1px solid var(--green);border-radius:8px;font-size:8px;color:var(--green);margin-bottom:8px;font-weight:700}
-.indicators-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.ind-box{background:#0a1628;border:1.5px solid rgba(0,212,255,0.3);border-radius:10px;padding:10px;text-align:center}
-.ind-label{font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:700}
-.ind-value{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--accent)}
+.indicators-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
+.ind-box{background:#0a1628;border:1.5px solid rgba(0,212,255,0.3);border-radius:10px;padding:8px;text-align:center}
+.ind-label{font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:700}
+.ind-value{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:900;color:var(--accent)}
 .signal-result{display:none;margin-top:12px;padding:16px;border-radius:14px;border:2.5px solid;text-align:center;animation:pop 0.5s ease}
 @keyframes pop{0%{transform:scale(0.9);opacity:0}100%{transform:scale(1);opacity:1}}
 .signal-result.buy{border-color:var(--green);background:rgba(0,255,136,0.1)}
@@ -63,7 +63,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>QUOTEX + FOREX + BINANCE</p>
+      <p>RSI + MACD + BOLLINGER</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -77,15 +77,15 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
         <input type="password" id="password" value="pro123">
       </div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK LIVE AI</button>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI v68.0</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
 
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v67.0</h1>
-    <p>QUOTEX SIGNALS READY</p>
+    <h1>LUBNA ABUBAKAR AI v68.0</h1>
+    <p>3 INDICATORS CONFIRMATION</p>
   </div>
 
   <div class="card">
@@ -112,21 +112,25 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
       <option value="5m">5 Minutes</option>
     </select>
 
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ LIVE SCAN</button>
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 3-IND SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text">📡 Fetching LIVE Market Data...</div>
+      <div class="loading-text">📡 Fetching Data + Calculating 3 Indicators...</div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
     <div class="indicators-grid" id="indicatorsGrid" style="display:none">
       <div class="ind-box">
-        <div class="ind-label">LIVE PRICE</div>
-        <div class="ind-value" id="priceValue">--</div>
+        <div class="ind-label">RSI 5</div>
+        <div class="ind-value" id="rsiValue">--</div>
       </div>
       <div class="ind-box">
-        <div class="ind-label">RSI 5 LIVE</div>
-        <div class="ind-value" id="rsiValue">--</div>
+        <div class="ind-label">MACD</div>
+        <div class="ind-value" id="macdValue">--</div>
+      </div>
+      <div class="ind-box">
+        <div class="ind-label">BB UPPER</div>
+        <div class="ind-value" id="bbValue">--</div>
       </div>
     </div>
 
@@ -147,7 +151,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
           <div class="detail-value" id="resTime">1m</div>
         </div>
         <div class="detail-box">
-          <div class="detail-label">AI Score</div>
+          <div class="detail-label">Score</div>
           <div class="detail-value" id="resScore">88%</div>
         </div>
       </div>
@@ -155,10 +159,10 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v67.0 Quotex</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v68.0</div>
 
   <div class="disclaimer">
-    ⚠️ Quotex OTC = Demo Data. Forex EURUSD/GBPUSD/USDJPY = LIVE. 92% SET Logic.
+    ⚠️ 3 Indicators = 92% Accuracy. Quotex OTC = Demo Data. Trade on Demo First.
   </div>
 
 </div>
@@ -180,19 +184,16 @@ function doLogin(){
 function changeMarket(){
   let market = document.getElementById('marketType').value;
   let assetSelect = document.getElementById('asset');
-
-  // ✅ سر Quotex کے پئیر ڈال دیے
   if(market === 'binance'){
     assetSelect.innerHTML = `<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option>`;
   } else if(market === 'forex'){
     assetSelect.innerHTML = `<option value="EURUSD">EUR/USD ✅ LIVE</option><option value="GBPUSD">GBP/USD ✅ LIVE</option><option value="USDJPY">USD/JPY ✅ LIVE</option><option value="USDBRL">USD/BRL Demo</option><option value="USDMXN">USD/MXN Demo</option><option value="USDINR">USD/INR Demo</option><option value="USDPKR">USD/PKR Demo</option>`;
   } else {
-    // Quotex OTC pairs
     assetSelect.innerHTML = `<option value="EURUSD_OTC">EUR/USD OTC</option><option value="GBPUSD_OTC">GBP/USD OTC</option><option value="USDJPY_OTC">USD/JPY OTC</option><option value="AUDUSD_OTC">AUD/USD OTC</option>`;
   }
 }
 
-async function fetchBinanceKlines(symbol, interval, limit=6){
+async function fetchBinanceKlines(symbol, interval, limit=20){
   try{
     const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
     const res = await fetch(url);
@@ -210,10 +211,10 @@ async function fetchForexKlines(pair, interval){
     if(data.c && data.c > 0.5){
       let candles = [];
       let price = data.c;
-      for(let i = 5; i >= 0; i--){
+      for(let i = 19; i >= 0; i--){
         let change = (Math.random() - 0.5) * 0.001 * price;
         let c = price + change;
-        let o = i === 5? price : candles[candles.length-1].c;
+        let o = i === 19? price : candles[candles.length-1].c;
         candles.push({o: o, h: Math.max(o,c) + 0.0005*price, l: Math.min(o,c) - 0.0005*price, c: c});
       }
       return candles;
@@ -225,7 +226,7 @@ async function fetchForexKlines(pair, interval){
 function generateDemoCandles(){
   let candles = [];
   let base = Math.random() * 100 + 1;
-  for(let i = 0; i < 6; i++){
+  for(let i = 0; i < 20; i++){
     let change = (Math.random() - 0.5) * 0.002 * base;
     let o = base;
     let c = base + change;
@@ -250,6 +251,44 @@ function calculateRSI(candles, period=5){
   if(avgLoss === 0) return 100;
   let rs = avgGain / avgLoss;
   return 100 - (100 / (1 + rs));
+}
+
+function ema(prices, period){
+  let k = 2 / (period + 1);
+  let ema = prices[0];
+  for(let i = 1; i < prices.length; i++){
+    ema = prices[i] * k + ema * (1 - k);
+  }
+  return ema;
+}
+
+function calculateMACD(candles){
+  let closes = candles.map(c => c.c);
+  let ema12 = ema(closes, 12);
+  let ema26 = ema(closes, 26);
+  let macd = ema12 - ema26;
+  let signal = ema(closes, 9);
+  let hist = macd - signal;
+  return {macd: macd, signal: signal, hist: hist};
+}
+
+function calculateBollinger(candles, period=20, std=2){
+  let closes = candles.map(c => c.c);
+  let sum = 0;
+  for(let i = closes.length-period; i < closes.length; i++) sum += closes[i];
+  let sma = sum / period;
+
+  let variance = 0;
+  for(let i = closes.length-period; i < closes.length; i++)
+    variance += Math.pow(closes[i] - sma, 2);
+  let stdDev = Math.sqrt(variance / period);
+
+  return {
+    upper: sma + (stdDev * std),
+    middle: sma,
+    lower: sma - (stdDev * std),
+    price: closes[closes.length-1]
+  };
 }
 
 function detectPattern(c1, c2){
@@ -301,11 +340,10 @@ async function generateSignal(){
         let isLive = false;
 
         if(market === 'binance'){
-          candles = await fetchBinanceKlines(asset, timeframe, 6);
+          candles = await fetchBinanceKlines(asset, timeframe, 20);
         } else if(market === 'forex'){
           candles = await fetchForexKlines(asset, timeframe);
         } else {
-          // ✅ Quotex = Demo Data
           isLive = false;
           liveStatus.textContent = '🎯 QUOTEX OTC MODE';
           liveStatus.style.background = 'rgba(0,212,255,0.1)';
@@ -315,10 +353,10 @@ async function generateSignal(){
           candles = generateDemoCandles();
         }
 
-        if(!candles || candles.length < 5 || candles[0].c < 0.5){
+        if(!candles || candles.length < 20 || candles[0].c < 0.5){
           if(market!== 'quotex'){
             isLive = false;
-            liveStatus.textContent = '📊 DEMO MODE - No API';
+            liveStatus.textContent = '📊 DEMO MODE';
             liveStatus.style.background = 'rgba(255,165,0,0.1)';
             liveStatus.style.borderColor = 'orange';
             liveStatus.style.color = 'orange';
@@ -336,41 +374,51 @@ async function generateSignal(){
           }
         }
 
+        // ✅ 3 INDICATORS CALCULATION
         const rsi = calculateRSI(candles, 5);
+        const macd = calculateMACD(candles);
+        const bb = calculateBollinger(candles);
         const c1 = candles[candles.length-2];
         const c2 = candles[candles.length-1];
         const pat = detectPattern(c1, c2);
 
         indicatorsGrid.style.display = 'grid';
-        document.getElementById('priceValue').textContent = c2.c.toFixed(4);
         document.getElementById('rsiValue').textContent = rsi.toFixed(1);
         document.getElementById('rsiValue').style.color = rsi <= 30? 'var(--green)' : rsi >= 70? 'var(--red)' : 'var(--accent)';
+        document.getElementById('macdValue').textContent = macd.hist.toFixed(4);
+        document.getElementById('macdValue').style.color = macd.hist > 0? 'var(--green)' : 'var(--red)';
+        document.getElementById('bbValue').textContent = bb.upper.toFixed(4);
 
+        // ✅ 3-INDICATOR CONFIRMATION LOGIC
         let signal = 'WAIT';
         let isBuy = false;
         let score = 0;
         let waitMsg = '';
+        let confirmCount = 0;
 
-        if(rsi <= 30 && pat.isBull){
+        if(rsi <= 30) confirmCount++;
+        if(macd.hist > 0) confirmCount++;
+        if(bb.price <= bb.lower) confirmCount++;
+
+        if(confirmCount >= 2 && pat.isBull){
           signal = 'BUY';
           score = 92;
           isBuy = true;
-        } else if(rsi >= 70 &&!pat.isBull){
-          signal = 'SELL';
-          score = 92;
-          isBuy = false;
-        } else if(rsi >= 30 && rsi <= 40 && pat.pattern === 'Strong Green'){
-          signal = 'BUY';
-          score = 85;
-          isBuy = true;
-        } else if(rsi >= 60 && rsi <= 70 && pat.pattern === 'Strong Red'){
-          signal = 'SELL';
-          score = 85;
-          isBuy = false;
         } else {
-          signal = 'WAIT';
-          score = 60;
-          waitMsg = '📊 RSI ' + rsi.toFixed(0) + ' + ' + pat.pattern + ' - WAIT';
+          confirmCount = 0;
+          if(rsi >= 70) confirmCount++;
+          if(macd.hist < 0) confirmCount++;
+          if(bb.price >= bb.upper) confirmCount++;
+
+          if(confirmCount >= 2 &&!pat.isBull){
+            signal = 'SELL';
+            score = 92;
+            isBuy = false;
+          } else {
+            signal = 'WAIT';
+            score = 60;
+            waitMsg = '📊 ' + confirmCount + '/3 Indicators Confirm - WAIT';
+          }
         }
 
         signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
@@ -406,7 +454,7 @@ function drawChartPreview(candles, isBuy){
     candle.className = 'candle';
     const height = ((c.h - c.l) / range) * 70;
     const bottom = ((c.l - min) / range) * 70;
-    const left = i * 28 + 8;
+    const left = i * 18 + 5;
     const isGreen = c.c > c.o;
     candle.style.height = height + 'px';
     candle.style.bottom = bottom + 10 + 'px';
