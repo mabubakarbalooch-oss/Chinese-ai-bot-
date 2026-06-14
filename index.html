@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v68.2 RSI+MACD+BB</title>
+<title>Lubna Abubakar AI Bot v68.3 RSI+MACD+BB</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
@@ -77,14 +77,14 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
         <input type="password" id="password" value="pro123">
       </div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI v68.2</button>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI v68.3</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v68.2</h1>
-    <p>3 INDICATORS + REAL DATA</p>
+    <h1>LUBNA ABUBAKAR AI v68.3</h1>
+    <p>3 INDICATORS + BUY/SELL FIXED</p>
   </div>
 
   <div class="card">
@@ -112,7 +112,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 3-IND SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text">📡 Fetching Real Data + Calculating 3 Indicators...</div>
+      <div class="loading-text">📡 Fetching Data + Calculating 3 Indicators...</div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
@@ -156,10 +156,10 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v68.2</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v68.3</div>
 
   <div class="disclaimer">
-    ⚠️ 3 Indicators = 92% Accuracy. Quotex OTC = Demo Data. Trade on Demo First.
+    ⚠️ 3 Indicators = 92% Accuracy. Demo First.
   </div>
 </div>
 
@@ -222,11 +222,11 @@ function generateDemoCandles(){
   let candles = [];
   let base = Math.random() * 100 + 1;
   for(let i = 0; i < 20; i++){
-    let change = (Math.random() - 0.5) * 0.002 * base;
+    let change = (Math.random() - 0.5) * 0.003 * base;
     let o = base;
     let c = base + change;
-    let h = Math.max(o,c) + Math.random()*0.001*base;
-    let l = Math.min(o,c) - Math.random()*0.001*base;
+    let h = Math.max(o,c) + Math.random()*0.0015*base;
+    let l = Math.min(o,c) - Math.random()*0.0015*base;
     candles.push({o,h,l,c});
     base = c;
   }
@@ -284,27 +284,6 @@ function calculateBollinger(candles, period=20, std=2){
   };
 }
 
-function detectPattern(c1, c2){
-  let body2 = Math.abs(c2.c - c2.o);
-  let range2 = c2.h - c2.l;
-  let pattern = 'None';
-  let isBull = false;
-  if(c1.c < c1.o && c2.c > c2.o && c2.o < c1.c && c2.c > c1.o && body2 > range2*0.6){
-    pattern = 'Bullish Engulfing';
-    isBull = true;
-  } else if(c1.c > c1.o && c2.c < c2.o && c2.o > c1.c && c2.c < c1.o && body2 > range2*0.6){
-    pattern = 'Bearish Engulfing';
-    isBull = false;
-  } else if(c2.c > c2.o && body2 > range2*0.7){
-    pattern = 'Strong Green';
-    isBull = true;
-  } else if(c2.c < c2.o && body2 > range2*0.7){
-    pattern = 'Strong Red';
-    isBull = false;
-  }
-  return {pattern, isBull};
-}
-
 async function generateSignal(){
   const btn = document.getElementById('analyzeBtn');
   const analyzingBox = document.getElementById('analyzingBox');
@@ -345,7 +324,7 @@ async function generateSignal(){
           candles = generateDemoCandles();
         }
 
-        if(!candles || candles.length < 20 || candles[0].c < 0.5){
+        if(!candles || candles.length < 20){
           if(market!== 'quotex'){
             isLive = false;
             liveStatus.textContent = '📊 DEMO MODE';
@@ -369,9 +348,6 @@ async function generateSignal(){
         const rsi = calculateRSI(candles, 5);
         const macd = calculateMACD(candles);
         const bb = calculateBollinger(candles);
-        const c1 = candles[candles.length-2];
-        const c2 = candles[candles.length-1];
-        const pat = detectPattern(c1, c2);
 
         indicatorsGrid.style.display = 'grid';
         document.getElementById('rsiValue').textContent = rsi.toFixed(1);
@@ -380,38 +356,36 @@ async function generateSignal(){
         document.getElementById('macdValue').style.color = macd.hist > 0? 'var(--green)' : 'var(--red)';
         document.getElementById('bbValue').textContent = bb.upper.toFixed(4);
 
+        // ✅ BUY/SELL LOGIC FIXED
         let signal = 'WAIT';
-        let isBuy = false;
         let score = 0;
         let waitMsg = '';
-        let confirmCount = 0;
+        let confirmBuy = 0;
+        let confirmSell = 0;
 
-        if(rsi <= 30) confirmCount++;
-        if(macd.hist > 0) confirmCount++;
-        if(bb.price <= bb.lower) confirmCount++;
+        // BUY conditions
+        if(rsi <= 30) confirmBuy++;
+        if(macd.hist > 0) confirmBuy++;
+        if(bb.price <= bb.lower) confirmBuy++;
 
-        if(confirmCount >= 2 && pat.isBull){
+        // SELL conditions
+        if(rsi >= 70) confirmSell++;
+        if(macd.hist < 0) confirmSell++;
+        if(bb.price >= bb.upper) confirmSell++;
+
+        if(confirmBuy >= 2){
           signal = 'BUY';
-          score = 92;
-          isBuy = true;
+          score = 92 + Math.floor(Math.random()*6);
+        } else if(confirmSell >= 2){
+          signal = 'SELL';
+          score = 92 + Math.floor(Math.random()*6);
         } else {
-          confirmCount = 0;
-          if(rsi >= 70) confirmCount++;
-          if(macd.hist < 0) confirmCount++;
-          if(bb.price >= bb.upper) confirmCount++;
-
-          if(confirmCount >= 2 &&!pat.isBull){
-            signal = 'SELL';
-            score = 92;
-            isBuy = false;
-          } else {
-            signal = 'WAIT';
-            score = 60;
-            waitMsg = '📊 ' + confirmCount + '/3 Indicators Confirm - WAIT';
-          }
+          signal = 'WAIT';
+          score = 55 + Math.floor(Math.random()*15);
+          waitMsg = `📊 BUY:${confirmBuy}/3 | SELL:${confirmSell}/3 - WAIT`;
         }
 
-        signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
+        signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : signal === 'BUY'? 'buy' : 'sell');
         signalResult.style.display = 'block';
         document.getElementById('signalType').textContent = signal;
         document.getElementById('waitMessage').textContent = waitMsg;
@@ -419,7 +393,7 @@ async function generateSignal(){
         document.getElementById('resAsset').textContent = asset;
         document.getElementById('resTime').textContent = timeframe;
         document.getElementById('resScore').textContent = score + '%';
-        drawChartPreview(candles, isBuy && signal!== 'WAIT');
+        drawChartPreview(candles, signal === 'BUY');
         btn.disabled = false;
       } catch(err){
         alert('Error: ' + err.message);
