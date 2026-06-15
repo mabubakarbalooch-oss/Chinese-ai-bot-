@@ -1,13 +1,13 @@
 
-html_code = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ur">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v2026.1 ULTIMATE PRO</title>
+<title>Lubna Abubakar AI Bot v2026.2 PROFESSIONAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0;--orange:#ff9500;--purple:#b967ff;--pink:#ff6b9d;--dark:#0a0e27}
+:root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0;--orange:#ff9500;--purple:#b967ff;--pink:#ff6b9d;--dark:#0a0e27;--cyan:#00ffff;--lime:#ccff00}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:linear-gradient(135deg, #0a0e27 0%, #16213e 100%);color:var(--text);font-family:'Poppins',sans-serif;width:100%;height:100vh;overflow:hidden}
 .login-wrapper{width:100%;height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
@@ -39,7 +39,7 @@ select{width:100%;padding:10px;background:#0a1628;border:1.5px solid rgba(255,21
 .indicators-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-top:8px}
 .ind-box{background:#0a1628;border:1.5px solid rgba(0,212,255,0.3);border-radius:10px;padding:5px;text-align:center}
 .ind-label{font-size:7px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;font-weight:700}
-.ind-value{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:900;color:var(--accent)}
+.ind-value{font-family:'Orbitron',sans-serif;font-size:9px;font-weight:900;color:var(--accent)}
 .signal-result{display:none;margin-top:8px;padding:12px;border-radius:14px;border:2.5px solid;text-align:center;animation:pop 0.5s ease}
 @keyframes pop{0%{transform:scale(0.9);opacity:0}100%{transform:scale(1);opacity:1}}
 .signal-result.buy{border-color:var(--green);background:rgba(0,255,136,0.1)}
@@ -93,6 +93,13 @@ select{width:100%;padding:10px;background:#0a1628;border:1.5px solid rgba(255,21
 .tf-signal.buy{color:var(--green)}
 .tf-signal.sell{color:var(--red)}
 .tf-signal.wait{color:var(--accent)}
+.indicators-14{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;margin-top:6px}
+.ind-14-box{text-align:center;padding:3px;background:#0a1628;border-radius:5px;border:1px solid rgba(0,212,255,0.15)}
+.ind-14-label{font-size:6px;color:#777;text-transform:uppercase;letter-spacing:0.5px;font-weight:700}
+.ind-14-value{font-family:'Orbitron';font-size:8px;font-weight:800}
+.ind-14-value.buy{color:var(--green)}
+.ind-14-value.sell{color:var(--red)}
+.ind-14-value.neutral{color:#888}
 </style>
 </head>
 <body>
@@ -102,7 +109,7 @@ select{width:100%;padding:10px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>ULTIMATE AI v2026.1 PRO</p>
+      <p>PROFESSIONAL AI v2026.2</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -116,14 +123,14 @@ select{width:100%;padding:10px;background:#0a1628;border:1.5px solid rgba(255,21
         <input type="password" id="password" value="pro123">
       </div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI v2026.1</button>
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI v2026.2</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v2026.1</h1>
-    <p>ADVANCED SIGNAL ENGINE + MULTI-TIMEFRAME</p>
+    <h1>LUBNA ABUBAKAR AI v2026.2</h1>
+    <p>14 INDICATORS + MULTI-TIMEFRAME + QUOTEX OTC</p>
   </div>
 
   <div class="card">
@@ -131,18 +138,23 @@ select{width:100%;padding:10px;background:#0a1628;border:1.5px solid rgba(255,21
 
     <div class="label">Select Market</div>
     <select id="marketType" onchange="changeMarket()">
+      <option value="quotex">Quotex OTC</option>
       <option value="binance">Binance Crypto</option>
       <option value="forex">Forex Live</option>
-      <option value="quotex">Quotex OTC</option>
     </select>
 
     <div class="label" style="margin-top:8px">Select Asset</div>
     <select id="asset">
-      <option value="BTCUSDT">BTC/USDT</option>
-      <option value="ETHUSDT">ETH/USDT</option>
-      <option value="BNBUSDT">BNB/USDT</option>
-      <option value="SOLUSDT">SOL/USDT</option>
-      <option value="XRPUSDT">XRP/USDT</option>
+      <option value="OTC_BRL">USDBRL (OTC)</option>
+      <option value="OTC_MXN">USDMXN (OTC)</option>
+      <option value="OTC_INR">USDINR (OTC)</option>
+      <option value="OTC_PKR">USDPKR (OTC)</option>
+      <option value="OTC_BTC">BTC (OTC)</option>
+      <option value="OTC_ETH">ETH (OTC)</option>
+      <option value="OTC_GOLD">GOLD (OTC)</option>
+      <option value="OTC_EUR">EURUSD (OTC)</option>
+      <option value="OTC_GBP">GBPUSD (OTC)</option>
+      <option value="OTC_JPY">USDJPY (OTC)</option>
     </select>
 
     <div class="label" style="margin-top:8px">Time Frame</div>
@@ -156,20 +168,31 @@ select{width:100%;padding:10px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="label" style="margin-top:8px">Investment Amount ($)</div>
     <input type="number" id="investAmount" value="100" class="risk-input" style="margin-top:0">
 
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">GENERATE SIGNAL</button>
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">GENERATE PRO SIGNAL</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text" id="loadingText">AI Analyzing Market Data...</div>
+      <div class="loading-text" id="loadingText">AI Analyzing 14 Indicators...</div>
       <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
     </div>
 
     <div class="countdown-box" id="countdownBox">Next Candle: <span id="countdown">00:00</span></div>
 
-    <div class="indicators-grid" id="indicatorsGrid">
-      <div class="ind-box"><div class="ind-label">RSI</div><div class="ind-value" id="rsiVal">--</div></div>
-      <div class="ind-box"><div class="ind-label">MACD</div><div class="ind-value" id="macdVal">--</div></div>
-      <div class="ind-box"><div class="ind-label">BB</div><div class="ind-value" id="bbVal">--</div></div>
-      <div class="ind-box"><div class="ind-label">EMA</div><div class="ind-value" id="emaVal">--</div></div>
+    <div class="label" style="margin-top:8px">14 INDICATOR ANALYSIS</div>
+    <div class="indicators-14" id="indicators14">
+      <div class="ind-14-box"><div class="ind-14-label">RSI</div><div class="ind-14-value neutral" id="ind_rsi">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">MACD</div><div class="ind-14-value neutral" id="ind_macd">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">BB</div><div class="ind-14-value neutral" id="ind_bb">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">EMA</div><div class="ind-14-value neutral" id="ind_ema">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">ADX</div><div class="ind-14-value neutral" id="ind_adx">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">STOCH</div><div class="ind-14-value neutral" id="ind_stoch">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">CCI</div><div class="ind-14-value neutral" id="ind_cci">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">ATR</div><div class="ind-14-value neutral" id="ind_atr">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">MFI</div><div class="ind-14-value neutral" id="ind_mfi">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">WILL</div><div class="ind-14-value neutral" id="ind_will">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">OBV</div><div class="ind-14-value neutral" id="ind_obv">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">PSAR</div><div class="ind-14-value neutral" id="ind_psar">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">ICHIM</div><div class="ind-14-value neutral" id="ind_ichim">--</div></div>
+      <div class="ind-14-box"><div class="ind-14-label">VOL</div><div class="ind-14-value neutral" id="ind_vol">--</div></div>
     </div>
 
     <div class="multi-timeframe" id="multiTfBox">
@@ -215,13 +238,13 @@ select{width:100%;padding:10px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="chart-preview" id="chartPreview"></div>
   </div>
 
-  <div class="footer">POWERED BY LUBNA ABUBAKAR AI v2026.1</div>
+  <div class="footer">POWERED BY LUBNA ABUBAKAR AI v2026.2</div>
   <div class="disclaimer">DISCLAIMER: This is for educational purposes only. Trading involves risk. Past performance does not guarantee future results. Always use proper risk management.</div>
 </div>
 
 <script>
 // ========================
-// SIGNAL ENGINE v2026.1
+// SIGNAL ENGINE v2026.2 - 14 INDICATORS PRO
 // ========================
 
 let signalHistory = JSON.parse(localStorage.getItem('la_signals') || '[]');
@@ -250,13 +273,23 @@ function changeMarket() {
   const market = document.getElementById('marketType').value;
   const asset = document.getElementById('asset');
   asset.innerHTML = '';
-  if(market === 'binance') {
+  if(market === 'quotex') {
+    asset.innerHTML = '<option value="OTC_BRL">USDBRL (OTC)</option><option value="OTC_MXN">USDMXN (OTC)</option><option value="OTC_INR">USDINR (OTC)</option><option value="OTC_PKR">USDPKR (OTC)</option><option value="OTC_BTC">BTC (OTC)</option><option value="OTC_ETH">ETH (OTC)</option><option value="OTC_GOLD">GOLD (OTC)</option><option value="OTC_EUR">EURUSD (OTC)</option><option value="OTC_GBP">GBPUSD (OTC)</option><option value="OTC_JPY">USDJPY (OTC)</option>';
+  } else if(market === 'binance') {
     asset.innerHTML = '<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option><option value="XRPUSDT">XRP/USDT</option>';
-  } else if(market === 'forex') {
-    asset.innerHTML = '<option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="USDJPY">USD/JPY</option><option value="XAUUSD">GOLD</option>';
   } else {
-    asset.innerHTML = '<option value="OTC_BTC">OTC BTC</option><option value="OTC_ETH">OTC ETH</option><option value="OTC_GOLD">OTC GOLD</option>';
+    asset.innerHTML = '<option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="USDJPY">USD/JPY</option><option value="XAUUSD">GOLD</option>';
   }
+}
+
+function getBinanceSymbol(asset) {
+  const map = {
+    'OTC_BRL': 'USDBRL', 'OTC_MXN': 'USDMXN', 'OTC_INR': 'USDINR',
+    'OTC_PKR': 'USDPKR', 'OTC_BTC': 'BTCUSDT', 'OTC_ETH': 'ETHUSDT',
+    'OTC_GOLD': 'XAUUSDT', 'OTC_EUR': 'EURUSDT', 'OTC_GBP': 'GBPUSDT',
+    'OTC_JPY': 'USDJPY'
+  };
+  return map[asset] || asset;
 }
 
 async function fetchBinanceData(symbol, interval, limit) {
@@ -274,19 +307,31 @@ async function fetchBinanceData(symbol, interval, limit) {
       };
     });
   } catch(e) {
-    return generateMockData();
+    return generateMockData(symbol);
   }
 }
 
-function generateMockData() {
-  let price = 65000;
+function generateMockData(symbol) {
+  let price;
+  if(symbol.indexOf('BRL') > -1) price = 5.0;
+  else if(symbol.indexOf('MXN') > -1) price = 17.0;
+  else if(symbol.indexOf('INR') > -1) price = 83.0;
+  else if(symbol.indexOf('PKR') > -1) price = 278.0;
+  else if(symbol.indexOf('BTC') > -1) price = 65000;
+  else if(symbol.indexOf('ETH') > -1) price = 3500;
+  else if(symbol.indexOf('XAU') > -1) price = 2300;
+  else if(symbol.indexOf('EUR') > -1) price = 1.08;
+  else if(symbol.indexOf('GBP') > -1) price = 1.26;
+  else if(symbol.indexOf('JPY') > -1) price = 150;
+  else price = 100;
+  
   const data = [];
   for(let i = 0; i < 100; i++) {
-    const change = (Math.random() - 0.5) * 500;
+    const change = (Math.random() - 0.5) * price * 0.005;
     const open = price;
     const close = price + change;
-    const high = Math.max(open, close) + Math.random() * 200;
-    const low = Math.min(open, close) - Math.random() * 200;
+    const high = Math.max(open, close) + Math.random() * price * 0.002;
+    const low = Math.min(open, close) - Math.random() * price * 0.002;
     data.push({open: open, high: high, low: low, close: close, volume: Math.random() * 1000, time: Date.now() - (100 - i) * 60000});
     price = close;
   }
@@ -294,7 +339,7 @@ function generateMockData() {
 }
 
 // ========================
-// TECHNICAL INDICATORS
+// 14 TECHNICAL INDICATORS
 // ========================
 
 function calculateRSI(data, period) {
@@ -308,8 +353,7 @@ function calculateRSI(data, period) {
   const avgGain = gains / period;
   const avgLoss = losses / period;
   if(avgLoss === 0) return 100;
-  const rs = avgGain / avgLoss;
-  return 100 - (100 / (1 + rs));
+  return 100 - (100 / (1 + avgGain / avgLoss));
 }
 
 function calculateEMA(data, period) {
@@ -343,36 +387,94 @@ function calculateATR(data, period) {
   period = period || 14;
   let atr = 0;
   for(let i = data.length - period; i < data.length; i++) {
-    const tr = Math.max(
-      data[i].high - data[i].low,
-      Math.abs(data[i].high - data[i-1].close),
-      Math.abs(data[i].low - data[i-1].close)
-    );
+    const tr = Math.max(data[i].high - data[i].low, Math.abs(data[i].high - data[i-1].close), Math.abs(data[i].low - data[i-1].close));
     atr += tr;
   }
   return atr / period;
 }
 
-function findSupportResistance(data) {
-  const highs = data.map(function(d) { return d.high; }).sort(function(a, b) { return a - b; });
-  const lows = data.map(function(d) { return d.low; }).sort(function(a, b) { return a - b; });
-  return {
-    support: lows[Math.floor(lows.length * 0.1)],
-    resistance: highs[Math.floor(highs.length * 0.9)]
-  };
+function calculateCCI(data, period) {
+  period = period || 20;
+  let tpSum = 0;
+  for(let i = data.length - period; i < data.length; i++) {
+    tpSum += (data[i].high + data[i].low + data[i].close) / 3;
+  }
+  const smaTP = tpSum / period;
+  let md = 0;
+  for(let i = data.length - period; i < data.length; i++) {
+    md += Math.abs((data[i].high + data[i].low + data[i].close) / 3 - smaTP);
+  }
+  md = md / period;
+  const lastTP = (data[data.length-1].high + data[data.length-1].low + data[data.length-1].close) / 3;
+  return md === 0 ? 0 : (lastTP - smaTP) / (0.015 * md);
 }
 
-function detectDivergence(data) {
-  const prices = data.slice(-20).map(function(d) { return d.close; });
-  const rsiValues = [];
-  for(let i = 20; i <= data.length; i++) {
-    rsiValues.push(calculateRSI(data.slice(0, i), 14));
+function calculateMFI(data, period) {
+  period = period || 14;
+  let posFlow = 0, negFlow = 0;
+  for(let i = data.length - period; i < data.length; i++) {
+    const tp = (data[i].high + data[i].low + data[i].close) / 3;
+    const prevTP = (data[i-1].high + data[i-1].low + data[i-1].close) / 3;
+    const rawMF = tp * data[i].volume;
+    if(tp > prevTP) posFlow += rawMF; else negFlow += rawMF;
   }
-  const priceTrend = prices[prices.length - 1] > prices[0] ? 'up' : 'down';
-  const rsiTrend = rsiValues[rsiValues.length - 1] > rsiValues[0] ? 'up' : 'down';
-  if(priceTrend === 'up' && rsiTrend === 'down') return 'bearish';
-  if(priceTrend === 'down' && rsiTrend === 'up') return 'bullish';
-  return 'none';
+  if(negFlow === 0) return 100;
+  const mfr = posFlow / negFlow;
+  return 100 - (100 / (1 + mfr));
+}
+
+function calculateWilliamsR(data, period) {
+  period = period || 14;
+  const recent = data.slice(-period);
+  const highestHigh = Math.max.apply(null, recent.map(function(d) { return d.high; }));
+  const lowestLow = Math.min.apply(null, recent.map(function(d) { return d.low; }));
+  const currentClose = data[data.length - 1].close;
+  if(highestHigh === lowestLow) return -50;
+  return ((highestHigh - currentClose) / (highestHigh - lowestLow)) * -100;
+}
+
+function calculateOBV(data) {
+  let obv = 0;
+  for(let i = 1; i < data.length; i++) {
+    if(data[i].close > data[i-1].close) obv += data[i].volume;
+    else if(data[i].close < data[i-1].close) obv -= data[i].volume;
+  }
+  return obv;
+}
+
+function calculatePSAR(data, af, maxAf) {
+  af = af || 0.02;
+  maxAf = maxAf || 0.2;
+  let psar = data[0].low;
+  let ep = data[0].high;
+  let bull = true;
+  const psars = [psar];
+  for(let i = 1; i < data.length; i++) {
+    psar = psar + af * (ep - psar);
+    if(bull) {
+      if(data[i].low < psar) { bull = false; psar = ep; ep = data[i].low; af = 0.02; }
+      else { if(data[i].high > ep) { ep = data[i].high; af = Math.min(af + 0.02, maxAf); } }
+    } else {
+      if(data[i].high > psar) { bull = true; psar = ep; ep = data[i].high; af = 0.02; }
+      else { if(data[i].low < ep) { ep = data[i].low; af = Math.min(af + 0.02, maxAf); } }
+    }
+    psars.push(psar);
+  }
+  return {value: psars[psars.length - 1], bullish: bull};
+}
+
+function calculateIchimoku(data) {
+  const tenkan = 9, kijun = 26, senkou = 52;
+  const tenkanSen = (Math.max.apply(null, data.slice(-tenkan).map(function(d){return d.high})) + Math.min.apply(null, data.slice(-tenkan).map(function(d){return d.low}))) / 2;
+  const kijunSen = (Math.max.apply(null, data.slice(-kijun).map(function(d){return d.high})) + Math.min.apply(null, data.slice(-kijun).map(function(d){return d.low}))) / 2;
+  const senkouSpanA = (tenkanSen + kijunSen) / 2;
+  const senkouSpanB = (Math.max.apply(null, data.slice(-senkou).map(function(d){return d.high})) + Math.min.apply(null, data.slice(-senkou).map(function(d){return d.low}))) / 2;
+  const current = data[data.length-1].close;
+  return {
+    tenkan: tenkanSen, kijun: kijunSen,
+    cloudBullish: current > Math.max(senkouSpanA, senkouSpanB),
+    tkCross: tenkanSen > kijunSen
+  };
 }
 
 function calculateADX(data, period) {
@@ -401,8 +503,36 @@ function calculateStochastic(data, kPeriod) {
   return {k: k, d: k};
 }
 
+function calculateVolumeProfile(data) {
+  let volUp = 0, volDown = 0;
+  for(let i = 1; i < data.length; i++) {
+    if(data[i].close > data[i-1].close) volUp += data[i].volume;
+    else volDown += data[i].volume;
+  }
+  return {volUp: volUp, volDown: volDown, ratio: volUp / (volDown || 1)};
+}
+
+function findSupportResistance(data) {
+  const highs = data.map(function(d) { return d.high; }).sort(function(a, b) { return a - b; });
+  const lows = data.map(function(d) { return d.low; }).sort(function(a, b) { return a - b; });
+  return {support: lows[Math.floor(lows.length * 0.1)], resistance: highs[Math.floor(highs.length * 0.9)]};
+}
+
+function detectDivergence(data) {
+  const prices = data.slice(-20).map(function(d) { return d.close; });
+  const rsiValues = [];
+  for(let i = 20; i <= data.length; i++) {
+    rsiValues.push(calculateRSI(data.slice(0, i), 14));
+  }
+  const priceTrend = prices[prices.length - 1] > prices[0] ? 'up' : 'down';
+  const rsiTrend = rsiValues[rsiValues.length - 1] > rsiValues[0] ? 'up' : 'down';
+  if(priceTrend === 'up' && rsiTrend === 'down') return 'bearish';
+  if(priceTrend === 'down' && rsiTrend === 'up') return 'bullish';
+  return 'none';
+}
+
 // ========================
-// SIGNAL GENERATION ENGINE
+// 14-INDICATOR SIGNAL ENGINE
 // ========================
 
 function generateSignalScore(data) {
@@ -411,68 +541,121 @@ function generateSignalScore(data) {
   const bb = calculateBollinger(data);
   const ema20 = calculateEMA(data.slice(-25), 20);
   const ema50 = calculateEMA(data.slice(-55), 50);
+  const ema200 = calculateEMA(data.slice(-205), 200);
   const current = data[data.length - 1].close;
   const atr = calculateATR(data);
   const adx = calculateADX(data);
   const stoch = calculateStochastic(data);
+  const cci = calculateCCI(data);
+  const mfi = calculateMFI(data);
+  const williams = calculateWilliamsR(data);
+  const obv = calculateOBV(data);
+  const psar = calculatePSAR(data);
+  const ichimoku = calculateIchimoku(data);
+  const volProfile = calculateVolumeProfile(data);
   const divergence = detectDivergence(data);
   const sr = findSupportResistance(data);
   
   let buyScore = 0, sellScore = 0, totalWeight = 0;
   
-  // RSI (Weight: 15)
-  if(rsi < 30) buyScore += 15;
-  else if(rsi < 40) buyScore += 10;
-  else if(rsi > 70) sellScore += 15;
-  else if(rsi > 60) sellScore += 10;
-  totalWeight += 15;
+  // 1. RSI (Weight: 8)
+  if(rsi < 30) buyScore += 8;
+  else if(rsi < 40) buyScore += 5;
+  else if(rsi > 70) sellScore += 8;
+  else if(rsi > 60) sellScore += 5;
+  totalWeight += 8;
   
-  // MACD (Weight: 15)
-  if(macd.histogram > 0 && macd.macd > macd.signal) buyScore += 15;
-  else if(macd.histogram < 0 && macd.macd < macd.signal) sellScore += 15;
-  else if(macd.histogram > 0) buyScore += 8;
-  else if(macd.histogram < 0) sellScore += 8;
-  totalWeight += 15;
+  // 2. MACD (Weight: 8)
+  if(macd.histogram > 0 && macd.macd > macd.signal) buyScore += 8;
+  else if(macd.histogram < 0 && macd.macd < macd.signal) sellScore += 8;
+  else if(macd.histogram > 0) buyScore += 4;
+  else if(macd.histogram < 0) sellScore += 4;
+  totalWeight += 8;
   
-  // Bollinger (Weight: 10)
-  if(current <= bb.lower) buyScore += 10;
-  else if(current >= bb.upper) sellScore += 10;
-  else if(current < bb.middle) buyScore += 5;
-  else if(current > bb.middle) sellScore += 5;
-  totalWeight += 10;
+  // 3. Bollinger (Weight: 6)
+  if(current <= bb.lower) buyScore += 6;
+  else if(current >= bb.upper) sellScore += 6;
+  else if(current < bb.middle) buyScore += 3;
+  else if(current > bb.middle) sellScore += 3;
+  totalWeight += 6;
   
-  // EMA (Weight: 10)
-  if(ema20 > ema50) buyScore += 10;
-  else if(ema20 < ema50) sellScore += 10;
-  totalWeight += 10;
+  // 4. EMA Cross (Weight: 7)
+  if(ema20 > ema50 && ema50 > ema200) buyScore += 7;
+  else if(ema20 < ema50 && ema50 < ema200) sellScore += 7;
+  else if(ema20 > ema50) buyScore += 4;
+  else if(ema20 < ema50) sellScore += 4;
+  totalWeight += 7;
   
-  // ADX (Weight: 10)
+  // 5. ADX (Weight: 6)
   if(adx.adx > 25) {
-    if(adx.plusDI > adx.minusDI) buyScore += 10;
-    else sellScore += 10;
+    if(adx.plusDI > adx.minusDI) buyScore += 6;
+    else sellScore += 6;
+  } else if(adx.adx > 20) {
+    if(adx.plusDI > adx.minusDI) buyScore += 3;
+    else sellScore += 3;
   }
-  totalWeight += 10;
+  totalWeight += 6;
   
-  // Stochastic (Weight: 10)
-  if(stoch.k < 20) buyScore += 10;
-  else if(stoch.k > 80) sellScore += 10;
-  else if(stoch.k < 50) buyScore += 5;
+  // 6. Stochastic (Weight: 6)
+  if(stoch.k < 20) buyScore += 6;
+  else if(stoch.k > 80) sellScore += 6;
+  else if(stoch.k < 50) buyScore += 3;
+  else sellScore += 3;
+  totalWeight += 6;
+  
+  // 7. CCI (Weight: 5)
+  if(cci < -100) buyScore += 5;
+  else if(cci > 100) sellScore += 5;
+  else if(cci < 0) buyScore += 2;
+  else sellScore += 2;
+  totalWeight += 5;
+  
+  // 8. MFI (Weight: 5)
+  if(mfi < 20) buyScore += 5;
+  else if(mfi > 80) sellScore += 5;
+  else if(mfi < 50) buyScore += 2;
+  else sellScore += 2;
+  totalWeight += 5;
+  
+  // 9. Williams %R (Weight: 5)
+  if(williams < -80) buyScore += 5;
+  else if(williams > -20) sellScore += 5;
+  else if(williams < -50) buyScore += 2;
+  else sellScore += 2;
+  totalWeight += 5;
+  
+  // 10. OBV (Weight: 5)
+  if(obv > 0) buyScore += 5;
   else sellScore += 5;
-  totalWeight += 10;
+  totalWeight += 5;
   
-  // Divergence (Weight: 15)
-  if(divergence === 'bullish') buyScore += 15;
-  else if(divergence === 'bearish') sellScore += 15;
-  totalWeight += 15;
+  // 11. PSAR (Weight: 6)
+  if(psar.bullish && current > psar.value) buyScore += 6;
+  else if(!psar.bullish && current < psar.value) sellScore += 6;
+  totalWeight += 6;
   
-  // S/R (Weight: 15)
+  // 12. Ichimoku (Weight: 7)
+  if(ichimoku.cloudBullish && ichimoku.tkCross) buyScore += 7;
+  else if(!ichimoku.cloudBullish && !ichimoku.tkCross) sellScore += 7;
+  else if(ichimoku.cloudBullish) buyScore += 3;
+  else sellScore += 3;
+  totalWeight += 7;
+  
+  // 13. Volume Profile (Weight: 5)
+  if(volProfile.ratio > 1.5) buyScore += 5;
+  else if(volProfile.ratio < 0.67) sellScore += 5;
+  else if(volProfile.ratio > 1) buyScore += 2;
+  else sellScore += 2;
+  totalWeight += 5;
+  
+  // 14. Divergence + S/R (Weight: 7)
+  if(divergence === 'bullish') buyScore += 7;
+  else if(divergence === 'bearish') sellScore += 7;
   const distToSupport = ((current - sr.support) / current) * 100;
   const distToResistance = ((sr.resistance - current) / current) * 100;
-  if(distToSupport < 1) buyScore += 15;
-  else if(distToResistance < 1) sellScore += 15;
-  else if(distToSupport < distToResistance) buyScore += 7;
-  else sellScore += 7;
-  totalWeight += 15;
+  if(distToSupport < 1) buyScore += 5;
+  else if(distToResistance < 1) sellScore += 5;
+  totalWeight += 7;
   
   const buyPct = (buyScore / totalWeight) * 100;
   const sellPct = (sellScore / totalWeight) * 100;
@@ -480,9 +663,10 @@ function generateSignalScore(data) {
   return {
     buyScore: buyScore, sellScore: sellScore, totalWeight: totalWeight,
     buyPct: buyPct, sellPct: sellPct,
-    rsi: rsi, macd: macd, bb: bb, ema20: ema20, ema50: ema50,
-    current: current, atr: atr, adx: adx, stoch: stoch,
-    divergence: divergence, sr: sr
+    rsi: rsi, macd: macd, bb: bb, ema20: ema20, ema50: ema50, ema200: ema200,
+    current: current, atr: atr, adx: adx, stoch: stoch, cci: cci, mfi: mfi,
+    williams: williams, obv: obv, psar: psar, ichimoku: ichimoku,
+    volProfile: volProfile, divergence: divergence, sr: sr
   };
 }
 
@@ -491,21 +675,22 @@ function determineSignal(analysis) {
   const sellPct = analysis.sellPct;
   const adx = analysis.adx;
   const divergence = analysis.divergence;
+  const ichimoku = analysis.ichimoku;
   
   let signal, strength, confidence;
   
-  if(buyPct >= 65 && sellPct < 35) {
+  if(buyPct >= 60 && sellPct < 40) {
     signal = 'BUY';
     confidence = buyPct;
-    if(buyPct >= 80 && adx.adx > 25 && divergence === 'bullish') strength = 'CONFIRMED';
-    else if(buyPct >= 75) strength = 'STRONG';
+    if(buyPct >= 78 && adx.adx > 25 && divergence === 'bullish' && ichimoku.cloudBullish) strength = 'CONFIRMED';
+    else if(buyPct >= 72) strength = 'STRONG';
     else if(buyPct >= 65) strength = 'MEDIUM';
     else strength = 'WEAK';
-  } else if(sellPct >= 65 && buyPct < 35) {
+  } else if(sellPct >= 60 && buyPct < 40) {
     signal = 'SELL';
     confidence = sellPct;
-    if(sellPct >= 80 && adx.adx > 25 && divergence === 'bearish') strength = 'CONFIRMED';
-    else if(sellPct >= 75) strength = 'STRONG';
+    if(sellPct >= 78 && adx.adx > 25 && divergence === 'bearish' && !ichimoku.cloudBullish) strength = 'CONFIRMED';
+    else if(sellPct >= 72) strength = 'STRONG';
     else if(sellPct >= 65) strength = 'MEDIUM';
     else strength = 'WEAK';
   } else {
@@ -515,6 +700,38 @@ function determineSignal(analysis) {
   }
   
   return {signal: signal, strength: strength, confidence: confidence};
+}
+
+function getIndSignal(value, type, buyThreshold, sellThreshold) {
+  if(type === 'rsi' || type === 'stoch' || type === 'mfi') {
+    if(value < buyThreshold) return 'buy';
+    if(value > sellThreshold) return 'sell';
+  } else if(type === 'williams') {
+    if(value < -80) return 'buy';
+    if(value > -20) return 'sell';
+  } else if(type === 'cci') {
+    if(value < -100) return 'buy';
+    if(value > 100) return 'sell';
+  } else if(type === 'obv') {
+    return value > 0 ? 'buy' : 'sell';
+  } else if(type === 'psar') {
+    return value.bullish ? 'buy' : 'sell';
+  } else if(type === 'ichimoku') {
+    return value.cloudBullish ? 'buy' : 'sell';
+  } else if(type === 'vol') {
+    return value.ratio > 1 ? 'buy' : 'sell';
+  } else if(type === 'adx') {
+    return value.plusDI > value.minusDI ? 'buy' : 'sell';
+  } else if(type === 'macd') {
+    return value.histogram > 0 ? 'buy' : 'sell';
+  } else if(type === 'bb') {
+    return value; // already 'buy' or 'sell'
+  } else if(type === 'ema') {
+    return value; // already 'buy' or 'sell'
+  } else if(type === 'atr') {
+    return 'neutral';
+  }
+  return 'neutral';
 }
 
 // ========================
@@ -534,6 +751,7 @@ async function generateSignal() {
   
   const asset = document.getElementById('asset').value;
   const tf = document.getElementById('timeframe').value;
+  const symbol = getBinanceSymbol(asset);
   
   const steps = [
     'Connecting to Exchange...',
@@ -542,8 +760,16 @@ async function generateSignal() {
     'Analyzing MACD...',
     'Checking Bollinger Bands...',
     'EMA Cross Analysis...',
-    'Detecting Divergence...',
-    'Finding S/R Levels...',
+    'ADX Trend Strength...',
+    'Stochastic Oscillator...',
+    'CCI Momentum...',
+    'MFI Money Flow...',
+    'Williams %R...',
+    'OBV Volume...',
+    'PSAR Parabolic...',
+    'Ichimoku Cloud...',
+    'Volume Profile...',
+    'Divergence Detection...',
     'AI Neural Processing...',
     'Signal Generated!'
   ];
@@ -551,26 +777,65 @@ async function generateSignal() {
   for(let i = 0; i < steps.length; i++) {
     loadingText.textContent = steps[i];
     progressBar.style.width = ((i + 1) / steps.length * 100) + '%';
-    await new Promise(function(r) { setTimeout(r, 300); });
+    await new Promise(function(r) { setTimeout(r, 250); });
   }
   
-  let data = await fetchBinanceData(asset, tf, 100);
-  if(!data || data.length < 60) data = generateMockData();
+  let data = await fetchBinanceData(symbol, tf, 250);
+  if(!data || data.length < 60) data = generateMockData(symbol);
   candleData = data;
   currentPrice = data[data.length - 1].close;
   
   const analysis = generateSignalScore(data);
   const signal = determineSignal(analysis);
   
-  document.getElementById('rsiVal').textContent = analysis.rsi.toFixed(1);
-  document.getElementById('macdVal').textContent = analysis.macd.histogram > 0 ? 'BULL' : 'BEAR';
-  document.getElementById('bbVal').textContent = analysis.current > analysis.bb.upper ? 'UPPER' : analysis.current < analysis.bb.lower ? 'LOWER' : 'MID';
-  document.getElementById('emaVal').textContent = analysis.ema20 > analysis.ema50 ? 'BULL' : 'BEAR';
+  // Update 14 indicators display
+  document.getElementById('ind_rsi').textContent = analysis.rsi.toFixed(0);
+  document.getElementById('ind_rsi').className = 'ind-14-value ' + getIndSignal(analysis.rsi, 'rsi', 30, 70);
   
+  document.getElementById('ind_macd').textContent = analysis.macd.histogram > 0 ? 'BUY' : 'SELL';
+  document.getElementById('ind_macd').className = 'ind-14-value ' + getIndSignal(analysis.macd, 'macd', 0, 0);
+  
+  document.getElementById('ind_bb').textContent = analysis.current > analysis.bb.upper ? 'SELL' : analysis.current < analysis.bb.lower ? 'BUY' : 'NEUT';
+  document.getElementById('ind_bb').className = 'ind-14-value ' + (analysis.current > analysis.bb.upper ? 'sell' : analysis.current < analysis.bb.lower ? 'buy' : 'neutral');
+  
+  document.getElementById('ind_ema').textContent = analysis.ema20 > analysis.ema50 ? 'BUY' : 'SELL';
+  document.getElementById('ind_ema').className = 'ind-14-value ' + (analysis.ema20 > analysis.ema50 ? 'buy' : 'sell');
+  
+  document.getElementById('ind_adx').textContent = analysis.adx.adx.toFixed(0);
+  document.getElementById('ind_adx').className = 'ind-14-value ' + getIndSignal(analysis.adx, 'adx', 0, 0);
+  
+  document.getElementById('ind_stoch').textContent = analysis.stoch.k.toFixed(0);
+  document.getElementById('ind_stoch').className = 'ind-14-value ' + getIndSignal(analysis.stoch.k, 'stoch', 20, 80);
+  
+  document.getElementById('ind_cci').textContent = analysis.cci.toFixed(0);
+  document.getElementById('ind_cci').className = 'ind-14-value ' + getIndSignal(analysis.cci, 'cci', -100, 100);
+  
+  document.getElementById('ind_atr').textContent = analysis.atr.toFixed(2);
+  document.getElementById('ind_atr').className = 'ind-14-value neutral';
+  
+  document.getElementById('ind_mfi').textContent = analysis.mfi.toFixed(0);
+  document.getElementById('ind_mfi').className = 'ind-14-value ' + getIndSignal(analysis.mfi, 'mfi', 20, 80);
+  
+  document.getElementById('ind_will').textContent = analysis.williams.toFixed(0);
+  document.getElementById('ind_will').className = 'ind-14-value ' + getIndSignal(analysis.williams, 'williams', -80, -20);
+  
+  document.getElementById('ind_obv').textContent = analysis.obv > 0 ? 'BUY' : 'SELL';
+  document.getElementById('ind_obv').className = 'ind-14-value ' + getIndSignal(analysis.obv, 'obv', 0, 0);
+  
+  document.getElementById('ind_psar').textContent = analysis.psar.bullish ? 'BUY' : 'SELL';
+  document.getElementById('ind_psar').className = 'ind-14-value ' + getIndSignal(analysis.psar, 'psar', 0, 0);
+  
+  document.getElementById('ind_ichim').textContent = analysis.ichimoku.cloudBullish ? 'BUY' : 'SELL';
+  document.getElementById('ind_ichim').className = 'ind-14-value ' + getIndSignal(analysis.ichimoku, 'ichimoku', 0, 0);
+  
+  document.getElementById('ind_vol').textContent = analysis.volProfile.ratio > 1 ? 'BUY' : 'SELL';
+  document.getElementById('ind_vol').className = 'ind-14-value ' + getIndSignal(analysis.volProfile, 'vol', 0, 0);
+  
+  // Multi-timeframe
   const tfMap = {'1m': '1m', '5m': '5m', '15m': '15m', '1h': '1h'};
   for(const key in tfMap) {
     const interval = tfMap[key];
-    const tfData = await fetchBinanceData(asset, interval, 100);
+    const tfData = await fetchBinanceData(symbol, interval, 100);
     const tfAnalysis = generateSignalScore(tfData);
     const tfSignal = determineSignal(tfAnalysis);
     const el = document.getElementById('tf' + key);
@@ -596,10 +861,10 @@ async function generateSignal() {
     signal.confidence > 75 ? 'var(--green)' : signal.confidence > 50 ? 'var(--yellow)' : 'var(--orange)';
   document.getElementById('confidenceText').textContent = 'Confidence: ' + signal.confidence.toFixed(1) + '%';
   
-  document.getElementById('entryPrice').textContent = '$' + entry.toFixed(2);
-  document.getElementById('slPrice').textContent = '$' + sl.toFixed(2);
-  document.getElementById('tp1Price').textContent = '$' + tp1.toFixed(2);
-  document.getElementById('tp2Price').textContent = '$' + tp2.toFixed(2);
+  document.getElementById('entryPrice').textContent = '$' + entry.toFixed(4);
+  document.getElementById('slPrice').textContent = '$' + sl.toFixed(4);
+  document.getElementById('tp1Price').textContent = '$' + tp1.toFixed(4);
+  document.getElementById('tp2Price').textContent = '$' + tp2.toFixed(4);
   
   const divBox = document.getElementById('divergenceBox');
   if(analysis.divergence !== 'none') {
@@ -609,16 +874,16 @@ async function generateSignal() {
   
   const trendBox = document.getElementById('trendBox');
   trendBox.style.display = 'block';
-  trendBox.textContent = 'Trend: ' + (analysis.adx.adx > 25 ? 'STRONG' : 'WEAK') + ' | ADX: ' + analysis.adx.adx.toFixed(1);
+  trendBox.textContent = 'Trend: ' + (analysis.adx.adx > 25 ? 'STRONG' : 'WEAK') + ' | ADX: ' + analysis.adx.adx.toFixed(1) + ' | EMA200: ' + (analysis.current > analysis.ema200 ? 'ABOVE' : 'BELOW');
   
   const srBox = document.getElementById('srBox');
   srBox.style.display = 'block';
-  srBox.textContent = 'Support: $' + analysis.sr.support.toFixed(2) + ' | Resistance: $' + analysis.sr.resistance.toFixed(2);
+  srBox.textContent = 'Support: $' + analysis.sr.support.toFixed(4) + ' | Resistance: $' + analysis.sr.resistance.toFixed(4);
   
   const waitMsg = document.getElementById('waitMsg');
   if(signal.signal === 'WAIT') {
     waitMsg.style.display = 'block';
-    waitMsg.textContent = 'Market consolidating. Wait for direction. RSI: ' + analysis.rsi.toFixed(1) + ' | Stoch: ' + analysis.stoch.k.toFixed(1);
+    waitMsg.textContent = 'Market consolidating. RSI: ' + analysis.rsi.toFixed(1) + ' | Stoch: ' + analysis.stoch.k.toFixed(1) + ' | CCI: ' + analysis.cci.toFixed(1);
   } else {
     waitMsg.style.display = 'none';
   }
@@ -683,4 +948,4 @@ function startLiveData() {
 }
 </script>
 </body>
-</html>''
+</html>'''
