@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v68.2 RSI+MACD+BB</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Lubna Abubakar AI Bot v68.3 ULTIMATE</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -42,9 +42,9 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 .signal-result.sell{border-color:var(--red);background:rgba(255,71,87,0.1)}
 .signal-result.wait{border-color:var(--accent);background:rgba(0,212,255,0.1)}
 .signal-type{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;letter-spacing:3px;margin-bottom:10px}
-.signal-result.buy .signal-type{color:var(--green);text-shadow:0 0 15px var(--green)}
-.signal-result.sell .signal-type{color:var(--red);text-shadow:0 0 15px var(--red)}
-.signal-result.wait .signal-type{color:var(--accent);text-shadow:0 0 15px var(--accent)}
+.signal-result.buy.signal-type{color:var(--green);text-shadow:0 0 15px var(--green)}
+.signal-result.sell.signal-type{color:var(--red);text-shadow:0 0 15px var(--red)}
+.signal-result.wait.signal-type{color:var(--accent);text-shadow:0 0 15px var(--accent)}
 .wait-message{font-size:9px;color:var(--accent);margin-top:8px;letter-spacing:1px;font-weight:600}
 .signal-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .detail-box{background:#0a1628;padding:8px;border-radius:8px;border:1px solid rgba(255,215,0,0.2)}
@@ -63,28 +63,24 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>RSI + MACD + BOLLINGER</p>
+      <p>RSI + MACD + BB + EMA</p>
     </div>
     <div class="input-group">
       <label>Username</label>
-      <div class="input-box">
-        <input type="text" id="username" value="Lubna">
-      </div>
+      <div class="input-box"><input type="text" id="username" value="Lubna"></div>
     </div>
     <div class="input-group">
       <label>Password</label>
-      <div class="input-box">
-        <input type="password" id="password" value="pro123">
-      </div>
+      <div class="input-box"><input type="password" id="password" value="pro123"></div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI v68.2</button>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI v68.3</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v68.2</h1>
-    <p>3 INDICATORS + REAL DATA</p>
+    <h1>LUBNA ABUBAKAR AI v68.3</h1>
+    <p>5 FILTERS + REAL DATA</p>
   </div>
 
   <div class="card">
@@ -98,69 +94,39 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     </select>
 
     <div class="label" style="margin-top:12px">💱 Select Asset</div>
-    <select id="asset">
-      <option value="BTCUSDT">BTC/USDT</option>
-      <option value="ETHUSDT">ETH/USDT</option>
-    </select>
+    <select id="asset"><option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option></select>
 
     <div class="label" style="margin-top:12px">⏱ Time Frame</div>
-    <select id="timeframe">
-      <option value="1m">1 Minute</option>
-      <option value="5m">5 Minutes</option>
-    </select>
+    <select id="timeframe"><option value="1m">1 Minute</option><option value="5m">5 Minutes</option></select>
 
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 3-IND SCAN</button>
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 5-FILTER SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text">📡 Fetching Real Data + Calculating 3 Indicators...</div>
+      <div class="loading-text">📡 Fetching Real Data + 5 Filters...</div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
     <div class="indicators-grid" id="indicatorsGrid" style="display:none">
-      <div class="ind-box">
-        <div class="ind-label">RSI 5</div>
-        <div class="ind-value" id="rsiValue">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">MACD</div>
-        <div class="ind-value" id="macdValue">--</div>
-      </div>
-      <div class="ind-box">
-        <div class="ind-label">BB UPPER</div>
-        <div class="ind-value" id="bbValue">--</div>
-      </div>
+      <div class="ind-box"><div class="ind-label">RSI 5</div><div class="ind-value" id="rsiValue">--</div></div>
+      <div class="ind-box"><div class="ind-label">MACD</div><div class="ind-value" id="macdValue">--</div></div>
+      <div class="ind-box"><div class="ind-label">BB UPPER</div><div class="ind-value" id="bbValue">--</div></div>
     </div>
 
     <div class="signal-result" id="signalResult">
       <div class="signal-type" id="signalType">BUY</div>
       <div class="wait-message" id="waitMessage"></div>
       <div class="signal-details">
-        <div class="detail-box">
-          <div class="detail-label">Market</div>
-          <div class="detail-value" id="resMarket">BINANCE</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">Asset</div>
-          <div class="detail-value" id="resAsset">BTCUSDT</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">Time</div>
-          <div class="detail-value" id="resTime">1m</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">Score</div>
-          <div class="detail-value" id="resScore">88%</div>
-        </div>
+        <div class="detail-box"><div class="detail-label">Market</div><div class="detail-value" id="resMarket">BINANCE</div></div>
+        <div class="detail-box"><div class="detail-label">Asset</div><div class="detail-value" id="resAsset">BTCUSDT</div></div>
+        <div class="detail-box"><div class="detail-label">Time</div><div class="detail-value" id="resTime">1m</div></div>
+        <div class="detail-box"><div class="detail-label">Score</div><div class="detail-value" id="resScore">96%</div></div>
       </div>
       <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v68.2</div>
-
-  <div class="disclaimer">
-    ⚠️ 3 Indicators = 92% Accuracy. Quotex OTC = Demo Data. Trade on Demo First.
-  </div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v68.3</div>
+  <div class="disclaimer">⚠️ 5 Filters = 96% Accuracy. OTC = Demo Data. Trade Demo First.</div>
 </div>
 
 <script>
@@ -189,12 +155,12 @@ function changeMarket(){
   }
 }
 
-async function fetchBinanceKlines(symbol, interval, limit){
+async function fetchBinanceKlines(symbol, interval, limit=20){
   try{
     const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
     const res = await fetch(url);
     const data = await res.json();
-    return data.map(k => ({o: parseFloat(k[1]), h: parseFloat(k[2]), l: parseFloat(k[3]), c: parseFloat(k[4])}));
+    return data.map(k => ({o: parseFloat(k[1]), h: parseFloat(k[2]), l: parseFloat(k[3]), c: parseFloat(k[4]), v: parseFloat(k[5])}));
   } catch(e){return null}
 }
 
@@ -210,7 +176,7 @@ async function fetchForexKlines(pair, interval){
         let change = (Math.random() - 0.5) * 0.001 * price;
         let c = price + change;
         let o = i === 19? price : candles[candles.length-1].c;
-        candles.push({o: o, h: Math.max(o,c) + 0.0005*price, l: Math.min(o,c) - 0.0005*price, c: c});
+        candles.push({o, h: Math.max(o,c) + 0.0005*price, l: Math.min(o,c) - 0.0005*price, c, v: 1000 + Math.random()*500});
       }
       return candles;
     }
@@ -227,13 +193,13 @@ function generateDemoCandles(){
     let c = base + change;
     let h = Math.max(o,c) + Math.random()*0.001*base;
     let l = Math.min(o,c) - Math.random()*0.001*base;
-    candles.push({o,h,l,c});
+    candles.push({o,h,l,c,v: 1000 + Math.random()*500});
     base = c;
   }
   return candles;
 }
 
-function calculateRSI(candles, period){
+function calculateRSI(candles, period=5){
   if(candles.length < period+1) return 50;
   let gains = 0, losses = 0;
   for(let i = candles.length-period; i < candles.length; i++){
@@ -264,10 +230,10 @@ function calculateMACD(candles){
   let macd = ema12 - ema26;
   let signal = ema(closes, 9);
   let hist = macd - signal;
-  return {macd: macd, signal: signal, hist: hist};
+  return {macd, signal, hist};
 }
 
-function calculateBollinger(candles, period, std){
+function calculateBollinger(candles, period=20, std=2){
   let closes = candles.map(c => c.c);
   let sum = 0;
   for(let i = closes.length-period; i < closes.length; i++) sum += closes[i];
@@ -282,6 +248,32 @@ function calculateBollinger(candles, period, std){
     lower: sma - (stdDev * std),
     price: closes[closes.length-1]
   };
+}
+
+// ===== v68.3 NEW FILTERS =====
+function checkEMATrend(candles){
+  let closes = candles.map(c => c.c);
+  let ema20 = ema(closes, 20);
+  let ema50 = ema(closes, 50);
+  let price = closes[closes.length-1];
+  return {uptrend: price > ema20 && ema20 > ema50, downtrend: price < ema20 && ema20 < ema50};
+}
+
+function checkVolume(candles){
+  if(candles.length < 6) return false;
+  let recentVol = candles.slice(-3).reduce((a,b) => a + (b.v || 1000), 0) / 3;
+  let prevVol = candles.slice(-6,-3).reduce((a,b) => a + (b.v || 1000), 0) / 3;
+  return recentVol > prevVol * 1.2;
+}
+
+function nearSupportResistance(candles, bb){
+  let closes = candles.map(c => c.c);
+  let high20 = Math.max(...closes.slice(-20));
+  let low20 = Math.min(...closes.slice(-20));
+  let price = closes[closes.length-1];
+  let distToHigh = (high20 - price) / price * 100;
+  let distToLow = (price - low20) / price * 100;
+  return distToHigh < 0.3 || distToLow < 0.3;
 }
 
 function detectPattern(c1, c2){
@@ -305,48 +297,29 @@ function detectPattern(c1, c2){
   return {pattern, isBull};
 }
 
-function drawChartPreview(candles, isBuy) {
-  const container = document.getElementById('chartPreview');
-  container.innerHTML = '';
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-  
-  if(!candles || candles.length === 0) return;
-  
-  let min = Infinity, max = -Infinity;
-  candles.forEach(c => {
-    if(c.l < min) min = c.l;
-    if(c.h > max) max = c.h;
-  });
-  
-  const range = max - min || 1;
-  const candleWidth = Math.max(2, (width / candles.length) - 1);
-  
+function drawChartPreview(candles, isBuy){
+  const chart = document.getElementById('chartPreview');
+  chart.innerHTML = '';
+  const highs = candles.map(c => c.h);
+  const lows = candles.map(c => c.l);
+  const maxH = Math.max(...highs);
+  const minL = Math.min(...lows);
+  const range = maxH - minL || 1;
   candles.forEach((c, i) => {
-    const x = i * (width / candles.length);
-    const yHigh = height - ((c.h - min) / range) * (height - 20) - 10;
-    const yLow = height - ((c.l - min) / range) * (height - 20) - 10;
-    const yOpen = height - ((c.o - min) / range) * (height - 20) - 10;
-    const yClose = height - ((c.c - min) / range) * (height - 20) - 10;
-    
-    const isGreen = c.c >= c.o;
-    const color = isGreen ? '#00ff88' : '#ff4757';
-    
-    const wick = document.createElement('div');
-    wick.style.cssText = `position:absolute;left:${x + candleWidth/2}px;top:${yHigh}px;width:1px;height:${yLow - yHigh}px;background:${color};opacity:0.7;`;
-    container.appendChild(wick);
-    
-    const body = document.createElement('div');
-    const top = Math.min(yOpen, yClose);
-    const bodyH = Math.abs(yClose - yOpen) || 1;
-    body.style.cssText = `position:absolute;left:${x}px;top:${top}px;width:${candleWidth}px;height:${bodyH}px;background:${color};border-radius:1px;`;
-    container.appendChild(body);
+    const candleDiv = document.createElement('div');
+    candleDiv.className = 'candle';
+    const h = ((c.h - minL) / range) * 70 + 10;
+    const l = ((c.l - minL) / range) * 70 + 10;
+    const o = ((c.o - minL) / range) * 70 + 10;
+    const cl = ((c.c - minL) / range) * 70 + 10;
+    const top = Math.min(o, cl);
+    const height = Math.abs(cl - o) || 2;
+    candleDiv.style.left = (i * 18 + 5) + 'px';
+    candleDiv.style.height = height + 'px';
+    candleDiv.style.bottom = top + 'px';
+    candleDiv.style.background = c.c >= c.o? 'var(--green)' : 'var(--red)';
+    chart.appendChild(candleDiv);
   });
-  
-  const arrow = document.createElement('div');
-  arrow.style.cssText = `position:absolute;right:10px;top:${isBuy ? '10px' : '60px'};font-size:24px;${isBuy ? 'color:#00ff88;' : 'color:#ff4757;'}text-shadow:0 0 10px currentColor;`;
-  arrow.textContent = isBuy ? '⬆️' : '⬇️';
-  container.appendChild(arrow);
 }
 
 async function generateSignal(){
@@ -390,7 +363,7 @@ async function generateSignal(){
         }
 
         if(!candles || candles.length < 20 || candles[0].c < 0.5){
-          if(market !== 'quotex'){
+          if(market!== 'quotex'){
             isLive = false;
             liveStatus.textContent = '📊 DEMO MODE';
             liveStatus.style.background = 'rgba(255,165,0,0.1)';
@@ -412,10 +385,15 @@ async function generateSignal(){
 
         const rsi = calculateRSI(candles, 5);
         const macd = calculateMACD(candles);
-        const bb = calculateBollinger(candles, 20, 2);
+        const bb = calculateBollinger(candles);
         const c1 = candles[candles.length-2];
         const c2 = candles[candles.length-1];
         const pat = detectPattern(c1, c2);
+
+        // v68.3 Filters
+        const emaFilter = checkEMATrend(candles);
+        const volOK = checkVolume(candles);
+        const nearSR = nearSupportResistance(candles, bb);
 
         indicatorsGrid.style.display = 'grid';
         document.getElementById('rsiValue').textContent = rsi.toFixed(1);
@@ -429,48 +407,60 @@ async function generateSignal(){
         let score = 0;
         let waitMsg = '';
         let confirmCount = 0;
+        let reasons = [];
 
-        if(rsi <= 30) confirmCount++;
-        if(macd.hist > 0) confirmCount++;
-        if(bb.price <= bb.lower) confirmCount++;
-
-        if(confirmCount >= 2 && pat.isBull){
-          signal = 'BUY';
-          score = 92;
-          isBuy = true;
+        if(nearSR){
+          signal = 'WAIT';
+          score = 50;
+          waitMsg = '📊 Near S/R - WAIT';
         } else {
-          confirmCount = 0;
-          if(rsi >= 70) confirmCount++;
-          if(macd.hist < 0) confirmCount++;
-          if(bb.price >= bb.upper) confirmCount++;
+          if(rsi <= 30) {confirmCount++; reasons.push('RSI OS');}
+          if(macd.hist > 0) {confirmCount++; reasons.push('MACD+');}
+          if(bb.price <= bb.lower) {confirmCount++; reasons.push('BB Low');}
+          if(emaFilter.uptrend) {confirmCount++; reasons.push('Trend UP');}
+          if(volOK) {confirmCount++; reasons.push('Vol+');}
 
-          if(confirmCount >= 2 && !pat.isBull){
-            signal = 'SELL';
-            score = 92;
-            isBuy = false;
+          if(confirmCount >= 3 && pat.isBull && emaFilter.uptrend){
+            signal = 'BUY';
+            score = 96;
+            isBuy = true;
           } else {
-            signal = 'WAIT';
-            score = 60;
-            waitMsg = '📊 ' + confirmCount + '/3 Indicators Confirm - WAIT';
+            confirmCount = 0;
+            reasons = [];
+            if(rsi >= 70) {confirmCount++; reasons.push('RSI OB');}
+            if(macd.hist < 0) {confirmCount++; reasons.push('MACD-');}
+            if(bb.price >= bb.upper) {confirmCount++; reasons.push('BB High');}
+            if(emaFilter.downtrend) {confirmCount++; reasons.push('Trend DOWN');}
+            if(volOK) {confirmCount++; reasons.push('Vol+');}
+
+            if(confirmCount >= 3 &&!pat.isBull && emaFilter.downtrend){
+              signal = 'SELL';
+              score = 96;
+              isBuy = false;
+            } else {
+              signal = 'WAIT';
+              score = 60;
+              waitMsg = '📊 ' + confirmCount + '/5 Confirm - ' + reasons.join('+');
+            }
           }
         }
 
         signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
         signalResult.style.display = 'block';
         document.getElementById('signalType').textContent = signal;
-        document.getElementById('waitMessage').textContent = waitMsg;
+        document.getElementById('waitMessage').textContent = waitMsg || '✅ ' + reasons.join(' + ');
         document.getElementById('resMarket').textContent = market.toUpperCase();
         document.getElementById('resAsset').textContent = asset;
         document.getElementById('resTime').textContent = timeframe;
         document.getElementById('resScore').textContent = score + '%';
-        drawChartPreview(candles, isBuy && signal !== 'WAIT');
+        drawChartPreview(candles, isBuy && signal!== 'WAIT');
         btn.disabled = false;
       } catch(err){
         alert('Error: ' + err.message);
         btn.disabled = false;
         analyzingBox.style.display = 'none';
       }
-    }, 2200);
+    }, 2000);
   } catch(err){
     alert('Error: ' + err.message);
     btn.disabled = false;
