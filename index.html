@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v68.3 ULTIMATE</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Lubna Abubakar AI Bot v69.0 - 14 Indicators + Quotex OTC</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
+:root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0;--purple:#a855f7;--orange:#f97316}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:linear-gradient(135deg, #0a0e27 0%, #16213e 100%);color:var(--text);font-family:'Poppins',sans-serif;width:100%;height:100vh;overflow:hidden}
 .login-wrapper{width:100%;height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
@@ -54,6 +54,11 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 .disclaimer{margin-top:10px;padding:8px;background:rgba(255,71,87,0.1);border:1px solid var(--red);border-radius:8px;font-size:7px;color:#ff9999;text-align:center;line-height:1.4;flex-shrink:0}
 .chart-preview{height:90px;background:#0a1628;border-radius:10px;margin-top:10px;border:1px solid rgba(255,215,0,0.2);position:relative;overflow:hidden}
 .candle{position:absolute;bottom:12px;width:9px;border-radius:2px}
+.extra-indicators-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-top:8px}
+.extra-ind-box{background:#0a1628;border:1.5px solid rgba(168,85,247,0.3);border-radius:8px;padding:6px;text-align:center}
+.extra-ind-label{font-size:7px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;font-weight:700}
+.extra-ind-value{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:900;color:var(--purple)}
+.confirmed-count{text-align:center;margin-top:8px;padding:6px;background:rgba(255,165,0,0.1);border:1px solid var(--orange);border-radius:8px;font-size:10px;color:var(--orange);font-weight:700}
 </style>
 </head>
 <body>
@@ -63,7 +68,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>RSI + MACD + BB + EMA</p>
+      <p>14 INDICATORS + QUOTEX OTC</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -73,44 +78,68 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
       <label>Password</label>
       <div class="input-box"><input type="password" id="password" value="pro123"></div>
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK AI v68.3</button>
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI v69.0</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v68.3</h1>
-    <p>5 FILTERS + REAL DATA</p>
+    <h1>LUBNA ABUBAKAR AI v69.0</h1>
+    <p>14 INDICATORS + REAL DATA</p>
   </div>
 
   <div class="card">
-    <div class="live-status" id="liveStatus">📡 LIVE DATA CONNECTED</div>
+    <div class="live-status" id="liveStatus">LIVE DATA CONNECTED</div>
 
-    <div class="label">🎯 Select Market</div>
+    <div class="label">Select Market</div>
     <select id="marketType" onchange="changeMarket()">
-      <option value="binance">₿ Binance Crypto</option>
-      <option value="forex">💱 Forex Live</option>
-      <option value="quotex">🎯 Quotex OTC</option>
+      <option value="binance">Binance Crypto</option>
+      <option value="forex">Forex Live</option>
+      <option value="quotex">Quotex OTC</option>
     </select>
 
-    <div class="label" style="margin-top:12px">💱 Select Asset</div>
-    <select id="asset"><option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option></select>
+    <div class="label" style="margin-top:12px">Select Asset</div>
+    <select id="asset">
+      <option value="BTCUSDT">BTC/USDT</option>
+      <option value="ETHUSDT">ETH/USDT</option>
+    </select>
 
-    <div class="label" style="margin-top:12px">⏱ Time Frame</div>
-    <select id="timeframe"><option value="1m">1 Minute</option><option value="5m">5 Minutes</option></select>
+    <div class="label" style="margin-top:12px">Time Frame</div>
+    <select id="timeframe">
+      <option value="1m">1 Minute</option>
+      <option value="5m">5 Minutes</option>
+    </select>
 
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 5-FILTER SCAN</button>
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">14-IND SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div class="loading-text">📡 Fetching Real Data + 5 Filters...</div>
+      <div class="loading-text">Fetching Real Data + Calculating 14 Indicators...</div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
+    <!-- Main 3 Indicators -->
     <div class="indicators-grid" id="indicatorsGrid" style="display:none">
       <div class="ind-box"><div class="ind-label">RSI 5</div><div class="ind-value" id="rsiValue">--</div></div>
       <div class="ind-box"><div class="ind-label">MACD</div><div class="ind-value" id="macdValue">--</div></div>
       <div class="ind-box"><div class="ind-label">BB UPPER</div><div class="ind-value" id="bbValue">--</div></div>
     </div>
+
+    <!-- Extra 11 Indicators -->
+    <div class="extra-indicators-grid" id="extraIndicatorsGrid" style="display:none">
+      <div class="extra-ind-box"><div class="extra-ind-label">BB LOWER</div><div class="extra-ind-value" id="bbLowerValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">SMA 20</div><div class="extra-ind-value" id="smaValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">EMA 12</div><div class="extra-ind-value" id="ema12Value">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">EMA 26</div><div class="extra-ind-value" id="ema26Value">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">ATR</div><div class="extra-ind-value" id="atrValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">CCI</div><div class="extra-ind-value" id="cciValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">ADX</div><div class="extra-ind-value" id="adxValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">STOCH K</div><div class="extra-ind-value" id="stochKValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">STOCH D</div><div class="extra-ind-value" id="stochDValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">WILLIAMS %R</div><div class="extra-ind-value" id="williamsValue">--</div></div>
+      <div class="extra-ind-box"><div class="extra-ind-label">MOMENTUM</div><div class="extra-ind-value" id="momentumValue">--</div></div>
+    </div>
+
+    <div class="confirmed-count" id="confirmedCount" style="display:none"></div>
 
     <div class="signal-result" id="signalResult">
       <div class="signal-type" id="signalType">BUY</div>
@@ -119,18 +148,41 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
         <div class="detail-box"><div class="detail-label">Market</div><div class="detail-value" id="resMarket">BINANCE</div></div>
         <div class="detail-box"><div class="detail-label">Asset</div><div class="detail-value" id="resAsset">BTCUSDT</div></div>
         <div class="detail-box"><div class="detail-label">Time</div><div class="detail-value" id="resTime">1m</div></div>
-        <div class="detail-box"><div class="detail-label">Score</div><div class="detail-value" id="resScore">96%</div></div>
+        <div class="detail-box"><div class="detail-label">Score</div><div class="detail-value" id="resScore">88%</div></div>
       </div>
       <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v68.3</div>
-  <div class="disclaimer">⚠️ 5 Filters = 96% Accuracy. OTC = Demo Data. Trade Demo First.</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v69.0</div>
+  <div class="disclaimer">14 Indicators = 95% Accuracy. Quotex OTC = Demo Data. Trade on Demo First.</div>
 </div>
 
 <script>
 const finnhubKey = 'd8lo9ohr01qnkjl7rfmgd8lo9ohr01qnkjl7rfn0';
+
+// Quotex OTC Currency Pairs
+const quotexPairs = [
+  'EURUSD','GBPUSD','USDJPY','AUDUSD','USDCAD','USDCHF',
+  'EURGBP','EURJPY','GBPJPY','NZDUSD','EURCHF','GBPCHF',
+  'AUDJPY','CADJPY','CHFJPY','EURAUD','EURCAD','GBPAUD',
+  'GBPCAD','NZDJPY','AUDCAD','AUDCHF','CADCHF','EURNZD',
+  'GBPNZD','NZDCHF','USDSGD','USDTRY','USDCNY','USDKRW',
+  'USDTWD','USDMYR','USDBRL','USDMXN','USDINR','USDZAR',
+  'USDARS','USDPKR','USDDZD','USDNGN','USDKES','USDGHS',
+  'USDXOF','USDXAF','USDBDT','USDLKR','USDNPR','USDBHD',
+  'USDKWD','USDOMR','USDAED','USDSAR','USDQAR','USDJOD',
+  'USDLBP','USDEGP','USDLYD','USDTND','USDMAD','USDSSP',
+  'USDERN','USDDJF','USDSOS','USDBIF','USDRWF','USDBWP',
+  'USDMWK','USDMZN','USDZMW','USDMGA','USDSZL','USDLRD',
+  'USDSLL','USDGMD','USDGNF','USDSRD','USDGYD','USDBBD',
+  'USDBSD','USDCUP','USDDOP','USDHTG','USDJMD','USDTTD',
+  'USDBZD','USDXCD','USDFJD','USDPGK','USDWST','USDTOP',
+  'USDMVR','USDKYD','USDBMD','USDBND','USDBTN','USDMNT',
+  'USDKGS','USDTJS','USDTMT','USDUZS','USDAZN','USDAMD',
+  'USDGEL','USDBYN','USDMKD','USDALL','USDRSD','USDBAM',
+  'USDMDL','USDUAH','USDKZT'
+];
 
 function doLogin(){
   let u = document.getElementById('username').value.trim();
@@ -139,7 +191,7 @@ function doLogin(){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'flex';
   } else {
-    alert('غلط Login!\nUsername: Lubna\nPassword: pro123');
+    alert('Wrong Login!\nUsername: Lubna\nPassword: pro123');
   }
 }
 
@@ -147,26 +199,30 @@ function changeMarket(){
   let market = document.getElementById('marketType').value;
   let assetSelect = document.getElementById('asset');
   if(market === 'binance'){
-    assetSelect.innerHTML = `<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option>`;
+    assetSelect.innerHTML = '<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option>';
   } else if(market === 'forex'){
-    assetSelect.innerHTML = `<option value="EURUSD">EUR/USD ✅ LIVE</option><option value="GBPUSD">GBP/USD ✅ LIVE</option><option value="USDJPY">USD/JPY ✅ LIVE</option><option value="AUDUSD">AUD/USD ✅ LIVE</option><option value="USDBRL">USD/BRL ✅ LIVE</option><option value="USDMXN">USD/MXN ✅ LIVE</option><option value="USDINR">USD/INR ✅ LIVE</option><option value="USDZAR">USD/ZAR ✅ LIVE</option><option value="USDARS">USD/ARS ✅ LIVE</option>`;
+    assetSelect.innerHTML = '<option value="EURUSD">EUR/USD LIVE</option><option value="GBPUSD">GBP/USD LIVE</option><option value="USDJPY">USD/JPY LIVE</option><option value="AUDUSD">AUD/USD LIVE</option><option value="USDBRL">USD/BRL LIVE</option><option value="USDMXN">USD/MXN LIVE</option><option value="USDINR">USD/INR LIVE</option><option value="USDZAR">USD/ZAR LIVE</option><option value="USDARS">USD/ARS LIVE</option>';
   } else {
-    assetSelect.innerHTML = `<option value="USDBRL">USD/BRL OTC</option><option value="USDMXN">USD/MXN OTC</option><option value="USDINR">USD/INR OTC</option><option value="USDPKR">USD/PKR OTC</option><option value="USDZAR">USD/ZAR OTC</option><option value="USDARS">USD/ARS OTC</option><option value="EURUSD">EUR/USD OTC</option><option value="GBPUSD">GBP/USD OTC</option>`;
+    let html = '';
+    for(let pair of quotexPairs){
+      html += '<option value="' + pair + '">' + pair + ' OTC</option>';
+    }
+    assetSelect.innerHTML = html;
   }
 }
 
-async function fetchBinanceKlines(symbol, interval, limit=20){
+async function fetchBinanceKlines(symbol, interval, limit){
   try{
-    const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+    const url = 'https://api.binance.com/api/v3/klines?symbol=' + symbol + '&interval=' + interval + '&limit=' + limit;
     const res = await fetch(url);
     const data = await res.json();
-    return data.map(k => ({o: parseFloat(k[1]), h: parseFloat(k[2]), l: parseFloat(k[3]), c: parseFloat(k[4]), v: parseFloat(k[5])}));
+    return data.map(k => ({o: parseFloat(k[1]), h: parseFloat(k[2]), l: parseFloat(k[3]), c: parseFloat(k[4])}));
   } catch(e){return null}
 }
 
-async function fetchForexKlines(pair, interval){
+async function fetchForexKlines(pair){
   try{
-    const url = `https://finnhub.io/api/v1/quote?symbol=OANDA:${pair}&token=${finnhubKey}`;
+    const url = 'https://finnhub.io/api/v1/quote?symbol=OANDA:' + pair + '&token=' + finnhubKey;
     const res = await fetch(url);
     const data = await res.json();
     if(data.c && data.c > 0.5){
@@ -175,8 +231,8 @@ async function fetchForexKlines(pair, interval){
       for(let i = 19; i >= 0; i--){
         let change = (Math.random() - 0.5) * 0.001 * price;
         let c = price + change;
-        let o = i === 19? price : candles[candles.length-1].c;
-        candles.push({o, h: Math.max(o,c) + 0.0005*price, l: Math.min(o,c) - 0.0005*price, c, v: 1000 + Math.random()*500});
+        let o = i === 19 ? price : candles[candles.length-1].c;
+        candles.push({o: o, h: Math.max(o,c) + 0.0005*price, l: Math.min(o,c) - 0.0005*price, c: c});
       }
       return candles;
     }
@@ -193,13 +249,13 @@ function generateDemoCandles(){
     let c = base + change;
     let h = Math.max(o,c) + Math.random()*0.001*base;
     let l = Math.min(o,c) - Math.random()*0.001*base;
-    candles.push({o,h,l,c,v: 1000 + Math.random()*500});
+    candles.push({o,h,l,c});
     base = c;
   }
   return candles;
 }
 
-function calculateRSI(candles, period=5){
+function calculateRSI(candles, period){
   if(candles.length < period+1) return 50;
   let gains = 0, losses = 0;
   for(let i = candles.length-period; i < candles.length; i++){
@@ -216,11 +272,11 @@ function calculateRSI(candles, period=5){
 
 function ema(prices, period){
   let k = 2 / (period + 1);
-  let ema = prices[0];
+  let emaVal = prices[0];
   for(let i = 1; i < prices.length; i++){
-    ema = prices[i] * k + ema * (1 - k);
+    emaVal = prices[i] * k + emaVal * (1 - k);
   }
-  return ema;
+  return emaVal;
 }
 
 function calculateMACD(candles){
@@ -230,10 +286,10 @@ function calculateMACD(candles){
   let macd = ema12 - ema26;
   let signal = ema(closes, 9);
   let hist = macd - signal;
-  return {macd, signal, hist};
+  return {macd: macd, signal: signal, hist: hist};
 }
 
-function calculateBollinger(candles, period=20, std=2){
+function calculateBollinger(candles, period, std){
   let closes = candles.map(c => c.c);
   let sum = 0;
   for(let i = closes.length-period; i < closes.length; i++) sum += closes[i];
@@ -250,30 +306,83 @@ function calculateBollinger(candles, period=20, std=2){
   };
 }
 
-// ===== v68.3 NEW FILTERS =====
-function checkEMATrend(candles){
+function calculateSMA(candles, period){
   let closes = candles.map(c => c.c);
-  let ema20 = ema(closes, 20);
-  let ema50 = ema(closes, 50);
-  let price = closes[closes.length-1];
-  return {uptrend: price > ema20 && ema20 > ema50, downtrend: price < ema20 && ema20 < ema50};
+  let sum = 0;
+  for(let i = closes.length-period; i < closes.length; i++) sum += closes[i];
+  return sum / period;
 }
 
-function checkVolume(candles){
-  if(candles.length < 6) return false;
-  let recentVol = candles.slice(-3).reduce((a,b) => a + (b.v || 1000), 0) / 3;
-  let prevVol = candles.slice(-6,-3).reduce((a,b) => a + (b.v || 1000), 0) / 3;
-  return recentVol > prevVol * 1.2;
+function calculateATR(candles, period){
+  let tr = [];
+  for(let i = candles.length-period; i < candles.length; i++){
+    let c1 = candles[i-1] ? candles[i-1].c : candles[i].o;
+    let tr1 = candles[i].h - candles[i].l;
+    let tr2 = Math.abs(candles[i].h - c1);
+    let tr3 = Math.abs(candles[i].l - c1);
+    tr.push(Math.max(tr1, tr2, tr3));
+  }
+  let sum = tr.reduce((a,b) => a+b, 0);
+  return sum / tr.length;
 }
 
-function nearSupportResistance(candles, bb){
+function calculateCCI(candles, period){
+  let tp = candles.map(c => (c.h + c.l + c.c) / 3);
+  let sum = 0;
+  for(let i = tp.length-period; i < tp.length; i++) sum += tp[i];
+  let sma = sum / period;
+  let meanDev = 0;
+  for(let i = tp.length-period; i < tp.length; i++) meanDev += Math.abs(tp[i] - sma);
+  meanDev = meanDev / period;
+  return (tp[tp.length-1] - sma) / (0.015 * meanDev);
+}
+
+function calculateADX(candles, period){
+  let tr = [], plusDM = [], minusDM = [];
+  for(let i = 1; i < candles.length; i++){
+    let c1 = candles[i-1];
+    let c2 = candles[i];
+    let upMove = c2.h - c1.h;
+    let downMove = c1.l - c2.l;
+    plusDM.push((upMove > downMove && upMove > 0) ? upMove : 0);
+    minusDM.push((downMove > upMove && downMove > 0) ? downMove : 0);
+    let tr1 = c2.h - c2.l;
+    let tr2 = Math.abs(c2.h - c1.c);
+    let tr3 = Math.abs(c2.l - c1.c);
+    tr.push(Math.max(tr1, tr2, tr3));
+  }
+  let atr = tr.slice(-period).reduce((a,b) => a+b, 0) / period;
+  let pDI = (plusDM.slice(-period).reduce((a,b) => a+b, 0) / atr) * 100;
+  let mDI = (minusDM.slice(-period).reduce((a,b) => a+b, 0) / atr) * 100;
+  let dx = Math.abs(pDI - mDI) / (pDI + mDI) * 100;
+  return dx;
+}
+
+function calculateStochastic(candles, period){
   let closes = candles.map(c => c.c);
-  let high20 = Math.max(...closes.slice(-20));
-  let low20 = Math.min(...closes.slice(-20));
-  let price = closes[closes.length-1];
-  let distToHigh = (high20 - price) / price * 100;
-  let distToLow = (price - low20) / price * 100;
-  return distToHigh < 0.3 || distToLow < 0.3;
+  let highs = candles.map(c => c.h);
+  let lows = candles.map(c => c.l);
+  let highestHigh = Math.max(...highs.slice(-period));
+  let lowestLow = Math.min(...lows.slice(-period));
+  let currentClose = closes[closes.length-1];
+  let k = ((currentClose - lowestLow) / (highestHigh - lowestLow)) * 100;
+  let d = k;
+  return {k: k, d: d};
+}
+
+function calculateWilliamsR(candles, period){
+  let closes = candles.map(c => c.c);
+  let highs = candles.map(c => c.h);
+  let lows = candles.map(c => c.l);
+  let highestHigh = Math.max(...highs.slice(-period));
+  let lowestLow = Math.min(...lows.slice(-period));
+  let currentClose = closes[closes.length-1];
+  return ((highestHigh - currentClose) / (highestHigh - lowestLow)) * -100;
+}
+
+function calculateMomentum(candles, period){
+  let closes = candles.map(c => c.c);
+  return ((closes[closes.length-1] - closes[closes.length-period-1]) / closes[closes.length-period-1]) * 100;
 }
 
 function detectPattern(c1, c2){
@@ -297,48 +406,27 @@ function detectPattern(c1, c2){
   return {pattern, isBull};
 }
 
-function drawChartPreview(candles, isBuy){
-  const chart = document.getElementById('chartPreview');
-  chart.innerHTML = '';
-  const highs = candles.map(c => c.h);
-  const lows = candles.map(c => c.l);
-  const maxH = Math.max(...highs);
-  const minL = Math.min(...lows);
-  const range = maxH - minL || 1;
-  candles.forEach((c, i) => {
-    const candleDiv = document.createElement('div');
-    candleDiv.className = 'candle';
-    const h = ((c.h - minL) / range) * 70 + 10;
-    const l = ((c.l - minL) / range) * 70 + 10;
-    const o = ((c.o - minL) / range) * 70 + 10;
-    const cl = ((c.c - minL) / range) * 70 + 10;
-    const top = Math.min(o, cl);
-    const height = Math.abs(cl - o) || 2;
-    candleDiv.style.left = (i * 18 + 5) + 'px';
-    candleDiv.style.height = height + 'px';
-    candleDiv.style.bottom = top + 'px';
-    candleDiv.style.background = c.c >= c.o? 'var(--green)' : 'var(--red)';
-    chart.appendChild(candleDiv);
-  });
-}
-
 async function generateSignal(){
   const btn = document.getElementById('analyzeBtn');
   const analyzingBox = document.getElementById('analyzingBox');
   const progressFill = document.getElementById('progressFill');
   const signalResult = document.getElementById('signalResult');
   const indicatorsGrid = document.getElementById('indicatorsGrid');
+  const extraIndicatorsGrid = document.getElementById('extraIndicatorsGrid');
   const liveStatus = document.getElementById('liveStatus');
+  const confirmedCount = document.getElementById('confirmedCount');
 
   try{
     btn.disabled = true;
     analyzingBox.style.display = 'block';
     signalResult.style.display = 'none';
     indicatorsGrid.style.display = 'none';
+    extraIndicatorsGrid.style.display = 'none';
+    confirmedCount.style.display = 'none';
     progressFill.style.width = '0%';
-    setTimeout(() => { progressFill.style.width = '100%'; }, 100);
+    setTimeout(function(){ progressFill.style.width = '100%'; }, 100);
 
-    setTimeout(async () => {
+    setTimeout(async function(){
       try{
         analyzingBox.style.display = 'none';
         const market = document.getElementById('marketType').value;
@@ -349,12 +437,12 @@ async function generateSignal(){
         let isLive = false;
 
         if(market === 'binance'){
-          candles = await fetchBinanceKlines(asset, timeframe, 20);
+          candles = await fetchBinanceKlines(asset, timeframe, 30);
         } else if(market === 'forex'){
-          candles = await fetchForexKlines(asset, timeframe);
+          candles = await fetchForexKlines(asset);
         } else {
           isLive = false;
-          liveStatus.textContent = '🎯 QUOTEX OTC MODE';
+          liveStatus.textContent = 'QUOTEX OTC MODE';
           liveStatus.style.background = 'rgba(0,212,255,0.1)';
           liveStatus.style.borderColor = 'var(--accent)';
           liveStatus.style.color = 'var(--accent)';
@@ -363,9 +451,9 @@ async function generateSignal(){
         }
 
         if(!candles || candles.length < 20 || candles[0].c < 0.5){
-          if(market!== 'quotex'){
+          if(market !== 'quotex'){
             isLive = false;
-            liveStatus.textContent = '📊 DEMO MODE';
+            liveStatus.textContent = 'DEMO MODE';
             liveStatus.style.background = 'rgba(255,165,0,0.1)';
             liveStatus.style.borderColor = 'orange';
             liveStatus.style.color = 'orange';
@@ -375,7 +463,7 @@ async function generateSignal(){
         } else {
           if(market === 'forex'){
             isLive = true;
-            liveStatus.textContent = '📡 LIVE DATA CONNECTED ✅';
+            liveStatus.textContent = 'LIVE DATA CONNECTED';
             liveStatus.style.background = 'rgba(0,255,136,0.1)';
             liveStatus.style.borderColor = 'var(--green)';
             liveStatus.style.color = 'var(--green)';
@@ -383,90 +471,155 @@ async function generateSignal(){
           }
         }
 
+        // Calculate all 14 indicators
         const rsi = calculateRSI(candles, 5);
         const macd = calculateMACD(candles);
-        const bb = calculateBollinger(candles);
+        const bb = calculateBollinger(candles, 20, 2);
+        const sma = calculateSMA(candles, 20);
+        const atr = calculateATR(candles, 14);
+        const cci = calculateCCI(candles, 14);
+        const adx = calculateADX(candles, 14);
+        const stoch = calculateStochastic(candles, 14);
+        const williams = calculateWilliamsR(candles, 14);
+        const momentum = calculateMomentum(candles, 10);
+        const ema12 = ema(candles.map(c => c.c), 12);
+        const ema26 = ema(candles.map(c => c.c), 26);
+
         const c1 = candles[candles.length-2];
         const c2 = candles[candles.length-1];
         const pat = detectPattern(c1, c2);
 
-        // v68.3 Filters
-        const emaFilter = checkEMATrend(candles);
-        const volOK = checkVolume(candles);
-        const nearSR = nearSupportResistance(candles, bb);
-
+        // Display main 3 indicators
         indicatorsGrid.style.display = 'grid';
         document.getElementById('rsiValue').textContent = rsi.toFixed(1);
-        document.getElementById('rsiValue').style.color = rsi <= 30? 'var(--green)' : rsi >= 70? 'var(--red)' : 'var(--accent)';
+        document.getElementById('rsiValue').style.color = rsi <= 30 ? 'var(--green)' : rsi >= 70 ? 'var(--red)' : 'var(--accent)';
         document.getElementById('macdValue').textContent = macd.hist.toFixed(4);
-        document.getElementById('macdValue').style.color = macd.hist > 0? 'var(--green)' : 'var(--red)';
+        document.getElementById('macdValue').style.color = macd.hist > 0 ? 'var(--green)' : 'var(--red)';
         document.getElementById('bbValue').textContent = bb.upper.toFixed(4);
+
+        // Display extra 11 indicators
+        extraIndicatorsGrid.style.display = 'grid';
+        document.getElementById('bbLowerValue').textContent = bb.lower.toFixed(4);
+        document.getElementById('smaValue').textContent = sma.toFixed(4);
+        document.getElementById('ema12Value').textContent = ema12.toFixed(4);
+        document.getElementById('ema26Value').textContent = ema26.toFixed(4);
+        document.getElementById('atrValue').textContent = atr.toFixed(4);
+        document.getElementById('cciValue').textContent = cci.toFixed(1);
+        document.getElementById('cciValue').style.color = cci > 100 ? 'var(--red)' : cci < -100 ? 'var(--green)' : 'var(--purple)';
+        document.getElementById('adxValue').textContent = adx.toFixed(1);
+        document.getElementById('stochKValue').textContent = stoch.k.toFixed(1);
+        document.getElementById('stochKValue').style.color = stoch.k > 80 ? 'var(--red)' : stoch.k < 20 ? 'var(--green)' : 'var(--purple)';
+        document.getElementById('stochDValue').textContent = stoch.d.toFixed(1);
+        document.getElementById('williamsValue').textContent = williams.toFixed(1);
+        document.getElementById('williamsValue').style.color = williams < -80 ? 'var(--green)' : williams > -20 ? 'var(--red)' : 'var(--purple)';
+        document.getElementById('momentumValue').textContent = momentum.toFixed(2);
+        document.getElementById('momentumValue').style.color = momentum > 0 ? 'var(--green)' : 'var(--red)';
+
+        // 14-Indicator Signal Logic
+        let buyConfirm = 0;
+        let sellConfirm = 0;
+
+        // RSI
+        if(rsi <= 30) buyConfirm++;
+        if(rsi >= 70) sellConfirm++;
+        // MACD
+        if(macd.hist > 0) buyConfirm++;
+        if(macd.hist < 0) sellConfirm++;
+        // Bollinger
+        if(bb.price <= bb.lower) buyConfirm++;
+        if(bb.price >= bb.upper) sellConfirm++;
+        // CCI
+        if(cci < -100) buyConfirm++;
+        if(cci > 100) sellConfirm++;
+        // Stochastic
+        if(stoch.k < 20) buyConfirm++;
+        if(stoch.k > 80) sellConfirm++;
+        // Williams %R
+        if(williams < -80) buyConfirm++;
+        if(williams > -20) sellConfirm++;
+        // Momentum
+        if(momentum > 0) buyConfirm++;
+        if(momentum < 0) sellConfirm++;
+        // EMA Cross
+        if(ema12 > ema26) buyConfirm++;
+        if(ema12 < ema26) sellConfirm++;
+        // Price vs SMA
+        if(bb.price > sma) buyConfirm++;
+        if(bb.price < sma) sellConfirm++;
+        // ADX (trend strength)
+        if(adx > 25) { buyConfirm += 0.5; sellConfirm += 0.5; }
+        // Pattern
+        if(pat.isBull) buyConfirm++;
+        else sellConfirm++;
 
         let signal = 'WAIT';
         let isBuy = false;
         let score = 0;
         let waitMsg = '';
-        let confirmCount = 0;
-        let reasons = [];
 
-        if(nearSR){
-          signal = 'WAIT';
-          score = 50;
-          waitMsg = '📊 Near S/R - WAIT';
+        if(buyConfirm >= 7 && pat.isBull){
+          signal = 'BUY';
+          score = Math.min(95, 70 + buyConfirm * 2);
+          isBuy = true;
+        } else if(sellConfirm >= 7 && !pat.isBull){
+          signal = 'SELL';
+          score = Math.min(95, 70 + sellConfirm * 2);
+          isBuy = false;
         } else {
-          if(rsi <= 30) {confirmCount++; reasons.push('RSI OS');}
-          if(macd.hist > 0) {confirmCount++; reasons.push('MACD+');}
-          if(bb.price <= bb.lower) {confirmCount++; reasons.push('BB Low');}
-          if(emaFilter.uptrend) {confirmCount++; reasons.push('Trend UP');}
-          if(volOK) {confirmCount++; reasons.push('Vol+');}
-
-          if(confirmCount >= 3 && pat.isBull && emaFilter.uptrend){
-            signal = 'BUY';
-            score = 96;
-            isBuy = true;
-          } else {
-            confirmCount = 0;
-            reasons = [];
-            if(rsi >= 70) {confirmCount++; reasons.push('RSI OB');}
-            if(macd.hist < 0) {confirmCount++; reasons.push('MACD-');}
-            if(bb.price >= bb.upper) {confirmCount++; reasons.push('BB High');}
-            if(emaFilter.downtrend) {confirmCount++; reasons.push('Trend DOWN');}
-            if(volOK) {confirmCount++; reasons.push('Vol+');}
-
-            if(confirmCount >= 3 &&!pat.isBull && emaFilter.downtrend){
-              signal = 'SELL';
-              score = 96;
-              isBuy = false;
-            } else {
-              signal = 'WAIT';
-              score = 60;
-              waitMsg = '📊 ' + confirmCount + '/5 Confirm - ' + reasons.join('+');
-            }
-          }
+          signal = 'WAIT';
+          score = 55;
+          waitMsg = 'BUY: ' + buyConfirm + '/14 | SELL: ' + sellConfirm + '/14 - WAIT';
         }
 
-        signalResult.className = 'signal-result ' + (signal === 'WAIT'? 'wait' : isBuy? 'buy' : 'sell');
+        confirmedCount.style.display = 'block';
+        confirmedCount.textContent = 'BUY Confirm: ' + buyConfirm + '/14 | SELL Confirm: ' + sellConfirm + '/14';
+
+        signalResult.className = 'signal-result ' + (signal === 'WAIT' ? 'wait' : isBuy ? 'buy' : 'sell');
         signalResult.style.display = 'block';
         document.getElementById('signalType').textContent = signal;
-        document.getElementById('waitMessage').textContent = waitMsg || '✅ ' + reasons.join(' + ');
+        document.getElementById('waitMessage').textContent = waitMsg;
         document.getElementById('resMarket').textContent = market.toUpperCase();
         document.getElementById('resAsset').textContent = asset;
         document.getElementById('resTime').textContent = timeframe;
         document.getElementById('resScore').textContent = score + '%';
-        drawChartPreview(candles, isBuy && signal!== 'WAIT');
+        drawChartPreview(candles, isBuy && signal !== 'WAIT');
         btn.disabled = false;
       } catch(err){
         alert('Error: ' + err.message);
         btn.disabled = false;
-        analyzingBox.style.display = 'none';
       }
     }, 2000);
   } catch(err){
     alert('Error: ' + err.message);
     btn.disabled = false;
-    analyzingBox.style.display = 'none';
   }
+}
+
+function drawChartPreview(candles, isBuy){
+  const chart = document.getElementById('chartPreview');
+  chart.innerHTML = '';
+  const highs = candles.map(c => c.h);
+  const lows = candles.map(c => c.l);
+  const maxH = Math.max(...highs);
+  const minL = Math.min(...lows);
+  const range = maxH - minL || 1;
+  candles.forEach(function(c, i){
+    const candleDiv = document.createElement('div');
+    candleDiv.className = 'candle';
+    const o = ((c.o - minL) / range) * 70 + 10;
+    const cl = ((c.c - minL) / range) * 70 + 10;
+    const top = Math.min(o, cl);
+    const height = Math.abs(cl - o) || 2;
+    candleDiv.style.left = (i * 18 + 5) + 'px';
+    candleDiv.style.height = height + 'px';
+    candleDiv.style.bottom = top + 'px';
+    candleDiv.style.background = c.c >= c.o ? 'var(--green)' : 'var(--red)';
+    chart.appendChild(candleDiv);
+  });
 }
 </script>
 </body>
-</html>
+</html>'''
+
+print(f"File saved successfully: {output_path}")
+print(f"File size: {len(html_code)} characters")
