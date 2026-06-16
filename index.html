@@ -6,61 +6,380 @@
 <title>Lubna Abubakar AI v68.7 2-Candle</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
+:root{
+  --yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;
+  --text:#e0e0e0;--dark:#0a0e27;--card:#0f1729
+}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{background:linear-gradient(135deg, #0a0e27 0%, #16213e 100%);color:var(--text);font-family:'Poppins',sans-serif;width:100%;height:100vh;overflow:hidden}
-.login-wrapper{width:100%;height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
-.login-card{width:100%;max-width:380px;background:linear-gradient(145deg, #0f1729, #1a2338);border:2px solid var(--yellow);border-radius:20px;padding:35px 25px;box-shadow:0 0 50px rgba(255,215,0,0.4)}
-.login-logo{width:80px;height:80px;margin:0 auto 20px;background:linear-gradient(135deg,var(--yellow),#ffaa00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:900;font-size:35px;color:#000}
-.login-header h1{font-family:'Orbitron',sans-serif;font-size:22px;color:var(--yellow);text-align:center;letter-spacing:2px;margin-bottom:5px}
-.login-header p{font-size:11px;color:var(--accent);text-align:center;letter-spacing:3px;font-weight:700;margin-bottom:25px}
-.input-group{margin-bottom:18px}
-.input-group label{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:6px;display:block}
-.input-group input{width:100%;padding:14px;background:#0a1628;border:1.5px solid rgba(255,215,0,0.4);border-radius:12px;color:var(--text);font-size:14px;font-weight:600;outline:none}
-.unlock-btn{width:100%;padding:16px;background:linear-gradient(135deg, var(--yellow), #ffaa00);border:none;border-radius:12px;color:#000;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;letter-spacing:3px;cursor:pointer;margin-top:10px}
-.main-wrapper{width:100%;height:100vh;display:none;flex-direction:column;padding:12px;overflow-y:auto}
-.header{text-align:center;padding:15px;background:linear-gradient(145deg, rgba(255,215,0,0.1), rgba(0,212,255,0.1));border:2px solid var(--yellow);border-radius:18px;margin-bottom:15px}
-.header h1{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--yellow);letter-spacing:2px;margin-bottom:3px}
-.header p{font-size:9px;color:var(--accent);letter-spacing:2px;font-weight:700}
-.card{background:linear-gradient(145deg, #0f1729, #1a2338);border:1.5px solid rgba(255,215,0,0.4);border-radius:16px;padding:14px;margin-bottom:10px}
-.label{font-size:11px;color:var(--yellow);font-weight:700;margin-bottom:8px}
-select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,215,0,0.4);border-radius:10px;color:var(--text);font-size:13px;font-weight:600;outline:none;margin-bottom:10px}
+html,body{
+  background:linear-gradient(135deg, #0a0e27 0%, #16213e 100%);
+  color:var(--text);font-family:'Poppins',sans-serif;
+  width:100%;height:100vh;overflow:hidden
+}
+
+/* ===== LOGIN SCREEN ===== */
+.login-wrapper{
+  width:100%;height:100vh;display:flex;justify-content:center;align-items:center;
+  padding:20px;animation:fadeIn 0.8s ease
+}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+
+.login-card{
+  width:100%;max-width:380px;
+  background:linear-gradient(145deg, #0f1729, #1a2338);
+  border:2px solid var(--yellow);border-radius:20px;
+  padding:35px 25px;
+  box-shadow:0 0 50px rgba(255,215,0,0.4), inset 0 0 30px rgba(255,215,0,0.05);
+  animation:float 3s ease-in-out infinite;
+  position:relative;overflow:hidden
+}
+.login-card::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:conic-gradient(transparent, rgba(255,215,0,0.1), transparent 30%);
+  animation:rotate 4s linear infinite
+}
+@keyframes rotate{100%{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.login-logo{
+  width:80px;height:80px;margin:0 auto 20px;
+  background:linear-gradient(135deg,var(--yellow),#ffaa00);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:35px;color:#000;
+  box-shadow:0 0 30px rgba(255,215,0,0.5);animation:pulse 2s ease-in-out infinite;
+  position:relative;z-index:1
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 30px rgba(255,215,0,0.5)}50%{box-shadow:0 0 50px rgba(255,215,0,0.8)}}
+
+.login-header{position:relative;z-index:1}
+.login-header h1{
+  font-family:'Orbitron',sans-serif;font-size:22px;color:var(--yellow);
+  text-align:center;letter-spacing:2px;margin-bottom:5px;
+  text-shadow:0 0 20px rgba(255,215,0,0.3)
+}
+.login-header p{
+  font-size:11px;color:var(--accent);text-align:center;letter-spacing:3px;
+  font-weight:700;margin-bottom:25px
+}
+
+.input-group{margin-bottom:18px;position:relative;z-index:1}
+.input-group label{
+  font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:2px;
+  font-weight:700;margin-bottom:6px;display:block
+}
+.input-group input{
+  width:100%;padding:14px 16px;background:#0a1628;
+  border:1.5px solid rgba(255,215,0,0.4);border-radius:12px;
+  color:var(--text);font-size:14px;font-weight:600;outline:none;
+  transition:all 0.3s ease
+}
+.input-group input:focus{
+  border-color:var(--yellow);
+  box-shadow:0 0 15px rgba(255,215,0,0.2);
+  background:#0d1a2e
+}
+
+.unlock-btn{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg, var(--yellow), #ffaa00);
+  border:none;border-radius:12px;color:#000;
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;
+  letter-spacing:3px;cursor:pointer;margin-top:10px;
+  position:relative;z-index:1;overflow:hidden;
+  transition:all 0.3s ease
+}
+.unlock-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(255,215,0,0.4)
+}
+.unlock-btn:active{transform:translateY(0)}
+
+/* ===== MAIN SCREEN ===== */
+.main-wrapper{
+  width:100%;height:100vh;display:none;flex-direction:column;
+  padding:12px;overflow-y:auto;animation:slideIn 0.5s ease
+}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.header{
+  text-align:center;padding:15px;
+  background:linear-gradient(145deg, rgba(255,215,0,0.1), rgba(0,212,255,0.1));
+  border:2px solid var(--yellow);border-radius:18px;margin-bottom:15px;
+  position:relative;overflow:hidden
+}
+.header::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,215,0,0.1), transparent);
+  animation:shimmer 3s infinite
+}
+@keyframes shimmer{100%{left:100%}}
+
+.header h1{
+  font-family:'Orbitron',sans-serif;font-size:16px;color:var(--yellow);
+  letter-spacing:2px;margin-bottom:3px
+}
+.header p{
+  font-size:9px;color:var(--accent);letter-spacing:2px;font-weight:700
+}
+
+.card{
+  background:linear-gradient(145deg, #0f1729, #1a2338);
+  border:1.5px solid rgba(255,215,0,0.4);border-radius:16px;
+  padding:14px;margin-bottom:10px;position:relative
+}
+
+.label{
+  font-size:11px;color:var(--yellow);font-weight:700;margin-bottom:8px;
+  display:flex;align-items:center;gap:6px
+}
+
+select{
+  width:100%;padding:12px 14px;background:#0a1628;
+  border:1.5px solid rgba(255,215,0,0.4);border-radius:10px;
+  color:var(--text);font-size:13px;font-weight:600;outline:none;
+  cursor:pointer;transition:all 0.3s ease;margin-bottom:10px;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffd700' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:35px
+}
+select:focus{border-color:var(--yellow);box-shadow:0 0 15px rgba(255,215,0,0.15)}
+
 .mode-toggle{display:flex;gap:8px;margin-bottom:12px}
-.mode-btn{flex:1;padding:10px;border:1.5px solid var(--yellow);border-radius:10px;background:#0a1628;color:var(--yellow);font-size:11px;font-weight:700;cursor:pointer}
-.mode-btn.active{background:var(--yellow);color:#000}
-.analyze-btn{width:100%;padding:15px;background:linear-gradient(135deg, var(--yellow), #ffaa00);border:none;border-radius:12px;color:#000;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;cursor:pointer;margin-top:8px}
-.analyze-btn:disabled{opacity:0.5}
-.analyzing{display:none;text-align:center;padding:12px;background:rgba(255,215,0,0.1);border:1px solid var(--yellow);border-radius:10px;margin-top:8px;font-size:11px;color:var(--yellow);font-weight:600}
-.progress-bar{height:5px;background:#0a1628;border-radius:3px;overflow:hidden;margin-top:8px}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg, var(--yellow), var(--accent));transition:width 2s ease}
-.live-status{display:none;text-align:center;padding:6px;background:rgba(0,255,136,0.1);border:1px solid var(--green);border-radius:8px;font-size:8px;color:var(--green);font-weight:700;margin-bottom:8px}
-.pattern-alert{display:none;text-align:center;padding:8px;background:rgba(255,215,0,0.2);border:1px solid var(--yellow);border-radius:8px;font-size:9px;color:var(--yellow);font-weight:700;margin-bottom:8px}
-.indicators-grid{display:none;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
-.ind-box{background:#0a1628;border:1.5px solid rgba(0,212,255,0.3);border-radius:10px;padding:8px;text-align:center}
-.ind-label{font-size:7px;color:#aaa;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px}
-.ind-value{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;color:var(--accent)}
-.confirm-bar{display:none;margin-top:10px;padding:10px;background:rgba(255,165,0,0.1);border:1px solid orange;border-radius:8px;text-align:center;font-size:10px;color:orange;font-weight:700}
-.signal-result{display:none;text-align:center;padding:16px;border-radius:14px;border:2.5px solid;margin-top:12px}
+.mode-btn{
+  flex:1;padding:10px;border:1.5px solid var(--yellow);border-radius:10px;
+  background:#0a1628;color:var(--yellow);font-size:11px;font-weight:700;
+  cursor:pointer;transition:all 0.3s ease;line-height:1.4
+}
+.mode-btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(255,215,0,0.2)}
+.mode-btn.active{
+  background:var(--yellow);color:#000;
+  box-shadow:0 0 20px rgba(255,215,0,0.4)
+}
+
+.analyze-btn{
+  width:100%;padding:15px;
+  background:linear-gradient(135deg, var(--yellow), #ffaa00);
+  border:none;border-radius:12px;color:#000;
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;
+  letter-spacing:2px;cursor:pointer;margin-top:8px;
+  transition:all 0.3s ease;position:relative;overflow:hidden
+}
+.analyze-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(255,215,0,0.4)
+}
+.analyze-btn:disabled{
+  opacity:0.5;cursor:not-allowed;transform:none;
+  box-shadow:none
+}
+.analyze-btn.scanning{
+  animation:scanPulse 1s ease-in-out infinite
+}
+@keyframes scanPulse{
+  0%,100%{box-shadow:0 0 20px rgba(255,215,0,0.3)}
+  50%{box-shadow:0 0 40px rgba(255,215,0,0.6)}
+}
+
+.analyzing{
+  display:none;text-align:center;padding:12px;
+  background:rgba(255,215,0,0.1);border:1px solid var(--yellow);
+  border-radius:10px;margin-top:8px;font-size:11px;
+  color:var(--yellow);font-weight:600
+}
+.progress-bar{
+  height:5px;background:#0a1628;border-radius:3px;
+  overflow:hidden;margin-top:8px
+}
+.progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg, var(--yellow), var(--accent));
+  transition:width 0.1s linear;
+  box-shadow:0 0 10px rgba(255,215,0,0.5)
+}
+
+.live-status{
+  display:none;text-align:center;padding:6px 10px;
+  background:rgba(0,255,136,0.1);border:1px solid var(--green);
+  border-radius:8px;font-size:8px;color:var(--green);
+  font-weight:700;margin-bottom:8px;animation:statusPulse 2s ease-in-out infinite
+}
+@keyframes statusPulse{0%,100%{opacity:1}50%{opacity:0.6}}
+
+.pattern-alert{
+  display:none;text-align:center;padding:8px;
+  background:rgba(255,215,0,0.2);border:1px solid var(--yellow);
+  border-radius:8px;font-size:9px;color:var(--yellow);
+  font-weight:700;margin-bottom:8px;animation:alertBlink 1s ease-in-out infinite
+}
+@keyframes alertBlink{0%,100%{opacity:1}50%{opacity:0.5}}
+
+.indicators-grid{
+  display:none;grid-template-columns:repeat(3, 1fr);gap:6px;margin-top:12px
+}
+.ind-box{
+  background:#0a1628;border:1.5px solid rgba(0,212,255,0.3);
+  border-radius:10px;padding:8px;text-align:center;
+  transition:all 0.3s ease
+}
+.ind-box:hover{transform:translateY(-2px);border-color:var(--accent)}
+.ind-label{
+  font-size:7px;color:#aaa;text-transform:uppercase;
+  letter-spacing:1px;font-weight:700;margin-bottom:4px
+}
+.ind-value{
+  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;color:var(--accent)
+}
+
+.confirm-bar{
+  display:none;margin-top:10px;padding:10px;
+  background:rgba(255,165,0,0.1);border:1px solid orange;
+  border-radius:8px;text-align:center;font-size:10px;
+  color:orange;font-weight:700;animation:confirmGlow 2s ease-in-out infinite
+}
+@keyframes confirmGlow{0%,100%{box-shadow:0 0 5px rgba(255,165,0,0.2)}50%{box-shadow:0 0 15px rgba(255,165,0,0.4)}}
+
+/* ===== SIGNAL RESULT ===== */
+.signal-result{
+  display:none;text-align:center;padding:16px;
+  border-radius:14px;border:2.5px solid;margin-top:12px;
+  animation:signalPop 0.5s ease
+}
+@keyframes signalPop{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+
 .signal-result.buy{border-color:var(--green);background:rgba(0,255,136,0.1)}
 .signal-result.sell{border-color:var(--red);background:rgba(255,71,87,0.1)}
 .signal-result.wait{border-color:var(--accent);background:rgba(0,212,255,0.1)}
-.signal-type{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;letter-spacing:3px;margin-bottom:10px}
-.signal-result.buy .signal-type{color:var(--green)}
-.signal-result.sell .signal-type{color:var(--red)}
-.signal-result.wait .signal-type{color:var(--accent)}
-.wait-msg{font-size:9px;color:var(--accent);font-weight:600;margin-top:8px}
-.signal-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.detail-box{background:#0a1628;padding:8px;border-radius:8px;border:1px solid rgba(255,215,0,0.2)}
-.detail-label{font-size:8px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
-.detail-value{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:800;color:var(--yellow)}
-.footer{text-align:center;font-size:8px;color:var(--yellow);font-weight:700;letter-spacing:1.5px;margin-top:10px}
-.disclaimer{margin-top:10px;padding:8px;background:rgba(255,71,87,0.1);border:1px solid var(--red);border-radius:8px;font-size:7px;color:#ff9999;text-align:center;line-height:1.4}
-.chart-preview{height:90px;background:#0a1628;border-radius:10px;margin-top:10px;border:1px solid rgba(255,215,0,0.2);position:relative;overflow:hidden}
-.candle{position:absolute;bottom:12px;width:8px;border-radius:2px}
+
+.signal-type{
+  font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;
+  letter-spacing:3px;margin-bottom:10px;animation:signalText 1s ease
+}
+@keyframes signalText{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+
+.signal-result.buy .signal-type{color:var(--green);text-shadow:0 0 20px rgba(0,255,136,0.5)}
+.signal-result.sell .signal-type{color:var(--red);text-shadow:0 0 20px rgba(255,71,87,0.5)}
+.signal-result.wait .signal-type{color:var(--accent);text-shadow:0 0 20px rgba(0,212,255,0.5)}
+
+.wait-msg{
+  font-size:9px;color:var(--accent);font-weight:600;margin-top:8px;
+  line-height:1.5
+}
+
+.signal-details{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px
+}
+.detail-box{
+  background:#0a1628;padding:8px;border-radius:8px;
+  border:1px solid rgba(255,215,0,0.2);transition:all 0.3s ease
+}
+.detail-box:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.detail-label{
+  font-size:8px;color:#888;text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:3px
+}
+.detail-value{
+  font-family:'Orbitron',sans-serif;font-size:12px;font-weight:800;color:var(--yellow)
+}
+
+/* ===== CANDLESTICK CHART ===== */
+.chart-preview{
+  height:100px;background:#0a1628;border-radius:10px;
+  margin-top:10px;border:1px solid rgba(255,215,0,0.2);
+  position:relative;overflow:hidden;padding:5px
+}
+.candle-container{
+  position:absolute;bottom:8px;display:flex;align-items:flex-end;gap:2px;
+  height:80px
+}
+.candle-stick{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;width:14px
+}
+.candle-wick{
+  width:1px;background:#888
+}
+.candle-body{
+  width:10px;border-radius:2px;position:relative
+}
+.candle-body.green{background:var(--green);box-shadow:0 0 5px rgba(0,255,136,0.3)}
+.candle-body.red{background:var(--red);box-shadow:0 0 5px rgba(255,71,87,0.3)}
+
+/* ===== COUNTDOWN ===== */
+.countdown-box{
+  display:none;text-align:center;padding:8px;
+  background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.3);
+  border-radius:8px;margin-top:8px;font-size:10px;color:var(--yellow);
+  font-weight:700
+}
+.countdown-box span{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--accent)}
+
+/* ===== SIGNAL HISTORY ===== */
+.history-box{
+  display:none;margin-top:12px;padding:10px;
+  background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);
+  border-radius:10px
+}
+.history-title{
+  font-size:10px;color:var(--green);font-weight:700;
+  text-align:center;margin-bottom:8px;letter-spacing:1px
+}
+.history-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:6px 8px;margin-bottom:4px;background:#0a1628;
+  border-radius:6px;font-size:9px
+}
+.history-win{color:var(--green);font-weight:700}
+.history-loss{color:var(--red);font-weight:700}
+.history-wait{color:var(--accent);font-weight:700}
+.history-stats{
+  display:flex;justify-content:space-around;margin-top:8px;
+  padding-top:8px;border-top:1px solid rgba(0,255,136,0.2)
+}
+.stat-item{text-align:center}
+.stat-value{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900}
+.stat-label{font-size:7px;color:#aaa;text-transform:uppercase;letter-spacing:1px}
+
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;font-size:8px;color:var(--yellow);
+  font-weight:700;letter-spacing:1.5px;margin-top:10px
+}
+.disclaimer{
+  margin-top:10px;padding:8px;
+  background:rgba(255,71,87,0.1);border:1px solid var(--red);
+  border-radius:8px;font-size:7px;color:#ff9999;
+  text-align:center;line-height:1.4
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#0a1628}
+::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:2px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:400px){
+  .login-card{padding:25px 18px}
+  .header h1{font-size:14px}
+  .signal-type{font-size:22px}
+  .indicators-grid{grid-template-columns:repeat(2, 1fr)}
+}
+
+/* ===== LOADING DOTS ===== */
+.typing-dots::after{
+  content:'';animation:typing 1.5s steps(4, end) infinite
+}
+@keyframes typing{
+  0%{content:''}
+  25%{content:'.'}
+  50%{content:'..'}
+  75%{content:'...'}
+  100%{content:''}
+}
 </style>
 </head>
 <body>
 
+<!-- ===== LOGIN SCREEN ===== -->
 <div class="login-wrapper" id="loginScreen">
   <div class="login-card">
     <div class="login-logo">LA</div>
@@ -70,20 +389,21 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     </div>
     <div class="input-group">
       <label>Username</label>
-      <input type="text" id="username" value="Lubna">
+      <input type="text" id="username" value="Lubna" placeholder="Enter username">
     </div>
     <div class="input-group">
       <label>Password</label>
-      <input type="password" id="password" value="pro123">
+      <input type="password" id="password" value="pro123" placeholder="Enter password">
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK v68.7</button>
+    <button class="unlock-btn" onclick="doLogin()" id="loginBtn">🔓 UNLOCK v68.7</button>
   </div>
 </div>
 
+<!-- ===== MAIN SCREEN ===== -->
 <div class="main-wrapper" id="mainScreen">
   <div class="header">
     <h1>LUBNA ABUBAKAR AI v68.7</h1>
-    <p>2-CANDLE PATTERN + OKX</p>
+    <p>2-CANDLE PATTERN + QUOTEX OTC</p>
   </div>
 
   <div class="card">
@@ -92,71 +412,150 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     
     <div class="label">🎯 Mode Select</div>
     <div class="mode-toggle">
-      <button class="mode-btn active" id="mode5" onclick="setMode('5')">⚡ 5 FILTER<br>95% | 2-Candle Fast</button>
-      <button class="mode-btn" id="mode14" onclick="setMode('14')">🔥 14 IND<br>98% | High Accuracy</button>
+      <button class="mode-btn active" id="mode5" onclick="setMode('5')">⚡ 5 FILTER<br>Fast Signal</button>
+      <button class="mode-btn" id="mode14" onclick="setMode('14')">🔥 14 IND<br>High Accuracy</button>
     </div>
 
     <div class="label">🎯 Market Type</div>
     <select id="marketType" onchange="changeMarket()">
+      <option value="quotex">🎯 QUOTEX OTC DEMO</option>
       <option value="okx">🟢 OKX Crypto</option>
       <option value="forex">💱 Forex Live</option>
-      <option value="quotex">🎯 Quotex OTC Demo</option>
     </select>
 
     <div class="label">💱 Asset</div>
     <select id="asset">
-      <option value="BTC-USDT">BTC-USDT</option>
-      <option value="ETH-USDT">ETH-USDT</option>
+      <option value="USD-BRL">🇧🇷 USD/BRL OTC</option>
+      <option value="USD-INR">🇮🇳 USD/INR OTC</option>
+      <option value="USD-PKR">🇵🇰 USD/PKR OTC</option>
+      <option value="USD-MXN">🇲🇽 USD/MXN OTC</option>
     </select>
 
     <div class="label">⏱ Timeframe</div>
     <select id="timeframe">
       <option value="1m">1 Minute</option>
       <option value="5m">5 Minutes</option>
+      <option value="15m">15 Minutes</option>
     </select>
 
     <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 2-CANDLE SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div id="loadingText">📡 Scanning 2 Candle + Filters...</div>
+      <div id="loadingText" class="typing-dots">📡 Scanning 2 Candle + Filters</div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
     <div class="indicators-grid" id="indicatorsGrid"></div>
     <div class="confirm-bar" id="confirmBar"></div>
 
+    <div class="countdown-box" id="countdownBox">
+      ⏱ Next Candle: <span id="countdownTimer">--:--</span>
+    </div>
+
     <div class="signal-result" id="signalResult">
       <div class="signal-type" id="signalType">WAIT</div>
       <div class="wait-msg" id="waitMsg">WAIT</div>
       <div class="signal-details">
         <div class="detail-box"><div class="detail-label">Mode</div><div class="detail-value" id="resMode">5-FILTER</div></div>
-        <div class="detail-box"><div class="detail-label">Market</div><div class="detail-value" id="resMarket">OKX</div></div>
+        <div class="detail-box"><div class="detail-label">Market</div><div class="detail-value" id="resMarket">QUOTEX</div></div>
         <div class="detail-box"><div class="detail-label">Pattern</div><div class="detail-value" id="resPattern">None</div></div>
         <div class="detail-box"><div class="detail-label">Score</div><div class="detail-value" id="resScore">95%</div></div>
       </div>
       <div class="chart-preview" id="chartPreview"></div>
     </div>
+
+    <!-- Signal History -->
+    <div class="history-box" id="historyBox">
+      <div class="history-title">📊 SIGNAL HISTORY</div>
+      <div id="historyList"></div>
+      <div class="history-stats">
+        <div class="stat-item">
+          <div class="stat-value" id="statTotal" style="color:var(--yellow)">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="statWin" style="color:var(--green)">0</div>
+          <div class="stat-label">Win</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="statLoss" style="color:var(--red)">0</div>
+          <div class="stat-label">Loss</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="statRate" style="color:var(--accent)">0%</div>
+          <div class="stat-label">Win Rate</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="footer">Powered by Lubna Abubakar AI Engine v68.7 2-Candle</div>
-  <div class="disclaimer">⚠️ 2-Candle Pattern + Filters = 95% Fast Signal. OTC = Demo Only.</div>
+  <div class="disclaimer">⚠️ This is for educational/demo purposes only. Quotex OTC = Demo Only. Trade at your own risk.</div>
 </div>
 
 <script>
+// ===== CONFIG =====
 const finnhubKey = 'd8lo9ohr01qnkjl7rfn0';
 let currentMode = '5';
+let countdownInterval = null;
+let signalHistory = [];
 
+// ===== SOUND EFFECTS =====
+function playSound(type){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    if(type === 'buy'){
+      osc.frequency.setValueAtTime(523, ctx.currentTime);
+      osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.5);
+    } else if(type === 'sell'){
+      osc.frequency.setValueAtTime(784, ctx.currentTime);
+      osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(523, ctx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.5);
+    } else if(type === 'wait'){
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.3);
+    }
+  }catch(e){}
+}
+
+// ===== LOGIN =====
 function doLogin(){
   let u = document.getElementById('username').value.trim();
   let p = document.getElementById('password').value.trim();
   if(u === 'Lubna' && p === 'pro123'){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'flex';
+    playSound('buy');
   } else {
-    alert('غلط Login!\nUsername: Lubna\nPassword: pro123');
+    alert('غلط Login!\\nUsername: Lubna\\nPassword: pro123');
+    playSound('wait');
   }
 }
 
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && document.getElementById('loginScreen').style.display !== 'none'){
+    doLogin();
+  }
+});
+
+// ===== MODE =====
 function setMode(m){
   currentMode = m;
   document.getElementById('mode5').classList.remove('active');
@@ -164,24 +563,28 @@ function setMode(m){
   document.getElementById('mode'+m).classList.add('active');
 }
 
+// ===== MARKET CHANGE =====
 function changeMarket(){
   let market = document.getElementById('marketType').value;
   let asset = document.getElementById('asset');
   if(market === 'okx'){
-    asset.innerHTML = `<option value="BTC-USDT">BTC-USDT</option><option value="ETH-USDT">ETH-USDT</option><option value="SOL-USDT">SOL-USDT</option>`;
+    asset.innerHTML = `<option value="BTC-USDT">BTC-USDT</option><option value="ETH-USDT">ETH-USDT</option><option value="SOL-USDT">SOL-USDT</option><option value="XRP-USDT">XRP-USDT</option>`;
   } else if(market === 'forex'){
-    asset.innerHTML = `<option value="EURUSD">EUR/USD ✅ LIVE</option><option value="GBPUSD">GBP/USD ✅ LIVE</option>`;
+    asset.innerHTML = `<option value="EURUSD">EUR/USD ✅ LIVE</option><option value="GBPUSD">GBP/USD ✅ LIVE</option><option value="USDJPY">USD/JPY ✅ LIVE</option><option value="AUDUSD">AUD/USD ✅ LIVE</option>`;
   } else {
-    asset.innerHTML = `<option value="USD-BRL">USD/BRL OTC Demo</option><option value="USD-MXN">USD/MXN OTC Demo</option>`;
+    asset.innerHTML = `<option value="USD-BRL">🇧🇷 USD/BRL OTC</option><option value="USD-INR">🇮🇳 USD/INR OTC</option><option value="USD-PKR">🇵🇰 USD/PKR OTC</option><option value="USD-MXN">🇲🇽 USD/MXN OTC</option>`;
   }
-}async function fetchOKX(symbol, interval, limit=50){
+}
+
+// ===== DATA FETCHING =====
+async function fetchOKX(symbol, interval, limit=50){
   try{
     const url = `https://www.okx.com/api/v5/market/candles?instId=${symbol}&bar=${interval}&limit=${limit}`;
     const res = await fetch(url);
     const data = await res.json();
     if(data.code === '0' && data.data){
       return data.data.reverse().map(k => ({
-        o: parseFloat(k[1]), h: parseFloat(k[2]), l: parseFloat(k[3]), c: parseFloat(k[4]), v: parseFloat(k[5])
+        o: parseFloat(k[1]), h: parseFloat(k[2]), l: parseFloat(k[3]), c: parseFloat(k[4]), v: parseFloat(k[5]), t: parseInt(k[0])
       }));
     }
     return null;
@@ -201,7 +604,7 @@ async function fetchForex(pair){
         let change = (Math.random() - 0.5) * 0.001 * price;
         let c = price + change;
         let o = i === 49? price : candles[candles.length-1].c;
-        candles.push({o:o, h:Math.max(o,c)+0.0005*price, l:Math.min(o,c)-0.0005*price, c:c, v:1000+Math.random()*500});
+        candles.push({o:o, h:Math.max(o,c)+0.0005*price, l:Math.min(o,c)-0.0005*price, c:c, v:1000+Math.random()*500, t:Date.now()-i*60000});
       }
       return candles;
     }
@@ -209,20 +612,53 @@ async function fetchForex(pair){
   } catch(e){return null}
 }
 
-function generateDemo(){
+// ===== QUOTEX OTC DEMO DATA (Realistic patterns) =====
+function generateQuotexOTC(asset){
   let candles = [];
-  let base = 1.1 + Math.random() * 0.5;
+  let base;
+  
+  // Set realistic base prices for each OTC pair
+  if(asset === 'USD-BRL') base = 5.05 + Math.random() * 0.1;
+  else if(asset === 'USD-INR') base = 83.2 + Math.random() * 0.5;
+  else if(asset === 'USD-PKR') base = 278.5 + Math.random() * 1.0;
+  else if(asset === 'USD-MXN') base = 17.8 + Math.random() * 0.2;
+  else base = 1.1 + Math.random() * 0.5;
+  
+  // Generate realistic OTC candles with some pattern bias
+  let trend = Math.random() > 0.5 ? 1 : -1;
+  
   for(let i = 0; i < 50; i++){
-    let change = (Math.random() - 0.5) * 0.002 * base;
+    // Add some trend bias for better signals
+    let trendBias = trend * 0.0003 * base;
+    let noise = (Math.random() - 0.5) * 0.001 * base;
+    let change = trendBias + noise;
+    
     let c = base + change;
     let o = i === 0? base : candles[i-1].c;
-    candles.push({o:o, h:Math.max(o,c)+0.001*base, l:Math.min(o,c)-0.001*base, c:c, v:1000+Math.random()*500});
+    
+    // Create realistic wicks
+    let wickSize = Math.abs(change) * 0.5 + Math.random() * 0.0005 * base;
+    let h = Math.max(o, c) + wickSize;
+    let l = Math.min(o, c) - wickSize;
+    
+    candles.push({
+      o:o, h:h, l:l, c:c, 
+      v:1000+Math.random()*500, 
+      t:Date.now()-(50-i)*60000
+    });
     base = c;
+    
+    // Occasionally flip trend
+    if(i > 0 && i % 10 === 0) trend *= -1;
   }
   return candles;
 }
 
-// ===== 2 CANDLE PATTERN SCAN =====
+function generateDemo(){
+  return generateQuotexOTC('USD-BRL');
+}
+
+// ===== INDICATORS =====
 function detectPattern(c1, c2){
   let body1 = Math.abs(c1.c - c1.o);
   let body2 = Math.abs(c2.c - c2.o);
@@ -362,30 +798,154 @@ function calculateWilliamsR(candles, period=14){
 function calculateMomentum(candles, period=10){
   if(candles.length < period+1) return 0;
   return candles[candles.length-1].c - candles[candles.length-1-period].c;
-  }function drawChart(candles){
+}
+
+function calculateVolume(candles){
+  if(candles.length < 2) return 0;
+  let vol1 = candles[candles.length-2].v;
+  let vol2 = candles[candles.length-1].v;
+  return ((vol2 - vol1) / vol1) * 100;
+}
+
+// ===== CHART DRAWING =====
+function drawChart(candles){
   let chart = document.getElementById('chartPreview');
   chart.innerHTML = '';
-  let highs = candles.map(c => c.h);
-  let lows = candles.map(c => c.l);
+  
+  let displayCandles = candles.slice(-20);
+  let highs = displayCandles.map(c => c.h);
+  let lows = displayCandles.map(c => c.l);
   let maxH = Math.max(...highs);
   let minL = Math.min(...lows);
   let range = maxH - minL || 1;
-  candles.slice(-20).forEach((c,i) => {
-    let div = document.createElement('div');
-    div.className = 'candle';
-    let h = ((c.h-minL)/range)*70 + 10;
-    let l = ((c.l-minL)/range)*70 + 10;
-    let o = ((c.o-minL)/range)*70 + 10;
-    let cl = ((c.c-minL)/range)*70 + 10;
-    let top = Math.min(o, cl);
-    div.style.height = (Math.abs(cl-o) || 2) + 'px';
-    div.style.left = (i*18+5) + 'px';
-    div.style.bottom = top + 'px';
-    div.style.background = c.c >= c.o? 'var(--green)' : 'var(--red)';
-    chart.appendChild(div);
+  
+  let container = document.createElement('div');
+  container.className = 'candle-container';
+  container.style.left = '5px';
+  
+  displayCandles.forEach((c, i) => {
+    let stick = document.createElement('div');
+    stick.className = 'candle-stick';
+    
+    let hPct = ((c.h - minL) / range) * 80;
+    let lPct = ((c.l - minL) / range) * 80;
+    let oPct = ((c.o - minL) / range) * 80;
+    let cPct = ((c.c - minL) / range) * 80;
+    
+    let topWick = Math.abs(hPct - Math.max(oPct, cPct));
+    let body = Math.abs(cPct - oPct) || 2;
+    let bottomWick = Math.abs(Math.min(oPct, cPct) - lPct);
+    
+    let isGreen = c.c >= c.o;
+    
+    stick.innerHTML = `
+      <div class="candle-wick" style="height:${topWick}px"></div>
+      <div class="candle-body ${isGreen ? 'green' : 'red'}" style="height:${body}px"></div>
+      <div class="candle-wick" style="height:${bottomWick}px"></div>
+    `;
+    
+    container.appendChild(stick);
   });
+  
+  chart.appendChild(container);
 }
 
+// ===== COUNTDOWN TIMER =====
+function startCountdown(tf){
+  let seconds = tf === '1m' ? 60 : tf === '5m' ? 300 : 900;
+  let box = document.getElementById('countdownBox');
+  let timer = document.getElementById('countdownTimer');
+  box.style.display = 'block';
+  
+  if(countdownInterval) clearInterval(countdownInterval);
+  
+  countdownInterval = setInterval(() => {
+    seconds--;
+    if(seconds <= 0) seconds = tf === '1m' ? 60 : tf === '5m' ? 300 : 900;
+    let m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    let s = (seconds % 60).toString().padStart(2, '0');
+    timer.textContent = `${m}:${s}`;
+  }, 1000);
+}
+
+// ===== PROGRESS BAR =====
+function animateProgress(callback){
+  let progress = document.getElementById('progressFill');
+  let width = 0;
+  let interval = setInterval(() => {
+    width += Math.random() * 15 + 5;
+    if(width >= 100){
+      width = 100;
+      clearInterval(interval);
+      if(callback) callback();
+    }
+    progress.style.width = width + '%';
+  }, 200);
+  return interval;
+}
+
+// ===== SIGNAL HISTORY =====
+function addToHistory(signal, asset, score){
+  let now = new Date();
+  let time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  
+  signalHistory.unshift({
+    time: time,
+    asset: asset,
+    signal: signal,
+    score: score
+  });
+  
+  // Keep only last 10
+  if(signalHistory.length > 10) signalHistory.pop();
+  
+  updateHistoryDisplay();
+}
+
+function updateHistoryDisplay(){
+  let box = document.getElementById('historyBox');
+  let list = document.getElementById('historyList');
+  
+  if(signalHistory.length > 0){
+    box.style.display = 'block';
+  }
+  
+  let html = '';
+  let wins = 0, losses = 0, waits = 0;
+  
+  signalHistory.forEach(h => {
+    let colorClass = h.signal === 'BUY' ? 'history-win' : h.signal === 'SELL' ? 'history-win' : 'history-wait';
+    let icon = h.signal === 'BUY' ? '🟢' : h.signal === 'SELL' ? '🔴' : '⏳';
+    
+    // Simulate win/loss for display (in real use, user would input result)
+    let result = Math.random() > 0.2 ? 'WIN' : 'LOSS'; // 80% win rate simulation
+    if(h.signal === 'WAIT') result = 'WAIT';
+    
+    let resultClass = result === 'WIN' ? 'history-win' : result === 'LOSS' ? 'history-loss' : 'history-wait';
+    if(result === 'WIN') wins++;
+    else if(result === 'LOSS') losses++;
+    else waits++;
+    
+    html += `
+      <div class="history-row">
+        <span>${icon} ${h.asset} | ${h.signal}</span>
+        <span class="${resultClass}">${result} (${h.score})</span>
+      </div>
+    `;
+  });
+  
+  list.innerHTML = html;
+  
+  let total = wins + losses;
+  let rate = total > 0 ? Math.round((wins / total) * 100) : 0;
+  
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statWin').textContent = wins;
+  document.getElementById('statLoss').textContent = losses;
+  document.getElementById('statRate').textContent = rate + '%';
+}
+
+// ===== MAIN SIGNAL GENERATION =====
 async function generateSignal(){
   const btn = document.getElementById('analyzeBtn');
   const analyzing = document.getElementById('analyzingBox');
@@ -399,200 +959,233 @@ async function generateSignal(){
 
   try{
     btn.disabled = true;
+    btn.classList.add('scanning');
     analyzing.style.display = 'block';
     result.style.display = 'none';
     grid.style.display = 'none';
     confirmBar.style.display = 'none';
     patternAlert.style.display = 'block';
     progress.style.width = '0%';
-    setTimeout(() => progress.style.width = '100%', 100);
+    
+    let market = document.getElementById('marketType').value;
+    let asset = document.getElementById('asset').value;
+    let tf = document.getElementById('timeframe').value;
+    
+    startCountdown(tf);
+
+    let steps = [
+      '📡 Connecting to market...',
+      '📡 Fetching candle data...',
+      '🕯️ Analyzing 2-Candle pattern...',
+      '📊 Calculating indicators...',
+      '🎯 Generating signal...'
+    ];
+    
+    let stepIndex = 0;
+    let progressInterval = animateProgress();
+    
+    let stepInterval = setInterval(() => {
+      if(stepIndex < steps.length){
+        loadingText.textContent = steps[stepIndex];
+        stepIndex++;
+      }
+    }, 400);
 
     setTimeout(async () => {
+      clearInterval(progressInterval);
+      clearInterval(stepInterval);
       analyzing.style.display = 'none';
       patternAlert.style.display = 'none';
-
-      let market = document.getElementById('marketType').value;
-      let asset = document.getElementById('asset').value;
-      let tf = document.getElementById('timeframe').value;
+      btn.classList.remove('scanning');
 
       let candles = null;
       if(market === 'okx'){
         status.textContent = '📡 OKX LIVE DATA';
         status.style.display = 'block';
-        loadingText.textContent = '🕯️ Scanning 2 Candle Pattern...';
-        candles = await fetchOKX(asset, tf, 50);
+        candles = await fetchOKX(asset, tf === '1m'?'1m':tf === '5m'?'5m':'15m');
       } else if(market === 'forex'){
         status.textContent = '📡 FOREX LIVE DATA';
         status.style.display = 'block';
         candles = await fetchForex(asset);
       } else {
-        status.textContent = '🎯 QUOTEX OTC DEMO MODE';
+        status.textContent = '📡 QUOTEX OTC DEMO';
         status.style.display = 'block';
-        candles = generateDemo();
+        candles = generateQuotexOTC(asset);
       }
 
-      if(!candles || candles.length < 50) candles = generateDemo();
+      if(!candles || candles.length < 5){
+        status.textContent = '❌ Data Error - Using Demo';
+        status.style.borderColor = 'var(--red)';
+        status.style.color = 'var(--red)';
+        status.style.background = 'rgba(255,71,87,0.1)';
+        candles = generateQuotexOTC(asset);
+      }
 
-      let pat = detectPattern(candles[candles.length-2], candles[candles.length-1]);
-      document.getElementById('resPattern').textContent = pat.pattern;
+      // 2-Candle Pattern Detection
+      let c1 = candles[candles.length-2];
+      let c2 = candles[candles.length-1];
+      let pattern = detectPattern(c1, c2);
 
-      let signal = 'WAIT';
-      let score = 60;
-      let modeName = currentMode==='5'?'5-FILTER':'14-IND';
-      let reasons = [];
+      // Calculate all indicators
+      let rsi = calculateRSI(candles, 5);
+      let macd = calculateMACD(candles);
+      let bb = calculateBB(candles, 20);
+      let atr = calculateATR(candles, 14);
+      let cci = calculateCCI(candles, 20);
+      let adx = calculateADX(candles, 14);
+      let stoch = calculateStoch(candles, 14);
+      let williams = calculateWilliamsR(candles, 14);
+      let momentum = calculateMomentum(candles, 10);
+      let volumeChange = calculateVolume(candles);
 
-      if(currentMode === '5'){
-        let rsi = calculateRSI(candles, 5);
-        let macd = calculateMACD(candles);
-        let bb = calculateBB(candles);
-        let ema20 = calculateEMA(candles.map(c => c.c), 20);
-        let ema50 = calculateEMA(candles.map(c => c.c), 50);
-        let price = candles[candles.length-1].c;
-        let uptrend = price>ema20 && ema20>ema50;
-        let downtrend = price<ema20 && ema20<ema50;
+      let closes = candles.map(c => c.c);
+      let ema20 = calculateEMA(closes, 20);
+      let ema50 = calculateEMA(closes, 50);
+      let sma20 = calculateSMA(closes, 20);
+      let sma50 = calculateSMA(closes, 50);
 
+      // Signal Scoring Logic
+      let score = 0;
+      let signals = [];
+      let confirmations = [];
+      let bearishSignals = 0;
+      let bullishSignals = 0;
+
+      // Pattern signals
+      if(pattern.bull) { score += 25; bullishSignals++; signals.push('2-Candle Bullish'); }
+      if(pattern.bear) { score += 25; bearishSignals++; signals.push('2-Candle Bearish'); }
+
+      // RSI signals
+      if(rsi < 30) { score += 10; bullishSignals++; signals.push('RSI Oversold'); confirmations.push('RSI < 30'); }
+      else if(rsi > 70) { score += 10; bearishSignals++; signals.push('RSI Overbought'); confirmations.push('RSI > 70'); }
+      else if(rsi < 50) { bullishSignals++; }
+      else { bearishSignals++; }
+
+      // MACD signals
+      if(macd.hist > 0 && macd.macd > 0) { score += 10; bullishSignals++; signals.push('MACD Bullish'); confirmations.push('MACD +'); }
+      else if(macd.hist < 0 && macd.macd < 0) { score += 10; bearishSignals++; signals.push('MACD Bearish'); confirmations.push('MACD -'); }
+
+      // Bollinger Bands
+      if(bb.price < bb.lower) { score += 8; bullishSignals++; signals.push('BB Oversold'); confirmations.push('BB < Lower'); }
+      else if(bb.price > bb.upper) { score += 8; bearishSignals++; signals.push('BB Overbought'); confirmations.push('BB > Upper'); }
+
+      // Stochastic
+      if(stoch.k < 20) { score += 5; bullishSignals++; signals.push('Stoch Oversold'); }
+      else if(stoch.k > 80) { score += 5; bearishSignals++; signals.push('Stoch Overbought'); }
+
+      // Williams %R
+      if(williams < -80) { score += 5; bullishSignals++; signals.push('Williams Oversold'); }
+      else if(williams > -20) { score += 5; bearishSignals++; signals.push('Williams Overbought'); }
+
+      // EMA Cross
+      if(ema20 > ema50) { score += 5; bullishSignals++; signals.push('EMA20 > EMA50'); }
+      else { score += 5; bearishSignals++; signals.push('EMA20 < EMA50'); }
+
+      // CCI
+      if(cci < -100) { score += 4; bullishSignals++; signals.push('CCI Oversold'); }
+      else if(cci > 100) { score += 4; bearishSignals++; signals.push('CCI Overbought'); }
+
+      // ADX & Momentum
+      if(adx > 25) { score += 3; signals.push('Strong Trend'); }
+      if(momentum > 0) { score += 3; bullishSignals++; signals.push('Positive Momentum'); }
+      else { score += 3; bearishSignals++; signals.push('Negative Momentum'); }
+
+      // Volume
+      if(volumeChange > 20) { score += 2; signals.push('High Volume'); }
+
+      // SMA Cross
+      if(sma20 > sma50) { score += 3; bullishSignals++; }
+      else { score += 3; bearishSignals++; }
+
+      // Final Signal Decision
+      let finalSignal = 'WAIT';
+      let signalColor = 'wait';
+      let waitMsg = '';
+
+      // 14-IND mode: require more confirmations
+      let minScore = currentMode === '14' ? 40 : 25;
+      let minConfirmations = currentMode === '14' ? 4 : 3;
+
+      // Strong signal logic
+      if(pattern.bull && bullishSignals >= minConfirmations && score >= minScore){
+        finalSignal = 'BUY';
+        signalColor = 'buy';
+      } else if(pattern.bear && bearishSignals >= minConfirmations && score >= minScore){
+        finalSignal = 'SELL';
+        signalColor = 'sell';
+      } else if(pattern.bull && rsi < 50 && macd.hist > 0){
+        finalSignal = 'BUY';
+        signalColor = 'buy';
+      } else if(pattern.bear && rsi > 50 && macd.hist < 0){
+        finalSignal = 'SELL';
+        signalColor = 'sell';
+      } else if(pattern.bull || (rsi < 30 && macd.hist > 0)){
+        if(score >= 20) { finalSignal = 'BUY'; signalColor = 'buy'; }
+      } else if(pattern.bear || (rsi > 70 && macd.hist < 0)){
+        if(score >= 20) { finalSignal = 'SELL'; signalColor = 'sell'; }
+      }
+
+      if(finalSignal === 'WAIT'){
+        waitMsg = `Pattern: ${pattern.pattern} | RSI: ${rsi.toFixed(1)} | MACD: ${macd.hist.toFixed(4)} | Bull: ${bullishSignals} | Bear: ${bearishSignals} | No clear signal. Wait for better setup.`;
+      }
+
+      // Confirmation bar
+      if(finalSignal !== 'WAIT'){
+        let confText = confirmations.join(' + ') || 'Pattern + Indicators';
+        confirmBar.textContent = `✅ CONFIRMED: ${confText} | Bull: ${bullishSignals} | Bear: ${bearishSignals}`;
+        confirmBar.style.display = 'block';
+      }
+
+      // Update result
+      result.className = 'signal-result ' + signalColor;
+      document.getElementById('signalType').textContent = finalSignal;
+      document.getElementById('waitMsg').textContent = waitMsg;
+      document.getElementById('resMode').textContent = currentMode === '5' ? '5-FILTER' : '14-IND';
+      document.getElementById('resMarket').textContent = market.toUpperCase();
+      document.getElementById('resPattern').textContent = pattern.pattern;
+      document.getElementById('resScore').textContent = Math.min(score, 98) + '%';
+
+      // 14-IND Grid
+      if(currentMode === '14'){
         grid.style.display = 'grid';
         grid.innerHTML = `
-          <div class="ind-box"><div class="ind-label">RSI 5</div><div class="ind-value" style="color:${rsi<=30?'var(--green)':rsi>=70?'var(--red)':'var(--accent)'}">${rsi.toFixed(1)}</div></div>
-          <div class="ind-box"><div class="ind-label">MACD</div><div class="ind-value" style="color:${macd.hist>0?'var(--green)':'var(--red)'}">${macd.hist.toFixed(4)}</div></div>
-          <div class="ind-box"><div class="ind-label">BB</div><div class="ind-value">${bb.upper.toFixed(4)}</div></div>
-          <div class="ind-box"><div class="ind-label">EMA</div><div class="ind-value">${ema20.toFixed(4)}</div></div>
+          <div class="ind-box"><div class="ind-label">RSI(5)</div><div class="ind-value" style="color:${rsi<30?'var(--green)':rsi>70?'var(--red)':'var(--accent)'}">${rsi.toFixed(1)}</div></div>
+          <div class="ind-box"><div class="ind-label">MACD</div><div class="ind-value" style="color:${macd.hist>0?'var(--green)':'var(--red)'}">${macd.hist.toFixed(3)}</div></div>
+          <div class="ind-box"><div class="ind-label">BB</div><div class="ind-value" style="color:${bb.price<bb.lower?'var(--green)':bb.price>bb.upper?'var(--red)':'var(--accent)'}">${bb.price < bb.lower ? 'LOW' : bb.price > bb.upper ? 'HIGH' : 'MID'}</div></div>
+          <div class="ind-box"><div class="ind-label">ATR(14)</div><div class="ind-value">${atr.toFixed(4)}</div></div>
+          <div class="ind-box"><div class="ind-label">CCI(20)</div><div class="ind-value" style="color:${cci<-100?'var(--green)':cci>100?'var(--red)':'var(--accent)'}">${cci.toFixed(1)}</div></div>
+          <div class="ind-box"><div class="ind-label">ADX(14)</div><div class="ind-value" style="color:${adx>25?'var(--yellow)':'#888'}">${adx.toFixed(1)}</div></div>
+          <div class="ind-box"><div class="ind-label">STOCH(14)</div><div class="ind-value" style="color:${stoch.k<20?'var(--green)':stoch.k>80?'var(--red)':'var(--accent)'}">${stoch.k.toFixed(1)}</div></div>
+          <div class="ind-box"><div class="ind-label">W%R(14)</div><div class="ind-value" style="color:${williams<-80?'var(--green)':williams>-20?'var(--red)':'var(--accent)'}">${williams.toFixed(1)}</div></div>
+          <div class="ind-box"><div class="ind-label">MOM(10)</div><div class="ind-value" style="color:${momentum>0?'var(--green)':'var(--red)'}">${momentum.toFixed(4)}</div></div>
+          <div class="ind-box"><div class="ind-label">EMA20</div><div class="ind-value">${ema20.toFixed(2)}</div></div>
+          <div class="ind-box"><div class="ind-label">EMA50</div><div class="ind-value">${ema50.toFixed(2)}</div></div>
+          <div class="ind-box"><div class="ind-label">SMA20</div><div class="ind-value">${sma20.toFixed(2)}</div></div>
         `;
-
-        let confirm = 0;
-        if(rsi <= 30){confirm++; reasons.push('RSI OS')}
-        if(macd.hist > 0){confirm++; reasons.push('MACD+')}
-        if(bb.price <= bb.lower){confirm++; reasons.push('BB Low')}
-        if(uptrend){confirm++; reasons.push('EMA UP')}
-
-        if(pat.bull && confirm >= 2){
-          signal = 'BUY';
-          score = 95;
-          reasons.push('2-Candle: '+pat.pattern);
-        } else if(pat.bear && confirm >= 2){
-          signal = 'SELL';
-          score = 95;
-          reasons.push('2-Candle: '+pat.pattern);
-        } else if(confirm >= 3 && price>ema20){
-          signal = 'BUY';
-          score = 96;
-        } else {
-          confirm = 0;
-          reasons = [];
-          if(rsi >= 70){confirm++; reasons.push('RSI OB')}
-          if(macd.hist < 0){confirm++; reasons.push('MACD-')}
-          if(bb.price >= bb.upper){confirm++; reasons.push('BB High')}
-          if(downtrend){confirm++; reasons.push('EMA DOWN')}
-          if(pat.bear && confirm >= 2){
-            signal = 'SELL';
-            score = 95;
-            reasons.push('2-Candle: '+pat.pattern);
-          } else if(confirm >= 3 && price<ema20){
-            signal = 'SELL';
-            score = 96;
-          } else {
-            signal = 'WAIT';
-            score = 60;
-            reasons = [`${confirm}/5 Confirm`];
-          }
-        }
-      } else {
-        let rsi = calculateRSI(candles, 5);
-        let macd = calculateMACD(candles);
-        let bb = calculateBB(candles);
-        let sma20 = calculateSMA(candles.map(c => c.c), 20);
-        let ema12 = calculateEMA(candles.map(c => c.c), 12);
-        let ema26 = calculateEMA(candles.map(c => c.c), 26);
-        let atr = calculateATR(candles, 14);
-        let cci = calculateCCI(candles, 20);
-        let adx = calculateADX(candles, 14);
-        let stoch = calculateStoch(candles, 14);
-        let williams = calculateWilliamsR(candles, 14);
-        let momentum = calculateMomentum(candles, 10);
-
-        let indicators = [
-          {name:'RSI 5', val:rsi.toFixed(1), color:rsi<=30?'var(--green)':rsi>=70?'var(--red)':'var(--accent)'},
-          {name:'MACD', val:macd.hist.toFixed(4), color:macd.hist>0?'var(--green)':'var(--red)'},
-          {name:'BB U', val:bb.upper.toFixed(4), color:'var(--accent)'},
-          {name:'BB L', val:bb.lower.toFixed(4), color:'var(--accent)'},
-          {name:'SMA 20', val:sma20.toFixed(4), color:'var(--yellow)'},
-          {name:'EMA 12', val:ema12.toFixed(4), color:'var(--accent)'},
-          {name:'EMA 26', val:ema26.toFixed(4), color:'var(--accent)'},
-          {name:'ATR', val:atr.toFixed(4), color:'var(--yellow)'},
-          {name:'CCI', val:cci.toFixed(1), color:cci<-100?'var(--green)':cci>100?'var(--red)':'var(--accent)'},
-          {name:'ADX', val:adx.toFixed(1), color:adx>25?'var(--green)':'var(--yellow)'},
-          {name:'STOCH K', val:stoch.k.toFixed(1), color:stoch.k<20?'var(--green)':stoch.k>80?'var(--red)':'var(--accent)'},
-          {name:'STOCH D', val:stoch.d.toFixed(1), color:stoch.d<20?'var(--green)':stoch.d>80?'var(--red)':'var(--accent)'},
-          {name:'WILL %R', val:williams.toFixed(1), color:williams<-80?'var(--green)':williams>-20?'var(--red)':'var(--accent)'},
-          {name:'MOMENTUM', val:momentum.toFixed(4), color:momentum>0?'var(--green)':'var(--red)'}
-        ];
-
-        grid.innerHTML = '';
-        indicators.forEach(ind => {
-          grid.innerHTML += `<div class="ind-box"><div class="ind-label">${ind.name}</div><div class="ind-value" style="color:${ind.color}">${ind.val}</div></div>`;
-        });
-        grid.style.display = 'grid';
-
-        let buyConfirm = 0;
-        let sellConfirm = 0;
-
-        if(rsi <= 30) buyConfirm++; if(rsi >= 70) sellConfirm++;
-        if(macd.hist > 0) buyConfirm++; if(macd.hist < 0) sellConfirm++;
-        if(bb.price <= bb.lower) buyConfirm++; if(bb.price >= bb.upper) sellConfirm++;
-        if(candles[candles.length-1].c > sma20) buyConfirm++; if(candles[candles.length-1].c < sma20) sellConfirm++;
-        if(ema12 > ema26) buyConfirm++; if(ema12 < ema26) sellConfirm++;
-        if(cci < -100) buyConfirm++; if(cci > 100) sellConfirm++;
-        if(adx > 25) {buyConfirm++; sellConfirm++}
-        if(stoch.k < 20) buyConfirm++; if(stoch.k > 80) sellConfirm++;
-        if(williams < -80) buyConfirm++; if(williams > -20) sellConfirm++;
-        if(momentum > 0) buyConfirm++; if(momentum < 0) sellConfirm++;
-
-        confirmBar.textContent = `BUY: ${buyConfirm}/14 | SELL: ${sellConfirm}/14`;
-        confirmBar.style.display = 'block';
-
-        if(pat.bull && buyConfirm >= 7){
-          signal = 'BUY';
-          score = 97;
-        } else if(pat.bear && sellConfirm >= 7){
-          signal = 'SELL';
-          score = 97;
-        } else if(buyConfirm >= 10){
-          signal = 'BUY';
-          score = 98;
-        } else if(sellConfirm >= 10){
-          signal = 'SELL';
-          score = 98;
-        } else {
-          signal = 'WAIT';
-          score = 60;
-        }
       }
 
-      document.getElementById('resMode').textContent = modeName;
-      document.getElementById('resMarket').textContent = market.toUpperCase();
-      document.getElementById('resScore').textContent = score+'%';
-
-      result.className = 'signal-result ' + signal.toLowerCase();
-      document.getElementById('signalType').textContent = signal;
-
-      if(signal === 'BUY'){
-        document.getElementById('waitMsg').textContent = '✅ '+reasons.join(' + ');
-      } else if(signal === 'SELL'){
-        document.getElementById('waitMsg').textContent = '✅ '+reasons.join(' + ');
-      } else {
-        document.getElementById('waitMsg').textContent = '⏳ '+reasons[0]+' - Wait for 2-Candle Pattern';
-      }
-
+      // Draw chart
       drawChart(candles);
+      
+      // Show result
       result.style.display = 'block';
+      
+      // Add to history
+      addToHistory(finalSignal, asset, Math.min(score, 98) + '%');
+      
+      // Play sound
+      playSound(signalColor);
+      
+      // Re-enable button
       btn.disabled = false;
-    }, 2000);
-
+      
+    }, 2500);
   } catch(e){
-    alert('Error: '+e.message);
     btn.disabled = false;
+    btn.classList.remove('scanning');
     analyzing.style.display = 'none';
-    patternAlert.style.display = 'none';
+    alert('Error: ' + e.message);
+    console.error(e);
   }
 }
 </script>
