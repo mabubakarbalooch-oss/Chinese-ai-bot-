@@ -2,8 +2,8 @@
 <html lang="ur">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lubna Abubakar AI v68.6 ULTIMATE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Lubna Abubakar AI v68.7 2-Candle</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--yellow:#ffd700;--blue:#0a1628;--accent:#00d4ff;--green:#00ff88;--red:#ff4757;--text:#e0e0e0}
@@ -34,6 +34,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 .progress-bar{height:5px;background:#0a1628;border-radius:3px;overflow:hidden;margin-top:8px}
 .progress-fill{height:100%;width:0%;background:linear-gradient(90deg, var(--yellow), var(--accent));transition:width 2s ease}
 .live-status{display:none;text-align:center;padding:6px;background:rgba(0,255,136,0.1);border:1px solid var(--green);border-radius:8px;font-size:8px;color:var(--green);font-weight:700;margin-bottom:8px}
+.pattern-alert{display:none;text-align:center;padding:8px;background:rgba(255,215,0,0.2);border:1px solid var(--yellow);border-radius:8px;font-size:9px;color:var(--yellow);font-weight:700;margin-bottom:8px}
 .indicators-grid{display:none;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
 .ind-box{background:#0a1628;border:1.5px solid rgba(0,212,255,0.3);border-radius:10px;padding:8px;text-align:center}
 .ind-label{font-size:7px;color:#aaa;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px}
@@ -65,7 +66,7 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
     <div class="login-logo">LA</div>
     <div class="login-header">
       <h1>LUBNA ABUBAKAR</h1>
-      <p>ULTIMATE v68.6</p>
+      <p>2-CANDLE + 14-IND</p>
     </div>
     <div class="input-group">
       <label>Username</label>
@@ -75,22 +76,23 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
       <label>Password</label>
       <input type="password" id="password" value="pro123">
     </div>
-    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK ULTIMATE</button>
+    <button class="unlock-btn" onclick="doLogin()">🔓 UNLOCK v68.7</button>
   </div>
 </div>
 
 <div class="main-wrapper" id="mainScreen">
   <div class="header">
-    <h1>LUBNA ABUBAKAR AI v68.6</h1>
-    <p>5 FILTER + 14 IND + OKX</p>
+    <h1>LUBNA ABUBAKAR AI v68.7</h1>
+    <p>2-CANDLE PATTERN + OKX</p>
   </div>
 
   <div class="card">
     <div class="live-status" id="liveStatus">📡 FETCHING DATA...</div>
+    <div class="pattern-alert" id="patternAlert">🕯️ SCANNING 2 CANDLE PATTERN...</div>
     
     <div class="label">🎯 Mode Select</div>
     <div class="mode-toggle">
-      <button class="mode-btn active" id="mode5" onclick="setMode('5')">⚡ 5 FILTER<br>96% | More Signals</button>
+      <button class="mode-btn active" id="mode5" onclick="setMode('5')">⚡ 5 FILTER<br>95% | 2-Candle Fast</button>
       <button class="mode-btn" id="mode14" onclick="setMode('14')">🔥 14 IND<br>98% | High Accuracy</button>
     </div>
 
@@ -113,10 +115,10 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
       <option value="5m">5 Minutes</option>
     </select>
 
-    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ SCAN NOW</button>
+    <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ 2-CANDLE SCAN</button>
 
     <div class="analyzing" id="analyzingBox">
-      <div id="loadingText">📡 Calculating...</div>
+      <div id="loadingText">📡 Scanning 2 Candle + Filters...</div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
@@ -129,15 +131,15 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
       <div class="signal-details">
         <div class="detail-box"><div class="detail-label">Mode</div><div class="detail-value" id="resMode">5-FILTER</div></div>
         <div class="detail-box"><div class="detail-label">Market</div><div class="detail-value" id="resMarket">OKX</div></div>
-        <div class="detail-box"><div class="detail-label">Asset</div><div class="detail-value" id="resAsset">BTC</div></div>
-        <div class="detail-box"><div class="detail-label">Score</div><div class="detail-value" id="resScore">96%</div></div>
+        <div class="detail-box"><div class="detail-label">Pattern</div><div class="detail-value" id="resPattern">None</div></div>
+        <div class="detail-box"><div class="detail-label">Score</div><div class="detail-value" id="resScore">95%</div></div>
       </div>
       <div class="chart-preview" id="chartPreview"></div>
     </div>
   </div>
 
-  <div class="footer">Powered by Lubna Abubakar AI Engine v68.6 ULTIMATE</div>
-  <div class="disclaimer">⚠️ 5-Filter = Daily Trade. 14-IND = Big Trade. OTC = Demo Only.</div>
+  <div class="footer">Powered by Lubna Abubakar AI Engine v68.7 2-Candle</div>
+  <div class="disclaimer">⚠️ 2-Candle Pattern + Filters = 95% Fast Signal. OTC = Demo Only.</div>
 </div>
 
 <script>
@@ -172,9 +174,7 @@ function changeMarket(){
   } else {
     asset.innerHTML = `<option value="USD-BRL">USD/BRL OTC Demo</option><option value="USD-MXN">USD/MXN OTC Demo</option>`;
   }
-}
-
-async function fetchOKX(symbol, interval, limit=50){
+}async function fetchOKX(symbol, interval, limit=50){
   try{
     const url = `https://www.okx.com/api/v5/market/candles?instId=${symbol}&bar=${interval}&limit=${limit}`;
     const res = await fetch(url);
@@ -200,7 +200,7 @@ async function fetchForex(pair){
       for(let i = 49; i >= 0; i--){
         let change = (Math.random() - 0.5) * 0.001 * price;
         let c = price + change;
-        let o = i === 49 ? price : candles[candles.length-1].c;
+        let o = i === 49? price : candles[candles.length-1].c;
         candles.push({o:o, h:Math.max(o,c)+0.0005*price, l:Math.min(o,c)-0.0005*price, c:c, v:1000+Math.random()*500});
       }
       return candles;
@@ -215,11 +215,47 @@ function generateDemo(){
   for(let i = 0; i < 50; i++){
     let change = (Math.random() - 0.5) * 0.002 * base;
     let c = base + change;
-    let o = i === 0 ? base : candles[i-1].c;
+    let o = i === 0? base : candles[i-1].c;
     candles.push({o:o, h:Math.max(o,c)+0.001*base, l:Math.min(o,c)-0.001*base, c:c, v:1000+Math.random()*500});
     base = c;
   }
   return candles;
+}
+
+// ===== 2 CANDLE PATTERN SCAN =====
+function detectPattern(c1, c2){
+  let body1 = Math.abs(c1.c - c1.o);
+  let body2 = Math.abs(c2.c - c2.o);
+  let range1 = c1.h - c1.l;
+  let range2 = c2.h - c2.l;
+
+  let bullEngulf = (c1.c < c1.o && c2.c > c2.o && c2.o <= c1.c && c2.c >= c1.o && body2 > body1*1.1);
+  let bearEngulf = (c1.c > c1.o && c2.c < c2.o && c2.o >= c1.c && c2.c <= c1.o && body2 > body1*1.1);
+
+  let lowerWick1 = Math.min(c1.o, c1.c) - c1.l;
+  let upperWick1 = c1.h - Math.max(c1.o, c1.c);
+  let hammer = (lowerWick1 > body1*2 && upperWick1 < body1*0.5 && c1.c > c1.o && body1 > range1*0.3);
+
+  let upperWick2 = c2.h - Math.max(c2.o, c2.c);
+  let lowerWick2 = Math.min(c2.o, c2.c) - c2.l;
+  let shootingStar = (upperWick2 > body2*2 && lowerWick2 < body2*0.5 && c2.c < c2.o && body2 > range2*0.3);
+
+  let morningStar = (c1.c < c1.o && body1 < range1*0.3 && c2.c > c2.o && c2.c > (c1.o + c1.c)/2);
+  let eveningStar = (c1.c > c1.o && body1 < range1*0.3 && c2.c < c2.o && c2.c < (c1.o + c1.c)/2);
+
+  let pattern = 'None';
+  if(bullEngulf) pattern = 'Bullish Engulfing';
+  else if(bearEngulf) pattern = 'Bearish Engulfing';
+  else if(hammer) pattern = 'Hammer';
+  else if(shootingStar) pattern = 'Shooting Star';
+  else if(morningStar) pattern = 'Morning Star';
+  else if(eveningStar) pattern = 'Evening Star';
+
+  return {
+    bull: bullEngulf || hammer || morningStar,
+    bear: bearEngulf || shootingStar || eveningStar,
+    pattern: pattern
+  };
 }
 
 function calculateRSI(candles, period=5){
@@ -288,7 +324,7 @@ function calculateCCI(candles, period=20){
   let sma = tp.slice(-period).reduce((a,b) => a+b, 0)/period;
   let meanDev = tp.slice(-period).reduce((a,b) => a+Math.abs(b-sma), 0)/period;
   let currentTP = tp[tp.length-1];
-  return meanDev === 0 ? 0 : (currentTP - sma)/(0.015 * meanDev);
+  return meanDev === 0? 0 : (currentTP - sma)/(0.015 * meanDev);
 }
 
 function calculateADX(candles, period=14){
@@ -309,7 +345,7 @@ function calculateStoch(candles, period=14){
   let highest = Math.max(...highs);
   let lowest = Math.min(...lows);
   let close = candles[candles.length-1].c;
-  let k = highest === lowest ? 50 : (close - lowest)/(highest - lowest) * 100;
+  let k = highest === lowest? 50 : (close - lowest)/(highest - lowest) * 100;
   return {k: k, d: k};
 }
 
@@ -320,15 +356,13 @@ function calculateWilliamsR(candles, period=14){
   let highest = Math.max(...highs);
   let lowest = Math.min(...lows);
   let close = candles[candles.length-1].c;
-  return highest === lowest ? -50 : (highest - close)/(highest - lowest) * -100;
+  return highest === lowest? -50 : (highest - close)/(highest - lowest) * -100;
 }
 
 function calculateMomentum(candles, period=10){
   if(candles.length < period+1) return 0;
   return candles[candles.length-1].c - candles[candles.length-1-period].c;
-}
-
-function drawChart(candles){
+  }function drawChart(candles){
   let chart = document.getElementById('chartPreview');
   chart.innerHTML = '';
   let highs = candles.map(c => c.h);
@@ -347,7 +381,7 @@ function drawChart(candles){
     div.style.height = (Math.abs(cl-o) || 2) + 'px';
     div.style.left = (i*18+5) + 'px';
     div.style.bottom = top + 'px';
-    div.style.background = c.c >= c.o ? 'var(--green)' : 'var(--red)';
+    div.style.background = c.c >= c.o? 'var(--green)' : 'var(--red)';
     chart.appendChild(div);
   });
 }
@@ -361,6 +395,7 @@ async function generateSignal(){
   const status = document.getElementById('liveStatus');
   const confirmBar = document.getElementById('confirmBar');
   const loadingText = document.getElementById('loadingText');
+  const patternAlert = document.getElementById('patternAlert');
 
   try{
     btn.disabled = true;
@@ -368,11 +403,14 @@ async function generateSignal(){
     result.style.display = 'none';
     grid.style.display = 'none';
     confirmBar.style.display = 'none';
+    patternAlert.style.display = 'block';
     progress.style.width = '0%';
     setTimeout(() => progress.style.width = '100%', 100);
 
     setTimeout(async () => {
       analyzing.style.display = 'none';
+      patternAlert.style.display = 'none';
+
       let market = document.getElementById('marketType').value;
       let asset = document.getElementById('asset').value;
       let tf = document.getElementById('timeframe').value;
@@ -381,7 +419,7 @@ async function generateSignal(){
       if(market === 'okx'){
         status.textContent = '📡 OKX LIVE DATA';
         status.style.display = 'block';
-        loadingText.textContent = currentMode==='5'?'📡 5 Filters Scanning...':'📡 14 Indicators Scanning...';
+        loadingText.textContent = '🕯️ Scanning 2 Candle Pattern...';
         candles = await fetchOKX(asset, tf, 50);
       } else if(market === 'forex'){
         status.textContent = '📡 FOREX LIVE DATA';
@@ -395,12 +433,15 @@ async function generateSignal(){
 
       if(!candles || candles.length < 50) candles = generateDemo();
 
+      let pat = detectPattern(candles[candles.length-2], candles[candles.length-1]);
+      document.getElementById('resPattern').textContent = pat.pattern;
+
       let signal = 'WAIT';
       let score = 60;
       let modeName = currentMode==='5'?'5-FILTER':'14-IND';
+      let reasons = [];
 
       if(currentMode === '5'){
-        // ===== 5 FILTER LOGIC =====
         let rsi = calculateRSI(candles, 5);
         let macd = calculateMACD(candles);
         let bb = calculateBB(candles);
@@ -419,13 +460,20 @@ async function generateSignal(){
         `;
 
         let confirm = 0;
-        let reasons = [];
         if(rsi <= 30){confirm++; reasons.push('RSI OS')}
         if(macd.hist > 0){confirm++; reasons.push('MACD+')}
         if(bb.price <= bb.lower){confirm++; reasons.push('BB Low')}
         if(uptrend){confirm++; reasons.push('EMA UP')}
 
-        if(confirm >= 3 && price>ema20){
+        if(pat.bull && confirm >= 2){
+          signal = 'BUY';
+          score = 95;
+          reasons.push('2-Candle: '+pat.pattern);
+        } else if(pat.bear && confirm >= 2){
+          signal = 'SELL';
+          score = 95;
+          reasons.push('2-Candle: '+pat.pattern);
+        } else if(confirm >= 3 && price>ema20){
           signal = 'BUY';
           score = 96;
         } else {
@@ -435,7 +483,11 @@ async function generateSignal(){
           if(macd.hist < 0){confirm++; reasons.push('MACD-')}
           if(bb.price >= bb.upper){confirm++; reasons.push('BB High')}
           if(downtrend){confirm++; reasons.push('EMA DOWN')}
-          if(confirm >= 3 && price<ema20){
+          if(pat.bear && confirm >= 2){
+            signal = 'SELL';
+            score = 95;
+            reasons.push('2-Candle: '+pat.pattern);
+          } else if(confirm >= 3 && price<ema20){
             signal = 'SELL';
             score = 96;
           } else {
@@ -445,7 +497,6 @@ async function generateSignal(){
           }
         }
       } else {
-        // ===== 14 IND LOGIC =====
         let rsi = calculateRSI(candles, 5);
         let macd = calculateMACD(candles);
         let bb = calculateBB(candles);
@@ -499,31 +550,49 @@ async function generateSignal(){
         confirmBar.textContent = `BUY: ${buyConfirm}/14 | SELL: ${sellConfirm}/14`;
         confirmBar.style.display = 'block';
 
-        if(buyConfirm >= 9){
+        if(pat.bull && buyConfirm >= 7){
           signal = 'BUY';
-          score = Math.min(98, 70 + buyConfirm*3);
-        } else if(sellConfirm >= 9){
+          score = 97;
+        } else if(pat.bear && sellConfirm >= 7){
           signal = 'SELL';
-          score = Math.min(98, 70 + sellConfirm*3);
+          score = 97;
+        } else if(buyConfirm >= 10){
+          signal = 'BUY';
+          score = 98;
+        } else if(sellConfirm >= 10){
+          signal = 'SELL';
+          score = 98;
+        } else {
+          signal = 'WAIT';
+          score = 60;
         }
       }
 
-      result.className = 'signal-result ' + (signal==='WAIT'?'wait':signal==='BUY'?'buy':'sell');
-      result.style.display = 'block';
-      document.getElementById('signalType').textContent = signal;
-      document.getElementById('waitMsg').textContent = signal==='WAIT'?'📊 WAIT - More Data Needed':'✅ CONFIRMED SIGNAL';
       document.getElementById('resMode').textContent = modeName;
       document.getElementById('resMarket').textContent = market.toUpperCase();
-      document.getElementById('resAsset').textContent = asset;
       document.getElementById('resScore').textContent = score+'%';
 
+      result.className = 'signal-result ' + signal.toLowerCase();
+      document.getElementById('signalType').textContent = signal;
+
+      if(signal === 'BUY'){
+        document.getElementById('waitMsg').textContent = '✅ '+reasons.join(' + ');
+      } else if(signal === 'SELL'){
+        document.getElementById('waitMsg').textContent = '✅ '+reasons.join(' + ');
+      } else {
+        document.getElementById('waitMsg').textContent = '⏳ '+reasons[0]+' - Wait for 2-Candle Pattern';
+      }
+
       drawChart(candles);
+      result.style.display = 'block';
       btn.disabled = false;
-    }, 2500);
+    }, 2000);
+
   } catch(e){
     alert('Error: '+e.message);
     btn.disabled = false;
     analyzing.style.display = 'none';
+    patternAlert.style.display = 'none';
   }
 }
 </script>
