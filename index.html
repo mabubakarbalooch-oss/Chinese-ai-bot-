@@ -177,18 +177,14 @@ html,body{
 .tf-tab:hover{color:var(--text)}
 .tf-tab.active{background:rgba(240,185,11,0.1);color:var(--gold)}
 
+/* Chart Area - FIXED */
 .chart-area{
   flex:1;margin:16px 24px;background:var(--bg-panel);
   border:1px solid var(--border);border-radius:12px;
   position:relative;overflow:hidden
 }
 
-/* Candlestick Chart - FIXED */
-.candle-chart-wrapper{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-}
-
+/* Chart Grid */
 .chart-grid{
   position:absolute;inset:20px 60px 40px 50px;
   background-image:
@@ -198,14 +194,16 @@ html,body{
   pointer-events:none
 }
 
+/* Candles Container - FIXED */
 .candles-container{
   position:absolute;inset:20px 60px 40px 50px;
   display:flex;align-items:flex-end;justify-content:space-around;
-  padding:5px 2px
+  padding:0 2px
 }
 .candle-bar{
   display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-  position:relative;width:8px;flex-shrink:0
+  position:relative;width:8px;flex-shrink:0;height:100%;
+  margin:0 1px
 }
 .candle-wick{
   width:1px;background:var(--text-dim);opacity:0.6;min-height:1px
@@ -218,10 +216,10 @@ html,body{
 
 /* Price Labels - FIXED */
 .price-labels{
-  position:absolute;left:8px;top:20px;bottom:40px;
+  position:absolute;right:8px;top:20px;bottom:40px;
   display:flex;flex-direction:column;justify-content:space-between;
   font-family:'Orbitron',sans-serif;font-size:9px;color:var(--text-muted);
-  text-align:right;width:38px
+  text-align:left;width:50px;align-items:flex-start
 }
 
 /* Time Labels */
@@ -231,7 +229,7 @@ html,body{
   font-family:'Orbitron',sans-serif;font-size:9px;color:var(--text-muted)
 }
 
-/* S/R Lines on Chart - FIXED */
+/* S/R Lines - FIXED */
 .sr-line-chart{
   position:absolute;left:50px;right:60px;height:1px;
   font-size:9px;font-family:'Orbitron',sans-serif;padding-left:6px;
@@ -671,21 +669,13 @@ function generateChart(){
   let minL = Math.min(...lows);
   let range = maxH - minL || 1;
   
-  // Price labels (right side now)
-  let priceLabelsDiv = document.createElement('div');
-  priceLabelsDiv.className = 'price-labels';
-  priceLabelsDiv.style.left = 'auto';
-  priceLabelsDiv.style.right = '8px';
-  priceLabelsDiv.style.textAlign = 'left';
-  priceLabelsDiv.style.width = '50px';
-  
+  // Price labels - right side, proper formatting
   for(let i = 5; i >= 0; i--){
     let price = minL + (range * i / 5);
     let div = document.createElement('div');
     div.textContent = price.toFixed(4);
-    priceLabelsDiv.appendChild(div);
+    labels.appendChild(div);
   }
-  labels.appendChild(priceLabelsDiv);
   
   // Time labels
   let now = new Date();
@@ -697,21 +687,24 @@ function generateChart(){
     timeLabels.appendChild(div);
   }
   
-  // S/R levels for chart overlay
+  // S/R levels for chart overlay - FIXED positioning
   let levels = findSR(candles);
   let chartArea = document.getElementById('chartArea');
-  let chartRect = chartArea.getBoundingClientRect();
   
+  // Use percentage-based positioning instead of pixel-based
   levels.forEach(l => {
     let pct = 100 - ((l.price - minL) / range) * 100;
+    // Clamp percentage between 0 and 100
+    pct = Math.max(0, Math.min(100, pct));
+    
     let line = document.createElement('div');
     line.className = 'sr-line-chart ' + l.type;
-    line.style.top = (20 + (pct * (chartRect.height - 60) / 100)) + 'px';
+    line.style.top = (20 + pct * 0.01 * (chartArea.clientHeight - 60)) + 'px';
     line.textContent = l.type.toUpperCase() + ' ' + l.price.toFixed(4);
     srContainer.appendChild(line);
   });
   
-  // Candles - FIXED positioning
+  // Candles - FIXED: proper height calculation using percentage
   candles.forEach((c, idx) => {
     let bar = document.createElement('div');
     bar.className = 'candle-bar';
@@ -720,19 +713,36 @@ function generateChart(){
     let bodyTop = Math.max(c.o, c.c);
     let bodyBottom = Math.min(c.o, c.c);
     
-    let topWickHeight = ((c.h - bodyTop) / range) * 100;
-    let bodyHeight = ((bodyTop - bodyBottom) / range) * 100;
-    let botWickHeight = ((bodyBottom - c.l) / range) * 100;
+    // Calculate heights as percentage of the chart range
+    let topWickPct = ((c.h - bodyTop) / range) * 100;
+    let bodyPct = ((bodyTop - bodyBottom) / range) * 100;
+    let botWickPct = ((bodyBottom - c.l) / range) * 100;
+    
+    // Convert to actual height percentages (chart container is 100% height)
+    // The container has padding, so we work within that
+    let chartHeight = 100; // percentage
     
     // Ensure minimum visibility
-    topWickHeight = Math.max(topWickHeight * 0.8, 1);
-    bodyHeight = Math.max(bodyHeight * 0.8, 2);
-    botWickHeight = Math.max(botWickHeight * 0.8, 1);
+    topWickPct = Math.max(topWickPct, 0.5);
+    bodyPct = Math.max(bodyPct, 0.5);
+    botWickPct = Math.max(botWickPct, 0.5);
     
+    // Calculate bottom position of the candle
+    let candleBottomPct = ((c.l - minL) / range) * 100;
+    
+    bar.style.height = '100%';
+    bar.style.position = 'relative';
+    bar.style.display = 'flex';
+    bar.style.flexDirection = 'column';
+    bar.style.alignItems = 'center';
+    bar.style.justifyContent = 'flex-end';
+    
+    // Use flex to position from bottom
     bar.innerHTML = `
-      <div class="candle-wick" style="height:${topWickHeight}%"></div>
-      <div class="candle-body ${isGreen ? 'green' : 'red'}" style="height:${bodyHeight}%"></div>
-      <div class="candle-wick" style="height:${botWickHeight}%"></div>
+      <div style="flex:${topWickPct};width:1px;background:var(--text-dim);opacity:0.6;min-height:1px"></div>
+      <div style="flex:${bodyPct};width:6px;border-radius:1px;background:${isGreen ? 'var(--green)' : 'var(--red)'};box-shadow:0 0 4px ${isGreen ? 'rgba(14,203,129,0.3)' : 'rgba(246,70,93,0.3)'};min-height:2px"></div>
+      <div style="flex:${botWickPct};width:1px;background:var(--text-dim);opacity:0.6;min-height:1px"></div>
+      <div style="flex:${candleBottomPct};min-height:0px"></div>
     `;
     container.appendChild(bar);
   });
