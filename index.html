@@ -106,8 +106,8 @@ html,body{
   background:rgba(14,203,129,0.08);border:1px solid rgba(14,203,129,0.2);
   border-radius:20px;font-size:12px;font-weight:600;color:var(--green)
 }
-.topbar-pill.dot::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--green);
+.topbar-pill .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--green);
   animation:pulse 2s infinite
 }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
@@ -118,7 +118,7 @@ html,body{
   height:calc(100vh - 60px);overflow:hidden
 }
 
-/* LEFT PANEL - ORDER BOOK STYLE */
+/* LEFT PANEL - Asset List */
 .left-panel{
   background:var(--bg-panel);border-right:1px solid var(--border);
   display:flex;flex-direction:column;overflow:hidden
@@ -133,7 +133,6 @@ html,body{
 }
 .panel-body{flex:1;overflow-y:auto;padding:12px}
 
-/* Asset List */
 .asset-item{
   display:flex;justify-content:space-between;align-items:center;
   padding:12px 16px;border-radius:10px;margin-bottom:6px;
@@ -158,7 +157,6 @@ html,body{
   display:flex;flex-direction:column;overflow:hidden
 }
 
-/* Chart Header */
 .chart-header{
   padding:16px 24px;border-bottom:1px solid var(--border);
   display:flex;justify-content:space-between;align-items:center
@@ -169,7 +167,6 @@ html,body{
 .chart-price.up{color:var(--green)}
 .chart-price.down{color:var(--red)}
 
-/* Timeframe Tabs */
 .tf-tabs{
   display:flex;gap:4px;padding:0 24px;margin-top:12px
 }
@@ -180,53 +177,65 @@ html,body{
 .tf-tab:hover{color:var(--text)}
 .tf-tab.active{background:rgba(240,185,11,0.1);color:var(--gold)}
 
-/* Chart Area */
 .chart-area{
   flex:1;margin:16px 24px;background:var(--bg-panel);
   border:1px solid var(--border);border-radius:12px;
   position:relative;overflow:hidden
 }
 
-/* Candlestick Chart */
-.candle-chart{
-  position:absolute;inset:0;padding:20px 10px 30px 50px
+/* Candlestick Chart - FIXED */
+.candle-chart-wrapper{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
 }
+
 .chart-grid{
-  position:absolute;inset:20px 10px 30px 50px;
+  position:absolute;inset:20px 60px 40px 50px;
   background-image:
     linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
-  background-size:calc(100%/20) calc(100%/8)
+  background-size:calc(100%/20) calc(100%/8);
+  pointer-events:none
 }
+
 .candles-container{
-  position:absolute;inset:20px 10px 30px 50px;
+  position:absolute;inset:20px 60px 40px 50px;
   display:flex;align-items:flex-end;justify-content:space-around;
-  padding:10px 5px
+  padding:5px 2px
 }
 .candle-bar{
-  display:flex;flex-direction:column;align-items:center;
-  position:relative;width:8px
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  position:relative;width:8px;flex-shrink:0
 }
 .candle-wick{
-  width:1px;background:var(--text-dim);opacity:0.5
+  width:1px;background:var(--text-dim);opacity:0.6;min-height:1px
 }
 .candle-body{
-  width:6px;border-radius:1px
+  width:6px;border-radius:1px;min-height:2px
 }
 .candle-body.green{background:var(--green);box-shadow:0 0 4px rgba(14,203,129,0.3)}
 .candle-body.red{background:var(--red);box-shadow:0 0 4px rgba(246,70,93,0.3)}
 
-/* Price Labels */
+/* Price Labels - FIXED */
 .price-labels{
-  position:absolute;left:8px;top:20px;bottom:30px;
+  position:absolute;left:8px;top:20px;bottom:40px;
   display:flex;flex-direction:column;justify-content:space-between;
+  font-family:'Orbitron',sans-serif;font-size:9px;color:var(--text-muted);
+  text-align:right;width:38px
+}
+
+/* Time Labels */
+.time-labels{
+  position:absolute;left:50px;right:60px;bottom:8px;
+  display:flex;justify-content:space-between;
   font-family:'Orbitron',sans-serif;font-size:9px;color:var(--text-muted)
 }
 
-/* S/R Lines on Chart */
+/* S/R Lines on Chart - FIXED */
 .sr-line-chart{
-  position:absolute;left:50px;right:10px;height:1px;
-  font-size:9px;font-family:'Orbitron',sans-serif;padding-left:6px
+  position:absolute;left:50px;right:60px;height:1px;
+  font-size:9px;font-family:'Orbitron',sans-serif;padding-left:6px;
+  display:flex;align-items:center;pointer-events:none
 }
 .sr-line-chart.support{background:rgba(14,203,129,0.3);border-top:1px dashed var(--green);color:var(--green)}
 .sr-line-chart.resistance{background:rgba(246,70,93,0.3);border-top:1px dashed var(--red);color:var(--red)}
@@ -247,13 +256,12 @@ html,body{
 .ind-chip-val.red{color:var(--red)}
 .ind-chip-val.gold{color:var(--gold)}
 
-/* RIGHT PANEL - SIGNAL & SETTINGS */
+/* RIGHT PANEL - Signal & Settings */
 .right-panel{
   background:var(--bg-panel);border-left:1px solid var(--border);
   display:flex;flex-direction:column;overflow:hidden
 }
 
-/* Strategy Settings */
 .strategy-box{padding:16px 20px;border-bottom:1px solid var(--border)}
 .strategy-title{
   font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;
@@ -265,7 +273,6 @@ html,body{
 .setting-label{font-size:12px;color:var(--text-dim)}
 .setting-val{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--gold)}
 
-/* Mode Selector */
 .mode-selector{display:flex;gap:6px;margin-bottom:16px}
 .mode-btn{
   flex:1;padding:10px 6px;border-radius:10px;border:1px solid var(--border);
@@ -279,7 +286,6 @@ html,body{
   border-color:var(--gold);color:var(--gold)
 }
 
-/* Scan Button */
 .scan-btn{
   width:100%;padding:16px;margin-top:8px;
   background:linear-gradient(135deg,var(--gold),var(--gold-dark));
@@ -290,7 +296,6 @@ html,body{
 .scan-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(240,185,11,0.25)}
 .scan-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
 
-/* Signal Result */
 .signal-result{
   display:none;margin-top:16px;padding:20px;border-radius:16px;
   border:1px solid;text-align:center;animation:signalPop 0.5s ease
@@ -329,7 +334,6 @@ html,body{
 
 .signal-info{font-size:11px;color:var(--text-dim);line-height:1.6}
 
-/* S/R List */
 .sr-list{margin-top:12px}
 .sr-item{
   display:flex;justify-content:space-between;align-items:center;
@@ -341,7 +345,6 @@ html,body{
 .sr-item-type.resistance{color:var(--red)}
 .sr-item-price{font-family:'Orbitron',sans-serif;font-weight:700}
 
-/* Loading */
 .loading-overlay{
   display:none;position:fixed;inset:0;z-index:1000;
   background:rgba(11,14,17,0.9);backdrop-filter:blur(10px);
@@ -356,7 +359,6 @@ html,body{
 .loading-text{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:2px}
 .loading-sub{font-size:12px;color:var(--text-dim);margin-top:8px}
 
-/* History */
 .history-list{max-height:200px;overflow-y:auto}
 .history-item{
   display:flex;justify-content:space-between;align-items:center;
@@ -368,13 +370,23 @@ html,body{
 .history-signal.sell{color:var(--red)}
 .history-signal.wait{color:var(--cyan)}
 
+/* Mobile Menu Toggle */
+.mobile-toggle{
+  display:none;width:36px;height:36px;border-radius:8px;
+  background:var(--bg-card);border:1px solid var(--border);
+  align-items:center;justify-content:center;cursor:pointer;
+  font-size:18px;color:var(--gold)
+}
+
 /* Responsive */
 @media(max-width:1200px){
   .main-area{grid-template-columns:240px 1fr 280px}
 }
-@media(max-width:900px){
+@media(max-width:1024px){
   .main-area{grid-template-columns:1fr}
   .left-panel,.right-panel{display:none}
+  .center-panel{width:100%}
+  .mobile-toggle{display:flex}
 }
 
 ::-webkit-scrollbar{width:4px}
@@ -400,7 +412,7 @@ html,body{
       <label>Password</label>
       <input type="password" id="password" value="pro123" placeholder="Enter password">
     </div>
-    <button class="login-btn" onclick="doLogin()">🔓 ACCESS PLATFORM</button>
+    <button class="login-btn" onclick="doLogin()">&#128274; ACCESS PLATFORM</button>
   </div>
 </div>
 
@@ -414,7 +426,8 @@ html,body{
       <div class="topbar-brand">LUBNA <span>ABUBAKAR</span></div>
     </div>
     <div class="topbar-right">
-      <div class="topbar-pill dot">● LIVE MARKET</div>
+      <div class="topbar-pill"><span class="dot"></span> LIVE MARKET</div>
+      <div class="mobile-toggle" onclick="toggleMobilePanel()">&#9776;</div>
     </div>
   </div>
   
@@ -422,26 +435,26 @@ html,body{
   <div class="main-area">
     
     <!-- LEFT - Asset List -->
-    <div class="left-panel">
+    <div class="left-panel" id="leftPanel">
       <div class="panel-header">
-        <span class="panel-title">📊 Assets</span>
+        <span class="panel-title">&#128202; Assets</span>
       </div>
-      <div class="panel-body">
-        <div class="asset-item active" onclick="selectAsset('USD-BRL')">
+      <div class="panel-body" id="assetList">
+        <div class="asset-item active" data-asset="USD-BRL" onclick="selectAsset(this, 'USD-BRL')">
           <div><div class="asset-name">USD/BRL</div><div style="font-size:11px;color:var(--text-muted)">OTC</div></div>
-          <div style="text-align:right"><div class="asset-price up" id="priceBRL">5.1102</div><div class="asset-change up">+0.12%</div></div>
+          <div style="text-align:right"><div class="asset-price up" id="priceBRL">5.1102</div><div class="asset-change up" id="changeBRL">+0.12%</div></div>
         </div>
-        <div class="asset-item" onclick="selectAsset('USD-INR')">
+        <div class="asset-item" data-asset="USD-INR" onclick="selectAsset(this, 'USD-INR')">
           <div><div class="asset-name">USD/INR</div><div style="font-size:11px;color:var(--text-muted)">OTC</div></div>
-          <div style="text-align:right"><div class="asset-price down" id="priceINR">83.245</div><div class="asset-change down">-0.08%</div></div>
+          <div style="text-align:right"><div class="asset-price down" id="priceINR">83.245</div><div class="asset-change down" id="changeINR">-0.08%</div></div>
         </div>
-        <div class="asset-item" onclick="selectAsset('USD-PKR')">
+        <div class="asset-item" data-asset="USD-PKR" onclick="selectAsset(this, 'USD-PKR')">
           <div><div class="asset-name">USD/PKR</div><div style="font-size:11px;color:var(--text-muted)">OTC</div></div>
-          <div style="text-align:right"><div class="asset-price up" id="pricePKR">278.52</div><div class="asset-change up">+0.05%</div></div>
+          <div style="text-align:right"><div class="asset-price up" id="pricePKR">278.52</div><div class="asset-change up" id="changePKR">+0.05%</div></div>
         </div>
-        <div class="asset-item" onclick="selectAsset('USD-MXN')">
+        <div class="asset-item" data-asset="USD-MXN" onclick="selectAsset(this, 'USD-MXN')">
           <div><div class="asset-name">USD/MXN</div><div style="font-size:11px;color:var(--text-muted)">OTC</div></div>
-          <div style="text-align:right"><div class="asset-price up" id="priceMXN">17.823</div><div class="asset-change up">+0.21%</div></div>
+          <div style="text-align:right"><div class="asset-price up" id="priceMXN">17.823</div><div class="asset-change up" id="changeMXN">+0.21%</div></div>
         </div>
       </div>
     </div>
@@ -457,26 +470,29 @@ html,body{
       </div>
       
       <div class="tf-tabs">
-        <button class="tf-tab active">1M</button>
-        <button class="tf-tab">5M</button>
-        <button class="tf-tab">15M</button>
-        <button class="tf-tab">1H</button>
+        <button class="tf-tab active" onclick="setTimeframe(this, '1M')">1M</button>
+        <button class="tf-tab" onclick="setTimeframe(this, '5M')">5M</button>
+        <button class="tf-tab" onclick="setTimeframe(this, '15M')">15M</button>
+        <button class="tf-tab" onclick="setTimeframe(this, '1H')">1H</button>
       </div>
       
       <div class="chart-area" id="chartArea">
+        <div class="chart-grid" id="chartGrid"></div>
         <div class="price-labels" id="priceLabels"></div>
+        <div class="time-labels" id="timeLabels"></div>
         <div class="candles-container" id="candlesContainer"></div>
+        <div id="srLinesContainer"></div>
       </div>
       
       <div class="indicators-bar" id="indicatorsBar"></div>
     </div>
     
     <!-- RIGHT - Signal & Settings -->
-    <div class="right-panel">
+    <div class="right-panel" id="rightPanel">
       
       <!-- Strategy Settings -->
       <div class="strategy-box">
-        <div class="strategy-title">⚙️ Strategy Settings</div>
+        <div class="strategy-title">&#9881; Strategy Settings</div>
         <div class="mode-selector">
           <button class="mode-btn active" id="modeSafe" onclick="setMode('safe')">SAFE</button>
           <button class="mode-btn" id="modeBalanced" onclick="setMode('balanced')">BALANCED</button>
@@ -498,7 +514,7 @@ html,body{
       
       <!-- Scan -->
       <div class="panel-body">
-        <button class="scan-btn" id="scanBtn" onclick="scanMarket()">⚡ ANALYZE MARKET</button>
+        <button class="scan-btn" id="scanBtn" onclick="scanMarket()">&#9889; ANALYZE MARKET</button>
         
         <!-- Signal Result -->
         <div class="signal-result" id="signalResult">
@@ -511,7 +527,7 @@ html,body{
       
       <!-- History -->
       <div class="panel-header">
-        <span class="panel-title">📈 Recent Signals</span>
+        <span class="panel-title">&#128200; Recent Signals</span>
       </div>
       <div class="panel-body">
         <div class="history-list" id="historyList">
@@ -533,7 +549,16 @@ html,body{
 <script>
 let currentMode = 'safe';
 let currentAsset = 'USD-BRL';
+let currentTimeframe = '1M';
 let signalHistory = [];
+let priceInterval = null;
+
+const assetData = {
+  'USD-BRL': { name: 'USD/BRL', base: 5.05, price: 5.1102, change: 0.12 },
+  'USD-INR': { name: 'USD/INR', base: 83.2, price: 83.245, change: -0.08 },
+  'USD-PKR': { name: 'USD/PKR', base: 278.5, price: 278.52, change: 0.05 },
+  'USD-MXN': { name: 'USD/MXN', base: 17.8, price: 17.823, change: 0.21 }
+};
 
 function doLogin(){
   let u = document.getElementById('username').value.trim();
@@ -542,6 +567,7 @@ function doLogin(){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('appScreen').style.display = 'block';
     generateChart();
+    startPriceUpdates();
   } else {
     alert('Invalid Login!\\nUsername: Lubna\\nPassword: pro123');
   }
@@ -555,31 +581,74 @@ function setMode(m){
   currentMode = m;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('mode'+m.charAt(0).toUpperCase()+m.slice(1)).classList.add('active');
+  
+  let risk = m === 'safe' ? '2.0%' : m === 'balanced' ? '5.0%' : '10.0%';
+  let amount = m === 'safe' ? '$2.00' : m === 'balanced' ? '$5.00' : '$10.00';
+  document.getElementById('settingRisk').textContent = risk;
+  document.getElementById('settingAmount').textContent = amount;
 }
 
-function selectAsset(asset){
-  currentAsset = asset;
-  document.querySelectorAll('.asset-item').forEach(i => i.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  
-  let names = {'USD-BRL':'USD/BRL','USD-INR':'USD/INR','USD-PKR':'USD/PKR','USD-MXN':'USD/MXN'};
-  let prices = {'USD-BRL':'5.1102','USD-INR':'83.245','USD-PKR':'278.52','USD-MXN':'17.823'};
-  document.getElementById('chartPair').innerHTML = names[asset] + ' <span>OTC</span>';
-  document.getElementById('chartPrice').textContent = prices[asset];
+function setTimeframe(btn, tf){
+  currentTimeframe = tf;
+  document.querySelectorAll('.tf-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   generateChart();
 }
 
+function selectAsset(element, asset){
+  currentAsset = asset;
+  document.querySelectorAll('.asset-item').forEach(i => i.classList.remove('active'));
+  element.classList.add('active');
+  
+  let data = assetData[asset];
+  document.getElementById('chartPair').innerHTML = data.name + ' <span>OTC</span>';
+  document.getElementById('chartPrice').textContent = data.price.toFixed(data.base < 10 ? 4 : 3);
+  document.getElementById('chartPrice').className = 'chart-price ' + (data.change >= 0 ? 'up' : 'down');
+  generateChart();
+}
+
+function startPriceUpdates(){
+  if(priceInterval) clearInterval(priceInterval);
+  priceInterval = setInterval(() => {
+    Object.keys(assetData).forEach(key => {
+      let data = assetData[key];
+      let change = (Math.random() - 0.5) * 0.002 * data.base;
+      data.price += change;
+      data.change = (change / data.price) * 100;
+      
+      let priceEl = document.getElementById('price' + key.split('-')[1]);
+      let changeEl = document.getElementById('change' + key.split('-')[1]);
+      if(priceEl && changeEl){
+        priceEl.textContent = data.price.toFixed(data.base < 10 ? 4 : 3);
+        changeEl.textContent = (data.change >= 0 ? '+' : '') + data.change.toFixed(2) + '%';
+        priceEl.className = 'asset-price ' + (data.change >= 0 ? 'up' : 'down');
+        changeEl.className = 'asset-change ' + (data.change >= 0 ? 'up' : 'down');
+      }
+      
+      if(key === currentAsset){
+        document.getElementById('chartPrice').textContent = data.price.toFixed(data.base < 10 ? 4 : 3);
+        document.getElementById('chartPrice').className = 'chart-price ' + (data.change >= 0 ? 'up' : 'down');
+      }
+    });
+  }, 2000);
+}
+
 function generateData(asset){
-  let base = asset === 'USD-BRL' ? 5.05 : asset === 'USD-INR' ? 83.2 : asset === 'USD-PKR' ? 278.5 : 17.8;
-  base += Math.random() * 0.1;
+  let data = assetData[asset];
+  let base = data.price;
   let candles = [];
+  let prevClose = base;
+  
   for(let i = 0; i < 30; i++){
-    let change = (Math.random() - 0.5) * 0.002 * base;
-    let c = base + change;
-    let o = i === 0 ? base : candles[i-1].c;
-    let wick = Math.abs(change) * 0.6 + Math.random() * 0.0008 * base;
-    candles.push({o:o, h:Math.max(o,c)+wick, l:Math.min(o,c)-wick, c:c});
-    base = c;
+    let change = (Math.random() - 0.5) * 0.003 * base;
+    let open = prevClose;
+    let close = open + change;
+    let wick = Math.abs(change) * 0.5 + Math.random() * 0.001 * base;
+    let high = Math.max(open, close) + wick;
+    let low = Math.min(open, close) - wick;
+    
+    candles.push({o: open, h: high, l: low, c: close});
+    prevClose = close;
   }
   return candles;
 }
@@ -588,7 +657,13 @@ function generateChart(){
   let candles = generateData(currentAsset);
   let container = document.getElementById('candlesContainer');
   let labels = document.getElementById('priceLabels');
+  let timeLabels = document.getElementById('timeLabels');
+  let srContainer = document.getElementById('srLinesContainer');
+  
   container.innerHTML = '';
+  labels.innerHTML = '';
+  timeLabels.innerHTML = '';
+  srContainer.innerHTML = '';
   
   let highs = candles.map(c => c.h);
   let lows = candles.map(c => c.l);
@@ -596,35 +671,68 @@ function generateChart(){
   let minL = Math.min(...lows);
   let range = maxH - minL || 1;
   
-  // Price labels
-  labels.innerHTML = '';
+  // Price labels (right side now)
+  let priceLabelsDiv = document.createElement('div');
+  priceLabelsDiv.className = 'price-labels';
+  priceLabelsDiv.style.left = 'auto';
+  priceLabelsDiv.style.right = '8px';
+  priceLabelsDiv.style.textAlign = 'left';
+  priceLabelsDiv.style.width = '50px';
+  
   for(let i = 5; i >= 0; i--){
     let price = minL + (range * i / 5);
     let div = document.createElement('div');
     div.textContent = price.toFixed(4);
-    labels.appendChild(div);
+    priceLabelsDiv.appendChild(div);
+  }
+  labels.appendChild(priceLabelsDiv);
+  
+  // Time labels
+  let now = new Date();
+  for(let i = 0; i <= 5; i++){
+    let div = document.createElement('div');
+    let mins = (5 - i) * (currentTimeframe === '1M' ? 1 : currentTimeframe === '5M' ? 5 : currentTimeframe === '15M' ? 15 : 60);
+    let t = new Date(now.getTime() - mins * 60000);
+    div.textContent = t.getHours().toString().padStart(2,'0') + ':' + t.getMinutes().toString().padStart(2,'0');
+    timeLabels.appendChild(div);
   }
   
-  // Candles
-  candles.forEach(c => {
+  // S/R levels for chart overlay
+  let levels = findSR(candles);
+  let chartArea = document.getElementById('chartArea');
+  let chartRect = chartArea.getBoundingClientRect();
+  
+  levels.forEach(l => {
+    let pct = 100 - ((l.price - minL) / range) * 100;
+    let line = document.createElement('div');
+    line.className = 'sr-line-chart ' + l.type;
+    line.style.top = (20 + (pct * (chartRect.height - 60) / 100)) + 'px';
+    line.textContent = l.type.toUpperCase() + ' ' + l.price.toFixed(4);
+    srContainer.appendChild(line);
+  });
+  
+  // Candles - FIXED positioning
+  candles.forEach((c, idx) => {
     let bar = document.createElement('div');
     bar.className = 'candle-bar';
     
-    let hPct = ((c.h - minL) / range) * 100;
-    let lPct = ((c.l - minL) / range) * 100;
-    let oPct = ((c.o - minL) / range) * 100;
-    let cPct = ((c.c - minL) / range) * 100;
-    
-    let topWick = Math.abs(100 - Math.max(oPct, cPct) - (100 - hPct));
-    let body = Math.abs(cPct - oPct);
-    let botWick = Math.abs(Math.min(oPct, cPct) - lPct);
-    
     let isGreen = c.c >= c.o;
+    let bodyTop = Math.max(c.o, c.c);
+    let bodyBottom = Math.min(c.o, c.c);
+    
+    let topWickHeight = ((c.h - bodyTop) / range) * 100;
+    let bodyHeight = ((bodyTop - bodyBottom) / range) * 100;
+    let botWickHeight = ((bodyBottom - c.l) / range) * 100;
+    
+    // Ensure minimum visibility
+    topWickHeight = Math.max(topWickHeight * 0.8, 1);
+    bodyHeight = Math.max(bodyHeight * 0.8, 2);
+    botWickHeight = Math.max(botWickHeight * 0.8, 1);
     
     bar.innerHTML = `
-      <div class="candle-wick" style="height:${Math.max(topWick * 0.8, 2)}px"></div>
-      <div class="candle-body ${isGreen ? 'green' : 'red'}" style="height:${Math.max(body * 0.8, 3)}px"></div>
-      <div class="candle-wick" style="height:${Math.max(botWick * 0.8, 2)}px"></div>
+      <div class="candle-wick" style="height:${topWickHeight}%"></div>
+      <div class="candle-body ${isGreen ? 'green' : 'red'}" style="height:${bodyHeight}%"></div>
+      <div class="candle-wick" style="height:${botWickHeight}%"></div>
     `;
     container.appendChild(bar);
   });
@@ -767,7 +875,6 @@ function scanMarket(){
     let levels = findSR(candles);
     let pattern = detectPattern(candles[candles.length-2], candles[candles.length-1]);
     
-    // All indicators
     let rsi = calculateRSI(candles);
     let macd = calculateMACD(candles);
     let bb = calculateBB(candles);
@@ -781,7 +888,6 @@ function scanMarket(){
     let ema50 = calculateEMA(closes, 50);
     let sma20 = calculateSMA(closes, 20);
     
-    // Update indicators bar
     let indHtml = `
       <div class="ind-chip"><span class="ind-chip-name">RSI</span><span class="ind-chip-val ${rsi<30?'green':rsi>70?'red':'gold'}">${rsi.toFixed(1)}</span></div>
       <div class="ind-chip"><span class="ind-chip-name">MACD</span><span class="ind-chip-val ${macd.hist>0?'green':'red'}">${macd.hist.toFixed(3)}</span></div>
@@ -796,7 +902,6 @@ function scanMarket(){
     `;
     document.getElementById('indicatorsBar').innerHTML = indHtml;
     
-    // Signal logic
     let minConf = currentMode === 'safe' ? 70 : currentMode === 'balanced' ? 50 : 35;
     let conf = 0, reasons = [];
     let signal = 'WAIT', color = 'wait';
@@ -822,13 +927,11 @@ function scanMarket(){
       conf = 30; reasons.push('Mid-range'); reasons.push('Wait for S/R');
     }
     
-    // Show result
     result.className = 'signal-result ' + color;
     document.getElementById('signalBadge').textContent = color === 'buy' ? 'BUY SIGNAL' : color === 'sell' ? 'SELL SIGNAL' : 'NO SIGNAL';
     document.getElementById('signalText').textContent = signal;
     document.getElementById('signalInfo').textContent = reasons.join(' | ') + ' | Confidence: ' + conf + '%';
     
-    // S/R list
     let srHtml = '';
     levels.forEach(l => {
       srHtml += `<div class="sr-item"><span class="sr-item-type ${l.type}">${l.type}</span><span class="sr-item-price">${l.price.toFixed(4)}</span></div>`;
@@ -837,7 +940,6 @@ function scanMarket(){
     
     result.style.display = 'block';
     
-    // Add history
     addHistory(signal, conf);
     generateChart();
     
@@ -846,7 +948,7 @@ function scanMarket(){
 
 function addHistory(signal, conf){
   let now = new Date();
-  let time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  let time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0');
   let result = signal === 'WAIT' ? 'WAIT' : Math.random() > 0.4 ? 'WIN' : 'LOSS';
   
   signalHistory.unshift({time, asset: currentAsset, signal, conf, result});
@@ -854,9 +956,26 @@ function addHistory(signal, conf){
   
   let html = '';
   signalHistory.forEach(h => {
-    html += `<div class="history-item"><span class="history-time">${h.time}</span><span style="color:var(--text-dim)">${h.asset}</span><span class="history-signal ${h.signal.toLowerCase()}">${h.signal}</span><span style="font-family:'Orbitron',sans-serif;color:var(--gold)">${h.conf}%</span><span style="color:${h.result==='WIN'?'var(--green)':h.result==='LOSS'?'var(--red)':'var(--cyan)'};font-weight:700">${h.result}</span></div>`;
+    let resultColor = h.result === 'WIN' ? 'var(--green)' : h.result === 'LOSS' ? 'var(--red)' : 'var(--cyan)';
+    html += `<div class="history-item"><span class="history-time">${h.time}</span><span style="color:var(--text-dim)">${h.asset}</span><span class="history-signal ${h.signal.toLowerCase()}">${h.signal}</span><span style="font-family:'Orbitron',sans-serif;color:var(--gold)">${h.conf}%</span><span style="color:${resultColor};font-weight:700">${h.result}</span></div>`;
   });
   document.getElementById('historyList').innerHTML = html;
+}
+
+function toggleMobilePanel(){
+  let left = document.getElementById('leftPanel');
+  let right = document.getElementById('rightPanel');
+  if(left.style.display === 'none' || left.style.display === ''){
+    left.style.display = 'flex';
+    left.style.position = 'fixed';
+    left.style.left = '0';
+    left.style.top = '60px';
+    left.style.width = '280px';
+    left.style.height = 'calc(100vh - 60px)';
+    left.style.zIndex = '100';
+  } else {
+    left.style.display = 'none';
+  }
 }
 </script>
 </body>
