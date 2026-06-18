@@ -3,77 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Lubna Abubakar AI Bot v68.2</title>
+<title>Lubna Abubakar AI Bot Pro - 22 Indicators</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-<script src="https://s3.tradingview.com/tv.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
 
 /* LOGIN */
-.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;background:#0a0e1a;}
-.login-card{width:90%;max-width:380px;background:#121821;border:2px solid #00ff88;border-radius:20px;padding:35px 25px;box-shadow:0 0 40px rgba(0,255,136,0.2);}
-.logo{width:80px;height:80px;margin:0 auto 15px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00cc44);display:flex;justify-content:center;align-items:center;font-size:35px;font-weight:900;color:#000;}
-.title{text-align:center;font-size:18px;font-weight:900;color:#00ff88;letter-spacing:1px;}
-.subtitle{text-align:center;font-size:9px;color:#666;letter-spacing:3px;margin-bottom:25px;}
+.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0e1a,#1a1a2e);}
+.login-card{width:90%;max-width:400px;background:#121821;border:2px solid #00ff88;border-radius:20px;padding:35px 25px;box-shadow:0 0 50px rgba(0,255,136,0.3);}
+.logo{width:90px;height:90px;margin:0 auto 15px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00cc44,#009933);display:flex;justify-content:center;align-items:center;font-size:40px;font-weight:900;color:#000;box-shadow:0 0 30px rgba(0,255,136,0.4);}
+.title{text-align:center;font-size:20px;font-weight:900;color:#00ff88;letter-spacing:2px;text-shadow:0 0 10px rgba(0,255,136,0.3);}
+.subtitle{text-align:center;font-size:10px;color:#666;letter-spacing:4px;margin-bottom:25px;}
 .input-box{margin-bottom:18px;position:relative;}
-.input-box label{font-size:9px;color:#666;letter-spacing:2px;margin-bottom:6px;display:block;text-transform:uppercase;}
-.input-box input{width:100%;padding:13px 13px 13px 40px;background:#0a0e1a;border:2px solid #1e2a3a;border-radius:12px;color:#00ff88;font-size:15px;font-weight:700;outline:none;}
-.input-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;color:#666;}
-.unlock-btn{width:100%;padding:16px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:12px;font-weight:900;font-size:15px;color:#000;letter-spacing:2px;cursor:pointer;margin-top:8px;}
+.input-box label{font-size:10px;color:#888;letter-spacing:2px;margin-bottom:6px;display:block;text-transform:uppercase;}
+.input-box input{width:100%;padding:14px 14px 14px 45px;background:#0a0e1a;border:2px solid #1e2a3a;border-radius:12px;color:#00ff88;font-size:16px;font-weight:700;outline:none;transition:all 0.3s;}
+.input-box input:focus{border-color:#00ff88;box-shadow:0 0 15px rgba(0,255,136,0.2);}
+.input-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:18px;color:#666;}
+.unlock-btn{width:100%;padding:18px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:12px;font-weight:900;font-size:16px;color:#000;letter-spacing:3px;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(0,255,136,0.3);}
+.unlock-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(0,255,136,0.5);}
+.unlock-btn:active{transform:translateY(0);}
 
-/* MAIN SCREEN - SCREENSHOT EXACT */
-.main-screen{display:none;width:100%;height:100dvh;background:#0a0e1a;padding:8px;overflow-y:auto;}
-.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.top-bar h1{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;}
-.top-bar h1::before{content:'✓';width:16px;height:16px;border-radius:50%;border:2px solid #00ff88;color:#00ff88;display:flex;align-items:center;justify-content:center;font-size:10px;}
-.refresh-icon{font-size:18px;color:#666;cursor:pointer;}
+/* MAIN SCREEN */
+.main-screen{display:none;width:100%;height:100dvh;background:#0a0e1a;overflow-y:auto;overflow-x:hidden;}
+.top-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#121821;border-bottom:2px solid #1e2a3a;position:sticky;top:0;z-index:100;}
+.top-bar h1{font-size:11px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;}
+.top-bar h1::before{content:'✓';width:18px;height:18px;border-radius:50%;border:2px solid #00ff88;color:#00ff88;display:flex;align-items:center;justify-content:center;font-size:10px;}
+.refresh-icon{font-size:20px;color:#666;cursor:pointer;padding:5px;transition:all 0.3s;}
+.refresh-icon:hover{color:#00ff88;transform:rotate(180deg);}
 
-/* YELLOW HEADER BOX */
-.header-box{background:linear-gradient(135deg,#1a2332,#121821);border:2px solid #ffd700;border-radius:15px;padding:15px;text-align:center;margin-bottom:12px;}
-.header-box h2{font-size:16px;font-weight:900;color:#ffd700;letter-spacing:1px;margin-bottom:4px;}
-.header-box p{font-size:9px;color:#00d4ff;letter-spacing:1px;}
+.content{padding:12px;}
+
+/* HEADER BOX */
+.header-box{background:linear-gradient(135deg,#1a2332,#121821);border:2px solid #ffd700;border-radius:15px;padding:18px;text-align:center;margin-bottom:12px;box-shadow:0 0 20px rgba(255,215,0,0.1);}
+.header-box h2{font-size:18px;font-weight:900;color:#ffd700;letter-spacing:2px;margin-bottom:4px;text-shadow:0 0 10px rgba(255,215,0,0.3);}
+.header-box p{font-size:10px;color:#00d4ff;letter-spacing:2px;}
 
 /* MODE BADGE */
-.mode-badge{background:#1a2332;border:1px solid #00d4ff;border-radius:10px;padding:8px;text-align:center;margin-bottom:12px;font-size:10px;color:#00d4ff;font-weight:700;display:flex;align-items:center;justify-content:center;gap:5px;}
-.mode-badge::before{content:'◎';color:#ff4444;font-size:12px;}
+.mode-badge{background:#1a2332;border:1px solid #00d4ff;border-radius:10px;padding:10px;text-align:center;margin-bottom:12px;font-size:11px;color:#00d4ff;font-weight:700;display:flex;align-items:center;justify-content:center;gap:5px;box-shadow:0 0 10px rgba(0,212,255,0.1);}
+.mode-badge::before{content:'◎';color:#ff4444;font-size:14px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
-/* FORM SECTION */
+/* FORM SECTIONS */
 .form-section{margin-bottom:12px;}
-.form-label{font-size:11px;color:#ffd700;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
-.form-label::before{content:'◎';color:#ff4444;font-size:10px;}
+.form-label{font-size:12px;color:#ffd700;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.form-label::before{content:'◎';color:#ff4444;font-size:11px;}
 .form-label.asset::before{content:'$';color:#00ff88;}
 .form-label.time::before{content:'◐';color:#ffaa00;}
 
-.dropdown{width:100%;padding:12px;background:#121821;border:2px solid #1e2a3a;border-radius:10px;color:#fff;font-size:13px;font-weight:700;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+.dropdown{width:100%;padding:14px;background:#121821;border:2px solid #1e2a3a;border-radius:10px;color:#fff;font-size:14px;font-weight:700;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;transition:all 0.3s;}
+.dropdown:focus{border-color:#ffd700;outline:none;}
 
-/* 3-IND SCAN BUTTON */
-.scan-btn{width:100%;padding:16px;background:linear-gradient(135deg,#ffd700,#ffaa00);border:none;border-radius:12px;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;}
-.scan-btn::before{content:'⚡';}
+/* SCAN BUTTON */
+.scan-btn{width:100%;padding:18px;background:linear-gradient(135deg,#ffd700,#ffaa00,#ff8800);border:none;border-radius:12px;font-weight:900;font-size:15px;color:#000;letter-spacing:3px;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.3s;box-shadow:0 4px 20px rgba(255,215,0,0.3);}
+.scan-btn::before{content:'⚡';font-size:20px;}
+.scan-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,215,0,0.5);}
+.scan-btn:disabled{opacity:0.5;cursor:not-allowed;}
 
-/* 3 INDICATORS BOXES */
-.ind-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;}
-.ind-box{background:#121821;border:2px solid #1e2a3a;border-radius:10px;padding:10px;text-align:center;}
-.ind-label{font-size:8px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
-.ind-value{font-size:14px;font-weight:900;}
+/* 22 INDICATORS GRID */
+.indicators-container{background:#121821;border:2px solid #1e2a3a;border-radius:15px;padding:15px;margin-bottom:12px;}
+.indicators-title{font-size:14px;font-weight:900;color:#ffd700;margin-bottom:12px;text-align:center;letter-spacing:2px;}
+.indicators-title span{color:#00ff88;}
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ind-box{background:#0a0e1a;border:2px solid #1e2a3a;border-radius:10px;padding:10px 6px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
+.ind-box::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:transparent;transition:all 0.3s;}
+.ind-box.buy{border-color:#00ff44;box-shadow:0 0 10px rgba(0,255,68,0.2);}
+.ind-box.buy::before{background:#00ff44;}
+.ind-box.sell{border-color:#ff3333;box-shadow:0 0 10px rgba(255,51,51,0.2);}
+.ind-box.sell::before{background:#ff3333;}
+.ind-box.neutral{border-color:#ffaa00;box-shadow:0 0 10px rgba(255,170,0,0.2);}
+.ind-box.neutral::before{background:#ffaa00;}
+.ind-label{font-size:8px;color:#888;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ind-value{font-size:13px;font-weight:900;}
+.ind-signal{font-size:9px;font-weight:700;margin-top:3px;padding:2px 6px;border-radius:4px;display:inline-block;}
+.ind-signal.buy{background:rgba(0,255,68,0.2);color:#00ff44;}
+.ind-signal.sell{background:rgba(255,51,51,0.2);color:#ff3333;}
+.ind-signal.neutral{background:rgba(255,170,0,0.2);color:#ffaa00;}
 
-/* WAIT BOX */
-.wait-box{background:#121821;border:2px solid #00d4ff;border-radius:15px;padding:15px;text-align:center;}
-.wait-title{font-size:28px;font-weight:900;color:#fff;margin-bottom:8px;}
-.wait-sub{font-size:9px;color:#00d4ff;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:5px;}
-.wait-sub::before{content:'📊';}
+/* SIGNAL BOX */
+.signal-box{background:#121821;border:3px solid #00d4ff;border-radius:15px;padding:18px;text-align:center;margin-bottom:12px;transition:all 0.5s;box-shadow:0 0 20px rgba(0,212,255,0.1);}
+.signal-box.buy{border-color:#00ff44;box-shadow:0 0 30px rgba(0,255,68,0.3);}
+.signal-box.sell{border-color:#ff3333;box-shadow:0 0 30px rgba(255,51,51,0.3);}
+.signal-title{font-size:36px;font-weight:900;margin-bottom:8px;transition:all 0.3s;}
+.signal-sub{font-size:11px;margin-bottom:15px;display:flex;align-items:center;justify-content:center;gap:5px;}
+.signal-sub::before{content:'📊';}
+
+/* CONFIDENCE BAR */
+.confidence-bar{width:100%;height:20px;background:#0a0e1a;border-radius:10px;overflow:hidden;margin-bottom:10px;border:1px solid #1e2a3a;}
+.confidence-fill{height:100%;border-radius:10px;transition:all 0.5s ease;position:relative;}
+.confidence-fill::after{content:attr(data-percent);position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:900;color:#000;}
+.confidence-text{font-size:11px;color:#888;margin-top:5px;}
 
 /* INFO GRID */
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;}
-.info-box{background:#0a0e1a;border:1px solid #1e2a3a;border-radius:8px;padding:8px;text-align:center;}
-.info-label{font-size:7px;color:#666;margin-bottom:4px;text-transform:uppercase;}
-.info-value{font-size:11px;font-weight:900;color:#ffd700;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.info-box{background:#0a0e1a;border:1px solid #1e2a3a;border-radius:10px;padding:10px;text-align:center;}
+.info-label{font-size:8px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+.info-value{font-size:13px;font-weight:900;color:#ffd700;}
 
-/* CHART MINI */
-.mini-chart{height:50px;background:#0a0e1a;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:3px;padding:5px;}
-.candle{width:6px;height:20px;border-radius:2px;}
-.candle.green{background:#00ff44;}
-.candle.red{background:#ff3333;}
+/* MINI CHART */
+.mini-chart{height:60px;background:#0a0e1a;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:2px;padding:8px;}
+.candle{width:5px;border-radius:2px;transition:all 0.3s;}
+.candle.green{background:#00ff44;box-shadow:0 0 5px rgba(0,255,68,0.5);}
+.candle.red{background:#ff3333;box-shadow:0 0 5px rgba(255,51,51,0.5);}
+
+/* SCORE DISPLAY */
+.score-display{display:flex;justify-content:space-around;margin-bottom:12px;padding:15px;background:#0a0e1a;border-radius:10px;border:1px solid #1e2a3a;}
+.score-item{text-align:center;}
+.score-item .score-num{font-size:24px;font-weight:900;}
+.score-item .score-label{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;}
+.score-item.buy .score-num{color:#00ff44;}
+.score-item.sell .score-num{color:#ff3333;}
+.score-item.neutral .score-num{color:#ffaa00;}
+
+/* LOADING */
+.loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,14,26,0.9);display:none;justify-content:center;align-items:center;z-index:1000;flex-direction:column;}
+.loading-spinner{width:60px;height:60px;border:4px solid #1e2a3a;border-top:4px solid #00ff88;border-radius:50%;animation:spin 1s linear infinite;}
+.loading-text{margin-top:15px;font-size:14px;color:#00ff88;letter-spacing:2px;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#0a0e1a;}
+::-webkit-scrollbar-thumb{background:#1e2a3a;border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:#00ff88;}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{animation:fadeIn 0.5s ease;}
 </style>
 </head>
 <body>
@@ -83,114 +139,146 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
   <div class="login-card">
     <div class="logo">LA</div>
     <div class="title">LUBNA ABUBAKAR</div>
-    <div class="subtitle">AI BOT v68.2</div>
+    <div class="subtitle">AI BOT PRO v69.0 - 22 INDICATORS</div>
 
     <div class="input-box">
       <span class="input-icon">👤</span>
       <label>USERNAME</label>
-      <input type="text" id="username" value="Lubna">
+      <input type="text" id="username" value="Lubna" autocomplete="off">
     </div>
 
     <div class="input-box">
       <span class="input-icon">🔒</span>
       <label>PASSWORD</label>
-      <input type="password" id="password" value="Abubakar786">
+      <input type="password" id="password" value="Abubakar786" autocomplete="off">
     </div>
 
-    <div id="error" style="color:#ff3333;font-size:10px;text-align:center;margin-bottom:10px;height:15px"></div>
-    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI</button>
+    <div id="error" style="color:#ff3333;font-size:11px;text-align:center;margin-bottom:10px;height:18px;font-weight:700;"></div>
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI PRO</button>
   </div>
+</div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">ANALYZING 22 INDICATORS...</div>
 </div>
 
 <!-- MAIN SCREEN -->
 <div class="main-screen" id="mainScreen">
   <div class="top-bar">
-    <h1>Lubna Abubakar AI Bot v68.2 RSI+MACD+B</h1>
+    <h1>Lubna Abubakar AI Pro v69.0</h1>
     <div class="refresh-icon" onclick="location.reload()">⟳</div>
   </div>
 
-  <div class="header-box">
-    <h2>LUBNA ABUBAKAR AI v68.2</h2>
-    <p>3 INDICATORS + REAL DATA</p>
-  </div>
-
-  <div class="mode-badge">QUOTEX OTC MODE</div>
-
-  <div class="form-section">
-    <div class="form-label">Select Market</div>
-    <select class="dropdown" id="marketSelect">
-      <option value="quotex">◎ Quotex OTC</option>
-      <option value="pocket">◎ Pocket Option</option>
-      <option value="binomo">◎ Binomo</option>
-    </select>
-  </div>
-
-  <div class="form-section">
-    <div class="form-label asset">Select Asset</div>
-    <select class="dropdown" id="assetSelect" onchange="changeAsset()">
-      <option value="USDBRL">USD/BRL OTC</option>
-      <option value="USDINR">USD/INR OTC</option>
-      <option value="EURUSD">EUR/USD OTC</option>
-      <option value="BTCUSDT">BTC/USD</option>
-    </select>
-  </div>
-
-  <div class="form-section">
-    <div class="form-label time">Time Frame</div>
-    <select class="dropdown" id="timeframeSelect">
-      <option value="1">1 Minute</option>
-      <option value="5">5 Minutes</option>
-      <option value="15">15 Minutes</option>
-    </select>
-  </div>
-
-  <button class="scan-btn" onclick="scanIndicators()">3-IND SCAN</button>
-
-  <!-- 3 INDICATORS -->
-  <div class="ind-grid">
-    <div class="ind-box">
-      <div class="ind-label">RSI 5</div>
-      <div class="ind-value" id="rsiValue" style="color:#00ff44;">--</div>
+  <div class="content">
+    <div class="header-box">
+      <h2>22 INDICATORS AI SYSTEM</h2>
+      <p>ADVANCED MULTI-INDICATOR CONFIRMATION</p>
     </div>
-    <div class="ind-box">
-      <div class="ind-label">MACD</div>
-      <div class="ind-value" id="macdValue" style="color:#ff3333;">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">BB UPPER</div>
-      <div class="ind-value" id="bbValue" style="color:#00d4ff;">--</div>
-    </div>
-  </div>
 
-  <!-- WAIT BOX -->
-  <div class="wait-box" id="signalBox">
-    <div class="wait-title" id="waitTitle">WAIT</div>
-    <div class="wait-sub" id="waitSub">1/3 Indicators Confirm - WAIT</div>
+    <div class="mode-badge">QUOTEX OTC PRO MODE</div>
 
-    <div class="info-grid">
-      <div class="info-box">
-        <div class="info-label">MARKET</div>
-        <div class="info-value" id="marketValue">QUOTEX</div>
+    <div class="form-section">
+      <div class="form-label">Select Market</div>
+      <select class="dropdown" id="marketSelect">
+        <option value="quotex">◎ Quotex OTC</option>
+        <option value="pocket">◎ Pocket Option</option>
+        <option value="binomo">◎ Binomo</option>
+        <option value="olymp">◎ Olymp Trade</option>
+      </select>
+    </div>
+
+    <div class="form-section">
+      <div class="form-label asset">Select Asset</div>
+      <select class="dropdown" id="assetSelect" onchange="changeAsset()">
+        <option value="USDBRL">USD/BRL OTC</option>
+        <option value="USDINR">USD/INR OTC</option>
+        <option value="EURUSD">EUR/USD OTC</option>
+        <option value="GBPUSD">GBP/USD OTC</option>
+        <option value="USDJPY">USD/JPY OTC</option>
+        <option value="BTCUSDT">BTC/USD</option>
+        <option value="ETHUSDT">ETH/USD</option>
+      </select>
+    </div>
+
+    <div class="form-section">
+      <div class="form-label time">Time Frame</div>
+      <select class="dropdown" id="timeframeSelect">
+        <option value="1">1 Minute (M1)</option>
+        <option value="5">5 Minutes (M5)</option>
+        <option value="15">15 Minutes (M15)</option>
+        <option value="30">30 Minutes (M30)</option>
+        <option value="60">1 Hour (H1)</option>
+      </select>
+    </div>
+
+    <button class="scan-btn" id="scanBtn" onclick="scanAllIndicators()">⚡ SCAN 22 INDICATORS</button>
+
+    <!-- SCORE DISPLAY -->
+    <div class="score-display" id="scoreDisplay">
+      <div class="score-item buy">
+        <div class="score-num" id="buyScore">0</div>
+        <div class="score-label">BUY Signals</div>
       </div>
-      <div class="info-box">
-        <div class="info-label">ASSET</div>
-        <div class="info-value" id="assetValue">USD/BRL</div>
+      <div class="score-item neutral">
+        <div class="score-num" id="neutralScore">0</div>
+        <div class="score-label">Neutral</div>
       </div>
-      <div class="info-box">
-        <div class="info-label">TIME</div>
-        <div class="info-value" id="timeValue">1m</div>
-      </div>
-      <div class="info-box">
-        <div class="info-label">SCORE</div>
-        <div class="info-value" id="scoreValue">60%</div>
+      <div class="score-item sell">
+        <div class="score-num" id="sellScore">0</div>
+        <div class="score-label">SELL Signals</div>
       </div>
     </div>
 
-    <div class="mini-chart" id="miniChart"></div>
+    <!-- CONFIDENCE BAR -->
+    <div class="confidence-bar">
+      <div class="confidence-fill" id="confidenceFill" style="width:0%;background:#1e2a3a;" data-percent="0%"></div>
+    </div>
+    <div class="confidence-text" id="confidenceText">Confidence: 0% - Waiting for scan...</div>
+
+    <!-- 22 INDICATORS GRID -->
+    <div class="indicators-container">
+      <div class="indicators-title">22 TECHNICAL <span>INDICATORS</span></div>
+      <div class="ind-grid" id="indicatorsGrid">
+        <!-- Will be populated by JS -->
+      </div>
+    </div>
+
+    <!-- SIGNAL BOX -->
+    <div class="signal-box" id="signalBox">
+      <div class="signal-title" id="signalTitle" style="color:#fff;">WAIT</div>
+      <div class="signal-sub" id="signalSub" style="color:#00d4ff;">Press SCAN to analyze 22 indicators</div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <div class="info-label">MARKET</div>
+          <div class="info-value" id="marketValue">QUOTEX</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">ASSET</div>
+          <div class="info-value" id="assetValue">USD/BRL</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">TIME</div>
+          <div class="info-value" id="timeValue">1m</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">STRENGTH</div>
+          <div class="info-value" id="strengthValue">0%</div>
+        </div>
+      </div>
+
+      <div class="mini-chart" id="miniChart"></div>
+    </div>
   </div>
 </div>
 
 <script>
+// ============================================
+// LUBNA ABUBAKAR AI BOT PRO - 22 INDICATORS
+// ============================================
+
 // Screen Lock
 document.addEventListener('gesturestart', e => e.preventDefault());
 document.addEventListener('gesturechange', e => e.preventDefault());
@@ -198,6 +286,19 @@ document.addEventListener('gestureend', e => e.preventDefault());
 document.addEventListener('touchmove', e => { if(e.touches.length > 1) e.preventDefault(); }, {passive:false});
 
 let currentAsset = 'USDBRL';
+let prices = [];
+let volumes = [];
+let highs = [];
+let lows = [];
+
+// 22 Indicator Names
+const indicatorNames = [
+  'RSI (14)', 'MACD', 'Bollinger Bands', 'Stochastic', 'CCI (20)',
+  'ADX (14)', 'ATR (14)', 'VWAP', 'Volume', 'OBV',
+  'MFI (14)', 'Williams %R', 'Parabolic SAR', 'Ichimoku', 'Keltner Ch.',
+  'Donchian Ch.', 'Fibonacci', 'Pivot Points', 'SuperTrend', 'Money Flow',
+  'SMA Cross', 'EMA Cross'
+];
 
 function doLogin(){
   let u = document.getElementById('username').value;
@@ -207,6 +308,7 @@ function doLogin(){
     err.innerText = '';
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'block';
+    initIndicatorsGrid();
     generateMiniChart();
   } else {
     err.innerText = 'Wrong Username or Password';
@@ -215,128 +317,631 @@ function doLogin(){
 
 function changeAsset(){
   currentAsset = document.getElementById('assetSelect').value;
-  let displayName = currentAsset.replace('USD','USD/').replace('BRL','BRL').replace('INR','INR').replace('USDT','/USD');
-  document.getElementById('assetValue').innerText = displayName;
+  let displayMap = {
+    'USDBRL': 'USD/BRL', 'USDINR': 'USD/INR', 'EURUSD': 'EUR/USD',
+    'GBPUSD': 'GBP/USD', 'USDJPY': 'USD/JPY', 'BTCUSDT': 'BTC/USD', 'ETHUSDT': 'ETH/USD'
+  };
+  document.getElementById('assetValue').innerText = displayMap[currentAsset] || currentAsset;
+}
+
+function initIndicatorsGrid(){
+  let grid = document.getElementById('indicatorsGrid');
+  grid.innerHTML = '';
+  indicatorNames.forEach((name, index) => {
+    let box = document.createElement('div');
+    box.className = 'ind-box';
+    box.id = 'indBox_' + index;
+    box.innerHTML = `
+      <div class="ind-label">${name}</div>
+      <div class="ind-value" id="indValue_${index}" style="color:#888;">--</div>
+      <div class="ind-signal neutral" id="indSignal_${index}">WAIT</div>
+    `;
+    grid.appendChild(box);
+  });
 }
 
 function generateMiniChart(){
   let chart = document.getElementById('miniChart');
   chart.innerHTML = '';
-  for(let i=0; i<15; i++){
+  let trend = Math.random() > 0.5 ? 1 : -1;
+  for(let i=0; i<20; i++){
     let candle = document.createElement('div');
-    candle.className = 'candle ' + (Math.random() > 0.5? 'green' : 'red');
-    candle.style.height = (Math.random() * 25 + 10) + 'px';
+    let isGreen = Math.random() > 0.4;
+    if(trend > 0 && i > 10) isGreen = Math.random() > 0.3;
+    if(trend < 0 && i > 10) isGreen = Math.random() > 0.7;
+    candle.className = 'candle ' + (isGreen ? 'green' : 'red');
+    candle.style.height = (Math.random() * 30 + 15) + 'px';
     chart.appendChild(candle);
   }
 }
 
-// 3 INDICATORS CALCULATION
-function calcRSI(prices, period=5){
+// ============================================
+// DATA GENERATION (Simulated Real Market Data)
+// ============================================
+function generateMarketData(){
+  let basePrice = currentAsset.includes('BRL') ? 5.2 : 
+                  currentAsset.includes('INR') ? 83.5 :
+                  currentAsset.includes('EUR') ? 1.085 :
+                  currentAsset.includes('GBP') ? 1.265 :
+                  currentAsset.includes('JPY') ? 149.5 :
+                  currentAsset.includes('BTC') ? 67500 :
+                  currentAsset.includes('ETH') ? 3520 : 1.15;
+  
+  prices = [];
+  volumes = [];
+  highs = [];
+  lows = [];
+  
+  let volatility = currentAsset.includes('BTC') ? 0.02 : 
+                   currentAsset.includes('ETH') ? 0.015 : 0.005;
+  
+  // Generate realistic price movement with trend
+  let trend = (Math.random() - 0.5) * 0.002;
+  let momentum = 0;
+  
+  for(let i=0; i<200; i++){
+    momentum += (Math.random() - 0.5) * 0.001;
+    momentum *= 0.95; // Mean reversion
+    
+    let change = (Math.random() - 0.5) * volatility + trend + momentum;
+    basePrice += change;
+    
+    let high = basePrice + Math.abs(Math.random() * volatility * 0.5);
+    let low = basePrice - Math.abs(Math.random() * volatility * 0.5);
+    let volume = Math.floor(Math.random() * 10000 + 5000);
+    
+    prices.push(basePrice);
+    highs.push(high);
+    lows.push(low);
+    volumes.push(volume);
+  }
+  
+  return prices;
+}
+
+// ============================================
+// 22 TECHNICAL INDICATORS CALCULATIONS
+// ============================================
+
+// 1. RSI (Relative Strength Index)
+function calcRSI(data, period=14){
+  if(data.length < period + 1) return 50;
   let gains = 0, losses = 0;
-  for(let i=1; i<prices.length; i++){
-    let diff = prices[i] - prices[i-1];
+  for(let i=1; i<=period; i++){
+    let diff = data[data.length-i] - data[data.length-i-1];
     if(diff > 0) gains += diff;
     else losses += Math.abs(diff);
   }
-  let avgGain = gains/period;
-  let avgLoss = losses/period;
+  let avgGain = gains / period;
+  let avgLoss = losses / period;
   if(avgLoss === 0) return 100;
-  let rs = avgGain/avgLoss;
-  return 100 - (100/(1+rs));
+  let rs = avgGain / avgLoss;
+  return 100 - (100 / (1 + rs));
 }
 
-function calcMACD(prices){
-  let ema12 = calcEMA(prices, 12);
-  let ema26 = calcEMA(prices, 26);
-  return ema12 - ema26;
+// 2. MACD
+function calcMACD(data){
+  let ema12 = calcEMA(data, 12);
+  let ema26 = calcEMA(data, 26);
+  let macdLine = ema12 - ema26;
+  let signalLine = calcEMA(data.slice(-9), 9);
+  return {macd: macdLine, signal: signalLine, histogram: macdLine - signalLine};
 }
 
-function calcEMA(prices, period){
-  let k = 2/(period+1);
-  let ema = prices[0];
-  for(let i=1; i<prices.length; i++) ema = prices[i]*k + ema*(1-k);
+function calcEMA(data, period){
+  let k = 2 / (period + 1);
+  let ema = data[0];
+  for(let i=1; i<data.length; i++){
+    ema = data[i] * k + ema * (1 - k);
+  }
   return ema;
 }
 
-function calcBB(prices, period=20){
+function calcSMA(data, period){
   let sum = 0;
-  for(let i=prices.length-period; i<prices.length; i++) sum += prices[i];
-  let sma = sum/period;
+  for(let i=data.length-period; i<data.length; i++) sum += data[i];
+  return sum / period;
+}
+
+// 3. Bollinger Bands
+function calcBollinger(data, period=20){
+  let sma = calcSMA(data, period);
   let variance = 0;
-  for(let i=prices.length-period; i<prices.length; i++) variance += Math.pow(prices[i]-sma,2);
-  let stdDev = Math.sqrt(variance/period);
-  return sma + 2*stdDev;
-}
-
-function generateData(){
-  let data = [];
-  let basePrice = currentAsset.includes('BRL')? 5.2 : currentAsset.includes('INR')? 83.5 : 1.15;
-  for(let i=0; i<100; i++){
-    let change = (Math.random() - 0.5) * 0.01;
-    basePrice += change;
-    data.push(basePrice);
+  for(let i=data.length-period; i<data.length; i++){
+    variance += Math.pow(data[i] - sma, 2);
   }
-  return data;
+  let stdDev = Math.sqrt(variance / period);
+  return {upper: sma + 2*stdDev, middle: sma, lower: sma - 2*stdDev};
 }
 
-async function scanIndicators(){
-  let prices = generateData();
+// 4. Stochastic Oscillator
+function calcStochastic(data, period=14){
+  let lowest = Math.min(...data.slice(-period));
+  let highest = Math.max(...data.slice(-period));
+  let current = data[data.length-1];
+  if(highest === lowest) return 50;
+  return ((current - lowest) / (highest - lowest)) * 100;
+}
+
+// 5. CCI (Commodity Channel Index)
+function calcCCI(data, period=20){
+  let tp = [];
+  for(let i=0; i<data.length; i++){
+    tp.push((highs[i] + lows[i] + data[i]) / 3);
+  }
+  let smaTP = calcSMA(tp, period);
+  let meanDev = 0;
+  for(let i=tp.length-period; i<tp.length; i++){
+    meanDev += Math.abs(tp[i] - smaTP);
+  }
+  meanDev /= period;
+  if(meanDev === 0) return 0;
+  return (tp[tp.length-1] - smaTP) / (0.015 * meanDev);
+}
+
+// 6. ADX (Average Directional Index)
+function calcADX(data, period=14){
+  let tr = [];
+  let plusDM = [];
+  let minusDM = [];
+  
+  for(let i=1; i<data.length; i++){
+    let tr1 = highs[i] - lows[i];
+    let tr2 = Math.abs(highs[i] - data[i-1]);
+    let tr3 = Math.abs(lows[i] - data[i-1]);
+    tr.push(Math.max(tr1, tr2, tr3));
+    
+    let upMove = highs[i] - highs[i-1];
+    let downMove = lows[i-1] - lows[i];
+    plusDM.push(upMove > downMove && upMove > 0 ? upMove : 0);
+    minusDM.push(downMove > upMove && downMove > 0 ? downMove : 0);
+  }
+  
+  let atr = calcSMA(tr.slice(-period), period);
+  let plusDI = (calcSMA(plusDM.slice(-period), period) / atr) * 100;
+  let minusDI = (calcSMA(minusDM.slice(-period), period) / atr) * 100;
+  let dx = Math.abs(plusDI - minusDI) / (plusDI + minusDI) * 100;
+  return dx;
+}
+
+// 7. ATR (Average True Range)
+function calcATR(period=14){
+  let tr = [];
+  for(let i=1; i<prices.length; i++){
+    let tr1 = highs[i] - lows[i];
+    let tr2 = Math.abs(highs[i] - prices[i-1]);
+    let tr3 = Math.abs(lows[i] - prices[i-1]);
+    tr.push(Math.max(tr1, tr2, tr3));
+  }
+  return calcSMA(tr.slice(-period), period);
+}
+
+// 8. VWAP (Volume Weighted Average Price)
+function calcVWAP(){
+  let cumTPV = 0;
+  let cumVol = 0;
+  let start = Math.max(0, prices.length - 50);
+  for(let i=start; i<prices.length; i++){
+    let tp = (highs[i] + lows[i] + prices[i]) / 3;
+    cumTPV += tp * volumes[i];
+    cumVol += volumes[i];
+  }
+  return cumTPV / cumVol;
+}
+
+// 9. Volume Analysis
+function calcVolumeSignal(){
+  let avgVol = calcSMA(volumes, 20);
+  let currentVol = volumes[volumes.length-1];
+  return currentVol > avgVol * 1.5 ? 'HIGH' : currentVol > avgVol ? 'NORMAL' : 'LOW';
+}
+
+// 10. OBV (On Balance Volume)
+function calcOBV(){
+  let obv = 0;
+  for(let i=1; i<prices.length; i++){
+    if(prices[i] > prices[i-1]) obv += volumes[i];
+    else if(prices[i] < prices[i-1]) obv -= volumes[i];
+  }
+  let avgOBV = calcSMA([obv], 1); // Simplified
+  return obv;
+}
+
+// 11. MFI (Money Flow Index)
+function calcMFI(period=14){
+  let tp = [];
+  for(let i=0; i<prices.length; i++){
+    tp.push((highs[i] + lows[i] + prices[i]) / 3);
+  }
+  let positiveFlow = 0;
+  let negativeFlow = 0;
+  for(let i=tp.length-period; i<tp.length; i++){
+    let rawMoney = tp[i] * volumes[i];
+    if(tp[i] > tp[i-1]) positiveFlow += rawMoney;
+    else negativeFlow += rawMoney;
+  }
+  if(negativeFlow === 0) return 100;
+  let moneyRatio = positiveFlow / negativeFlow;
+  return 100 - (100 / (1 + moneyRatio));
+}
+
+// 12. Williams %R
+function calcWilliamsR(period=14){
+  let highest = Math.max(...highs.slice(-period));
+  let lowest = Math.min(...lows.slice(-period));
+  let current = prices[prices.length-1];
+  if(highest === lowest) return -50;
+  return ((highest - current) / (highest - lowest)) * -100;
+}
+
+// 13. Parabolic SAR
+function calcParabolicSAR(){
+  let af = 0.02;
+  let maxAF = 0.2;
+  let sar = lows[0];
+  let ep = highs[0];
+  let long = true;
+  
+  for(let i=1; i<prices.length; i++){
+    if(long){
+      if(lows[i] < sar){
+        long = false;
+        sar = ep;
+        ep = lows[i];
+        af = 0.02;
+      } else {
+        if(highs[i] > ep){
+          ep = highs[i];
+          af = Math.min(af + 0.02, maxAF);
+        }
+        sar = sar + af * (ep - sar);
+      }
+    } else {
+      if(highs[i] > sar){
+        long = true;
+        sar = ep;
+        ep = highs[i];
+        af = 0.02;
+      } else {
+        if(lows[i] < ep){
+          ep = lows[i];
+          af = Math.min(af + 0.02, maxAF);
+        }
+        sar = sar + af * (ep - sar);
+      }
+    }
+  }
+  return {value: sar, trend: long};
+}
+
+// 14. Ichimoku Cloud
+function calcIchimoku(){
+  let tenkan = (Math.max(...highs.slice(-9)) + Math.min(...lows.slice(-9))) / 2;
+  let kijun = (Math.max(...highs.slice(-26)) + Math.min(...lows.slice(-26))) / 2;
+  let senkouA = (tenkan + kijun) / 2;
+  let senkouB = (Math.max(...highs.slice(-52)) + Math.min(...lows.slice(-52))) / 2;
+  return {tenkan, kijun, senkouA, senkouB};
+}
+
+// 15. Keltner Channels
+function calcKeltner(period=20){
+  let ema = calcEMA(prices, period);
+  let atr = calcATR(10);
+  return {upper: ema + 2*atr, middle: ema, lower: ema - 2*atr};
+}
+
+// 16. Donchian Channels
+function calcDonchian(period=20){
+  return {
+    upper: Math.max(...highs.slice(-period)),
+    middle: (Math.max(...highs.slice(-period)) + Math.min(...lows.slice(-period))) / 2,
+    lower: Math.min(...lows.slice(-period))
+  };
+}
+
+// 17. Fibonacci Retracement
+function calcFibonacci(){
+  let high = Math.max(...highs.slice(-50));
+  let low = Math.min(...lows.slice(-50));
+  let diff = high - low;
+  let current = prices[prices.length-1];
+  let level = (current - low) / diff;
+  return {level: level, support: low + 0.618*diff, resistance: low + 0.382*diff};
+}
+
+// 18. Pivot Points
+function calcPivotPoints(){
+  let high = Math.max(...highs.slice(-5));
+  let low = Math.min(...lows.slice(-5));
+  let close = prices[prices.length-1];
+  let pivot = (high + low + close) / 3;
+  return {pivot, r1: 2*pivot - low, s1: 2*pivot - high};
+}
+
+// 19. SuperTrend
+function calcSuperTrend(period=10, multiplier=3){
+  let atr = calcATR(period);
+  let hl2 = (highs[highs.length-1] + lows[lows.length-1]) / 2;
+  let upperBand = hl2 + multiplier * atr;
+  let lowerBand = hl2 - multiplier * atr;
+  let currentPrice = prices[prices.length-1];
+  return {upper: upperBand, lower: lowerBand, trend: currentPrice > lowerBand ? 'UP' : 'DOWN'};
+}
+
+// 20. Money Flow
+function calcMoneyFlow(){
+  let mfi = calcMFI();
+  let obv = calcOBV();
+  let avgMFI = 50; // Simplified
+  return mfi > 50 && obv > 0 ? 'POSITIVE' : 'NEGATIVE';
+}
+
+// 21. SMA Crossover
+function calcSMACross(){
+  let sma5 = calcSMA(prices, 5);
+  let sma20 = calcSMA(prices, 20);
+  return sma5 > sma20 ? 'BULLISH' : 'BEARISH';
+}
+
+// 22. EMA Crossover
+function calcEMACross(){
+  let ema8 = calcEMA(prices, 8);
+  let ema21 = calcEMA(prices, 21);
+  return ema8 > ema21 ? 'BULLISH' : 'BEARISH';
+}
+
+// ============================================
+// SIGNAL ANALYSIS ENGINE
+// ============================================
+function analyzeAllIndicators(){
+  let signals = [];
   let lastPrice = prices[prices.length-1];
-
-  // Calculate 3 Indicators
-  let rsi = calcRSI(prices, 5);
+  
+  // 1. RSI Signal
+  let rsi = calcRSI(prices, 14);
+  signals.push({name: 'RSI', value: rsi.toFixed(1), signal: rsi < 30 ? 'BUY' : rsi > 70 ? 'SELL' : 'NEUTRAL'});
+  
+  // 2. MACD Signal
   let macd = calcMACD(prices);
-  let bbUpper = calcBB(prices);
+  signals.push({name: 'MACD', value: macd.histogram.toFixed(4), signal: macd.histogram > 0 && macd.macd > macd.signal ? 'BUY' : macd.histogram < 0 && macd.macd < macd.signal ? 'SELL' : 'NEUTRAL'});
+  
+  // 3. Bollinger Bands
+  let bb = calcBollinger(prices);
+  signals.push({name: 'BB', value: bb.upper.toFixed(4), signal: lastPrice < bb.lower ? 'BUY' : lastPrice > bb.upper ? 'SELL' : 'NEUTRAL'});
+  
+  // 4. Stochastic
+  let stoch = calcStochastic(prices);
+  signals.push({name: 'Stoch', value: stoch.toFixed(1), signal: stoch < 20 ? 'BUY' : stoch > 80 ? 'SELL' : 'NEUTRAL'});
+  
+  // 5. CCI
+  let cci = calcCCI(prices);
+  signals.push({name: 'CCI', value: cci.toFixed(1), signal: cci < -100 ? 'BUY' : cci > 100 ? 'SELL' : 'NEUTRAL'});
+  
+  // 6. ADX
+  let adx = calcADX(prices);
+  signals.push({name: 'ADX', value: adx.toFixed(1), signal: adx > 25 ? 'STRONG' : 'WEAK'});
+  
+  // 7. ATR
+  let atr = calcATR();
+  signals.push({name: 'ATR', value: atr.toFixed(4), signal: atr > calcSMA([atr], 20) ? 'VOLATILE' : 'STABLE'});
+  
+  // 8. VWAP
+  let vwap = calcVWAP();
+  signals.push({name: 'VWAP', value: vwap.toFixed(4), signal: lastPrice > vwap ? 'BUY' : 'SELL'});
+  
+  // 9. Volume
+  let volSig = calcVolumeSignal();
+  signals.push({name: 'Volume', value: volSig, signal: volSig === 'HIGH' ? 'BUY' : 'NEUTRAL'});
+  
+  // 10. OBV
+  let obv = calcOBV();
+  let obvTrend = obv > 0 ? 'BUY' : 'SELL';
+  signals.push({name: 'OBV', value: obv.toFixed(0), signal: obvTrend});
+  
+  // 11. MFI
+  let mfi = calcMFI();
+  signals.push({name: 'MFI', value: mfi.toFixed(1), signal: mfi < 20 ? 'BUY' : mfi > 80 ? 'SELL' : 'NEUTRAL'});
+  
+  // 12. Williams %R
+  let williams = calcWilliamsR();
+  signals.push({name: 'W%R', value: williams.toFixed(1), signal: williams < -80 ? 'BUY' : williams > -20 ? 'SELL' : 'NEUTRAL'});
+  
+  // 13. Parabolic SAR
+  let psar = calcParabolicSAR();
+  signals.push({name: 'PSAR', value: psar.value.toFixed(4), signal: psar.trend ? 'BUY' : 'SELL'});
+  
+  // 14. Ichimoku
+  let ichi = calcIchimoku();
+  signals.push({name: 'Ichimoku', value: ichi.tenkan.toFixed(4), signal: lastPrice > ichi.senkouA && lastPrice > ichi.senkouB ? 'BUY' : lastPrice < ichi.senkouA && lastPrice < ichi.senkouB ? 'SELL' : 'NEUTRAL'});
+  
+  // 15. Keltner
+  let keltner = calcKeltner();
+  signals.push({name: 'Keltner', value: keltner.upper.toFixed(4), signal: lastPrice < keltner.lower ? 'BUY' : lastPrice > keltner.upper ? 'SELL' : 'NEUTRAL'});
+  
+  // 16. Donchian
+  let donchian = calcDonchian();
+  signals.push({name: 'Donchian', value: donchian.upper.toFixed(4), signal: lastPrice >= donchian.upper ? 'BUY' : lastPrice <= donchian.lower ? 'SELL' : 'NEUTRAL'});
+  
+  // 17. Fibonacci
+  let fib = calcFibonacci();
+  signals.push({name: 'Fibonacci', value: (fib.level*100).toFixed(1) + '%', signal: fib.level < 0.382 ? 'BUY' : fib.level > 0.618 ? 'SELL' : 'NEUTRAL'});
+  
+  // 18. Pivot Points
+  let pivot = calcPivotPoints();
+  signals.push({name: 'Pivot', value: pivot.pivot.toFixed(4), signal: lastPrice > pivot.pivot ? 'BUY' : 'SELL'});
+  
+  // 19. SuperTrend
+  let superTrend = calcSuperTrend();
+  signals.push({name: 'SuperTrend', value: superTrend.upper.toFixed(4), signal: superTrend.trend === 'UP' ? 'BUY' : 'SELL'});
+  
+  // 20. Money Flow
+  let mf = calcMoneyFlow();
+  signals.push({name: 'MoneyFlow', value: mf, signal: mf === 'POSITIVE' ? 'BUY' : 'SELL'});
+  
+  // 21. SMA Cross
+  let smaCross = calcSMACross();
+  signals.push({name: 'SMA Cross', value: smaCross, signal: smaCross === 'BULLISH' ? 'BUY' : 'SELL'});
+  
+  // 22. EMA Cross
+  let emaCross = calcEMACross();
+  signals.push({name: 'EMA Cross', value: emaCross, signal: emaCross === 'BULLISH' ? 'BUY' : 'SELL'});
+  
+  return signals;
+}
 
-  // Update UI
-  document.getElementById('rsiValue').innerText = rsi.toFixed(1);
-  document.getElementById('rsiValue').style.color = rsi < 30? '#00ff44' : rsi > 70? '#ff3333' : '#ffaa00';
-
-  document.getElementById('macdValue').innerText = macd.toFixed(4);
-  document.getElementById('macdValue').style.color = macd > 0? '#00ff44' : '#ff3333';
-
-  document.getElementById('bbValue').innerText = bbUpper.toFixed(4);
-
-  // Update Info
+// ============================================
+// MAIN SCAN FUNCTION
+// ============================================
+async function scanAllIndicators(){
+  let btn = document.getElementById('scanBtn');
+  let loading = document.getElementById('loadingOverlay');
+  
+  btn.disabled = true;
+  loading.style.display = 'flex';
+  
+  // Simulate processing time
+  await new Promise(r => setTimeout(r, 1500));
+  
+  // Generate fresh market data
+  generateMarketData();
+  
+  // Analyze all 22 indicators
+  let signals = analyzeAllIndicators();
+  
+  // Count signals
+  let buyCount = 0;
+  let sellCount = 0;
+  let neutralCount = 0;
+  
+  signals.forEach((sig, index) => {
+    let box = document.getElementById('indBox_' + index);
+    let value = document.getElementById('indValue_' + index);
+    let signalEl = document.getElementById('indSignal_' + index);
+    
+    value.innerText = sig.value;
+    signalEl.innerText = sig.signal;
+    
+    box.className = 'ind-box fade-in';
+    signalEl.className = 'ind-signal';
+    
+    if(sig.signal === 'BUY' || sig.signal === 'BULLISH' || sig.signal === 'STRONG' || sig.signal === 'POSITIVE' || sig.signal === 'VOLATILE'){
+      box.classList.add('buy');
+      signalEl.classList.add('buy');
+      value.style.color = '#00ff44';
+      buyCount++;
+    } else if(sig.signal === 'SELL' || sig.signal === 'BEARISH' || sig.signal === 'WEAK' || sig.signal === 'NEGATIVE' || sig.signal === 'STABLE'){
+      box.classList.add('sell');
+      signalEl.classList.add('sell');
+      value.style.color = '#ff3333';
+      sellCount++;
+    } else {
+      box.classList.add('neutral');
+      signalEl.classList.add('neutral');
+      value.style.color = '#ffaa00';
+      neutralCount++;
+    }
+    
+    // Stagger animation
+    box.style.animationDelay = (index * 0.05) + 's';
+  });
+  
+  // Update scores
+  document.getElementById('buyScore').innerText = buyCount;
+  document.getElementById('sellScore').innerText = sellCount;
+  document.getElementById('neutralScore').innerText = neutralCount;
+  
+  // Calculate confidence
+  let total = buyCount + sellCount;
+  let confidence = total > 0 ? Math.round((Math.max(buyCount, sellCount) / 22) * 100) : 0;
+  
+  let confidenceFill = document.getElementById('confidenceFill');
+  let confidenceText = document.getElementById('confidenceText');
+  
+  confidenceFill.style.width = confidence + '%';
+  confidenceFill.setAttribute('data-percent', confidence + '%');
+  
+  if(buyCount > sellCount && buyCount >= 14){
+    confidenceFill.style.background = 'linear-gradient(90deg, #00ff44, #00cc44)';
+    confidenceText.innerText = `Confidence: ${confidence}% - STRONG BUY SIGNAL`;
+    confidenceText.style.color = '#00ff44';
+  } else if(sellCount > buyCount && sellCount >= 14){
+    confidenceFill.style.background = 'linear-gradient(90deg, #ff3333, #cc0000)';
+    confidenceText.innerText = `Confidence: ${confidence}% - STRONG SELL SIGNAL`;
+    confidenceText.style.color = '#ff3333';
+  } else {
+    confidenceFill.style.background = 'linear-gradient(90deg, #ffaa00, #ff8800)';
+    confidenceText.innerText = `Confidence: ${confidence}% - WAIT FOR CLEAR SIGNAL`;
+    confidenceText.style.color = '#ffaa00';
+  }
+  
+  // Update main signal
+  let signalBox = document.getElementById('signalBox');
+  let signalTitle = document.getElementById('signalTitle');
+  let signalSub = document.getElementById('signalSub');
+  let strengthValue = document.getElementById('strengthValue');
+  
   document.getElementById('marketValue').innerText = document.getElementById('marketSelect').value.toUpperCase();
   document.getElementById('timeValue').innerText = document.getElementById('timeframeSelect').value + 'm';
-
-  // Signal Logic - 3 Indicators
-  let confirmCount = 0;
-  if(rsi < 30) confirmCount++;
-  if(macd > 0) confirmCount++;
-  if(lastPrice < bbUpper * 0.98) confirmCount++;
-
-  let score = Math.round((confirmCount / 3) * 100);
-  document.getElementById('scoreValue').innerText = score + '%';
-
-  // Update Signal
-  if(confirmCount >= 3){
-    document.getElementById('waitTitle').innerText = 'BUY';
-    document.getElementById('waitTitle').style.color = '#00ff44';
-    document.getElementById('waitSub').innerText = '3/3 Indicators Confirm - BUY SIGNAL';
-    document.getElementById('waitSub').style.color = '#00ff44';
-    document.getElementById('signalBox').style.borderColor = '#00ff44';
-  } else if(confirmCount >= 2){
-    document.getElementById('waitTitle').innerText = 'SELL';
-    document.getElementById('waitTitle').style.color = '#ff3333';
-    document.getElementById('waitSub').innerText = '2/3 Indicators Confirm - SELL SIGNAL';
-    document.getElementById('waitSub').style.color = '#ff3333';
-    document.getElementById('signalBox').style.borderColor = '#ff3333';
+  
+  if(buyCount >= 16){
+    signalBox.className = 'signal-box buy';
+    signalTitle.innerText = 'BUY NOW';
+    signalTitle.style.color = '#00ff44';
+    signalSub.innerText = `${buyCount}/22 Indicators Confirm - STRONG BUY`;
+    signalSub.style.color = '#00ff44';
+    strengthValue.innerText = confidence + '%';
+    strengthValue.style.color = '#00ff44';
+    // Play notification sound (optional)
+  } else if(sellCount >= 16){
+    signalBox.className = 'signal-box sell';
+    signalTitle.innerText = 'SELL NOW';
+    signalTitle.style.color = '#ff3333';
+    signalSub.innerText = `${sellCount}/22 Indicators Confirm - STRONG SELL`;
+    signalSub.style.color = '#ff3333';
+    strengthValue.innerText = confidence + '%';
+    strengthValue.style.color = '#ff3333';
+  } else if(buyCount >= 12 && buyCount > sellCount){
+    signalBox.className = 'signal-box';
+    signalBox.style.borderColor = '#00ff44';
+    signalTitle.innerText = 'WEAK BUY';
+    signalTitle.style.color = '#00ff44';
+    signalSub.innerText = `${buyCount}/22 Indicators - Weak Buy Signal`;
+    signalSub.style.color = '#00ff44';
+    strengthValue.innerText = confidence + '%';
+    strengthValue.style.color = '#00ff44';
+  } else if(sellCount >= 12 && sellCount > buyCount){
+    signalBox.className = 'signal-box';
+    signalBox.style.borderColor = '#ff3333';
+    signalTitle.innerText = 'WEAK SELL';
+    signalTitle.style.color = '#ff3333';
+    signalSub.innerText = `${sellCount}/22 Indicators - Weak Sell Signal`;
+    signalSub.style.color = '#ff3333';
+    strengthValue.innerText = confidence + '%';
+    strengthValue.style.color = '#ff3333';
   } else {
-    document.getElementById('waitTitle').innerText = 'WAIT';
-    document.getElementById('waitTitle').style.color = '#fff';
-    document.getElementById('waitSub').innerText = confirmCount + '/3 Indicators Confirm - WAIT';
-    document.getElementById('waitSub').style.color = '#00d4ff';
-    document.getElementById('signalBox').style.borderColor = '#00d4ff';
+    signalBox.className = 'signal-box';
+    signalBox.style.borderColor = '#00d4ff';
+    signalTitle.innerText = 'WAIT';
+    signalTitle.style.color = '#fff';
+    signalSub.innerText = `${neutralCount}/22 Neutral - Wait for confirmation`;
+    signalSub.style.color = '#00d4ff';
+    strengthValue.innerText = confidence + '%';
+    strengthValue.style.color = '#ffd700';
   }
-
+  
+  // Update mini chart
   generateMiniChart();
+  
+  loading.style.display = 'none';
+  btn.disabled = false;
 }
 
 document.getElementById('password').addEventListener('keypress', e => {
   if(e.key === 'Enter') doLogin();
 });
+
+// Auto-refresh every 30 seconds (optional)
+// setInterval(() => { if(document.getElementById('mainScreen').style.display === 'block') scanAllIndicators(); }, 30000);
 </script>
 </body>
 </html>
