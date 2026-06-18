@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Lubna Abubakar AI Bot - RSI + EMA + MACD + Price</title>
+<title>Lubna Abubakar AI Bot - 6 Indicators</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -75,12 +75,12 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 .scan-btn:active{transform:scale(0.98);}
 .scan-btn:disabled{opacity:0.5;cursor:not-allowed;}
 
-/* 4 INDICATORS GRID */
+/* 6 INDICATORS GRID */
 .indicators-container{background:#121821;border:2px solid #1e2a3a;border-radius:15px;padding:15px;margin-bottom:12px;}
 .indicators-title{font-size:14px;font-weight:900;color:#ffd700;margin-bottom:12px;text-align:center;letter-spacing:2px;}
 .indicators-title span{color:#00ff88;}
-.ind-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-.ind-box{background:#0a0e1a;border:2px solid #1e2a3a;border-radius:10px;padding:14px 6px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ind-box{background:#0a0e1a;border:2px solid #1e2a3a;border-radius:10px;padding:12px 4px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
 .ind-box::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:transparent;transition:all 0.3s;}
 .ind-box.buy{border-color:#00ff44;box-shadow:0 0 10px rgba(0,255,68,0.2);}
 .ind-box.buy::before{background:#00ff44;}
@@ -88,9 +88,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 .ind-box.sell::before{background:#ff3333;}
 .ind-box.neutral{border-color:#ffaa00;box-shadow:0 0 10px rgba(255,170,0,0.2);}
 .ind-box.neutral::before{background:#ffaa00;}
-.ind-label{font-size:9px;color:#888;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ind-value{font-size:16px;font-weight:900;}
-.ind-signal{font-size:10px;font-weight:700;margin-top:4px;padding:3px 8px;border-radius:4px;display:inline-block;}
+.ind-label{font-size:8px;color:#888;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ind-value{font-size:14px;font-weight:900;}
+.ind-signal{font-size:9px;font-weight:700;margin-top:3px;padding:2px 6px;border-radius:4px;display:inline-block;}
 .ind-signal.buy{background:rgba(0,255,68,0.2);color:#00ff44;}
 .ind-signal.sell{background:rgba(255,51,51,0.2);color:#ff3333;}
 .ind-signal.neutral{background:rgba(255,170,0,0.2);color:#ffaa00;}
@@ -156,7 +156,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
   <div class="login-card">
     <div class="logo">LA</div>
     <div class="title">LUBNA ABUBAKAR</div>
-    <div class="subtitle">AI BOT - RSI + EMA + MACD + PRICE</div>
+    <div class="subtitle">AI BOT - 6 INDICATORS</div>
 
     <div class="input-box">
       <span class="input-icon">👤</span>
@@ -190,8 +190,8 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 
   <div class="content">
     <div class="header-box">
-      <h2>RSI + EMA + MACD + PRICE</h2>
-      <p>LIVE DATA + AI ANALYSIS</p>
+      <h2>6 POWERFUL INDICATORS</h2>
+      <p>RSI + EMA + MACD + BB + STOCH + PRICE</p>
     </div>
 
     <!-- LIVE CHART - TradingView -->
@@ -254,7 +254,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
       </select>
     </div>
 
-    <button class="scan-btn" id="scanBtn">⚡ SCAN 4 INDICATORS</button>
+    <button class="scan-btn" id="scanBtn">⚡ SCAN 6 INDICATORS</button>
 
     <!-- SCORE DISPLAY -->
     <div class="score-display" id="scoreDisplay">
@@ -278,9 +278,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
     </div>
     <div class="confidence-text" id="confidenceText">Confidence: 0% - Waiting for scan...</div>
 
-    <!-- 4 INDICATORS GRID -->
+    <!-- 6 INDICATORS GRID -->
     <div class="indicators-container">
-      <div class="indicators-title">4 TECHNICAL <span>INDICATORS</span></div>
+      <div class="indicators-title">6 TECHNICAL <span>INDICATORS</span></div>
       <div class="ind-grid" id="indicatorsGrid">
         <!-- Will be populated by JS -->
       </div>
@@ -289,7 +289,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
     <!-- SIGNAL BOX -->
     <div class="signal-box" id="signalBox">
       <div class="signal-title" id="signalTitle" style="color:#fff;">WAIT</div>
-      <div class="signal-sub" id="signalSub" style="color:#00d4ff;">Press SCAN to analyze RSI + EMA + MACD + Price</div>
+      <div class="signal-sub" id="signalSub" style="color:#00d4ff;">Press SCAN to analyze 6 indicators</div>
 
       <div class="info-grid">
         <div class="info-box">
@@ -318,10 +318,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 <script src="https://s3.tradingview.com/tv.js"></script>
 <script>
 // ============================================
-// LUBNA ABUBAKAR AI BOT - RSI + EMA + MACD + PRICE
+// LUBNA ABUBAKAR AI BOT - 6 INDICATORS
 // ============================================
 
-// Prevent zoom
 var meta = document.createElement('meta');
 meta.name = 'viewport';
 meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
@@ -341,7 +340,6 @@ var tradingViewWidget = null;
 var livePriceInterval = null;
 var isLoggedIn = false;
 
-// TradingView Symbol Mapping
 var tvSymbols = {
   'EURUSD': 'FX:EURUSD',
   'GBPUSD': 'FX:GBPUSD',
@@ -359,11 +357,11 @@ var displayNames = {
   'ETHUSDT': 'ETH/USD', 'XAUUSD': 'GOLD/USD'
 };
 
-// 4 Indicator Names
-var indicatorNames = ['RSI (14)', 'EMA (21)', 'MACD', 'PRICE'];
+// 6 Indicator Names
+var indicatorNames = ['RSI (14)', 'EMA (21)', 'MACD', 'BB (20)', 'STOCH (14)', 'PRICE'];
 
 // ============================================
-// LOGIN FUNCTION - FIXED
+// LOGIN FUNCTION
 // ============================================
 function doLogin(){
   var u = document.getElementById('username').value.trim();
@@ -373,36 +371,24 @@ function doLogin(){
   if(u === 'Lubna' && p === 'Abubakar786'){
     err.innerText = '';
     isLoggedIn = true;
-    
-    // Hide login screen
-    var loginScreen = document.getElementById('loginScreen');
-    loginScreen.style.display = 'none';
-    
-    // Show main screen
-    var mainScreen = document.getElementById('mainScreen');
-    mainScreen.style.display = 'block';
-    
-    // Initialize everything
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainScreen').style.display = 'block';
     initIndicatorsGrid();
     initTradingViewChart();
     startLivePriceUpdates();
     generateMiniChart();
-    
-    console.log('Login successful!');
   } else {
     err.innerText = 'Wrong Username or Password';
     setTimeout(function(){ err.innerText = ''; }, 3000);
   }
 }
 
-// Attach login button event
 document.getElementById('unlockBtn').addEventListener('click', function(e){
   e.preventDefault();
   e.stopPropagation();
   doLogin();
 });
 
-// Enter key on password
 document.getElementById('password').addEventListener('keypress', function(e){
   if(e.key === 'Enter'){
     e.preventDefault();
@@ -468,7 +454,9 @@ function initTradingViewChart(){
       "studies": [
         "RSI@tv-basicstudies",
         "MovingAverageExponential@tv-basicstudies",
-        "MACD@tv-basicstudies"
+        "MACD@tv-basicstudies",
+        "BB@tv-basicstudies",
+        "StochasticRSI@tv-basicstudies"
       ],
       "overrides": {
         "mainSeriesProperties.candleStyle.upColor": "#00ff44",
@@ -487,7 +475,7 @@ function initTradingViewChart(){
 function resetSignals(){
   document.getElementById('signalTitle').innerText = 'WAIT';
   document.getElementById('signalTitle').style.color = '#fff';
-  document.getElementById('signalSub').innerText = 'Press SCAN to analyze RSI + EMA + MACD + Price';
+  document.getElementById('signalSub').innerText = 'Press SCAN to analyze 6 indicators';
   document.getElementById('signalSub').style.color = '#00d4ff';
   document.getElementById('signalBox').style.borderColor = '#00d4ff';
   document.getElementById('confidenceFill').style.width = '0%';
@@ -498,7 +486,7 @@ function resetSignals(){
   document.getElementById('neutralScore').innerText = '0';
   document.getElementById('strengthValue').innerText = '0%';
   
-  for(var i=0; i<4; i++){
+  for(var i=0; i<6; i++){
     var box = document.getElementById('indBox_' + i);
     var value = document.getElementById('indValue_' + i);
     var signal = document.getElementById('indSignal_' + i);
@@ -681,7 +669,7 @@ function generateMarketData(){
 }
 
 // ============================================
-// 4 TECHNICAL INDICATORS
+// 6 TECHNICAL INDICATORS
 // ============================================
 function calcRSI(data, period){
   period = period || 14;
@@ -722,8 +710,28 @@ function calcMACD(data){
   return {macd: macdLine, signal: signalLine, histogram: macdLine - signalLine};
 }
 
+function calcBollinger(data, period){
+  period = period || 20;
+  var sma = calcSMA(data, period);
+  var variance = 0;
+  for(var i=data.length-period; i<data.length; i++){
+    variance += Math.pow(data[i] - sma, 2);
+  }
+  var stdDev = Math.sqrt(variance / period);
+  return {upper: sma + 2*stdDev, middle: sma, lower: sma - 2*stdDev};
+}
+
+function calcStochastic(data, period){
+  period = period || 14;
+  var lowest = Math.min.apply(null, data.slice(-period));
+  var highest = Math.max.apply(null, data.slice(-period));
+  var current = data[data.length-1];
+  if(highest === lowest) return 50;
+  return ((current - lowest) / (highest - lowest)) * 100;
+}
+
 // ============================================
-// SIGNAL ANALYSIS ENGINE - 4 INDICATORS
+// SIGNAL ANALYSIS ENGINE - 6 INDICATORS
 // ============================================
 function analyzeAllIndicators(){
   var signals = [];
@@ -746,7 +754,17 @@ function analyzeAllIndicators(){
   else if(macd.histogram < 0 && macd.macd < macd.signal) macdSignal = 'SELL';
   signals.push({name: 'MACD', value: macd.histogram.toFixed(4), signal: macdSignal});
   
-  // 4. PRICE vs SMA
+  // 4. Bollinger Bands
+  var bb = calcBollinger(prices, 20);
+  var bbSignal = lastPrice < bb.lower ? 'BUY' : lastPrice > bb.upper ? 'SELL' : 'NEUTRAL';
+  signals.push({name: 'BB', value: bb.upper.toFixed(4), signal: bbSignal});
+  
+  // 5. Stochastic
+  var stoch = calcStochastic(prices, 14);
+  var stochSignal = stoch < 20 ? 'BUY' : stoch > 80 ? 'SELL' : 'NEUTRAL';
+  signals.push({name: 'STOCH', value: stoch.toFixed(1), signal: stochSignal});
+  
+  // 6. PRICE vs SMA
   var sma50 = calcSMA(prices, 50);
   var priceSignal = lastPrice > sma50 ? 'BUY' : 'SELL';
   signals.push({name: 'PRICE', value: lastPrice.toFixed(4), signal: priceSignal});
@@ -801,7 +819,7 @@ function scanAllIndicators(){
           neutralCount++;
         }
         
-        box.style.animationDelay = (i * 0.1) + 's';
+        box.style.animationDelay = (i * 0.08) + 's';
       }
       
       document.getElementById('buyScore').innerText = buyCount;
@@ -809,7 +827,7 @@ function scanAllIndicators(){
       document.getElementById('neutralScore').innerText = neutralCount;
       
       var total = buyCount + sellCount;
-      var confidence = total > 0 ? Math.round((Math.max(buyCount, sellCount) / 4) * 100) : 0;
+      var confidence = total > 0 ? Math.round((Math.max(buyCount, sellCount) / 6) * 100) : 0;
       
       var confidenceFill = document.getElementById('confidenceFill');
       var confidenceText = document.getElementById('confidenceText');
@@ -825,51 +843,51 @@ function scanAllIndicators(){
       document.getElementById('marketValue').innerText = document.getElementById('marketSelect').value.toUpperCase();
       document.getElementById('timeValue').innerText = currentTimeframe + 'm';
       
-      if(buyCount >= 3){
+      if(buyCount >= 4){
         confidenceFill.style.background = 'linear-gradient(90deg, #00ff44, #00cc44)';
         confidenceText.innerText = 'Confidence: ' + confidence + '% - STRONG BUY';
         confidenceText.style.color = '#00ff44';
         signalBox.className = 'signal-box buy';
         signalTitle.innerText = 'BUY NOW';
         signalTitle.style.color = '#00ff44';
-        signalSub.innerText = buyCount + '/4 Indicators Confirm - STRONG BUY';
+        signalSub.innerText = buyCount + '/6 Indicators Confirm - STRONG BUY';
         signalSub.style.color = '#00ff44';
         strengthValue.innerText = confidence + '%';
         strengthValue.style.color = '#00ff44';
         playAlert('buy');
-      } else if(sellCount >= 3){
+      } else if(sellCount >= 4){
         confidenceFill.style.background = 'linear-gradient(90deg, #ff3333, #cc0000)';
         confidenceText.innerText = 'Confidence: ' + confidence + '% - STRONG SELL';
         confidenceText.style.color = '#ff3333';
         signalBox.className = 'signal-box sell';
         signalTitle.innerText = 'SELL NOW';
         signalTitle.style.color = '#ff3333';
-        signalSub.innerText = sellCount + '/4 Indicators Confirm - STRONG SELL';
+        signalSub.innerText = sellCount + '/6 Indicators Confirm - STRONG SELL';
         signalSub.style.color = '#ff3333';
         strengthValue.innerText = confidence + '%';
         strengthValue.style.color = '#ff3333';
         playAlert('sell');
-      } else if(buyCount === 2 && sellCount < 2){
+      } else if(buyCount === 3){
         confidenceFill.style.background = 'linear-gradient(90deg, #88ff88, #00ff44)';
-        confidenceText.innerText = 'Confidence: ' + confidence + '% - WEAK BUY';
+        confidenceText.innerText = 'Confidence: ' + confidence + '% - MODERATE BUY';
         confidenceText.style.color = '#00ff44';
         signalBox.className = 'signal-box';
         signalBox.style.borderColor = '#00ff44';
-        signalTitle.innerText = 'WEAK BUY';
+        signalTitle.innerText = 'MODERATE BUY';
         signalTitle.style.color = '#00ff44';
-        signalSub.innerText = buyCount + '/4 Indicators - Weak Buy Signal';
+        signalSub.innerText = buyCount + '/6 Indicators - Moderate Buy Signal';
         signalSub.style.color = '#00ff44';
         strengthValue.innerText = confidence + '%';
         strengthValue.style.color = '#00ff44';
-      } else if(sellCount === 2 && buyCount < 2){
+      } else if(sellCount === 3){
         confidenceFill.style.background = 'linear-gradient(90deg, #ff8888, #ff3333)';
-        confidenceText.innerText = 'Confidence: ' + confidence + '% - WEAK SELL';
+        confidenceText.innerText = 'Confidence: ' + confidence + '% - MODERATE SELL';
         confidenceText.style.color = '#ff3333';
         signalBox.className = 'signal-box';
         signalBox.style.borderColor = '#ff3333';
-        signalTitle.innerText = 'WEAK SELL';
+        signalTitle.innerText = 'MODERATE SELL';
         signalTitle.style.color = '#ff3333';
-        signalSub.innerText = sellCount + '/4 Indicators - Weak Sell Signal';
+        signalSub.innerText = sellCount + '/6 Indicators - Moderate Sell Signal';
         signalSub.style.color = '#ff3333';
         strengthValue.innerText = confidence + '%';
         strengthValue.style.color = '#ff3333';
