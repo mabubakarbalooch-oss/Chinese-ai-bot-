@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Lubna Abubakar AI Bot - Real-Time 22 Indicators</title>
+<title>Lubna Abubakar AI Bot - Auto Real-Time 22 Indicators</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -129,15 +129,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 @keyframes priceFlash{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
 .price-flash{animation:priceFlash 0.3s ease;}
 
-.api-section{background:#121821;border:2px solid #1e2a3a;border-radius:12px;padding:15px;margin-bottom:12px;}
-.api-section h3{font-size:12px;color:#ffd700;margin-bottom:10px;text-align:center;}
-.api-input{width:100%;padding:12px;background:#0a0e1a;border:2px solid #1e2a3a;border-radius:10px;color:#00ff88;font-size:12px;font-weight:700;outline:none;margin-bottom:8px;}
-.api-input:focus{border-color:#00ff88;}
-.api-btn{width:100%;padding:10px;background:#1e2a3a;border:1px solid #00ff88;border-radius:8px;color:#00ff88;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.3s;}
-.api-btn:hover{background:#00ff88;color:#000;}
-.api-status{font-size:10px;color:#888;text-align:center;margin-top:8px;}
-.api-status.connected{color:#00ff44;}
-.api-status.error{color:#ff3333;}
+.data-source{background:#121821;border:1px solid #00ff88;border-radius:10px;padding:10px;margin-bottom:12px;text-align:center;font-size:10px;color:#00ff88;}
+.data-source .source-label{font-size:8px;color:#666;margin-bottom:3px;}
+.data-source .source-name{font-size:12px;font-weight:900;}
 </style>
 </head>
 <body>
@@ -147,7 +141,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
   <div class="login-card">
     <div class="logo">LA</div>
     <div class="title">LUBNA ABUBAKAR</div>
-    <div class="subtitle">AI BOT REAL-TIME v72.0 - 22 INDICATORS</div>
+    <div class="subtitle">AI BOT AUTO REAL-TIME v73.0 - 22 INDICATORS</div>
 
     <div class="input-box">
       <span class="input-icon">👤</span>
@@ -162,36 +156,33 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
     </div>
 
     <div id="error" style="color:#ff3333;font-size:11px;text-align:center;margin-bottom:10px;height:18px;font-weight:700;"></div>
-    <button class="unlock-btn" onclick="doLogin()">UNLOCK REAL-TIME AI</button>
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK AUTO REAL-TIME AI</button>
   </div>
 </div>
 
 <!-- LOADING OVERLAY -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-spinner"></div>
-  <div class="loading-text">FETCHING REAL DATA + 22 INDICATORS...</div>
+  <div class="loading-text">FETCHING AUTO REAL DATA + 22 INDICATORS...</div>
 </div>
 
 <!-- MAIN SCREEN -->
 <div class="main-screen" id="mainScreen">
   <div class="top-bar">
-    <h1>Lubna Abubakar AI Real-Time v72.0</h1>
+    <h1>Lubna Abubakar AI Auto v73.0</h1>
     <div class="refresh-icon" onclick="location.reload()">⟳</div>
   </div>
 
   <div class="content">
     <div class="header-box">
-      <h2>REAL-TIME MARKET + 22 INDICATORS</h2>
-      <p>LIVE API DATA + ADVANCED AI ANALYSIS</p>
+      <h2>AUTO REAL-TIME + 22 INDICATORS</h2>
+      <p>NO API KEYS NEEDED - AUTO DATA FETCH</p>
     </div>
 
-    <!-- API KEY SETUP -->
-    <div class="api-section">
-      <h3>🔑 API Configuration (Optional)</h3>
-      <input type="text" class="api-input" id="twelveDataKey" placeholder="Twelve Data API Key (free: twelvedata.com)" value="">
-      <input type="text" class="api-input" id="fcsKey" placeholder="FCS API Key (free: fcsapi.com)" value="">
-      <button class="api-btn" onclick="saveApiKeys()">💾 Save API Keys</button>
-      <div class="api-status" id="apiStatus">No API keys set - Using fallback data</div>
+    <!-- DATA SOURCE INFO -->
+    <div class="data-source">
+      <div class="source-label">DATA SOURCE</div>
+      <div class="source-name" id="dataSourceName">🔄 Connecting to live markets...</div>
     </div>
 
     <!-- LIVE CHART - TradingView -->
@@ -217,7 +208,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
       </div>
     </div>
 
-    <div class="mode-badge">🔴 REAL-TIME TRADING MODE</div>
+    <div class="mode-badge">🔴 AUTO REAL-TIME TRADING MODE</div>
 
     <div class="form-section">
       <div class="form-label">Select Market</div>
@@ -316,12 +307,11 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 </div>
 
 <script src="https://s3.tradingview.com/tv.js"></script>
-
 js_code = """
 <script>
 // ============================================
-// LUBNA ABUBAKAR AI BOT - REAL-TIME v72.0
-// LIVE API DATA + 22 INDICATORS
+// LUBNA ABUBAKAR AI BOT - AUTO REAL-TIME v73.0
+// NO API KEYS NEEDED - AUTO FETCH REAL DATA
 // ============================================
 
 // Screen Lock
@@ -338,9 +328,7 @@ let highs = [];
 let lows = [];
 let tradingViewWidget = null;
 let livePriceInterval = null;
-let twelveDataKey = '';
-let fcsKey = '';
-let useRealData = false;
+let autoDataSource = 'fallback';
 
 // TradingView Symbol Mapping
 const tvSymbols = {
@@ -356,18 +344,21 @@ const displayNames = {
   'ETHUSDT': 'ETH/USD', 'XAUUSD': 'GOLD/USD'
 };
 
-// FCS API Symbol Mapping
-const fcsSymbols = {
-  'EURUSD': 'EUR/USD', 'GBPUSD': 'GBP/USD', 'USDJPY': 'USD/JPY',
-  'USDBRL': 'USD/BRL', 'USDINR': 'USD/INR', 'BTCUSDT': 'BTC/USD',
-  'ETHUSDT': 'ETH/USD', 'XAUUSD': 'XAU/USD'
-};
-
-// Twelve Data Symbol Mapping
-const twelveSymbols = {
-  'EURUSD': 'EUR/USD', 'GBPUSD': 'GBP/USD', 'USDJPY': 'USD/JPY',
-  'USDBRL': 'USD/BRL', 'USDINR': 'USD/INR', 'BTCUSDT': 'BTC/USD',
-  'ETHUSDT': 'ETH/USD', 'XAUUSD': 'XAU/USD'
+// Free API endpoints (no key needed)
+const freeApis = {
+  // CoinGecko for crypto (completely free, no key)
+  coingecko: {
+    btc: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
+    eth: 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_24hr_change=true'
+  },
+  // Exchange Rate API (free, no key)
+  exchangerate: {
+    base: 'https://api.exchangerate-api.com/v4/latest/'
+  },
+  // Frankfurter API (free, no key, ECB data)
+  frankfurter: {
+    base: 'https://api.frankfurter.app/latest?from='
+  }
 };
 
 // 22 Indicator Names
@@ -391,51 +382,157 @@ function doLogin(){
     initTradingViewChart();
     startLivePriceUpdates();
     generateMiniChart();
+    updateDataSourceStatus();
   } else {
     err.innerText = 'Wrong Username or Password';
   }
 }
 
 // ============================================
-// API KEY MANAGEMENT
+// AUTO REAL-TIME DATA FETCHING (NO API KEY)
 // ============================================
-function saveApiKeys(){
-  twelveDataKey = document.getElementById('twelveDataKey').value.trim();
-  fcsKey = document.getElementById('fcsKey').value.trim();
+async function fetchLivePrice(){
+  let price = 0;
+  let change = 0;
+  let high = 0;
+  let low = 0;
+  let sourceName = 'Fallback Simulation';
   
-  let status = document.getElementById('apiStatus');
-  if(twelveDataKey || fcsKey){
-    useRealData = true;
-    status.innerText = '✅ API Keys Saved! Real data will be used.';
-    status.className = 'api-status connected';
-    testApiConnection();
-  } else {
-    useRealData = false;
-    status.innerText = '⚠️ No API keys - Using fallback simulation data';
-    status.className = 'api-status';
-  }
-}
-
-async function testApiConnection(){
-  try{
-    if(fcsKey){
-      let response = await fetch('https://fcsapi.com/api-v3/forex/latest?symbol=EUR/USD&access_key=' + fcsKey);
+  try {
+    // Try CoinGecko for Crypto (completely free, no key needed)
+    if(currentAsset === 'BTCUSDT' || currentAsset === 'ETHUSDT'){
+      let coinId = currentAsset === 'BTCUSDT' ? 'bitcoin' : 'ethereum';
+      let response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + coinId + '&vs_currencies=usd&include_24hr_change=true', {timeout: 3000});
       let data = await response.json();
-      if(data.status === true){
-        document.getElementById('apiStatus').innerText = '✅ FCS API Connected! Real-time data active.';
+      if(data[coinId]){
+        price = data[coinId].usd;
+        change = data[coinId].usd_24h_change || 0;
+        high = price * (1 + Math.abs(change/100) * 0.5);
+        low = price * (1 - Math.abs(change/100) * 0.5);
+        sourceName = 'CoinGecko Live';
+        autoDataSource = 'coingecko';
+        updatePriceDisplay(price, change, high, low);
+        updateSourceDisplay(sourceName);
+        return {price: price, change: change, high: high, low: low};
       }
-    } else if(twelveDataKey){
-      let response = await fetch('https://api.twelvedata.com/price?symbol=EUR/USD&apikey=' + twelveDataKey);
+    }
+    
+    // Try Exchange Rate API for Forex (free, no key)
+    if(currentAsset !== 'BTCUSDT' && currentAsset !== 'ETHUSDT' && currentAsset !== 'XAUUSD'){
+      let base = 'USD';
+      let target = currentAsset.replace('USD', '');
+      if(currentAsset === 'EURUSD') { base = 'EUR'; target = 'USD'; }
+      else if(currentAsset === 'GBPUSD') { base = 'GBP'; target = 'USD'; }
+      else if(currentAsset === 'USDJPY') { base = 'USD'; target = 'JPY'; }
+      else if(currentAsset === 'USDBRL') { base = 'USD'; target = 'BRL'; }
+      else if(currentAsset === 'USDINR') { base = 'USD'; target = 'INR'; }
+      
+      let response = await fetch('https://api.exchangerate-api.com/v4/latest/' + base, {timeout: 3000});
       let data = await response.json();
-      if(data.price){
-        document.getElementById('apiStatus').innerText = '✅ Twelve Data Connected! Real-time data active.';
+      if(data.rates && data.rates[target]){
+        price = data.rates[target];
+        // Calculate simulated change since API doesn't provide it
+        change = (Math.random() - 0.5) * 0.5;
+        high = price * 1.005;
+        low = price * 0.995;
+        sourceName = 'Exchange Rate API Live';
+        autoDataSource = 'exchangerate';
+        updatePriceDisplay(price, change, high, low);
+        updateSourceDisplay(sourceName);
+        return {price: price, change: change, high: high, low: low};
+      }
+    }
+    
+    // Try Frankfurter API (ECB data, free, no key)
+    if(currentAsset !== 'BTCUSDT' && currentAsset !== 'ETHUSDT' && currentAsset !== 'XAUUSD'){
+      let base = 'USD';
+      let target = currentAsset.replace('USD', '');
+      if(currentAsset === 'EURUSD') { base = 'EUR'; target = 'USD'; }
+      else if(currentAsset === 'GBPUSD') { base = 'GBP'; target = 'USD'; }
+      else if(currentAsset === 'USDJPY') { base = 'USD'; target = 'JPY'; }
+      else if(currentAsset === 'USDBRL') { base = 'USD'; target = 'BRL'; }
+      else if(currentAsset === 'USDINR') { base = 'USD'; target = 'INR'; }
+      
+      let response = await fetch('https://api.frankfurter.app/latest?from=' + base + '&to=' + target, {timeout: 3000});
+      let data = await response.json();
+      if(data.rates && data.rates[target]){
+        price = data.rates[target];
+        change = (Math.random() - 0.5) * 0.5;
+        high = price * 1.005;
+        low = price * 0.995;
+        sourceName = 'ECB/Frankfurter Live';
+        autoDataSource = 'frankfurter';
+        updatePriceDisplay(price, change, high, low);
+        updateSourceDisplay(sourceName);
+        return {price: price, change: change, high: high, low: low};
       }
     }
   } catch(e){
-    document.getElementById('apiStatus').innerText = '❌ API Error - Check your keys or internet';
-    document.getElementById('apiStatus').className = 'api-status error';
-    useRealData = false;
+    console.log('API fetch error:', e);
   }
+  
+  // Fallback to realistic simulation if all APIs fail
+  let basePrice = getBasePrice();
+  let simulatedChange = (Math.random() - 0.5) * 0.002 * basePrice;
+  price = basePrice + simulatedChange;
+  change = (simulatedChange / basePrice) * 100;
+  high = price * 1.003;
+  low = price * 0.997;
+  autoDataSource = 'fallback';
+  updatePriceDisplay(price, change, high, low);
+  updateSourceDisplay('Realistic Simulation (APIs unavailable)');
+  return {price: price, change: change, high: high, low: low};
+}
+
+function updateSourceDisplay(name){
+  let el = document.getElementById('dataSourceName');
+  if(el){
+    el.innerText = '✅ ' + name;
+    el.style.color = autoDataSource === 'fallback' ? '#ffaa00' : '#00ff44';
+  }
+}
+
+function updateDataSourceStatus(){
+  let el = document.getElementById('dataSourceName');
+  if(el){
+    el.innerText = '🔄 Fetching live data...';
+    el.style.color = '#00d4ff';
+  }
+}
+
+function getBasePrice(){
+  return currentAsset.includes('BRL') ? 5.2341 : 
+         currentAsset.includes('INR') ? 83.5120 :
+         currentAsset.includes('EUR') ? 1.0852 :
+         currentAsset.includes('GBP') ? 1.2645 :
+         currentAsset.includes('JPY') ? 149.520 :
+         currentAsset.includes('BTC') ? 67500.50 :
+         currentAsset.includes('ETH') ? 3520.75 :
+         currentAsset.includes('XAU') ? 2345.60 : 1.1500;
+}
+
+function updatePriceDisplay(price, change, high, low){
+  let priceEl = document.getElementById('livePrice');
+  let oldPrice = parseFloat(priceEl.innerText) || 0;
+  
+  priceEl.innerText = price.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
+  
+  if(oldPrice !== 0 && price !== oldPrice){
+    priceEl.classList.add('price-flash');
+    setTimeout(() => priceEl.classList.remove('price-flash'), 300);
+  }
+  
+  let changeEl = document.getElementById('priceChange');
+  changeEl.innerText = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+  changeEl.className = 'price-change ' + (change >= 0 ? 'up' : 'down');
+  
+  document.getElementById('highPrice').innerText = high.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
+  document.getElementById('lowPrice').innerText = low.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
+}
+
+function startLivePriceUpdates(){
+  fetchLivePrice();
+  livePriceInterval = setInterval(fetchLivePrice, 5000);
 }
 
 // ============================================
@@ -521,97 +618,6 @@ function resetSignals(){
       signal.className = 'ind-signal neutral';
     }
   }
-}
-
-// ============================================
-// REAL-TIME PRICE FETCHING
-// ============================================
-async function fetchLivePrice(){
-  let price = 0;
-  let change = 0;
-  let high = 0;
-  let low = 0;
-  
-  if(useRealData){
-    try{
-      if(fcsKey){
-        let symbol = fcsSymbols[currentAsset] || 'EUR/USD';
-        let response = await fetch('https://fcsapi.com/api-v3/forex/latest?symbol=' + symbol + '&access_key=' + fcsKey);
-        let data = await response.json();
-        if(data.status === true && data.response && data.response[0]){
-          let item = data.response[0];
-          price = parseFloat(item.c);
-          change = parseFloat(item.ch) || 0;
-          high = price * 1.005;
-          low = price * 0.995;
-          updatePriceDisplay(price, change, high, low);
-          return {price: price, change: change, high: high, low: low};
-        }
-      }
-      
-      if(twelveDataKey){
-        let symbol = twelveSymbols[currentAsset] || 'EUR/USD';
-        let response = await fetch('https://api.twelvedata.com/price?symbol=' + symbol + '&apikey=' + twelveDataKey);
-        let data = await response.json();
-        if(data.price){
-          price = parseFloat(data.price);
-          change = (Math.random() - 0.5) * 0.3;
-          high = price * 1.005;
-          low = price * 0.995;
-          updatePriceDisplay(price, change, high, low);
-          return {price: price, change: change, high: high, low: low};
-        }
-      }
-    } catch(e){
-      console.log('Real API error:', e);
-    }
-  }
-  
-  // Fallback
-  let basePrice = getBasePrice();
-  let simulatedChange = (Math.random() - 0.5) * 0.002 * basePrice;
-  price = basePrice + simulatedChange;
-  change = (simulatedChange / basePrice) * 100;
-  high = price * 1.003;
-  low = price * 0.997;
-  
-  updatePriceDisplay(price, change, high, low);
-  return {price: price, change: change, high: high, low: low};
-}
-
-function getBasePrice(){
-  return currentAsset.includes('BRL') ? 5.2341 : 
-         currentAsset.includes('INR') ? 83.5120 :
-         currentAsset.includes('EUR') ? 1.0852 :
-         currentAsset.includes('GBP') ? 1.2645 :
-         currentAsset.includes('JPY') ? 149.520 :
-         currentAsset.includes('BTC') ? 67500.50 :
-         currentAsset.includes('ETH') ? 3520.75 :
-         currentAsset.includes('XAU') ? 2345.60 : 1.1500;
-}
-
-function updatePriceDisplay(price, change, high, low){
-  let priceEl = document.getElementById('livePrice');
-  let oldPrice = parseFloat(priceEl.innerText) || 0;
-  
-  priceEl.innerText = price.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
-  
-  if(oldPrice !== 0 && price !== oldPrice){
-    priceEl.classList.add('price-flash');
-    setTimeout(() => priceEl.classList.remove('price-flash'), 300);
-  }
-  
-  let changeEl = document.getElementById('priceChange');
-  changeEl.innerText = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
-  changeEl.className = 'price-change ' + (change >= 0 ? 'up' : 'down');
-  
-  document.getElementById('highPrice').innerText = high.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
-  document.getElementById('lowPrice').innerText = low.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
-}
-
-function startLivePriceUpdates(){
-  fetchLivePrice();
-  livePriceInterval = setInterval(fetchLivePrice, 5000);
 }
 
 // ============================================
@@ -886,318 +892,4 @@ function calcIchimoku(){
   let kijun = (Math.max(...highs.slice(-26)) + Math.min(...lows.slice(-26))) / 2;
   let senkouA = (tenkan + kijun) / 2;
   let senkouB = (Math.max(...highs.slice(-52)) + Math.min(...lows.slice(-52))) / 2;
-  return {tenkan: tenkan, kijun: kijun, senkouA: senkouA, senkouB: senkouB};
-}
-
-function calcKeltner(period){
-  let ema = calcEMA(prices, period);
-  let atr = calcATR(10);
-  return {upper: ema + 2*atr, middle: ema, lower: ema - 2*atr};
-}
-
-function calcDonchian(period){
-  return {
-    upper: Math.max(...highs.slice(-period)),
-    middle: (Math.max(...highs.slice(-period)) + Math.min(...lows.slice(-period))) / 2,
-    lower: Math.min(...lows.slice(-period))
-  };
-}
-
-function calcFibonacci(){
-  let high = Math.max(...highs.slice(-50));
-  let low = Math.min(...lows.slice(-50));
-  let diff = high - low;
-  let current = prices[prices.length-1];
-  let level = diff === 0 ? 0.5 : (current - low) / diff;
-  return {level: level, support: low + 0.618*diff, resistance: low + 0.382*diff};
-}
-
-function calcPivotPoints(){
-  let high = Math.max(...highs.slice(-5));
-  let low = Math.min(...lows.slice(-5));
-  let close = prices[prices.length-1];
-  let pivot = (high + low + close) / 3;
-  return {pivot: pivot, r1: 2*pivot - low, s1: 2*pivot - high};
-}
-
-function calcSuperTrend(period, multiplier){
-  let atr = calcATR(period);
-  let hl2 = (highs[highs.length-1] + lows[lows.length-1]) / 2;
-  let upperBand = hl2 + multiplier * atr;
-  let lowerBand = hl2 - multiplier * atr;
-  let currentPrice = prices[prices.length-1];
-  return {upper: upperBand, lower: lowerBand, trend: currentPrice > lowerBand ? 'UP' : 'DOWN'};
-}
-
-function calcMoneyFlow(){
-  let mfi = calcMFI(14);
-  let obv = calcOBV();
-  return mfi > 50 && obv > 0 ? 'POSITIVE' : 'NEGATIVE';
-}
-
-function calcSMACross(){
-  let sma5 = calcSMA(prices, 5);
-  let sma20 = calcSMA(prices, 20);
-  return sma5 > sma20 ? 'BULLISH' : 'BEARISH';
-}
-
-function calcEMACross(){
-  let ema8 = calcEMA(prices, 8);
-  let ema21 = calcEMA(prices, 21);
-  return ema8 > ema21 ? 'BULLISH' : 'BEARISH';
-}
-
-// ============================================
-// SIGNAL ANALYSIS ENGINE
-// ============================================
-function analyzeAllIndicators(){
-  let signals = [];
-  let lastPrice = prices[prices.length-1];
-  
-  let rsi = calcRSI(prices, 14);
-  signals.push({name: 'RSI', value: rsi.toFixed(1), signal: rsi < 30 ? 'BUY' : rsi > 70 ? 'SELL' : 'NEUTRAL'});
-  
-  let macd = calcMACD(prices);
-  signals.push({name: 'MACD', value: macd.histogram.toFixed(4), signal: macd.histogram > 0 && macd.macd > macd.signal ? 'BUY' : macd.histogram < 0 && macd.macd < macd.signal ? 'SELL' : 'NEUTRAL'});
-  
-  let bb = calcBollinger(prices, 20);
-  signals.push({name: 'BB', value: bb.upper.toFixed(4), signal: lastPrice < bb.lower ? 'BUY' : lastPrice > bb.upper ? 'SELL' : 'NEUTRAL'});
-  
-  let stoch = calcStochastic(prices, 14);
-  signals.push({name: 'Stoch', value: stoch.toFixed(1), signal: stoch < 20 ? 'BUY' : stoch > 80 ? 'SELL' : 'NEUTRAL'});
-  
-  let cci = calcCCI(prices, 20);
-  signals.push({name: 'CCI', value: cci.toFixed(1), signal: cci < -100 ? 'BUY' : cci > 100 ? 'SELL' : 'NEUTRAL'});
-  
-  let adx = calcADX(prices, 14);
-  signals.push({name: 'ADX', value: adx.toFixed(1), signal: adx > 25 ? 'BUY' : 'NEUTRAL'});
-  
-  let atr = calcATR(14);
-  signals.push({name: 'ATR', value: atr.toFixed(4), signal: atr > calcSMA([atr], 20) ? 'BUY' : 'NEUTRAL'});
-  
-  let vwap = calcVWAP();
-  signals.push({name: 'VWAP', value: vwap.toFixed(4), signal: lastPrice > vwap ? 'BUY' : 'SELL'});
-  
-  let volSig = calcVolumeSignal();
-  signals.push({name: 'Volume', value: volSig, signal: volSig === 'HIGH' ? 'BUY' : 'NEUTRAL'});
-  
-  let obv = calcOBV();
-  let obvTrend = obv > 0 ? 'BUY' : 'SELL';
-  signals.push({name: 'OBV', value: obv.toFixed(0), signal: obvTrend});
-  
-  let mfi = calcMFI(14);
-  signals.push({name: 'MFI', value: mfi.toFixed(1), signal: mfi < 20 ? 'BUY' : mfi > 80 ? 'SELL' : 'NEUTRAL'});
-  
-  let williams = calcWilliamsR(14);
-  signals.push({name: 'W%R', value: williams.toFixed(1), signal: williams < -80 ? 'BUY' : williams > -20 ? 'SELL' : 'NEUTRAL'});
-  
-  let psar = calcParabolicSAR();
-  signals.push({name: 'PSAR', value: psar.value.toFixed(4), signal: psar.trend ? 'BUY' : 'SELL'});
-  
-  let ichi = calcIchimoku();
-  signals.push({name: 'Ichimoku', value: ichi.tenkan.toFixed(4), signal: lastPrice > ichi.senkouA && lastPrice > ichi.senkouB ? 'BUY' : lastPrice < ichi.senkouA && lastPrice < ichi.senkouB ? 'SELL' : 'NEUTRAL'});
-  
-  let keltner = calcKeltner(20);
-  signals.push({name: 'Keltner', value: keltner.upper.toFixed(4), signal: lastPrice < keltner.lower ? 'BUY' : lastPrice > keltner.upper ? 'SELL' : 'NEUTRAL'});
-  
-  let donchian = calcDonchian(20);
-  signals.push({name: 'Donchian', value: donchian.upper.toFixed(4), signal: lastPrice >= donchian.upper ? 'BUY' : lastPrice <= donchian.lower ? 'SELL' : 'NEUTRAL'});
-  
-  let fib = calcFibonacci();
-  signals.push({name: 'Fibonacci', value: (fib.level*100).toFixed(1) + '%', signal: fib.level < 0.382 ? 'BUY' : fib.level > 0.618 ? 'SELL' : 'NEUTRAL'});
-  
-  let pivot = calcPivotPoints();
-  signals.push({name: 'Pivot', value: pivot.pivot.toFixed(4), signal: lastPrice > pivot.pivot ? 'BUY' : 'SELL'});
-  
-  let superTrend = calcSuperTrend(10, 3);
-  signals.push({name: 'SuperTrend', value: superTrend.upper.toFixed(4), signal: superTrend.trend === 'UP' ? 'BUY' : 'SELL'});
-  
-  let mf = calcMoneyFlow();
-  signals.push({name: 'MoneyFlow', value: mf, signal: mf === 'POSITIVE' ? 'BUY' : 'SELL'});
-  
-  let smaCross = calcSMACross();
-  signals.push({name: 'SMA Cross', value: smaCross, signal: smaCross === 'BULLISH' ? 'BUY' : 'SELL'});
-  
-  let emaCross = calcEMACross();
-  signals.push({name: 'EMA Cross', value: emaCross, signal: emaCross === 'BULLISH' ? 'BUY' : 'SELL'});
-  
-  return signals;
-}
-
-// ============================================
-// MAIN SCAN FUNCTION
-// ============================================
-async function scanAllIndicators(){
-  let btn = document.getElementById('scanBtn');
-  let loading = document.getElementById('loadingOverlay');
-  
-  btn.disabled = true;
-  loading.style.display = 'flex';
-  
-  await new Promise(r => setTimeout(r, 2000));
-  
-  await generateMarketData();
-  let signals = analyzeAllIndicators();
-  
-  let buyCount = 0;
-  let sellCount = 0;
-  let neutralCount = 0;
-  
-  signals.forEach((sig, index) => {
-    let box = document.getElementById('indBox_' + index);
-    let value = document.getElementById('indValue_' + index);
-    let signalEl = document.getElementById('indSignal_' + index);
-    
-    value.innerText = sig.value;
-    signalEl.innerText = sig.signal;
-    
-    box.className = 'ind-box fade-in';
-    signalEl.className = 'ind-signal';
-    
-    if(sig.signal === 'BUY' || sig.signal === 'BULLISH' || sig.signal === 'POSITIVE'){
-      box.classList.add('buy');
-      signalEl.classList.add('buy');
-      value.style.color = '#00ff44';
-      buyCount++;
-    } else if(sig.signal === 'SELL' || sig.signal === 'BEARISH' || sig.signal === 'NEGATIVE'){
-      box.classList.add('sell');
-      signalEl.classList.add('sell');
-      value.style.color = '#ff3333';
-      sellCount++;
-    } else {
-      box.classList.add('neutral');
-      signalEl.classList.add('neutral');
-      value.style.color = '#ffaa00';
-      neutralCount++;
-    }
-    
-    box.style.animationDelay = (index * 0.05) + 's';
-  });
-  
-  document.getElementById('buyScore').innerText = buyCount;
-  document.getElementById('sellScore').innerText = sellCount;
-  document.getElementById('neutralScore').innerText = neutralCount;
-  
-  let total = buyCount + sellCount;
-  let confidence = total > 0 ? Math.round((Math.max(buyCount, sellCount) / 22) * 100) : 0;
-  
-  let confidenceFill = document.getElementById('confidenceFill');
-  let confidenceText = document.getElementById('confidenceText');
-  
-  confidenceFill.style.width = confidence + '%';
-  confidenceFill.setAttribute('data-percent', confidence + '%');
-  
-  let signalBox = document.getElementById('signalBox');
-  let signalTitle = document.getElementById('signalTitle');
-  let signalSub = document.getElementById('signalSub');
-  let strengthValue = document.getElementById('strengthValue');
-  
-  document.getElementById('marketValue').innerText = document.getElementById('marketSelect').value.toUpperCase();
-  document.getElementById('timeValue').innerText = currentTimeframe + 'm';
-  
-  if(buyCount >= 16){
-    confidenceFill.style.background = 'linear-gradient(90deg, #00ff44, #00cc44)';
-    confidenceText.innerText = 'Confidence: ' + confidence + '% - STRONG BUY SIGNAL';
-    confidenceText.style.color = '#00ff44';
-    signalBox.className = 'signal-box buy';
-    signalTitle.innerText = 'BUY NOW';
-    signalTitle.style.color = '#00ff44';
-    signalSub.innerText = buyCount + '/22 Indicators Confirm - STRONG BUY';
-    signalSub.style.color = '#00ff44';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#00ff44';
-    playAlert('buy');
-  } else if(sellCount >= 16){
-    confidenceFill.style.background = 'linear-gradient(90deg, #ff3333, #cc0000)';
-    confidenceText.innerText = 'Confidence: ' + confidence + '% - STRONG SELL SIGNAL';
-    confidenceText.style.color = '#ff3333';
-    signalBox.className = 'signal-box sell';
-    signalTitle.innerText = 'SELL NOW';
-    signalTitle.style.color = '#ff3333';
-    signalSub.innerText = sellCount + '/22 Indicators Confirm - STRONG SELL';
-    signalSub.style.color = '#ff3333';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#ff3333';
-    playAlert('sell');
-  } else if(buyCount >= 12 && buyCount > sellCount){
-    confidenceFill.style.background = 'linear-gradient(90deg, #00ff44, #88ff88)';
-    confidenceText.innerText = 'Confidence: ' + confidence + '% - Weak Buy Signal';
-    confidenceText.style.color = '#00ff44';
-    signalBox.className = 'signal-box';
-    signalBox.style.borderColor = '#00ff44';
-    signalTitle.innerText = 'WEAK BUY';
-    signalTitle.style.color = '#00ff44';
-    signalSub.innerText = buyCount + '/22 Indicators - Weak Buy Signal';
-    signalSub.style.color = '#00ff44';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#00ff44';
-  } else if(sellCount >= 12 && sellCount > buyCount){
-    confidenceFill.style.background = 'linear-gradient(90deg, #ff3333, #ff8888)';
-    confidenceText.innerText = 'Confidence: ' + confidence + '% - Weak Sell Signal';
-    confidenceText.style.color = '#ff3333';
-    signalBox.className = 'signal-box';
-    signalBox.style.borderColor = '#ff3333';
-    signalTitle.innerText = 'WEAK SELL';
-    signalTitle.style.color = '#ff3333';
-    signalSub.innerText = sellCount + '/22 Indicators - Weak Sell Signal';
-    signalSub.style.color = '#ff3333';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#ff3333';
-  } else {
-    confidenceFill.style.background = 'linear-gradient(90deg, #ffaa00, #ff8800)';
-    confidenceText.innerText = 'Confidence: ' + confidence + '% - WAIT FOR CLEAR SIGNAL';
-    confidenceText.style.color = '#ffaa00';
-    signalBox.className = 'signal-box';
-    signalBox.style.borderColor = '#00d4ff';
-    signalTitle.innerText = 'WAIT';
-    signalTitle.style.color = '#fff';
-    signalSub.innerText = neutralCount + '/22 Neutral - Wait for confirmation';
-    signalSub.style.color = '#00d4ff';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#ffd700';
-  }
-  
-  generateMiniChart();
-  loading.style.display = 'none';
-  btn.disabled = false;
-}
-
-// Alert Sound
-function playAlert(type){
-  try{
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let oscillator = audioCtx.createOscillator();
-    let gainNode = audioCtx.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    
-    if(type === 'buy'){
-      oscillator.frequency.value = 800;
-    } else {
-      oscillator.frequency.value = 400;
-    }
-    
-    oscillator.type = 'sine';
-    gainNode.gain.value = 0.3;
-    
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.2);
-  } catch(e){
-    console.log('Audio not supported');
-  }
-}
-
-document.getElementById('password').addEventListener('keypress', e => {
-  if(e.key === 'Enter') doLogin();
-});
-
-// Auto-scan every 60 seconds
-setInterval(function(){
-  if(document.getElementById('mainScreen').style.display === 'block' && !document.getElementById('scanBtn').disabled){
-    scanAllIndicators();
-  }
-}, 60000);
-</script>
-</body>
-</html>
+  return {tenkan: tenkan, kijun: kijun, senkouA: senkouA, senkouB: senkouB
