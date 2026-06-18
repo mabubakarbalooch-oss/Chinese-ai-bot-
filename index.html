@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Lubna Abubakar AI Bot - RSI + EMA + Price</title>
+<title>Lubna Abubakar AI Bot - RSI + EMA + MACD + Price</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -73,11 +73,11 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 .scan-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,215,0,0.5);}
 .scan-btn:disabled{opacity:0.5;cursor:not-allowed;}
 
-/* 3 INDICATORS GRID */
+/* 4 INDICATORS GRID */
 .indicators-container{background:#121821;border:2px solid #1e2a3a;border-radius:15px;padding:15px;margin-bottom:12px;}
 .indicators-title{font-size:14px;font-weight:900;color:#ffd700;margin-bottom:12px;text-align:center;letter-spacing:2px;}
 .indicators-title span{color:#00ff88;}
-.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ind-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
 .ind-box{background:#0a0e1a;border:2px solid #1e2a3a;border-radius:10px;padding:14px 6px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
 .ind-box::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:transparent;transition:all 0.3s;}
 .ind-box.buy{border-color:#00ff44;box-shadow:0 0 10px rgba(0,255,68,0.2);}
@@ -154,7 +154,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
   <div class="login-card">
     <div class="logo">LA</div>
     <div class="title">LUBNA ABUBAKAR</div>
-    <div class="subtitle">AI BOT - RSI + EMA + PRICE</div>
+    <div class="subtitle">AI BOT - RSI + EMA + MACD + PRICE</div>
 
     <div class="input-box">
       <span class="input-icon">👤</span>
@@ -188,7 +188,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 
   <div class="content">
     <div class="header-box">
-      <h2>RSI + EMA + PRICE ANALYSIS</h2>
+      <h2>RSI + EMA + MACD + PRICE</h2>
       <p>LIVE DATA + AI ANALYSIS</p>
     </div>
 
@@ -252,7 +252,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
       </select>
     </div>
 
-    <button class="scan-btn" id="scanBtn" onclick="scanAllIndicators()">⚡ SCAN SIGNALS</button>
+    <button class="scan-btn" id="scanBtn" onclick="scanAllIndicators()">⚡ SCAN 4 INDICATORS</button>
 
     <!-- SCORE DISPLAY -->
     <div class="score-display" id="scoreDisplay">
@@ -276,9 +276,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
     </div>
     <div class="confidence-text" id="confidenceText">Confidence: 0% - Waiting for scan...</div>
 
-    <!-- 3 INDICATORS GRID -->
+    <!-- 4 INDICATORS GRID -->
     <div class="indicators-container">
-      <div class="indicators-title">3 TECHNICAL <span>INDICATORS</span></div>
+      <div class="indicators-title">4 TECHNICAL <span>INDICATORS</span></div>
       <div class="ind-grid" id="indicatorsGrid">
         <!-- Will be populated by JS -->
       </div>
@@ -287,7 +287,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
     <!-- SIGNAL BOX -->
     <div class="signal-box" id="signalBox">
       <div class="signal-title" id="signalTitle" style="color:#fff;">WAIT</div>
-      <div class="signal-sub" id="signalSub" style="color:#00d4ff;">Press SCAN to analyze RSI + EMA + Price</div>
+      <div class="signal-sub" id="signalSub" style="color:#00d4ff;">Press SCAN to analyze RSI + EMA + MACD + Price</div>
 
       <div class="info-grid">
         <div class="info-box">
@@ -316,7 +316,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-fami
 <script src="https://s3.tradingview.com/tv.js"></script>
 <script>
 // ============================================
-// LUBNA ABUBAKAR AI BOT - RSI + EMA + PRICE
+// LUBNA ABUBAKAR AI BOT - RSI + EMA + MACD + PRICE
 // ============================================
 
 document.addEventListener('gesturestart', e => e.preventDefault());
@@ -351,8 +351,8 @@ const displayNames = {
   'ETHUSDT': 'ETH/USD', 'XAUUSD': 'GOLD/USD'
 };
 
-// 3 Indicator Names
-const indicatorNames = ['RSI (14)', 'EMA (21)', 'PRICE'];
+// 4 Indicator Names
+const indicatorNames = ['RSI (14)', 'EMA (21)', 'MACD', 'PRICE'];
 
 function doLogin(){
   let u = document.getElementById('username').value;
@@ -398,443 +398,9 @@ function initTradingViewChart(){
     "save_image": false,
     "studies": [
       "RSI@tv-basicstudies",
-      "MovingAverageExponential@tv-basicstudies"
+      "MovingAverageExponential@tv-basicstudies",
+      "MACD@tv-basicstudies"
     ],
     "overrides": {
       "mainSeriesProperties.candleStyle.upColor": "#00ff44",
-      "mainSeriesProperties.candleStyle.downColor": "#ff3333",
-      "mainSeriesProperties.candleStyle.borderUpColor": "#00ff44",
-      "mainSeriesProperties.candleStyle.borderDownColor": "#ff3333",
-      "mainSeriesProperties.candleStyle.wickUpColor": "#00ff44",
-      "mainSeriesProperties.candleStyle.wickDownColor": "#ff3333"
-    }
-  });
-}
-
-function changeAsset(){
-  currentAsset = document.getElementById('assetSelect').value;
-  document.getElementById('assetValue').innerText = displayNames[currentAsset] || currentAsset;
-  initTradingViewChart();
-  resetSignals();
-  fetchLivePrice();
-}
-
-function changeTimeframe(){
-  currentTimeframe = document.getElementById('timeframeSelect').value;
-  document.getElementById('timeValue').innerText = currentTimeframe + 'm';
-  initTradingViewChart();
-  resetSignals();
-}
-
-function resetSignals(){
-  document.getElementById('signalTitle').innerText = 'WAIT';
-  document.getElementById('signalTitle').style.color = '#fff';
-  document.getElementById('signalSub').innerText = 'Press SCAN to analyze RSI + EMA + Price';
-  document.getElementById('signalSub').style.color = '#00d4ff';
-  document.getElementById('signalBox').style.borderColor = '#00d4ff';
-  document.getElementById('confidenceFill').style.width = '0%';
-  document.getElementById('confidenceFill').setAttribute('data-percent', '0%');
-  document.getElementById('confidenceText').innerText = 'Confidence: 0% - Waiting for scan...';
-  document.getElementById('buyScore').innerText = '0';
-  document.getElementById('sellScore').innerText = '0';
-  document.getElementById('neutralScore').innerText = '0';
-  document.getElementById('strengthValue').innerText = '0%';
-  
-  for(let i=0; i<3; i++){
-    let box = document.getElementById('indBox_' + i);
-    let value = document.getElementById('indValue_' + i);
-    let signal = document.getElementById('indSignal_' + i);
-    if(box){
-      box.className = 'ind-box';
-      value.innerText = '--';
-      value.style.color = '#888';
-      signal.innerText = 'WAIT';
-      signal.className = 'ind-signal neutral';
-    }
-  }
-}
-
-// ============================================
-// REAL-TIME PRICE FETCHING
-// ============================================
-async function fetchLivePrice(){
-  try{
-    let price = 0;
-    let change = 0;
-    let high = 0;
-    let low = 0;
-    
-    if(currentAsset.includes('BTC') || currentAsset.includes('ETH')){
-      let coinId = currentAsset.includes('BTC') ? 'bitcoin' : 'ethereum';
-      let response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=usd&include_24hr_change=true`);
-      let data = await response.json();
-      if(data[coinId]){
-        price = data[coinId].usd;
-        change = data[coinId].usd_24h_change || 0;
-        high = price * (1 + Math.abs(change/100) * 0.5);
-        low = price * (1 - Math.abs(change/100) * 0.5);
-      }
-    }
-    else {
-      let pair = currentAsset;
-      if(pair === 'USDBRL') pair = 'USD-BRL';
-      else if(pair === 'USDINR') pair = 'USD-INR';
-      else if(pair === 'EURUSD') pair = 'EUR-USD';
-      else if(pair === 'GBPUSD') pair = 'GBP-USD';
-      else if(pair === 'USDJPY') pair = 'USD-JPY';
-      else if(pair === 'XAUUSD') pair = 'XAU-USD';
-      
-      try{
-        let response = await fetch(`https://api.exchangerate-api.com/v4/latest/${pair.split('-')[0]}`);
-        let data = await response.json();
-        if(data.rates && data.rates[pair.split('-')[1]]){
-          price = data.rates[pair.split('-')[1]];
-          change = (Math.random() - 0.5) * 0.5;
-          high = price * 1.005;
-          low = price * 0.995;
-        }
-      } catch(e){
-        price = getBasePrice();
-        change = (Math.random() - 0.5) * 0.3;
-        high = price * 1.003;
-        low = price * 0.997;
-      }
-    }
-    
-    updatePriceDisplay(price, change, high, low);
-    return {price, change, high, low};
-  } catch(e){
-    let price = getBasePrice();
-    let change = (Math.random() - 0.5) * 0.3;
-    updatePriceDisplay(price, change, price * 1.003, price * 0.997);
-    return {price, change, high: price * 1.003, low: price * 0.997};
-  }
-}
-
-function getBasePrice(){
-  return currentAsset.includes('BRL') ? 5.2341 : 
-         currentAsset.includes('INR') ? 83.5120 :
-         currentAsset.includes('EUR') ? 1.0852 :
-         currentAsset.includes('GBP') ? 1.2645 :
-         currentAsset.includes('JPY') ? 149.520 :
-         currentAsset.includes('BTC') ? 67500.50 :
-         currentAsset.includes('ETH') ? 3520.75 :
-         currentAsset.includes('XAU') ? 2345.60 : 1.1500;
-}
-
-function updatePriceDisplay(price, change, high, low){
-  let priceEl = document.getElementById('livePrice');
-  let oldPrice = parseFloat(priceEl.innerText) || 0;
-  
-  priceEl.innerText = price.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
-  
-  if(oldPrice !== 0 && price !== oldPrice){
-    priceEl.classList.add('price-flash');
-    setTimeout(() => priceEl.classList.remove('price-flash'), 300);
-  }
-  
-  let changeEl = document.getElementById('priceChange');
-  changeEl.innerText = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
-  changeEl.className = 'price-change ' + (change >= 0 ? 'up' : 'down');
-  
-  document.getElementById('highPrice').innerText = high.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
-  document.getElementById('lowPrice').innerText = low.toFixed(currentAsset.includes('BTC') || currentAsset.includes('ETH') ? 2 : 4);
-}
-
-function startLivePriceUpdates(){
-  fetchLivePrice();
-  livePriceInterval = setInterval(fetchLivePrice, 5000);
-}
-
-// ============================================
-// INDICATORS GRID INIT
-// ============================================
-function initIndicatorsGrid(){
-  let grid = document.getElementById('indicatorsGrid');
-  grid.innerHTML = '';
-  indicatorNames.forEach((name, index) => {
-    let box = document.createElement('div');
-    box.className = 'ind-box';
-    box.id = 'indBox_' + index;
-    box.innerHTML = `
-      <div class="ind-label">${name}</div>
-      <div class="ind-value" id="indValue_${index}" style="color:#888;">--</div>
-      <div class="ind-signal neutral" id="indSignal_${index}">WAIT</div>
-    `;
-    grid.appendChild(box);
-  });
-}
-
-function generateMiniChart(){
-  let chart = document.getElementById('miniChart');
-  chart.innerHTML = '';
-  let trend = Math.random() > 0.5 ? 1 : -1;
-  for(let i=0; i<20; i++){
-    let candle = document.createElement('div');
-    let isGreen = Math.random() > 0.4;
-    if(trend > 0 && i > 10) isGreen = Math.random() > 0.3;
-    if(trend < 0 && i > 10) isGreen = Math.random() > 0.7;
-    candle.className = 'candle ' + (isGreen ? 'green' : 'red');
-    candle.style.height = (Math.random() * 30 + 15) + 'px';
-    chart.appendChild(candle);
-  }
-}
-
-// ============================================
-// GENERATE MARKET DATA
-// ============================================
-async function generateMarketData(){
-  let liveData = await fetchLivePrice();
-  let basePrice = liveData.price || getBasePrice();
-  
-  prices = [];
-  volumes = [];
-  highs = [];
-  lows = [];
-  
-  let volatility = currentAsset.includes('BTC') ? 0.02 : 
-                   currentAsset.includes('ETH') ? 0.015 : 
-                   currentAsset.includes('XAU') ? 0.008 : 0.003;
-  
-  let currentPrice = basePrice;
-  for(let i=0; i<200; i++){
-    let change = (Math.random() - 0.5) * volatility * currentPrice;
-    currentPrice += change;
-    
-    let high = currentPrice + Math.abs(Math.random() * volatility * 0.3 * currentPrice);
-    let low = currentPrice - Math.abs(Math.random() * volatility * 0.3 * currentPrice);
-    let volume = Math.floor(Math.random() * 15000 + 8000);
-    
-    prices.push(currentPrice);
-    highs.push(high);
-    lows.push(low);
-    volumes.push(volume);
-  }
-  
-  prices[prices.length-1] = basePrice;
-  return prices;
-}
-
-// ============================================
-// 3 TECHNICAL INDICATORS
-// ============================================
-function calcRSI(data, period=14){
-  if(data.length < period + 1) return 50;
-  let gains = 0, losses = 0;
-  for(let i=1; i<=period; i++){
-    let diff = data[data.length-i] - data[data.length-i-1];
-    if(diff > 0) gains += diff;
-    else losses += Math.abs(diff);
-  }
-  let avgGain = gains / period;
-  let avgLoss = losses / period;
-  if(avgLoss === 0) return 100;
-  let rs = avgGain / avgLoss;
-  return 100 - (100 / (1 + rs));
-}
-
-function calcEMA(data, period){
-  let k = 2 / (period + 1);
-  let ema = data[0];
-  for(let i=1; i<data.length; i++){
-    ema = data[i] * k + ema * (1 - k);
-  }
-  return ema;
-}
-
-function calcSMA(data, period){
-  let sum = 0;
-  for(let i=data.length-period; i<data.length; i++) sum += data[i];
-  return sum / period;
-}
-
-// ============================================
-// SIGNAL ANALYSIS ENGINE - 3 INDICATORS
-// ============================================
-function analyzeAllIndicators(){
-  let signals = [];
-  let lastPrice = prices[prices.length-1];
-  
-  // 1. RSI
-  let rsi = calcRSI(prices, 14);
-  let rsiSignal = rsi < 30 ? 'BUY' : rsi > 70 ? 'SELL' : 'NEUTRAL';
-  signals.push({name: 'RSI', value: rsi.toFixed(1), signal: rsiSignal});
-  
-  // 2. EMA
-  let ema21 = calcEMA(prices, 21);
-  let emaSignal = lastPrice > ema21 ? 'BUY' : 'SELL';
-  signals.push({name: 'EMA', value: ema21.toFixed(4), signal: emaSignal});
-  
-  // 3. PRICE - Compare with recent SMA
-  let sma50 = calcSMA(prices, 50);
-  let priceSignal = lastPrice > sma50 ? 'BUY' : 'SELL';
-  signals.push({name: 'PRICE', value: lastPrice.toFixed(4), signal: priceSignal});
-  
-  return signals;
-}
-
-// ============================================
-// MAIN SCAN FUNCTION
-// ============================================
-async function scanAllIndicators(){
-  let btn = document.getElementById('scanBtn');
-  let loading = document.getElementById('loadingOverlay');
-  
-  btn.disabled = true;
-  loading.style.display = 'flex';
-  
-  await new Promise(r => setTimeout(r, 1500));
-  
-  await generateMarketData();
-  let signals = analyzeAllIndicators();
-  
-  let buyCount = 0;
-  let sellCount = 0;
-  let neutralCount = 0;
-  
-  signals.forEach((sig, index) => {
-    let box = document.getElementById('indBox_' + index);
-    let value = document.getElementById('indValue_' + index);
-    let signalEl = document.getElementById('indSignal_' + index);
-    
-    value.innerText = sig.value;
-    signalEl.innerText = sig.signal;
-    
-    box.className = 'ind-box fade-in';
-    signalEl.className = 'ind-signal';
-    
-    if(sig.signal === 'BUY'){
-      box.classList.add('buy');
-      signalEl.classList.add('buy');
-      value.style.color = '#00ff44';
-      buyCount++;
-    } else if(sig.signal === 'SELL'){
-      box.classList.add('sell');
-      signalEl.classList.add('sell');
-      value.style.color = '#ff3333';
-      sellCount++;
-    } else {
-      box.classList.add('neutral');
-      signalEl.classList.add('neutral');
-      value.style.color = '#ffaa00';
-      neutralCount++;
-    }
-    
-    box.style.animationDelay = (index * 0.1) + 's';
-  });
-  
-  document.getElementById('buyScore').innerText = buyCount;
-  document.getElementById('sellScore').innerText = sellCount;
-  document.getElementById('neutralScore').innerText = neutralCount;
-  
-  let total = buyCount + sellCount;
-  let confidence = total > 0 ? Math.round((Math.max(buyCount, sellCount) / 3) * 100) : 0;
-  
-  let confidenceFill = document.getElementById('confidenceFill');
-  let confidenceText = document.getElementById('confidenceText');
-  
-  confidenceFill.style.width = confidence + '%';
-  confidenceFill.setAttribute('data-percent', confidence + '%');
-  
-  let signalBox = document.getElementById('signalBox');
-  let signalTitle = document.getElementById('signalTitle');
-  let signalSub = document.getElementById('signalSub');
-  let strengthValue = document.getElementById('strengthValue');
-  
-  document.getElementById('marketValue').innerText = document.getElementById('marketSelect').value.toUpperCase();
-  document.getElementById('timeValue').innerText = currentTimeframe + 'm';
-  
-  if(buyCount >= 2){
-    confidenceFill.style.background = 'linear-gradient(90deg, #00ff44, #00cc44)';
-    confidenceText.innerText = `Confidence: ${confidence}% - STRONG BUY`;
-    confidenceText.style.color = '#00ff44';
-    signalBox.className = 'signal-box buy';
-    signalTitle.innerText = 'BUY NOW';
-    signalTitle.style.color = '#00ff44';
-    signalSub.innerText = `${buyCount}/3 Indicators Confirm - STRONG BUY`;
-    signalSub.style.color = '#00ff44';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#00ff44';
-    playAlert('buy');
-  } else if(sellCount >= 2){
-    confidenceFill.style.background = 'linear-gradient(90deg, #ff3333, #cc0000)';
-    confidenceText.innerText = `Confidence: ${confidence}% - STRONG SELL`;
-    confidenceText.style.color = '#ff3333';
-    signalBox.className = 'signal-box sell';
-    signalTitle.innerText = 'SELL NOW';
-    signalTitle.style.color = '#ff3333';
-    signalSub.innerText = `${sellCount}/3 Indicators Confirm - STRONG SELL`;
-    signalSub.style.color = '#ff3333';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#ff3333';
-    playAlert('sell');
-  } else if(buyCount === 1 && sellCount === 1){
-    confidenceFill.style.background = 'linear-gradient(90deg, #ffaa00, #ff8800)';
-    confidenceText.innerText = `Confidence: ${confidence}% - MIXED SIGNAL`;
-    confidenceText.style.color = '#ffaa00';
-    signalBox.className = 'signal-box';
-    signalBox.style.borderColor = '#ffaa00';
-    signalTitle.innerText = 'WAIT';
-    signalTitle.style.color = '#fff';
-    signalSub.innerText = 'Mixed signals - Wait for confirmation';
-    signalSub.style.color = '#ffaa00';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#ffd700';
-  } else {
-    confidenceFill.style.background = 'linear-gradient(90deg, #ffaa00, #ff8800)';
-    confidenceText.innerText = `Confidence: ${confidence}% - WAIT`;
-    confidenceText.style.color = '#ffaa00';
-    signalBox.className = 'signal-box';
-    signalBox.style.borderColor = '#00d4ff';
-    signalTitle.innerText = 'WAIT';
-    signalTitle.style.color = '#fff';
-    signalSub.innerText = 'No clear signal - Wait for confirmation';
-    signalSub.style.color = '#00d4ff';
-    strengthValue.innerText = confidence + '%';
-    strengthValue.style.color = '#ffd700';
-  }
-  
-  generateMiniChart();
-  loading.style.display = 'none';
-  btn.disabled = false;
-}
-
-// Alert Sound
-function playAlert(type){
-  try{
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let oscillator = audioCtx.createOscillator();
-    let gainNode = audioCtx.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    
-    if(type === 'buy'){
-      oscillator.frequency.value = 800;
-    } else {
-      oscillator.frequency.value = 400;
-    }
-    
-    oscillator.type = 'sine';
-    gainNode.gain.value = 0.3;
-    
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.2);
-  } catch(e){
-    console.log('Audio not supported');
-  }
-}
-
-document.getElementById('password').addEventListener('keypress', e => {
-  if(e.key === 'Enter') doLogin();
-});
-
-// Auto-scan every 60 seconds
-setInterval(() => {
-  if(document.getElementById('mainScreen').style.display === 'block' && !document.getElementById('scanBtn').disabled){
-    scanAllIndicators();
-  }
-}, 60000);
-</script>
-</body>
-</html>
+      "mainSeriesProperties.candleStyle.downColor": "#ff
