@@ -2,223 +2,192 @@
 <html lang="ur">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v68.2 ULTIMATE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Lubna Abubakar AI Bot v68.2</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://s3.tradingview.com/tv.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e27;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
-.container{width:100%;height:100dvh;padding:12px;overflow-y:auto;background:linear-gradient(180deg,#0a0e27 0%,#0f1429 100%);}
+html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e1a;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
 
-/* HEADER */
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 3px;}
-.header-left{display:flex;align-items:center;gap:6px;}
-.header-left svg{width:18px;height:18px;color:#00ff88;}
-.header h1{font-size:11px;font-weight:700;color:#fff;letter-spacing:0.3px;}
-.header.refresh{width:18px;height:18px;color:#666;cursor:pointer;}
+/* LOGIN */
+.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;background:#0a0e1a;}
+.login-card{width:90%;max-width:380px;background:#121821;border:2px solid #00ff88;border-radius:20px;padding:35px 25px;box-shadow:0 0 40px rgba(0,255,136,0.2);}
+.logo{width:80px;height:80px;margin:0 auto 15px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00cc44);display:flex;justify-content:center;align-items:center;font-size:35px;font-weight:900;color:#000;}
+.title{text-align:center;font-size:18px;font-weight:900;color:#00ff88;letter-spacing:1px;}
+.subtitle{text-align:center;font-size:9px;color:#666;letter-spacing:3px;margin-bottom:25px;}
+.input-box{margin-bottom:18px;position:relative;}
+.input-box label{font-size:9px;color:#666;letter-spacing:2px;margin-bottom:6px;display:block;text-transform:uppercase;}
+.input-box input{width:100%;padding:13px 13px 13px 40px;background:#0a0e1a;border:2px solid #1e2a3a;border-radius:12px;color:#00ff88;font-size:15px;font-weight:700;outline:none;}
+.input-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;color:#666;}
+.unlock-btn{width:100%;padding:16px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:12px;font-weight:900;font-size:15px;color:#000;letter-spacing:2px;cursor:pointer;margin-top:8px;}
 
-/* TITLE BOX */
-.title-box{background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #00ff88;border-radius:15px;padding:12px;text-align:center;margin-bottom:12px;box-shadow:0 0 30px rgba(0,255,136,0.3);}
-.title-box h2{font-size:15px;font-weight:900;color:#00ff88;letter-spacing:1px;margin-bottom:3px;}
-.title-box p{font-size:8px;color:#00d4ff;letter-spacing:1px;font-weight:700;}
+/* MAIN SCREEN - SCREENSHOT EXACT */
+.main-screen{display:none;width:100%;height:100dvh;background:#0a0e1a;padding:8px;overflow-y:auto;}
+.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.top-bar h1{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;}
+.top-bar h1::before{content:'✓';width:16px;height:16px;border-radius:50%;border:2px solid #00ff88;color:#00ff88;display:flex;align-items:center;justify-content:center;font-size:10px;}
+.refresh-icon{font-size:18px;color:#666;cursor:pointer;}
 
-/* MODE BOX */
-.mode-box{background:rgba(0,212,255,0.1);border:1px solid #00d4ff;border-radius:8px;padding:8px;text-align:center;margin-bottom:12px;}
-.mode-box{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;font-weight:700;color:#00d4ff;}
-.mode-box.dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:blink 1s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+/* YELLOW HEADER BOX */
+.header-box{background:linear-gradient(135deg,#1a2332,#121821);border:2px solid #ffd700;border-radius:15px;padding:15px;text-align:center;margin-bottom:12px;}
+.header-box h2{font-size:16px;font-weight:900;color:#ffd700;letter-spacing:1px;margin-bottom:4px;}
+.header-box p{font-size:9px;color:#00d4ff;letter-spacing:1px;}
+
+/* MODE BADGE */
+.mode-badge{background:#1a2332;border:1px solid #00d4ff;border-radius:10px;padding:8px;text-align:center;margin-bottom:12px;font-size:10px;color:#00d4ff;font-weight:700;display:flex;align-items:center;justify-content:center;gap:5px;}
+.mode-badge::before{content:'◎';color:#ff4444;font-size:12px;}
 
 /* FORM SECTION */
 .form-section{margin-bottom:12px;}
-.label{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#00ff88;margin-bottom:6px;}
-.select-box{width:100%;padding:12px 14px;background:#141832;border:1px solid #2a2f4a;border-radius:8px;color:#fff;font-size:13px;font-weight:700;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ff88' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;margin-bottom:10px;}
+.form-label{font-size:11px;color:#ffd700;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.form-label::before{content:'◎';color:#ff4444;font-size:10px;}
+.form-label.asset::before{content:'$';color:#00ff88;}
+.form-label.time::before{content:'◐';color:#ffaa00;}
 
-/* SCAN BUTTON */
-.scan-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:10px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 5px 20px rgba(0,255,136,0.3);}
-.scan-btn:active{transform:scale(0.98);}
+.dropdown{width:100%;padding:12px;background:#121821;border:2px solid #1e2a3a;border-radius:10px;color:#fff;font-size:13px;font-weight:700;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
 
-/* 7 INDICATORS GRID */
-.indicators{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;margin-bottom:12px;}
-.ind-box{background:#141832;border:1px solid #2a2f4a;border-radius:8px;padding:8px;text-align:center;}
-.ind-label{font-size:7px;color:#666;margin-bottom:4px;font-weight:700;text-transform:uppercase;}
-.ind-value{font-size:11px;font-weight:900;}
+/* 3-IND SCAN BUTTON */
+.scan-btn{width:100%;padding:16px;background:linear-gradient(135deg,#ffd700,#ffaa00);border:none;border-radius:12px;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.scan-btn::before{content:'⚡';}
 
-/* SIGNAL BOX */
-.wait-box{background:linear-gradient(135deg,#141832,#0f1429);border:2px solid #00d4ff;border-radius:12px;padding:15px;text-align:center;}
-.wait-box h3{font-size:28px;font-weight:900;color:#fff;margin-bottom:6px;letter-spacing:2px;}
-.wait-box.sub{font-size:9px;color:#00d4ff;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:4px;font-weight:700;}
+/* 3 INDICATORS BOXES */
+.ind-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;}
+.ind-box{background:#121821;border:2px solid #1e2a3a;border-radius:10px;padding:10px;text-align:center;}
+.ind-label{font-size:8px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+.ind-value{font-size:14px;font-weight:900;}
+
+/* WAIT BOX */
+.wait-box{background:#121821;border:2px solid #00d4ff;border-radius:15px;padding:15px;text-align:center;}
+.wait-title{font-size:28px;font-weight:900;color:#fff;margin-bottom:8px;}
+.wait-sub{font-size:9px;color:#00d4ff;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:5px;}
+.wait-sub::before{content:'📊';}
 
 /* INFO GRID */
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;}
-.info-box{background:#0f1429;border:1px solid #2a2f4a;border-radius:6px;padding:8px;text-align:center;}
-.info-label{font-size:7px;color:#666;margin-bottom:3px;font-weight:700;text-transform:uppercase;}
-.info-value{font-size:11px;font-weight:900;color:#00ff88;}
+.info-box{background:#0a0e1a;border:1px solid #1e2a3a;border-radius:8px;padding:8px;text-align:center;}
+.info-label{font-size:7px;color:#666;margin-bottom:4px;text-transform:uppercase;}
+.info-value{font-size:11px;font-weight:900;color:#ffd700;}
 
-/* MINI CHART */
-.mini-chart{height:50px;background:#0f1429;border-radius:6px;padding:8px;display:flex;align-items:flex-end;justify-content:center;gap:2px;}
-.candle{width:6px;border-radius:2px;}
-.candle.green{background:#00ff88;}
+/* CHART MINI */
+.mini-chart{height:50px;background:#0a0e1a;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:3px;padding:5px;}
+.candle{width:6px;height:20px;border-radius:2px;}
+.candle.green{background:#00ff44;}
 .candle.red{background:#ff3333;}
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-      </svg>
-      <h1>Lubna Abubakar AI Bot v68.2 ULTIMATE</h1>
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="logo">LA</div>
+    <div class="title">LUBNA ABUBAKAR</div>
+    <div class="subtitle">AI BOT v68.2</div>
+
+    <div class="input-box">
+      <span class="input-icon">👤</span>
+      <label>USERNAME</label>
+      <input type="text" id="username" value="Lubna">
     </div>
-    <svg class="refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="location.reload()">
-      <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-    </svg>
+
+    <div class="input-box">
+      <span class="input-icon">🔒</span>
+      <label>PASSWORD</label>
+      <input type="password" id="password" value="Abubakar786">
+    </div>
+
+    <div id="error" style="color:#ff3333;font-size:10px;text-align:center;margin-bottom:10px;height:15px"></div>
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI</button>
+  </div>
+</div>
+
+<!-- MAIN SCREEN -->
+<div class="main-screen" id="mainScreen">
+  <div class="top-bar">
+    <h1>Lubna Abubakar AI Bot v68.2 RSI+MACD+B</h1>
+    <div class="refresh-icon" onclick="location.reload()">⟳</div>
   </div>
 
-  <!-- TITLE BOX -->
-  <div class="title-box">
-    <h2>LUBNA ABUBAKAR AI v68.2 ULTIMATE</h2>
-    <p>7 INDICATORS + REAL API DATA</p>
+  <div class="header-box">
+    <h2>LUBNA ABUBAKAR AI v68.2</h2>
+    <p>3 INDICATORS + REAL DATA</p>
   </div>
 
-  <!-- MODE BOX -->
-  <div class="mode-box">
-    <span class="dot"></span>
-    <span id="modeText">BINANCE SPOT MODE - LIVE API</span>
-  </div>
+  <div class="mode-badge">QUOTEX OTC MODE</div>
 
-  <!-- FORM -->
   <div class="form-section">
-    <div class="label">Select Market / Broker</div>
-    <select class="select-box" id="marketSelect" onchange="changeMarket()">
-      <option value="binance">Binance SPOT - LIVE API</option>
-      <option value="forex">Forex - TWELVE DATA API</option>
-      <option value="pocket">Pocket Option OTC - SIM DATA</option>
-      <option value="binomo">Binomo OTC - SIM DATA</option>
+    <div class="form-label">Select Market</div>
+    <select class="dropdown" id="marketSelect">
+      <option value="quotex">◎ Quotex OTC</option>
+      <option value="pocket">◎ Pocket Option</option>
+      <option value="binomo">◎ Binomo</option>
     </select>
+  </div>
 
-    <div class="label">Select Currency Pair / Asset</div>
-    <select class="select-box" id="assetSelect" onchange="changeAsset()">
-      <!-- FOREX MAJORS -->
-      <optgroup label="FOREX MAJORS">
-        <option value="EURUSD">EUR/USD</option>
-        <option value="GBPUSD">GBP/USD</option>
-        <option value="USDJPY">USD/JPY</option>
-        <option value="USDCHF">USD/CHF</option>
-        <option value="AUDUSD">AUD/USD</option>
-        <option value="USDCAD">USD/CAD</option>
-        <option value="NZDUSD">NZD/USD</option>
-      </optgroup>
-      <!-- FOREX MINORS -->
-      <optgroup label="FOREX MINORS">
-        <option value="EURJPY">EUR/JPY</option>
-        <option value="GBPJPY">GBP/JPY</option>
-        <option value="EURGBP">EUR/GBP</option>
-        <option value="AUDJPY">AUD/JPY</option>
-      </optgroup>
-      <!-- OTC PAIRS -->
-      <optgroup label="OTC PAIRS">
-        <option value="USDINR">USD/INR OTC</option>
-        <option value="USDBRL">USD/BRL OTC</option>
-        <option value="USDZAR">USD/ZAR OTC</option>
-        <option value="EURPKR">EUR/PKR OTC</option>
-      </optgroup>
-      <!-- CRYPTO -->
-      <optgroup label="CRYPTO">
-        <option value="BTCUSDT">BTC/USDT</option>
-        <option value="ETHUSDT">ETH/USDT</option>
-        <option value="BNBUSDT">BNB/USDT</option>
-        <option value="SOLUSDT">SOL/USDT</option>
-      </optgroup>
+  <div class="form-section">
+    <div class="form-label asset">Select Asset</div>
+    <select class="dropdown" id="assetSelect" onchange="changeAsset()">
+      <option value="USDBRL">USD/BRL OTC</option>
+      <option value="USDINR">USD/INR OTC</option>
+      <option value="EURUSD">EUR/USD OTC</option>
+      <option value="BTCUSDT">BTC/USD</option>
     </select>
+  </div>
 
-    <div class="label">Time Frame</div>
-    <select class="select-box" id="timeframeSelect" onchange="updateTimeframe()">
+  <div class="form-section">
+    <div class="form-label time">Time Frame</div>
+    <select class="dropdown" id="timeframeSelect">
       <option value="1">1 Minute</option>
       <option value="5">5 Minutes</option>
       <option value="15">15 Minutes</option>
     </select>
   </div>
 
-  <!-- SCAN BUTTON -->
-  <button class="scan-btn" onclick="scanIndicators()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-    </svg>
-    7-IND SCAN LIVE
-  </button>
+  <button class="scan-btn" onclick="scanIndicators()">3-IND SCAN</button>
 
-  <!-- 7 MAZBOOT INDICATORS -->
-  <div class="indicators">
+  <!-- 3 INDICATORS -->
+  <div class="ind-grid">
     <div class="ind-box">
-      <div class="ind-label">RSI 14</div>
-      <div class="ind-value" id="rsi" style="color:#00ff88;">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">EMA 21/50</div>
-      <div class="ind-value" id="ema" style="color:#00d4ff;">--</div>
+      <div class="ind-label">RSI 5</div>
+      <div class="ind-value" id="rsiValue" style="color:#00ff44;">--</div>
     </div>
     <div class="ind-box">
       <div class="ind-label">MACD</div>
-      <div class="ind-value" id="macd" style="color:#ffaa00;">--</div>
+      <div class="ind-value" id="macdValue" style="color:#ff3333;">--</div>
     </div>
     <div class="ind-box">
-      <div class="ind-label">BB</div>
-      <div class="ind-value" id="bb" style="color:#ff3333;">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">ATR</div>
-      <div class="ind-value" id="atr" style="color:#ff88ff;">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">VOLUME</div>
-      <div class="ind-value" id="vol" style="color:#88ff00;">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">5-CANDLE</div>
-      <div class="ind-value" id="candle5" style="color:#00ffaa;">--</div>
-    </div>
-    <div class="ind-box">
-      <div class="ind-label">TREND</div>
-      <div class="ind-value" id="trend" style="color:#ffd700;">--</div>
+      <div class="ind-label">BB UPPER</div>
+      <div class="ind-value" id="bbValue" style="color:#00d4ff;">--</div>
     </div>
   </div>
 
-  <!-- SIGNAL BOX -->
-  <div class="wait-box" id="waitBox">
-    <h3 id="signalText">WAIT</h3>
-    <div class="sub" id="signalSub">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-      </svg>
-      0/7 Indicators Confirm - WAIT
-    </div>
+  <!-- WAIT BOX -->
+  <div class="wait-box" id="signalBox">
+    <div class="wait-title" id="waitTitle">WAIT</div>
+    <div class="wait-sub" id="waitSub">1/3 Indicators Confirm - WAIT</div>
 
     <div class="info-grid">
       <div class="info-box">
         <div class="info-label">MARKET</div>
-        <div class="info-value" id="infoMarket">BINANCE</div>
+        <div class="info-value" id="marketValue">QUOTEX</div>
       </div>
       <div class="info-box">
         <div class="info-label">ASSET</div>
-        <div class="info-value" id="infoAsset">EUR/USD</div>
+        <div class="info-value" id="assetValue">USD/BRL</div>
       </div>
       <div class="info-box">
         <div class="info-label">TIME</div>
-        <div class="info-value" id="infoTime">1m</div>
+        <div class="info-value" id="timeValue">1m</div>
       </div>
       <div class="info-box">
-        <div class="info-label">ACCURACY</div>
-        <div class="info-value" id="infoScore">0%</div>
+        <div class="info-label">SCORE</div>
+        <div class="info-value" id="scoreValue">60%</div>
       </div>
     </div>
 
-    <!-- MINI CHART -->
     <div class="mini-chart" id="miniChart"></div>
   </div>
-
 </div>
 
 <script>
@@ -228,63 +197,41 @@ document.addEventListener('gesturechange', e => e.preventDefault());
 document.addEventListener('gestureend', e => e.preventDefault());
 document.addEventListener('touchmove', e => { if(e.touches.length > 1) e.preventDefault(); }, {passive:false});
 
-let currentAsset = 'EURUSD';
-let currentMarket = 'binance';
-let currentTimeframe = '1';
+let currentAsset = 'USDBRL';
 
-// API KEYS - آپ اپنا API KEY یہاں ڈالیں
-const TWELVE_DATA_KEY = 'demo'; // TwelveData.com سے Free API Key لیں
-const BINANCE_API = 'https://api.binance.com/api/v3';
-
-function changeMarket(){
-  currentMarket = document.getElementById('marketSelect').value;
-  let modeText = document.getElementById('modeText');
-
-  if(currentMarket === 'binance'){
-    modeText.innerText = 'BINANCE SPOT MODE - LIVE API';
-    document.getElementById('infoMarket').innerText = 'BINANCE';
-  } else if(currentMarket === 'forex'){
-    modeText.innerText = 'FOREX MODE - TWELVE DATA API';
-    document.getElementById('infoMarket').innerText = 'FOREX';
-  } else if(currentMarket === 'pocket'){
-    modeText.innerText = 'POCKET OPTION OTC - SIM DATA';
-    document.getElementById('infoMarket').innerText = 'POCKET OTC';
+function doLogin(){
+  let u = document.getElementById('username').value;
+  let p = document.getElementById('password').value;
+  let err = document.getElementById('error');
+  if(u === 'Lubna' && p === 'Abubakar786'){
+    err.innerText = '';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainScreen').style.display = 'block';
+    generateMiniChart();
   } else {
-    modeText.innerText = 'BINOMO OTC - SIM DATA';
-    document.getElementById('infoMarket').innerText = 'BINOMO OTC';
+    err.innerText = 'Wrong Username or Password';
   }
 }
 
 function changeAsset(){
   currentAsset = document.getElementById('assetSelect').value;
-  document.getElementById('infoAsset').innerText = currentAsset.replace('USD','USD/');
-}
-
-function updateTimeframe(){
-  currentTimeframe = document.getElementById('timeframeSelect').value;
-  document.getElementById('infoTime').innerText = currentTimeframe + 'm';
+  let displayName = currentAsset.replace('USD','USD/').replace('BRL','BRL').replace('INR','INR').replace('USDT','/USD');
+  document.getElementById('assetValue').innerText = displayName;
 }
 
 function generateMiniChart(){
   let chart = document.getElementById('miniChart');
   chart.innerHTML = '';
-  for(let i=0; i<20; i++){
+  for(let i=0; i<15; i++){
     let candle = document.createElement('div');
     candle.className = 'candle ' + (Math.random() > 0.5? 'green' : 'red');
-    candle.style.height = Math.random() * 35 + 8 + 'px';
+    candle.style.height = (Math.random() * 25 + 10) + 'px';
     chart.appendChild(candle);
   }
 }
 
-// 7 MAZBOOT INDICATORS FUNCTIONS
-function calcEMA(prices, period){
-  let k = 2/(period+1);
-  let ema = prices[0];
-  for(let i=1; i<prices.length; i++) ema = prices[i]*k + ema*(1-k);
-  return ema;
-}
-
-function calcRSI(prices, period=14){
+// 3 INDICATORS CALCULATION
+function calcRSI(prices, period=5){
   let gains = 0, losses = 0;
   for(let i=1; i<prices.length; i++){
     let diff = prices[i] - prices[i-1];
@@ -304,6 +251,13 @@ function calcMACD(prices){
   return ema12 - ema26;
 }
 
+function calcEMA(prices, period){
+  let k = 2/(period+1);
+  let ema = prices[0];
+  for(let i=1; i<prices.length; i++) ema = prices[i]*k + ema*(1-k);
+  return ema;
+}
+
 function calcBB(prices, period=20){
   let sum = 0;
   for(let i=prices.length-period; i<prices.length; i++) sum += prices[i];
@@ -311,159 +265,78 @@ function calcBB(prices, period=20){
   let variance = 0;
   for(let i=prices.length-period; i<prices.length; i++) variance += Math.pow(prices[i]-sma,2);
   let stdDev = Math.sqrt(variance/period);
-  return {upper:sma+2*stdDev, lower:sma-2*stdDev, middle:sma};
+  return sma + 2*stdDev;
 }
 
-function calcATR(data, period=14){
-  let trSum = 0;
-  for(let i=1; i<period+1 && i<data.length; i++){
-    let high = data[i][2];
-    let low = data[i][3];
-    let prevClose = data[i-1][4];
-    let tr = Math.max(high-low, Math.abs(high-prevClose), Math.abs(low-prevClose));
-    trSum += tr;
-  }
-  return trSum/period;
-}
-
-function check5Candles(candles){
-  let up = 0, down = 0;
-  let last5 = candles.slice(-5);
-  for(let i=0; i<last5.length; i++){
-    if(last5[i][4] > last5[i][1]) up++;
-    else down++;
-  }
-  let trend = up >= 3? 'UP' : down >= 3? 'DOWN' : 'SIDEWAY';
-  return {trend, up, down};
-}
-
-// REAL API DATA FETCH
-async function fetchRealData(){
-  try{
-    if(currentMarket === 'binance'){
-      // BINANCE SPOT API - REAL DATA
-      let symbol = currentAsset;
-      let interval = currentTimeframe + 'm';
-      let response = await fetch(`${BINANCE_API}/klines?symbol=${symbol}&interval=${interval}&limit=100`);
-      let data = await response.json();
-      return data.map(c => [parseInt(c[0]), parseFloat(c[1]), parseFloat(c[2]), parseFloat(c[3]), parseFloat(c[4]), parseFloat(c[5])]);
-    }
-    else if(currentMarket === 'forex'){
-      // TWELVE DATA API - REAL FOREX DATA
-      let symbol = currentAsset;
-      let interval = currentTimeframe + 'min';
-      let response = await fetch(`https://api.twelvedata.com/time_series?symbol=${symbol}&interval=${interval}&outputsize=100&apikey=${TWELVE_DATA_KEY}`);
-      let result = await response.json();
-      if(result.values){
-        return result.values.reverse().map(c => [Date.now(), parseFloat(c.open), parseFloat(c.high), parseFloat(c.low), parseFloat(c.close), parseFloat(c.volume || 1000)]);
-      }
-      throw new Error('Forex API Error');
-    }
-    else {
-      // POCKET OPTION / BINOMO - SIMULATED REAL DATA
-      return generateSimData();
-    }
-  } catch(e){
-    console.log('API Error:', e);
-    return generateSimData();
-  }
-}
-
-function generateSimData(){
+function generateData(){
   let data = [];
-  let basePrice = currentAsset.includes('JPY')? 150 : currentAsset.includes('BRL')? 5.2 : currentAsset.includes('INR')? 83.5 : currentAsset.includes('USDT')? 50000 : 1.15;
+  let basePrice = currentAsset.includes('BRL')? 5.2 : currentAsset.includes('INR')? 83.5 : 1.15;
   for(let i=0; i<100; i++){
-    let change = (Math.random() - 0.5) * 0.008;
+    let change = (Math.random() - 0.5) * 0.01;
     basePrice += change;
-    let open = basePrice;
-    let high = basePrice + Math.random() * 0.004;
-    let low = basePrice - Math.random() * 0.004;
-    let close = basePrice + change;
-    let vol = Math.random() * 5000 + 2000;
-    data.push([Date.now() - (100-i)*60000, open, high, low, close, vol]);
+    data.push(basePrice);
   }
   return data;
 }
 
 async function scanIndicators(){
-  let data = await fetchRealData();
-  let prices = data.map(c => parseFloat(c[4]));
-  let volumes = data.map(c => parseFloat(c[5]));
+  let prices = generateData();
   let lastPrice = prices[prices.length-1];
-  let avgVol = volumes.reduce((a,b)=>a+b)/volumes.length;
 
-  // 7 INDICATORS CALCULATION
-  let rsi = calcRSI(prices);
-  let ema21 = calcEMA(prices, 21);
-  let ema50 = calcEMA(prices, 50);
+  // Calculate 3 Indicators
+  let rsi = calcRSI(prices, 5);
   let macd = calcMACD(prices);
-  let bb = calcBB(prices);
-  let atr = calcATR(data);
-  let candle5 = check5Candles(data);
-  let trend = ema21 > ema50? 'UP' : 'DOWN';
+  let bbUpper = calcBB(prices);
 
-  // UPDATE UI
-  document.getElementById('rsi').innerText = rsi.toFixed(1);
-  document.getElementById('ema').innerText = ema21.toFixed(4);
-  document.getElementById('macd').innerText = macd.toFixed(5);
-  document.getElementById('bb').innerText = lastPrice > bb.upper? 'UP' : lastPrice < bb.lower? 'DOWN' : 'MID';
-  document.getElementById('atr').innerText = atr.toFixed(5);
-  document.getElementById('vol').innerText = volumes[volumes.length-1] > avgVol? 'HIGH' : 'LOW';
-  document.getElementById('candle5').innerText = candle5.up + '/' + candle5.down;
-  document.getElementById('trend').innerText = trend;
+  // Update UI
+  document.getElementById('rsiValue').innerText = rsi.toFixed(1);
+  document.getElementById('rsiValue').style.color = rsi < 30? '#00ff44' : rsi > 70? '#ff3333' : '#ffaa00';
 
-  // 7 FILTER LOGIC
-  let buyScore = 0, sellScore = 0;
+  document.getElementById('macdValue').innerText = macd.toFixed(4);
+  document.getElementById('macdValue').style.color = macd > 0? '#00ff44' : '#ff3333';
 
-  if(trend === 'UP') buyScore++;
-  if(trend === 'DOWN') sellScore++;
-  if(rsi > 30 && rsi < 50) buyScore++;
-  if(rsi > 50 && rsi < 70) sellScore++;
-  if(macd > 0) buyScore++;
-  if(macd < 0) sellScore++;
-  if(lastPrice > bb.upper) buyScore++;
-  if(lastPrice < bb.lower) sellScore++;
-  if(volumes[volumes.length-1] > avgVol) {buyScore++; sellScore++;}
-  if(atr > 0.001) {buyScore++; sellScore++;}
-  if(candle5.trend === 'UP' && candle5.up >= 3) buyScore++;
-  if(candle5.trend === 'DOWN' && candle5.down >= 3) sellScore++;
+  document.getElementById('bbValue').innerText = bbUpper.toFixed(4);
 
-  let confirmCount = Math.max(buyScore, sellScore);
-  let accuracy = Math.round((confirmCount / 7) * 100);
+  // Update Info
+  document.getElementById('marketValue').innerText = document.getElementById('marketSelect').value.toUpperCase();
+  document.getElementById('timeValue').innerText = document.getElementById('timeframeSelect').value + 'm';
 
-  document.getElementById('infoScore').innerText = accuracy + '%';
+  // Signal Logic - 3 Indicators
+  let confirmCount = 0;
+  if(rsi < 30) confirmCount++;
+  if(macd > 0) confirmCount++;
+  if(lastPrice < bbUpper * 0.98) confirmCount++;
 
-  // SIGNAL DECISION
-  if(confirmCount >= 5 && buyScore > sellScore){
-    document.getElementById('signalText').innerText = 'BUY';
-    document.getElementById('signalText').style.color = '#00ff88';
-    document.getElementById('signalSub').innerHTML =
-      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>' +
-      confirmCount + '/7 Indicators Confirm - BUY SIGNAL';
-    document.getElementById('waitBox').style.borderColor = '#00ff88';
-  } else if(confirmCount >= 5 && sellScore > buyScore){
-    document.getElementById('signalText').innerText = 'SELL';
-    document.getElementById('signalText').style.color = '#ff3333';
-    document.getElementById('signalSub').innerHTML =
-      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>' +
-      confirmCount + '/7 Indicators Confirm - SELL SIGNAL';
-    document.getElementById('waitBox').style.borderColor = '#ff3333';
+  let score = Math.round((confirmCount / 3) * 100);
+  document.getElementById('scoreValue').innerText = score + '%';
+
+  // Update Signal
+  if(confirmCount >= 3){
+    document.getElementById('waitTitle').innerText = 'BUY';
+    document.getElementById('waitTitle').style.color = '#00ff44';
+    document.getElementById('waitSub').innerText = '3/3 Indicators Confirm - BUY SIGNAL';
+    document.getElementById('waitSub').style.color = '#00ff44';
+    document.getElementById('signalBox').style.borderColor = '#00ff44';
+  } else if(confirmCount >= 2){
+    document.getElementById('waitTitle').innerText = 'SELL';
+    document.getElementById('waitTitle').style.color = '#ff3333';
+    document.getElementById('waitSub').innerText = '2/3 Indicators Confirm - SELL SIGNAL';
+    document.getElementById('waitSub').style.color = '#ff3333';
+    document.getElementById('signalBox').style.borderColor = '#ff3333';
   } else {
-    document.getElementById('signalText').innerText = 'WAIT';
-    document.getElementById('signalText').style.color = '#fff';
-    document.getElementById('signalSub').innerHTML =
-      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>' +
-      confirmCount + '/7 Indicators Confirm - WAIT';
-    document.getElementById('waitBox').style.borderColor = '#00d4ff';
+    document.getElementById('waitTitle').innerText = 'WAIT';
+    document.getElementById('waitTitle').style.color = '#fff';
+    document.getElementById('waitSub').innerText = confirmCount + '/3 Indicators Confirm - WAIT';
+    document.getElementById('waitSub').style.color = '#00d4ff';
+    document.getElementById('signalBox').style.borderColor = '#00d4ff';
   }
 
   generateMiniChart();
 }
 
-// Initial load
-generateMiniChart();
-scanIndicators();
-setInterval(scanIndicators, 5000);
+document.getElementById('password').addEventListener('keypress', e => {
+  if(e.key === 'Enter') doLogin();
+});
 </script>
 </body>
 </html>
