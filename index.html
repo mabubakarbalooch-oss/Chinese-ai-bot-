@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>LUBNA AI</title>
+<title>Lubna Abubakar AI Bot Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-/* آپ کا ORIGINAL CSS - بالکل ویسے ہی کاپی کیا ہے */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
+
+/* ========== LOGIN SCREEN ========== */
 .login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;background:linear-gradient(180deg,#0d1117,#161b22);position:fixed;top:0;left:0;z-index:999;}
 .login-card{width:90%;max-width:380px;background:#161b22;border:1px solid #30363d;border-radius:24px;padding:40px 28px;box-shadow:0 0 60px rgba(0,255,136,0.15);}
 .logo{width:100px;height:100px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00cc44);display:flex;justify-content:center;align-items:center;font-size:42px;font-weight:900;color:#000;box-shadow:0 0 40px rgba(0,255,136,0.4);animation:pulseGlow 2s ease-in-out infinite;}
@@ -22,82 +23,240 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px;color:#6e7681;}
 .unlock-btn{width:100%;padding:18px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:16px;color:#000;letter-spacing:3px;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 25px rgba(0,255,136,0.3);margin-top:10px;}
 .unlock-btn:active{transform:scale(0.97);}
+
+/* ========== MAIN APP ========== */
 .app-screen{display:none;width:100%;height:100dvh;background:#0d1117;overflow-y:auto;overflow-x:hidden;position:fixed;top:0;left:0;z-index:1;}
+
+/* Top Bar */
 .app-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#161b22;border-bottom:1px solid #30363d;position:sticky;top:0;z-index:100;}
-.app-header.logo-small{font-size:14px;font-weight:900;color:#00ff88;display:flex;align-items:center;gap:8px;}
-.app-header.logo-small::before{content:'◈';font-size:18px;}
-.app-header.live-badge{background:#238636;color:#fff;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:700;display:flex;align-items:center;gap:4px;}
-.app-header.live-badge::before{content:'';width:6px;height:6px;background:#00ff88;border-radius:50%;animation:blink 1s infinite;}
+.app-header .logo-small{font-size:14px;font-weight:900;color:#00ff88;display:flex;align-items:center;gap:8px;}
+.app-header .logo-small::before{content:'◈';font-size:18px;}
+.app-header .live-badge{background:#238636;color:#fff;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:700;display:flex;align-items:center;gap:4px;}
+.app-header .live-badge::before{content:'';width:6px;height:6px;background:#00ff88;border-radius:50%;animation:blink 1s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.app-header.stats{display:flex;gap:12px;}
-.app-header.stat-item{font-size:9px;color:#8b949e;display:flex;align-items:center;gap:3px;}
-.app-header.stat-item span{color:#ffd700;font-weight:700;}
+.app-header .stats{display:flex;gap:12px;}
+.app-header .stat-item{font-size:9px;color:#8b949e;display:flex;align-items:center;gap:3px;}
+.app-header .stat-item span{color:#ffd700;font-weight:700;}
+
+/* ========== HOME SCREEN ========== */
 .home-screen{padding:16px;}
 .home-title{font-size:20px;font-weight:900;text-align:center;margin-bottom:4px;}
 .home-subtitle{font-size:11px;color:#8b949e;text-align:center;margin-bottom:20px;}
+
+/* Stats Row */
 .stats-row{display:flex;justify-content:center;gap:16px;margin-bottom:24px;}
 .stat-box{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:10px 16px;text-align:center;}
-.stat-box.stat-num{font-size:16px;font-weight:900;color:#00ff88;}
-.stat-box.stat-label{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+.stat-box .stat-num{font-size:16px;font-weight:900;color:#00ff88;}
+.stat-box .stat-label{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
 
-/* NEW: 5 INDICATORS BAR - صرف یہ ایڈ کیا، ڈیزائن نہیں بدلا */
-.indicators-bar{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding:8px;background:#161b22;border:1px solid #30363d;border-radius:12px;}
-.indicators-bar::-webkit-scrollbar{display:none;}
-.ind-item{flex:1;min-width:70px;text-align:center;}
-.ind-label{font-size:7px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
-.ind-value{font-size:11px;font-weight:900;color:#00ff88;}
-
+/* Market Cards */
 .market-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
 .market-card:hover{border-color:#00ff88;}
 .market-card:active{transform:scale(0.98);}
 .market-card.hot{border-color:#ff4444;}
 .market-card.pro{border-color:#58a6ff;}
+
 .market-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .market-card-left{display:flex;align-items:center;gap:12px;}
 .market-icon{width:44px;height:44px;border-radius:12px;background:#0d1117;display:flex;justify-content:center;align-items:center;font-size:22px;}
-.market-card.hot.market-icon{background:rgba(255,68,68,0.1);}
-.market-card.pro.market-icon{background:rgba(88,166,255,0.1);}
+.market-card.hot .market-icon{background:rgba(255,68,68,0.1);}
+.market-card.pro .market-icon{background:rgba(88,166,255,0.1);}
 .market-info{}
 .market-name{font-size:14px;font-weight:900;}
 .market-desc{font-size:10px;color:#8b949e;margin-top:2px;}
+
 .market-badge{font-size:9px;padding:3px 8px;border-radius:6px;font-weight:700;}
 .market-badge.hot{background:rgba(255,68,68,0.15);color:#ff4444;}
 .market-badge.pro{background:rgba(88,166,255,0.15);color:#58a6ff;}
+
 .market-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .market-tag{font-size:9px;color:#00ff88;background:rgba(0,255,136,0.08);padding:4px 10px;border-radius:6px;font-weight:700;}
 .market-tag.gray{color:#8b949e;background:rgba(139,148,158,0.08);}
+
 .market-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #30363d;}
 .market-footer-left{display:flex;gap:12px;}
 .market-footer-item{font-size:9px;color:#8b949e;display:flex;align-items:center;gap:4px;}
 .market-footer-item::before{content:'●';color:#00ff88;font-size:6px;}
 .market-status{font-size:9px;color:#00ff88;font-weight:700;}
+
+/* ========== ASSET SCREEN ========== */
+.asset-screen{display:none;padding:16px;}
+.asset-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.back-btn{width:36px;height:36px;border-radius:10px;background:#161b22;border:1px solid #30363d;display:flex;justify-content:center;align-items:center;font-size:18px;color:#fff;cursor:pointer;}
+.asset-header-title{font-size:16px;font-weight:900;}
+.asset-header-sub{font-size:10px;color:#8b949e;}
+
+.asset-list{}
+.asset-item{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;cursor:pointer;transition:all 0.3s;}
+.asset-item:hover{border-color:#00ff88;}
+.asset-item:active{transform:scale(0.98);}
+
+.asset-left{display:flex;align-items:center;gap:12px;}
+.asset-flag{width:36px;height:36px;border-radius:50%;background:#0d1117;display:flex;justify-content:center;align-items:center;font-size:20px;}
+.asset-name{font-size:13px;font-weight:700;}
+.asset-fullname{font-size:9px;color:#8b949e;margin-top:1px;}
+
+.asset-right{display:flex;align-items:center;gap:12px;}
+.asset-badge-hot{font-size:8px;padding:2px 8px;border-radius:4px;background:rgba(255,68,68,0.15);color:#ff4444;font-weight:700;}
+.asset-change{font-size:13px;font-weight:900;}
+.asset-change.up{color:#00ff88;}
+.asset-change.down{color:#ff4444;}
+.asset-arrow{font-size:18px;color:#8b949e;}
+
+/* ========== TIMEFRAME SCREEN ========== */
+.timeframe-screen{display:none;padding:16px;}
+.timeframe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
+.timeframe-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:24px;text-align:center;cursor:pointer;transition:all 0.3s;}
+.timeframe-card:hover{border-color:#00ff88;}
+.timeframe-card:active{transform:scale(0.97);}
+.timeframe-card.selected{border-color:#00ff88;background:rgba(0,255,136,0.05);}
+.timeframe-icon{font-size:32px;margin-bottom:8px;}
+.timeframe-num{font-size:24px;font-weight:900;color:#00ff88;}
+.timeframe-label{font-size:10px;color:#8b949e;margin-top:4px;text-transform:uppercase;letter-spacing:2px;}
+
+/* Selected Pair Display */
+.selected-pair{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;padding:12px;background:#161b22;border-radius:12px;border:1px solid #30363d;}
+.selected-pair-text{font-size:11px;color:#8b949e;}
+.selected-pair-name{font-size:13px;font-weight:900;color:#00ff88;}
+
+/* ========== ANALYZING SCREEN ========== */
+.analyzing-screen{display:none;flex-direction:column;justify-content:center;align-items:center;height:100dvh;padding:20px;text-align:center;}
+
+.brain-container{width:180px;height:180px;position:relative;margin-bottom:30px;}
+.brain-ring{width:100%;height:100%;border-radius:50%;border:4px solid #30363d;border-top-color:#00ff88;border-right-color:#ff4444;animation:spinBrain 2s linear infinite;position:absolute;top:0;left:0;}
+.brain-ring:nth-child(2){width:80%;height:80%;top:10%;left:10%;animation-direction:reverse;animation-duration:3s;border-top-color:#58a6ff;border-right-color:#ffd700;}
+.brain-ring:nth-child(3){width:60%;height:60%;top:20%;left:20%;animation-duration:1.5s;border-top-color:#00ff88;border-right-color:#ff4444;}
+@keyframes spinBrain{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+.brain-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:50px;z-index:10;}
+
+.analyzing-title{font-size:18px;font-weight:900;margin-bottom:8px;}
+.analyzing-subtitle{font-size:11px;color:#8b949e;margin-bottom:30px;}
+
+.analyzing-stats{display:flex;gap:20px;margin-bottom:30px;flex-wrap:wrap;justify-content:center;}
+.analyzing-stat{text-align:center;min-width:70px;}
+.analyzing-stat-num{font-size:16px;font-weight:900;}
+.analyzing-stat-num.bull{color:#00ff88;}
+.analyzing-stat-num.bear{color:#ff4444;}
+.analyzing-stat-num.neut{color:#ffd700;}
+.analyzing-stat-label{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+
+.progress-bar{width:80%;height:4px;background:#30363d;border-radius:2px;overflow:hidden;margin-bottom:10px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#00ff88,#58a6ff);border-radius:2px;animation:progressAnim 3s ease-in-out infinite;width:0%;}
+@keyframes progressAnim{0%{width:0%;}50%{width:80%;}100%{width:100%;}}
+
+.progress-text{font-size:10px;color:#8b949e;}
+
+/* ========== SIGNAL SCREEN ========== */
+.signal-screen{display:none;flex-direction:column;justify-content:center;align-items:center;height:100dvh;padding:20px;text-align:center;}
+
+.signal-circle{width:160px;height:160px;border-radius:50%;display:flex;justify-content:center;align-items:center;margin-bottom:20px;position:relative;animation:signalPulse 2s ease-in-out infinite;}
+.signal-circle.buy{background:linear-gradient(135deg,rgba(0,255,136,0.2),rgba(0,255,136,0.05));border:3px solid #00ff88;box-shadow:0 0 40px rgba(0,255,136,0.3);}
+.signal-circle.sell{background:linear-gradient(135deg,rgba(255,68,68,0.2),rgba(255,68,68,0.05));border:3px solid #ff4444;box-shadow:0 0 40px rgba(255,68,68,0.3);}
+@keyframes signalPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+
+.signal-arrow{font-size:60px;}
+.signal-arrow.buy{color:#00ff88;}
+.signal-arrow.sell{color:#ff4444;}
+
+.signal-direction{font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:8px;text-transform:uppercase;letter-spacing:2px;}
+.signal-direction.buy{background:rgba(0,255,136,0.15);color:#00ff88;}
+.signal-direction.sell{background:rgba(255,68,68,0.15);color:#ff4444;}
+
+.signal-action{font-size:28px;font-weight:900;margin-bottom:4px;}
+.signal-action.buy{color:#00ff88;}
+.signal-action.sell{color:#ff4444;}
+
+.signal-pair{font-size:12px;color:#8b949e;margin-bottom:24px;}
+
+/* AI Score Meter */
+.ai-score-box{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:16px;padding:16px;margin-bottom:20px;}
+.ai-score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.ai-score-title{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:2px;}
+.ai-score-value{font-size:20px;font-weight:900;}
+.ai-score-value.strong{color:#00ff88;}
+.ai-score-value.weak{color:#ff4444;}
+.ai-score-value.mod{color:#ffd700;}
+
+.ai-score-bar{width:100%;height:8px;background:#0d1117;border-radius:4px;overflow:hidden;margin-bottom:16px;position:relative;}
+.ai-score-fill{height:100%;border-radius:4px;transition:width 1s ease;}
+.ai-score-fill.strong{background:linear-gradient(90deg,#00ff88,#00cc44);}
+.ai-score-fill.weak{background:linear-gradient(90deg,#ff4444,#cc0000);}
+.ai-score-fill.mod{background:linear-gradient(90deg,#ffd700,#ffaa00);}
+
+.ai-score-markers{display:flex;justify-content:space-between;font-size:8px;color:#6e7681;margin-top:4px;}
+
+/* Indicator Grid */
+.indicator-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:90%;max-width:340px;margin-bottom:20px;}
+.indicator-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;text-align:left;}
+.indicator-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.indicator-name{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;}
+.indicator-status{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:700;}
+.indicator-status.buy{background:rgba(0,255,136,0.15);color:#00ff88;}
+.indicator-status.sell{background:rgba(255,68,68,0.15);color:#ff4444;}
+.indicator-status.neut{background:rgba(255,215,0,0.15);color:#ffd700;}
+
+.indicator-value{font-size:16px;font-weight:900;margin-bottom:4px;}
+.indicator-value.buy{color:#00ff88;}
+.indicator-value.sell{color:#ff4444;}
+.indicator-value.neut{color:#ffd700;}
+
+.indicator-desc{font-size:8px;color:#6e7681;line-height:1.4;}
+
+.ai-processing{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.ai-dot{width:8px;height:8px;background:#00ff88;border-radius:50%;animation:aiBlink 1s infinite;}
+@keyframes aiBlink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.ai-text{font-size:10px;color:#00ff88;font-weight:700;}
+
+.trade-timer{width:80%;margin-bottom:20px;}
+.trade-timer-label{display:flex;justify-content:space-between;font-size:9px;color:#8b949e;margin-bottom:6px;}
+.trade-timer-bar{height:4px;background:#30363d;border-radius:2px;overflow:hidden;}
+.trade-timer-fill{height:100%;border-radius:2px;animation:timerAnim 10s linear infinite;}
+.trade-timer-fill.buy{background:linear-gradient(90deg,#00ff88,#00cc44);}
+.trade-timer-fill.sell{background:linear-gradient(90deg,#ff4444,#cc0000);}
+@keyframes timerAnim{0%{width:100%;}100%{width:0%;}}
+
+.timer-text{font-size:10px;color:#8b949e;margin-top:8px;}
+
+.generate-btn{width:80%;padding:16px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;transition:all 0.3s;margin-top:10px;}
+.generate-btn:active{transform:scale(0.97);}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:#0d1117;}
+::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN - ویسے ہی -->
+<!-- ========== LOGIN SCREEN ========== -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <div class="logo">LA</div>
     <div class="title">LUBNA ABUBAKAR</div>
     <div class="subtitle">AI BOT PRO - REAL-TIME SIGNALS</div>
+
     <div class="input-box">
       <span class="input-icon">👤</span>
       <label>USERNAME</label>
       <input type="text" id="username" value="Lubna" autocomplete="off">
     </div>
+
     <div class="input-box">
       <span class="input-icon">🔒</span>
       <label>PASSWORD</label>
       <input type="password" id="password" value="Abubakar786" autocomplete="off">
     </div>
+
     <div id="error" style="color:#ff4444;font-size:11px;text-align:center;margin-bottom:10px;height:18px;font-weight:700;"></div>
-    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI BOT PRO</button>
+    <button class="unlock-btn" id="unlockBtn">UNLOCK AI BOT PRO</button>
   </div>
 </div>
 
-<!-- APP SCREEN - ویسے ہی -->
+<!-- ========== APP SCREEN ========== -->
 <div class="app-screen" id="appScreen">
+  
+  <!-- Header -->
   <div class="app-header">
     <div class="logo-small">LUBNA AI</div>
     <div class="stats">
@@ -107,10 +266,11 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     <div class="live-badge">LIVE AI</div>
   </div>
 
+  <!-- HOME SCREEN -->
   <div class="home-screen" id="homeScreen">
     <div class="home-title">SELECT TRADING DIRECTION</div>
     <div class="home-subtitle">Choose your preferred market for AI-powered signals</div>
-
+    
     <div class="stats-row">
       <div class="stat-box">
         <div class="stat-num" id="winRateBox">94.7%</div>
@@ -123,30 +283,6 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="stat-box">
         <div class="stat-num">REAL</div>
         <div class="stat-label">Time</div>
-      </div>
-    </div>
-
-    <!-- NEW: 5 INDICATORS BAR - صرف یہ ایڈ کیا -->
-    <div class="indicators-bar">
-      <div class="ind-item">
-        <div class="ind-label">RSI 14</div>
-        <div class="ind-value" id="rsi">--</div>
-      </div>
-      <div class="ind-item">
-        <div class="ind-label">EMA 21/50</div>
-        <div class="ind-value" id="ema">--</div>
-      </div>
-      <div class="ind-item">
-        <div class="ind-label">MACD</div>
-        <div class="ind-value" id="macd">--</div>
-      </div>
-      <div class="ind-item">
-        <div class="ind-label">BB</div>
-        <div class="ind-value" id="bb">--</div>
-      </div>
-      <div class="ind-item">
-        <div class="ind-label">5-CANDLE</div>
-        <div class="ind-value" id="candle5">--</div>
       </div>
     </div>
 
@@ -202,141 +338,586 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 
     <div style="text-align:center;margin-top:20px;padding:12px;background:#161b22;border-radius:12px;border:1px solid #30363d;">
       <div style="font-size:10px;color:#8b949e;">🟢 MARKETS OPEN - Select a direction to begin analysis</div>
-      <div style="font-size:9px;color:#6e7681;margin-top:4px;">Powered by ROCCO Neural Engine - Real-time market data</div>
+      <div style="font-size:9px;color:#6e7681;margin-top:4px;">Powered by ROCCO Neural Engine - 4 Indicator System</div>
     </div>
   </div>
+
+  <!-- ASSET SCREEN -->
+  <div class="asset-screen" id="assetScreen">
+    <div class="asset-header">
+      <div class="back-btn" onclick="goBack('home')">←</div>
+      <div>
+        <div class="asset-header-title" id="assetScreenTitle">OTC PAIRS</div>
+        <div class="asset-header-sub">Select an asset to scan</div>
+      </div>
+    </div>
+    <div class="asset-list" id="assetList"></div>
+  </div>
+
+  <!-- TIMEFRAME SCREEN -->
+  <div class="timeframe-screen" id="timeframeScreen">
+    <div class="asset-header">
+      <div class="back-btn" onclick="goBack('asset')">←</div>
+      <div>
+        <div class="asset-header-title" id="tfAssetName">USD/INR</div>
+        <div class="asset-header-sub">Select signal timeframe</div>
+      </div>
+    </div>
+
+    <div class="timeframe-grid">
+      <div class="timeframe-card" onclick="selectTimeframe(5)" id="tf5">
+        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-num">5</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(10)" id="tf10">
+        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-num">10</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(15)" id="tf15">
+        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-num">15</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(30)" id="tf30">
+        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-num">30</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+    </div>
+
+    <div class="selected-pair">
+      <span class="selected-pair-text">Selected pair:</span>
+      <span class="selected-pair-name" id="selectedPairDisplay">USD/INR</span>
+    </div>
+  </div>
+
+  <!-- ANALYZING SCREEN -->
+  <div class="analyzing-screen" id="analyzingScreen">
+    <div class="brain-container">
+      <div class="brain-ring"></div>
+      <div class="brain-ring"></div>
+      <div class="brain-ring"></div>
+      <div class="brain-icon">🧠</div>
+    </div>
+    <div class="analyzing-title">Analyzing Market Data</div>
+    <div class="analyzing-subtitle">4-Indicator AI Engine Processing...</div>
+    
+    <div class="analyzing-stats" id="analyzingStats">
+      <div class="analyzing-stat">
+        <div class="analyzing-stat-num neut" id="rsiStat">--</div>
+        <div class="analyzing-stat-label">RSI</div>
+      </div>
+      <div class="analyzing-stat">
+        <div class="analyzing-stat-num neut" id="macdStat">--</div>
+        <div class="analyzing-stat-label">MACD</div>
+      </div>
+      <div class="analyzing-stat">
+        <div class="analyzing-stat-num neut" id="bbStat">--</div>
+        <div class="analyzing-stat-label">BB</div>
+      </div>
+      <div class="analyzing-stat">
+        <div class="analyzing-stat-num neut" id="stochStat">--</div>
+        <div class="analyzing-stat-label">STOCH</div>
+      </div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="progress-text" id="progressText">Initializing 4-Indicator Analysis...</div>
+  </div>
+
+  <!-- SIGNAL SCREEN -->
+  <div class="signal-screen" id="signalScreen">
+    <div class="signal-circle" id="signalCircle">
+      <div class="signal-arrow" id="signalArrow">⬆</div>
+    </div>
+    
+    <div class="signal-direction" id="signalDirection">STRONG BUY</div>
+    <div class="signal-action" id="signalAction">BUY</div>
+    <div class="signal-pair" id="signalPair">USD/INR • 5s</div>
+
+    <!-- AI Score Box -->
+    <div class="ai-score-box">
+      <div class="ai-score-header">
+        <div class="ai-score-title">AI Confidence Score</div>
+        <div class="ai-score-value strong" id="aiScoreValue">87%</div>
+      </div>
+      <div class="ai-score-bar">
+        <div class="ai-score-fill strong" id="aiScoreFill" style="width:87%"></div>
+      </div>
+      <div class="ai-score-markers">
+        <span>0</span>
+        <span>25</span>
+        <span>50</span>
+        <span>75</span>
+        <span>100</span>
+      </div>
+    </div>
+
+    <!-- Indicator Grid -->
+    <div class="indicator-grid" id="indicatorGrid">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="ai-processing">
+      <div class="ai-dot"></div>
+      <div class="ai-text">4-Indicator Consensus Engine Active</div>
+    </div>
+
+    <div class="trade-timer">
+      <div class="trade-timer-label">
+        <span>Trade Window</span>
+        <span id="timerCount">10s</span>
+      </div>
+      <div class="trade-timer-bar">
+        <div class="trade-timer-fill" id="timerFill"></div>
+      </div>
+    </div>
+    <div class="timer-text" id="timerText">Execute trade within window</div>
+
+    <button class="generate-btn" onclick="generateNewSignal()">GENERATE NEW SIGNAL</button>
+  </div>
+
 </div>
 
 <script>
-// Screen Lock - ویسے ہی
-document.addEventListener('gesturestart', e => e.preventDefault());
-document.addEventListener('gesturechange', e => e.preventDefault());
-document.addEventListener('gestureend', e => e.preventDefault());
-document.addEventListener('touchmove', e => { if(e.touches.length > 1) e.preventDefault(); }, {passive:false});
+// ========== DATA ==========
+const otcAssets = [
+  {name:'USD/INR',flag:'🇮🇳',full:'US Dollar / Indian Rupee',hot:true,change:0.45},
+  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true,change:-0.12},
+  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false,change:0.23},
+  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true,change:-0.34},
+  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false,change:0.18},
+  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false,change:-0.08},
+  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false,change:0.05},
+  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false,change:0.11},
+  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false,change:-0.22},
+  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true,change:0.67},
+  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false,change:0.33},
+  {name:'USD/BRL',flag:'🇧🇷',full:'US Dollar / Brazilian Real',hot:true,change:1.24},
+];
 
-function doLogin(){
-  let u = document.getElementById('username').value;
-  let p = document.getElementById('password').value;
-  let err = document.getElementById('error');
+const marketAssets = [
+  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true,change:0.15},
+  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false,change:-0.08},
+  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true,change:0.22},
+  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false,change:-0.14},
+  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false,change:0.06},
+  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false,change:-0.03},
+  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false,change:0.09},
+  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false,change:-0.18},
+  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true,change:0.41},
+  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false,change:0.28},
+];
+
+let currentMarket = '';
+let selectedAsset = null;
+let selectedTimeframe = 5;
+let currentAnalysis = null;
+
+// ========== LOGIN ==========
+document.getElementById('unlockBtn').addEventListener('click', function(){
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+  const err = document.getElementById('error');
   if(u === 'Lubna' && p === 'Abubakar786'){
-    err.innerText = '';
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('appScreen').style.display = 'block';
-    scanIndicators();
-    setInterval(scanIndicators, 5000);
   } else {
-    err.innerText = 'Wrong Username or Password';
+    err.textContent = 'Invalid credentials. Try again.';
+    setTimeout(()=>err.textContent='',2000);
   }
+});
+
+// ========== NAVIGATION ==========
+function showScreen(id){
+  ['homeScreen','assetScreen','timeframeScreen','analyzingScreen','signalScreen'].forEach(s=>{
+    document.getElementById(s).style.display = 'none';
+  });
+  document.getElementById(id).style.display = id === 'analyzingScreen' || id === 'signalScreen' ? 'flex' : 'block';
+  if(id==='assetScreen') document.getElementById('assetScreen').style.display='block';
+  if(id==='timeframeScreen') document.getElementById('timeframeScreen').style.display='block';
 }
 
-function goToAssets(type){
-  alert(type.toUpperCase() + ' SELECTED');
+function goBack(to){
+  if(to==='home') showScreen('homeScreen');
+  if(to==='asset') showScreen('assetScreen');
 }
 
-// 5 INDICATORS CALCULATION - صرف یہ فنکشن ایڈ کیے
-function calcEMA(prices, period){
-  let k = 2/(period+1);
-  let ema = prices[0];
-  for(let i=1; i<prices.length; i++) ema = prices[i]*k + ema*(1-k);
-  return ema;
+function goToAssets(market){
+  currentMarket = market;
+  const list = document.getElementById('assetList');
+  list.innerHTML = '';
+  const assets = market==='otc' ? otcAssets : marketAssets;
+  document.getElementById('assetScreenTitle').textContent = market==='otc' ? 'OTC PAIRS' : 'MARKET PAIRS';
+  
+  assets.forEach(a=>{
+    const div = document.createElement('div');
+    div.className = 'asset-item';
+    div.onclick = ()=>selectAsset(a);
+    div.innerHTML = `
+      <div class="asset-left">
+        <div class="asset-flag">${a.flag}</div>
+        <div>
+          <div class="asset-name">${a.name}</div>
+          <div class="asset-fullname">${a.full}</div>
+        </div>
+      </div>
+      <div class="asset-right">
+        ${a.hot ? '<div class="asset-badge-hot">HOT</div>' : ''}
+        <div class="asset-change ${a.change>=0?'up':'down'}">${a.change>=0?'+':''}${a.change.toFixed(2)}%</div>
+        <div class="asset-arrow">›</div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+  showScreen('assetScreen');
 }
 
-function calcRSI(prices, period=14){
-  let gains = 0, losses = 0;
-  for(let i=1; i<prices.length; i++){
-    let diff = prices[i] - prices[i-1];
-    if(diff > 0) gains += diff;
-    else losses += Math.abs(diff);
-  }
-  let avgGain = gains/period;
-  let avgLoss = losses/period;
-  if(avgLoss === 0) return 100;
-  let rs = avgGain/avgLoss;
-  return 100 - (100/(1+rs));
+function selectAsset(asset){
+  selectedAsset = asset;
+  document.getElementById('tfAssetName').textContent = asset.name;
+  document.getElementById('selectedPairDisplay').textContent = asset.name;
+  showScreen('timeframeScreen');
 }
 
-function calcMACD(prices){
-  let ema12 = calcEMA(prices, 12);
-  let ema26 = calcEMA(prices, 26);
-  return ema12 - ema26;
+function selectTimeframe(tf){
+  selectedTimeframe = tf;
+  [5,10,15,30].forEach(t=>{
+    document.getElementById('tf'+t).classList.toggle('selected', t===tf);
+  });
+  startAnalysis();
 }
 
-function calcBB(prices, period=20){
-  let sum = 0;
-  for(let i=prices.length-period; i<prices.length; i++) sum += prices[i];
-  let sma = sum/period;
-  let variance = 0;
-  for(let i=prices.length-period; i<prices.length; i++) variance += Math.pow(prices[i]-sma,2);
-  let stdDev = Math.sqrt(variance/period);
-  return {upper:sma+2*stdDev, lower:sma-2*stdDev};
-}
-
-function check5Candles(candles){
-  let up = 0, down = 0;
-  let last5 = candles.slice(-5);
-  for(let i=0; i<last5.length; i++){
-    if(last5[i][4] > last5[i][1]) up++;
-    else down++;
-  }
-  return {trend: up >= 3? 'UP' : down >= 3? 'DOWN' : 'SIDEWAY', up, down};
-}
-
-function generateData(){
-  let data = [];
-  let base = 1.15;
-  for(let i=0; i<100; i++){
-    let change = (Math.random() - 0.5) * 0.008;
-    base += change;
-    let open = base;
-    let high = base + Math.random() * 0.004;
-    let low = base - Math.random() * 0.004;
-    let close = base + change;
-    data.push([Date.now(), open, high, low, close]);
+// ========== 4-INDICATOR ENGINE ==========
+function generatePriceData(count=50){
+  let price = 1.1000 + Math.random() * 0.5;
+  const data = [];
+  for(let i=0;i<count;i++){
+    const change = (Math.random()-0.5) * 0.008;
+    const open = price;
+    const close = open + change;
+    const high = Math.max(open,close) + Math.random()*0.003;
+    const low = Math.min(open,close) - Math.random()*0.003;
+    data.push({open,close,high,low});
+    price = close;
   }
   return data;
 }
 
-function scanIndicators(){
-  let data = generateData();
-  let prices = data.map(c => parseFloat(c[4]));
-  let lastPrice = prices[prices.length-1];
-
-  // 5 INDICATORS
-  let rsi = calcRSI(prices);
-  let ema21 = calcEMA(prices, 21);
-  let ema50 = calcEMA(prices, 50);
-  let macd = calcMACD(prices);
-  let bb = calcBB(prices);
-  let candle5 = check5Candles(data);
-  let trend = ema21 > ema50? 'UP' : 'DOWN';
-
-  // UPDATE UI - 5 INDICATORS
-  document.getElementById('rsi').innerText = rsi.toFixed(1);
-  document.getElementById('ema').innerText = ema21.toFixed(4);
-  document.getElementById('macd').innerText = macd.toFixed(5);
-  document.getElementById('bb').innerText = lastPrice > bb.upper? 'UP' : lastPrice < bb.lower? 'DOWN' : 'MID';
-  document.getElementById('candle5').innerText = candle5.up + '/' + candle5.down;
-
-  // 5/5 FILTER LOGIC
-  let buyScore = 0, sellScore = 0;
-  if(trend === 'UP') buyScore++;
-  if(trend === 'DOWN') sellScore++;
-  if(rsi > 30 && rsi < 50) buyScore++;
-  if(rsi > 50 && rsi < 70) sellScore++;
-  if(macd > 0) buyScore++;
-  if(macd < 0) sellScore++;
-  if(lastPrice > bb.upper) buyScore++;
-  if(lastPrice < bb.lower) sellScore++;
-  if(candle5.trend === 'UP' && candle5.up >= 3) buyScore++;
-  if(candle5.trend === 'DOWN' && candle5.down >= 3) sellScore++;
-
-  let confirmCount = Math.max(buyScore, sellScore);
-  console.log('5 Indicators Confirm:', confirmCount);
+function calculateRSI(data, period=14){
+  if(data.length < period+1) return 50;
+  let gains=0, losses=0;
+  for(let i=1;i<=period;i++){
+    const change = data[data.length-i].close - data[data.length-i-1].close;
+    if(change>0) gains+=change; else losses-=change;
+  }
+  const avgGain = gains/period;
+  const avgLoss = losses/period;
+  if(avgLoss===0) return 100;
+  const rs = avgGain/avgLoss;
+  return 100 - (100/(1+rs));
 }
 
-document.getElementById('password').addEventListener('keypress', e => {
-  if(e.key === 'Enter') doLogin();
-});
+function calculateMACD(data){
+  if(data.length < 26) return {macd:0, signal:0, histogram:0};
+  
+  const ema = (prices, period)=>{
+    const k = 2/(period+1);
+    let emaVal = prices.slice(0,period).reduce((a,b)=>a+b,0)/period;
+    for(let i=period;i<prices.length;i++){
+      emaVal = prices[i]*k + emaVal*(1-k);
+    }
+    return emaVal;
+  };
+  
+  const closes = data.map(d=>d.close);
+  const ema12 = ema(closes, 12);
+  const ema26 = ema(closes, 26);
+  const macdLine = ema12 - ema26;
+  
+  // Signal line (EMA 9 of MACD)
+  const macdHistory = [];
+  for(let i=26;i<closes.length;i++){
+    const e12 = ema(closes.slice(0,i+1), 12);
+    const e26 = ema(closes.slice(0,i+1), 26);
+    macdHistory.push(e12-e26);
+  }
+  const signalLine = ema(macdHistory, 9);
+  const histogram = macdLine - signalLine;
+  
+  return {macd:macdLine, signal:signalLine, histogram};
+}
+
+function calculateBollinger(data, period=20, multiplier=2){
+  if(data.length < period) return {upper:0, middle:0, lower:0, width:0, position:50};
+  
+  const closes = data.slice(-period).map(d=>d.close);
+  const sma = closes.reduce((a,b)=>a+b,0)/period;
+  
+  const squaredDiffs = closes.map(c=>Math.pow(c-sma,2));
+  const variance = squaredDiffs.reduce((a,b)=>a+b,0)/period;
+  const stdDev = Math.sqrt(variance);
+  
+  const upper = sma + multiplier*stdDev;
+  const lower = sma - multiplier*stdDev;
+  const width = ((upper-lower)/sma)*100;
+  
+  const lastClose = data[data.length-1].close;
+  const position = ((lastClose-lower)/(upper-lower))*100;
+  
+  return {upper, middle:sma, lower, width, position:Math.max(0,Math.min(100,position))};
+}
+
+function calculateStochastic(data, kPeriod=14, dPeriod=3, smooth=3){
+  if(data.length < kPeriod+smooth) return {k:50, d:50};
+  
+  const getK = (idx)=>{
+    const slice = data.slice(idx-kPeriod+1, idx+1);
+    const lowest = Math.min(...slice.map(d=>d.low));
+    const highest = Math.max(...slice.map(d=>d.high));
+    const close = data[idx].close;
+    if(highest===lowest) return 50;
+    return ((close-lowest)/(highest-lowest))*100;
+  };
+  
+  const kValues = [];
+  for(let i=kPeriod-1;i<data.length;i++){
+    kValues.push(getK(i));
+  }
+  
+  // Smooth K with 3-period SMA
+  const smoothK = [];
+  for(let i=smooth-1;i<kValues.length;i++){
+    const sum = kValues.slice(i-smooth+1,i+1).reduce((a,b)=>a+b,0);
+    smoothK.push(sum/smooth);
+  }
+  
+  // D line (3-period SMA of K)
+  const dValues = [];
+  for(let i=dPeriod-1;i<smoothK.length;i++){
+    const sum = smoothK.slice(i-dPeriod+1,i+1).reduce((a,b)=>a+b,0);
+    dValues.push(sum/dPeriod);
+  }
+  
+  return {k:smoothK[smoothK.length-1], d:dValues[dValues.length-1]};
+}
+
+function analyze4Indicators(){
+  const data = generatePriceData(60);
+  const lastClose = data[data.length-1].close;
+  
+  // RSI Analysis
+  const rsi = calculateRSI(data);
+  let rsiSignal = 'NEUTRAL';
+  let rsiScore = 50;
+  if(rsi < 30){ rsiSignal = 'BUY'; rsiScore = 85; }
+  else if(rsi > 70){ rsiSignal = 'SELL'; rsiScore = 85; }
+  else if(rsi < 45){ rsiSignal = 'WEAK_BUY'; rsiScore = 60; }
+  else if(rsi > 55){ rsiSignal = 'WEAK_SELL'; rsiScore = 60; }
+  
+  // MACD Analysis
+  const macd = calculateMACD(data);
+  let macdSignal = 'NEUTRAL';
+  let macdScore = 50;
+  if(macd.histogram > 0 && macd.macd > macd.signal){ macdSignal = 'BUY'; macdScore = 90; }
+  else if(macd.histogram < 0 && macd.macd < macd.signal){ macdSignal = 'SELL'; macdScore = 90; }
+  else if(macd.histogram > 0){ macdSignal = 'WEAK_BUY'; macdScore = 65; }
+  else{ macdSignal = 'WEAK_SELL'; macdScore = 65; }
+  
+  // Bollinger Bands Analysis
+  const bb = calculateBollinger(data);
+  let bbSignal = 'NEUTRAL';
+  let bbScore = 50;
+  if(bb.position < 10){ bbSignal = 'BUY'; bbScore = 80; } // Oversold, bounce expected
+  else if(bb.position > 90){ bbSignal = 'SELL'; bbScore = 80; } // Overbought
+  else if(bb.position < 30){ bbSignal = 'WEAK_BUY'; bbScore = 60; }
+  else if(bb.position > 70){ bbSignal = 'WEAK_SELL'; bbScore = 60; }
+  
+  // Stochastic Analysis
+  const stoch = calculateStochastic(data);
+  let stochSignal = 'NEUTRAL';
+  let stochScore = 50;
+  if(stoch.k < 20 && stoch.d < 20 && stoch.k > stoch.d){ stochSignal = 'BUY'; stochScore = 85; }
+  else if(stoch.k > 80 && stoch.d > 80 && stoch.k < stoch.d){ stochSignal = 'SELL'; stochScore = 85; }
+  else if(stoch.k < stoch.d && stoch.k < 50){ stochSignal = 'WEAK_BUY'; stochScore = 55; }
+  else if(stoch.k > stoch.d && stoch.k > 50){ stochSignal = 'WEAK_SELL'; stochScore = 55; }
+  
+  // Consensus
+  const buyCount = [rsiSignal,macdSignal,bbSignal,stochSignal].filter(s=>s.includes('BUY')).length;
+  const sellCount = [rsiSignal,macdSignal,bbSignal,stochSignal].filter(s=>s.includes('SELL')).length;
+  
+  let finalSignal = 'NEUTRAL';
+  let confidence = 50;
+  
+  if(buyCount >= 3 && !sellCount){
+    finalSignal = 'STRONG_BUY';
+    confidence = (rsiScore + macdScore + bbScore + stochScore)/4;
+  } else if(sellCount >= 3 && !buyCount){
+    finalSignal = 'STRONG_SELL';
+    confidence = (rsiScore + macdScore + bbScore + stochScore)/4;
+  } else if(buyCount > sellCount){
+    finalSignal = 'BUY';
+    confidence = ((rsiScore + macdScore + bbScore + stochScore)/4) * 0.85;
+  } else if(sellCount > buyCount){
+    finalSignal = 'SELL';
+    confidence = ((rsiScore + macdScore + bbScore + stochScore)/4) * 0.85;
+  } else {
+    finalSignal = buyCount > 0 ? 'WEAK_BUY' : (sellCount > 0 ? 'WEAK_SELL' : 'NEUTRAL');
+    confidence = 45 + Math.random()*15;
+  }
+  
+  return {
+    lastPrice: lastClose.toFixed(4),
+    rsi: {value:rsi.toFixed(1), signal:rsiSignal, score:rsiScore},
+    macd: {value:macd.histogram.toFixed(4), signal:macdSignal, score:macdScore, macdLine:macd.macd.toFixed(4), signalLine:macd.signal.toFixed(4)},
+    bb: {value:bb.position.toFixed(1), signal:bbSignal, score:bbScore, upper:bb.upper.toFixed(4), lower:bb.lower.toFixed(4)},
+    stoch: {value:stoch.k.toFixed(1), signal:stochSignal, score:stochScore, d:stoch.d.toFixed(1)},
+    finalSignal,
+    confidence: Math.min(Math.round(confidence), 99)
+  };
+}
+
+// ========== ANALYSIS ==========
+function startAnalysis(){
+  showScreen('analyzingScreen');
+  
+  const texts = [
+    'Initializing 4-Indicator Analysis...',
+    'Calculating RSI (14)...',
+    'Computing MACD Histogram...',
+    'Analyzing Bollinger Bands...',
+    'Processing Stochastic (14,3,3)...',
+    'Running Consensus Algorithm...',
+    'Finalizing AI Signal...'
+  ];
+  let step = 0;
+  const progressText = document.getElementById('progressText');
+  
+  // Simulate indicator values appearing
+  const analysis = analyze4Indicators();
+  
+  const interval = setInterval(()=>{
+    step++;
+    if(step < texts.length){
+      progressText.textContent = texts[step];
+      
+      // Show indicator values progressively
+      if(step===1) document.getElementById('rsiStat').textContent = analysis.rsi.value;
+      if(step===2) document.getElementById('macdStat').textContent = analysis.macd.value;
+      if(step===3) document.getElementById('bbStat').textContent = analysis.bb.value + '%';
+      if(step===4) document.getElementById('stochStat').textContent = analysis.stoch.value;
+    }
+    
+    // Color code the stats
+    if(step>=1){
+      const rsiEl = document.getElementById('rsiStat');
+      rsiEl.className = 'analyzing-stat-num ' + (analysis.rsi.signal.includes('BUY')?'bull':(analysis.rsi.signal.includes('SELL')?'bear':'neut'));
+    }
+    if(step>=2){
+      const macdEl = document.getElementById('macdStat');
+      macdEl.className = 'analyzing-stat-num ' + (analysis.macd.signal.includes('BUY')?'bull':(analysis.macd.signal.includes('SELL')?'bear':'neut'));
+    }
+    if(step>=3){
+      const bbEl = document.getElementById('bbStat');
+      bbEl.className = 'analyzing-stat-num ' + (analysis.bb.signal.includes('BUY')?'bull':(analysis.bb.signal.includes('SELL')?'bear':'neut'));
+    }
+    if(step>=4){
+      const stochEl = document.getElementById('stochStat');
+      stochEl.className = 'analyzing-stat-num ' + (analysis.stoch.signal.includes('BUY')?'bull':(analysis.stoch.signal.includes('SELL')?'bear':'neut'));
+    }
+  }, 500);
+  
+  setTimeout(()=>{
+    clearInterval(interval);
+    currentAnalysis = analysis;
+    showSignal(analysis);
+  }, 4000);
+}
+
+// ========== SIGNAL SCREEN ==========
+function showSignal(analysis){
+  showScreen('signalScreen');
+  
+  const isBuy = analysis.finalSignal.includes('BUY');
+  const isStrong = !analysis.finalSignal.includes('WEAK') && analysis.finalSignal !== 'NEUTRAL';
+  
+  const circle = document.getElementById('signalCircle');
+  const arrow = document.getElementById('signalArrow');
+  const direction = document.getElementById('signalDirection');
+  const action = document.getElementById('signalAction');
+  const pair = document.getElementById('signalPair');
+  const timerFill = document.getElementById('timerFill');
+  
+  circle.className = 'signal-circle ' + (isBuy ? 'buy' : 'sell');
+  arrow.className = 'signal-arrow ' + (isBuy ? 'buy' : 'sell');
+  arrow.textContent = isBuy ? '⬆' : '⬇';
+  direction.className = 'signal-direction ' + (isBuy ? 'buy' : 'sell');
+  direction.textContent = isStrong ? (isBuy ? 'STRONG BUY' : 'STRONG SELL') : (isBuy ? 'BUY' : 'SELL');
+  action.className = 'signal-action ' + (isBuy ? 'buy' : 'sell');
+  action.textContent = isBuy ? 'BUY' : 'SELL';
+  pair.textContent = selectedAsset.name + ' • ' + selectedTimeframe + 's';
+  
+  // AI Score
+  const scoreVal = document.getElementById('aiScoreValue');
+  const scoreFill = document.getElementById('aiScoreFill');
+  const conf = analysis.confidence;
+  
+  scoreVal.textContent = conf + '%';
+  scoreFill.style.width = conf + '%';
+  
+  if(conf >= 80){
+    scoreVal.className = 'ai-score-value strong';
+    scoreFill.className = 'ai-score-fill strong';
+  } else if(conf >= 60){
+    scoreVal.className = 'ai-score-value mod';
+    scoreFill.className = 'ai-score-fill mod';
+  } else {
+    scoreVal.className = 'ai-score-value weak';
+    scoreFill.className = 'ai-score-fill weak';
+  }
+  
+  // Indicator Grid
+  const grid = document.getElementById('indicatorGrid');
+  grid.innerHTML = '';
+  
+  const indicators = [
+    {name:'RSI (14)', value:analysis.rsi.value, signal:analysis.rsi.signal, desc:analysis.rsi.value+' - '+(analysis.rsi.signal.includes('BUY')?'Oversold/Bullish':(analysis.rsi.signal.includes('SELL')?'Overbought/Bearish':'Neutral Zone'))},
+    {name:'MACD', value:analysis.macd.value, signal:analysis.macd.signal, desc:'Hist: '+analysis.macd.value+' | MACD: '+(analysis.macd.macdLine>analysis.macd.signalLine?'Above':'Below')+' Signal'},
+    {name:'Bollinger %B', value:analysis.bb.value+'%', signal:analysis.bb.signal, desc:'Position: '+analysis.bb.value+'% | '+(analysis.bb.signal.includes('BUY')?'Near Lower Band':(analysis.bb.signal.includes('SELL')?'Near Upper Band':'Middle Zone'))},
+    {name:'Stochastic', value:analysis.stoch.value, signal:analysis.stoch.signal, desc:'K: '+analysis.stoch.value+' | D: '+analysis.stoch.d+' | '+(analysis.stoch.k>analysis.stoch.d?'K>D':'K<D')},
+  ];
+  
+  indicators.forEach(ind=>{
+    const card = document.createElement('div');
+    card.className = 'indicator-card';
+    const isIndBuy = ind.signal.includes('BUY');
+    const isIndSell = ind.signal.includes('SELL');
+    const statusClass = isIndBuy ? 'buy' : (isIndSell ? 'sell' : 'neut');
+    const valueClass = isIndBuy ? 'buy' : (isIndSell ? 'sell' : 'neut');
+    
+    card.innerHTML = `
+      <div class="indicator-card-header">
+        <div class="indicator-name">${ind.name}</div>
+        <div class="indicator-status ${statusClass}">${isIndBuy?'BUY':(isIndSell?'SELL':'HOLD')}</div>
+      </div>
+      <div class="indicator-value ${valueClass}">${ind.value}</div>
+      <div class="indicator-desc">${ind.desc}</div>
+    `;
+    grid.appendChild(card);
+  });
+  
+  // Timer
+  timerFill.className = 'trade-timer-fill ' + (isBuy ? 'buy' : 'sell');
+  timerFill.style.animationDuration = selectedTimeframe + 's';
+}
+
+function generateNewSignal(){
+  startAnalysis();
+}
 </script>
 </body>
 </html>
