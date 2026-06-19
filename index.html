@@ -106,72 +106,10 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 /* ========== TIMEFRAME SCREEN ========== */
 .timeframe-screen{display:none;padding:16px;}
 .timeframe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
-
-/* Regular timeframe card */
 .timeframe-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:24px;text-align:center;cursor:pointer;transition:all 0.3s;}
 .timeframe-card:hover{border-color:#00ff88;}
 .timeframe-card:active{transform:scale(0.97);}
 .timeframe-card.selected{border-color:#00ff88;background:rgba(0,255,136,0.05);}
-
-/* ===== STRONG 5 SECOND CARD - MAZBOOT ===== */
-.timeframe-card.strong-five{
-    background:linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.08));
-    border:2px solid #ffd700;
-    box-shadow:0 0 30px rgba(255,215,0,0.3), 0 4px 15px rgba(255,215,0,0.1);
-    position:relative;
-    overflow:hidden;
-    animation:pulseGold 2s ease-in-out infinite;
-}
-.timeframe-card.strong-five::before{
-    content:'★ BEST';
-    position:absolute;
-    top:8px;
-    right:-28px;
-    background:linear-gradient(135deg, #ffd700, #ff8c00);
-    color:#000;
-    font-size:8px;
-    font-weight:900;
-    padding:4px 30px;
-    transform:rotate(45deg);
-    letter-spacing:1px;
-}
-.timeframe-card.strong-five:hover{
-    border-color:#ff8c00;
-    box-shadow:0 0 50px rgba(255,215,0,0.5), 0 4px 20px rgba(255,215,0,0.2);
-    transform:scale(1.03);
-}
-.timeframe-card.strong-five:active{transform:scale(0.98);}
-.timeframe-card.strong-five.selected{
-    border-color:#ffd700;
-    background:linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,165,0,0.15));
-    box-shadow:0 0 60px rgba(255,215,0,0.5), inset 0 0 20px rgba(255,215,0,0.1);
-}
-.timeframe-card.strong-five .timeframe-icon{
-    font-size:38px;
-    filter:drop-shadow(0 0 8px rgba(255,215,0,0.6));
-    animation:bounceIcon 1.5s ease-in-out infinite;
-}
-.timeframe-card.strong-five .timeframe-num{
-    font-size:32px;
-    font-weight:900;
-    color:#ffd700;
-    text-shadow:0 0 15px rgba(255,215,0,0.5), 0 0 30px rgba(255,215,0,0.3);
-}
-.timeframe-card.strong-five .timeframe-label{
-    font-size:11px;
-    color:#ffcc00;
-    font-weight:700;
-    letter-spacing:3px;
-}
-@keyframes pulseGold{
-    0%,100%{box-shadow:0 0 30px rgba(255,215,0,0.3), 0 4px 15px rgba(255,215,0,0.1);}
-    50%{box-shadow:0 0 50px rgba(255,215,0,0.5), 0 4px 20px rgba(255,215,0,0.2);}
-}
-@keyframes bounceIcon{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-5px);}
-}
-
 .timeframe-icon{font-size:32px;margin-bottom:8px;}
 .timeframe-num{font-size:24px;font-weight:900;color:#00ff88;}
 .timeframe-label{font-size:10px;color:#8b949e;margin-top:4px;text-transform:uppercase;letter-spacing:2px;}
@@ -256,6 +194,40 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 
 .generate-btn{width:80%;padding:16px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;transition:all 0.3s;margin-top:10px;}
 .generate-btn:active{transform:scale(0.97);}
+
+/* ========== MA5 CHART SCREEN ========== */
+.chart-screen{display:none;padding:16px;height:100dvh;overflow-y:auto;}
+.chart-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.chart-header-title{font-size:16px;font-weight:900;}
+.chart-header-sub{font-size:10px;color:#8b949e;}
+
+.chart-container{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:16px;margin-bottom:16px;position:relative;}
+.chart-canvas{width:100%;height:220px;position:relative;overflow:hidden;}
+.candle{width:8px;position:absolute;border-radius:2px;}
+.candle-wick{width:1px;position:absolute;background:#8b949e;}
+.candle-up{background:#00ff88;}
+.candle-down{background:#ff4444;}
+
+.ma5-line{position:absolute;height:2px;background:#ffd700;z-index:5;transition:all 0.3s;}
+.ma5-label{position:absolute;font-size:9px;color:#ffd700;font-weight:700;background:rgba(0,0,0,0.7);padding:2px 6px;border-radius:4px;z-index:10;}
+
+.ma5-info{display:flex;justify-content:space-between;align-items:center;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+.ma5-info-left{display:flex;align-items:center;gap:10px;}
+.ma5-dot{width:10px;height:10px;background:#ffd700;border-radius:50%;}
+.ma5-title{font-size:12px;font-weight:700;}
+.ma5-value{font-size:14px;font-weight:900;color:#ffd700;}
+.ma5-trend{font-size:10px;padding:4px 10px;border-radius:6px;font-weight:700;}
+.ma5-trend.up{background:rgba(0,255,136,0.15);color:#00ff88;}
+.ma5-trend.down{background:rgba(255,68,68,0.15);color:#ff4444;}
+
+.ma5-signal-box{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:16px;margin-bottom:16px;}
+.ma5-signal-title{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;}
+.ma5-signal-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #30363d;}
+.ma5-signal-row:last-child{border-bottom:none;}
+.ma5-signal-label{font-size:11px;color:#8b949e;}
+.ma5-signal-value{font-size:12px;font-weight:700;}
+.ma5-signal-value.buy{color:#00ff88;}
+.ma5-signal-value.sell{color:#ff4444;}
 
 /* ========== SCROLLBAR ========== */
 ::-webkit-scrollbar{width:4px;}
@@ -403,9 +375,8 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     </div>
 
     <div class="timeframe-grid">
-      <!-- 5 Second - STRONG / MAZBOOT with Gold Color -->
-      <div class="timeframe-card strong-five" onclick="selectTimeframe(5)" id="tf5">
-        <div class="timeframe-icon">⚡</div>
+      <div class="timeframe-card" onclick="selectTimeframe(5)" id="tf5">
+        <div class="timeframe-icon">⏱️</div>
         <div class="timeframe-num">5</div>
         <div class="timeframe-label">Seconds</div>
       </div>
@@ -441,23 +412,23 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="brain-icon">🧠</div>
     </div>
     <div class="analyzing-title">Analyzing Market Data</div>
-    <div class="analyzing-subtitle">ROCCO Neural Engine processing real-time indicators</div>
-
+    <div class="analyzing-subtitle">ROCCO Neural Engine processing with MA5 indicator...</div>
+    
     <div class="analyzing-stats">
       <div class="analyzing-stat">
-        <div class="analyzing-stat-num" id="scanPairs">0</div>
-        <div class="analyzing-stat-label">Pairs Scanned</div>
+        <div class="analyzing-stat-num" id="ma5AnalyzingValue">--</div>
+        <div class="analyzing-stat-label">MA5 Value</div>
       </div>
       <div class="analyzing-stat">
-        <div class="analyzing-stat-num" id="indicators">0</div>
-        <div class="analyzing-stat-label">Indicators</div>
+        <div class="analyzing-stat-num" id="ma5TrendValue">--</div>
+        <div class="analyzing-stat-label">MA5 Trend</div>
       </div>
     </div>
 
     <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-fill"></div>
     </div>
-    <div class="progress-text" id="progressText">Initializing neural network...</div>
+    <div class="progress-text" id="progressText">Scanning price action with MA5...</div>
   </div>
 
   <!-- SIGNAL SCREEN -->
@@ -465,38 +436,40 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     <div class="signal-circle" id="signalCircle">
       <div class="signal-arrow" id="signalArrow">⬆</div>
     </div>
-    <div class="signal-direction" id="signalDirection">STRONG SIGNAL</div>
+    
+    <div class="signal-direction" id="signalDirection">STRONG BUY</div>
     <div class="signal-action" id="signalAction">BUY</div>
-    <div class="signal-pair" id="signalPair">USD/INR - 5s</div>
+    <div class="signal-pair" id="signalPair">USD/INR • 5s</div>
 
     <div class="signal-stats">
       <div class="signal-stat">
-        <div class="signal-stat-label">Confidence</div>
-        <div class="signal-stars" id="confidenceStars">
+        <div class="signal-stat-label">Accuracy</div>
+        <div class="signal-stars" id="accuracyStars">
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
           <span class="signal-star">★</span>
         </div>
-        <div class="signal-stat-value" id="confidenceValue">87%</div>
+        <div class="signal-stat-value" id="accuracyValue">92%</div>
       </div>
       <div class="signal-stat">
-        <div class="signal-stat-label">Strength</div>
-        <div class="signal-stars" id="strengthStars">
+        <div class="signal-stat-label">MA5 Signal</div>
+        <div class="signal-stars" id="ma5Stars">
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
         </div>
-        <div class="signal-stat-value" id="strengthValue">92%</div>
+        <div class="signal-stat-value" id="ma5SignalValue">BULLISH</div>
+        <div class="signal-stat-sub" id="ma5SignalSub">Price > MA5</div>
       </div>
     </div>
 
     <div class="ai-processing">
       <div class="ai-dot"></div>
-      <div class="ai-text">AI Monitoring Active</div>
+      <div class="ai-text">AI monitoring with MA5 crossover</div>
     </div>
 
     <div class="trade-timer">
@@ -508,99 +481,145 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
         <div class="trade-timer-fill" id="timerFill"></div>
       </div>
     </div>
-    <div class="timer-text">Execute trade within window for optimal entry</div>
+    <div class="timer-text" id="timerText">Execute trade within window</div>
 
     <button class="generate-btn" onclick="generateNewSignal()">GENERATE NEW SIGNAL</button>
+  </div>
+
+  <!-- MA5 CHART SCREEN -->
+  <div class="chart-screen" id="chartScreen">
+    <div class="chart-header">
+      <div class="back-btn" onclick="goBack('signal')">←</div>
+      <div>
+        <div class="chart-header-title" id="chartAssetName">USD/INR</div>
+        <div class="chart-header-sub">MA5 Indicator Analysis</div>
+      </div>
+    </div>
+
+    <div class="ma5-info">
+      <div class="ma5-info-left">
+        <div class="ma5-dot"></div>
+        <div class="ma5-title">MA 5 Indicator</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="ma5-value" id="chartMa5Value">--</div>
+        <div class="ma5-trend" id="chartMa5Trend">--</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-canvas" id="chartCanvas">
+        <!-- Candles and MA5 line rendered by JS -->
+      </div>
+    </div>
+
+    <div class="ma5-signal-box">
+      <div class="ma5-signal-title">MA5 Signal Analysis</div>
+      <div class="ma5-signal-row">
+        <div class="ma5-signal-label">Current Price</div>
+        <div class="ma5-signal-value" id="chartCurrentPrice">--</div>
+      </div>
+      <div class="ma5-signal-row">
+        <div class="ma5-signal-label">MA5 Value</div>
+        <div class="ma5-signal-value" id="chartMa5Val">--</div>
+      </div>
+      <div class="ma5-signal-row">
+        <div class="ma5-signal-label">Price vs MA5</div>
+        <div class="ma5-signal-value" id="chartPriceVsMa5">--</div>
+      </div>
+      <div class="ma5-signal-row">
+        <div class="ma5-signal-label">MA5 Slope</div>
+        <div class="ma5-signal-value" id="chartMa5Slope">--</div>
+      </div>
+      <div class="ma5-signal-row">
+        <div class="ma5-signal-label">Signal</div>
+        <div class="ma5-signal-value" id="chartFinalSignal">--</div>
+      </div>
+    </div>
+
+    <button class="generate-btn" onclick="goBack('signal')" style="margin-top:16px;">BACK TO SIGNAL</button>
   </div>
 
 </div>
 
 <script>
-// ========== LOGIN ==========
-const loginScreen = document.getElementById('loginScreen');
-const appScreen = document.getElementById('appScreen');
-const unlockBtn = document.getElementById('unlockBtn');
-const errorDiv = document.getElementById('error');
+// ========== DATA ==========
+const otcAssets = [
+  {name:'USD/INR',flag:'🇮🇳',full:'US Dollar / Indian Rupee',hot:true,change:0.45},
+  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true,change:-0.12},
+  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false,change:0.23},
+  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true,change:-0.34},
+  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false,change:0.18},
+  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false,change:-0.08},
+  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false,change:0.05},
+  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false,change:0.11},
+  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false,change:-0.22},
+  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true,change:0.67},
+  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false,change:0.33},
+  {name:'USD/BRL',flag:'🇧🇷',full:'US Dollar / Brazilian Real',hot:true,change:1.24},
+];
 
-unlockBtn.addEventListener('click', () => {
+const marketAssets = [
+  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true,change:0.15},
+  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false,change:-0.08},
+  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true,change:0.22},
+  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false,change:-0.14},
+  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false,change:0.06},
+  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false,change:-0.03},
+  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false,change:0.09},
+  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false,change:-0.18},
+  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true,change:0.41},
+  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false,change:0.28},
+];
+
+let currentMarket = '';
+let selectedAsset = null;
+let selectedTimeframe = 5;
+let currentSignal = null;
+
+// ========== LOGIN ==========
+document.getElementById('unlockBtn').addEventListener('click', function(){
   const u = document.getElementById('username').value.trim();
   const p = document.getElementById('password').value.trim();
+  const err = document.getElementById('error');
   if(u === 'Lubna' && p === 'Abubakar786'){
-    loginScreen.style.display = 'none';
-    appScreen.style.display = 'block';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appScreen').style.display = 'block';
   } else {
-    errorDiv.textContent = 'Invalid credentials. Try again.';
-    setTimeout(()=>errorDiv.textContent='',2000);
+    err.textContent = 'Invalid credentials. Try again.';
+    setTimeout(()=>err.textContent='',2000);
   }
 });
 
 // ========== NAVIGATION ==========
-const screens = {
-  home: document.getElementById('homeScreen'),
-  asset: document.getElementById('assetScreen'),
-  timeframe: document.getElementById('timeframeScreen'),
-  analyzing: document.getElementById('analyzingScreen'),
-  signal: document.getElementById('signalScreen')
-};
-
-let selectedMarket = '';
-let selectedAsset = '';
-let selectedTimeframe = 5;
-
-function showScreen(name){
-  Object.values(screens).forEach(s=>s.style.display='none');
-  if(name==='analyzing' || name==='signal'){
-    screens[name].style.display='flex';
-  } else {
-    screens[name].style.display='block';
-  }
+function showScreen(id){
+  ['homeScreen','assetScreen','timeframeScreen','analyzingScreen','signalScreen','chartScreen'].forEach(s=>{
+    document.getElementById(s).style.display = 'none';
+  });
+  document.getElementById(id).style.display = id === 'analyzingScreen' || id === 'signalScreen' ? 'flex' : 'block';
+  if(id==='assetScreen') document.getElementById('assetScreen').style.display='block';
+  if(id==='timeframeScreen') document.getElementById('timeframeScreen').style.display='block';
+  if(id==='chartScreen') document.getElementById('chartScreen').style.display='block';
 }
 
 function goBack(to){
-  showScreen(to);
+  if(to==='home') showScreen('homeScreen');
+  if(to==='asset') showScreen('assetScreen');
+  if(to==='signal') showScreen('signalScreen');
 }
 
-// ========== ASSETS ==========
-const otcAssets = [
-  {name:'USD/INR',flag:'🇺🇸',full:'US Dollar / Indian Rupee',hot:true},
-  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true},
-  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false},
-  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true},
-  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false},
-  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false},
-  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false},
-  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true},
-  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:true},
-  {name:'XAU/USD',flag:'🥇',full:'Gold / US Dollar',hot:true},
-  {name:'BTC/USD',flag:'₿',full:'Bitcoin / US Dollar',hot:true},
-  {name:'ETH/USD',flag:'Ξ',full:'Ethereum / US Dollar',hot:false},
-];
-
-const marketAssets = [
-  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true},
-  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false},
-  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true},
-  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false},
-  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false},
-  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false},
-  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true},
-  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false},
-  {name:'USD/CNH',flag:'🇨🇳',full:'US Dollar / Chinese Yuan',hot:false},
-];
-
-function goToAssets(type){
-  selectedMarket = type;
-  document.getElementById('assetScreenTitle').textContent = type==='otc' ? 'OTC PAIRS' : 'MARKET PAIRS';
+function goToAssets(market){
+  currentMarket = market;
   const list = document.getElementById('assetList');
   list.innerHTML = '';
-  const assets = type==='otc' ? otcAssets : marketAssets;
+  const assets = market==='otc' ? otcAssets : marketAssets;
+  document.getElementById('assetScreenTitle').textContent = market==='otc' ? 'OTC PAIRS' : 'MARKET PAIRS';
+  
   assets.forEach(a=>{
-    const change = (Math.random()*4-2).toFixed(2);
-    const isUp = change>=0;
-    const item = document.createElement('div');
-    item.className='asset-item';
-    item.onclick=()=>goToTimeframe(a.name);
-    item.innerHTML=`
+    const div = document.createElement('div');
+    div.className = 'asset-item';
+    div.onclick = ()=>selectAsset(a);
+    div.innerHTML = `
       <div class="asset-left">
         <div class="asset-flag">${a.flag}</div>
         <div>
@@ -609,104 +628,321 @@ function goToAssets(type){
         </div>
       </div>
       <div class="asset-right">
-        ${a.hot?'<div class="asset-badge-hot">HOT</div>':''}
-        <div class="asset-change ${isUp?'up':'down'}">${isUp?'+':''}${change}%</div>
-        <div class="asset-arrow">→</div>
+        ${a.hot ? '<div class="asset-badge-hot">HOT</div>' : ''}
+        <div class="asset-change ${a.change>=0?'up':'down'}">${a.change>=0?'+':''}${a.change.toFixed(2)}%</div>
+        <div class="asset-arrow">›</div>
       </div>
     `;
-    list.appendChild(item);
+    list.appendChild(div);
   });
-  showScreen('asset');
+  showScreen('assetScreen');
 }
 
-function goToTimeframe(asset){
+function selectAsset(asset){
   selectedAsset = asset;
-  document.getElementById('tfAssetName').textContent = asset;
-  document.getElementById('selectedPairDisplay').textContent = asset;
-  showScreen('timeframe');
+  document.getElementById('tfAssetName').textContent = asset.name;
+  document.getElementById('selectedPairDisplay').textContent = asset.name;
+  showScreen('timeframeScreen');
 }
 
 function selectTimeframe(tf){
   selectedTimeframe = tf;
-  document.querySelectorAll('.timeframe-card').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('tf'+tf).classList.add('selected');
-  setTimeout(()=>startAnalyzing(),400);
+  [5,10,15,30].forEach(t=>{
+    document.getElementById('tf'+t).classList.toggle('selected', t===tf);
+  });
+  startAnalysis();
 }
 
-// ========== ANALYZING ==========
-function startAnalyzing(){
-  showScreen('analyzing');
-  const scanPairs = document.getElementById('scanPairs');
-  const indicators = document.getElementById('indicators');
-  const progressText = document.getElementById('progressText');
+// ========== MA5 CALCULATIONS ==========
+function generateCandles(count=20){
+  let price = 80 + Math.random() * 40;
+  const candles = [];
+  for(let i=0;i<count;i++){
+    const open = price;
+    const change = (Math.random()-0.5)*3;
+    const close = open + change;
+    const high = Math.max(open,close) + Math.random()*1.5;
+    const low = Math.min(open,close) - Math.random()*1.5;
+    candles.push({open,close,high,low});
+    price = close;
+  }
+  return candles;
+}
+
+function calculateMA5(candles, index){
+  if(index < 4) return null;
+  let sum = 0;
+  for(let i=index-4;i<=index;i++){
+    sum += candles[i].close;
+  }
+  return sum / 5;
+}
+
+function getMA5Analysis(){
+  const candles = generateCandles(25);
+  const ma5Values = [];
+  for(let i=4;i<candles.length;i++){
+    ma5Values.push(calculateMA5(candles, i));
+  }
+  
+  const lastCandle = candles[candles.length-1];
+  const lastMA5 = ma5Values[ma5Values.length-1];
+  const prevMA5 = ma5Values[ma5Values.length-2];
+  const price = lastCandle.close;
+  
+  const priceAboveMA5 = price > lastMA5;
+  const ma5Rising = lastMA5 > prevMA5;
+  const ma5Slope = ((lastMA5 - prevMA5) / prevMA5 * 100).toFixed(3);
+  
+  let signal = 'NEUTRAL';
+  let confidence = 50;
+  
+  if(priceAboveMA5 && ma5Rising){
+    signal = 'BUY';
+    confidence = 85 + Math.random()*10;
+  } else if(!priceAboveMA5 && !ma5Rising){
+    signal = 'SELL';
+    confidence = 85 + Math.random()*10;
+  } else if(priceAboveMA5 && !ma5Rising){
+    signal = 'WEAK_BUY';
+    confidence = 55 + Math.random()*15;
+  } else if(!priceAboveMA5 && ma5Rising){
+    signal = 'WEAK_SELL';
+    confidence = 55 + Math.random()*15;
+  }
+  
+  return {
+    candles,
+    ma5Values,
+    lastPrice: price.toFixed(4),
+    lastMA5: lastMA5.toFixed(4),
+    priceAboveMA5,
+    ma5Rising,
+    ma5Slope,
+    signal,
+    confidence: Math.min(confidence, 99).toFixed(1)
+  };
+}
+
+// ========== ANALYSIS ==========
+function startAnalysis(){
+  showScreen('analyzingScreen');
+  
+  const analysis = getMA5Analysis();
+  document.getElementById('ma5AnalyzingValue').textContent = analysis.lastMA5;
+  document.getElementById('ma5TrendValue').textContent = analysis.ma5Rising ? '📈 RISING' : '📉 FALLING';
+  
   const texts = [
-    'Initializing neural network...',
-    'Scanning price action...',
-    'Analyzing volume profile...',
-    'Checking support/resistance...',
-    'Calculating probability matrix...',
-    'Finalizing signal...'
+    'Scanning price action with MA5...',
+    'Calculating MA5 crossover...',
+    'Analyzing MA5 slope...',
+    'Checking price vs MA5 position...',
+    'Finalizing MA5 signal...'
   ];
   let step = 0;
+  const progressText = document.getElementById('progressText');
+  
   const interval = setInterval(()=>{
     step++;
-    scanPairs.textContent = Math.min(step*18, 94);
-    indicators.textContent = Math.min(step*7, 42);
-    if(step<=texts.length) progressText.textContent = texts[step-1] || texts[texts.length-1];
-    if(step>=6){
-      clearInterval(interval);
-      setTimeout(()=>showSignal(),500);
+    if(step < texts.length){
+      progressText.textContent = texts[step];
     }
-  }, 500);
+  }, 600);
+  
+  setTimeout(()=>{
+    clearInterval(interval);
+    currentSignal = analysis;
+    showSignal(analysis);
+  }, 3500);
 }
 
-// ========== SIGNAL ==========
-function showSignal(){
-  showScreen('signal');
-  const isBuy = Math.random()>0.45;
-  const dir = isBuy ? 'buy' : 'sell';
-  const action = isBuy ? 'BUY' : 'SELL';
-  const arrow = isBuy ? '⬆' : '⬇';
-  const confidence = Math.floor(Math.random()*15+80);
-  const strength = Math.floor(Math.random()*10+85);
-
+// ========== SIGNAL SCREEN ==========
+function showSignal(analysis){
+  showScreen('signalScreen');
+  
+  const isBuy = analysis.signal.includes('BUY');
+  const isStrong = !analysis.signal.includes('WEAK');
+  
   const circle = document.getElementById('signalCircle');
-  const arrowEl = document.getElementById('signalArrow');
-  const dirEl = document.getElementById('signalDirection');
-  const actEl = document.getElementById('signalAction');
-  const pairEl = document.getElementById('signalPair');
-  const confVal = document.getElementById('confidenceValue');
-  const strVal = document.getElementById('strengthValue');
+  const arrow = document.getElementById('signalArrow');
+  const direction = document.getElementById('signalDirection');
+  const action = document.getElementById('signalAction');
+  const pair = document.getElementById('signalPair');
   const timerFill = document.getElementById('timerFill');
-
-  circle.className = 'signal-circle ' + dir;
-  arrowEl.className = 'signal-arrow ' + dir;
-  arrowEl.textContent = arrow;
-  dirEl.className = 'signal-direction ' + dir;
-  dirEl.textContent = 'STRONG SIGNAL';
-  actEl.className = 'signal-action ' + dir;
-  actEl.textContent = action;
-  pairEl.textContent = selectedAsset + ' - ' + selectedTimeframe + 's';
-  confVal.className = 'signal-stat-value ' + dir;
-  confVal.textContent = confidence + '%';
-  strVal.className = 'signal-stat-value ' + dir;
-  strVal.textContent = strength + '%';
-  timerFill.className = 'trade-timer-fill ' + dir;
-
-  // Stars
-  const confStars = Math.floor(confidence/20);
-  const strStars = Math.floor(strength/20);
-  document.querySelectorAll('#confidenceStars .signal-star').forEach((s,i)=>{
-    s.className = 'signal-star' + (i<confStars?' active':'');
-  });
-  document.querySelectorAll('#strengthStars .signal-star').forEach((s,i)=>{
-    s.className = 'signal-star' + (i<strStars?' active':'');
-  });
+  
+  circle.className = 'signal-circle ' + (isBuy ? 'buy' : 'sell');
+  arrow.className = 'signal-arrow ' + (isBuy ? 'buy' : 'sell');
+  arrow.textContent = isBuy ? '⬆' : '⬇';
+  direction.className = 'signal-direction ' + (isBuy ? 'buy' : 'sell');
+  direction.textContent = isStrong ? (isBuy ? 'STRONG BUY' : 'STRONG SELL') : (isBuy ? 'WEAK BUY' : 'WEAK SELL');
+  action.className = 'signal-action ' + (isBuy ? 'buy' : 'sell');
+  action.textContent = isBuy ? 'BUY' : 'SELL';
+  pair.textContent = selectedAsset.name + ' • ' + selectedTimeframe + 's';
+  
+  // Accuracy stars
+  const accStars = document.getElementById('accuracyStars');
+  const accVal = Math.floor(analysis.confidence / 20);
+  accStars.innerHTML = '';
+  for(let i=0;i<5;i++){
+    const star = document.createElement('span');
+    star.className = 'signal-star' + (i < accVal ? ' active' : '');
+    star.textContent = '★';
+    accStars.appendChild(star);
+  }
+  document.getElementById('accuracyValue').textContent = analysis.confidence + '%';
+  document.getElementById('accuracyValue').className = 'signal-stat-value ' + (isBuy ? 'buy' : 'sell');
+  
+  // MA5 signal
+  const ma5SignalValue = document.getElementById('ma5SignalValue');
+  const ma5SignalSub = document.getElementById('ma5SignalSub');
+  ma5SignalValue.textContent = analysis.ma5Rising ? 'BULLISH' : 'BEARISH';
+  ma5SignalValue.className = 'signal-stat-value ' + (analysis.ma5Rising ? 'buy' : 'sell');
+  ma5SignalSub.textContent = analysis.priceAboveMA5 ? 'Price > MA5' : 'Price < MA5';
+  
+  // MA5 stars
+  const ma5Stars = document.getElementById('ma5Stars');
+  const ma5StarCount = analysis.priceAboveMA5 && analysis.ma5Rising ? 5 : 
+                       !analysis.priceAboveMA5 && !analysis.ma5Rising ? 5 :
+                       analysis.priceAboveMA5 || analysis.ma5Rising ? 3 : 2;
+  ma5Stars.innerHTML = '';
+  for(let i=0;i<5;i++){
+    const star = document.createElement('span');
+    star.className = 'signal-star' + (i < ma5StarCount ? ' active' : '');
+    star.textContent = '★';
+    ma5Stars.appendChild(star);
+  }
+  
+  // Timer
+  timerFill.className = 'trade-timer-fill ' + (isBuy ? 'buy' : 'sell');
+  timerFill.style.animationDuration = selectedTimeframe + 's';
+  
+  // Store for chart screen
+  window.currentAnalysis = analysis;
 }
 
 function generateNewSignal(){
-  startAnalyzing();
+  startAnalysis();
 }
+
+// ========== CHART SCREEN ==========
+function showChartScreen(){
+  const analysis = window.currentAnalysis;
+  if(!analysis) return;
+  
+  document.getElementById('chartAssetName').textContent = selectedAsset.name;
+  document.getElementById('chartMa5Value').textContent = analysis.lastMA5;
+  
+  const trendEl = document.getElementById('chartMa5Trend');
+  trendEl.textContent = analysis.ma5Rising ? '📈 BULLISH' : '📉 BEARISH';
+  trendEl.className = 'ma5-trend ' + (analysis.ma5Rising ? 'up' : 'down');
+  
+  document.getElementById('chartCurrentPrice').textContent = analysis.lastPrice;
+  document.getElementById('chartMa5Val').textContent = analysis.lastMA5;
+  
+  const priceVs = document.getElementById('chartPriceVsMa5');
+  priceVs.textContent = analysis.priceAboveMA5 ? 'ABOVE (Bullish)' : 'BELOW (Bearish)';
+  priceVs.className = 'ma5-signal-value ' + (analysis.priceAboveMA5 ? 'buy' : 'sell');
+  
+  const slopeEl = document.getElementById('chartMa5Slope');
+  slopeEl.textContent = (analysis.ma5Rising ? '+' : '') + analysis.ma5Slope + '%';
+  slopeEl.className = 'ma5-signal-value ' + (analysis.ma5Rising ? 'buy' : 'sell');
+  
+  const finalSig = document.getElementById('chartFinalSignal');
+  const isBuy = analysis.signal.includes('BUY');
+  finalSig.textContent = isBuy ? 'BUY SIGNAL' : 'SELL SIGNAL';
+  finalSig.className = 'ma5-signal-value ' + (isBuy ? 'buy' : 'sell');
+  
+  renderChart(analysis);
+  showScreen('chartScreen');
+}
+
+function renderChart(analysis){
+  const canvas = document.getElementById('chartCanvas');
+  canvas.innerHTML = '';
+  
+  const candles = analysis.candles.slice(-15);
+  const ma5Vals = analysis.ma5Values.slice(-15);
+  
+  const allPrices = candles.flatMap(c=>[c.high,c.low]);
+  const minP = Math.min(...allPrices);
+  const maxP = Math.max(...allPrices);
+  const range = maxP - minP || 1;
+  
+  const chartW = canvas.offsetWidth;
+  const chartH = 220;
+  const candleW = Math.floor(chartW / candles.length) - 4;
+  const spacing = 4;
+  
+  candles.forEach((c,i)=>{
+    const x = i * (candleW + spacing) + spacing;
+    const top = chartH - ((c.high - minP) / range * (chartH - 20)) - 10;
+    const bottom = chartH - ((c.low - minP) / range * (chartH - 20)) - 10;
+    const bodyTop = chartH - ((Math.max(c.open,c.close) - minP) / range * (chartH - 20)) - 10;
+    const bodyH = Math.max(2, Math.abs(c.open - c.close) / range * (chartH - 20));
+    const isUp = c.close >= c.open;
+    
+    // Wick
+    const wick = document.createElement('div');
+    wick.className = 'candle-wick';
+    wick.style.left = (x + candleW/2) + 'px';
+    wick.style.top = top + 'px';
+    wick.style.height = (bottom - top) + 'px';
+    canvas.appendChild(wick);
+    
+    // Body
+    const body = document.createElement('div');
+    body.className = 'candle ' + (isUp ? 'candle-up' : 'candle-down');
+    body.style.left = x + 'px';
+    body.style.top = bodyTop + 'px';
+    body.style.width = candleW + 'px';
+    body.style.height = bodyH + 'px';
+    canvas.appendChild(body);
+  });
+  
+  // MA5 Line
+  const validMa5 = ma5Vals.filter(v=>v!==null);
+  if(validMa5.length >= 2){
+    for(let i=1;i<validMa5.length;i++){
+      const x1 = (i-1) * (candleW + spacing) + spacing + candleW/2;
+      const x2 = i * (candleW + spacing) + spacing + candleW/2;
+      const y1 = chartH - ((validMa5[i-1] - minP) / range * (chartH - 20)) - 10;
+      const y2 = chartH - ((validMa5[i] - minP) / range * (chartH - 20)) - 10;
+      
+      const line = document.createElement('div');
+      line.className = 'ma5-line';
+      const len = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+      const angle = Math.atan2(y2-y1, x2-x1) * 180 / Math.PI;
+      line.style.width = len + 'px';
+      line.style.left = x1 + 'px';
+      line.style.top = y1 + 'px';
+      line.style.transform = `rotate(${angle}deg)`;
+      line.style.transformOrigin = '0 50%';
+      canvas.appendChild(line);
+    }
+    
+    // MA5 Label on last point
+    const lastI = validMa5.length - 1;
+    const lastX = lastI * (candleW + spacing) + spacing + candleW/2;
+    const lastY = chartH - ((validMa5[lastI] - minP) / range * (chartH - 20)) - 10;
+    const label = document.createElement('div');
+    label.className = 'ma5-label';
+    label.textContent = 'MA5';
+    label.style.left = (lastX + 8) + 'px';
+    label.style.top = (lastY - 10) + 'px';
+    canvas.appendChild(label);
+  }
+}
+
+// Add chart button to signal screen
+document.addEventListener('DOMContentLoaded', ()=>{
+  const signalScreen = document.getElementById('signalScreen');
+  const chartBtn = document.createElement('button');
+  chartBtn.className = 'generate-btn';
+  chartBtn.style.cssText = 'margin-top:12px;background:linear-gradient(135deg,#58a6ff,#0066cc);';
+  chartBtn.textContent = 'VIEW MA5 CHART';
+  chartBtn.onclick = showChartScreen;
+  signalScreen.appendChild(chartBtn);
+});
 </script>
 </body>
 </html>
