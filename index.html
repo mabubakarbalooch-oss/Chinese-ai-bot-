@@ -106,10 +106,72 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 /* ========== TIMEFRAME SCREEN ========== */
 .timeframe-screen{display:none;padding:16px;}
 .timeframe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
+
+/* Regular timeframe card */
 .timeframe-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:24px;text-align:center;cursor:pointer;transition:all 0.3s;}
 .timeframe-card:hover{border-color:#00ff88;}
 .timeframe-card:active{transform:scale(0.97);}
 .timeframe-card.selected{border-color:#00ff88;background:rgba(0,255,136,0.05);}
+
+/* ===== STRONG 5 SECOND CARD - MAZBOOT ===== */
+.timeframe-card.strong-five{
+    background:linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.08));
+    border:2px solid #ffd700;
+    box-shadow:0 0 30px rgba(255,215,0,0.3), 0 4px 15px rgba(255,215,0,0.1);
+    position:relative;
+    overflow:hidden;
+    animation:pulseGold 2s ease-in-out infinite;
+}
+.timeframe-card.strong-five::before{
+    content:'★ BEST';
+    position:absolute;
+    top:8px;
+    right:-28px;
+    background:linear-gradient(135deg, #ffd700, #ff8c00);
+    color:#000;
+    font-size:8px;
+    font-weight:900;
+    padding:4px 30px;
+    transform:rotate(45deg);
+    letter-spacing:1px;
+}
+.timeframe-card.strong-five:hover{
+    border-color:#ff8c00;
+    box-shadow:0 0 50px rgba(255,215,0,0.5), 0 4px 20px rgba(255,215,0,0.2);
+    transform:scale(1.03);
+}
+.timeframe-card.strong-five:active{transform:scale(0.98);}
+.timeframe-card.strong-five.selected{
+    border-color:#ffd700;
+    background:linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,165,0,0.15));
+    box-shadow:0 0 60px rgba(255,215,0,0.5), inset 0 0 20px rgba(255,215,0,0.1);
+}
+.timeframe-card.strong-five .timeframe-icon{
+    font-size:38px;
+    filter:drop-shadow(0 0 8px rgba(255,215,0,0.6));
+    animation:bounceIcon 1.5s ease-in-out infinite;
+}
+.timeframe-card.strong-five .timeframe-num{
+    font-size:32px;
+    font-weight:900;
+    color:#ffd700;
+    text-shadow:0 0 15px rgba(255,215,0,0.5), 0 0 30px rgba(255,215,0,0.3);
+}
+.timeframe-card.strong-five .timeframe-label{
+    font-size:11px;
+    color:#ffcc00;
+    font-weight:700;
+    letter-spacing:3px;
+}
+@keyframes pulseGold{
+    0%,100%{box-shadow:0 0 30px rgba(255,215,0,0.3), 0 4px 15px rgba(255,215,0,0.1);}
+    50%{box-shadow:0 0 50px rgba(255,215,0,0.5), 0 4px 20px rgba(255,215,0,0.2);}
+}
+@keyframes bounceIcon{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-5px);}
+}
+
 .timeframe-icon{font-size:32px;margin-bottom:8px;}
 .timeframe-num{font-size:24px;font-weight:900;color:#00ff88;}
 .timeframe-label{font-size:10px;color:#8b949e;margin-top:4px;text-transform:uppercase;letter-spacing:2px;}
@@ -341,8 +403,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     </div>
 
     <div class="timeframe-grid">
-      <div class="timeframe-card" onclick="selectTimeframe(5)" id="tf5">
-        <div class="timeframe-icon">⏱️</div>
+      <!-- 5 Second - STRONG / MAZBOOT with Gold Color -->
+      <div class="timeframe-card strong-five" onclick="selectTimeframe(5)" id="tf5">
+        <div class="timeframe-icon">⚡</div>
         <div class="timeframe-num">5</div>
         <div class="timeframe-label">Seconds</div>
       </div>
@@ -377,323 +440,273 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="brain-ring"></div>
       <div class="brain-icon">🧠</div>
     </div>
-    <div class="analyzing-title">Analyzing Market...</div>
-    <div class="analyzing-subtitle" id="analyzingPair">USD/INR</div>
-    
+    <div class="analyzing-title">Analyzing Market Data</div>
+    <div class="analyzing-subtitle">ROCCO Neural Engine processing real-time indicators</div>
+
     <div class="analyzing-stats">
       <div class="analyzing-stat">
-        <div class="analyzing-stat-num" id="dataPoints">0</div>
-        <div class="analyzing-stat-label">Data Points</div>
+        <div class="analyzing-stat-num" id="scanPairs">0</div>
+        <div class="analyzing-stat-label">Pairs Scanned</div>
       </div>
       <div class="analyzing-stat">
-        <div class="analyzing-stat-num" id="accuracy">0%</div>
-        <div class="analyzing-stat-label">Accuracy</div>
-      </div>
-      <div class="analyzing-stat">
-        <div class="analyzing-stat-num" id="confidence">0%</div>
-        <div class="analyzing-stat-label">Confidence</div>
+        <div class="analyzing-stat-num" id="indicators">0</div>
+        <div class="analyzing-stat-label">Indicators</div>
       </div>
     </div>
 
     <div class="progress-bar">
-      <div class="progress-fill"></div>
+      <div class="progress-fill" id="progressFill"></div>
     </div>
-    <div class="progress-text" id="progressText">Analyzing volatility patterns...</div>
+    <div class="progress-text" id="progressText">Initializing neural network...</div>
   </div>
 
   <!-- SIGNAL SCREEN -->
   <div class="signal-screen" id="signalScreen">
     <div class="signal-circle" id="signalCircle">
-      <div class="signal-arrow" id="signalArrow">↓</div>
+      <div class="signal-arrow" id="signalArrow">⬆</div>
     </div>
-    <div class="signal-direction" id="signalDirection">DOWNWARD</div>
-    <div class="signal-action" id="signalAction">SELL (SHORT)</div>
-    <div class="signal-pair" id="signalPairText">Signal for: USD/INR | Timeframe: 5 SEC</div>
-    
+    <div class="signal-direction" id="signalDirection">STRONG SIGNAL</div>
+    <div class="signal-action" id="signalAction">BUY</div>
+    <div class="signal-pair" id="signalPair">USD/INR - 5s</div>
+
     <div class="signal-stats">
       <div class="signal-stat">
-        <div class="signal-stat-label">Signal Strength</div>
-        <div class="signal-stars" id="signalStars">
+        <div class="signal-stat-label">Confidence</div>
+        <div class="signal-stars" id="confidenceStars">
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
           <span class="signal-star active">★</span>
-          <span class="signal-star">★</span>
+          <span class="signal-star active">★</span>
           <span class="signal-star">★</span>
         </div>
-        <div class="signal-stat-value" id="strengthValue">3/5</div>
+        <div class="signal-stat-value" id="confidenceValue">87%</div>
       </div>
       <div class="signal-stat">
-        <div class="signal-stat-label">Win Rate</div>
-        <div class="signal-stat-value" id="winRateValue">89%</div>
-        <div class="signal-stat-sub">Live</div>
+        <div class="signal-stat-label">Strength</div>
+        <div class="signal-stars" id="strengthStars">
+          <span class="signal-star active">★</span>
+          <span class="signal-star active">★</span>
+          <span class="signal-star active">★</span>
+          <span class="signal-star active">★</span>
+          <span class="signal-star active">★</span>
+        </div>
+        <div class="signal-stat-value" id="strengthValue">92%</div>
       </div>
     </div>
 
     <div class="ai-processing">
       <div class="ai-dot"></div>
-      <div class="ai-text">AI PROCESSING...</div>
+      <div class="ai-text">AI Monitoring Active</div>
     </div>
 
     <div class="trade-timer">
       <div class="trade-timer-label">
-        <span>TRADE TIMER</span>
-        <span id="timerSeconds">10s</span>
+        <span>Trade Window</span>
+        <span id="timerCount">10s</span>
       </div>
       <div class="trade-timer-bar">
         <div class="trade-timer-fill" id="timerFill"></div>
       </div>
     </div>
+    <div class="timer-text">Execute trade within window for optimal entry</div>
 
-    <div class="timer-text" id="timerText">Wait 10s for New Signal</div>
-
-    <button class="generate-btn" id="generateBtn" onclick="generateNewSignal()">Generate New Signal</button>
+    <button class="generate-btn" onclick="generateNewSignal()">GENERATE NEW SIGNAL</button>
   </div>
 
 </div>
 
 <script>
-// ============================================
-// LUBNA ABUBAKAR AI BOT PRO
-// ============================================
-
-var currentScreen = 'login';
-var selectedMarket = 'otc';
-var selectedAsset = 'USD/INR';
-var selectedTimeframe = 5;
-var analyzingInterval = null;
-var timerInterval = null;
-
-// OTC Assets
-var otcAssets = [
-  {name:'USD/INR (OTC)', flag:'🇮🇳', full:'US Dollar / Indian Rupee', change:-0.20, hot:true},
-  {name:'USD/MXN (OTC)', flag:'🇲🇽', full:'US Dollar / Mexican Peso', change:-0.14, hot:false},
-  {name:'USD/ARS (OTC)', flag:'🇦🇷', full:'US Dollar / Argentina Peso', change:-0.03, hot:false},
-  {name:'USD/EGP (OTC)', flag:'🇪🇬', full:'US Dollar / Egyptian Pound', change:-0.10, hot:false},
-  {name:'USD/NGN (OTC)', flag:'🇳🇬', full:'US Dollar / Nigerian Naira', change:+0.08, hot:false},
-  {name:'EUR/JPY (OTC)', flag:'🇯🇵', full:'Euro / Japanese Yen', change:+0.08, hot:true},
-  {name:'GBP/JPY (OTC)', flag:'🇬🇧', full:'British Pound / Japanese Yen', change:+0.19, hot:true},
-];
-
-// Market Assets
-var marketAssets = [
-  {name:'EUR/USD', flag:'🇪🇺', full:'Euro / US Dollar', change:+0.05, hot:true},
-  {name:'GBP/USD', flag:'🇬🇧', full:'British Pound / US Dollar', change:-0.02, hot:false},
-  {name:'USD/JPY', flag:'🇯🇵', full:'US Dollar / Japanese Yen', change:+0.12, hot:true},
-  {name:'AUD/USD', flag:'🇦🇺', full:'Australian Dollar / US Dollar', change:-0.08, hot:false},
-  {name:'USD/CAD', flag:'🇨🇦', full:'US Dollar / Canadian Dollar', change:+0.03, hot:false},
-  {name:'XAU/USD', flag:'🥇', full:'Gold / US Dollar', change:+0.25, hot:true},
-];
-
 // ========== LOGIN ==========
-document.getElementById('unlockBtn').addEventListener('click', function(e){
-  e.preventDefault();
-  var u = document.getElementById('username').value.trim();
-  var p = document.getElementById('password').value.trim();
-  var err = document.getElementById('error');
-  
-  if(u === 'Lubna' && p === 'Abubakar786'){
-    err.innerText = '';
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appScreen').style.display = 'block';
-    currentScreen = 'home';
-  } else {
-    err.innerText = 'Wrong Username or Password';
-    setTimeout(function(){ err.innerText = ''; }, 3000);
-  }
-});
+const loginScreen = document.getElementById('loginScreen');
+const appScreen = document.getElementById('appScreen');
+const unlockBtn = document.getElementById('unlockBtn');
+const errorDiv = document.getElementById('error');
 
-document.getElementById('password').addEventListener('keypress', function(e){
-  if(e.key === 'Enter'){
-    e.preventDefault();
-    document.getElementById('unlockBtn').click();
+unlockBtn.addEventListener('click', () => {
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+  if(u === 'Lubna' && p === 'Abubakar786'){
+    loginScreen.style.display = 'none';
+    appScreen.style.display = 'block';
+  } else {
+    errorDiv.textContent = 'Invalid credentials. Try again.';
+    setTimeout(()=>errorDiv.textContent='',2000);
   }
 });
 
 // ========== NAVIGATION ==========
-function hideAllScreens(){
-  document.getElementById('homeScreen').style.display = 'none';
-  document.getElementById('assetScreen').style.display = 'none';
-  document.getElementById('timeframeScreen').style.display = 'none';
-  document.getElementById('analyzingScreen').style.display = 'none';
-  document.getElementById('signalScreen').style.display = 'none';
-}
+const screens = {
+  home: document.getElementById('homeScreen'),
+  asset: document.getElementById('assetScreen'),
+  timeframe: document.getElementById('timeframeScreen'),
+  analyzing: document.getElementById('analyzingScreen'),
+  signal: document.getElementById('signalScreen')
+};
 
-function goToAssets(market){
-  selectedMarket = market;
-  hideAllScreens();
-  document.getElementById('assetScreen').style.display = 'block';
-  currentScreen = 'asset';
-  
-  document.getElementById('assetScreenTitle').innerText = market === 'otc' ? 'OTC PAIRS' : 'MARKET PAIRS';
-  
-  var assets = market === 'otc' ? otcAssets : marketAssets;
-  var list = document.getElementById('assetList');
-  list.innerHTML = '';
-  
-  for(var i=0; i<assets.length; i++){
-    var a = assets[i];
-    var changeClass = a.change >= 0 ? 'up' : 'down';
-    var changeSign = a.change >= 0 ? '+' : '';
-    var hotBadge = a.hot ? '<div class="asset-badge-hot">HOT</div>' : '';
-    
-    var item = document.createElement('div');
-    item.className = 'asset-item';
-    item.innerHTML = 
-      '<div class="asset-left">' +
-        '<div class="asset-flag">' + a.flag + '</div>' +
-        '<div>' +
-          '<div class="asset-name">' + a.name + '</div>' +
-          '<div class="asset-fullname">' + a.full + '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="asset-right">' +
-        hotBadge +
-        '<div class="asset-change ' + changeClass + '">' + changeSign + a.change.toFixed(2) + '%</div>' +
-        '<div class="asset-arrow">›</div>' +
-      '</div>';
-    item.onclick = (function(assetName){ return function(){ selectAsset(assetName); }; })(a.name);
-    list.appendChild(item);
+let selectedMarket = '';
+let selectedAsset = '';
+let selectedTimeframe = 5;
+
+function showScreen(name){
+  Object.values(screens).forEach(s=>s.style.display='none');
+  if(name==='analyzing' || name==='signal'){
+    screens[name].style.display='flex';
+  } else {
+    screens[name].style.display='block';
   }
-}
-
-function selectAsset(assetName){
-  selectedAsset = assetName;
-  hideAllScreens();
-  document.getElementById('timeframeScreen').style.display = 'block';
-  currentScreen = 'timeframe';
-  document.getElementById('tfAssetName').innerText = assetName;
-  document.getElementById('selectedPairDisplay').innerText = assetName;
-  
-  // Reset selection
-  var cards = document.querySelectorAll('.timeframe-card');
-  for(var i=0; i<cards.length; i++) cards[i].classList.remove('selected');
-}
-
-function selectTimeframe(seconds){
-  selectedTimeframe = seconds;
-  var cards = document.querySelectorAll('.timeframe-card');
-  for(var i=0; i<cards.length; i++) cards[i].classList.remove('selected');
-  document.getElementById('tf'+seconds).classList.add('selected');
-  
-  setTimeout(function(){
-    startAnalyzing();
-  }, 500);
 }
 
 function goBack(to){
-  hideAllScreens();
-  if(to === 'home'){
-    document.getElementById('homeScreen').style.display = 'block';
-    currentScreen = 'home';
-  } else if(to === 'asset'){
-    document.getElementById('assetScreen').style.display = 'block';
-    currentScreen = 'asset';
-  }
+  showScreen(to);
+}
+
+// ========== ASSETS ==========
+const otcAssets = [
+  {name:'USD/INR',flag:'🇺🇸',full:'US Dollar / Indian Rupee',hot:true},
+  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true},
+  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false},
+  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true},
+  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false},
+  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false},
+  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false},
+  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true},
+  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:true},
+  {name:'XAU/USD',flag:'🥇',full:'Gold / US Dollar',hot:true},
+  {name:'BTC/USD',flag:'₿',full:'Bitcoin / US Dollar',hot:true},
+  {name:'ETH/USD',flag:'Ξ',full:'Ethereum / US Dollar',hot:false},
+];
+
+const marketAssets = [
+  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true},
+  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false},
+  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true},
+  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false},
+  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false},
+  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false},
+  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true},
+  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false},
+  {name:'USD/CNH',flag:'🇨🇳',full:'US Dollar / Chinese Yuan',hot:false},
+];
+
+function goToAssets(type){
+  selectedMarket = type;
+  document.getElementById('assetScreenTitle').textContent = type==='otc' ? 'OTC PAIRS' : 'MARKET PAIRS';
+  const list = document.getElementById('assetList');
+  list.innerHTML = '';
+  const assets = type==='otc' ? otcAssets : marketAssets;
+  assets.forEach(a=>{
+    const change = (Math.random()*4-2).toFixed(2);
+    const isUp = change>=0;
+    const item = document.createElement('div');
+    item.className='asset-item';
+    item.onclick=()=>goToTimeframe(a.name);
+    item.innerHTML=`
+      <div class="asset-left">
+        <div class="asset-flag">${a.flag}</div>
+        <div>
+          <div class="asset-name">${a.name}</div>
+          <div class="asset-fullname">${a.full}</div>
+        </div>
+      </div>
+      <div class="asset-right">
+        ${a.hot?'<div class="asset-badge-hot">HOT</div>':''}
+        <div class="asset-change ${isUp?'up':'down'}">${isUp?'+':''}${change}%</div>
+        <div class="asset-arrow">→</div>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+  showScreen('asset');
+}
+
+function goToTimeframe(asset){
+  selectedAsset = asset;
+  document.getElementById('tfAssetName').textContent = asset;
+  document.getElementById('selectedPairDisplay').textContent = asset;
+  showScreen('timeframe');
+}
+
+function selectTimeframe(tf){
+  selectedTimeframe = tf;
+  document.querySelectorAll('.timeframe-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('tf'+tf).classList.add('selected');
+  setTimeout(()=>startAnalyzing(),400);
 }
 
 // ========== ANALYZING ==========
 function startAnalyzing(){
-  hideAllScreens();
-  document.getElementById('analyzingScreen').style.display = 'flex';
-  currentScreen = 'analyzing';
-  document.getElementById('analyzingPair').innerText = selectedAsset + ' | Timeframe: ' + selectedTimeframe + ' SEC';
-  
-  var dataPoints = 0;
-  var accuracy = 85;
-  var confidence = 70;
-  var texts = ['Analyzing volatility patterns...', 'Processing candlestick patterns...', 'Analyzing volatility patterns...', 'Processing candlestick patterns...'];
-  var textIndex = 0;
-  
-  if(analyzingInterval) clearInterval(analyzingInterval);
-  
-  analyzingInterval = setInterval(function(){
-    dataPoints += Math.floor(Math.random() * 500 + 200);
-    accuracy = Math.min(accuracy + Math.random() * 2, 95);
-    confidence = Math.min(confidence + Math.random() * 3, 95);
-    
-    document.getElementById('dataPoints').innerText = dataPoints.toLocaleString();
-    document.getElementById('accuracy').innerText = accuracy.toFixed(1) + '%';
-    document.getElementById('confidence').innerText = confidence.toFixed(1) + '%';
-    document.getElementById('progressText').innerText = texts[textIndex % texts.length];
-    textIndex++;
-  }, 400);
-  
-  setTimeout(function(){
-    clearInterval(analyzingInterval);
-    showSignal();
-  }, 4000);
+  showScreen('analyzing');
+  const scanPairs = document.getElementById('scanPairs');
+  const indicators = document.getElementById('indicators');
+  const progressText = document.getElementById('progressText');
+  const texts = [
+    'Initializing neural network...',
+    'Scanning price action...',
+    'Analyzing volume profile...',
+    'Checking support/resistance...',
+    'Calculating probability matrix...',
+    'Finalizing signal...'
+  ];
+  let step = 0;
+  const interval = setInterval(()=>{
+    step++;
+    scanPairs.textContent = Math.min(step*18, 94);
+    indicators.textContent = Math.min(step*7, 42);
+    if(step<=texts.length) progressText.textContent = texts[step-1] || texts[texts.length-1];
+    if(step>=6){
+      clearInterval(interval);
+      setTimeout(()=>showSignal(),500);
+    }
+  }, 500);
 }
 
 // ========== SIGNAL ==========
 function showSignal(){
-  hideAllScreens();
-  document.getElementById('signalScreen').style.display = 'flex';
-  currentScreen = 'signal';
-  
-  // Random signal
-  var isBuy = Math.random() > 0.5;
-  var signalType = isBuy ? 'buy' : 'sell';
-  var strength = Math.floor(Math.random() * 3) + 2; // 2-5
-  var winRate = Math.floor(Math.random() * 15) + 80; // 80-95%
-  
-  var circle = document.getElementById('signalCircle');
-  var arrow = document.getElementById('signalArrow');
-  var direction = document.getElementById('signalDirection');
-  var action = document.getElementById('signalAction');
-  var pairText = document.getElementById('signalPairText');
-  var timerFill = document.getElementById('timerFill');
-  var strengthValue = document.getElementById('strengthValue');
-  var winRateValue = document.getElementById('winRateValue');
-  var stars = document.querySelectorAll('.signal-star');
-  
-  circle.className = 'signal-circle ' + signalType;
-  arrow.className = 'signal-arrow ' + signalType;
-  direction.className = 'signal-direction ' + signalType;
-  action.className = 'signal-action ' + signalType;
-  timerFill.className = 'trade-timer-fill ' + signalType;
-  strengthValue.className = 'signal-stat-value ' + signalType;
-  winRateValue.className = 'signal-stat-value ' + signalType;
-  
-  arrow.innerText = isBuy ? '↑' : '↓';
-  direction.innerText = isBuy ? 'UPWARD' : 'DOWNWARD';
-  action.innerText = isBuy ? 'BUY (LONG)' : 'SELL (SHORT)';
-  pairText.innerText = 'Signal for: ' + selectedAsset + ' | Timeframe: ' + selectedTimeframe + ' SEC';
-  strengthValue.innerText = strength + '/5';
-  winRateValue.innerText = winRate + '%';
-  
-  for(var i=0; i<stars.length; i++){
-    stars[i].classList.toggle('active', i < strength);
-  }
-  
-  // Timer countdown
-  var seconds = 10;
-  document.getElementById('timerSeconds').innerText = seconds + 's';
-  document.getElementById('timerText').innerText = 'Wait ' + seconds + 's for New Signal';
-  document.getElementById('generateBtn').style.display = 'none';
-  
-  if(timerInterval) clearInterval(timerInterval);
-  timerInterval = setInterval(function(){
-    seconds--;
-    document.getElementById('timerSeconds').innerText = seconds + 's';
-    document.getElementById('timerText').innerText = 'Wait ' + seconds + 's for New Signal';
-    if(seconds <= 0){
-      clearInterval(timerInterval);
-      document.getElementById('timerText').innerText = 'Ready for New Signal';
-      document.getElementById('generateBtn').style.display = 'block';
-    }
-  }, 1000);
+  showScreen('signal');
+  const isBuy = Math.random()>0.45;
+  const dir = isBuy ? 'buy' : 'sell';
+  const action = isBuy ? 'BUY' : 'SELL';
+  const arrow = isBuy ? '⬆' : '⬇';
+  const confidence = Math.floor(Math.random()*15+80);
+  const strength = Math.floor(Math.random()*10+85);
+
+  const circle = document.getElementById('signalCircle');
+  const arrowEl = document.getElementById('signalArrow');
+  const dirEl = document.getElementById('signalDirection');
+  const actEl = document.getElementById('signalAction');
+  const pairEl = document.getElementById('signalPair');
+  const confVal = document.getElementById('confidenceValue');
+  const strVal = document.getElementById('strengthValue');
+  const timerFill = document.getElementById('timerFill');
+
+  circle.className = 'signal-circle ' + dir;
+  arrowEl.className = 'signal-arrow ' + dir;
+  arrowEl.textContent = arrow;
+  dirEl.className = 'signal-direction ' + dir;
+  dirEl.textContent = 'STRONG SIGNAL';
+  actEl.className = 'signal-action ' + dir;
+  actEl.textContent = action;
+  pairEl.textContent = selectedAsset + ' - ' + selectedTimeframe + 's';
+  confVal.className = 'signal-stat-value ' + dir;
+  confVal.textContent = confidence + '%';
+  strVal.className = 'signal-stat-value ' + dir;
+  strVal.textContent = strength + '%';
+  timerFill.className = 'trade-timer-fill ' + dir;
+
+  // Stars
+  const confStars = Math.floor(confidence/20);
+  const strStars = Math.floor(strength/20);
+  document.querySelectorAll('#confidenceStars .signal-star').forEach((s,i)=>{
+    s.className = 'signal-star' + (i<confStars?' active':'');
+  });
+  document.querySelectorAll('#strengthStars .signal-star').forEach((s,i)=>{
+    s.className = 'signal-star' + (i<strStars?' active':'');
+  });
 }
 
 function generateNewSignal(){
   startAnalyzing();
 }
-
-// Update win rate randomly
-setInterval(function(){
-  var rate = (94 + Math.random() * 2).toFixed(1);
-  document.getElementById('winRate').innerText = rate + '%';
-  document.getElementById('winRateBox').innerText = rate + '%';
-}, 5000);
 </script>
 </body>
 </html>
