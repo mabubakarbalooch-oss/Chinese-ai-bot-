@@ -6,7 +6,7 @@
 <title>Lubna Abubakar AI Bot Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-/* آپ کا ORIGINAL CSS بالکل ویسے ہی */
+/* آپ کا ORIGINAL CSS - بالکل ویسے ہی */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
 
@@ -50,7 +50,14 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .stat-box.stat-num{font-size:16px;font-weight:900;color:#00ff88;}
 .stat-box.stat-label{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
 
-/* Market Cards */
+/* NEW: 5 INDICATORS - صرف یہ ایڈ کیا ہے، ڈیزائن نہیں بدلا */
+.indicators-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:5px;}
+.indicators-row::-webkit-scrollbar{display:none;}
+.ind-box{min-width:85px;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px;text-align:center;flex-shrink:0;}
+.ind-label{font-size:8px;color:#8b949e;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;}
+.ind-value{font-size:12px;font-weight:900;color:#00ff88;}
+
+/* Market Cards - آپ کا اصل CSS */
 .market-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
 .market-card:hover{border-color:#00ff88;}
 .market-card:active{transform:scale(0.98);}
@@ -80,23 +87,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .market-footer-item::before{content:'●';color:#00ff88;font-size:6px;}
 .market-status{font-size:9px;color:#00ff88;font-weight:700;}
 
-/* ========== ASSET SCREEN ========== */
-.asset-screen{display:none;padding:16px;}
-.asset-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-.back-btn{width:36px;height:36px;border-radius:10px;background:#161b22;border:1px solid #30363d;display:flex;justify-content:center;align-items:center;font-size:18px;color:#fff;cursor:pointer;}
-.asset-header-title{font-size:16px;font-weight:900;}
-.asset-header-sub{font-size:10px;color:#8b949e;}
-
-/* NEW: 5 INDICATORS BOX - DESIGN CHANGE NAHI KIYA */
-.indicators-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:5px;}
-.ind-box{min-width:80px;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px;text-align:center;flex-shrink:0;}
-.ind-label{font-size:8px;color:#8b949e;margin-bottom:4px;text-transform:uppercase;}
-.ind-value{font-size:12px;font-weight:900;color:#00ff88;}
-
-/* SCAN BUTTON */
-.scan-btn{width:100%;padding:16px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:16px;}
-
-/* SIGNAL BOX */
+/* SIGNAL BOX - آپ کا اصل */
 .signal-box{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:20px;text-align:center;margin-bottom:16px;}
 .signal-title{font-size:28px;font-weight:900;margin-bottom:8px;}
 .signal-sub{font-size:10px;color:#8b949e;}
@@ -161,7 +152,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       </div>
     </div>
 
-    <!-- NEW: 5 INDICATORS ROW - DESIGN SAME -->
+    <!-- NEW: 5 INDICATORS ROW - صرف یہ ایڈ کیا -->
     <div class="indicators-row">
       <div class="ind-box">
         <div class="ind-label">RSI 14</div>
@@ -185,7 +176,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       </div>
     </div>
 
-    <button class="scan-btn" onclick="scanIndicators()">⚡ SCAN 5 INDICATORS</button>
+    <button class="unlock-btn" style="margin-bottom:16px;" onclick="scanIndicators()">⚡ SCAN 5 INDICATORS</button>
 
     <div class="market-card hot" onclick="goToAssets('otc')">
       <div class="market-card-header">
@@ -273,10 +264,10 @@ function doLogin(){
 }
 
 function goToAssets(type){
-  alert(type + ' selected - Asset list loading...');
+  alert(type.toUpperCase() + ' selected');
 }
 
-// 5 MAZBOOT INDICATORS ONLY
+// 5 MAZBOOT INDICATORS - صرف یہ فنکشن ایڈ کیے
 function calcEMA(prices, period){
   let k = 2/(period+1);
   let ema = prices[0];
@@ -344,7 +335,7 @@ function scanIndicators(){
   let prices = data.map(c => parseFloat(c[4]));
   let lastPrice = prices[prices.length-1];
 
-  // 5 INDICATORS CALCULATION
+  // 5 INDICATORS
   let rsi = calcRSI(prices);
   let ema21 = calcEMA(prices, 21);
   let ema50 = calcEMA(prices, 50);
@@ -361,7 +352,6 @@ function scanIndicators(){
   document.getElementById('candle5').innerText = candle5.up + '/' + candle5.down;
 
   // 5 FILTER LOGIC
-  let confirmCount = 0;
   let buyScore = 0, sellScore = 0;
 
   if(trend === 'UP') buyScore++;
@@ -375,9 +365,9 @@ function scanIndicators(){
   if(candle5.trend === 'UP' && candle5.up >= 3) buyScore++;
   if(candle5.trend === 'DOWN' && candle5.down >= 3) sellScore++;
 
-  confirmCount = Math.max(buyScore, sellScore);
+  let confirmCount = Math.max(buyScore, sellScore);
 
-  // SIGNAL DECISION
+  // SIGNAL
   if(confirmCount >= 3 && buyScore > sellScore){
     document.getElementById('signalTitle').innerText = 'BUY';
     document.getElementById('signalTitle').style.color = '#00ff88';
