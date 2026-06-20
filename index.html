@@ -38,6 +38,18 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .app-header .stat-item{font-size:9px;color:#8b949e;display:flex;align-items:center;gap:3px;}
 .app-header .stat-item span{color:#ffd700;font-weight:700;}
 
+/* Live Price Ticker */
+.price-ticker{background:#0d1117;border-bottom:1px solid #30363d;padding:8px 18px;display:flex;justify-content:space-between;align-items:center;font-size:10px;}
+.price-ticker-label{color:#8b949e;}
+.price-ticker-value{font-weight:900;font-size:12px;}
+.price-ticker-value.up{color:#00ff88;}
+.price-ticker-value.down{color:#ff4444;}
+.price-ticker-change{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:700;}
+.price-ticker-change.up{background:rgba(0,255,136,0.15);color:#00ff88;}
+.price-ticker-change.down{background:rgba(255,68,68,0.15);color:#ff4444;}
+.api-status{font-size:8px;color:#00ff88;display:flex;align-items:center;gap:4px;}
+.api-status::before{content:'';width:5px;height:5px;background:#00ff88;border-radius:50%;animation:blink 2s infinite;}
+
 /* ========== HOME SCREEN ========== */
 .home-screen{padding:16px;}
 .home-title{font-size:20px;font-weight:900;text-align:center;margin-bottom:4px;}
@@ -102,6 +114,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .asset-change.up{color:#00ff88;}
 .asset-change.down{color:#ff4444;}
 .asset-arrow{font-size:18px;color:#8b949e;}
+
+/* Live price on asset item */
+.asset-live-price{font-size:11px;font-weight:700;color:#ffd700;margin-right:4px;}
 
 /* ========== TIMEFRAME SCREEN ========== */
 .timeframe-screen{display:none;padding:16px;}
@@ -203,6 +218,14 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 
 .indicator-desc{font-size:8px;color:#6e7681;line-height:1.4;}
 
+/* Live Price Box on Signal */
+.signal-live-price-box{width:90%;max-width:340px;background:#0d1117;border:1px solid #30363d;border-radius:12px;padding:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.signal-live-price-label{font-size:9px;color:#8b949e;text-transform:uppercase;}
+.signal-live-price-value{font-size:18px;font-weight:900;color:#ffd700;}
+.signal-live-price-change{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700;}
+.signal-live-price-change.up{background:rgba(0,255,136,0.15);color:#00ff88;}
+.signal-live-price-change.down{background:rgba(255,68,68,0.15);color:#ff4444;}
+
 .ai-processing{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
 .ai-dot{width:8px;height:8px;background:#00ff88;border-radius:50%;animation:aiBlink 1s infinite;}
 @keyframes aiBlink{0%,100%{opacity:1;}50%{opacity:0.3;}}
@@ -266,6 +289,16 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     <div class="live-badge">LIVE AI</div>
   </div>
 
+  <!-- Live Price Ticker -->
+  <div class="price-ticker" id="priceTicker">
+    <div class="price-ticker-label">LIVE PRICE: <span id="tickerSymbol">BTC/USDT</span></div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="price-ticker-value" id="tickerPrice">--.--</span>
+      <span class="price-ticker-change" id="tickerChange">--</span>
+    </div>
+    <div class="api-status" id="apiStatus">Binance API</div>
+  </div>
+
   <!-- HOME SCREEN -->
   <div class="home-screen" id="homeScreen">
     <div class="home-title">SELECT TRADING DIRECTION</div>
@@ -291,23 +324,23 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
         <div class="market-card-left">
           <div class="market-icon">🌐</div>
           <div class="market-info">
-            <div class="market-name">OTC PAIRS</div>
-            <div class="market-desc">Forex & Currency pairs - Real-time OTC analysis</div>
+            <div class="market-name">CRYPTO PAIRS</div>
+            <div class="market-desc">Binance Live - Real-time crypto analysis</div>
           </div>
         </div>
-        <div class="market-badge hot">HOT</div>
+        <div class="market-badge hot">LIVE</div>
       </div>
       <div class="market-tags">
-        <div class="market-tag">113 Assets</div>
+        <div class="market-tag">100+ Assets</div>
         <div class="market-tag">24/7 Trading</div>
-        <div class="market-tag">Forex • Crypto • Stocks</div>
+        <div class="market-tag">Binance API</div>
         <div class="market-tag gray">5-30s</div>
       </div>
       <div class="market-footer">
         <div class="market-footer-left">
           <div class="market-footer-item">Active Markets</div>
         </div>
-        <div class="market-status">⚡ High Volume</div>
+        <div class="market-status">⚡ Binance Live</div>
       </div>
     </div>
 
@@ -316,8 +349,8 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
         <div class="market-card-left">
           <div class="market-icon">📊</div>
           <div class="market-info">
-            <div class="market-name">MARKET PAIRS</div>
-            <div class="market-desc">Real exchange assets - Forex, Stocks, Indices, Crypto</div>
+            <div class="market-name">FOREX PAIRS</div>
+            <div class="market-desc">Simulated Forex - RSI, MACD, BB, Stoch</div>
           </div>
         </div>
         <div class="market-badge pro">PRO</div>
@@ -325,20 +358,20 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="market-tags">
         <div class="market-tag">60 Assets</div>
         <div class="market-tag gray">Market Hours</div>
-        <div class="market-tag">Forex • Stocks • Indices</div>
+        <div class="market-tag">4-Indicator System</div>
         <div class="market-tag gray">1-5 min</div>
       </div>
       <div class="market-footer">
         <div class="market-footer-left">
           <div class="market-footer-item">Market Hours</div>
         </div>
-        <div class="market-status">📈 Real Exchange</div>
+        <div class="market-status">📈 4-Indicator AI</div>
       </div>
     </div>
 
     <div style="text-align:center;margin-top:20px;padding:12px;background:#161b22;border-radius:12px;border:1px solid #30363d;">
-      <div style="font-size:10px;color:#8b949e;">🟢 MARKETS OPEN - Select a direction to begin analysis</div>
-      <div style="font-size:9px;color:#6e7681;margin-top:4px;">Powered by ROCCO Neural Engine - 4 Indicator System</div>
+      <div style="font-size:10px;color:#8b949e;">🟢 BINANCE API CONNECTED - Live crypto data streaming</div>
+      <div style="font-size:9px;color:#6e7681;margin-top:4px;">Powered by ROCCO Neural Engine + Binance API</div>
     </div>
   </div>
 
@@ -347,8 +380,8 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     <div class="asset-header">
       <div class="back-btn" onclick="goBack('home')">←</div>
       <div>
-        <div class="asset-header-title" id="assetScreenTitle">OTC PAIRS</div>
-        <div class="asset-header-sub">Select an asset to scan</div>
+        <div class="asset-header-title" id="assetScreenTitle">CRYPTO PAIRS</div>
+        <div class="asset-header-sub">Select an asset - Live Binance prices</div>
       </div>
     </div>
     <div class="asset-list" id="assetList"></div>
@@ -359,7 +392,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     <div class="asset-header">
       <div class="back-btn" onclick="goBack('asset')">←</div>
       <div>
-        <div class="asset-header-title" id="tfAssetName">USD/INR</div>
+        <div class="asset-header-title" id="tfAssetName">BTC/USDT</div>
         <div class="asset-header-sub">Select signal timeframe</div>
       </div>
     </div>
@@ -389,7 +422,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 
     <div class="selected-pair">
       <span class="selected-pair-text">Selected pair:</span>
-      <span class="selected-pair-name" id="selectedPairDisplay">USD/INR</span>
+      <span class="selected-pair-name" id="selectedPairDisplay">BTC/USDT</span>
     </div>
   </div>
 
@@ -402,7 +435,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="brain-icon">🧠</div>
     </div>
     <div class="analyzing-title">Analyzing Market Data</div>
-    <div class="analyzing-subtitle">4-Indicator AI Engine Processing...</div>
+    <div class="analyzing-subtitle">Binance API + 4-Indicator AI Engine...</div>
     
     <div class="analyzing-stats" id="analyzingStats">
       <div class="analyzing-stat">
@@ -426,7 +459,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     <div class="progress-bar">
       <div class="progress-fill"></div>
     </div>
-    <div class="progress-text" id="progressText">Initializing 4-Indicator Analysis...</div>
+    <div class="progress-text" id="progressText">Connecting to Binance API...</div>
   </div>
 
   <!-- SIGNAL SCREEN -->
@@ -437,7 +470,16 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     
     <div class="signal-direction" id="signalDirection">STRONG BUY</div>
     <div class="signal-action" id="signalAction">BUY</div>
-    <div class="signal-pair" id="signalPair">USD/INR • 5s</div>
+    <div class="signal-pair" id="signalPair">BTC/USDT • 5s</div>
+
+    <!-- Live Price Box -->
+    <div class="signal-live-price-box">
+      <div>
+        <div class="signal-live-price-label">LIVE PRICE</div>
+        <div class="signal-live-price-value" id="signalLivePrice">--.--</div>
+      </div>
+      <div class="signal-live-price-change" id="signalLiveChange">--</div>
+    </div>
 
     <!-- AI Score Box -->
     <div class="ai-score-box">
@@ -458,13 +500,11 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     </div>
 
     <!-- Indicator Grid -->
-    <div class="indicator-grid" id="indicatorGrid">
-      <!-- Populated by JS -->
-    </div>
+    <div class="indicator-grid" id="indicatorGrid"></div>
 
     <div class="ai-processing">
       <div class="ai-dot"></div>
-      <div class="ai-text">4-Indicator Consensus Engine Active</div>
+      <div class="ai-text" id="aiText">4-Indicator Consensus Engine Active</div>
     </div>
 
     <div class="trade-timer">
@@ -484,23 +524,30 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 </div>
 
 <script>
-// ========== DATA ==========
-const otcAssets = [
-  {name:'USD/INR',flag:'🇮🇳',full:'US Dollar / Indian Rupee',hot:true,change:0.45},
-  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true,change:-0.12},
-  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false,change:0.23},
-  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true,change:-0.34},
-  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false,change:0.18},
-  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false,change:-0.08},
-  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false,change:0.05},
-  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false,change:0.11},
-  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false,change:-0.22},
-  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true,change:0.67},
-  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false,change:0.33},
-  {name:'USD/BRL',flag:'🇧🇷',full:'US Dollar / Brazilian Real',hot:true,change:1.24},
+// ========== BINANCE API CONFIG ==========
+const BINANCE_BASE = 'https://api.binance.com/api/v3';
+let livePriceInterval = null;
+let currentLivePrice = 0;
+let priceChange24h = 0;
+
+// Crypto assets with Binance symbols
+const cryptoAssets = [
+  {name:'BTC/USDT',symbol:'BTCUSDT',flag:'₿',full:'Bitcoin / Tether',hot:true},
+  {name:'ETH/USDT',symbol:'ETHUSDT',flag:'Ξ',full:'Ethereum / Tether',hot:true},
+  {name:'BNB/USDT',symbol:'BNBUSDT',flag:'B',full:'Binance Coin / Tether',hot:false},
+  {name:'SOL/USDT',symbol:'SOLUSDT',flag:'◎',full:'Solana / Tether',hot:true},
+  {name:'XRP/USDT',symbol:'XRPUSDT',flag:'✕',full:'Ripple / Tether',hot:false},
+  {name:'DOGE/USDT',symbol:'DOGEUSDT',flag:'Ð',full:'Dogecoin / Tether',hot:false},
+  {name:'ADA/USDT',symbol:'ADAUSDT',flag:'A',full:'Cardano / Tether',hot:false},
+  {name:'AVAX/USDT',symbol:'AVAXUSDT',flag:'A',full:'Avalanche / Tether',hot:false},
+  {name:'DOT/USDT',symbol:'DOTUSDT',flag:'●',full:'Polkadot / Tether',hot:false},
+  {name:'MATIC/USDT',symbol:'MATICUSDT',flag:'M',full:'Polygon / Tether',hot:false},
+  {name:'LINK/USDT',symbol:'LINKUSDT',flag:'L',full:'Chainlink / Tether',hot:false},
+  {name:'LTC/USDT',symbol:'LTCUSDT',flag:'Ł',full:'Litecoin / Tether',hot:false},
 ];
 
-const marketAssets = [
+// Forex assets (simulated)
+const forexAssets = [
   {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true,change:0.15},
   {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false,change:-0.08},
   {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true,change:0.22},
@@ -517,6 +564,99 @@ let currentMarket = '';
 let selectedAsset = null;
 let selectedTimeframe = 5;
 let currentAnalysis = null;
+let isCrypto = false;
+
+// ========== BINANCE API FUNCTIONS ==========
+async function fetchBinancePrice(symbol){
+  try{
+    const res = await fetch(`${BINANCE_BASE}/ticker/24hr?symbol=${symbol}`);
+    const data = await res.json();
+    return {
+      price: parseFloat(data.lastPrice),
+      change: parseFloat(data.priceChangePercent),
+      high: parseFloat(data.highPrice),
+      low: parseFloat(data.lowPrice),
+      volume: parseFloat(data.volume)
+    };
+  }catch(e){
+    console.error('Binance API error:', e);
+    return null;
+  }
+}
+
+async function fetchBinanceKlines(symbol, interval='1m', limit=100){
+  try{
+    const res = await fetch(`${BINANCE_BASE}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`);
+    const data = await res.json();
+    return data.map(k=>({
+      open: parseFloat(k[1]),
+      high: parseFloat(k[2]),
+      low: parseFloat(k[3]),
+      close: parseFloat(k[4]),
+      volume: parseFloat(k[5]),
+      time: k[0]
+    }));
+  }catch(e){
+    console.error('Binance Klines error:', e);
+    return null;
+  }
+}
+
+function startLivePriceTicker(symbol){
+  // Stop existing interval
+  if(livePriceInterval) clearInterval(livePriceInterval);
+  
+  // Initial fetch
+  updateTicker(symbol);
+  
+  // Update every 5 seconds
+  livePriceInterval = setInterval(()=>updateTicker(symbol), 5000);
+}
+
+async function updateTicker(symbol){
+  const data = await fetchBinancePrice(symbol);
+  if(!data){
+    document.getElementById('apiStatus').textContent = 'API Error';
+    document.getElementById('apiStatus').style.color = '#ff4444';
+    return;
+  }
+  
+  currentLivePrice = data.price;
+  priceChange24h = data.change;
+  
+  // Update ticker
+  document.getElementById('tickerSymbol').textContent = selectedAsset ? selectedAsset.name : symbol.replace('USDT','/USDT');
+  document.getElementById('tickerPrice').textContent = data.price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:6});
+  document.getElementById('tickerPrice').className = 'price-ticker-value ' + (data.change>=0?'up':'down');
+  document.getElementById('tickerChange').textContent = (data.change>=0?'+':'') + data.change.toFixed(2) + '%';
+  document.getElementById('tickerChange').className = 'price-ticker-change ' + (data.change>=0?'up':'down');
+  document.getElementById('apiStatus').textContent = 'Binance Live';
+  document.getElementById('apiStatus').style.color = '#00ff88';
+  
+  // Update signal screen live price if visible
+  if(document.getElementById('signalScreen').style.display === 'flex'){
+    document.getElementById('signalLivePrice').textContent = data.price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:6});
+    document.getElementById('signalLiveChange').textContent = (data.change>=0?'+':'') + data.change.toFixed(2) + '%';
+    document.getElementById('signalLiveChange').className = 'signal-live-price-change ' + (data.change>=0?'up':'down');
+  }
+  
+  // Update asset list prices if visible
+  if(document.getElementById('assetScreen').style.display === 'block' && isCrypto){
+    updateAssetPrices();
+  }
+}
+
+function updateAssetPrices(){
+  cryptoAssets.forEach(async (asset)=>{
+    const priceEl = document.getElementById('price-'+asset.symbol);
+    if(priceEl){
+      const data = await fetchBinancePrice(asset.symbol);
+      if(data){
+        priceEl.textContent = data.price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
+      }
+    }
+  });
+}
 
 // ========== LOGIN ==========
 document.getElementById('unlockBtn').addEventListener('click', function(){
@@ -526,6 +666,8 @@ document.getElementById('unlockBtn').addEventListener('click', function(){
   if(u === 'Lubna' && p === 'Abubakar786'){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('appScreen').style.display = 'block';
+    // Start default ticker
+    startLivePriceTicker('BTCUSDT');
   } else {
     err.textContent = 'Invalid credentials. Try again.';
     setTimeout(()=>err.textContent='',2000);
@@ -543,18 +685,63 @@ function showScreen(id){
 }
 
 function goBack(to){
-  if(to==='home') showScreen('homeScreen');
+  if(to==='home'){
+    showScreen('homeScreen');
+    startLivePriceTicker('BTCUSDT');
+  }
   if(to==='asset') showScreen('assetScreen');
 }
 
 function goToAssets(market){
   currentMarket = market;
+  isCrypto = market === 'otc';
   const list = document.getElementById('assetList');
   list.innerHTML = '';
-  const assets = market==='otc' ? otcAssets : marketAssets;
-  document.getElementById('assetScreenTitle').textContent = market==='otc' ? 'OTC PAIRS' : 'MARKET PAIRS';
   
-  assets.forEach(a=>{
+  if(isCrypto){
+    document.getElementById('assetScreenTitle').textContent = 'CRYPTO PAIRS';
+    loadCryptoAssets(list);
+  } else {
+    document.getElementById('assetScreenTitle').textContent = 'FOREX PAIRS';
+    loadForexAssets(list);
+  }
+  
+  showScreen('assetScreen');
+}
+
+function loadCryptoAssets(list){
+  cryptoAssets.forEach(asset=>{
+    const div = document.createElement('div');
+    div.className = 'asset-item';
+    div.onclick = ()=>selectAsset(asset);
+    div.innerHTML = `
+      <div class="asset-left">
+        <div class="asset-flag">${asset.flag}</div>
+        <div>
+          <div class="asset-name">${asset.name}</div>
+          <div class="asset-fullname">${asset.full}</div>
+        </div>
+      </div>
+      <div class="asset-right">
+        ${asset.hot ? '<div class="asset-badge-hot">HOT</div>' : ''}
+        <span class="asset-live-price" id="price-${asset.symbol}">--.--</span>
+        <div class="asset-arrow">›</div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+  
+  // Fetch all prices
+  updateAssetPrices();
+  // Refresh every 10 seconds while on this screen
+  window.assetPriceInterval = setInterval(updateAssetPrices, 10000);
+}
+
+function loadForexAssets(list){
+  // Clear crypto interval
+  if(window.assetPriceInterval) clearInterval(window.assetPriceInterval);
+  
+  forexAssets.forEach(a=>{
     const div = document.createElement('div');
     div.className = 'asset-item';
     div.onclick = ()=>selectAsset(a);
@@ -574,13 +761,18 @@ function goToAssets(market){
     `;
     list.appendChild(div);
   });
-  showScreen('assetScreen');
 }
 
 function selectAsset(asset){
   selectedAsset = asset;
   document.getElementById('tfAssetName').textContent = asset.name;
   document.getElementById('selectedPairDisplay').textContent = asset.name;
+  
+  // Start live ticker for this asset
+  if(isCrypto && asset.symbol){
+    startLivePriceTicker(asset.symbol);
+  }
+  
   showScreen('timeframeScreen');
 }
 
@@ -593,7 +785,7 @@ function selectTimeframe(tf){
 }
 
 // ========== 4-INDICATOR ENGINE ==========
-function generatePriceData(count=50){
+function generateSimulatedData(count=60){
   let price = 1.1000 + Math.random() * 0.5;
   const data = [];
   for(let i=0;i<count;i++){
@@ -639,7 +831,6 @@ function calculateMACD(data){
   const ema26 = ema(closes, 26);
   const macdLine = ema12 - ema26;
   
-  // Signal line (EMA 9 of MACD)
   const macdHistory = [];
   for(let i=26;i<closes.length;i++){
     const e12 = ema(closes.slice(0,i+1), 12);
@@ -689,14 +880,12 @@ function calculateStochastic(data, kPeriod=14, dPeriod=3, smooth=3){
     kValues.push(getK(i));
   }
   
-  // Smooth K with 3-period SMA
   const smoothK = [];
   for(let i=smooth-1;i<kValues.length;i++){
     const sum = kValues.slice(i-smooth+1,i+1).reduce((a,b)=>a+b,0);
     smoothK.push(sum/smooth);
   }
   
-  // D line (3-period SMA of K)
   const dValues = [];
   for(let i=dPeriod-1;i<smoothK.length;i++){
     const sum = smoothK.slice(i-dPeriod+1,i+1).reduce((a,b)=>a+b,0);
@@ -706,41 +895,53 @@ function calculateStochastic(data, kPeriod=14, dPeriod=3, smooth=3){
   return {k:smoothK[smoothK.length-1], d:dValues[dValues.length-1]};
 }
 
-function analyze4Indicators(){
-  const data = generatePriceData(60);
+async function analyze4Indicators(){
+  let data;
+  
+  if(isCrypto && selectedAsset && selectedAsset.symbol){
+    // Fetch real Binance klines
+    const klines = await fetchBinanceKlines(selectedAsset.symbol, '1m', 100);
+    if(klines){
+      data = klines;
+      document.getElementById('progressText').textContent = 'Binance data received. Calculating indicators...';
+    } else {
+      data = generateSimulatedData(60);
+      document.getElementById('progressText').textContent = 'Using simulated data (API fallback)...';
+    }
+  } else {
+    data = generateSimulatedData(60);
+    document.getElementById('progressText').textContent = 'Using simulated Forex data...';
+  }
+  
   const lastClose = data[data.length-1].close;
   
-  // RSI Analysis
+  // RSI
   const rsi = calculateRSI(data);
-  let rsiSignal = 'NEUTRAL';
-  let rsiScore = 50;
+  let rsiSignal = 'NEUTRAL', rsiScore = 50;
   if(rsi < 30){ rsiSignal = 'BUY'; rsiScore = 85; }
   else if(rsi > 70){ rsiSignal = 'SELL'; rsiScore = 85; }
   else if(rsi < 45){ rsiSignal = 'WEAK_BUY'; rsiScore = 60; }
   else if(rsi > 55){ rsiSignal = 'WEAK_SELL'; rsiScore = 60; }
   
-  // MACD Analysis
+  // MACD
   const macd = calculateMACD(data);
-  let macdSignal = 'NEUTRAL';
-  let macdScore = 50;
+  let macdSignal = 'NEUTRAL', macdScore = 50;
   if(macd.histogram > 0 && macd.macd > macd.signal){ macdSignal = 'BUY'; macdScore = 90; }
   else if(macd.histogram < 0 && macd.macd < macd.signal){ macdSignal = 'SELL'; macdScore = 90; }
   else if(macd.histogram > 0){ macdSignal = 'WEAK_BUY'; macdScore = 65; }
   else{ macdSignal = 'WEAK_SELL'; macdScore = 65; }
   
-  // Bollinger Bands Analysis
+  // Bollinger
   const bb = calculateBollinger(data);
-  let bbSignal = 'NEUTRAL';
-  let bbScore = 50;
-  if(bb.position < 10){ bbSignal = 'BUY'; bbScore = 80; } // Oversold, bounce expected
-  else if(bb.position > 90){ bbSignal = 'SELL'; bbScore = 80; } // Overbought
+  let bbSignal = 'NEUTRAL', bbScore = 50;
+  if(bb.position < 10){ bbSignal = 'BUY'; bbScore = 80; }
+  else if(bb.position > 90){ bbSignal = 'SELL'; bbScore = 80; }
   else if(bb.position < 30){ bbSignal = 'WEAK_BUY'; bbScore = 60; }
   else if(bb.position > 70){ bbSignal = 'WEAK_SELL'; bbScore = 60; }
   
-  // Stochastic Analysis
+  // Stochastic
   const stoch = calculateStochastic(data);
-  let stochSignal = 'NEUTRAL';
-  let stochScore = 50;
+  let stochSignal = 'NEUTRAL', stochScore = 50;
   if(stoch.k < 20 && stoch.d < 20 && stoch.k > stoch.d){ stochSignal = 'BUY'; stochScore = 85; }
   else if(stoch.k > 80 && stoch.d > 80 && stoch.k < stoch.d){ stochSignal = 'SELL'; stochScore = 85; }
   else if(stoch.k < stoch.d && stoch.k < 50){ stochSignal = 'WEAK_BUY'; stochScore = 55; }
@@ -772,12 +973,15 @@ function analyze4Indicators(){
   
   return {
     lastPrice: lastClose.toFixed(4),
+    livePrice: currentLivePrice,
     rsi: {value:rsi.toFixed(1), signal:rsiSignal, score:rsiScore},
     macd: {value:macd.histogram.toFixed(4), signal:macdSignal, score:macdScore, macdLine:macd.macd.toFixed(4), signalLine:macd.signal.toFixed(4)},
     bb: {value:bb.position.toFixed(1), signal:bbSignal, score:bbScore, upper:bb.upper.toFixed(4), lower:bb.lower.toFixed(4)},
     stoch: {value:stoch.k.toFixed(1), signal:stochSignal, score:stochScore, d:stoch.d.toFixed(1)},
     finalSignal,
-    confidence: Math.min(Math.round(confidence), 99)
+    confidence: Math.min(Math.round(confidence), 99),
+    isCrypto,
+    asset: selectedAsset
   };
 }
 
@@ -786,7 +990,8 @@ function startAnalysis(){
   showScreen('analyzingScreen');
   
   const texts = [
-    'Initializing 4-Indicator Analysis...',
+    'Connecting to Binance API...',
+    'Fetching live market data...',
     'Calculating RSI (14)...',
     'Computing MACD Histogram...',
     'Analyzing Bollinger Bands...',
@@ -797,44 +1002,33 @@ function startAnalysis(){
   let step = 0;
   const progressText = document.getElementById('progressText');
   
-  // Simulate indicator values appearing
-  const analysis = analyze4Indicators();
-  
   const interval = setInterval(()=>{
     step++;
     if(step < texts.length){
       progressText.textContent = texts[step];
-      
-      // Show indicator values progressively
-      if(step===1) document.getElementById('rsiStat').textContent = analysis.rsi.value;
-      if(step===2) document.getElementById('macdStat').textContent = analysis.macd.value;
-      if(step===3) document.getElementById('bbStat').textContent = analysis.bb.value + '%';
-      if(step===4) document.getElementById('stochStat').textContent = analysis.stoch.value;
-    }
-    
-    // Color code the stats
-    if(step>=1){
-      const rsiEl = document.getElementById('rsiStat');
-      rsiEl.className = 'analyzing-stat-num ' + (analysis.rsi.signal.includes('BUY')?'bull':(analysis.rsi.signal.includes('SELL')?'bear':'neut'));
-    }
-    if(step>=2){
-      const macdEl = document.getElementById('macdStat');
-      macdEl.className = 'analyzing-stat-num ' + (analysis.macd.signal.includes('BUY')?'bull':(analysis.macd.signal.includes('SELL')?'bear':'neut'));
-    }
-    if(step>=3){
-      const bbEl = document.getElementById('bbStat');
-      bbEl.className = 'analyzing-stat-num ' + (analysis.bb.signal.includes('BUY')?'bull':(analysis.bb.signal.includes('SELL')?'bear':'neut'));
-    }
-    if(step>=4){
-      const stochEl = document.getElementById('stochStat');
-      stochEl.className = 'analyzing-stat-num ' + (analysis.stoch.signal.includes('BUY')?'bull':(analysis.stoch.signal.includes('SELL')?'bear':'neut'));
     }
   }, 500);
   
-  setTimeout(()=>{
+  // Run analysis
+  setTimeout(async ()=>{
+    const analysis = await analyze4Indicators();
     clearInterval(interval);
     currentAnalysis = analysis;
-    showSignal(analysis);
+    
+    // Update analyzing stats
+    document.getElementById('rsiStat').textContent = analysis.rsi.value;
+    document.getElementById('rsiStat').className = 'analyzing-stat-num ' + (analysis.rsi.signal.includes('BUY')?'bull':(analysis.rsi.signal.includes('SELL')?'bear':'neut'));
+    
+    document.getElementById('macdStat').textContent = analysis.macd.value;
+    document.getElementById('macdStat').className = 'analyzing-stat-num ' + (analysis.macd.signal.includes('BUY')?'bull':(analysis.macd.signal.includes('SELL')?'bear':'neut'));
+    
+    document.getElementById('bbStat').textContent = analysis.bb.value + '%';
+    document.getElementById('bbStat').className = 'analyzing-stat-num ' + (analysis.bb.signal.includes('BUY')?'bull':(analysis.bb.signal.includes('SELL')?'bear':'neut'));
+    
+    document.getElementById('stochStat').textContent = analysis.stoch.value;
+    document.getElementById('stochStat').className = 'analyzing-stat-num ' + (analysis.stoch.signal.includes('BUY')?'bull':(analysis.stoch.signal.includes('SELL')?'bear':'neut'));
+    
+    setTimeout(()=>showSignal(analysis), 800);
   }, 4000);
 }
 
@@ -860,6 +1054,17 @@ function showSignal(analysis){
   action.className = 'signal-action ' + (isBuy ? 'buy' : 'sell');
   action.textContent = isBuy ? 'BUY' : 'SELL';
   pair.textContent = selectedAsset.name + ' • ' + selectedTimeframe + 's';
+  
+  // Live price
+  if(analysis.isCrypto && analysis.livePrice > 0){
+    document.getElementById('signalLivePrice').textContent = analysis.livePrice.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:6});
+    document.getElementById('signalLiveChange').textContent = (priceChange24h>=0?'+':'') + priceChange24h.toFixed(2) + '%';
+    document.getElementById('signalLiveChange').className = 'signal-live-price-change ' + (priceChange24h>=0?'up':'down');
+  } else {
+    document.getElementById('signalLivePrice').textContent = analysis.lastPrice;
+    document.getElementById('signalLiveChange').textContent = 'SIM';
+    document.getElementById('signalLiveChange').className = 'signal-live-price-change neut';
+  }
   
   // AI Score
   const scoreVal = document.getElementById('aiScoreValue');
@@ -910,9 +1115,17 @@ function showSignal(analysis){
     grid.appendChild(card);
   });
   
+  // AI Text
+  document.getElementById('aiText').textContent = analysis.isCrypto ? 'Binance Live + 4-Indicator Engine' : '4-Indicator Consensus Engine';
+  
   // Timer
   timerFill.className = 'trade-timer-fill ' + (isBuy ? 'buy' : 'sell');
   timerFill.style.animationDuration = selectedTimeframe + 's';
+  
+  // Continue live price updates
+  if(analysis.isCrypto && analysis.asset && analysis.asset.symbol){
+    startLivePriceTicker(analysis.asset.symbol);
+  }
 }
 
 function generateNewSignal(){
