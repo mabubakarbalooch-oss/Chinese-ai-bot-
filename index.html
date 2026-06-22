@@ -121,14 +121,19 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 
 /* ========== TIMEFRAME SCREEN ========== */
 .timeframe-screen{display:none;padding:16px;}
-.timeframe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
-.timeframe-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:24px;text-align:center;cursor:pointer;transition:all 0.3s;}
+.timeframe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;}
+.timeframe-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:20px 10px;text-align:center;cursor:pointer;transition:all 0.3s;}
 .timeframe-card:hover{border-color:#00ff88;}
 .timeframe-card:active{transform:scale(0.97);}
 .timeframe-card.selected{border-color:#00ff88;background:rgba(0,255,136,0.05);}
-.timeframe-icon{font-size:32px;margin-bottom:8px;}
-.timeframe-num{font-size:24px;font-weight:900;color:#00ff88;}
-.timeframe-label{font-size:10px;color:#8b949e;margin-top:4px;text-transform:uppercase;letter-spacing:2px;}
+.timeframe-icon{font-size:28px;margin-bottom:6px;}
+.timeframe-num{font-size:22px;font-weight:900;color:#00ff88;}
+.timeframe-label{font-size:9px;color:#8b949e;margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
+
+/* 1m card special styling */
+.timeframe-card.mintf{border-color:#58a6ff;}
+.timeframe-card.mintf.selected{border-color:#58a6ff;background:rgba(88,166,255,0.08);}
+.timeframe-card.mintf .timeframe-num{color:#58a6ff;}
 
 /* Selected Pair Display */
 .selected-pair{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;padding:12px;background:#161b22;border-radius:12px;border:1px solid #30363d;}
@@ -192,6 +197,11 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .signal-live-price-change{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700;}
 .signal-live-price-change.up{background:rgba(0,255,136,0.15);color:#00ff88;}
 .signal-live-price-change.down{background:rgba(255,68,68,0.15);color:#ff4444;}
+
+/* Timeframe Badge */
+.tf-badge{font-size:9px;padding:3px 10px;border-radius:10px;font-weight:700;margin-bottom:12px;}
+.tf-badge.seconds{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3);}
+.tf-badge.minute{background:rgba(88,166,255,0.1);color:#58a6ff;border:1px solid rgba(88,166,255,0.3);}
 
 /* Last Update Time */
 .last-update{font-size:9px;color:#6e7681;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
@@ -342,7 +352,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
         <div class="market-tag">12+ Assets</div>
         <div class="market-tag">24/7 Trading</div>
         <div class="market-tag">Binance API</div>
-        <div class="market-tag">Live Signals</div>
+        <div class="market-tag">5s to 1m</div>
       </div>
       <div class="market-footer">
         <div class="market-footer-left">
@@ -378,7 +388,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     </div>
 
     <div style="text-align:center;margin-top:20px;padding:12px;background:#161b22;border-radius:12px;border:1px solid #30363d;">
-      <div style="font-size:10px;color:#8b949e;">🟢 BINANCE API CONNECTED - Live crypto data streaming</div>
+      <div style="font-size:10px;color:#8b949e;">🟢 BINANCE API CONNECTED - 5s / 1m timeframes available</div>
       <div style="font-size:9px;color:#6e7681;margin-top:4px;">RSI • MACD • Bollinger Bands • Stochastic - All Live</div>
     </div>
   </div>
@@ -407,24 +417,29 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 
     <div class="timeframe-grid">
       <div class="timeframe-card" onclick="selectTimeframe(5)" id="tf5">
-        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-icon">⚡</div>
         <div class="timeframe-num">5</div>
         <div class="timeframe-label">Seconds</div>
       </div>
       <div class="timeframe-card" onclick="selectTimeframe(10)" id="tf10">
-        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-icon">⚡</div>
         <div class="timeframe-num">10</div>
         <div class="timeframe-label">Seconds</div>
       </div>
       <div class="timeframe-card" onclick="selectTimeframe(15)" id="tf15">
-        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-icon">⚡</div>
         <div class="timeframe-num">15</div>
         <div class="timeframe-label">Seconds</div>
       </div>
       <div class="timeframe-card" onclick="selectTimeframe(30)" id="tf30">
-        <div class="timeframe-icon">⏱️</div>
+        <div class="timeframe-icon">⚡</div>
         <div class="timeframe-num">30</div>
         <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card mintf" onclick="selectTimeframe(60)" id="tf60" style="grid-column:span 2;">
+        <div class="timeframe-icon">📊</div>
+        <div class="timeframe-num">1</div>
+        <div class="timeframe-label">Minute (Binance 1m)</div>
       </div>
     </div>
 
@@ -479,6 +494,9 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     <div class="signal-direction" id="signalDirection">STRONG BUY</div>
     <div class="signal-action" id="signalAction">BUY</div>
     <div class="signal-pair" id="signalPair">BTC/USDT • 5s</div>
+
+    <!-- Timeframe Badge -->
+    <div class="tf-badge seconds" id="tfBadge">5 SECOND SIGNAL</div>
 
     <!-- Live Price Box -->
     <div class="signal-live-price-box">
@@ -649,7 +667,6 @@ async function updateTicker(symbol){
   apiStatus.textContent = 'Binance Live';
   apiStatus.className = 'api-status';
   
-  // Update signal screen if visible
   if(document.getElementById('signalScreen').style.display === 'flex'){
     document.getElementById('signalLivePrice').textContent = formatPrice(data.price);
     document.getElementById('signalLiveChange').textContent = (data.change>=0?'+':'') + data.change.toFixed(2) + '%';
@@ -797,7 +814,7 @@ function selectAsset(asset){
 
 function selectTimeframe(tf){
   selectedTimeframe = tf;
-  [5,10,15,30].forEach(t=>{
+  [5,10,15,30,60].forEach(t=>{
     document.getElementById('tf'+t).classList.toggle('selected', t===tf);
   });
   startAnalysis();
@@ -902,16 +919,17 @@ function calculateStochastic(data, kPeriod=14, dPeriod=3, smooth=3){
 // ========== LIVE ANALYSIS ==========
 async function analyzeWithLiveData(){
   let data;
+  let klineInterval = '1m';
   
+  // 1-minute timeframe ke liye 1m klines, warna bhi 1m (indicators ke liye)
   if(isCrypto && selectedAsset && selectedAsset.symbol){
-    // Fetch REAL Binance klines
-    document.getElementById('progressText').textContent = 'Fetching live candles from Binance...';
-    const klines = await fetchBinanceKlines(selectedAsset.symbol, '1m', 100);
+    document.getElementById('progressText').textContent = 'Fetching ' + klineInterval + ' candles from Binance...';
+    const klines = await fetchBinanceKlines(selectedAsset.symbol, klineInterval, 100);
     
     if(klines && klines.length >= 50){
       data = klines;
-      document.getElementById('analyzingSub').textContent = 'Live Binance data received';
-      document.getElementById('progressText').textContent = 'Calculating indicators on live data...';
+      document.getElementById('analyzingSub').textContent = 'Live Binance ' + klineInterval + ' data received';
+      document.getElementById('progressText').textContent = 'Calculating 4 indicators on live data...';
     } else {
       data = generateSimulatedData(60);
       document.getElementById('analyzingSub').textContent = 'Using fallback data';
@@ -992,7 +1010,8 @@ async function analyzeWithLiveData(){
     confidence: Math.min(Math.round(confidence), 99),
     isCrypto,
     asset: selectedAsset,
-    dataSource: isCrypto ? 'Binance Live' : 'Simulated'
+    dataSource: isCrypto ? 'Binance Live' : 'Simulated',
+    timeframe: selectedTimeframe
   };
 }
 
@@ -1079,7 +1098,20 @@ function showSignal(analysis){
   direction.textContent = isStrong ? (isBuy ? 'STRONG BUY' : 'STRONG SELL') : (isBuy ? 'BUY' : 'SELL');
   action.className = 'signal-action ' + (isBuy ? 'buy' : 'sell');
   action.textContent = isBuy ? 'BUY' : 'SELL';
-  pair.textContent = selectedAsset.name + ' • ' + selectedTimeframe + 's';
+  
+  // Pair with timeframe
+  const tfLabel = analysis.timeframe === 60 ? '1m' : analysis.timeframe + 's';
+  pair.textContent = selectedAsset.name + ' • ' + tfLabel;
+  
+  // Timeframe Badge
+  const tfBadge = document.getElementById('tfBadge');
+  if(analysis.timeframe === 60){
+    tfBadge.className = 'tf-badge minute';
+    tfBadge.textContent = '1 MINUTE SIGNAL (Binance 1m)';
+  } else {
+    tfBadge.className = 'tf-badge seconds';
+    tfBadge.textContent = analysis.timeframe + ' SECOND SIGNAL';
+  }
   
   // Live price
   if(analysis.isCrypto && analysis.livePrice > 0){
@@ -1149,10 +1181,13 @@ function showSignal(analysis){
   // AI Text
   document.getElementById('aiText').textContent = analysis.isCrypto ? '🔴 Binance Live + 4-Indicator Engine' : '4-Indicator Consensus Engine';
   
-  // Timer
+  // Timer - 1m ke liye 60s animation
   const timerFill = document.getElementById('timerFill');
   timerFill.className = 'trade-timer-fill ' + (isBuy ? 'buy' : 'sell');
-  timerFill.style.animationDuration = selectedTimeframe + 's';
+  timerFill.style.animationDuration = analysis.timeframe + 's';
+  
+  // Timer label
+  document.getElementById('timerCount').textContent = analysis.timeframe === 60 ? '60s' : analysis.timeframe + 's';
   
   // Continue live price updates
   if(analysis.isCrypto && analysis.asset && analysis.asset.symbol){
@@ -1176,7 +1211,6 @@ function generateNewSignal(){
 }
 
 async function refreshLiveSignal(){
-  // Quick refresh - fetch new live data and recalculate
   const btn = document.querySelector('.refresh-btn');
   btn.textContent = '⏳ REFRESHING...';
   btn.disabled = true;
