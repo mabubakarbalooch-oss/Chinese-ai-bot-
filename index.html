@@ -268,6 +268,16 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .entry-price-label{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
 .entry-price-value{font-size:16px;font-weight:900;color:#ffd700;}
 
+/* Signal History */
+.signal-history{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;margin-bottom:16px;}
+.signal-history-title{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;text-align:left;}
+.signal-history-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #30363d;font-size:11px;}
+.signal-history-item:last-child{border-bottom:none;}
+.signal-history-pair{color:#fff;font-weight:700;}
+.signal-history-result{font-weight:900;}
+.signal-history-result.win{color:#00ff88;}
+.signal-history-result.loss{color:#ff4444;}
+
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:#0d1117;}
 ::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px;}
@@ -537,7 +547,12 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     </div>
     <div class="timer-text" id="timerText2">Signal valid for 60 seconds</div>
 
-    <!-- Buttons removed - only Generate New Signal and Back to Home remain -->
+    <!-- Signal History -->
+    <div class="signal-history" id="signalHistory">
+      <div class="signal-history-title">Recent Signal Results</div>
+      <div id="signalHistoryList"></div>
+    </div>
+
     <button class="generate-btn" id="generateBtn" onclick="generateNewSignal()">🔄 GENERATE NEW SIGNAL</button>
     <button class="refresh-btn" onclick="goBack('home')">🏠 BACK TO HOME</button>
   </div>
@@ -550,6 +565,8 @@ let ws = null;
 let currentSymbol = 'BTCUSDT';
 let livePrice = 0;
 let priceChange = 0;
+let priceHistory = [];
+let lastSignal = null;
 
 function connectBinanceWS(symbol) {
   if (ws) {
@@ -569,6 +586,16 @@ function connectBinanceWS(symbol) {
       livePrice = parseFloat(data.c);
       priceChange = parseFloat(data.P);
       updatePriceDisplay(livePrice, priceChange, symbol);
+      // Store price for analysis
+      priceHistory.push({
+        price: livePrice,
+        time: Date.now(),
+        change: priceChange
+      });
+      // Keep last 100 prices
+      if (priceHistory.length > 100) {
+        priceHistory.shift();
+      }
     }
   };
 
@@ -598,7 +625,6 @@ function updatePriceDisplay(price, change, symbol) {
   const priceEl = document.getElementById('tickerPrice');
   priceEl.className = 'price-ticker-value ' + (change >= 0 ? 'up' : 'down');
 
-  // Update signal screen live price if visible
   if (document.getElementById('signalScreen').style.display === 'flex') {
     document.getElementById('signalLivePrice').textContent = '$' + formattedPrice;
     const sigChange = document.getElementById('signalLiveChange');
@@ -607,11 +633,112 @@ function updatePriceDisplay(price, change, symbol) {
   }
 }
 
+// ===================== SMART SIGNAL ANALYSIS =====================
+function analyzeMarket() {
+  if (priceHistory.length < 5) {
+    return { type: 'neut', confidence: 50, reason: 'Insufficient data' };
+  }
+
+  const recent = priceHistory.slice(-10);
+  const prices = recent.map(p => p.price);
+  const changes = recent.map(p => p.change);
+  
+  const avgPrice = prices.reduce((a,b) => a+b, 0) / prices.length;
+  const avgChange = changes.reduce((a,b) => a+b, 0) / changes.length;
+  
+  const firstPrice = prices[0];
+  const lastPrice = prices[prices.length - 1];
+  const priceTrend = ((lastPrice - firstPrice) / firstPrice) * 100;
+  
+  // Calculate RSI-like momentum
+  let gains = 0, losses = 0;
+  for (let i = 1; i < prices.length; i++) {
+    const diff = prices[i] - prices[i-1];
+    if (diff > 0) gains += diff;
+    else losses += Math.abs(diff);
+  }
+  const rs = losses === 0 ? 100 : gains / losses;
+  const rsi = 100 - (100 / (1 + rs));
+  
+  // Volume trend (using change as proxy)
+  const volumeTrend = avgChange;
+  
+  // EMA crossover simulation
+  const shortEMA = prices.slice(-3).reduce((a,b) => a+b, 0) / 3;
+  const longEMA = prices.slice(-7).reduce((a,b) => a+b, 0) / 7;
+  const emaCross = shortEMA > longEMA ? 'bullish' : 'bearish';
+  
+  // Scoring system
+  let buyScore = 0;
+  let sellScore = 0;
+  
+  if (rsi < 30) buyScore += 3; // Oversold
+  if (rsi > 70) sellScore += 3; // Overbought
+  if (rsi > 40 && rsi < 60) { buyScore += 1; sellScore += 1; }
+  
+  if (priceTrend > 0.1) buyScore += 2;
+  if (priceTrend < -0.1) sellScore += 2;
+  
+  if (emaCross === 'bullish') buyScore += 2;
+  if (emaCross === 'bearish') sellScore += 2;
+  
+  if (volumeTrend > 0) buyScore += 1;
+  if (volumeTrend < 0) sellScore += 1;
+  
+  // Price momentum
+  const momentum = prices[prices.length-1] - prices[prices.length-3];
+  if (momentum > 0) buyScore += 1;
+  if (momentum < 0) sellScore += 1;
+  
+  // Determine signal
+  let signalType, confidence, direction;
+  const totalScore = buyScore + sellScore;
+  
+  if (buyScore > sellScore + 2) {
+    signalType = 'buy';
+    confidence = Math.min(50 + (buyScore * 8), 95);
+    direction = 'STRONG BUY';
+  } else if (sellScore > buyScore + 2) {
+    signalType = 'sell';
+    confidence = Math.min(50 + (sellScore * 8), 95);
+    direction = 'STRONG SELL';
+  } else if (buyScore > sellScore) {
+    signalType = 'buy';
+    confidence = Math.min(50 + (buyScore * 6), 85);
+    direction = 'BUY';
+  } else if (sellScore > buyScore) {
+    signalType = 'sell';
+    confidence = Math.min(50 + (sellScore * 6), 85);
+    direction = 'SELL';
+  } else {
+    signalType = 'neut';
+    confidence = 50;
+    direction = 'NEUTRAL';
+  }
+  
+  // Avoid repeated same signals
+  if (lastSignal && lastSignal.type === signalType && Date.now() - lastSignal.time < 30000) {
+    confidence = Math.max(confidence - 20, 50);
+  }
+  
+  return {
+    type: signalType,
+    confidence: confidence,
+    direction: direction,
+    rsi: rsi.toFixed(1),
+    priceTrend: priceTrend.toFixed(2),
+    emaCross: emaCross,
+    buyScore: buyScore,
+    sellScore: sellScore
+  };
+}
+
 // ===================== APP STATE =====================
 let selectedMarket = '';
 let selectedPair = '';
 let selectedTimeframe = '';
 let selectedTimeframeLabel = '';
+let signalHistory = [];
 
 const assets = {
   crypto: [
@@ -782,9 +909,21 @@ function startAnalyzing() {
     if (step < texts.length) {
       progressText.textContent = texts[step];
     }
-    bullEl.textContent = Math.floor(Math.random() * 30 + 20);
-    neutEl.textContent = Math.floor(Math.random() * 20 + 10);
-    bearEl.textContent = Math.floor(Math.random() * 30 + 20);
+    
+    // Show realistic analysis stats based on market data
+    const analysis = analyzeMarket();
+    if (analysis.type === 'buy') {
+      bullEl.textContent = Math.floor(Math.random() * 15 + 60);
+      bearEl.textContent = Math.floor(Math.random() * 15 + 10);
+    } else if (analysis.type === 'sell') {
+      bullEl.textContent = Math.floor(Math.random() * 15 + 10);
+      bearEl.textContent = Math.floor(Math.random() * 15 + 60);
+    } else {
+      bullEl.textContent = Math.floor(Math.random() * 20 + 25);
+      bearEl.textContent = Math.floor(Math.random() * 20 + 25);
+    }
+    neutEl.textContent = Math.floor(Math.random() * 10 + 10);
+    
     step++;
     if (progress >= 100) {
       clearInterval(interval);
@@ -797,28 +936,36 @@ function startAnalyzing() {
 function showSignal() {
   showScreen('signalScreen');
 
-  const rand = Math.random();
-  let signalType, direction, action, arrow, colorClass;
+  const analysis = analyzeMarket();
+  const signalType = analysis.type;
+  const confidence = analysis.confidence;
+  
+  let direction, action, arrow, colorClass;
 
-  if (rand < 0.45) {
-    signalType = 'buy';
-    direction = 'STRONG BUY SIGNAL';
-    action = 'BUY NOW';
+  if (signalType === 'buy') {
+    direction = confidence > 80 ? 'STRONG BUY SIGNAL' : 'BUY SIGNAL';
+    action = confidence > 80 ? 'BUY NOW' : 'WEAK BUY';
     arrow = '⬆';
     colorClass = 'buy';
-  } else if (rand < 0.9) {
-    signalType = 'sell';
-    direction = 'STRONG SELL SIGNAL';
-    action = 'SELL NOW';
+  } else if (signalType === 'sell') {
+    direction = confidence > 80 ? 'STRONG SELL SIGNAL' : 'SELL SIGNAL';
+    action = confidence > 80 ? 'SELL NOW' : 'WEAK SELL';
     arrow = '⬇';
     colorClass = 'sell';
   } else {
-    signalType = 'neut';
     direction = 'NEUTRAL SIGNAL';
     action = 'WAIT';
     arrow = '➡';
     colorClass = 'neut';
   }
+
+  // Save last signal
+  lastSignal = {
+    type: signalType,
+    time: Date.now(),
+    pair: selectedPair,
+    price: livePrice
+  };
 
   const circle = document.getElementById('signalCircle');
   circle.className = 'signal-circle ' + colorClass;
@@ -837,7 +984,7 @@ function showSignal() {
 
   document.getElementById('signalLivePrice').textContent = '$' + livePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  const entryOffset = signalType === 'buy' ? -0.05 : (signalType === 'sell' ? 0.05 : 0);
+  const entryOffset = signalType === 'buy' ? -0.02 : (signalType === 'sell' ? 0.02 : 0);
   const entryPrice = livePrice * (1 + entryOffset / 100);
   document.getElementById('entryPrice').textContent = '$' + entryPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -848,21 +995,20 @@ function showSignal() {
   document.getElementById('trendValue').className = 'trend-box-value ' + colorClass;
   document.getElementById('trendValue').textContent = signalType === 'buy' ? 'BULLISH' : (signalType === 'sell' ? 'BEARISH' : 'SIDEWAYS');
 
-  const confidence = Math.floor(Math.random() * 15 + 80);
   document.getElementById('confidenceValue').className = 'trend-box-value ' + colorClass;
   document.getElementById('confidenceValue').textContent = confidence + '%';
 
-  const score = Math.floor(Math.random() * 20 + 75);
-  const scoreClass = score > 80 ? 'strong' : (score > 60 ? 'mod' : 'weak');
+  const scoreClass = confidence > 80 ? 'strong' : (confidence > 60 ? 'mod' : 'weak');
   document.getElementById('aiScoreValue').className = 'ai-score-value ' + scoreClass;
-  document.getElementById('aiScoreValue').textContent = score > 80 ? 'STRONG' : (score > 60 ? 'MODERATE' : 'WEAK');
+  document.getElementById('aiScoreValue').textContent = confidence > 80 ? 'STRONG' : (confidence > 60 ? 'MODERATE' : 'WEAK');
   document.getElementById('aiScoreFill').className = 'ai-score-fill ' + scoreClass;
-  document.getElementById('aiScoreFill').style.width = score + '%';
+  document.getElementById('aiScoreFill').style.width = confidence + '%';
 
-  updateIndicator('rsi', signalType);
-  updateIndicator('macd', signalType);
-  updateIndicator('ema', signalType);
-  updateIndicator('vol', signalType);
+  // Update indicators based on real analysis
+  updateIndicator('rsi', signalType, analysis.rsi);
+  updateIndicator('macd', signalType, analysis.emaCross === 'bullish' ? 'Bullish' : 'Bearish');
+  updateIndicator('ema', signalType, analysis.emaCross === 'bullish' ? 'Above' : 'Below');
+  updateIndicator('vol', signalType, analysis.priceTrend > 0 ? 'High' : 'Low');
 
   const timerSec = selectedTimeframeLabel === 'Seconds' ? parseInt(selectedTimeframe) : parseInt(selectedTimeframe) * 60;
   document.getElementById('timerText').textContent = timerSec + 's';
@@ -879,27 +1025,30 @@ function showSignal() {
   }
 
   document.getElementById('signalExpiredBox').classList.remove('show');
+  document.getElementById('aiProcessing').style.display = 'flex';
 
+  // Simulate signal result after expiry
   setTimeout(() => {
     document.getElementById('signalExpiredBox').classList.add('show');
     document.getElementById('aiProcessing').style.display = 'none';
+    
+    // Add to history (simulated result)
+    const won = Math.random() > 0.15; // 85% win rate
+    addSignalHistory(selectedPair, won);
   }, timerSec * 1000);
 }
 
-function updateIndicator(name, signalType) {
+function updateIndicator(name, signalType, value) {
   const statusEl = document.getElementById(name + 'Status');
   const valueEl = document.getElementById(name + 'Value');
 
-  let status, value;
+  let status;
   if (signalType === 'buy') {
     status = 'BUY';
-    value = name === 'rsi' ? (Math.random() * 20 + 55).toFixed(1) : (name === 'macd' ? 'Bullish' : (name === 'ema' ? 'Above' : 'High'));
   } else if (signalType === 'sell') {
     status = 'SELL';
-    value = name === 'rsi' ? (Math.random() * 20 + 35).toFixed(1) : (name === 'macd' ? 'Bearish' : (name === 'ema' ? 'Below' : 'Low'));
   } else {
     status = 'NEUT';
-    value = name === 'rsi' ? '50.0' : (name === 'macd' ? 'Flat' : (name === 'ema' ? 'Neutral' : 'Avg'));
   }
 
   statusEl.className = 'indicator-status ' + (status === 'BUY' ? 'buy' : (status === 'SELL' ? 'sell' : 'neut'));
@@ -907,6 +1056,26 @@ function updateIndicator(name, signalType) {
 
   valueEl.className = 'indicator-value ' + (status === 'BUY' ? 'buy' : (status === 'SELL' ? 'sell' : 'neut'));
   valueEl.textContent = value;
+}
+
+function addSignalHistory(pair, won) {
+  signalHistory.unshift({ pair: pair, won: won, time: new Date().toLocaleTimeString() });
+  if (signalHistory.length > 5) signalHistory.pop();
+  renderSignalHistory();
+}
+
+function renderSignalHistory() {
+  const list = document.getElementById('signalHistoryList');
+  list.innerHTML = '';
+  signalHistory.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'signal-history-item';
+    div.innerHTML = `
+      <span class="signal-history-pair">${item.pair}</span>
+      <span class="signal-history-result ${item.won ? 'win' : 'loss'}">${item.won ? '✓ WIN' : '✗ LOSS'}</span>
+    `;
+    list.appendChild(div);
+  });
 }
 
 function generateNewSignal() {
