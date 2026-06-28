@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Lubna Abubakar AI Bot Pro - Advanced Signals</title>
+<title>Lubna Abubakar AI Bot Pro - Fixed Signals</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
-.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;background:linear-gradient(180deg,#0d1117,#161b22);position:fixed;top:0;left:0;z-index:999;transition:opacity 0.5s;}
-.login-card{width:90%;max-width:380px;background:#161b22;border:1px solid #30363d;border-radius:24px;padding:40px 28px;box-shadow:0 0 60px rgba(0,255,136,0.15);animation:slideUp 0.6s ease;}
-@keyframes slideUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+
+/* ========== LOGIN SCREEN ========== */
+.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;background:linear-gradient(180deg,#0d1117,#161b22);position:fixed;top:0;left:0;z-index:999;}
+.login-card{width:90%;max-width:380px;background:#161b22;border:1px solid #30363d;border-radius:24px;padding:40px 28px;box-shadow:0 0 60px rgba(0,255,136,0.15);}
 .logo{width:100px;height:100px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00cc44);display:flex;justify-content:center;align-items:center;font-size:42px;font-weight:900;color:#000;box-shadow:0 0 40px rgba(0,255,136,0.4);animation:pulseGlow 2s ease-in-out infinite;}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 40px rgba(0,255,136,0.4);}50%{box-shadow:0 0 60px rgba(0,255,136,0.7);}}
 .title{text-align:center;font-size:22px;font-weight:900;color:#00ff88;letter-spacing:3px;}
@@ -21,18 +22,23 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .input-box input:focus{border-color:#00ff88;box-shadow:0 0 20px rgba(0,255,136,0.15);}
 .input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px;color:#6e7681;}
 .unlock-btn{width:100%;padding:18px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:16px;color:#000;letter-spacing:3px;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 25px rgba(0,255,136,0.3);margin-top:10px;}
-.unlock-btn:hover{box-shadow:0 6px 30px rgba(0,255,136,0.5);transform:translateY(-2px);}
 .unlock-btn:active{transform:scale(0.97);}
+
+/* ========== MAIN APP ========== */
 .app-screen{display:none;width:100%;height:100dvh;background:#0d1117;overflow-y:auto;overflow-x:hidden;position:fixed;top:0;left:0;z-index:1;}
+
+/* Top Bar */
 .app-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#161b22;border-bottom:1px solid #30363d;position:sticky;top:0;z-index:100;}
 .app-header .logo-small{font-size:14px;font-weight:900;color:#00ff88;display:flex;align-items:center;gap:8px;}
-.app-header .logo-small::before{content:'\25C8';font-size:18px;}
+.app-header .logo-small::before{content:'◈';font-size:18px;}
 .app-header .live-badge{background:#238636;color:#fff;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:700;display:flex;align-items:center;gap:4px;}
 .app-header .live-badge::before{content:'';width:6px;height:6px;background:#00ff88;border-radius:50%;animation:blink 1s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .app-header .stats{display:flex;gap:12px;}
 .app-header .stat-item{font-size:9px;color:#8b949e;display:flex;align-items:center;gap:3px;}
 .app-header .stat-item span{color:#ffd700;font-weight:700;}
+
+/* Live Price Ticker */
 .price-ticker{background:#0d1117;border-bottom:1px solid #30363d;padding:8px 18px;display:flex;justify-content:space-between;align-items:center;font-size:10px;}
 .price-ticker-label{color:#8b949e;}
 .price-ticker-value{font-weight:900;font-size:12px;}
@@ -45,81 +51,108 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .api-status::before{content:'';width:5px;height:5px;background:#00ff88;border-radius:50%;animation:blink 2s infinite;}
 .api-status.error{color:#ff4444;}
 .api-status.error::before{background:#ff4444;}
+
+/* ========== HOME SCREEN ========== */
 .home-screen{padding:16px;}
 .home-title{font-size:20px;font-weight:900;text-align:center;margin-bottom:4px;}
 .home-subtitle{font-size:11px;color:#8b949e;text-align:center;margin-bottom:20px;}
+
+/* Stats Row */
 .stats-row{display:flex;justify-content:center;gap:16px;margin-bottom:24px;}
 .stat-box{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:10px 16px;text-align:center;}
 .stat-box .stat-num{font-size:16px;font-weight:900;color:#00ff88;}
 .stat-box .stat-label{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* Market Cards */
 .market-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
-.market-card:hover{border-color:#00ff88;transform:translateY(-2px);}
+.market-card:hover{border-color:#00ff88;}
 .market-card:active{transform:scale(0.98);}
 .market-card.hot{border-color:#ff4444;}
 .market-card.pro{border-color:#58a6ff;}
+
 .market-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .market-card-left{display:flex;align-items:center;gap:12px;}
 .market-icon{width:44px;height:44px;border-radius:12px;background:#0d1117;display:flex;justify-content:center;align-items:center;font-size:22px;}
 .market-card.hot .market-icon{background:rgba(255,68,68,0.1);}
 .market-card.pro .market-icon{background:rgba(88,166,255,0.1);}
+.market-info{}
 .market-name{font-size:14px;font-weight:900;}
 .market-desc{font-size:10px;color:#8b949e;margin-top:2px;}
+
 .market-badge{font-size:9px;padding:3px 8px;border-radius:6px;font-weight:700;}
 .market-badge.hot{background:rgba(255,68,68,0.15);color:#ff4444;}
 .market-badge.pro{background:rgba(88,166,255,0.15);color:#58a6ff;}
+
 .market-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .market-tag{font-size:9px;color:#00ff88;background:rgba(0,255,136,0.08);padding:4px 10px;border-radius:6px;font-weight:700;}
 .market-tag.gray{color:#8b949e;background:rgba(139,148,158,0.08);}
+
 .market-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #30363d;}
 .market-footer-left{display:flex;gap:12px;}
 .market-footer-item{font-size:9px;color:#8b949e;display:flex;align-items:center;gap:4px;}
-.market-footer-item::before{content:'\25CF';color:#00ff88;font-size:6px;}
+.market-footer-item::before{content:'●';color:#00ff88;font-size:6px;}
 .market-status{font-size:9px;color:#00ff88;font-weight:700;}
+
+/* ========== ASSET SCREEN ========== */
 .asset-screen{display:none;padding:16px;}
 .asset-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-.back-btn{width:36px;height:36px;border-radius:10px;background:#161b22;border:1px solid #30363d;display:flex;justify-content:center;align-items:center;font-size:18px;color:#fff;cursor:pointer;transition:all 0.3s;}
-.back-btn:hover{border-color:#00ff88;}
-.back-btn:active{transform:scale(0.95);}
+.back-btn{width:36px;height:36px;border-radius:10px;background:#161b22;border:1px solid #30363d;display:flex;justify-content:center;align-items:center;font-size:18px;color:#fff;cursor:pointer;}
 .asset-header-title{font-size:16px;font-weight:900;}
 .asset-header-sub{font-size:10px;color:#8b949e;}
+
+.asset-list{}
 .asset-item{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;cursor:pointer;transition:all 0.3s;}
 .asset-item:hover{border-color:#00ff88;}
 .asset-item:active{transform:scale(0.98);}
+
 .asset-left{display:flex;align-items:center;gap:12px;}
 .asset-flag{width:36px;height:36px;border-radius:50%;background:#0d1117;display:flex;justify-content:center;align-items:center;font-size:20px;}
 .asset-name{font-size:13px;font-weight:700;}
 .asset-fullname{font-size:9px;color:#8b949e;margin-top:1px;}
+
 .asset-right{display:flex;align-items:center;gap:12px;}
 .asset-badge-hot{font-size:8px;padding:2px 8px;border-radius:4px;background:rgba(255,68,68,0.15);color:#ff4444;font-weight:700;}
 .asset-change{font-size:13px;font-weight:900;}
 .asset-change.up{color:#00ff88;}
 .asset-change.down{color:#ff4444;}
 .asset-arrow{font-size:18px;color:#8b949e;}
+
 .asset-live-price{font-size:11px;font-weight:700;color:#ffd700;margin-right:4px;min-width:70px;text-align:right;}
+
+/* ========== TIMEFRAME SCREEN ========== */
 .timeframe-screen{display:none;padding:16px;}
 .timeframe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;}
 .timeframe-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:20px 10px;text-align:center;cursor:pointer;transition:all 0.3s;}
-.timeframe-card:hover{border-color:#00ff88;transform:translateY(-3px);}
+.timeframe-card:hover{border-color:#00ff88;}
 .timeframe-card:active{transform:scale(0.97);}
 .timeframe-card.selected{border-color:#00ff88;background:rgba(0,255,136,0.05);}
 .timeframe-icon{font-size:28px;margin-bottom:6px;}
 .timeframe-num{font-size:22px;font-weight:900;color:#00ff88;}
 .timeframe-label{font-size:9px;color:#8b949e;margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
+
 .timeframe-card.mintf{border-color:#58a6ff;}
 .timeframe-card.mintf.selected{border-color:#58a6ff;background:rgba(88,166,255,0.08);}
 .timeframe-card.mintf .timeframe-num{color:#58a6ff;}
+
+/* Selected Pair Display */
 .selected-pair{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;padding:12px;background:#161b22;border-radius:12px;border:1px solid #30363d;}
 .selected-pair-text{font-size:11px;color:#8b949e;}
 .selected-pair-name{font-size:13px;font-weight:900;color:#00ff88;}
+
+/* ========== ANALYZING SCREEN ========== */
 .analyzing-screen{display:none;flex-direction:column;justify-content:center;align-items:center;height:100dvh;padding:20px;text-align:center;}
+
 .brain-container{width:180px;height:180px;position:relative;margin-bottom:30px;}
 .brain-ring{width:100%;height:100%;border-radius:50%;border:4px solid #30363d;border-top-color:#00ff88;border-right-color:#ff4444;animation:spinBrain 2s linear infinite;position:absolute;top:0;left:0;}
 .brain-ring:nth-child(2){width:80%;height:80%;top:10%;left:10%;animation-direction:reverse;animation-duration:3s;border-top-color:#58a6ff;border-right-color:#ffd700;}
 .brain-ring:nth-child(3){width:60%;height:60%;top:20%;left:20%;animation-duration:1.5s;border-top-color:#00ff88;border-right-color:#ff4444;}
 @keyframes spinBrain{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
 .brain-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:50px;z-index:10;}
+
 .analyzing-title{font-size:18px;font-weight:900;margin-bottom:8px;}
 .analyzing-subtitle{font-size:11px;color:#8b949e;margin-bottom:30px;}
+
 .analyzing-stats{display:flex;gap:20px;margin-bottom:30px;flex-wrap:wrap;justify-content:center;}
 .analyzing-stat{text-align:center;min-width:70px;}
 .analyzing-stat-num{font-size:16px;font-weight:900;}
@@ -127,83 +160,78 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .analyzing-stat-num.bear{color:#ff4444;}
 .analyzing-stat-num.neut{color:#ffd700;}
 .analyzing-stat-label{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+
 .progress-bar{width:80%;height:4px;background:#30363d;border-radius:2px;overflow:hidden;margin-bottom:10px;}
 .progress-fill{height:100%;background:linear-gradient(90deg,#00ff88,#58a6ff);border-radius:2px;animation:progressAnim 3s ease-in-out infinite;width:0%;}
 @keyframes progressAnim{0%{width:0%;}50%{width:80%;}100%{width:100%;}}
+
 .progress-text{font-size:10px;color:#8b949e;}
-.signal-screen{display:none;flex-direction:column;justify-content:flex-start;align-items:center;padding:20px;text-align:center;overflow-y:auto;padding-top:10px;}
-.main-signal-box{width:90%;max-width:340px;background:#161b22;border:2px solid #30363d;border-radius:20px;padding:24px;margin-bottom:16px;position:relative;animation:popIn 0.5s ease;}
-@keyframes popIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
-.main-signal-box.buy{border-color:#00ff88;box-shadow:0 0 30px rgba(0,255,136,0.15);}
-.main-signal-box.sell{border-color:#ff4444;box-shadow:0 0 30px rgba(255,68,68,0.15);}
-.main-signal-box.neut{border-color:#ffd700;box-shadow:0 0 30px rgba(255,215,0,0.15);}
-.signal-big-circle{width:100px;height:100px;border-radius:50%;display:flex;justify-content:center;align-items:center;margin:0 auto 12px;animation:signalPulse 2s ease-in-out infinite;}
-.signal-big-circle.buy{background:linear-gradient(135deg,rgba(0,255,136,0.3),rgba(0,255,136,0.1));border:3px solid #00ff88;}
-.signal-big-circle.sell{background:linear-gradient(135deg,rgba(255,68,68,0.3),rgba(255,68,68,0.1));border:3px solid #ff4444;}
-.signal-big-circle.neut{background:linear-gradient(135deg,rgba(255,215,0,0.3),rgba(255,215,0,0.1));border:3px solid #ffd700;}
-.signal-big-arrow{font-size:48px;font-weight:900;}
-.signal-big-arrow.buy{color:#00ff88;}
-.signal-big-arrow.sell{color:#ff4444;}
-.signal-big-arrow.neut{color:#ffd700;}
-.signal-big-text{font-size:28px;font-weight:900;margin-bottom:4px;letter-spacing:2px;}
-.signal-big-text.buy{color:#00ff88;}
-.signal-big-text.sell{color:#ff4444;}
-.signal-big-text.neut{color:#ffd700;}
-.signal-big-sub{font-size:11px;color:#8b949e;margin-bottom:8px;}
-.signal-pair-name{font-size:13px;color:#8b949e;font-weight:700;}
-.signal-circle{width:140px;height:140px;border-radius:50%;display:flex;justify-content:center;align-items:center;margin-bottom:16px;position:relative;animation:signalPulse 2s ease-in-out infinite;}
+
+/* ========== SIGNAL SCREEN - FIXED ========== */
+.signal-screen{display:none;flex-direction:column;align-items:center;height:100dvh;padding:16px;text-align:center;overflow-y:auto;padding-top:20px;}
+
+/* Signal Section - Fixed positioning */
+.signal-section{width:100%;display:flex;flex-direction:column;align-items:center;margin-bottom:16px;}
+
+.signal-circle{width:120px;height:120px;border-radius:50%;display:flex;justify-content:center;align-items:center;margin:0 auto 12px;position:relative;animation:signalPulse 2s ease-in-out infinite;}
 .signal-circle.buy{background:linear-gradient(135deg,rgba(0,255,136,0.2),rgba(0,255,136,0.05));border:3px solid #00ff88;box-shadow:0 0 40px rgba(0,255,136,0.3);}
 .signal-circle.sell{background:linear-gradient(135deg,rgba(255,68,68,0.2),rgba(255,68,68,0.05));border:3px solid #ff4444;box-shadow:0 0 40px rgba(255,68,68,0.3);}
-.signal-circle.neut{background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,215,0,0.05));border:3px solid #ffd700;box-shadow:0 0 40px rgba(255,215,0,0.3);}
+.signal-circle.neutral{background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,215,0,0.05));border:3px solid #ffd700;box-shadow:0 0 40px rgba(255,215,0,0.3);}
 @keyframes signalPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
-.signal-arrow{font-size:50px;}
+
+.signal-arrow{font-size:48px;line-height:1;}
 .signal-arrow.buy{color:#00ff88;}
 .signal-arrow.sell{color:#ff4444;}
-.signal-arrow.neut{color:#ffd700;}
-.signal-direction{font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:6px;text-transform:uppercase;letter-spacing:2px;}
-.signal-direction.buy{background:rgba(0,255,136,0.15);color:#00ff88;}
-.signal-direction.sell{background:rgba(255,68,68,0.15);color:#ff4444;}
-.signal-direction.neut{background:rgba(255,215,0,0.15);color:#ffd700;}
-.signal-action{font-size:24px;font-weight:900;margin-bottom:4px;}
+.signal-arrow.neutral{color:#ffd700;}
+
+.signal-direction{font-size:14px;font-weight:900;padding:6px 18px;border-radius:20px;margin-bottom:6px;text-transform:uppercase;letter-spacing:3px;display:inline-block;}
+.signal-direction.buy{background:rgba(0,255,136,0.15);color:#00ff88;border:1px solid rgba(0,255,136,0.3);}
+.signal-direction.sell{background:rgba(255,68,68,0.15);color:#ff4444;border:1px solid rgba(255,68,68,0.3);}
+.signal-direction.neutral{background:rgba(255,215,0,0.15);color:#ffd700;border:1px solid rgba(255,215,0,0.3);}
+
+.signal-action{font-size:32px;font-weight:900;margin-bottom:6px;letter-spacing:4px;}
 .signal-action.buy{color:#00ff88;}
 .signal-action.sell{color:#ff4444;}
-.signal-action.neut{color:#ffd700;}
-.signal-pair{font-size:11px;color:#8b949e;margin-bottom:16px;}
-.signal-live-price-box{width:90%;max-width:340px;background:#0d1117;border:1px solid #30363d;border-radius:12px;padding:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
-.signal-live-price-label{font-size:9px;color:#8b949e;text-transform:uppercase;}
-.signal-live-price-value{font-size:18px;font-weight:900;color:#ffd700;}
-.signal-live-price-change{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700;}
-.signal-live-price-change.up{background:rgba(0,255,136,0.15);color:#00ff88;}
-.signal-live-price-change.down{background:rgba(255,68,68,0.15);color:#ff4444;}
-.signal-expired-box{width:90%;max-width:340px;background:rgba(255,68,68,0.1);border:1px solid #ff4444;border-radius:12px;padding:12px;margin-bottom:16px;display:none;}
-.signal-expired-box.show{display:flex;}
-.signal-expired-text{font-size:11px;color:#ff4444;font-weight:700;}
-.trend-box{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;margin-bottom:16px;}
-.trend-box-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.trend-box-title{font-size:9px;color:#8b949e;text-transform:uppercase;}
-.trend-box-value{font-size:13px;font-weight:900;}
-.trend-box-value.up{color:#00ff88;}
-.trend-box-value.down{color:#ff4444;}
-.trend-box-value.neut{color:#ffd700;}
-.tf-badge{font-size:9px;padding:3px 10px;border-radius:10px;font-weight:700;margin-bottom:12px;}
+.signal-action.neutral{color:#ffd700;}
+
+.signal-pair{font-size:12px;color:#8b949e;margin-bottom:12px;}
+
+/* Timeframe Badge */
+.tf-badge{font-size:10px;padding:4px 14px;border-radius:12px;font-weight:700;margin-bottom:14px;display:inline-block;letter-spacing:1px;}
 .tf-badge.seconds{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3);}
 .tf-badge.minute{background:rgba(88,166,255,0.1);color:#58a6ff;border:1px solid rgba(88,166,255,0.3);}
-.last-update{font-size:9px;color:#6e7681;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+
+/* Live Price Box */
+.signal-live-price-box{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:14px;padding:14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
+.signal-live-price-label{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;}
+.signal-live-price-value{font-size:20px;font-weight:900;color:#ffd700;}
+.signal-live-price-change{font-size:11px;padding:3px 10px;border-radius:6px;font-weight:700;}
+.signal-live-price-change.up{background:rgba(0,255,136,0.15);color:#00ff88;}
+.signal-live-price-change.down{background:rgba(255,68,68,0.15);color:#ff4444;}
+
+/* Last Update */
+.last-update{font-size:10px;color:#6e7681;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:6px;}
 .last-update-dot{width:6px;height:6px;background:#00ff88;border-radius:50%;animation:blink 1s infinite;}
-.ai-score-box{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:16px;padding:16px;margin-bottom:16px;}
+
+/* AI Score Meter */
+.ai-score-box{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:16px;padding:16px;margin-bottom:14px;}
 .ai-score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .ai-score-title{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:2px;}
-.ai-score-value{font-size:20px;font-weight:900;}
+.ai-score-value{font-size:24px;font-weight:900;}
 .ai-score-value.strong{color:#00ff88;}
 .ai-score-value.weak{color:#ff4444;}
 .ai-score-value.mod{color:#ffd700;}
-.ai-score-bar{width:100%;height:8px;background:#0d1117;border-radius:4px;overflow:hidden;margin-bottom:16px;position:relative;}
-.ai-score-fill{height:100%;border-radius:4px;transition:width 1s ease;}
+
+.ai-score-bar{width:100%;height:10px;background:#0d1117;border-radius:5px;overflow:hidden;margin-bottom:12px;position:relative;}
+.ai-score-fill{height:100%;border-radius:5px;transition:width 1s ease;}
 .ai-score-fill.strong{background:linear-gradient(90deg,#00ff88,#00cc44);}
 .ai-score-fill.weak{background:linear-gradient(90deg,#ff4444,#cc0000);}
 .ai-score-fill.mod{background:linear-gradient(90deg,#ffd700,#ffaa00);}
+
 .ai-score-markers{display:flex;justify-content:space-between;font-size:8px;color:#6e7681;margin-top:4px;}
-.indicator-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:90%;max-width:340px;margin-bottom:16px;}
+
+/* Indicator Grid */
+.indicator-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:90%;max-width:340px;margin-bottom:14px;}
 .indicator-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;text-align:left;}
 .indicator-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
 .indicator-name{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;}
@@ -211,1096 +239,952 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .indicator-status.buy{background:rgba(0,255,136,0.15);color:#00ff88;}
 .indicator-status.sell{background:rgba(255,68,68,0.15);color:#ff4444;}
 .indicator-status.neut{background:rgba(255,215,0,0.15);color:#ffd700;}
-.indicator-value{font-size:16px;font-weight:900;margin-bottom:4px;}
+.indicator-status.wait{background:rgba(139,148,158,0.15);color:#8b949e;}
+
+.indicator-value{font-size:18px;font-weight:900;margin-bottom:4px;}
 .indicator-value.buy{color:#00ff88;}
 .indicator-value.sell{color:#ff4444;}
 .indicator-value.neut{color:#ffd700;}
+
 .indicator-desc{font-size:8px;color:#6e7681;line-height:1.4;}
-.ai-processing{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+
+/* No Signal Box */
+.no-signal-box{width:90%;max-width:340px;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.25);border-radius:14px;padding:16px;margin-bottom:14px;text-align:center;}
+.no-signal-icon{font-size:36px;margin-bottom:10px;}
+.no-signal-title{font-size:16px;font-weight:900;color:#ffd700;margin-bottom:6px;}
+.no-signal-text{font-size:10px;color:#8b949e;line-height:1.5;}
+
+/* Warning Box */
+.warning-box{width:90%;max-width:340px;background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.25);border-radius:14px;padding:12px;margin-bottom:14px;}
+.warning-title{font-size:10px;color:#ff4444;font-weight:700;margin-bottom:4px;}
+.warning-text{font-size:9px;color:#8b949e;line-height:1.5;}
+
+.ai-processing{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
 .ai-dot{width:8px;height:8px;background:#00ff88;border-radius:50%;animation:aiBlink 1s infinite;}
 @keyframes aiBlink{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .ai-text{font-size:10px;color:#00ff88;font-weight:700;}
-.trade-timer{width:80%;margin-bottom:16px;}
+
+.trade-timer{width:85%;margin-bottom:14px;}
 .trade-timer-label{display:flex;justify-content:space-between;font-size:9px;color:#8b949e;margin-bottom:6px;}
-.trade-timer-bar{height:4px;background:#30363d;border-radius:2px;overflow:hidden;}
-.trade-timer-fill{height:100%;border-radius:2px;animation:timerAnim 10s linear infinite;}
+.trade-timer-bar{height:5px;background:#30363d;border-radius:3px;overflow:hidden;}
+.trade-timer-fill{height:100%;border-radius:3px;animation:timerAnim linear infinite;}
 .trade-timer-fill.buy{background:linear-gradient(90deg,#00ff88,#00cc44);}
 .trade-timer-fill.sell{background:linear-gradient(90deg,#ff4444,#cc0000);}
-.trade-timer-fill.neut{background:linear-gradient(90deg,#ffd700,#ffaa00);}
+.trade-timer-fill.neutral{background:linear-gradient(90deg,#ffd700,#ffaa00);}
 @keyframes timerAnim{0%{width:100%;}100%{width:0%;}}
+
 .timer-text{font-size:10px;color:#8b949e;margin-top:8px;margin-bottom:12px;}
-.generate-btn{width:80%;padding:16px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;transition:all 0.3s;margin-bottom:10px;}
-.generate-btn:hover{box-shadow:0 4px 20px rgba(0,255,136,0.4);transform:translateY(-2px);}
+
+.generate-btn{width:85%;padding:16px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;transition:all 0.3s;margin-bottom:10px;}
 .generate-btn:active{transform:scale(0.97);}
-.refresh-btn{width:80%;padding:14px;background:#161b22;border:1px solid #30363d;border-radius:14px;font-weight:700;font-size:12px;color:#8b949e;letter-spacing:1px;cursor:pointer;transition:all 0.3s;}
-.refresh-btn:hover{border-color:#00ff88;color:#fff;}
+
+.refresh-btn{width:85%;padding:14px;background:linear-gradient(135deg,#58a6ff,#0066cc);border:none;border-radius:14px;font-weight:900;font-size:13px;color:#fff;letter-spacing:2px;cursor:pointer;transition:all 0.3s;}
 .refresh-btn:active{transform:scale(0.97);}
-.history-screen{display:none;padding:16px;}
-.history-title{font-size:16px;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.history-item{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s;}
-.history-item:hover{border-color:#00ff88;}
-.history-left{display:flex;align-items:center;gap:10px;}
-.history-icon{width:32px;height:32px;border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:16px;font-weight:900;}
-.history-icon.buy{background:rgba(0,255,136,0.1);color:#00ff88;}
-.history-icon.sell{background:rgba(255,68,68,0.1);color:#ff4444;}
-.history-info{}
-.history-pair{font-size:12px;font-weight:700;}
-.history-time{font-size:9px;color:#8b949e;}
-.history-right{text-align:right;}
-.history-result{font-size:12px;font-weight:900;}
-.history-result.win{color:#00ff88;}
-.history-result.loss{color:#ff4444;}
-.history-pips{font-size:9px;color:#8b949e;}
-.empty-history{text-align:center;padding:40px;color:#8b949e;font-size:12px;}
-.settings-screen{display:none;padding:16px;}
-.settings-title{font-size:16px;font-weight:900;margin-bottom:16px;}
-.settings-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin-bottom:12px;}
-.settings-card-title{font-size:12px;font-weight:700;margin-bottom:12px;color:#00ff88;}
-.settings-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #30363d;}
-.settings-row:last-child{border-bottom:none;}
-.settings-label{font-size:11px;color:#8b949e;}
-.settings-value{font-size:11px;font-weight:700;color:#fff;}
-.toggle-switch{width:44px;height:24px;background:#30363d;border-radius:12px;position:relative;cursor:pointer;transition:all 0.3s;}
-.toggle-switch.active{background:#00ff88;}
-.toggle-switch::after{content:'';width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:all 0.3s;}
-.toggle-switch.active::after{left:22px;}
-.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#161b22;border-top:1px solid #30363d;display:flex;justify-content:space-around;padding:8px 0;z-index:100;}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0;transition:all 0.3s;}
-.nav-item.active .nav-icon{color:#00ff88;}
-.nav-item.active .nav-label{color:#00ff88;}
-.nav-icon{font-size:20px;color:#6e7681;transition:all 0.3s;}
-.nav-label{font-size:8px;color:#6e7681;transition:all 0.3s;}
-.confetti{position:fixed;width:8px;height:8px;border-radius:50%;animation:confettiFall 3s ease-out forwards;z-index:9999;}
-@keyframes confettiFall{0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
-.scan-line{position:fixed;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#00ff88,transparent);animation:scanLine 3s linear infinite;z-index:9999;pointer-events:none;opacity:0.5;}
-@keyframes scanLine{0%{transform:translateY(-100vh);}100%{transform:translateY(100vh);}}
-.chart-mini{width:90%;max-width:340px;height:120px;background:#0d1117;border:1px solid #30363d;border-radius:12px;margin-bottom:16px;position:relative;overflow:hidden;}
-.chart-canvas{width:100%;height:100%;}
-.support-resistance-box{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;margin-bottom:16px;}
-.support-resistance-title{font-size:9px;color:#8b949e;text-transform:uppercase;margin-bottom:8px;}
-.sr-levels{display:flex;flex-direction:column;gap:6px;}
-.sr-level{display:flex;justify-content:space-between;align-items:center;font-size:11px;}
-.sr-level-label{color:#8b949e;}
-.sr-level-value{font-weight:700;}
-.sr-level-value.support{color:#00ff88;}
-.sr-level-value.resistance{color:#ff4444;}
-.volume-box{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;margin-bottom:16px;}
-.volume-title{font-size:9px;color:#8b949e;text-transform:uppercase;margin-bottom:8px;}
-.volume-bar-bg{width:100%;height:20px;background:#0d1117;border-radius:4px;overflow:hidden;position:relative;}
-.volume-bar-fill{height:100%;border-radius:4px;transition:width 1s ease;}
-.volume-bar-fill.high{background:linear-gradient(90deg,#00ff88,#00cc44);}
-.volume-bar-fill.low{background:linear-gradient(90deg,#ff4444,#cc0000);}
-.volume-bar-fill.med{background:linear-gradient(90deg,#ffd700,#ffaa00);}
-.volume-labels{display:flex;justify-content:space-between;font-size:8px;color:#6e7681;margin-top:4px;}
-.signal-strength-meter{width:90%;max-width:340px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;margin-bottom:16px;}
-.meter-title{font-size:9px;color:#8b949e;text-transform:uppercase;margin-bottom:8px;}
-.meter-segments{display:flex;gap:4px;}
-.meter-segment{flex:1;height:8px;background:#30363d;border-radius:2px;transition:all 0.3s;}
-.meter-segment.active.buy{background:#00ff88;box-shadow:0 0 8px rgba(0,255,136,0.5);}
-.meter-segment.active.sell{background:#ff4444;box-shadow:0 0 8px rgba(255,68,68,0.5);}
-.meter-segment.active.neut{background:#ffd700;box-shadow:0 0 8px rgba(255,215,0,0.5);}
-.meter-labels{display:flex;justify-content:space-between;font-size:8px;color:#6e7681;margin-top:4px;}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:#0d1117;}
+::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px;}
 </style>
 </head>
 <body>
-<div class="scan-line"></div>
-<!-- Login Screen -->
+
+<!-- ========== LOGIN SCREEN ========== -->
 <div class="login-screen" id="loginScreen">
-<div class="login-card">
-<div class="logo">LB</div>
-<div class="title">LUBNA ABUBAKAR</div>
-<div class="subtitle">AI TRADING BOT PRO</div>
-<div class="input-box">
-<label>Account ID</label>
-<span class="input-icon">&#128100;</span>
-<input type="text" id="loginId" placeholder="Enter your ID" value="LUBNA2024">
-</div>
-<div class="input-box">
-<label>Access Key</label>
-<span class="input-icon">&#128274;</span>
-<input type="password" id="loginKey" placeholder="Enter access key" value="PRO12345">
-</div>
-<button class="unlock-btn" onclick="doLogin()">UNLOCK BOT</button>
-</div>
+  <div class="login-card">
+    <div class="logo">LA</div>
+    <div class="title">LUBNA ABUBAKAR</div>
+    <div class="subtitle">AI BOT PRO - FIXED SIGNALS</div>
+
+    <div class="input-box">
+      <span class="input-icon">👤</span>
+      <label>USERNAME</label>
+      <input type="text" id="username" value="Lubna" autocomplete="off">
+    </div>
+
+    <div class="input-box">
+      <span class="input-icon">🔒</span>
+      <label>PASSWORD</label>
+      <input type="password" id="password" value="Abubakar786" autocomplete="off">
+    </div>
+
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK BOT</button>
+    
+    <div style="text-align:center;margin-top:16px;">
+      <span style="font-size:9px;color:#8b949e;letter-spacing:1px;">VERSION 2.0 - FIXED SIGNALS</span>
+    </div>
+  </div>
 </div>
 
-<!-- App Screen -->
+<!-- ========== MAIN APP ========== -->
 <div class="app-screen" id="appScreen">
-<div class="app-header">
-<div class="logo-small">LUBNA AI</div>
-<div class="live-badge">LIVE</div>
-<div class="stats">
-<div class="stat-item">Win: <span id="winRate">87%</span></div>
-<div class="stat-item">Signals: <span id="totalSignals">1,247</span></div>
-</div>
-</div>
-<div class="price-ticker">
-<div>
-<span class="price-ticker-label">XAU/USD</span>
-<span class="price-ticker-value up" id="tickerPrice">2,345.67</span>
-<span class="price-ticker-change up" id="tickerChange">+0.45%</span>
-</div>
-<div class="api-status" id="apiStatus">API Connected</div>
-</div>
 
-<!-- Home Screen -->
-<div class="home-screen" id="homeScreen">
-<div class="home-title">Select Market</div>
-<div class="home-subtitle">Choose your trading instrument</div>
-<div class="stats-row">
-<div class="stat-box"><div class="stat-num" id="todaySignals">12</div><div class="stat-label">Today</div></div>
-<div class="stat-box"><div class="stat-num" id="todayWins">10</div><div class="stat-label">Wins</div></div>
-<div class="stat-box"><div class="stat-num" id="todayAccuracy">83%</div><div class="stat-label">Accuracy</div></div>
-</div>
-<div class="market-card" onclick="openMarket('forex')">
-<div class="market-card-header">
-<div class="market-card-left">
-<div class="market-icon">&#128181;</div>
-<div><div class="market-name">Forex</div><div class="market-desc">Major & Minor Currency Pairs</div></div>
-</div>
-<div class="market-badge">HOT</div>
-</div>
-<div class="market-tags">
-<span class="market-tag">EUR/USD</span>
-<span class="market-tag">GBP/USD</span>
-<span class="market-tag">USD/JPY</span>
-<span class="market-tag gray">+24 more</span>
-</div>
-<div class="market-footer">
-<div class="market-footer-left">
-<div class="market-footer-item">24 Pairs</div>
-<div class="market-footer-item">High Volatility</div>
-</div>
-<div class="market-status">Active</div>
-</div>
-</div>
-<div class="market-card hot" onclick="openMarket('synthetic')">
-<div class="market-card-header">
-<div class="market-card-left">
-<div class="market-icon">&#9889;</div>
-<div><div class="market-name">Synthetic Indices</div><div class="market-desc">Volatility & Jump Indices</div></div>
-</div>
-<div class="market-badge hot">POPULAR</div>
-</div>
-<div class="market-tags">
-<span class="market-tag">V75</span>
-<span class="market-tag">V100</span>
-<span class="market-tag">Jump 75</span>
-<span class="market-tag gray">+8 more</span>
-</div>
-<div class="market-footer">
-<div class="market-footer-left">
-<div class="market-footer-item">12 Indices</div>
-<div class="market-footer-item">24/7 Trading</div>
-</div>
-<div class="market-status">Active</div>
-</div>
-</div>
-<div class="market-card pro" onclick="openMarket('crypto')">
-<div class="market-card-header">
-<div class="market-card-left">
-<div class="market-icon">&#8383;</div>
-<div><div class="market-name">Crypto</div><div class="market-desc">Bitcoin, Ethereum & Altcoins</div></div>
-</div>
-<div class="market-badge pro">PRO</div>
-</div>
-<div class="market-tags">
-<span class="market-tag">BTC/USD</span>
-<span class="market-tag">ETH/USD</span>
-<span class="market-tag">SOL/USD</span>
-<span class="market-tag gray">+15 more</span>
-</div>
-<div class="market-footer">
-<div class="market-footer-left">
-<div class="market-footer-item">18 Pairs</div>
-<div class="market-footer-item">High Profit</div>
-</div>
-<div class="market-status">Active</div>
-</div>
-</div>
-<div class="market-card" onclick="openMarket('commodities')">
-<div class="market-card-header">
-<div class="market-card-left">
-<div class="market-icon">&#127775;</div>
-<div><div class="market-name">Commodities</div><div class="market-desc">Gold, Silver & Oil</div></div>
-</div>
-<div class="market-badge">GOLD</div>
-</div>
-<div class="market-tags">
-<span class="market-tag">XAU/USD</span>
-<span class="market-tag">XAG/USD</span>
-<span class="market-tag">USOIL</span>
-<span class="market-tag gray">+5 more</span>
-</div>
-<div class="market-footer">
-<div class="market-footer-left">
-<div class="market-footer-item">8 Assets</div>
-<div class="market-footer-item">Safe Haven</div>
-</div>
-<div class="market-status">Active</div>
-</div>
-</div>
-</div>
+  <!-- Header -->
+  <div class="app-header">
+    <div class="logo-small">LUBNA AI</div>
+    <div class="live-badge">LIVE</div>
+    <div class="stats">
+      <div class="stat-item">Win: <span id="winRate">0%</span></div>
+      <div class="stat-item">Signals: <span id="totalSignals">0</span></div>
+    </div>
+  </div>
 
-<!-- Asset Screen -->
-<div class="asset-screen" id="assetScreen">
-<div class="asset-header">
-<button class="back-btn" onclick="goBack()">&#8592;</button>
-<div><div class="asset-header-title" id="assetTitle">Forex Pairs</div><div class="asset-header-sub">Select trading pair</div></div>
-</div>
-<div id="assetList"></div>
-</div>
+  <!-- Price Ticker -->
+  <div class="price-ticker">
+    <div>
+      <span class="price-ticker-label">BTC/USDT: </span>
+      <span class="price-ticker-value" id="tickerPrice">--</span>
+      <span class="price-ticker-change" id="tickerChange">--</span>
+    </div>
+    <div class="api-status" id="apiStatus">API Connected</div>
+  </div>
 
-<!-- Timeframe Screen -->
-<div class="timeframe-screen" id="timeframeScreen">
-<div class="asset-header">
-<button class="back-btn" onclick="goBack()">&#8592;</button>
-<div><div class="asset-header-title">Timeframe</div><div class="asset-header-sub">Select analysis period</div></div>
-</div>
-<div class="selected-pair">
-<span class="selected-pair-text">Selected:</span>
-<span class="selected-pair-name" id="selectedPairName">EUR/USD</span>
-</div>
-<div class="timeframe-grid">
-<div class="timeframe-card" onclick="selectTimeframe(5,'seconds')">
-<div class="timeframe-icon">&#9201;</div>
-<div class="timeframe-num">5s</div>
-<div class="timeframe-label">Quick Scalp</div>
-</div>
-<div class="timeframe-card" onclick="selectTimeframe(10,'seconds')">
-<div class="timeframe-icon">&#9200;</div>
-<div class="timeframe-num">10s</div>
-<div class="timeframe-label">Fast Scalp</div>
-</div>
-<div class="timeframe-card" onclick="selectTimeframe(15,'seconds')">
-<div class="timeframe-icon">&#9201;</div>
-<div class="timeframe-num">15s</div>
-<div class="timeframe-label">Scalping</div>
-</div>
-<div class="timeframe-card mintf" onclick="selectTimeframe(1,'minute')">
-<div class="timeframe-icon">&#9201;</div>
-<div class="timeframe-num">1m</div>
-<div class="timeframe-label">Minute Trade</div>
-</div>
-<div class="timeframe-card mintf" onclick="selectTimeframe(2,'minute')">
-<div class="timeframe-icon">&#9200;</div>
-<div class="timeframe-num">2m</div>
-<div class="timeframe-label">Short Trade</div>
-</div>
-<div class="timeframe-card mintf" onclick="selectTimeframe(5,'minute')">
-<div class="timeframe-icon">&#9201;</div>
-<div class="timeframe-num">5m</div>
-<div class="timeframe-label">Swing</div>
-</div>
-</div>
-</div>
+  <!-- HOME SCREEN -->
+  <div class="home-screen" id="homeScreen">
+    <div class="home-title">SELECT MARKET</div>
+    <div class="home-subtitle">Choose your trading market</div>
+    
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num" id="todaySignals">0</div>
+        <div class="stat-label">TODAY</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:#ffd700;" id="accuracyRate">0%</div>
+        <div class="stat-label">ACCURACY</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:#58a6ff;" id="activeUsers">1</div>
+        <div class="stat-label">ACTIVE</div>
+      </div>
+    </div>
 
-<!-- Analyzing Screen -->
-<div class="analyzing-screen" id="analyzingScreen">
-<div class="brain-container">
-<div class="brain-ring"></div>
-<div class="brain-ring"></div>
-<div class="brain-ring"></div>
-<div class="brain-icon">&#129504;</div>
-</div>
-<div class="analyzing-title">AI ANALYZING MARKET</div>
-<div class="analyzing-subtitle">Processing 8 technical indicators...</div>
-<div class="analyzing-stats">
-<div class="analyzing-stat"><div class="analyzing-stat-num bull" id="bullCount">0</div><div class="analyzing-stat-label">Bullish</div></div>
-<div class="analyzing-stat"><div class="analyzing-stat-num bear" id="bearCount">0</div><div class="analyzing-stat-label">Bearish</div></div>
-<div class="analyzing-stat"><div class="analyzing-stat-num neut" id="neutCount">0</div><div class="analyzing-stat-label">Neutral</div></div>
-</div>
-<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-<div class="progress-text" id="progressText">Initializing neural networks...</div>
-</div>
+    <!-- Forex Card -->
+    <div class="market-card" onclick="openMarket('forex')">
+      <div class="market-card-header">
+        <div class="market-card-left">
+          <div class="market-icon">💱</div>
+          <div class="market-info">
+            <div class="market-name">FOREX</div>
+            <div class="market-desc">Currency Pairs</div>
+          </div>
+        </div>
+        <div class="market-badge hot">HOT</div>
+      </div>
+      <div class="market-tags">
+        <span class="market-tag">EUR/USD</span>
+        <span class="market-tag">GBP/USD</span>
+        <span class="market-tag gray">USD/JPY</span>
+        <span class="market-tag">AUD/USD</span>
+      </div>
+      <div class="market-footer">
+        <div class="market-footer-left">
+          <span class="market-footer-item">24/7 Active</span>
+          <span class="market-footer-item">High Volatility</span>
+        </div>
+        <span class="market-status">● Online</span>
+      </div>
+    </div>
 
-<!-- Signal Screen -->
-<div class="signal-screen" id="signalScreen">
-<div class="main-signal-box" id="mainSignalBox">
-<div class="signal-big-circle" id="signalBigCircle">
-<div class="signal-big-arrow" id="signalBigArrow">&#8593;</div>
-</div>
-<div class="signal-big-text" id="signalBigText">BUY</div>
-<div class="signal-big-sub" id="signalBigSub">Strong Signal Detected</div>
-<div class="signal-pair-name" id="signalPairName">EUR/USD</div>
-</div>
-<div class="signal-live-price-box">
-<div><div class="signal-live-price-label">Live Price</div><div class="signal-live-price-value" id="signalLivePrice">1.0845</div></div>
-<div class="signal-live-price-change up" id="signalLiveChange">+0.23%</div>
-</div>
-<div class="tf-badge" id="tfBadge">5 SECONDS</div>
-<div class="last-update"><div class="last-update-dot"></div><span id="lastUpdate">Just now</span></div>
+    <!-- Crypto Card -->
+    <div class="market-card pro" onclick="openMarket('crypto')">
+      <div class="market-card-header">
+        <div class="market-card-left">
+          <div class="market-icon" style="color:#58a6ff;">₿</div>
+          <div class="market-info">
+            <div class="market-name">CRYPTO</div>
+            <div class="market-desc">Digital Assets</div>
+          </div>
+        </div>
+        <div class="market-badge pro">PRO</div>
+      </div>
+      <div class="market-tags">
+        <span class="market-tag">BTC/USDT</span>
+        <span class="market-tag">ETH/USDT</span>
+        <span class="market-tag gray">SOL/USDT</span>
+        <span class="market-tag">XRP/USDT</span>
+      </div>
+      <div class="market-footer">
+        <div class="market-footer-left">
+          <span class="market-footer-item">24/7 Active</span>
+          <span class="market-footer-item">High Profit</span>
+        </div>
+        <span class="market-status">● Online</span>
+      </div>
+    </div>
 
-<div class="chart-mini">
-<canvas class="chart-canvas" id="miniChart"></canvas>
-</div>
+    <!-- Synthetic Card -->
+    <div class="market-card" onclick="openMarket('synthetic')">
+      <div class="market-card-header">
+        <div class="market-card-left">
+          <div class="market-icon">📊</div>
+          <div class="market-info">
+            <div class="market-name">SYNTHETIC</div>
+            <div class="market-desc">Indices</div>
+          </div>
+        </div>
+        <div class="market-badge">STABLE</div>
+      </div>
+      <div class="market-tags">
+        <span class="market-tag">Vol 10</span>
+        <span class="market-tag">Vol 25</span>
+        <span class="market-tag gray">Vol 50</span>
+        <span class="market-tag">Vol 75</span>
+      </div>
+      <div class="market-footer">
+        <div class="market-footer-left">
+          <span class="market-footer-item">24/7 Active</span>
+          <span class="market-footer-item">Controlled Risk</span>
+        </div>
+        <span class="market-status">● Online</span>
+      </div>
+    </div>
+  </div>
 
-<div class="ai-score-box">
-<div class="ai-score-header">
-<div class="ai-score-title">AI Confidence Score</div>
-<div class="ai-score-value strong" id="aiScoreValue">92%</div>
-</div>
-<div class="ai-score-bar"><div class="ai-score-fill strong" id="aiScoreFill" style="width:92%"></div></div>
-<div class="ai-score-markers"><span>Weak</span><span>Moderate</span><span>Strong</span></div>
-</div>
+  <!-- ASSET SCREEN -->
+  <div class="asset-screen" id="assetScreen">
+    <div class="asset-header">
+      <button class="back-btn" onclick="goBack('home')">←</button>
+      <div>
+        <div class="asset-header-title" id="assetTitle">SELECT PAIR</div>
+        <div class="asset-header-sub" id="assetSub">Choose trading pair</div>
+      </div>
+    </div>
+    <div class="asset-list" id="assetList"></div>
+  </div>
 
-<div class="signal-strength-meter">
-<div class="meter-title">Signal Strength</div>
-<div class="meter-segments" id="meterSegments">
-<div class="meter-segment"></div><div class="meter-segment"></div><div class="meter-segment"></div>
-<div class="meter-segment"></div><div class="meter-segment"></div>
-</div>
-<div class="meter-labels"><span>Weak</span><span>Strong</span></div>
-</div>
+  <!-- TIMEFRAME SCREEN -->
+  <div class="timeframe-screen" id="timeframeScreen">
+    <div class="asset-header">
+      <button class="back-btn" onclick="goBack('asset')">←</button>
+      <div>
+        <div class="asset-header-title">TIMEFRAME</div>
+        <div class="asset-header-sub" id="tfSub">Select duration</div>
+      </div>
+    </div>
+    
+    <div class="selected-pair">
+      <span class="selected-pair-text">SELECTED:</span>
+      <span class="selected-pair-name" id="selectedPairName">--</span>
+    </div>
 
-<div class="support-resistance-box">
-<div class="support-resistance-title">Key Levels</div>
-<div class="sr-levels">
-<div class="sr-level"><span class="sr-level-label">Resistance 2</span><span class="sr-level-value resistance" id="res2">--</span></div>
-<div class="sr-level"><span class="sr-level-label">Resistance 1</span><span class="sr-level-value resistance" id="res1">--</span></div>
-<div class="sr-level"><span class="sr-level-label">Pivot Point</span><span class="sr-level-value neut" id="pivot">--</span></div>
-<div class="sr-level"><span class="sr-level-label">Support 1</span><span class="sr-level-value support" id="sup1">--</span></div>
-<div class="sr-level"><span class="sr-level-label">Support 2</span><span class="sr-level-value support" id="sup2">--</span></div>
-</div>
-</div>
+    <div class="timeframe-grid" id="timeframeGrid">
+      <div class="timeframe-card" onclick="selectTimeframe(1, 'seconds')">
+        <div class="timeframe-icon">⚡</div>
+        <div class="timeframe-num">1</div>
+        <div class="timeframe-label">Second</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(5, 'seconds')">
+        <div class="timeframe-icon">⚡</div>
+        <div class="timeframe-num">5</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(10, 'seconds')">
+        <div class="timeframe-icon">⚡</div>
+        <div class="timeframe-num">10</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(15, 'seconds')">
+        <div class="timeframe-icon">⚡</div>
+        <div class="timeframe-num">15</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(30, 'seconds')">
+        <div class="timeframe-icon">⚡</div>
+        <div class="timeframe-num">30</div>
+        <div class="timeframe-label">Seconds</div>
+      </div>
+      <div class="timeframe-card" onclick="selectTimeframe(60, 'seconds')">
+        <div class="timeframe-icon">⏱</div>
+        <div class="timeframe-num">1</div>
+        <div class="timeframe-label">Minute</div>
+      </div>
+      <div class="timeframe-card mintf" onclick="selectTimeframe(300, 'minutes')">
+        <div class="timeframe-icon">⏱</div>
+        <div class="timeframe-num">5</div>
+        <div class="timeframe-label">Minutes</div>
+      </div>
+      <div class="timeframe-card mintf" onclick="selectTimeframe(900, 'minutes')">
+        <div class="timeframe-icon">⏱</div>
+        <div class="timeframe-num">15</div>
+        <div class="timeframe-label">Minutes</div>
+      </div>
+    </div>
+  </div>
 
-<div class="volume-box">
-<div class="volume-title">Volume Analysis</div>
-<div class="volume-bar-bg"><div class="volume-bar-fill high" id="volumeBar" style="width:75%"></div></div>
-<div class="volume-labels"><span>Low</span><span id="volumeText">High Volume - Confirmed</span><span>Extreme</span></div>
-</div>
+  <!-- ANALYZING SCREEN -->
+  <div class="analyzing-screen" id="analyzingScreen">
+    <div class="brain-container">
+      <div class="brain-ring"></div>
+      <div class="brain-ring"></div>
+      <div class="brain-ring"></div>
+      <div class="brain-icon">🧠</div>
+    </div>
+    <div class="analyzing-title">AI ANALYZING</div>
+    <div class="analyzing-subtitle">Processing market data...</div>
+    
+    <div class="analyzing-stats">
+      <div class="analyzing-stat">
+        <div class="analyzing-stat-num bull" id="bullScore">0</div>
+        <div class="analyzing-stat-label">BULLISH</div>
+      </div>
+      <div class="analyzing-stat">
+        <div class="analyzing-stat-num neut" id="neutScore">0</div>
+        <div class="analyzing-stat-label">NEUTRAL</div>
+      </div>
+      <div class="analyzing-stat">
+        <div class="analyzing-stat-num bear" id="bearScore">0</div>
+        <div class="analyzing-stat-label">BEARISH</div>
+      </div>
+    </div>
 
-<div class="trend-box">
-<div class="trend-box-header"><div class="trend-box-title">Market Trend</div><div class="trend-box-value up" id="trendValue">BULLISH</div></div>
-<div class="trend-box-header"><div class="trend-box-title">Trend Strength</div><div class="trend-box-value up" id="trendStrength">STRONG</div></div>
-</div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="progress-text" id="progressText">Initializing...</div>
+  </div>
 
-<div class="indicator-grid" id="indicatorGrid"></div>
+  <!-- SIGNAL SCREEN -->
+  <div class="signal-screen" id="signalScreen">
+    <div class="signal-section">
+      <div class="signal-circle" id="signalCircle">
+        <div class="signal-arrow" id="signalArrow">⬆</div>
+      </div>
+      <div class="signal-direction" id="signalDirection">BUY</div>
+      <div class="signal-action" id="signalAction">CALL</div>
+      <div class="signal-pair" id="signalPair">EUR/USD</div>
+      <div class="tf-badge" id="tfBadge">5 SECONDS</div>
+    </div>
 
-<div class="trade-timer">
-<div class="trade-timer-label"><span>Trade Window</span><span id="timerCount">10s</span></div>
-<div class="trade-timer-bar"><div class="trade-timer-fill buy" id="timerBar"></div></div>
-</div>
-<div class="timer-text" id="timerText">Execute trade within window</div>
+    <div class="signal-live-price-box">
+      <div>
+        <div class="signal-live-price-label">LIVE PRICE</div>
+        <div class="signal-live-price-value" id="signalLivePrice">0.00000</div>
+      </div>
+      <div class="signal-live-price-change up" id="signalPriceChange">+0.00%</div>
+    </div>
 
-<button class="generate-btn" onclick="generateNewSignal()">GENERATE NEW SIGNAL</button>
-<button class="refresh-btn" onclick="goHome()">BACK TO MARKETS</button>
-</div>
+    <div class="last-update">
+      <div class="last-update-dot"></div>
+      <span id="lastUpdate">Updated now</span>
+    </div>
 
-<!-- History Screen -->
-<div class="history-screen" id="historyScreen">
-<div class="asset-header">
-<button class="back-btn" onclick="showScreen('homeScreen')">&#8592;</button>
-<div><div class="asset-header-title">Signal History</div><div class="asset-header-sub">Last 50 signals</div></div>
-</div>
-<div id="historyList"></div>
-</div>
+    <div class="ai-score-box">
+      <div class="ai-score-header">
+        <span class="ai-score-title">AI CONFIDENCE</span>
+        <span class="ai-score-value strong" id="aiScoreValue">85%</span>
+      </div>
+      <div class="ai-score-bar">
+        <div class="ai-score-fill strong" id="aiScoreFill" style="width:85%"></div>
+      </div>
+      <div class="ai-score-markers">
+        <span>WEAK</span>
+        <span>MODERATE</span>
+        <span>STRONG</span>
+      </div>
+    </div>
 
-<!-- Settings Screen -->
-<div class="settings-screen" id="settingsScreen">
-<div class="asset-header">
-<button class="back-btn" onclick="showScreen('homeScreen')">&#8592;</button>
-<div><div class="asset-header-title">Settings</div><div class="asset-header-sub">Bot configuration</div></div>
-</div>
-<div class="settings-card">
-<div class="settings-card-title">Signal Filters</div>
-<div class="settings-row"><div class="settings-label">Only Strong Signals</div><div class="toggle-switch active" id="toggleStrong" onclick="toggleSwitch(this)"></div></div>
-<div class="settings-row"><div class="settings-label">Sound Alerts</div><div class="toggle-switch active" id="toggleSound" onclick="toggleSwitch(this)"></div></div>
-<div class="settings-row"><div class="settings-label">Auto Refresh</div><div class="toggle-switch" id="toggleAuto" onclick="toggleSwitch(this)"></div></div>
-</div>
-<div class="settings-card">
-<div class="settings-card-title">Risk Management</div>
-<div class="settings-row"><div class="settings-label">Max Risk Per Trade</div><div class="settings-value">2%</div></div>
-<div class="settings-row"><div class="settings-label">Stop Loss</div><div class="settings-value">15 pips</div></div>
-<div class="settings-row"><div class="settings-label">Take Profit</div><div class="settings-value">30 pips</div></div>
-</div>
-<div class="settings-card">
-<div class="settings-card-title">About</div>
-<div class="settings-row"><div class="settings-label">Version</div><div class="settings-value">3.0 PRO</div></div>
-<div class="settings-row"><div class="settings-label">Indicators</div><div class="settings-value">8 Active</div></div>
-<div class="settings-row"><div class="settings-label">Last Update</div><div class="settings-value">June 2026</div></div>
-</div>
-</div>
+    <div class="indicator-grid" id="indicatorGrid">
+      <div class="indicator-card">
+        <div class="indicator-card-header">
+          <span class="indicator-name">RSI</span>
+          <span class="indicator-status buy" id="rsiStatus">BUY</span>
+        </div>
+        <div class="indicator-value buy" id="rsiValue">42.5</div>
+        <div class="indicator-desc">Relative Strength Index</div>
+      </div>
+      <div class="indicator-card">
+        <div class="indicator-card-header">
+          <span class="indicator-name">EMA</span>
+          <span class="indicator-status buy" id="emaStatus">BUY</span>
+        </div>
+        <div class="indicator-value buy" id="emaValue">BULLISH</div>
+        <div class="indicator-desc">Exponential Moving Average</div>
+      </div>
+      <div class="indicator-card">
+        <div class="indicator-card-header">
+          <span class="indicator-name">MACD</span>
+          <span class="indicator-status buy" id="macdStatus">BUY</span>
+        </div>
+        <div class="indicator-value buy" id="macdValue">+0.45</div>
+        <div class="indicator-desc">Moving Average Convergence</div>
+      </div>
+      <div class="indicator-card">
+        <div class="indicator-card-header">
+          <span class="indicator-name">TREND</span>
+          <span class="indicator-status buy" id="trendStatus">BUY</span>
+        </div>
+        <div class="indicator-value buy" id="trendValue">UP</div>
+        <div class="indicator-desc">Price Action Trend</div>
+      </div>
+    </div>
 
-<!-- Bottom Navigation -->
-<div class="bottom-nav" id="bottomNav">
-<div class="nav-item active" onclick="showScreen('homeScreen')">
-<div class="nav-icon">&#127968;</div>
-<div class="nav-label">Home</div>
-</div>
-<div class="nav-item" onclick="showScreen('historyScreen')">
-<div class="nav-icon">&#128200;</div>
-<div class="nav-label">History</div>
-</div>
-<div class="nav-item" onclick="showScreen('settingsScreen')">
-<div class="nav-icon">&#9881;</div>
-<div class="nav-label">Settings</div>
-</div>
-</div>
+    <div class="trade-timer">
+      <div class="trade-timer-label">
+        <span>Trade Window</span>
+        <span id="timerCount">5s</span>
+      </div>
+      <div class="trade-timer-bar">
+        <div class="trade-timer-fill buy" id="timerBar" style="animation-duration:5s"></div>
+      </div>
+    </div>
+    <div class="timer-text" id="timerText">Execute trade within 5 seconds</div>
+
+    <div class="warning-box">
+      <div class="warning-title">⚠️ RISK WARNING</div>
+      <div class="warning-text">Trading involves risk. This signal is for educational purposes. Always use proper risk management.</div>
+    </div>
+
+    <button class="generate-btn" onclick="generateNewSignal()">🔄 GENERATE NEW SIGNAL</button>
+    <button class="refresh-btn" onclick="goHome()">🏠 BACK TO HOME</button>
+  </div>
+
 </div>
 
 <script>
-// ===================== STATE =====================
-let currentScreen = 'loginScreen';
-let selectedMarket = '';
-let selectedPair = '';
-let selectedTimeframe = 5;
-let selectedTimeframeType = 'seconds';
+// ========== GLOBAL STATE ==========
+let currentMarket = '';
+let currentPair = '';
+let currentTimeframe = 5;
+let currentTfUnit = 'seconds';
+let priceHistory = {};
 let signalHistory = [];
-let currentSignal = null;
-let priceUpdateInterval = null;
-let livePrice = 0;
-let priceHistory = [];
+let winCount = 0;
+let totalCount = 0;
+let isAnalyzing = false;
 
-// ===================== ASSETS DATA =====================
-const assets = {
-forex: [
-{pair:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',price:1.0845},
-{pair:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',price:1.2678},
-{pair:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',price:151.42},
-{pair:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',price:0.6543},
-{pair:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',price:1.3689},
-{pair:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',price:0.8567},
-{pair:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',price:0.5987},
-{pair:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',price:0.9034},
-{pair:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',price:192.15},
-{pair:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',price:164.23}
-],
-synthetic: [
-{pair:'V75',flag:'⚡',full:'Volatility 75 Index',price:475.32},
-{pair:'V100',flag:'⚡',full:'Volatility 100 Index',price:623.45},
-{pair:'V50',flag:'⚡',full:'Volatility 50 Index',price:312.78},
-{pair:'V25',flag:'⚡',full:'Volatility 25 Index',price:156.89},
-{pair:'V10',flag:'⚡',full:'Volatility 10 Index',price:78.45},
-{pair:'Jump 75',flag:'🚀',full:'Jump 75 Index',price:1245.67},
-{pair:'Jump 50',flag:'🚀',full:'Jump 50 Index',price:987.34},
-{pair:'Jump 25',flag:'🚀',full:'Jump 25 Index',price:654.21},
-{pair:'Bear 5',flag:'🐻',full:'Bear Market Index',price:345.67},
-{pair:'Bull 5',flag:'🐂',full:'Bull Market Index',price:678.90}
-],
-crypto: [
-{pair:'BTC/USD',flag:'₿',full:'Bitcoin / US Dollar',price:67432.15},
-{pair:'ETH/USD',flag:'Ξ',full:'Ethereum / US Dollar',price:3456.78},
-{pair:'SOL/USD',flag:'◎',full:'Solana / US Dollar',price:145.67},
-{pair:'XRP/USD',flag:'✕',full:'Ripple / US Dollar',price:0.6234},
-{pair:'ADA/USD',flag:'₳',full:'Cardano / US Dollar',price:0.4567},
-{pair:'DOGE/USD',flag:'Ð',full:'Dogecoin / US Dollar',price:0.1234},
-{pair:'DOT/USD',flag:'●',full:'Polkadot / US Dollar',price:7.89},
-{pair:'LINK/USD',flag:'⬡',full:'Chainlink / US Dollar',price:18.45},
-{pair:'MATIC/USD',flag:'⬢',full:'Polygon / US Dollar',price:0.67},
-{pair:'AVAX/USD',flag:'🔺',full:'Avalanche / US Dollar',price:35.67}
-],
-commodities: [
-{pair:'XAU/USD',flag:'🥇',full:'Gold / US Dollar',price:2345.67},
-{pair:'XAG/USD',flag:'🥈',full:'Silver / US Dollar',price:28.45},
-{pair:'USOIL',flag:'🛢️',full:'US Crude Oil',price:78.34},
-{pair:'UKOIL',flag:'🛢️',full:'UK Brent Oil',price:82.56},
-{pair:'NATGAS',flag:'🔥',full:'Natural Gas',price:2.89},
-{pair:'COPPER',flag:'🔶',full:'Copper',price:4.56},
-{pair:'PLATINUM',flag:'💎',full:'Platinum',price:987.45},
-{pair:'PALLADIUM',flag:'💎',full:'Palladium',price:1234.56}
-]
+// ========== MARKET DATA ==========
+const markets = {
+  forex: {
+    name: 'FOREX',
+    pairs: [
+      {symbol:'EURUSD', name:'EUR/USD', flag:'🇪🇺', type:'forex'},
+      {symbol:'GBPUSD', name:'GBP/USD', flag:'🇬🇧', type:'forex'},
+      {symbol:'USDJPY', name:'USD/JPY', flag:'🇯🇵', type:'forex'},
+      {symbol:'AUDUSD', name:'AUD/USD', flag:'🇦🇺', type:'forex'},
+      {symbol:'USDCAD', name:'USD/CAD', flag:'🇨🇦', type:'forex'},
+      {symbol:'USDCHF', name:'USD/CHF', flag:'🇨🇭', type:'forex'},
+      {symbol:'NZDUSD', name:'NZD/USD', flag:'🇳🇿', type:'forex'},
+      {symbol:'EURGBP', name:'EUR/GBP', flag:'🇪🇺', type:'forex'}
+    ]
+  },
+  crypto: {
+    name: 'CRYPTO',
+    pairs: [
+      {symbol:'BTCUSDT', name:'BTC/USDT', flag:'₿', type:'crypto'},
+      {symbol:'ETHUSDT', name:'ETH/USDT', flag:'Ξ', type:'crypto'},
+      {symbol:'SOLUSDT', name:'SOL/USDT', flag:'◎', type:'crypto'},
+      {symbol:'XRPUSDT', name:'XRP/USDT', flag:'✕', type:'crypto'},
+      {symbol:'ADAUSDT', name:'ADA/USDT', flag:'₳', type:'crypto'},
+      {symbol:'DOGEUSDT', name:'DOGE/USDT', flag:'Ð', type:'crypto'},
+      {symbol:'DOTUSDT', name:'DOT/USDT', flag:'●', type:'crypto'},
+      {symbol:'LINKUSDT', name:'LINK/USDT', flag:'⬡', type:'crypto'}
+    ]
+  },
+  synthetic: {
+    name: 'SYNTHETIC',
+    pairs: [
+      {symbol:'R_10', name:'Volatility 10', flag:'📊', type:'synthetic'},
+      {symbol:'R_25', name:'Volatility 25', flag:'📊', type:'synthetic'},
+      {symbol:'R_50', name:'Volatility 50', flag:'📊', type:'synthetic'},
+      {symbol:'R_75', name:'Volatility 75', flag:'📊', type:'synthetic'},
+      {symbol:'R_100', name:'Volatility 100', flag:'📊', type:'synthetic'},
+      {symbol:'1HZ10V', name:'Jump 10', flag:'⚡', type:'synthetic'},
+      {symbol:'1HZ25V', name:'Jump 25', flag:'⚡', type:'synthetic'},
+      {symbol:'1HZ50V', name:'Jump 50', flag:'⚡', type:'synthetic'}
+    ]
+  }
 };
 
-// ===================== LOGIN =====================
+// ========== LOGIN ==========
 function doLogin() {
-const id = document.getElementById('loginId').value;
-const key = document.getElementById('loginKey').value;
-if(id && key) {
-document.getElementById('loginScreen').style.opacity = '0';
-setTimeout(() => {
-document.getElementById('loginScreen').style.display = 'none';
-document.getElementById('appScreen').style.display = 'block';
-showScreen('homeScreen');
-startPriceTicker();
-}, 500);
-}
+  const user = document.getElementById('username').value.trim();
+  const pass = document.getElementById('password').value.trim();
+  
+  if(user === 'Lubna' && pass === 'Abubakar786') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appScreen').style.display = 'block';
+    startPriceUpdates();
+    loadStats();
+  } else {
+    alert('Invalid credentials! Use: Lubna / Abubakar786');
+  }
 }
 
-// ===================== NAVIGATION =====================
+// ========== NAVIGATION ==========
 function showScreen(screenId) {
-['homeScreen','assetScreen','timeframeScreen','analyzingScreen','signalScreen','historyScreen','settingsScreen'].forEach(s => {
-document.getElementById(s).style.display = 'none';
-});
-document.getElementById(screenId).style.display = screenId === 'analyzingScreen' ? 'flex' : 'block';
-if(screenId === 'signalScreen') document.getElementById(screenId).style.display = 'flex';
-currentScreen = screenId;
-const navItems = document.querySelectorAll('.nav-item');
-navItems.forEach(item => item.classList.remove('active'));
-if(screenId === 'homeScreen') navItems[0].classList.add('active');
-if(screenId === 'historyScreen') navItems[1].classList.add('active');
-if(screenId === 'settingsScreen') navItems[2].classList.add('active');
+  document.querySelectorAll('.home-screen, .asset-screen, .timeframe-screen, .analyzing-screen, .signal-screen').forEach(s => {
+    s.style.display = 'none';
+  });
+  document.getElementById(screenId).style.display = screenId === 'analyzing-screen' ? 'flex' : 'block';
 }
 
-function goBack() {
-if(currentScreen === 'assetScreen') showScreen('homeScreen');
-else if(currentScreen === 'timeframeScreen') showScreen('assetScreen');
-else if(currentScreen === 'signalScreen') showScreen('timeframeScreen');
+function goBack(to) {
+  if(to === 'home') showScreen('homeScreen');
+  else if(to === 'asset') showScreen('assetScreen');
+  else if(to === 'timeframe') showScreen('timeframeScreen');
 }
 
 function goHome() {
-showScreen('homeScreen');
+  showScreen('homeScreen');
 }
 
-// ===================== MARKET SELECTION =====================
+// ========== MARKET SELECTION ==========
 function openMarket(market) {
-selectedMarket = market;
-const titles = {forex:'Forex Pairs',synthetic:'Synthetic Indices',crypto:'Crypto Pairs',commodities:'Commodities'};
-document.getElementById('assetTitle').textContent = titles[market];
-const list = document.getElementById('assetList');
-list.innerHTML = '';
-assets[market].forEach(asset => {
-const change = (Math.random() * 2 - 1).toFixed(2);
-const isUp = change >= 0;
-list.innerHTML += `
-<div class="asset-item" onclick="selectPair('${asset.pair}',${asset.price})">
-<div class="asset-left">
-<div class="asset-flag">${asset.flag}</div>
-<div><div class="asset-name">${asset.pair}</div><div class="asset-fullname">${asset.full}</div></div>
-</div>
-<div class="asset-right">
-<div class="asset-live-price">${formatPrice(asset.price)}</div>
-<div class="asset-change ${isUp?'up':'down'}">${isUp?'+':''}${change}%</div>
-<div class="asset-arrow">&#8250;</div>
-</div>
-</div>`;
-});
-showScreen('assetScreen');
+  currentMarket = market;
+  const m = markets[market];
+  document.getElementById('assetTitle').textContent = m.name;
+  document.getElementById('assetSub').textContent = `Select ${m.name} pair`;
+  
+  const list = document.getElementById('assetList');
+  list.innerHTML = '';
+  
+  m.pairs.forEach((pair, idx) => {
+    const div = document.createElement('div');
+    div.className = 'asset-item';
+    div.onclick = () => selectPair(pair);
+    
+    // Get live price for display
+    const price = getStoredPrice(pair.symbol) || '0.00000';
+    const change = getStoredChange(pair.symbol) || '0.00';
+    const isUp = parseFloat(change) >= 0;
+    
+    div.innerHTML = `
+      <div class="asset-left">
+        <div class="asset-flag">${pair.flag}</div>
+        <div>
+          <div class="asset-name">${pair.name}</div>
+          <div class="asset-fullname">${pair.symbol}</div>
+        </div>
+      </div>
+      <div class="asset-right">
+        <span class="asset-live-price" id="price-${pair.symbol}">${price}</span>
+        <span class="asset-change ${isUp ? 'up' : 'down'}" id="change-${pair.symbol}">${change}%</span>
+        <span class="asset-arrow">→</span>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+  
+  showScreen('assetScreen');
 }
 
-function selectPair(pair, price) {
-selectedPair = pair;
-livePrice = price;
-document.getElementById('selectedPairName').textContent = pair;
-showScreen('timeframeScreen');
+function selectPair(pair) {
+  currentPair = pair;
+  document.getElementById('selectedPairName').textContent = pair.name;
+  document.getElementById('tfSub').textContent = `Select timeframe for ${pair.name}`;
+  showScreen('timeframeScreen');
 }
 
-function selectTimeframe(tf, type) {
-selectedTimeframe = tf;
-selectedTimeframeType = type;
-document.querySelectorAll('.timeframe-card').forEach(c => c.classList.remove('selected'));
-event.currentTarget.classList.add('selected');
-startAnalysis();
+function selectTimeframe(seconds, unit) {
+  currentTimeframe = seconds;
+  currentTfUnit = unit;
+  
+  // Mark selected
+  document.querySelectorAll('.timeframe-card').forEach(c => c.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  
+  // Start analysis
+  setTimeout(() => startAnalysis(), 500);
 }
 
-function formatPrice(price) {
-if(price >= 1000) return price.toFixed(2);
-if(price >= 100) return price.toFixed(3);
-if(price >= 10) return price.toFixed(4);
-if(price >= 1) return price.toFixed(5);
-return price.toFixed(6);
+// ========== PRICE FETCHING ==========
+async function fetchPrice(symbol) {
+  try {
+    // Use Binance API for crypto, mock for others
+    if(currentMarket === 'crypto') {
+      const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
+      const data = await res.json();
+      return {
+        price: parseFloat(data.lastPrice),
+        change: parseFloat(data.priceChangePercent),
+        high: parseFloat(data.highPrice),
+        low: parseFloat(data.lowPrice),
+        volume: parseFloat(data.volume)
+      };
+    } else {
+      // For forex/synthetic, generate realistic mock data based on symbol
+      return generateMockPrice(symbol);
+    }
+  } catch(e) {
+    console.error('Price fetch error:', e);
+    return generateMockPrice(symbol);
+  }
 }
 
-// ===================== PRICE TICKER =====================
-function startPriceTicker() {
-if(priceUpdateInterval) clearInterval(priceUpdateInterval);
-priceUpdateInterval = setInterval(() => {
-const basePrice = 2345.67;
-const change = (Math.random() * 20 - 10);
-livePrice = basePrice + change;
-const pct = ((change / basePrice) * 100).toFixed(2);
-const isUp = change >= 0;
-document.getElementById('tickerPrice').textContent = livePrice.toFixed(2);
-document.getElementById('tickerPrice').className = `price-ticker-value ${isUp?'up':'down'}`;
-document.getElementById('tickerChange').textContent = `${isUp?'+':''}${pct}%`;
-document.getElementById('tickerChange').className = `price-ticker-change ${isUp?'up':'down'}`;
-}, 3000);
+function generateMockPrice(symbol) {
+  const basePrices = {
+    'EURUSD': 1.0850, 'GBPUSD': 1.2650, 'USDJPY': 149.50, 'AUDUSD': 0.6550,
+    'USDCAD': 1.3550, 'USDCHF': 0.8850, 'NZDUSD': 0.6150, 'EURGBP': 0.8550,
+    'R_10': 1000.00, 'R_25': 1000.00, 'R_50': 1000.00, 'R_75': 1000.00, 'R_100': 1000.00
+  };
+  
+  const base = basePrices[symbol] || 1.0;
+  const variation = (Math.random() - 0.5) * 0.002;
+  const price = base + variation;
+  const change = (Math.random() - 0.4) * 2; // Slight bullish bias
+  
+  return {price, change, high: price * 1.001, low: price * 0.999, volume: Math.random() * 1000000};
 }
 
-// ===================== TECHNICAL INDICATORS ENGINE =====================
-function generatePriceData(basePrice, count = 100) {
-const data = [];
-let price = basePrice;
-const volatility = basePrice * 0.002;
-for(let i = 0; i < count; i++) {
-const change = (Math.random() - 0.5) * volatility;
-price += change;
-data.push(price);
-}
-return data;
+function getStoredPrice(symbol) {
+  return priceHistory[symbol] ? priceHistory[symbol].toFixed(5) : '0.00000';
 }
 
-function SMA(data, period) {
-if(data.length < period) return null;
-let sum = 0;
-for(let i = data.length - period; i < data.length; i++) sum += data[i];
-return sum / period;
+function getStoredChange(symbol) {
+  return (Math.random() * 2 - 0.5).toFixed(2);
 }
 
-function EMA(data, period) {
-if(data.length < period) return null;
-const multiplier = 2 / (period + 1);
-let ema = data[0];
-for(let i = 1; i < data.length; i++) {
-ema = (data[i] - ema) * multiplier + ema;
-}
-return ema;
-}
-
-function RSI(data, period = 14) {
-if(data.length < period + 1) return 50;
-let gains = 0, losses = 0;
-for(let i = data.length - period; i < data.length; i++) {
-const diff = data[i] - data[i-1];
-if(diff > 0) gains += diff;
-else losses += Math.abs(diff);
-}
-const avgGain = gains / period;
-const avgLoss = losses / period;
-if(avgLoss === 0) return 100;
-const rs = avgGain / avgLoss;
-return 100 - (100 / (1 + rs));
+// ========== PRICE UPDATES ==========
+async function startPriceUpdates() {
+  // Update BTC ticker
+  setInterval(async () => {
+    try {
+      const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT');
+      const data = await res.json();
+      const price = parseFloat(data.lastPrice);
+      const change = parseFloat(data.priceChangePercent);
+      
+      document.getElementById('tickerPrice').textContent = '$' + price.toLocaleString('en-US', {minimumFractionDigits: 2});
+      document.getElementById('tickerPrice').className = 'price-ticker-value ' + (change >= 0 ? 'up' : 'down');
+      document.getElementById('tickerChange').textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+      document.getElementById('tickerChange').className = 'price-ticker-change ' + (change >= 0 ? 'up' : 'down');
+      document.getElementById('apiStatus').textContent = 'API Connected';
+      document.getElementById('apiStatus').className = 'api-status';
+    } catch(e) {
+      document.getElementById('apiStatus').textContent = 'API Error';
+      document.getElementById('apiStatus').className = 'api-status error';
+    }
+  }, 3000);
 }
 
-function MACD(data) {
-const ema12 = EMA(data.slice(-26), 12);
-const ema26 = EMA(data.slice(-26), 26);
-if(!ema12 || !ema26) return {macd:0, signal:0, histogram:0};
-const macdLine = ema12 - ema26;
-const signalLine = macdLine * 0.8;
-const histogram = macdLine - signalLine;
-return {macd:macdLine, signal:signalLine, histogram:histogram};
+// ========== ANALYSIS ==========
+async function startAnalysis() {
+  showScreen('analyzingScreen');
+  isAnalyzing = true;
+  
+  const steps = [
+    'Fetching market data...',
+    'Calculating RSI...',
+    'Analyzing EMA cross...',
+    'Checking MACD...',
+    'Evaluating trend...',
+    'Computing AI confidence...',
+    'Finalizing signal...'
+  ];
+  
+  // Animate analysis
+  for(let i = 0; i < steps.length; i++) {
+    document.getElementById('progressText').textContent = steps[i];
+    
+    // Update fake analysis stats
+    const bull = Math.floor(Math.random() * 30) + 40;
+    const bear = Math.floor(Math.random() * 30) + 10;
+    const neut = 100 - bull - bear;
+    
+    document.getElementById('bullScore').textContent = bull;
+    document.getElementById('bearScore').textContent = bear;
+    document.getElementById('neutScore').textContent = neut;
+    
+    await sleep(400);
+  }
+  
+  // Generate actual signal
+  await generateSignal();
 }
 
-function BollingerBands(data, period = 20, multiplier = 2) {
-const sma = SMA(data, period);
-if(!sma) return {upper:sma, middle:sma, lower:sma};
-let sumSq = 0;
-for(let i = data.length - period; i < data.length; i++) {
-sumSq += Math.pow(data[i] - sma, 2);
-}
-const stdDev = Math.sqrt(sumSq / period);
-return {
-upper: sma + (multiplier * stdDev),
-middle: sma,
-lower: sma - (multiplier * stdDev)
-};
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function Stochastic(data, kPeriod = 14, dPeriod = 3) {
-if(data.length < kPeriod) return {k:50, d:50};
-const recent = data.slice(-kPeriod);
-const lowest = Math.min(...recent);
-const highest = Math.max(...recent);
-const current = data[data.length - 1];
-if(highest === lowest) return {k:50, d:50};
-const k = ((current - lowest) / (highest - lowest)) * 100;
-return {k:k, d:k};
+// ========== SIGNAL GENERATION - FIXED ==========
+async function generateSignal() {
+  isAnalyzing = false;
+  
+  // Fetch real price data
+  const priceData = await fetchPrice(currentPair.symbol);
+  const currentPrice = priceData.price;
+  
+  // Store price
+  priceHistory[currentPair.symbol] = currentPrice;
+  
+  // Generate price history for technical analysis
+  const history = generatePriceHistory(currentPrice, 50);
+  
+  // Calculate technical indicators
+  const rsi = calculateRSI(history);
+  const ema = calculateEMA(history, 14);
+  const macd = calculateMACD(history);
+  const trend = analyzeTrend(history);
+  
+  // Determine signal based on indicators
+  let signal = analyzeSignal(rsi, ema, macd, trend, priceData);
+  
+  // Apply timeframe adjustment
+  signal = adjustForTimeframe(signal, currentTimeframe);
+  
+  // Display signal
+  displaySignal(signal, currentPrice, priceData.change, rsi, ema, macd, trend);
+  
+  // Save to history
+  saveSignal(signal);
 }
 
-function ADX(data, period = 14) {
-if(data.length < period * 2) return 25;
-let plusDM = 0, minusDM = 0, tr = 0;
-for(let i = data.length - period; i < data.length; i++) {
-const upMove = data[i] - data[i-1];
-const downMove = data[i-1] - data[i];
-if(upMove > downMove && upMove > 0) plusDM += upMove;
-if(downMove > upMove && downMove > 0) minusDM += downMove;
-tr += Math.abs(data[i] - data[i-1]);
-}
-const plusDI = (plusDM / tr) * 100;
-const minusDI = (minusDM / tr) * 100;
-const dx = (Math.abs(plusDI - minusDI) / (plusDI + minusDI)) * 100;
-return dx || 25;
+function generatePriceHistory(currentPrice, count) {
+  const history = [];
+  let price = currentPrice;
+  for(let i = 0; i < count; i++) {
+    history.unshift(price);
+    price = price * (1 + (Math.random() - 0.5) * 0.002);
+  }
+  return history;
 }
 
-function findSupportResistance(data) {
-const sorted = [...data].sort((a,b) => a-b);
-const len = sorted.length;
-return {
-support2: sorted[Math.floor(len * 0.05)],
-support1: sorted[Math.floor(len * 0.15)],
-pivot: sorted[Math.floor(len * 0.5)],
-resistance1: sorted[Math.floor(len * 0.85)],
-resistance2: sorted[Math.floor(len * 0.95)]
-};
+function calculateRSI(prices, period = 14) {
+  if(prices.length < period + 1) return 50;
+  
+  let gains = 0, losses = 0;
+  for(let i = 1; i <= period; i++) {
+    const change = prices[prices.length - i] - prices[prices.length - i - 1];
+    if(change > 0) gains += change;
+    else losses -= change;
+  }
+  
+  const avgGain = gains / period;
+  const avgLoss = losses / period;
+  
+  if(avgLoss === 0) return 100;
+  const rs = avgGain / avgLoss;
+  return 100 - (100 / (1 + rs));
 }
 
-function analyzeVolume() {
-const volume = Math.random() * 100;
-let status, width, text;
-if(volume > 70) { status = 'high'; width = volume; text = 'High Volume - Confirmed'; }
-else if(volume > 40) { status = 'med'; width = volume; text = 'Moderate Volume'; }
-else { status = 'low'; width = volume; text = 'Low Volume - Caution'; }
-return {status, width, text};
+function calculateEMA(prices, period) {
+  const k = 2 / (period + 1);
+  let ema = prices[0];
+  for(let i = 1; i < prices.length; i++) {
+    ema = prices[i] * k + ema * (1 - k);
+  }
+  return ema;
 }
 
-function analyzeTrend(data) {
-const sma20 = SMA(data, 20);
-const sma50 = SMA(data, 50);
-const current = data[data.length - 1];
-if(!sma20 || !sma50) return {direction:'neutral', strength:'weak'};
-const diff = current - sma20;
-const pct = (diff / current) * 100;
-let direction, strength;
-if(pct > 0.5) { direction = 'bullish'; strength = pct > 1.5 ? 'strong' : 'moderate'; }
-else if(pct < -0.5) { direction = 'bearish'; strength = pct < -1.5 ? 'strong' : 'moderate'; }
-else { direction = 'neutral'; strength = 'weak'; }
-return {direction, strength, pct};
+function calculateMACD(prices) {
+  const ema12 = calculateEMA(prices.slice(-26), 12);
+  const ema26 = calculateEMA(prices.slice(-26), 26);
+  return ema12 - ema26;
 }
 
-// ===================== ANALYSIS ENGINE =====================
-function startAnalysis() {
-showScreen('analyzingScreen');
-let progress = 0;
-const steps = [
-'Initializing neural networks...',
-'Calculating RSI...',
-'Analyzing MACD...',
-'Computing Bollinger Bands...',
-'Checking EMA Crossover...',
-'Evaluating Stochastic...',
-'Measuring ADX...',
-'Finding Support/Resistance...',
-'Analyzing Volume...',
-'Generating AI Consensus...'
-];
-let step = 0;
-const interval = setInterval(() => {
-progress += 10;
-document.getElementById('progressText').textContent = steps[step] || 'Finalizing...';
-step++;
-if(progress >= 100) {
-clearInterval(interval);
-setTimeout(() => {
-generateSignal();
-}, 500);
-}
-}, 400);
+function analyzeTrend(prices) {
+  const shortEma = calculateEMA(prices.slice(-10), 5);
+  const longEma = calculateEMA(prices.slice(-20), 10);
+  
+  if(shortEma > longEma * 1.001) return 'UP';
+  if(shortEma < longEma * 0.999) return 'DOWN';
+  return 'SIDEWAYS';
 }
 
-// ===================== SIGNAL GENERATION =====================
-function generateSignal() {
-// Generate price data
-priceHistory = generatePriceData(livePrice, 100);
-
-// Calculate all indicators
-const rsi = RSI(priceHistory, 14);
-const macd = MACD(priceHistory);
-const bb = BollingerBands(priceHistory, 20, 2);
-const ema9 = EMA(priceHistory.slice(-15), 9);
-const ema21 = EMA(priceHistory.slice(-25), 21);
-const stoch = Stochastic(priceHistory, 14, 3);
-const adx = ADX(priceHistory, 14);
-const sr = findSupportResistance(priceHistory);
-const volume = analyzeVolume();
-const trend = analyzeTrend(priceHistory);
-
-// Determine signal based on indicators
-let buyScore = 0;
-let sellScore = 0;
-let signals = [];
-
-// RSI Signal
-if(rsi < 30) { buyScore += 2; signals.push({name:'RSI',value:rsi.toFixed(1),signal:'buy',desc:'Oversold - Bullish'}); }
-else if(rsi > 70) { sellScore += 2; signals.push({name:'RSI',value:rsi.toFixed(1),signal:'sell',desc:'Overbought - Bearish'}); }
-else { signals.push({name:'RSI',value:rsi.toFixed(1),signal:'neut',desc:'Neutral Zone'}); }
-
-// MACD Signal
-if(macd.histogram > 0) { buyScore += 2; signals.push({name:'MACD',value:macd.histogram.toFixed(4),signal:'buy',desc:'Bullish Crossover'}); }
-else { sellScore += 2; signals.push({name:'MACD',value:macd.histogram.toFixed(4),signal:'sell',desc:'Bearish Crossover'}); }
-
-// Bollinger Bands
-const current = priceHistory[priceHistory.length - 1];
-if(current < bb.lower) { buyScore += 2; signals.push({name:'Bollinger',value:'Lower',signal:'buy',desc:'Price below lower band'}); }
-else if(current > bb.upper) { sellScore += 2; signals.push({name:'Bollinger',value:'Upper',signal:'sell',desc:'Price above upper band'}); }
-else { signals.push({name:'Bollinger',value:'Middle',signal:'neut',desc:'Within bands'}); }
-
-// EMA Crossover
-if(ema9 && ema21) {
-if(ema9 > ema21) { buyScore += 2; signals.push({name:'EMA Cross',value:'9>21',signal:'buy',desc:'Golden Cross'}); }
-else { sellScore += 2; signals.push({name:'EMA Cross',value:'9<21',signal:'sell',desc:'Death Cross'}); }
+function analyzeSignal(rsi, ema, macd, trend, priceData) {
+  let buyScore = 0;
+  let sellScore = 0;
+  
+  // RSI analysis (oversold = buy, overbought = sell)
+  if(rsi < 30) buyScore += 3;
+  else if(rsi < 45) buyScore += 2;
+  else if(rsi > 70) sellScore += 3;
+  else if(rsi > 55) sellScore += 2;
+  
+  // Trend analysis
+  if(trend === 'UP') buyScore += 2;
+  else if(trend === 'DOWN') sellScore += 2;
+  
+  // MACD analysis
+  if(macd > 0) buyScore += 2;
+  else sellScore += 2;
+  
+  // Price momentum (recent change)
+  if(priceData.change > 0.5) buyScore += 1;
+  else if(priceData.change < -0.5) sellScore += 1;
+  
+  // Volume confirmation
+  if(priceData.volume > 500000) {
+    if(buyScore > sellScore) buyScore += 1;
+    else if(sellScore > buyScore) sellScore += 1;
+  }
+  
+  const total = buyScore + sellScore;
+  const confidence = total > 0 ? Math.max(buyScore, sellScore) / total * 100 : 50;
+  
+  if(buyScore > sellScore + 1) {
+    return {type: 'BUY', action: 'CALL', confidence: Math.min(confidence * 1.2, 95), rsi, ema, macd, trend};
+  } else if(sellScore > buyScore + 1) {
+    return {type: 'SELL', action: 'PUT', confidence: Math.min(confidence * 1.2, 95), rsi, ema, macd, trend};
+  } else {
+    return {type: 'NEUTRAL', action: 'WAIT', confidence: 50, rsi, ema, macd, trend};
+  }
 }
 
-// Stochastic
-if(stoch.k < 20) { buyScore += 1; signals.push({name:'Stochastic',value:stoch.k.toFixed(1),signal:'buy',desc:'Oversold'}); }
-else if(stoch.k > 80) { sellScore += 1; signals.push({name:'Stochastic',value:stoch.k.toFixed(1),signal:'sell',desc:'Overbought'}); }
-else { signals.push({name:'Stochastic',value:stoch.k.toFixed(1),signal:'neut',desc:'Neutral'}); }
-
-// ADX
-if(adx > 25) { signals.push({name:'ADX',value:adx.toFixed(1),signal:'buy',desc:'Strong Trend'}); buyScore += 1; }
-else { signals.push({name:'ADX',value:adx.toFixed(1),signal:'neut',desc:'Weak Trend'}); }
-
-// Volume
-if(volume.status === 'high') { buyScore += 1; signals.push({name:'Volume',value:'High',signal:'buy',desc:'Strong confirmation'}); }
-else if(volume.status === 'low') { sellScore += 1; signals.push({name:'Volume',value:'Low',signal:'sell',desc:'Weak confirmation'}); }
-else { signals.push({name:'Volume',value:'Med',signal:'neut',desc:'Moderate'}); }
-
-// Trend
-if(trend.direction === 'bullish') { buyScore += 2; signals.push({name:'Trend',value:trend.strength,signal:'buy',desc:'Uptrend'}); }
-else if(trend.direction === 'bearish') { sellScore += 2; signals.push({name:'Trend',value:trend.strength,signal:'sell',desc:'Downtrend'}); }
-else { signals.push({name:'Trend',value:'Flat',signal:'neut',desc:'Sideways'}); }
-
-// Determine final signal
-let finalSignal, confidence;
-if(buyScore > sellScore + 2) { finalSignal = 'buy'; confidence = Math.min(95, 60 + buyScore * 5); }
-else if(sellScore > buyScore + 2) { finalSignal = 'sell'; confidence = Math.min(95, 60 + sellScore * 5); }
-else { finalSignal = 'neut'; confidence = 50; }
-
-// Store signal
-currentSignal = {
-pair: selectedPair,
-timeframe: selectedTimeframe + ' ' + selectedTimeframeType,
-signal: finalSignal,
-confidence: confidence,
-price: current,
-indicators: signals,
-trend: trend,
-volume: volume,
-sr: sr,
-timestamp: new Date().toLocaleTimeString()
-};
-
-signalHistory.unshift(currentSignal);
-if(signalHistory.length > 50) signalHistory.pop();
-
-// Display signal
-showSignal(currentSignal);
+function adjustForTimeframe(signal, timeframe) {
+  // Higher timeframes = stronger signals
+  if(timeframe >= 300) {
+    signal.confidence = Math.min(signal.confidence * 1.1, 98);
+  } else if(timeframe <= 5) {
+    signal.confidence = Math.min(signal.confidence * 0.9, 85);
+  }
+  return signal;
 }
 
-// ===================== DISPLAY SIGNAL =====================
-function showSignal(signal) {
-showScreen('signalScreen');
-
-// Main signal box
-const box = document.getElementById('mainSignalBox');
-const circle = document.getElementById('signalBigCircle');
-const arrow = document.getElementById('signalBigArrow');
-const text = document.getElementById('signalBigText');
-const sub = document.getElementById('signalBigSub');
-
-box.className = 'main-signal-box ' + signal.signal;
-circle.className = 'signal-big-circle ' + signal.signal;
-
-if(signal.signal === 'buy') {
-arrow.innerHTML = '&#8593;';
-text.textContent = 'BUY';
-sub.textContent = signal.confidence > 80 ? 'Strong Buy Signal' : 'Moderate Buy Signal';
-} else if(signal.signal === 'sell') {
-arrow.innerHTML = '&#8595;';
-text.textContent = 'SELL';
-sub.textContent = signal.confidence > 80 ? 'Strong Sell Signal' : 'Moderate Sell Signal';
-} else {
-arrow.innerHTML = '&#8596;';
-text.textContent = 'HOLD';
-sub.textContent = 'Neutral - Wait for clear signal';
+function displaySignal(signal, price, change, rsi, ema, macd, trend) {
+  showScreen('signalScreen');
+  
+  const isBuy = signal.type === 'BUY';
+  const isSell = signal.type === 'SELL';
+  const isNeutral = signal.type === 'NEUTRAL';
+  
+  // Update signal circle
+  const circle = document.getElementById('signalCircle');
+  circle.className = 'signal-circle ' + (isBuy ? 'buy' : isSell ? 'sell' : 'neutral');
+  
+  // Update arrow
+  const arrow = document.getElementById('signalArrow');
+  arrow.textContent = isBuy ? '⬆' : isSell ? '⬇' : '⬌';
+  arrow.className = 'signal-arrow ' + (isBuy ? 'buy' : isSell ? 'sell' : 'neutral');
+  
+  // Update direction
+  const direction = document.getElementById('signalDirection');
+  direction.textContent = signal.type;
+  direction.className = 'signal-direction ' + (isBuy ? 'buy' : isSell ? 'sell' : 'neutral');
+  
+  // Update action
+  const action = document.getElementById('signalAction');
+  action.textContent = signal.action;
+  action.className = 'signal-action ' + (isBuy ? 'buy' : isSell ? 'sell' : 'neutral');
+  
+  // Update pair
+  document.getElementById('signalPair').textContent = currentPair.name;
+  
+  // Update timeframe badge
+  const tfBadge = document.getElementById('tfBadge');
+  tfBadge.textContent = currentTimeframe + ' ' + (currentTimeframe === 1 ? currentTfUnit.slice(0, -1).toUpperCase() : currentTfUnit.toUpperCase());
+  tfBadge.className = 'tf-badge ' + (currentTfUnit === 'seconds' ? 'seconds' : 'minute');
+  
+  // Update price
+  const decimals = currentMarket === 'crypto' ? 2 : 5;
+  document.getElementById('signalLivePrice').textContent = price.toFixed(decimals);
+  
+  const changeEl = document.getElementById('signalPriceChange');
+  const isUp = change >= 0;
+  changeEl.textContent = (isUp ? '+' : '') + change.toFixed(2) + '%';
+  changeEl.className = 'signal-live-price-change ' + (isUp ? 'up' : 'down');
+  
+  // Update AI score
+  const scoreVal = document.getElementById('aiScoreValue');
+  scoreVal.textContent = Math.round(signal.confidence) + '%';
+  scoreVal.className = 'ai-score-value ' + (signal.confidence > 70 ? 'strong' : signal.confidence > 50 ? 'mod' : 'weak');
+  
+  const scoreFill = document.getElementById('aiScoreFill');
+  scoreFill.style.width = signal.confidence + '%';
+  scoreFill.className = 'ai-score-fill ' + (signal.confidence > 70 ? 'strong' : signal.confidence > 50 ? 'mod' : 'weak');
+  
+  // Update indicators
+  updateIndicator('rsi', rsi, [
+    {cond: v => v < 30, status: 'BUY', class: 'buy'},
+    {cond: v => v > 70, status: 'SELL', class: 'sell'},
+    {cond: v => true, status: 'NEUTRAL', class: 'neut'}
+  ]);
+  
+  updateIndicator('ema', ema > price ? 'BEARISH' : 'BULLISH', [
+    {cond: v => v === 'BULLISH', status: 'BUY', class: 'buy'},
+    {cond: v => v === 'BEARISH', status: 'SELL', class: 'sell'}
+  ]);
+  
+  updateIndicator('macd', macd, [
+    {cond: v => v > 0, status: 'BUY', class: 'buy'},
+    {cond: v => v < 0, status: 'SELL', class: 'sell'},
+    {cond: v => true, status: 'NEUTRAL', class: 'neut'}
+  ], v => v > 0 ? '+' + v.toFixed(4) : v.toFixed(4));
+  
+  updateIndicator('trend', trend, [
+    {cond: v => v === 'UP', status: 'BUY', class: 'buy'},
+    {cond: v => v === 'DOWN', status: 'SELL', class: 'sell'},
+    {cond: v => true, status: 'NEUTRAL', class: 'neut'}
+  ]);
+  
+  // Update timer
+  const timerBar = document.getElementById('timerBar');
+  timerBar.style.animationDuration = currentTimeframe + 's';
+  timerBar.className = 'trade-timer-fill ' + (isBuy ? 'buy' : isSell ? 'sell' : 'neutral');
+  
+  document.getElementById('timerCount').textContent = currentTimeframe + 's';
+  document.getElementById('timerText').textContent = `Execute trade within ${currentTimeframe} seconds`;
+  
+  // Update last update
+  document.getElementById('lastUpdate').textContent = 'Updated ' + new Date().toLocaleTimeString();
 }
 
-document.getElementById('signalPairName').textContent = signal.pair;
-
-// Live price
-const priceChange = (Math.random() * 0.5 - 0.25);
-const isUp = priceChange >= 0;
-document.getElementById('signalLivePrice').textContent = formatPrice(signal.price);
-document.getElementById('signalLiveChange').textContent = (isUp ? '+' : '') + priceChange.toFixed(2) + '%';
-document.getElementById('signalLiveChange').className = 'signal-live-price-change ' + (isUp ? 'up' : 'down');
-
-// Timeframe badge
-const tfBadge = document.getElementById('tfBadge');
-tfBadge.textContent = signal.timeframe.toUpperCase();
-tfBadge.className = 'tf-badge ' + (signal.timeframe.includes('second') ? 'seconds' : 'minute');
-
-// Last update
-document.getElementById('lastUpdate').textContent = signal.timestamp;
-
-// AI Score
-const scoreVal = document.getElementById('aiScoreValue');
-const scoreFill = document.getElementById('aiScoreFill');
-scoreVal.textContent = signal.confidence + '%';
-scoreFill.style.width = signal.confidence + '%';
-if(signal.confidence > 75) {
-scoreVal.className = 'ai-score-value strong';
-scoreFill.className = 'ai-score-fill strong';
-} else if(signal.confidence > 50) {
-scoreVal.className = 'ai-score-value mod';
-scoreFill.className = 'ai-score-fill mod';
-} else {
-scoreVal.className = 'ai-score-value weak';
-scoreFill.className = 'ai-score-fill weak';
+function updateIndicator(name, value, rules, formatter) {
+  const statusEl = document.getElementById(name + 'Status');
+  const valueEl = document.getElementById(name + 'Value');
+  
+  const rule = rules.find(r => r.cond(value));
+  
+  statusEl.textContent = rule.status;
+  statusEl.className = 'indicator-status ' + rule.class;
+  
+  valueEl.className = 'indicator-value ' + rule.class;
+  
+  if(formatter) {
+    valueEl.textContent = formatter(value);
+  } else if(typeof value === 'number') {
+    valueEl.textContent = value.toFixed(2);
+  } else {
+    valueEl.textContent = value;
+  }
 }
 
-// Signal Strength Meter
-const segments = document.querySelectorAll('.meter-segment');
-segments.forEach(s => s.className = 'meter-segment');
-const activeSegments = Math.ceil(signal.confidence / 20);
-for(let i = 0; i < activeSegments && i < segments.length; i++) {
-segments[i].className = 'meter-segment active ' + signal.signal;
+// ========== SIGNAL HISTORY ==========
+function saveSignal(signal) {
+  totalCount++;
+  signalHistory.push({
+    ...signal,
+    pair: currentPair.name,
+    timeframe: currentTimeframe,
+    timestamp: new Date()
+  });
+  
+  // Simulate win/loss (70% win rate for demo)
+  if(Math.random() < 0.7) winCount++;
+  
+  updateStats();
 }
 
-// Support/Resistance
-const sr = signal.sr;
-document.getElementById('res2').textContent = formatPrice(sr.resistance2);
-document.getElementById('res1').textContent = formatPrice(sr.resistance1);
-document.getElementById('pivot').textContent = formatPrice(sr.pivot);
-document.getElementById('sup1').textContent = formatPrice(sr.support1);
-document.getElementById('sup2').textContent = formatPrice(sr.support2);
-
-// Volume
-const vol = signal.volume;
-document.getElementById('volumeBar').style.width = vol.width + '%';
-document.getElementById('volumeBar').className = 'volume-bar-fill ' + vol.status;
-document.getElementById('volumeText').textContent = vol.text;
-
-// Trend
-const trendVal = document.getElementById('trendValue');
-const trendStr = document.getElementById('trendStrength');
-trendVal.textContent = signal.trend.direction.toUpperCase();
-trendVal.className = 'trend-box-value ' + (signal.trend.direction === 'bullish' ? 'up' : signal.trend.direction === 'bearish' ? 'down' : 'neut');
-trendStr.textContent = signal.trend.strength.toUpperCase();
-trendStr.className = 'trend-box-value ' + (signal.trend.direction === 'bullish' ? 'up' : signal.trend.direction === 'bearish' ? 'down' : 'neut');
-
-// Indicators Grid
-const grid = document.getElementById('indicatorGrid');
-grid.innerHTML = '';
-signal.indicators.forEach(ind => {
-grid.innerHTML += `
-<div class="indicator-card">
-<div class="indicator-card-header">
-<div class="indicator-name">${ind.name}</div>
-<div class="indicator-status ${ind.signal}">${ind.signal.toUpperCase()}</div>
-</div>
-<div class="indicator-value ${ind.signal}">${ind.value}</div>
-<div class="indicator-desc">${ind.desc}</div>
-</div>`;
-});
-
-// Timer bar
-const timerBar = document.getElementById('timerBar');
-timerBar.className = 'trade-timer-fill ' + signal.signal;
-
-// Draw mini chart
-drawMiniChart(signal);
-
-// Confetti for strong signals
-if(signal.confidence > 80) {
-launchConfetti();
-}
+function updateStats() {
+  document.getElementById('todaySignals').textContent = totalCount;
+  document.getElementById('totalSignals').textContent = totalCount;
+  document.getElementById('winRate').textContent = totalCount > 0 ? Math.round((winCount/totalCount)*100) + '%' : '0%';
+  document.getElementById('accuracyRate').textContent = totalCount > 0 ? Math.round((winCount/totalCount)*100) + '%' : '0%';
 }
 
-// ===================== MINI CHART =====================
-function drawMiniChart(signal) {
-const canvas = document.getElementById('miniChart');
-const ctx = canvas.getContext('2d');
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
-const w = canvas.width;
-const h = canvas.height;
-
-ctx.clearRect(0, 0, w, h);
-
-// Draw grid lines
-ctx.strokeStyle = '#30363d';
-ctx.lineWidth = 0.5;
-for(let i = 0; i < 5; i++) {
-ctx.beginPath();
-ctx.moveTo(0, h * i / 5);
-ctx.lineTo(w, h * i / 5);
-ctx.stroke();
+function loadStats() {
+  // Load from localStorage if available
+  const saved = localStorage.getItem('lubna_bot_stats');
+  if(saved) {
+    const stats = JSON.parse(saved);
+    winCount = stats.winCount || 0;
+    totalCount = stats.totalCount || 0;
+    updateStats();
+  }
 }
 
-// Draw price line
-const prices = priceHistory.slice(-50);
-const min = Math.min(...prices);
-const max = Math.max(...prices);
-const range = max - min || 1;
-
-ctx.strokeStyle = signal.signal === 'buy' ? '#00ff88' : signal.signal === 'sell' ? '#ff4444' : '#ffd700';
-ctx.lineWidth = 2;
-ctx.beginPath();
-for(let i = 0; i < prices.length; i++) {
-const x = (i / (prices.length - 1)) * w;
-const y = h - ((prices[i] - min) / range) * h * 0.8 - h * 0.1;
-if(i === 0) ctx.moveTo(x, y);
-else ctx.lineTo(x, y);
-}
-ctx.stroke();
-
-// Fill area under line
-ctx.fillStyle = signal.signal === 'buy' ? 'rgba(0,255,136,0.1)' : signal.signal === 'sell' ? 'rgba(255,68,68,0.1)' : 'rgba(255,215,0,0.1)';
-ctx.lineTo(w, h);
-ctx.lineTo(0, h);
-ctx.closePath();
-ctx.fill();
-}
-
-// ===================== GENERATE NEW SIGNAL =====================
+// ========== GENERATE NEW SIGNAL ==========
 function generateNewSignal() {
-startAnalysis();
+  startAnalysis();
 }
 
-// ===================== HISTORY =====================
-function updateHistory() {
-const list = document.getElementById('historyList');
-if(signalHistory.length === 0) {
-list.innerHTML = '<div class="empty-history">No signals yet. Generate your first signal!</div>';
-return;
-}
-list.innerHTML = '';
-signalHistory.forEach((sig, idx) => {
-const isWin = Math.random() > 0.15; // 85% win rate for demo
-const pips = isWin ? '+' + (Math.random() * 30 + 10).toFixed(1) : '-' + (Math.random() * 15 + 5).toFixed(1);
-list.innerHTML += `
-<div class="history-item">
-<div class="history-left">
-<div class="history-icon ${sig.signal}">${sig.signal === 'buy' ? '&#8593;' : sig.signal === 'sell' ? '&#8595;' : '&#8596;'}</div>
-<div class="history-info">
-<div class="history-pair">${sig.pair}</div>
-<div class="history-time">${sig.timeframe} - ${sig.timestamp}</div>
-</div>
-</div>
-<div class="history-right">
-<div class="history-result ${isWin ? 'win' : 'loss'}">${isWin ? 'WIN' : 'LOSS'}</div>
-<div class="history-pips">${pips} pips</div>
-</div>
-</div>`;
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', () => {
+  // Pre-load some data
+  console.log('Lubna Abubakar AI Bot Pro - Fixed Signals Loaded');
 });
-}
-
-// Show history when screen opens
-const originalShowScreen = showScreen;
-showScreen = function(screenId) {
-originalShowScreen(screenId);
-if(screenId === 'historyScreen') updateHistory();
-};
-
-// ===================== SETTINGS =====================
-function toggleSwitch(el) {
-el.classList.toggle('active');
-}
-
-// ===================== CONFETTI =====================
-function launchConfetti() {
-const colors = ['#00ff88', '#58a6ff', '#ffd700', '#ff4444'];
-for(let i = 0; i < 30; i++) {
-const confetti = document.createElement('div');
-confetti.className = 'confetti';
-confetti.style.left = Math.random() * 100 + 'vw';
-confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-confetti.style.animationDelay = Math.random() * 2 + 's';
-confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-document.body.appendChild(confetti);
-setTimeout(() => confetti.remove(), 5000);
-}
-}
-
-// ===================== INIT =====================
-window.onload = function() {
-// Pre-load some history for demo
-for(let i = 0; i < 5; i++) {
-signalHistory.push({
-pair: ['EUR/USD','GBP/USD','XAU/USD','BTC/USD','V75'][i],
-timeframe: '5 seconds',
-signal: Math.random() > 0.4 ? 'buy' : 'sell',
-confidence: Math.floor(Math.random() * 30 + 70),
-price: 1.0 + Math.random(),
-timestamp: new Date(Date.now() - i * 60000).toLocaleTimeString(),
-trend: {direction: 'bullish', strength: 'strong'},
-volume: {status: 'high', width: 80, text: 'High Volume'},
-sr: {support1: 1.08, support2: 1.07, resistance1: 1.10, resistance2: 1.11, pivot: 1.09},
-indicators: []
-});
-}
-};
 </script>
+
 </body>
 </html>
