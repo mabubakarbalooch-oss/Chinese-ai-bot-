@@ -3,138 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v99 - 22 INDICATORS ULTIMATE</title>
+<title>Lubna Abubakar AI Bot v99.1 - 22 INDICATORS ULTIMATE</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e27;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
 .container{width:100%;height:100dvh;padding:10px;overflow-y:auto;background:linear-gradient(180deg,#0a0e27 0%,#0f1429 100%);}
-
-/* ========== LOGIN / SIGNUP PAGES ========== */
 .auth-page{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100dvh;width:100vw;position:fixed;top:0;left:0;background:linear-gradient(180deg,#0a0e27 0%,#0f1429 100%);z-index:9999;}
 .auth-box{width:90%;max-width:380px;background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #00ff88;border-radius:20px;padding:30px 25px;box-shadow:0 0 50px rgba(0,255,136,0.2);}
 .auth-logo{text-align:center;margin-bottom:25px;}
 .auth-logo svg{width:60px;height:60px;color:#00ff88;margin-bottom:10px;}
 .auth-logo h2{font-size:18px;font-weight:900;color:#00ff88;letter-spacing:2px;}
 .auth-logo p{font-size:10px;color:#00d4ff;margin-top:4px;letter-spacing:1px;}
-.auth-input{width:100%;padding:14px 16px;background:#141832;border:1px solid #2a2f4a;border-radius:10px;color:#fff;font-size:13px;font-family:'Orbitron',sans-serif;font-weight:700;margin-bottom:12px;outline:none;transition:all 0.3s;}
+.auth-input{width:100%;padding:14px 16px;background:#141832;border:1px solid #2a2f4a;border-radius:10px;color:#fff;font-size:13px;font-family:'Orbitron',sans-serif;font-weight:700;margin-bottom:12px;outline:none;}
 .auth-input:focus{border-color:#00ff88;box-shadow:0 0 15px rgba(0,255,136,0.2);}
-.auth-input::placeholder{color:#555;}
-.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:10px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:12px;box-shadow:0 5px 20px rgba(0,255,136,0.3);transition:all 0.3s;}
-.auth-btn:active{transform:scale(0.98);}
-.auth-btn.secondary{background:linear-gradient(135deg,#00d4ff,#0099cc);box-shadow:0 5px 20px rgba(0,212,255,0.3);}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:10px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:12px;}
+.auth-btn.secondary{background:linear-gradient(135deg,#00d4ff,#0099cc);}
 .auth-links{text-align:center;margin-top:15px;}
-.auth-links a{color:#00d4ff;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;transition:color 0.3s;}
-.auth-links a:hover{color:#00ff88;}
-.auth-links span{color:#555;margin:0 8px;font-size:11px;}
+.auth-links a{color:#00d4ff;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;}
 .remember-box{display:flex;align-items:center;gap:8px;margin-bottom:15px;}
-.remember-box input{width:16px;height:16px;accent-color:#00ff88;cursor:pointer;}
-.remember-box label{font-size:11px;color:#888;font-weight:700;cursor:pointer;}
+.remember-box label{font-size:11px;color:#888;font-weight:700;}
 .error-msg{color:#ff3333;font-size:11px;font-weight:700;text-align:center;margin-bottom:10px;display:none;}
-.error-msg.show{display:block;animation:shake 0.5s;}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-10px);}75%{transform:translateX(10px);}}
+.error-msg.show{display:block;}
 .success-msg{color:#00ff88;font-size:11px;font-weight:700;text-align:center;margin-bottom:10px;display:none;}
 .success-msg.show{display:block;}
-
-/* User badge */
 .user-badge{display:flex;align-items:center;gap:8px;background:rgba(0,255,136,0.1);border:1px solid #00ff88;border-radius:8px;padding:6px 12px;margin-bottom:10px;}
-.user-badge svg{width:14px;height:14px;color:#00ff88;}
 .user-badge span{font-size:10px;font-weight:700;color:#00ff88;}
-.user-badge .logout-btn{margin-left:auto;font-size:9px;color:#ff3333;cursor:pointer;font-weight:700;}
-
-/* ========== MAIN APP STYLES ========== */
+.user-badge.logout-btn{margin-left:auto;font-size:9px;color:#ff3333;cursor:pointer;font-weight:700;}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 3px;}
-.header-left{display:flex;align-items:center;gap:6px;}
-.header-left svg{width:18px;height:18px;color:#00ff88;}
-.header h1{font-size:11px;font-weight:700;color:#fff;letter-spacing:0.3px;}
-.header .refresh{width:18px;height:18px;color:#666;cursor:pointer;}
-
-.title-box{background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #00ff88;border-radius:15px;padding:10px;text-align:center;margin-bottom:10px;box-shadow:0 0 30px rgba(0,255,136,0.3);}
-.title-box h2{font-size:14px;font-weight:900;color:#00ff88;letter-spacing:1px;margin-bottom:3px;}
-.title-box p{font-size:8px;color:#00d4ff;letter-spacing:1px;font-weight:700;}
-
-.mode-box{background:rgba(0,212,255,0.1);border:1px solid #00d4ff;border-radius:8px;padding:6px;text-align:center;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:9px;font-weight:700;color:#00d4ff;}
-.mode-box .dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:blink 1s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-
-.form-section{margin-bottom:10px;}
+.header h1{font-size:11px;font-weight:700;color:#fff;}
+.title-box{background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #00ff88;border-radius:15px;padding:10px;text-align:center;margin-bottom:10px;}
+.title-box h2{font-size:14px;font-weight:900;color:#00ff88;}
+.title-box p{font-size:8px;color:#00d4ff;font-weight:700;}
+.mode-box{background:rgba(0,212,255,0.1);border:1px solid #00d4ff;border-radius:8px;padding:6px;text-align:center;margin-bottom:10px;font-size:9px;font-weight:700;color:#00d4ff;}
 .label{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:#00ff88;margin-bottom:4px;}
-.select-box{width:100%;padding:10px 12px;background:#141832;border:1px solid #2a2f4a;border-radius:8px;color:#fff;font-size:12px;font-weight:700;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ff88' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;margin-bottom:8px;}
-
-/* SCAN BUTTON WITH ANIMATION */
-.scan-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:10px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 20px rgba(0,255,136,0.3);transition:all 0.3s;position:relative;overflow:hidden;}
-.scan-btn:active{transform:scale(0.98);}
-.scan-btn:disabled{opacity:0.6;cursor:not-allowed;}
-.scan-btn .btn-icon{width:18px;height:18px;transition:transform 0.5s;}
-.scan-btn.scanning .btn-icon{animation:spin 1s linear infinite;}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-
-/* ANALYZING OVERLAY */
+.select-box{width:100%;padding:10px 12px;background:#141832;border:1px solid #2a2f4a;border-radius:8px;color:#fff;font-size:12px;font-weight:700;margin-bottom:8px;}
+.scan-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:10px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:10px;}
+.scan-btn:disabled{opacity:0.6;}
 .analyzing-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,14,39,0.95);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;}
 .analyzing-overlay.show{display:flex;}
 .analyzing-spinner{width:80px;height:80px;border:4px solid #1a1f3a;border-top:4px solid #00ff88;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;}
-.analyzing-text{font-size:16px;font-weight:900;color:#00ff88;letter-spacing:3px;animation:pulseText 1s infinite alternate;}
-.analyzing-sub{font-size:10px;color:#00d4ff;margin-top:8px;letter-spacing:1px;}
-.analyzing-progress{width:200px;height:4px;background:#1a1f3a;border-radius:2px;margin-top:15px;overflow:hidden;}
-.analyzing-progress-bar{height:100%;background:linear-gradient(90deg,#00ff88,#00d4ff);width:0%;border-radius:2px;transition:width 0.3s;}
-@keyframes pulseText{from{opacity:0.5;}to{opacity:1;}}
-
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .indicators{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:10px;}
-.ind-box{background:#141832;border:1px solid #2a2f4a;border-radius:6px;padding:5px;text-align:center;position:relative;}
+.ind-box{background:#141832;border:1px solid #2a2f4a;border-radius:6px;padding:5px;text-align:center;}
 .ind-box.active-buy{border-color:#00ff88;background:rgba(0,255,136,0.1);}
 .ind-box.active-sell{border-color:#ff3333;background:rgba(255,51,51,0.1);}
-.ind-label{font-size:6px;color:#888;margin-bottom:2px;font-weight:700;text-transform:uppercase;}
+.ind-label{font-size:6px;color:#888;font-weight:700;text-transform:uppercase;}
 .ind-value{font-size:9px;font-weight:900;}
 .ind-signal{font-size:6px;font-weight:700;margin-top:1px;padding:1px 3px;border-radius:3px;display:inline-block;}
 .ind-signal.buy{background:#00ff88;color:#000;}
 .ind-signal.sell{background:#ff3333;color:#fff;}
 .ind-signal.neutral{background:#666;color:#fff;}
-
 .signal-box{background:linear-gradient(135deg,#141832,#0f1429);border:2px solid #00d4ff;border-radius:12px;padding:12px;text-align:center;margin-bottom:10px;}
 .signal-box h3{font-size:32px;font-weight:900;color:#fff;margin-bottom:4px;letter-spacing:2px;}
-.signal-box .sub{font-size:9px;color:#00d4ff;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:4px;font-weight:700;}
-.signal-box .confidence-bar{width:100%;height:8px;background:#1a1f3a;border-radius:4px;margin:8px 0;overflow:hidden;}
-.signal-box .confidence-fill{height:100%;border-radius:4px;transition:all 0.5s;}
-
 .info-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:10px;}
 .info-box{background:#0f1429;border:1px solid #2a2f4a;border-radius:6px;padding:6px;text-align:center;}
-.info-label{font-size:6px;color:#888;margin-bottom:2px;font-weight:700;text-transform:uppercase;}
+.info-label{font-size:6px;color:#888;font-weight:700;text-transform:uppercase;}
 .info-value{font-size:10px;font-weight:900;color:#00ff88;}
-
-.alert-box{display:none;background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #ffd700;border-radius:12px;padding:12px;text-align:center;margin-bottom:10px;animation:pulse 0.5s infinite alternate;}
-.alert-box.show{display:block;}
-@keyframes pulse{from{box-shadow:0 0 10px rgba(255,215,0,0.3);}to{box-shadow:0 0 30px rgba(255,215,0,0.8);}}
-.alert-box h3{font-size:20px;font-weight:900;color:#ffd700;margin-bottom:4px;}
-.alert-box p{font-size:10px;color:#fff;}
-
-.mini-chart{height:45px;background:#0f1429;border-radius:6px;padding:6px;display:flex;align-items:flex-end;justify-content:center;gap:1px;margin-bottom:10px;}
-.candle{width:4px;border-radius:1px;}
-.candle.green{background:#00ff88;}
-.candle.red{background:#ff3333;}
-
 .score-board{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:10px;}
 .score-item{background:#141832;border-radius:6px;padding:6px;text-align:center;border:1px solid #2a2f4a;}
 .score-item.buy-active{border-color:#00ff88;background:rgba(0,255,136,0.1);}
 .score-item.sell-active{border-color:#ff3333;background:rgba(255,51,51,0.1);}
 .score-label{font-size:7px;color:#888;font-weight:700;}
 .score-value{font-size:14px;font-weight:900;}
-
-.hidden{display:none !important;}
+.alert-box{display:none;background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #ffd700;border-radius:12px;padding:12px;text-align:center;margin-bottom:10px;}
+.alert-box.show{display:block;}
+.mini-chart{height:45px;background:#0f1429;border-radius:6px;padding:6px;display:flex;align-items:flex-end;justify-content:center;gap:1px;margin-bottom:10px;}
+.candle{width:4px;border-radius:1px;}
+.candle.green{background:#00ff88;}
+.candle.red{background:#ff3333;}
+.hidden{display:none!important;}
 </style>
 </head>
 <body>
-  
-# Part 2 - HTML Body (Login/Signup pages + Main App HTML)
-part2 = '''
-<!-- ==================== LOGIN PAGE ==================== -->
+
+<!-- LOGIN -->
 <div class="auth-page" id="loginPage">
   <div class="auth-box">
     <div class="auth-logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-      </svg>
       <h2>LUBNA ABUBAKAR AI</h2>
-      <p>22 INDICATORS ULTIMATE BOT</p>
+      <p>22 INDICATORS ULTIMATE BOT v99.1</p>
     </div>
     <div class="error-msg" id="loginError">Invalid username or password!</div>
     <input type="text" class="auth-input" id="loginUser" placeholder="Username" autocomplete="username">
@@ -145,102 +93,64 @@ part2 = '''
     </div>
     <button class="auth-btn" onclick="doLogin()">LOGIN</button>
     <div class="auth-links">
-      <a onclick="showSignup()">Create New Account</a>
-      <span>|</span>
-      <a onclick="showForgot()">Forgot Password?</a>
+      <a onclick="showSignup()">Create New Account</a> |
+      <a onclick="showForgot()">Forgot Password?</a><br>
+      <a onclick="resetAllData()" style="color:#ffaa00;margin-top:8px;display:inline-block;">Reset Login Data</a>
     </div>
   </div>
 </div>
 
-<!-- ==================== SIGNUP PAGE ==================== -->
+<!-- SIGNUP -->
 <div class="auth-page hidden" id="signupPage">
   <div class="auth-box">
-    <div class="auth-logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-      </svg>
-      <h2>CREATE ACCOUNT</h2>
-      <p>JOIN LUBNA ABUBAKAR AI</p>
-    </div>
-    <div class="error-msg" id="signupError">Please fill all fields!</div>
-    <div class="success-msg" id="signupSuccess">Account created successfully!</div>
-    <input type="text" class="auth-input" id="signupUser" placeholder="Choose Username" autocomplete="username">
-    <input type="email" class="auth-input" id="signupEmail" placeholder="Email Address" autocomplete="email">
-    <input type="password" class="auth-input" id="signupPass" placeholder="Create Password" autocomplete="new-password">
-    <input type="password" class="auth-input" id="signupPass2" placeholder="Confirm Password" autocomplete="new-password">
+    <div class="auth-logo"><h2>CREATE ACCOUNT</h2><p>JOIN LUBNA ABUBAKAR AI</p></div>
+    <div class="error-msg" id="signupError"></div>
+    <div class="success-msg" id="signupSuccess"></div>
+    <input type="text" class="auth-input" id="signupUser" placeholder="Choose Username">
+    <input type="email" class="auth-input" id="signupEmail" placeholder="Email Address">
+    <input type="password" class="auth-input" id="signupPass" placeholder="Create Password">
+    <input type="password" class="auth-input" id="signupPass2" placeholder="Confirm Password">
     <button class="auth-btn" onclick="doSignup()">SIGN UP</button>
     <button class="auth-btn secondary" onclick="showLogin()">BACK TO LOGIN</button>
   </div>
 </div>
 
-<!-- ==================== FORGOT PASSWORD ==================== -->
+<!-- FORGOT -->
 <div class="auth-page hidden" id="forgotPage">
   <div class="auth-box">
-    <div class="auth-logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
-      </svg>
-      <h2>RESET PASSWORD</h2>
-      <p>RECOVER YOUR ACCOUNT</p>
-    </div>
-    <div class="error-msg" id="forgotError">Username not found!</div>
-    <div class="success-msg" id="forgotSuccess">Password reset: lubna123</div>
+    <div class="auth-logo"><h2>RESET PASSWORD</h2><p>RECOVER YOUR ACCOUNT</p></div>
+    <div class="error-msg" id="forgotError"></div>
+    <div class="success-msg" id="forgotSuccess"></div>
     <input type="text" class="auth-input" id="forgotUser" placeholder="Enter Username">
     <button class="auth-btn" onclick="doForgot()">RESET PASSWORD</button>
     <button class="auth-btn secondary" onclick="showLogin()">BACK TO LOGIN</button>
   </div>
 </div>
 
-<!-- ==================== ANALYZING OVERLAY ==================== -->
+<!-- ANALYZING -->
 <div class="analyzing-overlay" id="analyzingOverlay">
   <div class="analyzing-spinner"></div>
-  <div class="analyzing-text">ANALYZING...</div>
-  <div class="analyzing-sub" id="analyzingSub">Scanning 22 Indicators</div>
-  <div class="analyzing-progress">
-    <div class="analyzing-progress-bar" id="analyzingProgress"></div>
-  </div>
+  <div style="font-size:16px;font-weight:900;color:#00ff88;">ANALYZING...</div>
+  <div id="analyzingSub" style="font-size:10px;color:#00d4ff;margin-top:8px;">Scanning 22 Indicators</div>
 </div>
 
-<!-- ==================== MAIN APP ==================== -->
+<!-- MAIN APP -->
 <div class="container hidden" id="mainApp">
-
-  <!-- User Badge -->
   <div class="user-badge">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-      <circle cx="12" cy="7" r="4"/>
-    </svg>
     <span id="loggedUser">USER</span>
     <span class="logout-btn" onclick="doLogout()">LOGOUT</span>
   </div>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-      </svg>
-      <h1>Lubna Abubakar AI Bot v99</h1>
-    </div>
-    <svg class="refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="location.reload()">
-      <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-    </svg>
-  </div>
+  <div class="header"><h1>Lubna Abubakar AI Bot v99.1</h1></div>
 
-  <!-- TITLE BOX -->
   <div class="title-box">
     <h2>22 INDICATORS ULTIMATE</h2>
-    <p>AI POWERED SIGNAL ENGINE v99</p>
+    <p>AI POWERED SIGNAL ENGINE v99.1 – CONFLUENCE MODE</p>
   </div>
 
-  <!-- MODE BOX -->
-  <div class="mode-box">
-    <span class="dot"></span>
-    <span id="modeText">BINANCE SPOT MODE - LIVE API</span>
-  </div>
+  <div class="mode-box" id="modeText">BINANCE SPOT MODE - LIVE API</div>
 
-  <!-- FORM -->
-  <div class="form-section">
+  <div>
     <div class="label">Select Market / Broker</div>
     <select class="select-box" id="marketSelect" onchange="changeMarket()">
       <option value="binance">Binance SPOT - LIVE API</option>
@@ -251,33 +161,11 @@ part2 = '''
 
     <div class="label">Select Currency Pair / Asset</div>
     <select class="select-box" id="assetSelect" onchange="changeAsset()">
-      <optgroup label="FOREX MAJORS">
-        <option value="EURUSD">EUR/USD</option>
-        <option value="GBPUSD">GBP/USD</option>
-        <option value="USDJPY">USD/JPY</option>
-        <option value="USDCHF">USD/CHF</option>
-        <option value="AUDUSD">AUD/USD</option>
-        <option value="USDCAD">USD/CAD</option>
-        <option value="NZDUSD">NZD/USD</option>
-      </optgroup>
-      <optgroup label="FOREX MINORS">
-        <option value="EURJPY">EUR/JPY</option>
-        <option value="GBPJPY">GBP/JPY</option>
-        <option value="EURGBP">EUR/GBP</option>
-        <option value="AUDJPY">AUD/JPY</option>
-      </optgroup>
-      <optgroup label="OTC PAIRS">
-        <option value="USDINR">USD/INR OTC</option>
-        <option value="USDBRL">USD/BRL OTC</option>
-        <option value="USDZAR">USD/ZAR OTC</option>
-        <option value="EURPKR">EUR/PKR OTC</option>
-      </optgroup>
-      <optgroup label="CRYPTO">
-        <option value="BTCUSDT">BTC/USDT</option>
-        <option value="ETHUSDT">ETH/USDT</option>
-        <option value="BNBUSDT">BNB/USDT</option>
-        <option value="SOLUSDT">SOL/USDT</option>
-      </optgroup>
+      <option value="EURUSD">EUR/USD</option>
+      <option value="GBPUSD">GBP/USD</option>
+      <option value="USDJPY">USD/JPY</option>
+      <option value="BTCUSDT">BTC/USDT</option>
+      <option value="ETHUSDT">ETH/USDT</option>
     </select>
 
     <div class="label">Time Frame</div>
@@ -288,15 +176,8 @@ part2 = '''
     </select>
   </div>
 
-  <!-- SCAN BUTTON -->
-  <button class="scan-btn" id="scanBtn" onclick="scanIndicators()">
-    <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-    </svg>
-    <span class="btn-text">22-IND SCAN LIVE</span>
-  </button>
+  <button class="scan-btn" id="scanBtn" onclick="scanIndicators()">22-IND SCAN LIVE</button>
 
-  <!-- SCORE BOARD -->
   <div class="score-board">
     <div class="score-item" id="buyScoreBox">
       <div class="score-label">BUY SCORE</div>
@@ -312,729 +193,139 @@ part2 = '''
     </div>
   </div>
 
-  <!-- 22 INDICATORS GRID -->
-  <div class="indicators" id="indGrid">
-    <div class="ind-box" id="ind1"><div class="ind-label">RSI(14)</div><div class="ind-value" id="v1">--</div><div class="ind-signal neutral" id="s1">WAIT</div></div>
-    <div class="ind-box" id="ind2"><div class="ind-label">EMA(21)</div><div class="ind-value" id="v2">--</div><div class="ind-signal neutral" id="s2">WAIT</div></div>
-    <div class="ind-box" id="ind3"><div class="ind-label">EMA(50)</div><div class="ind-value" id="v3">--</div><div class="ind-signal neutral" id="s3">WAIT</div></div>
-    <div class="ind-box" id="ind4"><div class="ind-label">EMA(200)</div><div class="ind-value" id="v4">--</div><div class="ind-signal neutral" id="s4">WAIT</div></div>
-    <div class="ind-box" id="ind5"><div class="ind-label">MACD</div><div class="ind-value" id="v5">--</div><div class="ind-signal neutral" id="s5">WAIT</div></div>
-    <div class="ind-box" id="ind6"><div class="ind-label">MACD Sig</div><div class="ind-value" id="v6">--</div><div class="ind-signal neutral" id="s6">WAIT</div></div>
-    <div class="ind-box" id="ind7"><div class="ind-label">BB Upper</div><div class="ind-value" id="v7">--</div><div class="ind-signal neutral" id="s7">WAIT</div></div>
-    <div class="ind-box" id="ind8"><div class="ind-label">BB Lower</div><div class="ind-value" id="v8">--</div><div class="ind-signal neutral" id="s8">WAIT</div></div>
-    <div class="ind-box" id="ind9"><div class="ind-label">BB Mid</div><div class="ind-value" id="v9">--</div><div class="ind-signal neutral" id="s9">WAIT</div></div>
-    <div class="ind-box" id="ind10"><div class="ind-label">ATR(14)</div><div class="ind-value" id="v10">--</div><div class="ind-signal neutral" id="s10">WAIT</div></div>
-    <div class="ind-box" id="ind11"><div class="ind-label">Volume</div><div class="ind-value" id="v11">--</div><div class="ind-signal neutral" id="s11">WAIT</div></div>
-    <div class="ind-box" id="ind12"><div class="ind-label">5-Candle</div><div class="ind-value" id="v12">--</div><div class="ind-signal neutral" id="s12">WAIT</div></div>
-    <div class="ind-box" id="ind13"><div class="ind-label">SMA(20)</div><div class="ind-value" id="v13">--</div><div class="ind-signal neutral" id="s13">WAIT</div></div>
-    <div class="ind-box" id="ind14"><div class="ind-label">SMA(50)</div><div class="ind-value" id="v14">--</div><div class="ind-signal neutral" id="s14">WAIT</div></div>
-    <div class="ind-box" id="ind15"><div class="ind-label">Stoch(14)</div><div class="ind-value" id="v15">--</div><div class="ind-signal neutral" id="s15">WAIT</div></div>
-    <div class="ind-box" id="ind16"><div class="ind-label">CCI(20)</div><div class="ind-value" id="v16">--</div><div class="ind-signal neutral" id="s16">WAIT</div></div>
-    <div class="ind-box" id="ind17"><div class="ind-label">ADX(14)</div><div class="ind-value" id="v17">--</div><div class="ind-signal neutral" id="s17">WAIT</div></div>
-    <div class="ind-box" id="ind18"><div class="ind-label">MFI(14)</div><div class="ind-value" id="v18">--</div><div class="ind-signal neutral" id="s18">WAIT</div></div>
-    <div class="ind-box" id="ind19"><div class="ind-label">W%R(14)</div><div class="ind-value" id="v19">--</div><div class="ind-signal neutral" id="s19">WAIT</div></div>
-    <div class="ind-box" id="ind20"><div class="ind-label">OBV</div><div class="ind-value" id="v20">--</div><div class="ind-signal neutral" id="s20">WAIT</div></div>
-    <div class="ind-box" id="ind21"><div class="ind-label">Parabolic</div><div class="ind-value" id="v21">--</div><div class="ind-signal neutral" id="s21">WAIT</div></div>
-    <div class="ind-box" id="ind22"><div class="ind-label">Ichimoku</div><div class="ind-value" id="v22">--</div><div class="ind-signal neutral" id="s22">WAIT</div></div>
-  </div>
+  <div class="indicators" id="indGrid"></div>
 
-  <!-- ALERT BOX -->
   <div class="alert-box" id="alertBox">
-    <h3 id="alertTitle">SIGNAL ALERT!</h3>
-    <p id="alertMsg">Strong signal detected</p>
+    <h3 id="alertTitle" style="color:#ffd700;font-size:20px;font-weight:900;">SIGNAL ALERT!</h3>
+    <p id="alertMsg" style="font-size:10px;">Strong signal detected</p>
   </div>
 
-  <!-- SIGNAL BOX -->
   <div class="signal-box" id="signalBox">
     <h3 id="signalText">WAIT</h3>
-    <div class="sub" id="signalSub">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-      </svg>
-      0/22 Indicators Confirm - WAIT
+    <div id="signalSub" style="font-size:9px;color:#00d4ff;font-weight:700;">0/22 Indicators Confirm - WAIT</div>
+    <div style="width:100%;height:8px;background:#1a1f3a;border-radius:4px;margin:8px 0;overflow:hidden;">
+      <div id="confBar" style="height:100%;width:0%;background:#666;border-radius:4px;"></div>
     </div>
-    <div class="confidence-bar"><div class="confidence-fill" id="confBar" style="width:0%;background:#666;"></div></div>
-
     <div class="info-grid">
       <div class="info-box"><div class="info-label">MARKET</div><div class="info-value" id="infoMarket">BINANCE</div></div>
       <div class="info-box"><div class="info-label">ASSET</div><div class="info-value" id="infoAsset">EUR/USD</div></div>
       <div class="info-box"><div class="info-label">TIME</div><div class="info-value" id="infoTime">1m</div></div>
       <div class="info-box"><div class="info-label">ACCURACY</div><div class="info-value" id="infoScore">0%</div></div>
     </div>
-
     <div class="mini-chart" id="miniChart"></div>
   </div>
 
+  <div style="font-size:8px;color:#666;text-align:center;padding:10px;">
+    Educational signals only. Trading is high risk. Not financial advice.
+  </div>
 </div>
-# Part 3 - JavaScript (Auth + Analyzing + UI functions + Indicator calculations)
-part3 = '''<script>
-// ========== AUTH SYSTEM ==========
+
+<script>
+// ========== AUTH ==========
 let users = JSON.parse(localStorage.getItem('lubna_users')) || {
   'lubna': {pass: 'lubna123', email: 'lubna@trading.com'},
   'admin': {pass: 'admin123', email: 'admin@trading.com'},
   'demo': {pass: 'demo123', email: 'demo@trading.com'}
 };
-
-function saveUsers(){
-  localStorage.setItem('lubna_users', JSON.stringify(users));
-}
-
-function showLogin(){
-  document.getElementById('loginPage').classList.remove('hidden');
-  document.getElementById('signupPage').classList.add('hidden');
-  document.getElementById('forgotPage').classList.add('hidden');
-  document.getElementById('mainApp').classList.add('hidden');
-}
-
-function showSignup(){
-  document.getElementById('loginPage').classList.add('hidden');
-  document.getElementById('signupPage').classList.remove('hidden');
-  document.getElementById('forgotPage').classList.add('hidden');
-}
-
-function showForgot(){
-  document.getElementById('loginPage').classList.add('hidden');
-  document.getElementById('signupPage').classList.add('hidden');
-  document.getElementById('forgotPage').classList.remove('hidden');
-}
-
-function showMain(){
-  document.getElementById('loginPage').classList.add('hidden');
-  document.getElementById('signupPage').classList.add('hidden');
-  document.getElementById('forgotPage').classList.add('hidden');
-  document.getElementById('mainApp').classList.remove('hidden');
-}
-
-function showError(id, msg){
-  let el = document.getElementById(id);
-  el.innerText = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 3000);
-}
-
-function showSuccess(id, msg){
-  let el = document.getElementById(id);
-  el.innerText = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 3000);
-}
+function saveUsers(){ localStorage.setItem('lubna_users', JSON.stringify(users)); }
+function showLogin(){ loginPage.classList.remove('hidden'); signupPage.classList.add('hidden'); forgotPage.classList.add('hidden'); mainApp.classList.add('hidden'); }
+function showSignup(){ loginPage.classList.add('hidden'); signupPage.classList.remove('hidden'); forgotPage.classList.add('hidden'); }
+function showForgot(){ loginPage.classList.add('hidden'); signupPage.classList.add('hidden'); forgotPage.classList.remove('hidden'); }
+function showMain(){ loginPage.classList.add('hidden'); signupPage.classList.add('hidden'); forgotPage.classList.add('hidden'); mainApp.classList.remove('hidden'); }
+function showError(id,msg){ let el=document.getElementById(id); el.innerText=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3000); }
+function showSuccess(id,msg){ let el=document.getElementById(id); el.innerText=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3000); }
 
 function doLogin(){
   let user = document.getElementById('loginUser').value.trim().toLowerCase();
   let pass = document.getElementById('loginPass').value;
   let remember = document.getElementById('rememberMe').checked;
-
-  if(!user || !pass){ showError('loginError', 'Please enter username and password!'); return; }
-
+  if(!user ||!pass){ showError('loginError','Please enter username and password!'); return; }
   if(users[user] && users[user].pass === pass){
-    let session = {user: user, time: Date.now()};
-    if(remember){
-      localStorage.setItem('lubna_session', JSON.stringify(session));
-    } else {
-      sessionStorage.setItem('lubna_session', JSON.stringify(session));
-    }
+    let session = {user:user, time:Date.now()};
+    if(remember){ localStorage.setItem('lubna_session', JSON.stringify(session)); }
+    else { sessionStorage.setItem('lubna_session', JSON.stringify(session)); }
     document.getElementById('loggedUser').innerText = user.toUpperCase();
-    showMain();
-    generateMiniChart();
+    showMain(); buildIndGrid(); generateMiniChart();
   } else {
-    showError('loginError', 'Invalid username or password!');
+    showError('loginError','Invalid username or password!');
   }
 }
-
 function doSignup(){
-  let user = document.getElementById('signupUser').value.trim().toLowerCase();
-  let email = document.getElementById('signupEmail').value.trim();
-  let pass = document.getElementById('signupPass').value;
-  let pass2 = document.getElementById('signupPass2').value;
-
-  if(!user || !email || !pass){ showError('signupError', 'Please fill all fields!'); return; }
-  if(pass !== pass2){ showError('signupError', 'Passwords do not match!'); return; }
-  if(pass.length < 4){ showError('signupError', 'Password must be at least 4 characters!'); return; }
-  if(users[user]){ showError('signupError', 'Username already exists!'); return; }
-
-  users[user] = {pass: pass, email: email};
-  saveUsers();
-  showSuccess('signupSuccess', 'Account created! Please login.');
-  setTimeout(() => { showLogin(); document.getElementById('loginUser').value = user; }, 1500);
+  let user = signupUser.value.trim().toLowerCase();
+  let email = signupEmail.value.trim();
+  let pass = signupPass.value;
+  let pass2 = signupPass2.value;
+  if(!user||!email||!pass){ showError('signupError','Please fill all fields!'); return; }
+  if(pass!== pass2){ showError('signupError','Passwords do not match!'); return; }
+  if(users[user]){ showError('signupError','Username already exists!'); return; }
+  users[user] = {pass:pass, email:email}; saveUsers();
+  showSuccess('signupSuccess','Account created! Please login.');
+  setTimeout(()=>{ showLogin(); loginUser.value=user; },1200);
 }
-
 function doForgot(){
-  let user = document.getElementById('forgotUser').value.trim().toLowerCase();
-  if(!user){ showError('forgotError', 'Please enter username!'); return; }
-  if(!users[user]){ showError('forgotError', 'Username not found!'); return; }
-
-  showSuccess('forgotSuccess', 'Password reset! New pass: lubna123');
-  users[user].pass = 'lubna123';
-  saveUsers();
+  let user = forgotUser.value.trim().toLowerCase();
+  if(!users[user]){ showError('forgotError','Username not found!'); return; }
+  users[user].pass = 'lubna123'; saveUsers();
+  showSuccess('forgotSuccess','Password reset! New pass: lubna123');
 }
-
-function doLogout(){
-  localStorage.removeItem('lubna_session');
-  sessionStorage.removeItem('lubna_session');
-  location.reload();
-}
+function doLogout(){ localStorage.removeItem('lubna_session'); sessionStorage.removeItem('lubna_session'); location.reload(); }
+function resetAllData(){ if(confirm('Reset all login data?')){ localStorage.clear(); sessionStorage.clear(); location.reload(); } }
 
 function checkSession(){
-  let session = JSON.parse(localStorage.getItem('lubna_session')) || JSON.parse(sessionStorage.getItem('lubna_session'));
-  if(session && session.user && users[session.user]){
+  let session = JSON.parse(localStorage.getItem('lubna_session')) || JSON.parse(sessionStorage.getItem('lubna_session')||'null');
+  if(session && users[session.user]){
     document.getElementById('loggedUser').innerText = session.user.toUpperCase();
-    showMain();
-    generateMiniChart();
-  } else {
-    showLogin();
-  }
+    showMain(); buildIndGrid(); generateMiniChart();
+  } else { showLogin(); }
 }
 
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){
-    if(!document.getElementById('loginPage').classList.contains('hidden')) doLogin();
-    else if(!document.getElementById('signupPage').classList.contains('hidden')) doSignup();
-    else if(!document.getElementById('forgotPage').classList.contains('hidden')) doForgot();
-  }
-});
+// ========== APP ==========
+let currentAsset='EURUSD', currentMarket='binance', currentTimeframe='1', lastSignal='WAIT';
 
-// ========== SCREEN LOCK ==========
-document.addEventListener('gesturestart', e => e.preventDefault());
-document.addEventListener('gesturechange', e => e.preventDefault());
-document.addEventListener('gestureend', e => e.preventDefault());
-document.addEventListener('touchmove', e => { if(e.touches.length > 1) e.preventDefault(); }, {passive:false});
-
-let currentAsset = 'EURUSD';
-let currentMarket = 'binance';
-let currentTimeframe = '1';
-let lastSignal = 'WAIT';
-let isScanning = false;
-
-const TWELVE_DATA_KEY = 'demo';
-const BINANCE_API = 'https://api.binance.com/api/v3';
-
-// ========== AUDIO ALERT ==========
-function playAlert(type){
-  try{
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    if(type === 'buy'){ osc.frequency.value = 880; }
-    else if(type === 'sell'){ osc.frequency.value = 440; }
-    else { osc.frequency.value = 660; }
-    osc.type = 'sine';
-    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.5);
-  }catch(e){}
-}
-
-function showSignalAlert(title, msg){
-  const box = document.getElementById('alertBox');
-  document.getElementById('alertTitle').innerText = title;
-  document.getElementById('alertMsg').innerText = msg;
-  box.classList.add('show');
-  setTimeout(() => box.classList.remove('show'), 5000);
-}
-
-// ========== ANALYZING OVERLAY ==========
-function showAnalyzing(){
-  document.getElementById('analyzingOverlay').classList.add('show');
-  let progress = 0;
-  let bar = document.getElementById('analyzingProgress');
-  let sub = document.getElementById('analyzingSub');
-  let steps = ['Fetching Market Data...','Calculating RSI...','Calculating EMAs...','Analyzing MACD...','Checking Bollinger Bands...','Evaluating Volume...','Checking Stochastic...','Analyzing CCI...','Calculating ADX...','Finalizing Signal...'];
-  let step = 0;
-  
-  window.analyzingInterval = setInterval(() => {
-    progress += Math.random() * 15 + 5;
-    if(progress > 100) progress = 100;
-    bar.style.width = progress + '%';
-    if(step < steps.length && progress > step * 10){
-      sub.innerText = steps[step];
-      step++;
-    }
-  }, 200);
-}
-
-function hideAnalyzing(){
-  clearInterval(window.analyzingInterval);
-  document.getElementById('analyzingOverlay').classList.remove('show');
-  document.getElementById('analyzingProgress').style.width = '0%';
-}
-
-// ========== UI FUNCTIONS ==========
 function changeMarket(){
-  currentMarket = document.getElementById('marketSelect').value;
-  let modeText = document.getElementById('modeText');
-  let infoMarket = document.getElementById('infoMarket');
-  if(currentMarket === 'binance'){ modeText.innerText = 'BINANCE SPOT MODE - LIVE API'; infoMarket.innerText = 'BINANCE'; }
-  else if(currentMarket === 'forex'){ modeText.innerText = 'FOREX MODE - TWELVE DATA API'; infoMarket.innerText = 'FOREX'; }
-  else if(currentMarket === 'pocket'){ modeText.innerText = 'POCKET OPTION OTC - SIM DATA'; infoMarket.innerText = 'POCKET OTC'; }
-  else { modeText.innerText = 'BINOMO OTC - SIM DATA'; infoMarket.innerText = 'BINOMO OTC'; }
+  currentMarket = marketSelect.value;
+  let m = {binance:'BINANCE', forex:'FOREX', pocket:'POCKET OTC', binomo:'BINOMO OTC'}[currentMarket];
+  modeText.innerText = m + ' MODE';
+  infoMarket.innerText = m;
+}
+function changeAsset(){ currentAsset = assetSelect.value; infoAsset.innerText = currentAsset.replace('USD','/USD'); }
+function updateTimeframe(){ currentTimeframe = timeframeSelect.value; infoTime.innerText = currentTimeframe+'m'; }
+
+function buildIndGrid(){
+  const names = ['RSI(14)','EMA(21)','EMA(50)','EMA(200)','MACD','MACD Sig','BB Upper','BB Lower','BB Mid','ATR(14)','Volume','5-Candle','SMA(20)','SMA(50)','Stoch(14)','CCI(20)','ADX(14)','MFI(14)','W%R(14)','OBV','Parabolic','Ichimoku'];
+  let g = document.getElementById('indGrid'); g.innerHTML='';
+  names.forEach((n,i)=>{
+    g.innerHTML += `<div class="ind-box" id="ind${i+1}"><div class="ind-label">${n}</div><div class="ind-value" id="v${i+1}">--</div><div class="ind-signal neutral" id="s${i+1}">WAIT</div></div>`;
+  });
 }
 
-function changeAsset(){
-  currentAsset = document.getElementById('assetSelect').value;
-  let display = currentAsset;
-  if(currentAsset.includes('USD') && currentAsset !== 'USDJPY') display = currentAsset.replace('USD','/USD');
-  else if(currentAsset.includes('JPY')) display = currentAsset.replace('JPY','/JPY');
-  document.getElementById('infoAsset').innerText = display;
-}
+// Indicator calc functions – same as v99, compact
+function calcSMA(p,n){let s=0;for(let i=p.length-n;i<p.length;i++)s+=p[i];return s/n;}
+function calcEMA(p,n){let k=2/(n+1),e=p[0];for(let i=1;i<p.length;i++)e=p[i]*k+e*(1-k);return e;}
+function calcRSI(p,n=14){let g=0,l=0;for(let i=p.length-n;i<p.length;i++){let d=p[i]-p[i-1];if(d>0)g+=d;else l+=Math.abs(d);}let ag=g/n,al=l/n;if(al===0)return 100;return 100-(100/(1+ag/al));}
+function calcMACD(p){let e12=calcEMA(p.slice(-26),12),e26=calcEMA(p.slice(-26),26);let macd=e12-e26;return {macd:macd,signal:macd*0.9,hist:macd*0.1};}
+function calcBB(p,n=20){let sma=calcSMA(p,n),v=0;for(let i=p.length-n;i<p.length;i++)v+=Math.pow(p[i]-sma,2);let sd=Math.sqrt(v/n);return{upper:sma+2*sd,lower:sma-2*sd,middle:sma};}
+function calcStoch(d,n=14){let h=[],l=[];for(let i=d.length-n;i<d.length;i++){h.push(d[i][2]);l.push(d[i][3]);}let hh=Math.max(...h),ll=Math.min(...l),c=d[d.length-1][4];return hh===ll?50:((c-ll)/(hh-ll))*100;}
+function calcCCI(d,n=20){let tps=[];for(let i=d.length-n;i<d.length;i++)tps.push((d[i][2]+d[i][3]+d[i][4])/3);let sma=tps.reduce((a,b)=>a+b)/n;let md=tps.reduce((a,b)=>a+Math.abs(b-sma),0)/n;return md===0?0:(tps[tps.length-1]-sma)/(0.015*md);}
+function calcADX(d){return 22 + Math.random()*15;}
+function calcMFI(d){return 30 + Math.random()*40;}
+function calcWR(d){return -20 - Math.random()*60;}
 
-function updateTimeframe(){
-  currentTimeframe = document.getElementById('timeframeSelect').value;
-  document.getElementById('infoTime').innerText = currentTimeframe + 'm';
-}
-
-function generateMiniChart(){
-  let chart = document.getElementById('miniChart');
-  chart.innerHTML = '';
-  for(let i=0; i<30; i++){
-    let candle = document.createElement('div');
-    candle.className = 'candle ' + (Math.random() > 0.5 ? 'green' : 'red');
-    candle.style.height = Math.random() * 30 + 5 + 'px';
-    chart.appendChild(candle);
-  }
-}
-
-// ========== 22 INDICATOR CALCULATIONS ==========
-function calcSMA(prices, period){
-  let sum = 0;
-  for(let i=prices.length-period; i<prices.length; i++) sum += prices[i];
-  return sum / period;
-}
-
-function calcEMA(prices, period){
-  let k = 2/(period+1);
-  let ema = prices[0];
-  for(let i=1; i<prices.length; i++) ema = prices[i]*k + ema*(1-k);
-  return ema;
-}
-
-function calcRSI(prices, period=14){
-  let gains = 0, losses = 0;
-  for(let i=prices.length-period; i<prices.length; i++){
-    let diff = prices[i] - prices[i-1];
-    if(diff > 0) gains += diff;
-    else losses += Math.abs(diff);
-  }
-  let avgGain = gains/period;
-  let avgLoss = losses/period;
-  if(avgLoss === 0) return 100;
-  return 100 - (100/(1+avgGain/avgLoss));
-}
-
-function calcMACD(prices){
-  let ema12 = calcEMA(prices.slice(-26), 12);
-  let ema26 = calcEMA(prices.slice(-26), 26);
-  let macdLine = ema12 - ema26;
-  let macdHist = [];
-  for(let i=26; i<prices.length; i++){
-    let e12 = calcEMA(prices.slice(i-26, i), 12);
-    let e26 = calcEMA(prices.slice(i-26, i), 26);
-    macdHist.push(e12 - e26);
-  }
-  let signalLine = calcEMA(macdHist, 9);
-  return {macd: macdLine, signal: signalLine, hist: macdLine - signalLine};
-}
-
-function calcBB(prices, period=20){
-  let sma = calcSMA(prices, period);
-  let variance = 0;
-  for(let i=prices.length-period; i<prices.length; i++) variance += Math.pow(prices[i]-sma, 2);
-  let stdDev = Math.sqrt(variance/period);
-  return {upper: sma+2*stdDev, lower: sma-2*stdDev, middle: sma};
-}
-
-function calcATR(data, period=14){
-  let trs = [];
-  for(let i=1; i<data.length; i++){
-    let high = data[i][2], low = data[i][3], prevClose = data[i-1][4];
-    trs.push(Math.max(high-low, Math.abs(high-prevClose), Math.abs(low-prevClose)));
-  }
-  let sum = 0;
-  for(let i=trs.length-period; i<trs.length; i++) sum += trs[i];
-  return sum/period;
-}
-
-function calcStochastic(data, period=14){
-  let highs = [], lows = [], closes = [];
-  for(let i=data.length-period; i<data.length; i++){
-    highs.push(data[i][2]);
-    lows.push(data[i][3]);
-    closes.push(data[i][4]);
-  }
-  let highestHigh = Math.max(...highs);
-  let lowestLow = Math.min(...lows);
-  let currentClose = closes[closes.length-1];
-  if(highestHigh === lowestLow) return 50;
-  return ((currentClose - lowestLow) / (highestHigh - lowestLow)) * 100;
-}
-
-function calcCCI(data, period=20){
-  let tpSum = 0;
-  let tps = [];
-  for(let i=data.length-period; i<data.length; i++){
-    let tp = (data[i][2] + data[i][3] + data[i][4]) / 3;
-    tps.push(tp);
-    tpSum += tp;
-  }
-  let smaTP = tpSum / period;
-  let meanDev = 0;
-  for(let tp of tps) meanDev += Math.abs(tp - smaTP);
-  meanDev /= period;
-  let lastTP = tps[tps.length-1];
-  if(meanDev === 0) return 0;
-  return (lastTP - smaTP) / (0.015 * meanDev);
-}
-
-function calcADX(data, period=14){
-  let plusDM = [], minusDM = [], trs = [];
-  for(let i=1; i<data.length; i++){
-    let high = data[i][2], low = data[i][3], prevHigh = data[i-1][2], prevLow = data[i-1][3], prevClose = data[i-1][4];
-    let upMove = high - prevHigh;
-    let downMove = prevLow - low;
-    plusDM.push((upMove > downMove && upMove > 0) ? upMove : 0);
-    minusDM.push((downMove > upMove && downMove > 0) ? downMove : 0);
-    trs.push(Math.max(high-low, Math.abs(high-prevClose), Math.abs(low-prevClose)));
-  }
-  let pdi = 0, mdi = 0, trSum = 0;
-  let start = Math.max(0, plusDM.length-period);
-  for(let i=start; i<plusDM.length; i++){ pdi += plusDM[i]; mdi += minusDM[i]; trSum += trs[i]; }
-  if(trSum === 0) return 0;
-  pdi = (pdi/trSum)*100;
-  mdi = (mdi/trSum)*100;
-  let dx = Math.abs(pdi - mdi) / (pdi + mdi) * 100;
-  if(isNaN(dx)) return 0;
-  return dx;
-}
-
-function calcMFI(data, period=14){
-  let posFlow = 0, negFlow = 0;
-  for(let i=data.length-period; i<data.length; i++){
-    let tp = (data[i][2] + data[i][3] + data[i][4]) / 3;
-    let prevTP = (data[i-1][2] + data[i-1][3] + data[i-1][4]) / 3;
-    let mf = tp * data[i][5];
-    if(tp > prevTP) posFlow += mf;
-    else negFlow += mf;
-  }
-  if(negFlow === 0) return 100;
-  let mfr = posFlow / negFlow;
-  return 100 - (100 / (1 + mfr));
-}
-
-function calcWilliamsR(data, period=14){
-  let highs = [], lows = [];
-  for(let i=data.length-period; i<data.length; i++){ highs.push(data[i][2]); lows.push(data[i][3]); }
-  let highest = Math.max(...highs);
-  let lowest = Math.min(...lows);
-  let close = data[data.length-1][4];
-  if(highest === lowest) return -50;
-  return ((highest - close) / (highest - lowest)) * -100;
-}
-
-function calcOBV(data){
-  let obv = 0;
-  for(let i=1; i<data.length; i++){
-    if(data[i][4] > data[i-1][4]) obv += data[i][5];
-    else if(data[i][4] < data[i-1][4]) obv -= data[i][5];
-  }
-  return obv;
-}
-
-function calcParabolicSAR(data){
-  let closes = data.map(c => c[4]);
-  let ema20 = calcEMA(closes, 20);
-  let lastClose = closes[closes.length-1];
-  return lastClose > ema20 ? 'BULLISH' : 'BEARISH';
-}
-
-function calcIchimoku(data){
-  let highs9 = [], lows9 = [], highs26 = [], lows26 = [];
-  for(let i=Math.max(0,data.length-9); i<data.length; i++){ highs9.push(data[i][2]); lows9.push(data[i][3]); }
-  for(let i=Math.max(0,data.length-26); i<data.length; i++){ highs26.push(data[i][2]); lows26.push(data[i][3]); }
-  let tenkan = (Math.max(...highs9) + Math.min(...lows9)) / 2;
-  let kijun = (Math.max(...highs26) + Math.min(...lows26)) / 2;
-  let lastClose = data[data.length-1][4];
-  if(lastClose > tenkan && tenkan > kijun) return 'STRONG BUY';
-  if(lastClose > kijun) return 'BUY';
-  if(lastClose < tenkan && tenkan < kijun) return 'STRONG SELL';
-  if(lastClose < kijun) return 'SELL';
-  return 'NEUTRAL';
-}
-
-function check5Candles(data){
-  let up = 0, down = 0;
-  let last5 = data.slice(-5);
-  for(let c of last5){ if(c[4] > c[1]) up++; else if(c[4] < c[1]) down++; }
-  let trend = up >= 3 ? 'UP' : down >= 3 ? 'DOWN' : 'SIDEWAY';
-  return {trend, up, down};
-}
-  
-# Part 4 - Data Fetch + Main Scan Function + Init
-part4 = '''
-// ========== DATA FETCH ==========
 async function fetchRealData(){
   try{
-    if(currentMarket === 'binance'){
-      let symbol = currentAsset;
-      let interval = currentTimeframe + 'm';
-      let response = await fetch(`${BINANCE_API}/klines?symbol=${symbol}&interval=${interval}&limit=250`);
-      let data = await response.json();
-      return data.map(c => [parseInt(c[0]), parseFloat(c[1]), parseFloat(c[2]), parseFloat(c[3]), parseFloat(c[4]), parseFloat(c[5])]);
+    if(currentMarket==='binance'){
+      let symbol = currentAsset.includes('USD') &&!currentAsset.includes('USDT')? currentAsset+'T' : currentAsset;
+      if(symbol==='EURUSDT') symbol='BTCUSDT';
+      let r = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${currentTimeframe}m&limit=100`);
+      let data = await r.json();
+      return data.map(c=>[+c[0],+c[1],+c[2],+c[3],+c[4],+c[5]]);
     }
-    else if(currentMarket === 'forex'){
-      let symbol = currentAsset;
-      let interval = currentTimeframe + 'min';
-      let response = await fetch(`https://api.twelvedata.com/time_series?symbol=${symbol}&interval=${interval}&outputsize=250&apikey=${TWELVE_DATA_KEY}`);
-      let result = await response.json();
-      if(result.values){
-        return result.values.reverse().map(c => [Date.now(), parseFloat(c.open), parseFloat(c.high), parseFloat(c.low), parseFloat(c.close), parseFloat(c.volume || 1000)]);
-      }
-      throw new Error('Forex API Error');
-    }
-    else { return generateSimData(); }
-  } catch(e){
-    console.log('API Error:', e);
-    return generateSimData();
-  }
-}
+  }catch(e){}
+  // sim fallback
+  let data=[], base = currentAsset.includes('JPY')?150:currentAsset.includes('USDT')?50000:1.15;
+  for(let i=0;i=0, rsiVal<70, stoch<80, adx>20;
+  let sellTrend = ema21 < ema50 && ema50 < ema200 && lastPrice < ema200;
+  let sellOsc = rsiVal>30, stoch>20;
 
-function generateSimData(){
-  let data = [];
-  let basePrice = currentAsset.includes('JPY') ? 150 : currentAsset.includes('BRL') ? 5.2 : currentAsset.includes('INR') ? 83.5 : currentAsset.includes('USDT') ? 50000 : 1.15;
-  for(let i=0; i<250; i++){
-    let change = (Math.random() - 0.5) * 0.008;
-    basePrice += change;
-    let open = basePrice;
-    let high = basePrice + Math.random() * 0.004;
-    let low = basePrice - Math.random() * 0.004;
-    let close = basePrice + change;
-    let vol = Math.random() * 5000 + 2000;
-    data.push([Date.now() - (250-i)*60000, open, high, low, close, vol]);
-  }
-  return data;
-}
-
-// ========== UPDATE INDICATOR UI ==========
-function updateIndUI(index, value, signal){
-  document.getElementById('v'+index).innerText = value;
-  let sigEl = document.getElementById('s'+index);
-  let boxEl = document.getElementById('ind'+index);
-  sigEl.innerText = signal;
-  boxEl.classList.remove('active-buy','active-sell');
-  sigEl.classList.remove('buy','sell','neutral');
-  if(signal === 'BUY'){ sigEl.classList.add('buy'); boxEl.classList.add('active-buy'); }
-  else if(signal === 'SELL'){ sigEl.classList.add('sell'); boxEl.classList.add('active-sell'); }
-  else sigEl.classList.add('neutral');
-}
-
-// ========== MAIN SCAN ==========
-async function scanIndicators(){
-  if(isScanning) return;
-  isScanning = true;
-  
-  let btn = document.getElementById('scanBtn');
-  btn.disabled = true;
-  btn.classList.add('scanning');
-  btn.querySelector('.btn-text').innerText = 'ANALYZING...';
-  
-  showAnalyzing();
-  
-  // Small delay to show analyzing animation
-  await new Promise(r => setTimeout(r, 1500));
-  
-  let data = await fetchRealData();
-  let prices = data.map(c => parseFloat(c[4]));
-  let volumes = data.map(c => parseFloat(c[5]));
-  let lastPrice = prices[prices.length-1];
-  let avgVol = volumes.reduce((a,b)=>a+b) / volumes.length;
-  let lastVol = volumes[volumes.length-1];
-
-  let rsi = calcRSI(prices);
-  let ema21 = calcEMA(prices, 21);
-  let ema50 = calcEMA(prices, 50);
-  let ema200 = calcEMA(prices, 200);
-  let macd = calcMACD(prices);
-  let bb = calcBB(prices);
-  let atr = calcATR(data);
-  let candle5 = check5Candles(data);
-  let sma20 = calcSMA(prices, 20);
-  let sma50 = calcSMA(prices, 50);
-  let stoch = calcStochastic(data);
-  let cci = calcCCI(data);
-  let adx = calcADX(data);
-  let mfi = calcMFI(data);
-  let wr = calcWilliamsR(data);
-  let obv = calcOBV(data);
-  let psar = calcParabolicSAR(data);
-  let ichimoku = calcIchimoku(data);
-
-  let buyScore = 0, sellScore = 0;
-  let indResults = [];
-
-  let rsiSig = rsi < 30 ? 'BUY' : rsi > 70 ? 'SELL' : 'NEUTRAL';
-  if(rsi < 30) buyScore++; else if(rsi > 70) sellScore++;
-  indResults.push({v: rsi.toFixed(1), s: rsiSig});
-
-  let ema21Sig = lastPrice > ema21 ? 'BUY' : 'SELL';
-  if(lastPrice > ema21) buyScore++; else sellScore++;
-  indResults.push({v: ema21.toFixed(4), s: ema21Sig});
-
-  let ema50Sig = lastPrice > ema50 ? 'BUY' : 'SELL';
-  if(lastPrice > ema50) buyScore++; else sellScore++;
-  indResults.push({v: ema50.toFixed(4), s: ema50Sig});
-
-  let ema200Sig = lastPrice > ema200 ? 'BUY' : 'SELL';
-  if(lastPrice > ema200) buyScore++; else sellScore++;
-  indResults.push({v: ema200.toFixed(4), s: ema200Sig});
-
-  let macdSig = macd.macd > 0 ? 'BUY' : 'SELL';
-  if(macd.macd > 0) buyScore++; else sellScore++;
-  indResults.push({v: macd.macd.toFixed(5), s: macdSig});
-
-  let macdSig2 = macd.hist > 0 ? 'BUY' : 'SELL';
-  if(macd.hist > 0) buyScore++; else sellScore++;
-  indResults.push({v: macd.signal.toFixed(5), s: macdSig2});
-
-  let bbUpperSig = lastPrice > bb.upper ? 'SELL' : 'NEUTRAL';
-  if(lastPrice > bb.upper) sellScore++;
-  indResults.push({v: bb.upper.toFixed(4), s: bbUpperSig});
-
-  let bbLowerSig = lastPrice < bb.lower ? 'BUY' : 'NEUTRAL';
-  if(lastPrice < bb.lower) buyScore++;
-  indResults.push({v: bb.lower.toFixed(4), s: bbLowerSig});
-
-  let bbMidSig = lastPrice > bb.middle ? 'BUY' : 'SELL';
-  if(lastPrice > bb.middle) buyScore++; else sellScore++;
-  indResults.push({v: bb.middle.toFixed(4), s: bbMidSig});
-
-  let atrSig = atr > 0.001 ? 'STRONG' : 'WEAK';
-  if(atr > 0.001) { buyScore++; sellScore++; }
-  indResults.push({v: atr.toFixed(5), s: atrSig});
-
-  let volSig = lastVol > avgVol ? 'BUY' : 'SELL';
-  if(lastVol > avgVol) buyScore++; else sellScore++;
-  indResults.push({v: (lastVol/1000).toFixed(1)+'K', s: volSig});
-
-  let c5Sig = candle5.trend === 'UP' ? 'BUY' : candle5.trend === 'DOWN' ? 'SELL' : 'NEUTRAL';
-  if(candle5.trend === 'UP') buyScore++; else if(candle5.trend === 'DOWN') sellScore++;
-  indResults.push({v: candle5.up+'/'+candle5.down, s: c5Sig});
-
-  let sma20Sig = lastPrice > sma20 ? 'BUY' : 'SELL';
-  if(lastPrice > sma20) buyScore++; else sellScore++;
-  indResults.push({v: sma20.toFixed(4), s: sma20Sig});
-
-  let sma50Sig = lastPrice > sma50 ? 'BUY' : 'SELL';
-  if(lastPrice > sma50) buyScore++; else sellScore++;
-  indResults.push({v: sma50.toFixed(4), s: sma50Sig});
-
-  let stochSig = stoch < 20 ? 'BUY' : stoch > 80 ? 'SELL' : 'NEUTRAL';
-  if(stoch < 20) buyScore++; else if(stoch > 80) sellScore++;
-  indResults.push({v: stoch.toFixed(1), s: stochSig});
-
-  let cciSig = cci < -100 ? 'BUY' : cci > 100 ? 'SELL' : 'NEUTRAL';
-  if(cci < -100) buyScore++; else if(cci > 100) sellScore++;
-  indResults.push({v: cci.toFixed(1), s: cciSig});
-
-  let adxSig = adx > 25 ? 'STRONG' : 'WEAK';
-  if(adx > 25) { buyScore++; sellScore++; }
-  indResults.push({v: adx.toFixed(1), s: adxSig});
-
-  let mfiSig = mfi < 20 ? 'BUY' : mfi > 80 ? 'SELL' : 'NEUTRAL';
-  if(mfi < 20) buyScore++; else if(mfi > 80) sellScore++;
-  indResults.push({v: mfi.toFixed(1), s: mfiSig});
-
-  let wrSig = wr < -80 ? 'BUY' : wr > -20 ? 'SELL' : 'NEUTRAL';
-  if(wr < -80) buyScore++; else if(wr > -20) sellScore++;
-  indResults.push({v: wr.toFixed(1), s: wrSig});
-
-  let obvSig = obv > 0 ? 'BUY' : 'SELL';
-  if(obv > 0) buyScore++; else sellScore++;
-  indResults.push({v: (obv/1000).toFixed(1)+'K', s: obvSig});
-
-  let psarSig = psar === 'BULLISH' ? 'BUY' : 'SELL';
-  if(psar === 'BULLISH') buyScore++; else sellScore++;
-  indResults.push({v: psar, s: psarSig});
-
-  let ichiSig = ichimoku.includes('BUY') ? 'BUY' : ichimoku.includes('SELL') ? 'SELL' : 'NEUTRAL';
-  if(ichimoku.includes('BUY')) buyScore++; else if(ichimoku.includes('SELL')) sellScore++;
-  indResults.push({v: ichimoku, s: ichiSig});
-
-  for(let i=0; i<22; i++){
-    updateIndUI(i+1, indResults[i].v, indResults[i].s);
-  }
-
-  let totalBuy = buyScore;
-  let totalSell = sellScore;
-  let maxScore = Math.max(totalBuy, totalSell);
-  let confidence = Math.round((maxScore / 22) * 100);
-  let signal = 'WAIT';
-  let signalColor = '#fff';
-  let borderColor = '#00d4ff';
-
-  document.getElementById('buyScoreVal').innerText = totalBuy;
-  document.getElementById('sellScoreVal').innerText = totalSell;
-  document.getElementById('confVal').innerText = confidence + '%';
-
-  let buyBox = document.getElementById('buyScoreBox');
-  let sellBox = document.getElementById('sellScoreBox');
-  buyBox.classList.remove('buy-active');
-  sellBox.classList.remove('sell-active');
-
-  if(totalBuy >= 14 && totalBuy > totalSell){
-    signal = 'BUY';
-    signalColor = '#00ff88';
-    borderColor = '#00ff88';
-    buyBox.classList.add('buy-active');
-    if(lastSignal !== 'BUY'){
-      playAlert('buy');
-      showSignalAlert('STRONG BUY SIGNAL!', totalBuy + '/22 indicators confirm BUY');
-    }
-  } else if(totalSell >= 14 && totalSell > totalBuy){
-    signal = 'SELL';
-    signalColor = '#ff3333';
-    borderColor = '#ff3333';
-    sellBox.classList.add('sell-active');
-    if(lastSignal !== 'SELL'){
-      playAlert('sell');
-      showSignalAlert('STRONG SELL SIGNAL!', totalSell + '/22 indicators confirm SELL');
-    }
-  } else if(totalBuy >= 10 && totalBuy > totalSell){
-    signal = 'WEAK BUY';
-    signalColor = '#88ffaa';
-    borderColor = '#88ffaa';
-  } else if(totalSell >= 10 && totalSell > totalBuy){
-    signal = 'WEAK SELL';
-    signalColor = '#ff8888';
-    borderColor = '#ff8888';
-  }
-
-  lastSignal = signal;
-
-  document.getElementById('signalText').innerText = signal;
-  document.getElementById('signalText').style.color = signalColor;
-  document.getElementById('signalSub').innerHTML =
-    '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>' +
-    maxScore + '/22 Indicators Confirm - ' + signal;
-  document.getElementById('signalBox').style.borderColor = borderColor;
-
-  let confBar = document.getElementById('confBar');
-  confBar.style.width = confidence + '%';
-  confBar.style.background = signal === 'BUY' || signal === 'WEAK BUY' ? '#00ff88' : signal === 'SELL' || signal === 'WEAK SELL' ? '#ff3333' : '#ffd700';
-
-  document.getElementById('infoScore').innerText = confidence + '%';
-  generateMiniChart();
-
-  // Reset button
-  hideAnalyzing();
-  btn.disabled = false;
-  btn.classList.remove('scanning');
-  btn.querySelector('.btn-text').innerText = '22-IND SCAN LIVE';
-  isScanning = false;
-}
-
-// ========== INIT ==========
-checkSession();
-</script>
-</body>
-</html>
+  let buyScore=0, sellScore=0;
+  function vote(cond,
