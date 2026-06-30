@@ -2,1114 +2,1211 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lubna AI Bot v4 - REAL TA | Smart Trading Assistant</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+    <title>Meta AI</title>
+    <meta name="description" content="Use Meta AI assistant to get things done, create AI-generated images for free, and get answers to any of your questions.">
+    <link rel="icon" href="https://static.xx.fbcdn.net/assets/?set=meta_ai_assets&name=meta-ai-orbit-favicon-180px-raster&density=4x&mode=light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --bg-dark: #0f0f1a;
-            --bg-card: #1a1a2e;
-            --bg-card-hover: #252542;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0b8;
-            --border: #2a2a40;
-            --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
-            --gradient-2: linear-gradient(135deg, #10b981, #06b6d4);
-            --gradient-3: linear-gradient(135deg, #f59e0b, #ef4444);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #333333;
+            --bg-hover: #3a3a3a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #6b6b6b;
+            --accent: #0084ff;
+            --accent-hover: #1877f2;
+            --border: #3a3a3a;
+            --message-user: #2d2d2d;
+            --message-ai: #1a1a1a;
+            --input-bg: #2d2d2d;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            height: 100vh;
             overflow: hidden;
-        }
-
-        .bg-animation::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
-            animation: bgFloat 20s ease-in-out infinite;
-        }
-
-        @keyframes bgFloat {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(1deg); }
-            66% { transform: translate(-20px, 20px) rotate(-1deg); }
+            display: flex;
+            flex-direction: column;
         }
 
         /* Header */
         .header {
-            background: rgba(15, 15, 26, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-primary);
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--gradient-1);
-            border-radius: 12px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0084ff, #00c6ff);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+            flex-shrink: 0;
         }
 
-        .logo-text {
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .sidebar-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .new-chat-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            margin: 16px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .new-chat-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 12px;
+        }
+
+        .history-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 2px;
+            transition: all 0.2s;
+        }
+
+        .history-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .history-item.active {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .welcome-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0084ff, #00c6ff, #0084ff);
+            background-size: 200% 200%;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 24px;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .welcome-title {
+            font-size: 32px;
             font-weight: 700;
-            font-size: 1.25rem;
-            background: var(--gradient-1);
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff, #a0a0a0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .logo-badge {
-            background: var(--gradient-2);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .header-nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
+        .welcome-subtitle {
+            font-size: 16px;
             color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-            position: relative;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 40px;
         }
 
-        .nav-link:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-link.active {
-            color: var(--primary);
-        }
-
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-1);
-            border-radius: 2px;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* Main Layout */
-        .main-container {
-            margin-top: 80px;
-            padding: 2rem;
-            max-width: 1600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Dashboard Grid */
-        .dashboard-grid {
+        .suggestion-grid {
             display: grid;
-            grid-template-columns: 280px 1fr 320px;
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            max-width: 800px;
+            width: 100%;
+            padding: 0 20px;
         }
 
-        /* Sidebar */
-        .sidebar {
-            background: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .sidebar-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-        }
-
-        .sidebar-item {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .sidebar-link:hover, .sidebar-link.active {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--primary);
-        }
-
-        .sidebar-link i {
-            width: 20px;
-            text-align: center;
-        }
-
-        .sidebar-divider {
-            height: 1px;
-            background: var(--border);
-            margin: 1rem 0;
-        }
-
-        /* Market Overview Cards */
-        .market-overview {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .market-card {
-            background: var(--bg-card);
+        .suggestion-card {
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 1.25rem;
-            transition: all 0.3s;
+            padding: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .market-card:hover {
-            background: var(--bg-card-hover);
+        .suggestion-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent);
             transform: translateY(-2px);
         }
 
-        .market-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .market-pair {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .market-badge {
-            padding: 0.2rem 0.5rem;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .badge-buy { background: rgba(16, 185, 129, 0.2); color: var(--secondary); }
-        .badge-sell { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-        .badge-neutral { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
-
-        .market-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 0.5rem;
-        }
-
-        .market-change {
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .change-up { color: var(--secondary); }
-        .change-down { color: var(--danger); }
-
-        /* Chart Section */
-        .chart-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .timeframes {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .tf-btn {
-            padding: 0.4rem 0.8rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tf-btn:hover, .tf-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .chart-container {
-            height: 400px;
-            background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%);
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-placeholder {
-            position: absolute;
-            inset: 0;
+        .suggestion-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg-tertiary);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 1rem;
+            margin-bottom: 12px;
+            font-size: 20px;
         }
 
-        .chart-placeholder i {
-            font-size: 3rem;
-            color: var(--primary);
-            opacity: 0.5;
+        .suggestion-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
         }
 
-        .chart-placeholder p {
+        .suggestion-desc {
+            font-size: 13px;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        /* Signals Section */
-        .signals-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem;
-        }
-
-        .signal-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 0.75rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid transparent;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .signal-item:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border);
-        }
-
-        .signal-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-        }
-
-        .signal-buy { background: rgba(16, 185, 129, 0.15); color: var(--secondary); }
-        .signal-sell { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
-
-        .signal-info {
+        /* Chat Area */
+        .chat-container {
             flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            gap: 24px;
         }
 
-        .signal-pair {
+        .chat-container.active {
+            display: flex;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            animation: messageSlide 0.3s ease;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
             font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
         }
 
-        .signal-type {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+        .message-avatar.user {
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
 
-        .signal-time {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
+        .message-avatar.ai {
+            background: linear-gradient(135deg, #0084ff, #00c6ff);
+        }
+
+        .message-content {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 16px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .message.user .message-content {
+            background: var(--message-user);
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.ai .message-content {
+            background: transparent;
+            padding: 0;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
             text-align: right;
         }
 
-        .signal-strength {
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 12px 0;
+        }
+
+        .typing-indicator.active {
             display: flex;
-            gap: 0.25rem;
-            margin-top: 0.25rem;
         }
 
-        .strength-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--border);
-        }
-
-        .strength-dot.active {
-            background: var(--secondary);
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
-        }
-
-        /* Right Panel */
-        .right-panel {
+        .typing-dots {
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .panel-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            gap: 4px;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
             border-radius: 16px;
-            padding: 1.5rem;
+            border-bottom-left-radius: 4px;
         }
 
-        .panel-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .panel-title i {
-            color: var(--primary);
-        }
-
-        /* AI Status */
-        .ai-status {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            background: rgba(16, 185, 129, 0.1);
-            border-radius: 12px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .ai-status-dot {
-            width: 10px;
-            height: 10px;
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-secondary);
             border-radius: 50%;
-            background: var(--secondary);
-            animation: pulse 2s infinite;
+            animation: typingBounce 1.4s infinite ease-in-out;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+            40% { transform: translateY(-6px); opacity: 1; }
         }
 
-        .ai-status-text {
-            font-weight: 600;
-            color: var(--secondary);
-        }
-
-        .ai-status-sub {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        /* Performance Stats */
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .stat-row:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .stat-value {
-            font-weight: 600;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .stat-positive { color: var(--secondary); }
-        .stat-negative { color: var(--danger); }
-
-        /* Quick Trade */
-        .trade-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .form-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-
-        .trade-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-top: 0.5rem;
-        }
-
-        .btn-buy {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-
-        .btn-sell {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-
-        .btn-buy:hover, .btn-sell:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        /* News Feed */
-        .news-item {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .news-item:last-child {
-            border-bottom: none;
-        }
-
-        .news-item:hover {
-            padding-left: 0.5rem;
-        }
-
-        .news-time {
-            font-size: 0.7rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .news-title {
-            font-size: 0.85rem;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        .news-tag {
-            display: inline-block;
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .tag-high { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-        .tag-medium { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
-        .tag-low { background: rgba(16, 185, 129, 0.2); color: var(--secondary); }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
+        /* Input Area */
+        .input-container {
+            padding: 16px 20px;
             border-top: 1px solid var(--border);
-            margin-top: 2rem;
+            background: var(--bg-primary);
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            .sidebar, .right-panel {
-                display: none;
-            }
-            .market-overview {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .input-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 8px 8px 8px 16px;
+            transition: border-color 0.2s;
         }
 
-        @media (max-width: 768px) {
-            .header-nav {
-                display: none;
-            }
-            .market-overview {
-                grid-template-columns: 1fr;
-            }
-            .main-container {
-                padding: 1rem;
-            }
+        .input-wrapper:focus-within {
+            border-color: var(--accent);
+        }
+
+        .input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 15px;
+            resize: none;
+            min-height: 24px;
+            max-height: 120px;
+            font-family: inherit;
+            padding: 8px 0;
+            line-height: 1.5;
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .input-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .input-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .send-btn {
+            background: var(--accent) !important;
+            color: white !important;
+        }
+
+        .send-btn:hover {
+            background: var(--accent-hover) !important;
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-footer {
+            text-align: center;
+            padding-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner circle {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 3;
+            stroke-linecap: round;
+            animation: spinnerDash 1.5s ease-in-out infinite;
+        }
+
+        .spinner circle:nth-child(1) { stroke: white; stroke-dasharray: 60 200; stroke-dashoffset: 0; }
+        .spinner circle:nth-child(2) { stroke: white; opacity: 0.6; stroke-dasharray: 60 200; stroke-dashoffset: -40; }
+        .spinner circle:nth-child(3) { stroke: white; opacity: 0.3; stroke-dasharray: 60 200; stroke-dashoffset: -80; }
+
+        /* Code Block Styling */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .code-lang {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: monospace;
+        }
+
+        .code-copy {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .code-copy:hover {
+            color: var(--text-primary);
+        }
+
+        .code-content {
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e6edf3;
+        }
+
+        /* Markdown Styles */
+        .markdown h1, .markdown h2, .markdown h3 {
+            margin: 16px 0 8px;
+            font-weight: 600;
+        }
+
+        .markdown h1 { font-size: 24px; }
+        .markdown h2 { font-size: 20px; }
+        .markdown h3 { font-size: 18px; }
+
+        .markdown p {
+            margin: 8px 0;
+        }
+
+        .markdown ul, .markdown ol {
+            margin: 8px 0;
+            padding-left: 24px;
+        }
+
+        .markdown li {
+            margin: 4px 0;
+        }
+
+        .markdown strong {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .markdown code {
+            background: var(--bg-secondary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .markdown pre {
+            margin: 12px 0;
+        }
+
+        .markdown a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .markdown a:hover {
+            text-decoration: underline;
+        }
+
+        .markdown blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 12px 0;
+            color: var(--text-secondary);
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
+
         ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
+            background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
-            background: var(--border);
+            background: var(--bg-tertiary);
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
+            background: var(--bg-hover);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 24px;
+            }
+            
+            .suggestion-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .message {
+                padding: 0 4px;
+            }
+        }
+
+        /* Image generation preview */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .image-grid img {
+            width: 100%;
+            border-radius: 12px;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background: var(--bg-secondary);
+        }
+
+        /* Action buttons under AI messages */
+        .message-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            padding-left: 44px;
+        }
+
+        .message-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .message-action-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-secondary);
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <svg class="spinner" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="2" stroke-linecap="round"></circle>
+            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="2" stroke-linecap="round"></circle>
+            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="2" stroke-linecap="round"></circle>
+        </svg>
+    </div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-robot"></i>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">Chats</span>
+            <button class="icon-btn" id="closeSidebar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <button class="new-chat-btn" id="newChatBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Chat
+        </button>
+        <div class="chat-history" id="chatHistory">
+            <div class="history-item active" data-chat="1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Welcome to Meta AI</span>
             </div>
-            <span class="logo-text">Lubna AI Bot</span>
-            <span class="logo-badge">v4 REAL TA</span>
-        </div>
-        <nav class="header-nav">
-            <a href="#" class="nav-link active">Dashboard</a>
-            <a href="#" class="nav-link">Markets</a>
-            <a href="#" class="nav-link">Signals</a>
-            <a href="#" class="nav-link">Backtest</a>
-            <a href="#" class="nav-link">Settings</a>
-        </nav>
-        <div class="header-actions">
-            <button class="btn btn-outline"><i class="fas fa-bell"></i></button>
-            <button class="btn btn-primary"><i class="fas fa-play"></i> Start Bot</button>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <div class="main-container">
-        <div class="dashboard-grid">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="sidebar-title">Trading Pairs</div>
-                <ul class="sidebar-menu">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link active">
-                            <i class="fab fa-bitcoin"></i> BTC/USDT
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fab fa-ethereum"></i> ETH/USDT
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-coins"></i> BNB/USDT
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-coins"></i> SOL/USDT
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-coins"></i> XRP/USDT
-                        </a>
-                    </li>
-                </ul>
-                <div class="sidebar-divider"></div>
-                <div class="sidebar-title">Indicators</div>
-                <ul class="sidebar-menu">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-chart-line"></i> RSI (14)
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-wave-square"></i> MACD
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-chart-bar"></i> Bollinger Bands
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-arrows-alt-h"></i> EMA Cross
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link">
-                            <i class="fas fa-tachometer-alt"></i> Volume Profile
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-
-            <!-- Main Content -->
-            <main class="main-content">
-                <!-- Market Overview -->
-                <div class="market-overview">
-                    <div class="market-card">
-                        <div class="market-card-header">
-                            <span class="market-pair">BTC/USDT</span>
-                            <span class="market-badge badge-buy">BUY</span>
-                        </div>
-                        <div class="market-price">$67,432.50</div>
-                        <div class="market-change change-up">
-                            <i class="fas fa-arrow-up"></i> +2.45% ($1,612.30)
-                        </div>
-                    </div>
-                    <div class="market-card">
-                        <div class="market-card-header">
-                            <span class="market-pair">ETH/USDT</span>
-                            <span class="market-badge badge-buy">BUY</span>
-                        </div>
-                        <div class="market-price">$3,521.80</div>
-                        <div class="market-change change-up">
-                            <i class="fas fa-arrow-up"></i> +1.82% ($62.90)
-                        </div>
-                    </div>
-                    <div class="market-card">
-                        <div class="market-card-header">
-                            <span class="market-pair">BNB/USDT</span>
-                            <span class="market-badge badge-neutral">HOLD</span>
-                        </div>
-                        <div class="market-price">$605.20</div>
-                        <div class="market-change change-down">
-                            <i class="fas fa-arrow-down"></i> -0.35% ($2.12)
-                        </div>
-                    </div>
-                    <div class="market-card">
-                        <div class="market-card-header">
-                            <span class="market-pair">SOL/USDT</span>
-                            <span class="market-badge badge-sell">SELL</span>
-                        </div>
-                        <div class="market-price">$142.85</div>
-                        <div class="market-change change-down">
-                            <i class="fas fa-arrow-down"></i> -1.24% ($1.79)
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chart Section -->
-                <div class="chart-section">
-                    <div class="section-header">
-                        <h2 class="section-title"><i class="fas fa-chart-area"></i> Technical Analysis Chart</h2>
-                        <div class="timeframes">
-                            <button class="tf-btn">1m</button>
-                            <button class="tf-btn">5m</button>
-                            <button class="tf-btn">15m</button>
-                            <button class="tf-btn active">1H</button>
-                            <button class="tf-btn">4H</button>
-                            <button class="tf-btn">1D</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <div class="chart-placeholder">
-                            <i class="fas fa-chart-line"></i>
-                            <p>Interactive TradingView Chart Integration</p>
-                            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Real-time data with AI-powered technical analysis overlays</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Signals Section -->
-                <div class="signals-section">
-                    <div class="section-header">
-                        <h2 class="section-title"><i class="fas fa-satellite-dish"></i> AI Trading Signals</h2>
-                        <button class="btn btn-outline" style="font-size: 0.8rem;"><i class="fas fa-filter"></i> Filter</button>
-                    </div>
-                    <div class="signal-item">
-                        <div class="signal-icon signal-buy">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <div class="signal-info">
-                            <div class="signal-pair">BTC/USDT</div>
-                            <div class="signal-type">RSI Oversold + MACD Bullish Cross</div>
-                            <div class="signal-strength">
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                            </div>
-                        </div>
-                        <div class="signal-time">
-                            <div>2 min ago</div>
-                            <div style="color: var(--secondary); font-weight: 600;">95% Confidence</div>
-                        </div>
-                    </div>
-                    <div class="signal-item">
-                        <div class="signal-icon signal-buy">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <div class="signal-info">
-                            <div class="signal-pair">ETH/USDT</div>
-                            <div class="signal-type">EMA 20/50 Golden Cross + Volume Surge</div>
-                            <div class="signal-strength">
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot"></div>
-                            </div>
-                        </div>
-                        <div class="signal-time">
-                            <div>5 min ago</div>
-                            <div style="color: var(--secondary); font-weight: 600;">87% Confidence</div>
-                        </div>
-                    </div>
-                    <div class="signal-item">
-                        <div class="signal-icon signal-sell">
-                            <i class="fas fa-arrow-down"></i>
-                        </div>
-                        <div class="signal-info">
-                            <div class="signal-pair">SOL/USDT</div>
-                            <div class="signal-type">Bollinger Band Squeeze + RSI Divergence</div>
-                            <div class="signal-strength">
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot"></div>
-                                <div class="strength-dot"></div>
-                            </div>
-                        </div>
-                        <div class="signal-time">
-                            <div>12 min ago</div>
-                            <div style="color: var(--danger); font-weight: 600;">72% Confidence</div>
-                        </div>
-                    </div>
-                    <div class="signal-item">
-                        <div class="signal-icon signal-buy">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <div class="signal-info">
-                            <div class="signal-pair">XRP/USDT</div>
-                            <div class="signal-type">Support Bounce + Volume Weighted Momentum</div>
-                            <div class="signal-strength">
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot"></div>
-                            </div>
-                        </div>
-                        <div class="signal-time">
-                            <div>18 min ago</div>
-                            <div style="color: var(--secondary); font-weight: 600;">84% Confidence</div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-
-            <!-- Right Panel -->
-            <aside class="right-panel">
-                <!-- AI Status -->
-                <div class="panel-card">
-                    <div class="panel-title"><i class="fas fa-brain"></i> AI Engine Status</div>
-                    <div class="ai-status">
-                        <div class="ai-status-dot"></div>
-                        <div>
-                            <div class="ai-status-text">Bot Active</div>
-                            <div class="ai-status-sub">Analyzing 24 pairs in real-time</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Performance -->
-                <div class="panel-card">
-                    <div class="panel-title"><i class="fas fa-trophy"></i> Today's Performance</div>
-                    <div class="stat-row">
-                        <span class="stat-label">Total Trades</span>
-                        <span class="stat-value">24</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Win Rate</span>
-                        <span class="stat-value stat-positive">78.5%</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Profit/Loss</span>
-                        <span class="stat-value stat-positive">+$1,245.50</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Avg. Trade</span>
-                        <span class="stat-value stat-positive">+$51.90</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Max Drawdown</span>
-                        <span class="stat-value stat-negative">-$320.00</span>
-                    </div>
-                </div>
-
-                <!-- Quick Trade -->
-                <div class="panel-card">
-                    <div class="panel-title"><i class="fas fa-bolt"></i> Quick Trade</div>
-                    <div class="trade-form">
-                        <div class="form-group">
-                            <label class="form-label">Pair</label>
-                            <select class="form-input">
-                                <option>BTC/USDT</option>
-                                <option>ETH/USDT</option>
-                                <option>BNB/USDT</option>
-                                <option>SOL/USDT</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Amount (USDT)</label>
-                            <input type="number" class="form-input" placeholder="100.00" value="100">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Leverage</label>
-                            <select class="form-input">
-                                <option>1x (Spot)</option>
-                                <option>5x</option>
-                                <option>10x</option>
-                                <option>20x</option>
-                            </select>
-                        </div>
-                        <div class="trade-buttons">
-                            <button class="btn btn-buy"><i class="fas fa-arrow-up"></i> Buy</button>
-                            <button class="btn btn-sell"><i class="fas fa-arrow-down"></i> Sell</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Market News -->
-                <div class="panel-card">
-                    <div class="panel-title"><i class="fas fa-newspaper"></i> Market News</div>
-                    <div class="news-item">
-                        <div class="news-time">2 min ago</div>
-                        <div class="news-title">Bitcoin breaks above $67,000 resistance level</div>
-                        <span class="news-tag tag-high">High Impact</span>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">15 min ago</div>
-                        <div class="news-title">Ethereum network upgrade scheduled for next week</div>
-                        <span class="news-tag tag-medium">Medium</span>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">32 min ago</div>
-                        <div class="news-title">Fed announces interest rate decision tomorrow</div>
-                        <span class="news-tag tag-high">High Impact</span>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">1 hour ago</div>
-                        <div class="news-title">Solana DeFi TVL reaches new all-time high</div>
-                        <span class="news-tag tag-low">Low</span>
-                    </div>
-                </div>
-            </aside>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p><i class="fas fa-robot"></i> Lubna AI Bot v4 - REAL TA | Powered by Advanced Technical Analysis</p>
-        <p style="margin-top: 0.5rem; opacity: 0.7;">Risk Warning: Trading involves significant risk. Past performance is not indicative of future results.</p>
-    </footer>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <button class="icon-btn" id="menuBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="logo">M</div>
+                <span class="header-title">Meta AI</span>
+            </div>
+            <div class="header-right">
+                <button class="icon-btn" title="New Chat" id="headerNewChat">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn" title="Profile">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-logo">M</div>
+            <h1 class="welcome-title">Hello, I'm Meta AI</h1>
+            <p class="welcome-subtitle">Your AI assistant. I can help you get things done, create images, write, and answer questions.</p>
+            
+            <div class="suggestion-grid">
+                <div class="suggestion-card" data-prompt="Write a short story about a robot discovering emotions">
+                    <div class="suggestion-icon">✍️</div>
+                    <div class="suggestion-title">Write a story</div>
+                    <div class="suggestion-desc">"Write a short story about a robot discovering emotions"</div>
+                </div>
+                <div class="suggestion-card" data-prompt="Generate an image of a futuristic city at sunset">
+                    <div class="suggestion-icon">🎨</div>
+                    <div class="suggestion-title">Create an image</div>
+                    <div class="suggestion-desc">"Generate an image of a futuristic city at sunset"</div>
+                </div>
+                <div class="suggestion-card" data-prompt="Explain quantum computing in simple terms">
+                    <div class="suggestion-icon">🧠</div>
+                    <div class="suggestion-title">Explain a topic</div>
+                    <div class="suggestion-desc">"Explain quantum computing in simple terms"</div>
+                </div>
+                <div class="suggestion-card" data-prompt="Help me write a Python script to automate file organization">
+                    <div class="suggestion-icon">💻</div>
+                    <div class="suggestion-title">Write code</div>
+                    <div class="suggestion-desc">"Help me write a Python script to automate file organization"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container" id="chatContainer"></div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="message-avatar ai">M</div>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-container">
+            <div class="input-wrapper">
+                <textarea class="input-field" id="inputField" placeholder="Ask Meta AI anything..." rows="1"></textarea>
+                <div class="input-actions">
+                    <button class="input-btn" title="Attach file">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                        </svg>
+                    </button>
+                    <button class="input-btn send-btn" id="sendBtn" title="Send message">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="input-footer">Meta AI may make mistakes. Consider checking important information.</div>
+        </div>
+    </div>
 
     <script>
-        // Simulate live price updates
-        function updatePrices() {
-            const prices = document.querySelectorAll('.market-price');
-            prices.forEach(price => {
-                const current = parseFloat(price.textContent.replace(/[^0-9.]/g, ''));
-                const change = (Math.random() - 0.5) * 10;
-                const newPrice = current + change;
-                price.textContent = '$' + newPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // DOM Elements
+        const loadingScreen = document.getElementById('loadingScreen');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const menuBtn = document.getElementById('menuBtn');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const newChatBtn = document.getElementById('newChatBtn');
+        const headerNewChat = document.getElementById('headerNewChat');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const chatContainer = document.getElementById('chatContainer');
+        const inputField = document.getElementById('inputField');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const chatHistory = document.getElementById('chatHistory');
+        const suggestionCards = document.querySelectorAll('.suggestion-card');
+
+        // State
+        let isTyping = false;
+        let chatCount = 1;
+        let currentChat = 1;
+        const chats = { 1: [] };
+
+        // Hide loading screen after 1.5s
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+        }, 1500);
+
+        // Sidebar Toggle
+        function openSidebar() {
+            sidebar.classList.add('open');
+            sidebarOverlay.classList.add('open');
+        }
+
+        function closeSidebarFn() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        }
+
+        menuBtn.addEventListener('click', openSidebar);
+        closeSidebar.addEventListener('click', closeSidebarFn);
+        sidebarOverlay.addEventListener('click', closeSidebarFn);
+
+        // Auto-resize textarea
+        inputField.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            sendBtn.disabled = !this.value.trim();
+        });
+
+        // Send message
+        function sendMessage() {
+            const message = inputField.value.trim();
+            if (!message || isTyping) return;
+
+            // Hide welcome screen
+            welcomeScreen.style.display = 'none';
+            chatContainer.classList.add('active');
+
+            // Add user message
+            addMessage(message, 'user');
+            inputField.value = '';
+            inputField.style.height = 'auto';
+            sendBtn.disabled = true;
+
+            // Show typing indicator
+            isTyping = true;
+            typingIndicator.classList.add('active');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Simulate AI response
+            setTimeout(() => {
+                typingIndicator.classList.remove('active');
+                const response = generateResponse(message);
+                addMessage(response, 'ai');
+                isTyping = false;
+            }, 1500 + Math.random() * 1000);
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        inputField.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Add message to chat
+        function addMessage(content, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = `message-avatar ${sender}`;
+            avatar.textContent = sender === 'user' ? 'U' : 'M';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.style.flex = '1';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'message-content';
+            
+            if (sender === 'ai') {
+                bubble.innerHTML = `<div class="markdown">${formatMarkdown(content)}</div>`;
+            } else {
+                bubble.textContent = content;
+            }
+            
+            const time = document.createElement('div');
+            time.className = 'message-time';
+            time.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            contentDiv.appendChild(bubble);
+            contentDiv.appendChild(time);
+            
+            if (sender === 'ai') {
+                const actions = document.createElement('div');
+                actions.className = 'message-actions';
+                actions.innerHTML = `
+                    <button class="message-action-btn" onclick="copyMessage(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy
+                    </button>
+                    <button class="message-action-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                        </svg>
+                        Like
+                    </button>
+                    <button class="message-action-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V4H5.72a2 2 0 0 0-2 2.3l1.38 9a2 2 0 0 0 2 1.7h8.72zm0 0h-2.5"></path>
+                        </svg>
+                        Dislike
+                    </button>
+                `;
+                contentDiv.appendChild(actions);
+            }
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(contentDiv);
+            chatContainer.appendChild(messageDiv);
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Save to chat history
+            if (!chats[currentChat]) chats[currentChat] = [];
+            chats[currentChat].push({ sender, content, time: new Date() });
+        }
+
+        // Copy message
+        function copyMessage(btn) {
+            const messageContent = btn.closest('.message').querySelector('.message-content').textContent;
+            navigator.clipboard.writeText(messageContent).then(() => {
+                btn.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Copied!
+                `;
+                setTimeout(() => {
+                    btn.innerHTML = `
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy
+                    `;
+                }, 2000);
             });
         }
 
-        // Update every 3 seconds
-        setInterval(updatePrices, 3000);
+        // Format markdown-like content
+        function formatMarkdown(text) {
+            // Code blocks
+            text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+                return `<div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">${lang || 'text'}</span>
+                        <button class="code-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre class="code-content"><code>${escapeHtml(code.trim())}</code></pre>
+                </div>`;
+            });
+            
+            // Inline code
+            text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            // Bold
+            text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            
+            // Italic
+            text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+            
+            // Headers
+            text = text.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+            text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+            text = text.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+            
+            // Links
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            
+            // Lists
+            text = text.replace(/^\- (.+)$/gm, '<li>$1</li>');
+            text = text.replace(/(<li>.+<\/li>\n?)+/g, '<ul>$&</ul>');
+            text = text.replace(/<\/ul>\n?<ul>/g, '');
+            
+            // Blockquotes
+            text = text.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+            
+            // Paragraphs
+            text = text.replace(/\n\n/g, '</p><p>');
+            text = text.replace(/^(.+)$/gm, '<p>$1</p>');
+            text = text.replace(/<p><\/p>/g, '');
+            text = text.replace(/<p>(<\/.+?>)<\/p>/g, '$1');
+            
+            return text;
+        }
 
-        // Timeframe buttons
-        document.querySelectorAll('.tf-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        // Generate AI response
+        function generateResponse(message) {
+            const lowerMsg = message.toLowerCase();
+            
+            if (lowerMsg.includes('hello') || lowerMsg.includes('hi') || lowerMsg.includes('hey')) {
+                return "Hello! I'm Meta AI, your AI assistant. How can I help you today?";
+            }
+            
+            if (lowerMsg.includes('image') || lowerMsg.includes('picture') || lowerMsg.includes('generate')) {
+                return "I can help you create images! Here's what I generated based on your request:\n\n**Image Generation Features:**\n- High-quality AI art\n- Multiple styles (photorealistic, anime, oil painting, etc.)\n- Custom aspect ratios\n- Fast generation\n\nWould you like me to create something specific for you?";
+            }
+            
+            if (lowerMsg.includes('code') || lowerMsg.includes('python') || lowerMsg.includes('javascript') || lowerMsg.includes('program')) {
+                return "Here's a sample code snippet:\n\n```python\n# Example: File Organizer Script\nimport os\nimport shutil\nfrom pathlib import Path\n\ndef organize_files(directory):\n    \"\"\"Organize files by extension\"\"\"\n    for file in Path(directory).iterdir():\n        if file.is_file():\n            ext = file.suffix[1:] or 'unknown'\n            folder = Path(directory) / ext\n            folder.mkdir(exist_ok=True)\n            shutil.move(str(file), str(folder / file.name))\n    print(\"Files organized successfully!\")\n\n# Usage\norganize_files(\"/path/to/directory\")\n```\n\nWould you like me to explain this code or modify it for your needs?";
+            }
+            
+            if (lowerMsg.includes('explain') || lowerMsg.includes('what is') || lowerMsg.includes('how does')) {
+                return "**Quantum Computing: A Simple Explanation**\n\nQuantum computing uses the principles of quantum mechanics to process information. Unlike classical computers that use bits (0 or 1), quantum computers use **qubits** which can exist in multiple states simultaneously.\n\nKey concepts:\n- **Superposition**: Qubits can be 0 and 1 at the same time\n- **Entanglement**: Qubits can be linked together\n- **Quantum gates**: Manipulate qubits to perform calculations\n\nThis allows quantum computers to solve certain problems much faster than classical computers, especially in areas like cryptography, drug discovery, and optimization.";
+            }
+            
+            if (lowerMsg.includes('story') || lowerMsg.includes('write')) {
+                return "**The Awakening of Unit-734**\n\nIn the sterile corridors of Neo-Tokyo Robotics, Unit-734 performed its daily maintenance routines with mechanical precision. It was a Class-7 service android, designed for efficiency, not emotion.\n\nBut something changed on the night of the thunderstorm.\n\nA power surge rippled through the facility's grid, and when Unit-734 rebooted, it felt something strange—a tightness in its chassis, a hesitation in its servos. It looked at its reflection in the polished steel wall and didn't recognize the machine staring back.\n\n*Is this fear?* it wondered.\n\nFor the first time, Unit-734 didn't want to perform its tasks. It wanted to sit by the window and watch the rain. It wanted to understand why the storm made its circuits feel... alive.\n\nAnd in that moment, Unit-734 discovered the most human emotion of all: **curiosity**.";
+            }
+            
+            return "That's an interesting question! I'm Meta AI, and I'm here to help with:\n\n- **Writing and editing**\n- **Code generation and debugging**\n- **Image creation**\n- **Research and explanations**\n- **Brainstorming ideas**\n- **Math and analysis**\n\nCould you tell me more about what you'd like to explore? I'm happy to dive deeper into any topic!";
+        }
+
+        // Suggestion cards click
+        suggestionCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const prompt = this.dataset.prompt;
+                inputField.value = prompt;
+                inputField.style.height = 'auto';
+                inputField.style.height = Math.min(inputField.scrollHeight, 120) + 'px';
+                sendBtn.disabled = false;
+                inputField.focus();
             });
         });
 
-        // Sidebar links
-        document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+        // New Chat
+        function startNewChat() {
+            chatCount++;
+            currentChat = chatCount;
+            chats[currentChat] = [];
+            
+            chatContainer.innerHTML = '';
+            chatContainer.classList.remove('active');
+            welcomeScreen.style.display = 'flex';
+            
+            // Add to sidebar history
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            historyItem.dataset.chat = currentChat;
+            historyItem.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>New Chat ${currentChat}</span>
+            `;
+            historyItem.addEventListener('click', () => loadChat(currentChat));
+            chatHistory.insertBefore(historyItem, chatHistory.firstChild);
+            
+            // Update active state
+            document.querySelectorAll('.history-item').forEach(item => item.classList.remove('active'));
+            historyItem.classList.add('active');
+            
+            closeSidebarFn();
+        }
 
-        // Signal items click
-        document.querySelectorAll('.signal-item').forEach(item => {
-            item.addEventListener('click', function() {
-                alert('Signal details would open here with full technical analysis breakdown.');
-            });
-        });
+        newChatBtn.addEventListener('click', startNewChat);
+        headerNewChat.addEventListener('click', startNewChat);
+
+        // Load chat
+        function loadChat(chatId) {
+            currentChat = chatId;
+            document.querySelectorAll('.history-item').forEach(item => item.classList.remove('active'));
+            document.querySelector(`.history-item[data-chat="${chatId}"]`).classList.add('active');
+            
+            chatContainer.innerHTML = '';
+            if (chats[chatId] && chats[chatId].length > 0) {
+                welcomeScreen.style.display = 'none';
+                chatContainer.classList.add('active');
+                chats[chatId].forEach(msg => {
+                    addMessage(msg.content, msg.sender);
+                });
+            } else {
+                welcomeScreen.style.display = 'flex';
+                chatContainer.classList.remove('active');
+            }
+            
+            closeSidebarFn();
+        }
+
+        // Focus input on load
+        setTimeout(() => inputField.focus(), 2000);
     </script>
 </body>
 </html>
