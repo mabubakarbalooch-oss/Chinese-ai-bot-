@@ -2,330 +2,155 @@
 <html lang="ur">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lubna Abubakar AI Bot v99.1 - 22 INDICATORS ULTIMATE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Lubna Abubakar AI Bot Pro - Live Binance</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100dvh;width:100vw;overflow:hidden;background:#0a0e27;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
-.container{width:100%;height:100dvh;padding:10px;overflow-y:auto;background:linear-gradient(180deg,#0a0e27 0%,#0f1429 100%);}
-.auth-page{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100dvh;width:100vw;position:fixed;top:0;left:0;background:linear-gradient(180deg,#0a0e27 0%,#0f1429 100%);z-index:9999;}
-.auth-box{width:90%;max-width:380px;background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #00ff88;border-radius:20px;padding:30px 25px;box-shadow:0 0 50px rgba(0,255,136,0.2);}
-.auth-logo{text-align:center;margin-bottom:25px;}
-.auth-logo svg{width:60px;height:60px;color:#00ff88;margin-bottom:10px;}
-.auth-logo h2{font-size:18px;font-weight:900;color:#00ff88;letter-spacing:2px;}
-.auth-logo p{font-size:10px;color:#00d4ff;margin-top:4px;letter-spacing:1px;}
-.auth-input{width:100%;padding:14px 16px;background:#141832;border:1px solid #2a2f4a;border-radius:10px;color:#fff;font-size:13px;font-family:'Orbitron',sans-serif;font-weight:700;margin-bottom:12px;outline:none;}
-.auth-input:focus{border-color:#00ff88;box-shadow:0 0 15px rgba(0,255,136,0.2);}
-.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:10px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:12px;}
-.auth-btn.secondary{background:linear-gradient(135deg,#00d4ff,#0099cc);}
-.auth-links{text-align:center;margin-top:15px;}
-.auth-links a{color:#00d4ff;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;}
-.remember-box{display:flex;align-items:center;gap:8px;margin-bottom:15px;}
-.remember-box label{font-size:11px;color:#888;font-weight:700;}
-.error-msg{color:#ff3333;font-size:11px;font-weight:700;text-align:center;margin-bottom:10px;display:none;}
-.error-msg.show{display:block;}
-.success-msg{color:#00ff88;font-size:11px;font-weight:700;text-align:center;margin-bottom:10px;display:none;}
-.success-msg.show{display:block;}
-.user-badge{display:flex;align-items:center;gap:8px;background:rgba(0,255,136,0.1);border:1px solid #00ff88;border-radius:8px;padding:6px 12px;margin-bottom:10px;}
-.user-badge span{font-size:10px;font-weight:700;color:#00ff88;}
-.user-badge.logout-btn{margin-left:auto;font-size:9px;color:#ff3333;cursor:pointer;font-weight:700;}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 3px;}
-.header h1{font-size:11px;font-weight:700;color:#fff;}
-.title-box{background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #00ff88;border-radius:15px;padding:10px;text-align:center;margin-bottom:10px;}
-.title-box h2{font-size:14px;font-weight:900;color:#00ff88;}
-.title-box p{font-size:8px;color:#00d4ff;font-weight:700;}
-.mode-box{background:rgba(0,212,255,0.1);border:1px solid #00d4ff;border-radius:8px;padding:6px;text-align:center;margin-bottom:10px;font-size:9px;font-weight:700;color:#00d4ff;}
-.label{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:#00ff88;margin-bottom:4px;}
-.select-box{width:100%;padding:10px 12px;background:#141832;border:1px solid #2a2f4a;border-radius:8px;color:#fff;font-size:12px;font-weight:700;margin-bottom:8px;}
-.scan-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:10px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:14px;color:#000;letter-spacing:2px;cursor:pointer;margin-bottom:10px;}
-.scan-btn:disabled{opacity:0.6;}
-.analyzing-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,14,39,0.95);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;}
-.analyzing-overlay.show{display:flex;}
-.analyzing-spinner{width:80px;height:80px;border:4px solid #1a1f3a;border-top:4px solid #00ff88;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.indicators{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:10px;}
-.ind-box{background:#141832;border:1px solid #2a2f4a;border-radius:6px;padding:5px;text-align:center;}
-.ind-box.active-buy{border-color:#00ff88;background:rgba(0,255,136,0.1);}
-.ind-box.active-sell{border-color:#ff3333;background:rgba(255,51,51,0.1);}
-.ind-label{font-size:6px;color:#888;font-weight:700;text-transform:uppercase;}
-.ind-value{font-size:9px;font-weight:900;}
-.ind-signal{font-size:6px;font-weight:700;margin-top:1px;padding:1px 3px;border-radius:3px;display:inline-block;}
-.ind-signal.buy{background:#00ff88;color:#000;}
-.ind-signal.sell{background:#ff3333;color:#fff;}
-.ind-signal.neutral{background:#666;color:#fff;}
-.signal-box{background:linear-gradient(135deg,#141832,#0f1429);border:2px solid #00d4ff;border-radius:12px;padding:12px;text-align:center;margin-bottom:10px;}
-.signal-box h3{font-size:32px;font-weight:900;color:#fff;margin-bottom:4px;letter-spacing:2px;}
-.info-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:10px;}
-.info-box{background:#0f1429;border:1px solid #2a2f4a;border-radius:6px;padding:6px;text-align:center;}
-.info-label{font-size:6px;color:#888;font-weight:700;text-transform:uppercase;}
-.info-value{font-size:10px;font-weight:900;color:#00ff88;}
-.score-board{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:10px;}
-.score-item{background:#141832;border-radius:6px;padding:6px;text-align:center;border:1px solid #2a2f4a;}
-.score-item.buy-active{border-color:#00ff88;background:rgba(0,255,136,0.1);}
-.score-item.sell-active{border-color:#ff3333;background:rgba(255,51,51,0.1);}
-.score-label{font-size:7px;color:#888;font-weight:700;}
-.score-value{font-size:14px;font-weight:900;}
-.alert-box{display:none;background:linear-gradient(135deg,#1a1f3a,#0f1429);border:2px solid #ffd700;border-radius:12px;padding:12px;text-align:center;margin-bottom:10px;}
-.alert-box.show{display:block;}
-.mini-chart{height:45px;background:#0f1429;border-radius:6px;padding:6px;display:flex;align-items:flex-end;justify-content:center;gap:1px;margin-bottom:10px;}
-.candle{width:4px;border-radius:1px;}
-.candle.green{background:#00ff88;}
-.candle.red{background:#ff3333;}
-.hidden{display:none!important;}
+html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-family:'Orbitron',sans-serif;color:#fff;touch-action:none;}
+
+.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;background:linear-gradient(180deg,#0d1117,#161b22);position:fixed;top:0;left:0;z-index:999;}
+.login-card{width:90%;max-width:380px;background:#161b22;border:1px solid #30363d;border-radius:24px;padding:40px 28px;box-shadow:0 0 60px rgba(0,255,136,0.15);}
+.logo{width:100px;height:100px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00cc44);display:flex;justify-content:center;align-items:center;font-size:42px;font-weight:900;color:#000;box-shadow:0 0 40px rgba(0,255,136,0.4);animation:pulseGlow 2s ease-in-out infinite;}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 40px rgba(0,255,136,0.4);}50%{box-shadow:0 0 60px rgba(0,255,136,0.7);}}
+.title{text-align:center;font-size:22px;font-weight:900;color:#00ff88;letter-spacing:3px;}
+.subtitle{text-align:center;font-size:11px;color:#8b949e;letter-spacing:4px;margin-bottom:30px;margin-top:6px;}
+.input-box{margin-bottom:20px;position:relative;}
+.input-box label{font-size:10px;color:#8b949e;letter-spacing:2px;margin-bottom:8px;display:block;text-transform:uppercase;font-weight:700;}
+.input-box input{width:100%;padding:16px 16px 16px 50px;background:#0d1117;border:1px solid #30363d;border-radius:14px;color:#00ff88;font-size:16px;font-weight:700;outline:none;transition:all 0.3s;}
+.input-box input:focus{border-color:#00ff88;box-shadow:0 0 20px rgba(0,255,136,0.15);}
+.input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px;color:#6e7681;}
+.unlock-btn{width:100%;padding:18px;background:linear-gradient(135deg,#00ff88,#00cc44);border:none;border-radius:14px;font-weight:900;font-size:16px;color:#000;letter-spacing:3px;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 25px rgba(0,255,136,0.3);margin-top:10px;}
+.unlock-btn:active{transform:scale(0.97);}
+.error-msg{color:#ff4444;font-size:11px;text-align:center;margin-top:10px;display:none;}
+
+.app-screen{display:none;width:100%;height:100dvh;background:#0d1117;overflow-y:auto;overflow-x:hidden;position:fixed;top:0;left:0;z-index:1;}
+.app-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#161b22;border-bottom:1px solid #30363d;position:sticky;top:0;z-index:100;}
+.app-header .logo-small{font-size:14px;font-weight:900;color:#00ff88;display:flex;align-items:center;gap:8px;}
+.app-header .logo-small::before{content:'◈';font-size:18px;}
+.app-header .live-badge{background:#238636;color:#fff;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:700;display:flex;align-items:center;gap:4px;}
+.app-header .live-badge::before{content:'';width:6px;height:6px;background:#00ff88;border-radius:50%;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+.home-screen{padding:16px;}
+.home-title{font-size:20px;font-weight:900;text-align:center;margin-bottom:4px;}
+.home-subtitle{font-size:11px;color:#8b949e;text-align:center;margin-bottom:20px;}
+.stats-row{display:flex;justify-content:center;gap:16px;margin-bottom:24px;}
+.stat-box{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:10px 16px;text-align:center;}
+.stat-box .stat-num{font-size:16px;font-weight:900;color:#00ff88;}
+.stat-box .stat-label{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+.market-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all 0.3s;}
+.market-card:active{transform:scale(0.98);}
+.market-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.market-card-left{display:flex;align-items:center;gap:12px;}
+.market-icon{width:44px;height:44px;border-radius:12px;background:#0d1117;display:flex;justify-content:center;align-items:center;font-size:22px;}
+.market-name{font-size:14px;font-weight:900;}
+.market-desc{font-size:10px;color:#8b949e;margin-top:2px;}
+.market-badge{font-size:9px;padding:3px 8px;border-radius:6px;font-weight:700;}
+.market-badge.hot{background:rgba(255,68,68,0.15);color:#ff4444;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="auth-page" id="loginPage">
-  <div class="auth-box">
-    <div class="auth-logo">
-      <h2>LUBNA ABUBAKAR AI</h2>
-      <p>22 INDICATORS ULTIMATE BOT v99.1</p>
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-card">
+        <div class="logo">◈</div>
+        <div class="title">LUBNA ABUBAKAR</div>
+        <div class="subtitle">AI BOT PRO</div>
+        
+        <div class="input-box">
+            <label>Username</label>
+            <span class="input-icon">👤</span>
+            <input type="text" id="username" placeholder="Enter username">
+        </div>
+        
+        <div class="input-box">
+            <label>Password</label>
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="Enter password">
+        </div>
+        
+        <button class="unlock-btn" onclick="login()">UNLOCK BOT</button>
+        <div class="error-msg" id="errorMsg">Invalid credentials!</div>
     </div>
-    <div class="error-msg" id="loginError">Invalid username or password!</div>
-    <input type="text" class="auth-input" id="loginUser" placeholder="Username" autocomplete="username">
-    <input type="password" class="auth-input" id="loginPass" placeholder="Password" autocomplete="current-password">
-    <div class="remember-box">
-      <input type="checkbox" id="rememberMe">
-      <label for="rememberMe">Remember Me</label>
-    </div>
-    <button class="auth-btn" onclick="doLogin()">LOGIN</button>
-    <div class="auth-links">
-      <a onclick="showSignup()">Create New Account</a> |
-      <a onclick="showForgot()">Forgot Password?</a><br>
-      <a onclick="resetAllData()" style="color:#ffaa00;margin-top:8px;display:inline-block;">Reset Login Data</a>
-    </div>
-  </div>
 </div>
 
-<!-- SIGNUP -->
-<div class="auth-page hidden" id="signupPage">
-  <div class="auth-box">
-    <div class="auth-logo"><h2>CREATE ACCOUNT</h2><p>JOIN LUBNA ABUBAKAR AI</p></div>
-    <div class="error-msg" id="signupError"></div>
-    <div class="success-msg" id="signupSuccess"></div>
-    <input type="text" class="auth-input" id="signupUser" placeholder="Choose Username">
-    <input type="email" class="auth-input" id="signupEmail" placeholder="Email Address">
-    <input type="password" class="auth-input" id="signupPass" placeholder="Create Password">
-    <input type="password" class="auth-input" id="signupPass2" placeholder="Confirm Password">
-    <button class="auth-btn" onclick="doSignup()">SIGN UP</button>
-    <button class="auth-btn secondary" onclick="showLogin()">BACK TO LOGIN</button>
-  </div>
-</div>
-
-<!-- FORGOT -->
-<div class="auth-page hidden" id="forgotPage">
-  <div class="auth-box">
-    <div class="auth-logo"><h2>RESET PASSWORD</h2><p>RECOVER YOUR ACCOUNT</p></div>
-    <div class="error-msg" id="forgotError"></div>
-    <div class="success-msg" id="forgotSuccess"></div>
-    <input type="text" class="auth-input" id="forgotUser" placeholder="Enter Username">
-    <button class="auth-btn" onclick="doForgot()">RESET PASSWORD</button>
-    <button class="auth-btn secondary" onclick="showLogin()">BACK TO LOGIN</button>
-  </div>
-</div>
-
-<!-- ANALYZING -->
-<div class="analyzing-overlay" id="analyzingOverlay">
-  <div class="analyzing-spinner"></div>
-  <div style="font-size:16px;font-weight:900;color:#00ff88;">ANALYZING...</div>
-  <div id="analyzingSub" style="font-size:10px;color:#00d4ff;margin-top:8px;">Scanning 22 Indicators</div>
-</div>
-
-<!-- MAIN APP -->
-<div class="container hidden" id="mainApp">
-  <div class="user-badge">
-    <span id="loggedUser">USER</span>
-    <span class="logout-btn" onclick="doLogout()">LOGOUT</span>
-  </div>
-
-  <div class="header"><h1>Lubna Abubakar AI Bot v99.1</h1></div>
-
-  <div class="title-box">
-    <h2>22 INDICATORS ULTIMATE</h2>
-    <p>AI POWERED SIGNAL ENGINE v99.1 – CONFLUENCE MODE</p>
-  </div>
-
-  <div class="mode-box" id="modeText">BINANCE SPOT MODE - LIVE API</div>
-
-  <div>
-    <div class="label">Select Market / Broker</div>
-    <select class="select-box" id="marketSelect" onchange="changeMarket()">
-      <option value="binance">Binance SPOT - LIVE API</option>
-      <option value="forex">Forex - TWELVE DATA API</option>
-      <option value="pocket">Pocket Option OTC - SIM DATA</option>
-      <option value="binomo">Binomo OTC - SIM DATA</option>
-    </select>
-
-    <div class="label">Select Currency Pair / Asset</div>
-    <select class="select-box" id="assetSelect" onchange="changeAsset()">
-      <option value="EURUSD">EUR/USD</option>
-      <option value="GBPUSD">GBP/USD</option>
-      <option value="USDJPY">USD/JPY</option>
-      <option value="BTCUSDT">BTC/USDT</option>
-      <option value="ETHUSDT">ETH/USDT</option>
-    </select>
-
-    <div class="label">Time Frame</div>
-    <select class="select-box" id="timeframeSelect" onchange="updateTimeframe()">
-      <option value="1">1 Minute</option>
-      <option value="5">5 Minutes</option>
-      <option value="15">15 Minutes</option>
-    </select>
-  </div>
-
-  <button class="scan-btn" id="scanBtn" onclick="scanIndicators()">22-IND SCAN LIVE</button>
-
-  <div class="score-board">
-    <div class="score-item" id="buyScoreBox">
-      <div class="score-label">BUY SCORE</div>
-      <div class="score-value" id="buyScoreVal" style="color:#00ff88;">0</div>
+<!-- APP SCREEN -->
+<div class="app-screen" id="appScreen">
+    <div class="app-header">
+        <div class="logo-small">LUBNA AI PRO</div>
+        <div class="live-badge">LIVE</div>
     </div>
-    <div class="score-item">
-      <div class="score-label">CONFIDENCE</div>
-      <div class="score-value" id="confVal" style="color:#ffd700;">0%</div>
+    
+    <div class="home-screen">
+        <div class="home-title">BINANCE AI SIGNALS</div>
+        <div class="home-subtitle">Real-time Trading Analysis</div>
+        
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">92%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">BTC</div>
+                <div class="stat-label">Live</div>
+            </div>
+        </div>
+        
+        <div class="market-card" onclick="alert('BTC/USDT Selected')">
+            <div class="market-card-header">
+                <div class="market-card-left">
+                    <div class="market-icon">₿</div>
+                    <div>
+                        <div class="market-name">BTC/USDT</div>
+                        <div class="market-desc">Bitcoin to Tether</div>
+                    </div>
+                </div>
+                <div class="market-badge hot">HOT</div>
+            </div>
+        </div>
+        
+        <div class="market-card" onclick="alert('ETH/USDT Selected')">
+            <div class="market-card-header">
+                <div class="market-card-left">
+                    <div class="market-icon">Ξ</div>
+                    <div>
+                        <div class="market-name">ETH/USDT</div>
+                        <div class="market-desc">Ethereum to Tether</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="score-item" id="sellScoreBox">
-      <div class="score-label">SELL SCORE</div>
-      <div class="score-value" id="sellScoreVal" style="color:#ff3333;">0</div>
-    </div>
-  </div>
-
-  <div class="indicators" id="indGrid"></div>
-
-  <div class="alert-box" id="alertBox">
-    <h3 id="alertTitle" style="color:#ffd700;font-size:20px;font-weight:900;">SIGNAL ALERT!</h3>
-    <p id="alertMsg" style="font-size:10px;">Strong signal detected</p>
-  </div>
-
-  <div class="signal-box" id="signalBox">
-    <h3 id="signalText">WAIT</h3>
-    <div id="signalSub" style="font-size:9px;color:#00d4ff;font-weight:700;">0/22 Indicators Confirm - WAIT</div>
-    <div style="width:100%;height:8px;background:#1a1f3a;border-radius:4px;margin:8px 0;overflow:hidden;">
-      <div id="confBar" style="height:100%;width:0%;background:#666;border-radius:4px;"></div>
-    </div>
-    <div class="info-grid">
-      <div class="info-box"><div class="info-label">MARKET</div><div class="info-value" id="infoMarket">BINANCE</div></div>
-      <div class="info-box"><div class="info-label">ASSET</div><div class="info-value" id="infoAsset">EUR/USD</div></div>
-      <div class="info-box"><div class="info-label">TIME</div><div class="info-value" id="infoTime">1m</div></div>
-      <div class="info-box"><div class="info-label">ACCURACY</div><div class="info-value" id="infoScore">0%</div></div>
-    </div>
-    <div class="mini-chart" id="miniChart"></div>
-  </div>
-
-  <div style="font-size:8px;color:#666;text-align:center;padding:10px;">
-    Educational signals only. Trading is high risk. Not financial advice.
-  </div>
 </div>
 
 <script>
-// ========== AUTH ==========
-let users = JSON.parse(localStorage.getItem('lubna_users')) || {
-  'lubna': {pass: 'lubna123', email: 'lubna@trading.com'},
-  'admin': {pass: 'admin123', email: 'admin@trading.com'},
-  'demo': {pass: 'demo123', email: 'demo@trading.com'}
-};
-function saveUsers(){ localStorage.setItem('lubna_users', JSON.stringify(users)); }
-function showLogin(){ loginPage.classList.remove('hidden'); signupPage.classList.add('hidden'); forgotPage.classList.add('hidden'); mainApp.classList.add('hidden'); }
-function showSignup(){ loginPage.classList.add('hidden'); signupPage.classList.remove('hidden'); forgotPage.classList.add('hidden'); }
-function showForgot(){ loginPage.classList.add('hidden'); signupPage.classList.add('hidden'); forgotPage.classList.remove('hidden'); }
-function showMain(){ loginPage.classList.add('hidden'); signupPage.classList.add('hidden'); forgotPage.classList.add('hidden'); mainApp.classList.remove('hidden'); }
-function showError(id,msg){ let el=document.getElementById(id); el.innerText=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3000); }
-function showSuccess(id,msg){ let el=document.getElementById(id); el.innerText=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3000); }
-
-function doLogin(){
-  let user = document.getElementById('loginUser').value.trim().toLowerCase();
-  let pass = document.getElementById('loginPass').value;
-  let remember = document.getElementById('rememberMe').checked;
-  if(!user ||!pass){ showError('loginError','Please enter username and password!'); return; }
-  if(users[user] && users[user].pass === pass){
-    let session = {user:user, time:Date.now()};
-    if(remember){ localStorage.setItem('lubna_session', JSON.stringify(session)); }
-    else { sessionStorage.setItem('lubna_session', JSON.stringify(session)); }
-    document.getElementById('loggedUser').innerText = user.toUpperCase();
-    showMain(); buildIndGrid(); generateMiniChart();
-  } else {
-    showError('loginError','Invalid username or password!');
-  }
-}
-function doSignup(){
-  let user = signupUser.value.trim().toLowerCase();
-  let email = signupEmail.value.trim();
-  let pass = signupPass.value;
-  let pass2 = signupPass2.value;
-  if(!user||!email||!pass){ showError('signupError','Please fill all fields!'); return; }
-  if(pass!== pass2){ showError('signupError','Passwords do not match!'); return; }
-  if(users[user]){ showError('signupError','Username already exists!'); return; }
-  users[user] = {pass:pass, email:email}; saveUsers();
-  showSuccess('signupSuccess','Account created! Please login.');
-  setTimeout(()=>{ showLogin(); loginUser.value=user; },1200);
-}
-function doForgot(){
-  let user = forgotUser.value.trim().toLowerCase();
-  if(!users[user]){ showError('forgotError','Username not found!'); return; }
-  users[user].pass = 'lubna123'; saveUsers();
-  showSuccess('forgotSuccess','Password reset! New pass: lubna123');
-}
-function doLogout(){ localStorage.removeItem('lubna_session'); sessionStorage.removeItem('lubna_session'); location.reload(); }
-function resetAllData(){ if(confirm('Reset all login data?')){ localStorage.clear(); sessionStorage.clear(); location.reload(); } }
-
-function checkSession(){
-  let session = JSON.parse(localStorage.getItem('lubna_session')) || JSON.parse(sessionStorage.getItem('lubna_session')||'null');
-  if(session && users[session.user]){
-    document.getElementById('loggedUser').innerText = session.user.toUpperCase();
-    showMain(); buildIndGrid(); generateMiniChart();
-  } else { showLogin(); }
-}
-
-// ========== APP ==========
-let currentAsset='EURUSD', currentMarket='binance', currentTimeframe='1', lastSignal='WAIT';
-
-function changeMarket(){
-  currentMarket = marketSelect.value;
-  let m = {binance:'BINANCE', forex:'FOREX', pocket:'POCKET OTC', binomo:'BINOMO OTC'}[currentMarket];
-  modeText.innerText = m + ' MODE';
-  infoMarket.innerText = m;
-}
-function changeAsset(){ currentAsset = assetSelect.value; infoAsset.innerText = currentAsset.replace('USD','/USD'); }
-function updateTimeframe(){ currentTimeframe = timeframeSelect.value; infoTime.innerText = currentTimeframe+'m'; }
-
-function buildIndGrid(){
-  const names = ['RSI(14)','EMA(21)','EMA(50)','EMA(200)','MACD','MACD Sig','BB Upper','BB Lower','BB Mid','ATR(14)','Volume','5-Candle','SMA(20)','SMA(50)','Stoch(14)','CCI(20)','ADX(14)','MFI(14)','W%R(14)','OBV','Parabolic','Ichimoku'];
-  let g = document.getElementById('indGrid'); g.innerHTML='';
-  names.forEach((n,i)=>{
-    g.innerHTML += `<div class="ind-box" id="ind${i+1}"><div class="ind-label">${n}</div><div class="ind-value" id="v${i+1}">--</div><div class="ind-signal neutral" id="s${i+1}">WAIT</div></div>`;
-  });
-}
-
-// Indicator calc functions – same as v99, compact
-function calcSMA(p,n){let s=0;for(let i=p.length-n;i<p.length;i++)s+=p[i];return s/n;}
-function calcEMA(p,n){let k=2/(n+1),e=p[0];for(let i=1;i<p.length;i++)e=p[i]*k+e*(1-k);return e;}
-function calcRSI(p,n=14){let g=0,l=0;for(let i=p.length-n;i<p.length;i++){let d=p[i]-p[i-1];if(d>0)g+=d;else l+=Math.abs(d);}let ag=g/n,al=l/n;if(al===0)return 100;return 100-(100/(1+ag/al));}
-function calcMACD(p){let e12=calcEMA(p.slice(-26),12),e26=calcEMA(p.slice(-26),26);let macd=e12-e26;return {macd:macd,signal:macd*0.9,hist:macd*0.1};}
-function calcBB(p,n=20){let sma=calcSMA(p,n),v=0;for(let i=p.length-n;i<p.length;i++)v+=Math.pow(p[i]-sma,2);let sd=Math.sqrt(v/n);return{upper:sma+2*sd,lower:sma-2*sd,middle:sma};}
-function calcStoch(d,n=14){let h=[],l=[];for(let i=d.length-n;i<d.length;i++){h.push(d[i][2]);l.push(d[i][3]);}let hh=Math.max(...h),ll=Math.min(...l),c=d[d.length-1][4];return hh===ll?50:((c-ll)/(hh-ll))*100;}
-function calcCCI(d,n=20){let tps=[];for(let i=d.length-n;i<d.length;i++)tps.push((d[i][2]+d[i][3]+d[i][4])/3);let sma=tps.reduce((a,b)=>a+b)/n;let md=tps.reduce((a,b)=>a+Math.abs(b-sma),0)/n;return md===0?0:(tps[tps.length-1]-sma)/(0.015*md);}
-function calcADX(d){return 22 + Math.random()*15;}
-function calcMFI(d){return 30 + Math.random()*40;}
-function calcWR(d){return -20 - Math.random()*60;}
-
-async function fetchRealData(){
-  try{
-    if(currentMarket==='binance'){
-      let symbol = currentAsset.includes('USD') &&!currentAsset.includes('USDT')? currentAsset+'T' : currentAsset;
-      if(symbol==='EURUSDT') symbol='BTCUSDT';
-      let r = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${currentTimeframe}m&limit=100`);
-      let data = await r.json();
-      return data.map(c=>[+c[0],+c[1],+c[2],+c[3],+c[4],+c[5]]);
+function login() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+    const errorMsg = document.getElementById('errorMsg');
+    
+    // Test login: admin / admin123
+    if(user === 'admin' && pass === 'admin123') {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appScreen').style.display = 'block';
+    } else {
+        errorMsg.style.display = 'block';
+        setTimeout(() => { errorMsg.style.display = 'none'; }, 2000);
     }
-  }catch(e){}
-  // sim fallback
-  let data=[], base = currentAsset.includes('JPY')?150:currentAsset.includes('USDT')?50000:1.15;
-  for(let i=0;i=0, rsiVal<70, stoch<80, adx>20;
-  let sellTrend = ema21 < ema50 && ema50 < ema200 && lastPrice < ema200;
-  let sellOsc = rsiVal>30, stoch>20;
+}
 
-  let buyScore=0, sellScore=0;
-  function vote(cond,
+// Enter key se bhi login ho jaye
+document.getElementById('password').addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') login();
+});
+</script>
+
+</body>
+</html>
