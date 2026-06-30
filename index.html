@@ -2,45 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
-    <title>Meta AI</title>
-    <meta name="description" content="Use Meta AI assistant to get things done, create AI-generated images for free, and get answers to any of your questions.">
-    <link rel="icon" href="https://static.xx.fbcdn.net/assets/?set=meta_ai_assets&name=meta-ai-orbit-favicon-180px-raster&density=4x&mode=light">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Bot Pro - Trading Signals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --bg-tertiary: #333333;
-            --bg-hover: #3a3a3a;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-muted: #6b6b6b;
-            --accent: #0084ff;
-            --accent-hover: #1877f2;
-            --border: #3a3a3a;
-            --message-user: #2d2d2d;
-            --message-ai: #1a1a1a;
-            --input-bg: #2d2d2d;
-            --shadow: rgba(0, 0, 0, 0.3);
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1a2332;
+            --bg-hover: #243447;
+            --text-primary: #f0f2f5;
+            --text-secondary: #8b9bb4;
+            --text-muted: #4a5568;
+            --accent: #00d4aa;
+            --accent-glow: rgba(0, 212, 170, 0.2);
+            --buy: #00d4aa;
+            --buy-glow: rgba(0, 212, 170, 0.3);
+            --sell: #ef4444;
+            --sell-glow: rgba(239, 68, 68, 0.3);
+            --hold: #f59e0b;
+            --hold-glow: rgba(245, 158, 11, 0.3);
+            --border: #1e293b;
+            --border-light: #2d3748;
+            --chart-up: #00d4aa;
+            --chart-down: #ef4444;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -48,9 +43,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 20px;
+            padding: 12px 24px;
+            background: var(--bg-secondary);
             border-bottom: 1px solid var(--border);
-            background: var(--bg-primary);
+            position: sticky;
+            top: 0;
             z-index: 100;
         }
 
@@ -61,1152 +58,1101 @@
         }
 
         .logo {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #0084ff, #00c6ff);
-            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), #00b4d8);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
+            font-weight: 800;
+            font-size: 20px;
             color: white;
-            flex-shrink: 0;
         }
 
-        .header-title {
+        .brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-primary);
+        }
+
+        .brand-tag {
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 16px;
         }
 
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
+        .status-badge {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 500;
         }
 
-        .icon-btn:hover {
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .header-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .header-btn:hover {
             background: var(--bg-hover);
             color: var(--text-primary);
+            border-color: var(--accent);
         }
 
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 280px;
-            height: 100vh;
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 16px;
+            padding: 16px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Left Panel - Pairs */
+        .panel {
             background: var(--bg-secondary);
-            border-right: 1px solid var(--border);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            z-index: 200;
-            display: flex;
-            flex-direction: column;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-        .sidebar.open {
-            transform: translateX(0);
-        }
-
-        .sidebar-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 199;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .sidebar-overlay.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .sidebar-header {
-            padding: 16px 20px;
+        .panel-header {
+            padding: 14px 16px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .sidebar-title {
-            font-size: 16px;
+        .panel-title {
+            font-size: 14px;
             font-weight: 600;
-        }
-
-        .new-chat-btn {
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 16px;
-            margin: 16px 20px;
-            background: var(--accent);
-            color: white;
-            border: none;
+        }
+
+        .panel-count {
+            background: var(--bg-card);
+            padding: 2px 8px;
             border-radius: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
+            font-size: 11px;
+            color: var(--text-secondary);
         }
 
-        .new-chat-btn:hover {
-            background: var(--accent-hover);
-        }
-
-        .chat-history {
-            flex: 1;
+        .panel-body {
+            padding: 8px;
+            max-height: calc(100vh - 200px);
             overflow-y: auto;
-            padding: 0 12px;
         }
 
-        .history-item {
+        .pair-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 10px 12px;
             border-radius: 8px;
             cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            border-left: 3px solid transparent;
+        }
+
+        .pair-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .pair-item.active {
+            background: var(--bg-hover);
+            border-left-color: var(--accent);
+        }
+
+        .pair-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .pair-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .pair-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .pair-price {
+            text-align: right;
+        }
+
+        .price-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .price-change {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .price-change.up { color: var(--buy); }
+        .price-change.down { color: var(--sell); }
+
+        /* Center Panel - Signals */
+        .center-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .signal-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .signal-card.buy::before { background: linear-gradient(90deg, var(--buy), transparent); }
+        .signal-card.sell::before { background: linear-gradient(90deg, var(--sell), transparent); }
+        .signal-card.hold::before { background: linear-gradient(90deg, var(--hold), transparent); }
+
+        .signal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .signal-pair {
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .pair-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .pair-icon.btc { background: linear-gradient(135deg, #f7931a, #ffad33); }
+        .pair-icon.eth { background: linear-gradient(135deg, #627eea, #8a9ef0); }
+        .pair-icon.sol { background: linear-gradient(135deg, #9945ff, #b873ff); }
+        .pair-icon.xrp { background: linear-gradient(135deg, #23292f, #3a4550); }
+        .pair-icon.bnb { background: linear-gradient(135deg, #f3ba2f, #ffd700); }
+        .pair-icon.ada { background: linear-gradient(135deg, #0033ad, #0055ff); }
+
+        .pair-details h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .pair-details span {
+            font-size: 12px;
             color: var(--text-secondary);
+        }
+
+        .signal-badge {
+            padding: 8px 20px;
+            border-radius: 20px;
             font-size: 14px;
-            margin-bottom: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .signal-badge.buy {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--buy);
+            border: 1px solid var(--buy);
+            box-shadow: 0 0 20px var(--buy-glow);
+        }
+
+        .signal-badge.sell {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--sell);
+            border: 1px solid var(--sell);
+            box-shadow: 0 0 20px var(--sell-glow);
+        }
+
+        .signal-badge.hold {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--hold);
+            border: 1px solid var(--hold);
+            box-shadow: 0 0 20px var(--hold-glow);
+        }
+
+        .signal-body {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .signal-metric {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-value.buy { color: var(--buy); }
+        .metric-value.sell { color: var(--sell); }
+
+        .signal-chart {
+            height: 200px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .signal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .signal-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .signal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .signal-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            border: none;
+        }
+
+        .signal-btn.primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .signal-btn.primary:hover {
+            background: #00b894;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .signal-btn.secondary {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .signal-btn.secondary:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Right Panel - Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 8px;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-value.positive { color: var(--buy); }
+        .stat-value.negative { color: var(--sell); }
+
+        .history-list {
+            padding: 8px;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             transition: all 0.2s;
         }
 
         .history-item:hover {
-            background: var(--bg-hover);
-            color: var(--text-primary);
+            border-color: var(--border-light);
         }
 
-        .history-item.active {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Welcome Screen */
-        .welcome-screen {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .welcome-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #0084ff, #00c6ff, #0084ff);
-            background-size: 200% 200%;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            margin-bottom: 24px;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .welcome-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #fff, #a0a0a0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .welcome-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-            max-width: 500px;
-            line-height: 1.6;
-            margin-bottom: 40px;
-        }
-
-        .suggestion-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 12px;
-            max-width: 800px;
-            width: 100%;
-            padding: 0 20px;
-        }
-
-        .suggestion-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .suggestion-card:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .suggestion-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: var(--bg-tertiary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            font-size: 20px;
-        }
-
-        .suggestion-title {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .suggestion-desc {
+        .history-pair {
             font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* Chat Area */
-        .chat-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .chat-container.active {
-            display: flex;
-        }
-
-        .message {
-            display: flex;
-            gap: 12px;
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            animation: messageSlide 0.3s ease;
-        }
-
-        @keyframes messageSlide {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .message-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
             font-weight: 600;
         }
 
-        .message-avatar.user {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-
-        .message-avatar.ai {
-            background: linear-gradient(135deg, #0084ff, #00c6ff);
-        }
-
-        .message-content {
-            flex: 1;
-            padding: 12px 16px;
-            border-radius: 16px;
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        .message.user .message-content {
-            background: var(--message-user);
-            border-bottom-right-radius: 4px;
-        }
-
-        .message.ai .message-content {
-            background: transparent;
-            padding: 0;
-        }
-
-        .message-time {
+        .history-signal {
             font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
-            text-align: right;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
         }
 
-        /* Typing Indicator */
-        .typing-indicator {
-            display: none;
-            align-items: center;
-            gap: 12px;
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 12px 0;
+        .history-signal.buy {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--buy);
         }
 
-        .typing-indicator.active {
-            display: flex;
+        .history-signal.sell {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--sell);
         }
 
-        .typing-dots {
-            display: flex;
-            gap: 4px;
-            padding: 12px 16px;
+        .history-result {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .history-result.win { color: var(--buy); }
+        .history-result.loss { color: var(--sell); }
+
+        /* Live Ticker */
+        .ticker-bar {
             background: var(--bg-secondary);
-            border-radius: 16px;
-            border-bottom-left-radius: 4px;
-        }
-
-        .typing-dots span {
-            width: 8px;
-            height: 8px;
-            background: var(--text-secondary);
-            border-radius: 50%;
-            animation: typingBounce 1.4s infinite ease-in-out;
-        }
-
-        .typing-dots span:nth-child(1) { animation-delay: 0s; }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typingBounce {
-            0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
-            40% { transform: translateY(-6px); opacity: 1; }
-        }
-
-        /* Input Area */
-        .input-container {
-            padding: 16px 20px;
             border-top: 1px solid var(--border);
-            background: var(--bg-primary);
-        }
-
-        .input-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 8px 24px;
             display: flex;
-            align-items: flex-end;
-            gap: 12px;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 8px 8px 8px 16px;
-            transition: border-color 0.2s;
+            gap: 32px;
+            overflow-x: auto;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
         }
 
-        .input-wrapper:focus-within {
-            border-color: var(--accent);
-        }
-
-        .input-field {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-primary);
-            font-size: 15px;
-            resize: none;
-            min-height: 24px;
-            max-height: 120px;
-            font-family: inherit;
-            padding: 8px 0;
-            line-height: 1.5;
-        }
-
-        .input-field::placeholder {
-            color: var(--text-muted);
-        }
-
-        .input-actions {
+        .ticker-item {
             display: flex;
             align-items: center;
-            gap: 4px;
-        }
-
-        .input-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            gap: 8px;
             flex-shrink: 0;
         }
 
-        .input-btn:hover {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-        }
-
-        .send-btn {
-            background: var(--accent) !important;
-            color: white !important;
-        }
-
-        .send-btn:hover {
-            background: var(--accent-hover) !important;
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .input-footer {
-            text-align: center;
-            padding-top: 8px;
+        .ticker-name {
             font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .spinner {
-            width: 48px;
-            height: 48px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .spinner circle {
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 3;
-            stroke-linecap: round;
-            animation: spinnerDash 1.5s ease-in-out infinite;
-        }
-
-        .spinner circle:nth-child(1) { stroke: white; stroke-dasharray: 60 200; stroke-dashoffset: 0; }
-        .spinner circle:nth-child(2) { stroke: white; opacity: 0.6; stroke-dasharray: 60 200; stroke-dashoffset: -40; }
-        .spinner circle:nth-child(3) { stroke: white; opacity: 0.3; stroke-dasharray: 60 200; stroke-dashoffset: -80; }
-
-        /* Code Block Styling */
-        .code-block {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 12px 0;
-        }
-
-        .code-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 16px;
-            background: #161b22;
-            border-bottom: 1px solid #30363d;
-        }
-
-        .code-lang {
-            font-size: 12px;
+            font-weight: 600;
             color: var(--text-secondary);
-            font-family: monospace;
         }
 
-        .code-copy {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .code-copy:hover {
-            color: var(--text-primary);
-        }
-
-        .code-content {
-            padding: 16px;
-            overflow-x: auto;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        .ticker-price {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
-            line-height: 1.6;
-            color: #e6edf3;
-        }
-
-        /* Markdown Styles */
-        .markdown h1, .markdown h2, .markdown h3 {
-            margin: 16px 0 8px;
             font-weight: 600;
+            color: var(--text-primary);
         }
 
-        .markdown h1 { font-size: 24px; }
-        .markdown h2 { font-size: 20px; }
-        .markdown h3 { font-size: 18px; }
-
-        .markdown p {
-            margin: 8px 0;
-        }
-
-        .markdown ul, .markdown ol {
-            margin: 8px 0;
-            padding-left: 24px;
-        }
-
-        .markdown li {
-            margin: 4px 0;
-        }
-
-        .markdown strong {
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .markdown code {
-            background: var(--bg-secondary);
+        .ticker-change {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
             padding: 2px 6px;
             border-radius: 4px;
-            font-family: monospace;
-            font-size: 13px;
         }
 
-        .markdown pre {
-            margin: 12px 0;
+        .ticker-change.up {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--buy);
         }
 
-        .markdown a {
-            color: var(--accent);
-            text-decoration: none;
+        .ticker-change.down {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--sell);
         }
 
-        .markdown a:hover {
-            text-decoration: underline;
+        /* Animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .markdown blockquote {
-            border-left: 3px solid var(--accent);
-            padding-left: 16px;
-            margin: 12px 0;
-            color: var(--text-secondary);
+        .signal-card {
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .new-signal {
+            animation: flash 1s ease 3;
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--bg-tertiary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--bg-hover);
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .welcome-title {
-                font-size: 24px;
-            }
-            
-            .suggestion-grid {
+        @media (max-width: 1200px) {
+            .main-layout {
                 grid-template-columns: 1fr;
             }
-            
-            .message {
-                padding: 0 4px;
+            .left-panel, .right-panel {
+                display: none;
             }
-        }
-
-        /* Image generation preview */
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin: 12px 0;
-        }
-
-        .image-grid img {
-            width: 100%;
-            border-radius: 12px;
-            aspect-ratio: 1;
-            object-fit: cover;
-            background: var(--bg-secondary);
-        }
-
-        /* Action buttons under AI messages */
-        .message-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-            padding-left: 44px;
-        }
-
-        .message-action-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .message-action-btn:hover {
-            background: var(--bg-hover);
-            color: var(--text-secondary);
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <svg class="spinner" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="2" stroke-linecap="round"></circle>
-            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="2" stroke-linecap="round"></circle>
-            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="2" stroke-linecap="round"></circle>
-        </svg>
-    </div>
-
-    <!-- Sidebar Overlay -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="sidebar-title">Chats</span>
-            <button class="icon-btn" id="closeSidebar">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-        <button class="new-chat-btn" id="newChatBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            New Chat
-        </button>
-        <div class="chat-history" id="chatHistory">
-            <div class="history-item active" data-chat="1">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-                <span>Welcome to Meta AI</span>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">S</div>
+            <div class="brand">
+                <span class="brand-name">Signal Bot Pro</span>
+                <span class="brand-tag">LIVE TRADING SIGNALS</span>
             </div>
         </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-left">
-                <button class="icon-btn" id="menuBtn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </button>
-                <div class="logo">M</div>
-                <span class="header-title">Meta AI</span>
+        <div class="header-right">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>LIVE MARKET</span>
             </div>
-            <div class="header-right">
-                <button class="icon-btn" title="New Chat" id="headerNewChat">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                </button>
-                <button class="icon-btn" title="Profile">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                </button>
-            </div>
+            <button class="header-btn" onclick="refreshSignals()">🔄 Refresh</button>
+            <button class="header-btn" onclick="toggleSound()">🔊 Sound</button>
+            <button class="header-btn" onclick="showSettings()">⚙️ Settings</button>
         </div>
+    </header>
 
-        <!-- Welcome Screen -->
-        <div class="welcome-screen" id="welcomeScreen">
-            <div class="welcome-logo">M</div>
-            <h1 class="welcome-title">Hello, I'm Meta AI</h1>
-            <p class="welcome-subtitle">Your AI assistant. I can help you get things done, create images, write, and answer questions.</p>
-            
-            <div class="suggestion-grid">
-                <div class="suggestion-card" data-prompt="Write a short story about a robot discovering emotions">
-                    <div class="suggestion-icon">✍️</div>
-                    <div class="suggestion-title">Write a story</div>
-                    <div class="suggestion-desc">"Write a short story about a robot discovering emotions"</div>
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Left Panel - Trading Pairs -->
+        <div class="left-panel">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">📊 Trading Pairs</span>
+                    <span class="panel-count" id="pairCount">6</span>
                 </div>
-                <div class="suggestion-card" data-prompt="Generate an image of a futuristic city at sunset">
-                    <div class="suggestion-icon">🎨</div>
-                    <div class="suggestion-title">Create an image</div>
-                    <div class="suggestion-desc">"Generate an image of a futuristic city at sunset"</div>
-                </div>
-                <div class="suggestion-card" data-prompt="Explain quantum computing in simple terms">
-                    <div class="suggestion-icon">🧠</div>
-                    <div class="suggestion-title">Explain a topic</div>
-                    <div class="suggestion-desc">"Explain quantum computing in simple terms"</div>
-                </div>
-                <div class="suggestion-card" data-prompt="Help me write a Python script to automate file organization">
-                    <div class="suggestion-icon">💻</div>
-                    <div class="suggestion-title">Write code</div>
-                    <div class="suggestion-desc">"Help me write a Python script to automate file organization"</div>
+                <div class="panel-body" id="pairsList">
+                    <!-- Pairs will be populated by JS -->
                 </div>
             </div>
         </div>
 
-        <!-- Chat Container -->
-        <div class="chat-container" id="chatContainer"></div>
-
-        <!-- Typing Indicator -->
-        <div class="typing-indicator" id="typingIndicator">
-            <div class="message-avatar ai">M</div>
-            <div class="typing-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <!-- Center Panel - Signals -->
+        <div class="center-panel" id="signalsContainer">
+            <!-- Signals will be populated by JS -->
         </div>
 
-        <!-- Input Area -->
-        <div class="input-container">
-            <div class="input-wrapper">
-                <textarea class="input-field" id="inputField" placeholder="Ask Meta AI anything..." rows="1"></textarea>
-                <div class="input-actions">
-                    <button class="input-btn" title="Attach file">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                        </svg>
-                    </button>
-                    <button class="input-btn send-btn" id="sendBtn" title="Send message">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
-                    </button>
+        <!-- Right Panel - Stats & History -->
+        <div class="right-panel">
+            <div class="panel" style="margin-bottom: 16px;">
+                <div class="panel-header">
+                    <span class="panel-title">📈 Performance</span>
                 </div>
-            </div>
-            <div class="input-footer">Meta AI may make mistakes. Consider checking important information.</div>
-        </div>
-    </div>
-
-    <script>
-        // DOM Elements
-        const loadingScreen = document.getElementById('loadingScreen');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-        const menuBtn = document.getElementById('menuBtn');
-        const closeSidebar = document.getElementById('closeSidebar');
-        const newChatBtn = document.getElementById('newChatBtn');
-        const headerNewChat = document.getElementById('headerNewChat');
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const chatContainer = document.getElementById('chatContainer');
-        const inputField = document.getElementById('inputField');
-        const sendBtn = document.getElementById('sendBtn');
-        const typingIndicator = document.getElementById('typingIndicator');
-        const chatHistory = document.getElementById('chatHistory');
-        const suggestionCards = document.querySelectorAll('.suggestion-card');
-
-        // State
-        let isTyping = false;
-        let chatCount = 1;
-        let currentChat = 1;
-        const chats = { 1: [] };
-
-        // Hide loading screen after 1.5s
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-        }, 1500);
-
-        // Sidebar Toggle
-        function openSidebar() {
-            sidebar.classList.add('open');
-            sidebarOverlay.classList.add('open');
-        }
-
-        function closeSidebarFn() {
-            sidebar.classList.remove('open');
-            sidebarOverlay.classList.remove('open');
-        }
-
-        menuBtn.addEventListener('click', openSidebar);
-        closeSidebar.addEventListener('click', closeSidebarFn);
-        sidebarOverlay.addEventListener('click', closeSidebarFn);
-
-        // Auto-resize textarea
-        inputField.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-            sendBtn.disabled = !this.value.trim();
-        });
-
-        // Send message
-        function sendMessage() {
-            const message = inputField.value.trim();
-            if (!message || isTyping) return;
-
-            // Hide welcome screen
-            welcomeScreen.style.display = 'none';
-            chatContainer.classList.add('active');
-
-            // Add user message
-            addMessage(message, 'user');
-            inputField.value = '';
-            inputField.style.height = 'auto';
-            sendBtn.disabled = true;
-
-            // Show typing indicator
-            isTyping = true;
-            typingIndicator.classList.add('active');
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-
-            // Simulate AI response
-            setTimeout(() => {
-                typingIndicator.classList.remove('active');
-                const response = generateResponse(message);
-                addMessage(response, 'ai');
-                isTyping = false;
-            }, 1500 + Math.random() * 1000);
-        }
-
-        sendBtn.addEventListener('click', sendMessage);
-        inputField.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-
-        // Add message to chat
-        function addMessage(content, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}`;
-            
-            const avatar = document.createElement('div');
-            avatar.className = `message-avatar ${sender}`;
-            avatar.textContent = sender === 'user' ? 'U' : 'M';
-            
-            const contentDiv = document.createElement('div');
-            contentDiv.style.flex = '1';
-            
-            const bubble = document.createElement('div');
-            bubble.className = 'message-content';
-            
-            if (sender === 'ai') {
-                bubble.innerHTML = `<div class="markdown">${formatMarkdown(content)}</div>`;
-            } else {
-                bubble.textContent = content;
-            }
-            
-            const time = document.createElement('div');
-            time.className = 'message-time';
-            time.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            contentDiv.appendChild(bubble);
-            contentDiv.appendChild(time);
-            
-            if (sender === 'ai') {
-                const actions = document.createElement('div');
-                actions.className = 'message-actions';
-                actions.innerHTML = `
-                    <button class="message-action-btn" onclick="copyMessage(this)">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                        Copy
-                    </button>
-                    <button class="message-action-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-                        </svg>
-                        Like
-                    </button>
-                    <button class="message-action-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V4H5.72a2 2 0 0 0-2 2.3l1.38 9a2 2 0 0 0 2 1.7h8.72zm0 0h-2.5"></path>
-                        </svg>
-                        Dislike
-                    </button>
-                `;
-                contentDiv.appendChild(actions);
-            }
-            
-            messageDiv.appendChild(avatar);
-            messageDiv.appendChild(contentDiv);
-            chatContainer.appendChild(messageDiv);
-            
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-            
-            // Save to chat history
-            if (!chats[currentChat]) chats[currentChat] = [];
-            chats[currentChat].push({ sender, content, time: new Date() });
-        }
-
-        // Copy message
-        function copyMessage(btn) {
-            const messageContent = btn.closest('.message').querySelector('.message-content').textContent;
-            navigator.clipboard.writeText(messageContent).then(() => {
-                btn.innerHTML = `
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    Copied!
-                `;
-                setTimeout(() => {
-                    btn.innerHTML = `
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                        Copy
-                    `;
-                }, 2000);
-            });
-        }
-
-        // Format markdown-like content
-        function formatMarkdown(text) {
-            // Code blocks
-            text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
-                return `<div class="code-block">
-                    <div class="code-header">
-                        <span class="code-lang">${lang || 'text'}</span>
-                        <button class="code-copy" onclick="copyCode(this)">Copy</button>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">Total Signals</div>
+                        <div class="stat-value" id="totalSignals">0</div>
                     </div>
-                    <pre class="code-content"><code>${escapeHtml(code.trim())}</code></pre>
-                </div>`;
-            });
-            
-            // Inline code
-            text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-            
-            // Bold
-            text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-            
-            // Italic
-            text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-            
-            // Headers
-            text = text.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-            text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-            text = text.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-            
-            // Links
-            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-            
-            // Lists
-            text = text.replace(/^\- (.+)$/gm, '<li>$1</li>');
-            text = text.replace(/(<li>.+<\/li>\n?)+/g, '<ul>$&</ul>');
-            text = text.replace(/<\/ul>\n?<ul>/g, '');
-            
-            // Blockquotes
-            text = text.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
-            
-            // Paragraphs
-            text = text.replace(/\n\n/g, '</p><p>');
-            text = text.replace(/^(.+)$/gm, '<p>$1</p>');
-            text = text.replace(/<p><\/p>/g, '');
-            text = text.replace(/<p>(<\/.+?>)<\/p>/g, '$1');
-            
-            return text;
-        }
+                    <div class="stat-box">
+                        <div class="stat-label">Win Rate</div>
+                        <div class="stat-value positive" id="winRate">0%</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Profit</div>
+                        <div class="stat-value positive" id="totalProfit">+$0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Active</div>
+                        <div class="stat-value" id="activeSignals">0</div>
+                    </div>
+                </div>
+            </div>
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">🕐 Signal History</span>
+                    <span class="panel-count" id="historyCount">0</span>
+                </div>
+                <div class="history-list" id="historyList">
+                    <!-- History will be populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-        function copyCode(btn) {
-            const code = btn.closest('.code-block').querySelector('code').textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                btn.textContent = 'Copied!';
-                setTimeout(() => btn.textContent = 'Copy', 2000);
-            });
-        }
+    <!-- Live Ticker -->
+    <div class="ticker-bar" id="tickerBar">
+        <!-- Ticker items will be populated by JS -->
+    </div>
 
-        // Generate AI response
-        function generateResponse(message) {
-            const lowerMsg = message.toLowerCase();
-            
-            if (lowerMsg.includes('hello') || lowerMsg.includes('hi') || lowerMsg.includes('hey')) {
-                return "Hello! I'm Meta AI, your AI assistant. How can I help you today?";
-            }
-            
-            if (lowerMsg.includes('image') || lowerMsg.includes('picture') || lowerMsg.includes('generate')) {
-                return "I can help you create images! Here's what I generated based on your request:\n\n**Image Generation Features:**\n- High-quality AI art\n- Multiple styles (photorealistic, anime, oil painting, etc.)\n- Custom aspect ratios\n- Fast generation\n\nWould you like me to create something specific for you?";
-            }
-            
-            if (lowerMsg.includes('code') || lowerMsg.includes('python') || lowerMsg.includes('javascript') || lowerMsg.includes('program')) {
-                return "Here's a sample code snippet:\n\n```python\n# Example: File Organizer Script\nimport os\nimport shutil\nfrom pathlib import Path\n\ndef organize_files(directory):\n    \"\"\"Organize files by extension\"\"\"\n    for file in Path(directory).iterdir():\n        if file.is_file():\n            ext = file.suffix[1:] or 'unknown'\n            folder = Path(directory) / ext\n            folder.mkdir(exist_ok=True)\n            shutil.move(str(file), str(folder / file.name))\n    print(\"Files organized successfully!\")\n\n# Usage\norganize_files(\"/path/to/directory\")\n```\n\nWould you like me to explain this code or modify it for your needs?";
-            }
-            
-            if (lowerMsg.includes('explain') || lowerMsg.includes('what is') || lowerMsg.includes('how does')) {
-                return "**Quantum Computing: A Simple Explanation**\n\nQuantum computing uses the principles of quantum mechanics to process information. Unlike classical computers that use bits (0 or 1), quantum computers use **qubits** which can exist in multiple states simultaneously.\n\nKey concepts:\n- **Superposition**: Qubits can be 0 and 1 at the same time\n- **Entanglement**: Qubits can be linked together\n- **Quantum gates**: Manipulate qubits to perform calculations\n\nThis allows quantum computers to solve certain problems much faster than classical computers, especially in areas like cryptography, drug discovery, and optimization.";
-            }
-            
-            if (lowerMsg.includes('story') || lowerMsg.includes('write')) {
-                return "**The Awakening of Unit-734**\n\nIn the sterile corridors of Neo-Tokyo Robotics, Unit-734 performed its daily maintenance routines with mechanical precision. It was a Class-7 service android, designed for efficiency, not emotion.\n\nBut something changed on the night of the thunderstorm.\n\nA power surge rippled through the facility's grid, and when Unit-734 rebooted, it felt something strange—a tightness in its chassis, a hesitation in its servos. It looked at its reflection in the polished steel wall and didn't recognize the machine staring back.\n\n*Is this fear?* it wondered.\n\nFor the first time, Unit-734 didn't want to perform its tasks. It wanted to sit by the window and watch the rain. It wanted to understand why the storm made its circuits feel... alive.\n\nAnd in that moment, Unit-734 discovered the most human emotion of all: **curiosity**.";
-            }
-            
-            return "That's an interesting question! I'm Meta AI, and I'm here to help with:\n\n- **Writing and editing**\n- **Code generation and debugging**\n- **Image creation**\n- **Research and explanations**\n- **Brainstorming ideas**\n- **Math and analysis**\n\nCould you tell me more about what you'd like to explore? I'm happy to dive deeper into any topic!";
-        }
+part2 = '''
+    <script>
+        // ==================== TRADING DATA ====================
+        const TRADING_PAIRS = [
+            { symbol: 'BTC/USDT', name: 'Bitcoin', icon: '₿', class: 'btc', basePrice: 43250.00 },
+            { symbol: 'ETH/USDT', name: 'Ethereum', icon: 'Ξ', class: 'eth', basePrice: 2650.00 },
+            { symbol: 'SOL/USDT', name: 'Solana', icon: '◎', class: 'sol', basePrice: 98.50 },
+            { symbol: 'XRP/USDT', name: 'Ripple', icon: '✕', class: 'xrp', basePrice: 0.62 },
+            { symbol: 'BNB/USDT', name: 'Binance', icon: 'B', class: 'bnb', basePrice: 315.00 },
+            { symbol: 'ADA/USDT', name: 'Cardano', icon: '₳', class: 'ada', basePrice: 0.58 }
+        ];
 
-        // Suggestion cards click
-        suggestionCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const prompt = this.dataset.prompt;
-                inputField.value = prompt;
-                inputField.style.height = 'auto';
-                inputField.style.height = Math.min(inputField.scrollHeight, 120) + 'px';
-                sendBtn.disabled = false;
-                inputField.focus();
-            });
-        });
+        let currentPrices = {};
+        let signals = [];
+        let signalHistory = [];
+        let soundEnabled = true;
+        let totalSignals = 0;
+        let winCount = 0;
+        let totalProfit = 0;
 
-        // New Chat
-        function startNewChat() {
-            chatCount++;
-            currentChat = chatCount;
-            chats[currentChat] = [];
+        // ==================== AUDIO ====================
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSignalSound(type) {
+            if (!soundEnabled) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
             
-            chatContainer.innerHTML = '';
-            chatContainer.classList.remove('active');
-            welcomeScreen.style.display = 'flex';
-            
-            // Add to sidebar history
-            const historyItem = document.createElement('div');
-            historyItem.className = 'history-item';
-            historyItem.dataset.chat = currentChat;
-            historyItem.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-                <span>New Chat ${currentChat}</span>
-            `;
-            historyItem.addEventListener('click', () => loadChat(currentChat));
-            chatHistory.insertBefore(historyItem, chatHistory.firstChild);
-            
-            // Update active state
-            document.querySelectorAll('.history-item').forEach(item => item.classList.remove('active'));
-            historyItem.classList.add('active');
-            
-            closeSidebarFn();
-        }
-
-        newChatBtn.addEventListener('click', startNewChat);
-        headerNewChat.addEventListener('click', startNewChat);
-
-        // Load chat
-        function loadChat(chatId) {
-            currentChat = chatId;
-            document.querySelectorAll('.history-item').forEach(item => item.classList.remove('active'));
-            document.querySelector(`.history-item[data-chat="${chatId}"]`).classList.add('active');
-            
-            chatContainer.innerHTML = '';
-            if (chats[chatId] && chats[chatId].length > 0) {
-                welcomeScreen.style.display = 'none';
-                chatContainer.classList.add('active');
-                chats[chatId].forEach(msg => {
-                    addMessage(msg.content, msg.sender);
-                });
+            if (type === 'buy') {
+                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(1200, audioCtx.currentTime + 0.1);
+            } else if (type === 'sell') {
+                oscillator.frequency.setValueAtTime(1200, audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime + 0.1);
             } else {
-                welcomeScreen.style.display = 'flex';
-                chatContainer.classList.remove('active');
+                oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime);
             }
             
-            closeSidebarFn();
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.3);
         }
 
-        // Focus input on load
-        setTimeout(() => inputField.focus(), 2000);
+        // ==================== PRICE SIMULATION ====================
+        function updatePrices() {
+            TRADING_PAIRS.forEach(pair => {
+                const volatility = pair.basePrice * 0.002;
+                const change = (Math.random() - 0.5) * volatility;
+                currentPrices[pair.symbol] = {
+                    price: pair.basePrice + change,
+                    change24h: (Math.random() - 0.4) * 5,
+                    change: change
+                };
+            });
+            renderPairs();
+            renderTicker();
+        }
+
+        // ==================== TECHNICAL ANALYSIS ====================
+        function calculateRSI(prices) {
+            let gains = 0, losses = 0;
+            for (let i = 1; i < prices.length; i++) {
+                const diff = prices[i] - prices[i-1];
+                if (diff > 0) gains += diff;
+                else losses -= diff;
+            }
+            const avgGain = gains / prices.length;
+            const avgLoss = losses / prices.length;
+            if (avgLoss === 0) return 100;
+            const rs = avgGain / avgLoss;
+            return 100 - (100 / (1 + rs));
+        }
+
+        function calculateMACD(prices) {
+            const ema12 = prices.slice(-12).reduce((a, b) => a + b) / 12;
+            const ema26 = prices.slice(-26).reduce((a, b) => a + b) / 26;
+            return ema12 - ema26;
+        }
+
+        function generateSignal(pair) {
+            const priceHistory = Array.from({length: 30}, () => 
+                pair.basePrice + (Math.random() - 0.5) * pair.basePrice * 0.05
+            );
+            
+            const rsi = calculateRSI(priceHistory);
+            const macd = calculateMACD(priceHistory);
+            const currentPrice = currentPrices[pair.symbol]?.price || pair.basePrice;
+            const ma20 = priceHistory.slice(-20).reduce((a, b) => a + b) / 20;
+            const ma50 = priceHistory.slice(-50).reduce((a, b) => a + b, 0) / Math.min(priceHistory.length, 50);
+            
+            let signal, strength, confidence, targetPrice, stopLoss;
+            
+            if (rsi < 30 && macd > 0 && currentPrice > ma20) {
+                signal = 'buy';
+                strength = rsi < 20 ? 'Strong Buy' : 'Buy';
+                confidence = Math.floor(70 + Math.random() * 25);
+                targetPrice = currentPrice * 1.05;
+                stopLoss = currentPrice * 0.97;
+            } else if (rsi > 70 && macd < 0 && currentPrice < ma20) {
+                signal = 'sell';
+                strength = rsi > 80 ? 'Strong Sell' : 'Sell';
+                confidence = Math.floor(70 + Math.random() * 25);
+                targetPrice = currentPrice * 0.95;
+                stopLoss = currentPrice * 1.03;
+            } else {
+                signal = 'hold';
+                strength = 'Hold';
+                confidence = Math.floor(50 + Math.random() * 30);
+                targetPrice = currentPrice * 1.02;
+                stopLoss = currentPrice * 0.98;
+            }
+            
+            return {
+                pair: pair,
+                signal: signal,
+                strength: strength,
+                confidence: confidence,
+                entryPrice: currentPrice,
+                targetPrice: targetPrice,
+                stopLoss: stopLoss,
+                rsi: rsi.toFixed(1),
+                macd: macd.toFixed(4),
+                ma20: ma20.toFixed(2),
+                timestamp: new Date()
+            };
+        }
+
+        // ==================== RENDER FUNCTIONS ====================
+        function renderPairs() {
+            const container = document.getElementById('pairsList');
+            container.innerHTML = TRADING_PAIRS.map(pair => {
+                const data = currentPrices[pair.symbol];
+                if (!data) return '';
+                const isUp = data.change24h >= 0;
+                return `
+                    <div class="pair-item" onclick="focusPair('${pair.symbol}')">
+                        <div class="pair-info">
+                            <span class="pair-name">${pair.symbol}</span>
+                            <span class="pair-time">${pair.name}</span>
+                        </div>
+                        <div class="pair-price">
+                            <div class="price-value">$${data.price.toFixed(pair.basePrice < 1 ? 4 : 2)}</div>
+                            <div class="price-change ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}${data.change24h.toFixed(2)}%</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSignals() {
+            const container = document.getElementById('signalsContainer');
+            container.innerHTML = signals.map((sig, index) => `
+                <div class="signal-card ${sig.signal}">
+                    <div class="signal-header">
+                        <div class="signal-pair">
+                            <div class="pair-icon ${sig.pair.class}">${sig.pair.icon}</div>
+                            <div class="pair-details">
+                                <h3>${sig.pair.symbol}</h3>
+                                <span>${sig.pair.name}</span>
+                            </div>
+                        </div>
+                        <div class="signal-badge ${sig.signal}">${sig.strength}</div>
+                    </div>
+                    <div class="signal-body">
+                        <div class="signal-metric">
+                            <div class="metric-label">Confidence</div>
+                            <div class="metric-value ${sig.signal}">${sig.confidence}%</div>
+                        </div>
+                        <div class="signal-metric">
+                            <div class="metric-label">Entry Price</div>
+                            <div class="metric-value">$${sig.entryPrice.toFixed(sig.entryPrice < 1 ? 4 : 2)}</div>
+                        </div>
+                        <div class="signal-metric">
+                            <div class="metric-label">Target</div>
+                            <div class="metric-value ${sig.signal === 'buy' ? 'buy' : sig.signal === 'sell' ? 'sell' : ''}">
+                                $${sig.targetPrice.toFixed(sig.targetPrice < 1 ? 4 : 2)}
+                            </div>
+                        </div>
+                        <div class="signal-metric">
+                            <div class="metric-label">Stop Loss</div>
+                            <div class="metric-value ${sig.signal === 'buy' ? 'sell' : sig.signal === 'sell' ? 'buy' : ''}">
+                                $${sig.stopLoss.toFixed(sig.stopLoss < 1 ? 4 : 2)}
+                            </div>
+                        </div>
+                        <div class="signal-metric">
+                            <div class="metric-label">RSI</div>
+                            <div class="metric-value">${sig.rsi}</div>
+                        </div>
+                        <div class="signal-metric">
+                            <div class="metric-label">MACD</div>
+                            <div class="metric-value">${sig.macd}</div>
+                        </div>
+                    </div>
+                    <div class="signal-chart">
+                        <canvas id="chart-${index}" width="600" height="200"></canvas>
+                    </div>
+                    <div class="signal-footer">
+                        <span class="signal-time">⏱️ ${sig.timestamp.toLocaleTimeString()}</span>
+                        <div class="signal-actions">
+                            <button class="signal-btn secondary" onclick="copySignal(${index})">📋 Copy</button>
+                            <button class="signal-btn primary" onclick="executeSignal(${index})">⚡ Execute</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Draw charts
+            signals.forEach((sig, index) => {
+                drawChart(sig, index);
+            });
+        }
+
+        function drawChart(signal, index) {
+            const canvas = document.getElementById(`chart-${index}`);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Generate price data
+            const dataPoints = 50;
+            const prices = [];
+            let price = signal.entryPrice * 0.95;
+            for (let i = 0; i < dataPoints; i++) {
+                price += (Math.random() - 0.4) * signal.entryPrice * 0.01;
+                prices.push(price);
+            }
+            
+            const min = Math.min(...prices);
+            const max = Math.max(...prices);
+            const range = max - min;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw grid
+            ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 5; i++) {
+                const y = (height / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+            
+            // Draw line
+            const isUp = prices[prices.length - 1] >= prices[0];
+            ctx.strokeStyle = isUp ? '#00d4aa' : '#ef4444';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            prices.forEach((p, i) => {
+                const x = (i / (dataPoints - 1)) * width;
+                const y = height - ((p - min) / range) * (height - 40) - 20;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+            
+            // Draw fill
+            ctx.fillStyle = isUp ? 'rgba(0, 212, 170, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+            ctx.lineTo(width, height);
+            ctx.lineTo(0, height);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw entry point
+            const entryX = width * 0.8;
+            const entryY = height - ((signal.entryPrice - min) / range) * (height - 40) - 20;
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(entryX, entryY, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('historyList');
+            container.innerHTML = signalHistory.slice(-10).reverse().map(h => {
+                const profit = h.result === 'win' ? ((h.exitPrice - h.entryPrice) / h.entryPrice * 100).toFixed(2) : 
+                              ((h.entryPrice - h.exitPrice) / h.entryPrice * 100).toFixed(2);
+                return `
+                    <div class="history-item">
+                        <span class="history-pair">${h.pair}</span>
+                        <span class="history-signal ${h.signal}">${h.signal.toUpperCase()}</span>
+                        <span class="history-result ${h.result}">${h.result === 'win' ? '+' : '-'}${profit}%</span>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('historyCount').textContent = signalHistory.length;
+        }
+
+        function renderTicker() {
+            const container = document.getElementById('tickerBar');
+            container.innerHTML = TRADING_PAIRS.map(pair => {
+                const data = currentPrices[pair.symbol];
+                if (!data) return '';
+                const isUp = data.change24h >= 0;
+                return `
+                    <div class="ticker-item">
+                        <span class="ticker-name">${pair.symbol}</span>
+                        <span class="ticker-price">$${data.price.toFixed(pair.basePrice < 1 ? 4 : 2)}</span>
+                        <span class="ticker-change ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}${data.change24h.toFixed(2)}%</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==================== ACTIONS ====================
+        function generateNewSignals() {
+            signals = TRADING_PAIRS.map(pair => generateSignal(pair));
+            signals.sort((a, b) => b.confidence - a.confidence);
+            renderSignals();
+            
+            signals.forEach(sig => {
+                if (sig.signal !== 'hold') {
+                    playSignalSound(sig.signal);
+                    totalSignals++;
+                }
+            });
+            
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('totalSignals').textContent = totalSignals;
+            document.getElementById('activeSignals').textContent = signals.filter(s => s.signal !== 'hold').length;
+            
+            const winRate = totalSignals > 0 ? Math.round((winCount / totalSignals) * 100) : 0;
+            document.getElementById('winRate').textContent = winRate + '%';
+            
+            document.getElementById('totalProfit').textContent = (totalProfit >= 0 ? '+' : '') + '$' + totalProfit.toFixed(2);
+        }
+
+        function copySignal(index) {
+            const sig = signals[index];
+            const text = `SIGNAL: ${sig.pair.symbol}\\nType: ${sig.strength}\\nEntry: $${sig.entryPrice.toFixed(2)}\\nTarget: $${sig.targetPrice.toFixed(2)}\\nStop: $${sig.stopLoss.toFixed(2)}\\nConfidence: ${sig.confidence}%`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Signal copied to clipboard!');
+            });
+        }
+
+        function executeSignal(index) {
+            const sig = signals[index];
+            const isWin = Math.random() > 0.3; // 70% win rate simulation
+            const profit = isWin ? 
+                (sig.targetPrice - sig.entryPrice) * (Math.random() * 0.5 + 0.5) :
+                -(sig.entryPrice - sig.stopLoss) * (Math.random() * 0.5 + 0.5);
+            
+            signalHistory.push({
+                pair: sig.pair.symbol,
+                signal: sig.signal,
+                entryPrice: sig.entryPrice,
+                exitPrice: isWin ? sig.targetPrice : sig.stopLoss,
+                result: isWin ? 'win' : 'loss',
+                profit: profit,
+                timestamp: new Date()
+            });
+            
+            if (isWin) winCount++;
+            totalProfit += profit;
+            
+            renderHistory();
+            updateStats();
+            
+            alert(`Signal executed!\\nResult: ${isWin ? 'WIN' : 'LOSS'}\\nP&L: ${profit >= 0 ? '+' : ''}$${profit.toFixed(2)}`);
+        }
+
+        function focusPair(symbol) {
+            const sig = signals.find(s => s.pair.symbol === symbol);
+            if (sig) {
+                const card = document.querySelector(`.signal-card.${sig.signal}`);
+                if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function refreshSignals() {
+            generateNewSignals();
+            showNotification('Signals refreshed!', 'success');
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            showNotification(soundEnabled ? 'Sound ON' : 'Sound OFF', 'info');
+        }
+
+        function showSettings() {
+            alert('Settings:\\n- Auto-refresh: ON\\n- Sound alerts: ' + (soundEnabled ? 'ON' : 'OFF') + '\\n- Risk level: Medium\\n- Timeframe: 15m');
+        }
+
+        function showNotification(message, type) {
+            const notif = document.createElement('div');
+            notif.style.cssText = `
+                position: fixed; top: 80px; right: 24px; padding: 12px 20px;
+                background: ${type === 'success' ? '#00d4aa' : '#0084ff'}; color: white;
+                border-radius: 8px; font-size: 13px; font-weight: 600; z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 3000);
+        }
+
+        // ==================== INIT ====================
+        function init() {
+            updatePrices();
+            generateNewSignals();
+            
+            // Auto-refresh prices every 5 seconds
+            setInterval(updatePrices, 5000);
+            
+            // Auto-generate new signals every 30 seconds
+            setInterval(generateNewSignals, 30000);
+            
+            // Simulate history
+            for (let i = 0; i < 5; i++) {
+                const pair = TRADING_PAIRS[Math.floor(Math.random() * TRADING_PAIRS.length)];
+                const isWin = Math.random() > 0.3;
+                const signal = Math.random() > 0.5 ? 'buy' : 'sell';
+                const entry = pair.basePrice * (1 + (Math.random() - 0.5) * 0.02);
+                const exit = isWin ? entry * 1.03 : entry * 0.97;
+                
+                signalHistory.push({
+                    pair: pair.symbol,
+                    signal: signal,
+                    entryPrice: entry,
+                    exitPrice: exit,
+                    result: isWin ? 'win' : 'loss',
+                    profit: isWin ? (exit - entry) : -(entry - exit),
+                    timestamp: new Date(Date.now() - i * 60000)
+                });
+                
+                if (isWin) winCount++;
+                totalProfit += signalHistory[signalHistory.length - 1].profit;
+            }
+            
+            renderHistory();
+            updateStats();
+        }
+
+        // Start
+        init();
     </script>
 </body>
 </html>
