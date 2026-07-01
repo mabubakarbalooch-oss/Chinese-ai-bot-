@@ -69,12 +69,14 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .market-card:active{transform:scale(0.98);}
 .market-card.hot{border-color:#ff4444;}
 .market-card.pro{border-color:#58a6ff;}
+.market-card.otc{border-color:#f97316;}
 
 .market-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .market-card-left{display:flex;align-items:center;gap:12px;}
 .market-icon{width:44px;height:44px;border-radius:12px;background:#0d1117;display:flex;justify-content:center;align-items:center;font-size:22px;}
 .market-card.hot .market-icon{background:rgba(255,68,68,0.1);}
 .market-card.pro .market-icon{background:rgba(88,166,255,0.1);}
+.market-card.otc .market-icon{background:rgba(249,115,22,0.1);}
 .market-info{}
 .market-name{font-size:14px;font-weight:900;}
 .market-desc{font-size:10px;color:#8b949e;margin-top:2px;}
@@ -82,10 +84,12 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
 .market-badge{font-size:9px;padding:3px 8px;border-radius:6px;font-weight:700;}
 .market-badge.hot{background:rgba(255,68,68,0.15);color:#ff4444;}
 .market-badge.pro{background:rgba(88,166,255,0.15);color:#58a6ff;}
+.market-badge.otc{background:rgba(249,115,22,0.15);color:#f97316;}
 
 .market-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .market-tag{font-size:9px;color:#00ff88;background:rgba(0,255,136,0.08);padding:4px 10px;border-radius:6px;font-weight:700;}
 .market-tag.gray{color:#8b949e;background:rgba(139,148,158,0.08);}
+.market-tag.otc{color:#f97316;background:rgba(249,115,22,0.08);}
 
 .market-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #30363d;}
 .market-footer-left{display:flex;gap:12px;}
@@ -339,7 +343,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
   <!-- HOME SCREEN -->
   <div class="home-screen" id="homeScreen">
     <div class="home-title">SELECT TRADING DIRECTION</div>
-    <div class="home-subtitle">Accurate signals with trend confirmation</div>
+    <div class="home-subtitle">Accurate signals with 8-indicator confirmation</div>
     
     <div class="stats-row">
       <div class="stat-box">
@@ -351,7 +355,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
         <div class="stat-label">Binance</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num">4 IND</div>
+        <div class="stat-num">8 IND</div>
         <div class="stat-label">Indicators</div>
       </div>
     </div>
@@ -362,20 +366,21 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
           <div class="market-icon">₿</div>
           <div class="market-info">
             <div class="market-name">CRYPTO PAIRS</div>
-            <div class="market-desc">Binance Live - Weighted consensus signals</div>
+            <div class="market-desc">Binance Live - 8-Indicator Consensus</div>
           </div>
         </div>
         <div class="market-badge hot">LIVE</div>
       </div>
       <div class="market-tags">
         <div class="market-tag">12+ Assets</div>
-        <div class="market-tag">Trend Confirmed</div>
+        <div class="market-tag">8 Indicators</div>
         <div class="market-tag">Binance API</div>
         <div class="market-tag">5s to 1m</div>
       </div>
       <div class="market-footer">
         <div class="market-footer-left">
-          <div class="market-footer-item">High Accuracy</div>
+          <div class="market-footer-item">RSI + MACD + BB + STOCH</div>
+          <div class="market-footer-item">EMA + VWAP + ADX + ATR</div>
         </div>
         <div class="market-status">⚡ Binance Live</div>
       </div>
@@ -387,28 +392,53 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
           <div class="market-icon">📊</div>
           <div class="market-info">
             <div class="market-name">FOREX PAIRS</div>
-            <div class="market-desc">Simulated - Multi-indicator confirmation</div>
+            <div class="market-desc">ExchangeRate.host - Real-time FX rates</div>
           </div>
         </div>
         <div class="market-badge pro">PRO</div>
       </div>
       <div class="market-tags">
         <div class="market-tag">10 Assets</div>
-        <div class="market-tag gray">Simulated</div>
-        <div class="market-tag">4-Indicator System</div>
+        <div class="market-tag gray">Real FX Rates</div>
+        <div class="market-tag">8-Indicator System</div>
         <div class="market-tag gray">1-5 min</div>
       </div>
       <div class="market-footer">
         <div class="market-footer-left">
-          <div class="market-footer-item">Practice Mode</div>
+          <div class="market-footer-item">Live Exchange Rates</div>
         </div>
-        <div class="market-status">📈 4-Indicator AI</div>
+        <div class="market-status">🌍 ExchangeRate.host</div>
+      </div>
+    </div>
+
+    <div class="market-card otc" onclick="goToAssets('pocket')">
+      <div class="market-card-header">
+        <div class="market-card-left">
+          <div class="market-icon">📱</div>
+          <div class="market-info">
+            <div class="market-name">POCKET OPTION</div>
+            <div class="market-desc">OTC Trading - High accuracy signals</div>
+          </div>
+        </div>
+        <div class="market-badge otc">OTC</div>
+      </div>
+      <div class="market-tags">
+        <div class="market-tag otc">OTC Assets</div>
+        <div class="market-tag">8 Indicators</div>
+        <div class="market-tag">1-5 min</div>
+        <div class="market-tag gray">Practice Ready</div>
+      </div>
+      <div class="market-footer">
+        <div class="market-footer-left">
+          <div class="market-footer-item">Pocket Option Compatible</div>
+        </div>
+        <div class="market-status" style="color:#f97316;">📱 OTC Mode</div>
       </div>
     </div>
 
     <div style="text-align:center;margin-top:20px;padding:12px;background:#161b22;border-radius:12px;border:1px solid #30363d;">
       <div style="font-size:10px;color:#8b949e;">✅ TREND CONFIRMATION REQUIRED - No weak signals</div>
-      <div style="font-size:9px;color:#6e7681;margin-top:4px;">Minimum 70% confidence + 3/4 indicators agree</div>
+      <div style="font-size:9px;color:#6e7681;margin-top:4px;">Minimum 75% confidence + 5/8 indicators agree + Trend confirm</div>
     </div>
   </div>
 
@@ -418,7 +448,7 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="back-btn" onclick="goBack('home')">←</div>
       <div>
         <div class="asset-header-title" id="assetScreenTitle">CRYPTO PAIRS</div>
-        <div class="asset-header-sub" id="assetScreenSub">Select an asset - Live Binance prices</div>
+        <div class="asset-header-sub" id="assetScreenSub">Select an asset - Live prices</div>
       </div>
     </div>
     <div class="asset-list" id="assetList"></div>
@@ -460,6 +490,11 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
         <div class="timeframe-num">1</div>
         <div class="timeframe-label">Minute (Binance 1m)</div>
       </div>
+      <div class="timeframe-card mintf" onclick="selectTimeframe(300)" id="tf300" style="grid-column:span 2;">
+        <div class="timeframe-icon">📈</div>
+        <div class="timeframe-num">5</div>
+        <div class="timeframe-label">Minutes (Forex/OTC)</div>
+      </div>
     </div>
 
     <div class="selected-pair">
@@ -477,37 +512,26 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="brain-icon">🧠</div>
     </div>
     <div class="analyzing-title">Analyzing Market Data</div>
-    <div class="analyzing-subtitle" id="analyzingSub">Fetching from Binance API...</div>
+    <div class="analyzing-subtitle" id="analyzingSub">Fetching from API...</div>
     
     <div class="analyzing-stats" id="analyzingStats">
-      <div class="analyzing-stat">
-        <div class="analyzing-stat-num neut" id="rsiStat">--</div>
-        <div class="analyzing-stat-label">RSI</div>
-      </div>
-      <div class="analyzing-stat">
-        <div class="analyzing-stat-num neut" id="macdStat">--</div>
-        <div class="analyzing-stat-label">MACD</div>
-      </div>
-      <div class="analyzing-stat">
-        <div class="analyzing-stat-num neut" id="bbStat">--</div>
-        <div class="analyzing-stat-label">BB</div>
-      </div>
-      <div class="analyzing-stat">
-        <div class="analyzing-stat-num neut" id="stochStat">--</div>
-        <div class="analyzing-stat-label">STOCH</div>
-      </div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="rsiStat">--</div><div class="analyzing-stat-label">RSI</div></div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="macdStat">--</div><div class="analyzing-stat-label">MACD</div></div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="bbStat">--</div><div class="analyzing-stat-label">BB</div></div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="stochStat">--</div><div class="analyzing-stat-label">STOCH</div></div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="emaStat">--</div><div class="analyzing-stat-label">EMA</div></div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="adxStat">--</div><div class="analyzing-stat-label">ADX</div></div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="vwapStat">--</div><div class="analyzing-stat-label">VWAP</div></div>
+      <div class="analyzing-stat"><div class="analyzing-stat-num neut" id="atrStat">--</div><div class="analyzing-stat-label">ATR</div></div>
     </div>
 
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
-    </div>
-    <div class="progress-text" id="progressText">Connecting to Binance API...</div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <div class="progress-text" id="progressText">Connecting to APIs...</div>
   </div>
 
-  <!-- SIGNAL SCREEN - FIXED -->
+  <!-- SIGNAL SCREEN -->
   <div class="signal-screen" id="signalScreen">
     
-    <!-- Signal Section -->
     <div class="signal-section">
       <div class="signal-circle" id="signalCircle">
         <div class="signal-arrow" id="signalArrow">⬆</div>
@@ -518,25 +542,21 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
       <div class="signal-pair" id="signalPair">BTC/USDT • 1m</div>
     </div>
 
-    <!-- Timeframe Badge -->
     <div class="tf-badge minute" id="tfBadge">1 MINUTE SIGNAL</div>
 
-    <!-- Live Price Box -->
     <div class="signal-live-price-box">
       <div>
-        <div class="signal-live-price-label">LIVE BINANCE PRICE</div>
+        <div class="signal-live-price-label" id="priceLabel">LIVE BINANCE PRICE</div>
         <div class="signal-live-price-value" id="signalLivePrice">63,660.00</div>
       </div>
       <div class="signal-live-price-change down" id="signalLiveChange">-0.95%</div>
     </div>
 
-    <!-- Last Update -->
     <div class="last-update" id="lastUpdate">
       <div class="last-update-dot"></div>
       <span id="lastUpdateText">Signal updated: 5s ago</span>
     </div>
 
-    <!-- AI Score Box -->
     <div class="ai-score-box">
       <div class="ai-score-header">
         <div class="ai-score-title">AI Confidence Score</div>
@@ -546,77 +566,21 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
         <div class="ai-score-fill weak" id="aiScoreFill" style="width:47%"></div>
       </div>
       <div class="ai-score-markers">
-        <span>0</span>
-        <span>25</span>
-        <span>50</span>
-        <span>75</span>
-        <span>100</span>
+        <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
       </div>
     </div>
 
-    <!-- Indicator Grid -->
-    <div class="indicator-grid" id="indicatorGrid">
-      <!-- Trend Card -->
-      <div class="indicator-card">
-        <div class="indicator-card-header">
-          <div class="indicator-name">Trend (EMA20)</div>
-          <div class="indicator-status sell">SELL</div>
-        </div>
-        <div class="indicator-value sell">BEARISH</div>
-        <div class="indicator-desc">Strength: -2 | Price below EMA20</div>
-      </div>
-      
-      <!-- RSI Card -->
-      <div class="indicator-card">
-        <div class="indicator-card-header">
-          <div class="indicator-name">RSI (14)</div>
-          <div class="indicator-status buy">BUY</div>
-        </div>
-        <div class="indicator-value buy">44.2</div>
-        <div class="indicator-desc">44.2 - Oversold/Bullish</div>
-      </div>
-      
-      <!-- MACD Card -->
-      <div class="indicator-card">
-        <div class="indicator-card-header">
-          <div class="indicator-name">MACD</div>
-          <div class="indicator-status buy">BUY</div>
-        </div>
-        <div class="indicator-value buy">2.4268</div>
-        <div class="indicator-desc">Hist: 2.4268 | MACD: Below Signal</div>
-      </div>
-      
-      <!-- Bollinger Card -->
-      <div class="indicator-card">
-        <div class="indicator-card-header">
-          <div class="indicator-name">Bollinger %B</div>
-          <div class="indicator-status neut">HOLD</div>
-        </div>
-        <div class="indicator-value neut">41.6%</div>
-        <div class="indicator-desc">Position: 41.6% | Middle Zone</div>
-      </div>
-      
-      <!-- Stochastic Card -->
-      <div class="indicator-card" style="grid-column:span 2;">
-        <div class="indicator-card-header">
-          <div class="indicator-name">Stochastic</div>
-          <div class="indicator-status neut">HOLD</div>
-        </div>
-        <div class="indicator-value neut">31.9</div>
-        <div class="indicator-desc">K: 31.9 | D: 29.6 | K&gt;D</div>
-      </div>
-    </div>
+    <div class="indicator-grid" id="indicatorGrid"></div>
 
-    <!-- No Signal Warning -->
     <div class="no-signal-box" id="noSignalBox">
       <div class="no-signal-icon">⚠️</div>
       <div class="no-signal-title">NO CLEAR SIGNAL</div>
-      <div class="no-signal-text">Confidence is below 70%. Only 2/4 indicators agree.<br>Wait for stronger confirmation before trading.</div>
+      <div class="no-signal-text">Confidence is below 75%. Only 2/8 indicators agree.<br>Wait for stronger confirmation before trading.</div>
     </div>
 
     <div class="ai-processing">
       <div class="ai-dot"></div>
-      <div class="ai-text" id="aiText">Binance Live + 4-Indicator Engine</div>
+      <div class="ai-text" id="aiText">Multi-API + 8-Indicator Engine</div>
     </div>
 
     <div class="trade-timer">
@@ -630,1356 +594,472 @@ html,body{height:100dvh;width:100vw;overflow:hidden;background:#0d1117;font-fami
     </div>
     <div class="timer-text" id="timerText">Wait for stronger signal</div>
 
-    <button class="generate-btn" onclick="generateNewSignal()">GENERATE NEW SIGNAL</button>
+    <button class="generate-btn" onclick="generateNewSignal()">🎯 GENERATE NEW SIGNAL</button>
     <button class="refresh-btn" onclick="refreshLiveSignal()">🔄 REFRESH LIVE SIGNAL</button>
   </div>
 
 </div>
-
-<script>
-// ========== BINANCE API CONFIG ==========
-const BINANCE_BASE = 'https://api.binance.com/api/v3';
-let livePriceInterval = null;
-let signalUpdateInterval = null;
-let currentLivePrice = 0;
-let priceChange24h = 0;
-let lastSignalTime = null;
-
-// Crypto assets with Binance symbols
-const cryptoAssets = [
-  {name:'BTC/USDT',symbol:'BTCUSDT',flag:'₿',full:'Bitcoin / Tether',hot:true},
-  {name:'ETH/USDT',symbol:'ETHUSDT',flag:'Ξ',full:'Ethereum / Tether',hot:true},
-  {name:'BNB/USDT',symbol:'BNBUSDT',flag:'B',full:'Binance Coin / Tether',hot:false},
-  {name:'SOL/USDT',symbol:'SOLUSDT',flag:'◎',full:'Solana / Tether',hot:true},
-  {name:'XRP/USDT',symbol:'XRPUSDT',flag:'✕',full:'Ripple / Tether',hot:false},
-  {name:'DOGE/USDT',symbol:'DOGEUSDT',flag:'Ð',full:'Dogecoin / Tether',hot:false},
-  {name:'ADA/USDT',symbol:'ADAUSDT',flag:'A',full:'Cardano / Tether',hot:false},
-  {name:'AVAX/USDT',symbol:'AVAXUSDT',flag:'A',full:'Avalanche / Tether',hot:false},
-  {name:'DOT/USDT',symbol:'DOTUSDT',flag:'●',full:'Polkadot / Tether',hot:false},
-  {name:'MATIC/USDT',symbol:'MATICUSDT',flag:'M',full:'Polygon / Tether',hot:false},
-  {name:'LINK/USDT',symbol:'LINKUSDT',flag:'L',full:'Chainlink / Tether',hot:false},
-  {name:'LTC/USDT',symbol:'LTCUSDT',flag:'Ł',full:'Litecoin / Tether',hot:false},
-];
-
-// Forex assets (simulated)
-const forexAssets = [
-  {name:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',hot:true,change:0.15},
-  {name:'GBP/USD',flag:'🇬🇧',full:'British Pound / US Dollar',hot:false,change:-0.08},
-  {name:'USD/JPY',flag:'🇯🇵',full:'US Dollar / Japanese Yen',hot:true,change:0.22},
-  {name:'AUD/USD',flag:'🇦🇺',full:'Australian Dollar / US Dollar',hot:false,change:-0.14},
-  {name:'USD/CAD',flag:'🇨🇦',full:'US Dollar / Canadian Dollar',hot:false,change:0.06},
-  {name:'EUR/GBP',flag:'🇪🇺',full:'Euro / British Pound',hot:false,change:-0.03},
-  {name:'USD/CHF',flag:'🇨🇭',full:'US Dollar / Swiss Franc',hot:false,change:0.09},
-  {name:'NZD/USD',flag:'🇳🇿',full:'New Zealand Dollar / US Dollar',hot:false,change:-0.18},
-  {name:'EUR/JPY',flag:'🇪🇺',full:'Euro / Japanese Yen',hot:true,change:0.41},
-  {name:'GBP/JPY',flag:'🇬🇧',full:'British Pound / Japanese Yen',hot:false,change:0.28},
-];
-
-let currentMarket = '';
-let selectedAsset = null;
-let selectedTimeframe = 5;
-let currentAnalysis = null;
-let isCrypto = false;
-
-// ========== BINANCE API FUNCTIONS ==========
-async function fetchBinancePrice(symbol){
-  try{
-    const res = await fetch(`${BINANCE_BASE}/ticker/24hr?symbol=${symbol}`);
-    if(!res.ok) throw new Error('API Error');
-    const data = await res.json();
-    return {
-      price: parseFloat(data.lastPrice),
-      change: parseFloat(data.priceChangePercent),
-      high: parseFloat(data.highPrice),
-      low: parseFloat(data.lowPrice),
-      volume: parseFloat(data.volume)
-    };
-  }catch(e){
-    console.error('Binance API error:', e);
-    return null;
-  }
-}
-
-async function fetchBinanceKlines(symbol, interval='1m', limit=100){
-  try{
-    const res = await fetch(`${BINANCE_BASE}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`);
-    if(!res.ok) throw new Error('Klines Error');
-    const data = await res.json();
-    return data.map(k=>({
-      open: parseFloat(k[1]),
-      high: parseFloat(k[2]),
-      low: parseFloat(k[3]),
-      close: parseFloat(k[4]),
-      volume: parseFloat(k[5]),
-      time: k[0]
-    }));
-  }catch(e){
-    console.error('Binance Klines error:', e);
-    return null;
-  }
-}
-
-// ========== LIVE PRICE TICKER ==========
-function startLivePriceTicker(symbol){
-  if(livePriceInterval) clearInterval(livePriceInterval);
-  updateTicker(symbol);
-  livePriceInterval = setInterval(()=>updateTicker(symbol), 3000);
-}
-
-async function updateTicker(symbol){
-  const data = await fetchBinancePrice(symbol);
-  const apiStatus = document.getElementById('apiStatus');
-  
-  if(!data){
-    apiStatus.textContent = 'API Error';
-    apiStatus.className = 'api-status error';
-    return;
-  }
-  
-  currentLivePrice = data.price;
-  priceChange24h = data.change;
-  
-  document.getElementById('tickerSymbol').textContent = selectedAsset ? selectedAsset.name : symbol.replace('USDT','/USDT');
-  document.getElementById('tickerPrice').textContent = formatPrice(data.price);
-  document.getElementById('tickerPrice').className = 'price-ticker-value ' + (data.change>=0?'up':'down');
-  document.getElementById('tickerChange').textContent = (data.change>=0?'+':'') + data.change.toFixed(2) + '%';
-  document.getElementById('tickerChange').className = 'price-ticker-change ' + (data.change>=0?'up':'down');
-  apiStatus.textContent = 'Binance Live';
-  apiStatus.className = 'api-status';
-  
-  if(document.getElementById('signalScreen').style.display === 'flex'){
-    document.getElementById('signalLivePrice').textContent = formatPrice(data.price);
-    document.getElementById('signalLiveChange').textContent = (data.change>=0?'+':'') + data.change.toFixed(2) + '%';
-    document.getElementById('signalLiveChange').className = 'signal-live-price-change ' + (data.change>=0?'up':'down');
-  }
-}
-
-function formatPrice(price){
-  if(price >= 10000) return price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  if(price >= 100) return price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
-  if(price >= 1) return price.toLocaleString('en-US',{minimumFractionDigits:4,maximumFractionDigits:6});
-  return price.toLocaleString('en-US',{minimumFractionDigits:6,maximumFractionDigits:8});
-}
-
-// ========== LOGIN ==========
-document.getElementById('unlockBtn').addEventListener('click', function(){
-  const u = document.getElementById('username').value.trim();
-  const p = document.getElementById('password').value.trim();
-  const err = document.getElementById('error');
-  if(u === 'Lubna' && p === 'Abubakar786'){
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appScreen').style.display = 'block';
-    startLivePriceTicker('BTCUSDT');
-  } else {
-    err.textContent = 'Invalid credentials. Try again.';
-    setTimeout(()=>err.textContent='',2000);
-  }
-});
-
-// ========== NAVIGATION ==========
-function showScreen(id){
-  ['homeScreen','assetScreen','timeframeScreen','analyzingScreen','signalScreen'].forEach(s=>{
-    document.getElementById(s).style.display = 'none';
-  });
-  document.getElementById(id).style.display = id === 'analyzingScreen' || id === 'signalScreen' ? 'flex' : 'block';
-  if(id==='assetScreen') document.getElementById('assetScreen').style.display='block';
-  if(id==='timeframeScreen') document.getElementById('timeframeScreen').style.display='block';
-}
-
-function goBack(to){
-  if(to==='home'){
-    showScreen('homeScreen');
-    startLivePriceTicker('BTCUSDT');
-    if(signalUpdateInterval) clearInterval(signalUpdateInterval);
-  }
-  if(to==='asset'){
-    showScreen('assetScreen');
-    if(signalUpdateInterval) clearInterval(signalUpdateInterval);
-  }
-}
-
-function goToAssets(market){
-  currentMarket = market;
-  isCrypto = market === 'crypto';
-  const list = document.getElementById('assetList');
-  list.innerHTML = '';
-  
-  if(isCrypto){
-    document.getElementById('assetScreenTitle').textContent = 'CRYPTO PAIRS';
-    document.getElementById('assetScreenSub').textContent = 'Select an asset - Live Binance prices';
-    loadCryptoAssets(list);
-  } else {
-    document.getElementById('assetScreenTitle').textContent = 'FOREX PAIRS';
-    document.getElementById('assetScreenSub').textContent = 'Select an asset - Simulated data';
-    loadForexAssets(list);
-  }
-  
-  showScreen('assetScreen');
-}
-
-function loadCryptoAssets(list){
-  cryptoAssets.forEach(asset=>{
-    const div = document.createElement('div');
-    div.className = 'asset-item';
-    div.onclick = ()=>selectAsset(asset);
-    div.innerHTML = `
-      <div class="asset-left">
-        <div class="asset-flag">${asset.flag}</div>
-        <div>
-          <div class="asset-name">${asset.name}</div>
-          <div class="asset-fullname">${asset.full}</div>
-        </div>
-      </div>
-      <div class="asset-right">
-        ${asset.hot ? '<div class="asset-badge-hot">HOT</div>' : ''}
-        <span class="asset-live-price" id="price-${asset.symbol}">--.--</span>
-        <div class="asset-arrow">›</div>
-      </div>
-    `;
-    list.appendChild(div);
-  });
-  
-  updateAssetPrices();
-  window.assetPriceInterval = setInterval(updateAssetPrices, 10000);
-}
-
-function loadForexAssets(list){
-  if(window.assetPriceInterval) clearInterval(window.assetPriceInterval);
-  
-  forexAssets.forEach(a=>{
-    const div = document.createElement('div');
-    div.className = 'asset-item';
-    div.onclick = ()=>selectAsset(a);
-    div.innerHTML = `
-      <div class="asset-left">
-        <div class="asset-flag">${a.flag}</div>
-        <div>
-          <div class="asset-name">${a.name}</div>
-          <div class="asset-fullname">${a.full}</div>
-        </div>
-      </div>
-      <div class="asset-right">
-        ${a.hot ? '<div class="asset-badge-hot">HOT</div>' : ''}
-        <div class="asset-change ${a.change>=0?'up':'down'}">${a.change>=0?'+':''}${a.change.toFixed(2)}%</div>
-        <div class="asset-arrow">›</div>
-      </div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-async function updateAssetPrices(){
-  for(const asset of cryptoAssets){
-    const priceEl = document.getElementById('price-'+asset.symbol);
-    if(priceEl){
-      const data = await fetchBinancePrice(asset.symbol);
-      if(data){
-        priceEl.textContent = formatPrice(data.price);
-      }
-    }
-  }
-}
-
-function selectAsset(asset){
-  selectedAsset = asset;
-  document.getElementById('tfAssetName').textContent = asset.name;
-  document.getElementById('selectedPairDisplay').textContent = asset.name;
-  
-  if(isCrypto && asset.symbol){
-    startLivePriceTicker(asset.symbol);
-  }
-  
-  showScreen('timeframeScreen');
-}
-
-function selectTimeframe(tf){
-  selectedTimeframe = tf;
-  [5,10,15,30,60].forEach(t=>{
-    document.getElementById('tf'+t).classList.toggle('selected', t===tf);
-  });
-  startAnalysis();
-}
-
-// ========== INDICATOR CALCULATIONS ==========
-function calculateRSI(data, period=14){
-  if(data.length < period+1) return {value:50, trend:'neutral'};
-  let gains=0, losses=0;
-  for(let i=1;i<=period;i++){
-    const change = data[data.length-i].close - data[data.length-i-1].close;
-    if(change>0) gains+=change; else losses-=change;
-  }
-  const avgGain = gains/period;
-  const avgLoss = losses/period;
-  if(avgLoss===0) return {value:100, trend:'overbought'};
-  const rs = avgGain/avgLoss;
-  const rsi = 100 - (100/(1+rs));
-  
-  let trend = 'neutral';
-  if(rsi < 30) trend = 'oversold';
-  else if(rsi > 70) trend = 'overbought';
-  else if(rsi < 45) trend = 'weak_bull';
-  else if(rsi > 55) trend = 'weak_bear';
-  
-  return {value:rsi, trend};
-}
-
-function calculateMACD(data){
-  if(data.length < 26) return {macd:0, signal:0, histogram:0, trend:'neutral'};
-  
-  const ema = (prices, period)=>{
-    const k = 2/(period+1);
-    let emaVal = prices.slice(0,period).reduce((a,b)=>a+b,0)/period;
-    for(let i=period;i<prices.length;i++){
-      emaVal = prices[i]*k + emaVal*(1-k);
-    }
-    return emaVal;
-  };
-  
-  const closes = data.map(d=>d.close);
-  const ema12 = ema(closes, 12);
-  const ema26 = ema(closes, 26);
-  const macdLine = ema12 - ema26;
-  
-  const macdHistory = [];
-  for(let i=26;i<closes.length;i++){
-    const e12 = ema(closes.slice(0,i+1), 12);
-    const e26 = ema(closes.slice(0,i+1), 26);
-    macdHistory.push(e12-e26);
-  }
-  const signalLine = ema(macdHistory, 9);
-  const histogram = macdLine - signalLine;
-  
-  let trend = 'neutral';
-  if(histogram > 0 && macdLine > signalLine) trend = 'bullish';
-  else if(histogram < 0 && macdLine < signalLine) trend = 'bearish';
-  else if(histogram > 0) trend = 'weak_bull';
-  else trend = 'weak_bear';
-  
-  return {macd:macdLine, signal:signalLine, histogram, trend};
-}
-
-function calculateBollinger(data, period=20, multiplier=2){
-  if(data.length < period) return {upper:0, middle:0, lower:0, width:0, position:50, trend:'neutral'};
-  
-  const closes = data.slice(-period).map(d=>d.close);
-  const sma = closes.reduce((a,b)=>a+b,0)/period;
-  
-  const squaredDiffs = closes.map(c=>Math.pow(c-sma,2));
-  const variance = squaredDiffs.reduce((a,b)=>a+b,0)/period;
-  const stdDev = Math.sqrt(variance);
-  
-  const upper = sma + multiplier*stdDev;
-  const lower = sma - multiplier*stdDev;
-  const width = ((upper-lower)/sma)*100;
-  
-  const lastClose = data[data.length-1].close;
-  const position = ((lastClose-lower)/(upper-lower))*100;
-  
-  let trend = 'neutral';
-  if(position < 10) trend = 'oversold';
-  else if(position > 90) trend = 'overbought';
-  else if(position < 30) trend = 'weak_bull';
-  else if(position > 70) trend = 'weak_bear';
-  
-  return {upper, middle:sma, lower, width, position:Math.max(0,Math.min(100,position)), trend};
-}
-
-function calculateStochastic(data, kPeriod=14, dPeriod=3, smooth=3){
-  if(data.length < kPeriod+smooth) return {k:50, d:50, trend:'neutral'};
-  
-  const getK = (idx)=>{
-    const slice = data.slice(idx-kPeriod+1, idx+1);
-    const lowest = Math.min(...slice.map(d=>d.low));
-    const highest = Math.max(...slice.map(d=>d.high));
-    const close = data[idx].close;
-    if(highest===lowest) return 50;
-    return ((close-lowest)/(highest-lowest))*100;
-  };
-  
-  const kValues = [];
-  for(let i=kPeriod-1;i<data.length;i++){
-    kValues.push(getK(i));
-  }
-  
-  const smoothK = [];
-  for(let i=smooth-1;i<kValues.length;i++){
-    const sum = kValues.slice(i-smooth+1,i+1).reduce((a,b)=>a+b,0);
-    smoothK.push(sum/smooth);
-  }
-  
-  const dValues = [];
-  for(let i=dPeriod-1;i<smoothK.length;i++){
-    const sum = smoothK.slice(i-dPeriod+1,i+1).reduce((a,b)=>a+b,0);
-    dValues.push(sum/dPeriod);
-  }
-  
-  const k = smoothK[smoothK.length-1];
-  const d = dValues[dValues.length-1];
-  
-  let trend = 'neutral';
-  if(k < 20 && d < 20 && k > d) trend = 'oversold';
-  else if(k > 80 && d > 80 && k < d) trend = 'overbought';
-  else if(k < d && k < 50) trend = 'weak_bull';
-  else if(k > d && k > 50) trend = 'weak_bear';
-  
-  return {k, d, trend};
-}
-
-// ========== TREND CONFIRMATION ==========
-function checkTrendConfirmation(data, signalType){
-  if(data.length < 20) return false;
-  
-  const closes = data.map(d=>d.close);
-  const ema20 = closes.slice(-20).reduce((a,b)=>a+b,0)/20;
-  const lastClose = closes[closes.length-1];
-  
-  // Check last 3 candles momentum
-  const momentum = closes[closes.length-1] - closes[closes.length-4];
-  
-  if(signalType === 'BUY'){
-    return lastClose > ema20 && momentum > 0;
-  } else if(signalType === 'SELL'){
-    return lastClose < ema20 && momentum < 0;
-  }
-  
-  return false;
-}
-
-// ========== ANALYSIS ==========
-async function analyzeWithLiveData(){
-  let data;
-  
-  if(isCrypto && selectedAsset && selectedAsset.symbol){
-    document.getElementById('progressText').textContent = 'Fetching live candles from Binance...';
-    const klines = await fetchBinanceKlines(selectedAsset.symbol, '1m', 100);
-    
-    if(klines && klines.length >= 50){
-      data = klines;
-      document.getElementById('analyzingSub').textContent = 'Live Binance 1m data received';
-      document.getElementById('progressText').textContent = 'Calculating 4 indicators on live data...';
-    } else {
-      data = generateSimulatedData(60);
-      document.getElementById('analyzingSub').textContent = 'Using fallback data';
-      document.getElementById('progressText').textContent = 'Binance API limited, using backup...';
-    }
-  } else {
-    data = generateSimulatedData(60);
-    document.getElementById('analyzingSub').textContent = 'Simulated Forex data';
-    document.getElementById('progressText').textContent = 'Using simulated market data...';
-  }
-  
-  const lastClose = data[data.length-1].close;
-  
-  const rsi = calculateRSI(data);
-  const macd = calculateMACD(data);
-  const bb = calculateBollinger(data);
-  const stoch = calculateStochastic(data);
-  
-  // WEIGHTED SCORING
-  let buyScore = 0;
-  let sellScore = 0;
-  
-  if(rsi.trend === 'oversold') buyScore += 30;
-  else if(rsi.trend === 'weak_bull') buyScore += 15;
-  else if(rsi.trend === 'overbought') sellScore += 30;
-  else if(rsi.trend === 'weak_bear') sellScore += 15;
-  
-  if(macd.trend === 'bullish') buyScore += 30;
-  else if(macd.trend === 'weak_bull') buyScore += 15;
-  else if(macd.trend === 'bearish') sellScore += 30;
-  else if(macd.trend === 'weak_bear') sellScore += 15;
-  
-  if(bb.trend === 'oversold') buyScore += 20;
-  else if(bb.trend === 'weak_bull') buyScore += 10;
-  else if(bb.trend === 'overbought') sellScore += 20;
-  else if(bb.trend === 'weak_bear') sellScore += 10;
-  
-  if(stoch.trend === 'oversold') buyScore += 20;
-  else if(stoch.trend === 'weak_bull') buyScore += 10;
-  else if(stoch.trend === 'overbought') sellScore += 20;
-  else if(stoch.trend === 'weak_bear') sellScore += 10;
-  
-  // Determine signal
-  let finalSignal = 'NEUTRAL';
-  let confidence = 0;
-  let trendConfirmed = false;
-  
-  if(buyScore >= 80 && sellScore === 0){
-    trendConfirmed = checkTrendConfirmation(data, 'BUY');
-    if(trendConfirmed){
-      finalSignal = 'STRONG_BUY';
-      confidence = buyScore;
-    } else {
-      finalSignal = 'BUY';
-      confidence = buyScore * 0.85;
-    }
-  } else if(sellScore >= 80 && buyScore === 0){
-    trendConfirmed = checkTrendConfirmation(data, 'SELL');
-    if(trendConfirmed){
-      finalSignal = 'STRONG_SELL';
-      confidence = sellScore;
-    } else {
-      finalSignal = 'SELL';
-      confidence = sellScore * 0.85;
-    }
-  } else if(buyScore >= 60 && buyScore > sellScore + 20){
-    finalSignal = 'BUY';
-    confidence = buyScore * 0.75;
-  } else if(sellScore >= 60 && sellScore > buyScore + 20){
-    finalSignal = 'SELL';
-    confidence = sellScore * 0.75;
-  } else if(buyScore >= 50 && buyScore > sellScore){
-    finalSignal = 'WEAK_BUY';
-    confidence = buyScore * 0.6;
-  } else if(sellScore >= 50 && sellScore > buyScore){
-    finalSignal = 'WEAK_SELL';
-    confidence = sellScore * 0.6;
-  }
-  
-  const minConfidence = 70;
-  const showSignal = confidence >= minConfidence;
-  
-  return {
-    lastPrice: lastClose.toFixed(4),
-    livePrice: currentLivePrice,
-    rsi: {value:rsi.value.toFixed(1), signal:getSignalFromTrend(rsi.trend), score:getScoreFromTrend(rsi.trend,30), trend:rsi.trend},
-    macd: {value:macd.histogram.toFixed(4), signal:getSignalFromTrend(macd.trend), score:getScoreFromTrend(macd.trend,30), trend:macd.trend, macdLine:macd.macd.toFixed(4), signalLine:macd.signal.toFixed(4)},
-    bb: {value:bb.position.toFixed(1), signal:getSignalFromTrend(bb.trend), score:getScoreFromTrend(bb.trend,20), trend:bb.trend, upper:bb.upper.toFixed(4), lower:bb.lower.toFixed(4)},
-    stoch: {value:stoch.k.toFixed(1), signal:getSignalFromTrend(stoch.trend), score:getScoreFromTrend(stoch.trend,20), trend:stoch.trend, d:stoch.d.toFixed(1)},
-    finalSignal,
-    confidence: Math.min(Math.round(confidence), 99),
-    showSignal,
-    buyScore,
-    sellScore,
-    trendConfirmed,
-    isCrypto,
-    asset: selectedAsset,
-    dataSource: isCrypto ? 'Binance Live' : 'Simulated',
-    timeframe: selectedTimeframe
-  };
-}
-
-function getSignalFromTrend(trend){
-  if(trend === 'oversold' || trend === 'weak_bull') return 'BUY';
-  if(trend === 'overbought' || trend === 'weak_bear') return 'SELL';
-  return 'NEUTRAL';
-}
-
-function getScoreFromTrend(trend, maxScore){
-  if(trend === 'oversold' || trend === 'overbought') return maxScore;
-  if(trend === 'weak_bull' || trend === 'weak_bear') return maxScore * 0.5;
-  return 0;
-}
-
-function generateSimulatedData(count=60){
-  let price = 1.1000 + Math.random() * 0.5;
-  const data = [];
-  for(let i=0;i<count;i++){
-    const change = (Math.random()-0.5) * 0.008;
-    const open = price;
-    const close = open + change;
-    const high = Math.max(open,close) + Math.random()*0.003;
-    const low = Math.min(open,close) - Math.random()*0.003;
-    data.push({open,close,high,low});
-    price = close;
-  }
-  return data;
-}
-
-// ========== ANALYSIS SCREEN ==========
-function startAnalysis(){
-  showScreen('analyzingScreen');
-  
-  const texts = [
-    'Connecting to Binance API...',
-    'Fetching live market data...',
-    'Calculating RSI (14)...',
-    'Computing MACD Histogram...',
-    'Analyzing Bollinger Bands...',
-    'Processing Stochastic (14,3,3)...',
-    'Checking trend confirmation...',
-    'Running weighted consensus...',
-    'Finalizing accurate signal...'
-  ];
-  let step = 0;
-  const progressText = document.getElementById('progressText');
-  
-  const interval = setInterval(()=>{
-    step++;
-    if(step < texts.length){
-      progressText.textContent = texts[step];
-    }
-  }, 450);
-  
-  setTimeout(async ()=>{
-    const analysis = await analyzeWithLiveData();
-    clearInterval(interval);
-    currentAnalysis = analysis;
-    
-    document.getElementById('rsiStat').textContent = analysis.rsi.value;
-    document.getElementById('rsiStat').className = 'analyzing-stat-num ' + (analysis.rsi.signal.includes('BUY')?'bull':(analysis.rsi.signal.includes('SELL')?'bear':'neut'));
-    
-    document.getElementById('macdStat').textContent = analysis.macd.value;
-    document.getElementById('macdStat').className = 'analyzing-stat-num ' + (analysis.macd.signal.includes('BUY')?'bull':(analysis.macd.signal.includes('SELL')?'bear':'neut'));
-    
-    document.getElementById('bbStat').textContent = analysis.bb.value + '%';
-    document.getElementById('bbStat').className = 'analyzing-stat-num ' + (analysis.bb.signal.includes('BUY')?'bull':(analysis.bb.signal.includes('SELL')?'bear':'neut'));
-    
-    document.getElementById('stochStat').textContent = analysis.stoch.value;
-    document.getElementById('stochStat').className = 'analyzing-stat-num ' + (analysis.stoch.signal.includes('BUY')?'bull':(analysis.stoch.signal.includes('SELL')?'bear':'neut'));
-    
-    setTimeout(()=>showSignal(analysis), 800);
-  }, 4500);
-}
-
-// ========== SIGNAL SCREEN - FIXED ==========
-function showSignal(analysis){
-  showScreen('signalScreen');
-  lastSignalTime = Date.now();
-  
-  const isBuy = analysis.finalSignal.includes('BUY');
-  const isSell = analysis.finalSignal.includes('SELL');
-  const isStrong = analysis.finalSignal.includes('STRONG');
-  const isNeutral = analysis.finalSignal === 'NEUTRAL';
-  const showSignal = analysis.showSignal;
-  
-  const circle = document.getElementById('signalCircle');
-  const arrow = document.getElementById('signalArrow');
-  const direction = document.getElementById('signalDirection');
-  const action = document.getElementById('signalAction');
-  const pair = document.getElementById('signalPair');
-  
-  // FIXED: Proper signal display logic
-  if(!showSignal || isNeutral){
-    circle.className = 'signal-circle neutral';
-    arrow.className = 'signal-arrow neutral';
-    arrow.textContent = '—';
-    direction.className = 'signal-direction neutral';
-    direction.textContent = 'NO CLEAR SIGNAL';
-    action.className = 'signal-action neutral';
-    action.textContent = 'WAIT';
-  } else {
-    circle.className = 'signal-circle ' + (isBuy ? 'buy' : 'sell');
-    arrow.className = 'signal-arrow ' + (isBuy ? 'buy' : 'sell');
-    arrow.textContent = isBuy ? '⬆' : '⬇';
-    direction.className = 'signal-direction ' + (isBuy ? 'buy' : 'sell');
-    direction.textContent = isStrong ? (isBuy ? 'STRONG BUY' : 'STRONG SELL') : (isBuy ? 'BUY' : 'SELL');
-    action.className = 'signal-action ' + (isBuy ? 'buy' : 'sell');
-    action.textContent = isBuy ? 'BUY' : 'SELL';
-  }
-  
-  const tfLabel = analysis.timeframe === 60 ? '1m' : analysis.timeframe + 's';
-  pair.textContent = selectedAsset.name + ' • ' + tfLabel;
-  
-  const tfBadge = document.getElementById('tfBadge');
-  if(analysis.timeframe === 60){
-    tfBadge.className = 'tf-badge minute';
-    tfBadge.textContent = '1 MINUTE SIGNAL';
-  } else {
-    tfBadge.className = 'tf-badge seconds';
-    tfBadge.textContent = analysis.timeframe + ' SECOND SIGNAL';
-  }
-  
-  // Live price
-  if(analysis.isCrypto && analysis.livePrice > 0){
-    document.getElementById('signalLivePrice').textContent = formatPrice(analysis.livePrice);
-    document.getElementById('signalLiveChange').textContent = (priceChange24h>=0?'+':'') + priceChange24h.toFixed(2) + '%';
-    document.getElementById('signalLiveChange').className = 'signal-live-price-change ' + (priceChange24h>=0?'up':'down');
-  } else {
-    document.getElementById('signalLivePrice').textContent = analysis.lastPrice;
-    document.getElementById('signalLiveChange').textContent = 'SIM';
-    document.getElementById('signalLiveChange').className = 'signal-live-price-change neut';
-  }
-part4 = '''
-// ========== 8 ADVANCED INDICATOR CALCULATIONS ==========
-
-function calculateEMA(prices, period){
-  const k = 2 / (period + 1);
-  let ema = prices.slice(0, period).reduce((a, b) => a + b, 0) / period;
-  for(let i = period; i < prices.length; i++){
-    ema = prices[i] * k + ema * (1 - k);
-  }
+js_part2 = '''
+// ========== 8 INDICATOR CALCULATIONS ==========
+function calculateEMA(prices,period){
+  const k=2/(period+1);
+  let ema=prices.slice(0,period).reduce((a,b)=>a+b,0)/period;
+  for(let i=period;i<prices.length;i++)ema=prices[i]*k+ema*(1-k);
   return ema;
 }
-
-function calculateSMA(prices, period){
-  if(prices.length < period) return prices[prices.length - 1];
-  return prices.slice(-period).reduce((a, b) => a + b, 0) / period;
+function calculateSMA(prices,period){
+  if(prices.length<period)return prices[prices.length-1];
+  return prices.slice(-period).reduce((a,b)=>a+b,0)/period;
 }
 
-function calculateRSI(data, period=14){
-  if(data.length < period + 1) return {value: 50, trend: 'neutral', signal: 'NEUTRAL'};
-  let gains = 0, losses = 0;
-  for(let i = 1; i <= period; i++){
-    const change = data[data.length - i].close - data[data.length - i - 1].close;
-    if(change > 0) gains += change; else losses -= change;
+function calculateRSI(data,period=14){
+  if(data.length<period+1)return{value:50,trend:'neutral',signal:'NEUTRAL'};
+  let gains=0,losses=0;
+  for(let i=1;i<=period;i++){
+    const change=data[data.length-i].close-data[data.length-i-1].close;
+    if(change>0)gains+=change;else losses-=change;
   }
-  const avgGain = gains / period;
-  const avgLoss = losses / period;
-  if(avgLoss === 0) return {value: 100, trend: 'overbought', signal: 'SELL'};
-  const rs = avgGain / avgLoss;
-  const rsi = 100 - (100 / (1 + rs));
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(rsi < 30) { trend = 'oversold'; signal = 'BUY'; }
-  else if(rsi > 70) { trend = 'overbought'; signal = 'SELL'; }
-  else if(rsi < 45) { trend = 'weak_bull'; signal = 'BUY'; }
-  else if(rsi > 55) { trend = 'weak_bear'; signal = 'SELL'; }
-  
-  return {value: rsi, trend, signal};
+  const avgGain=gains/period,avgLoss=losses/period;
+  if(avgLoss===0)return{value:100,trend:'overbought',signal:'SELL'};
+  const rsi=100-(100/(1+avgGain/avgLoss));
+  let trend='neutral',signal='NEUTRAL';
+  if(rsi<30){trend='oversold';signal='BUY';}
+  else if(rsi>70){trend='overbought';signal='SELL';}
+  else if(rsi<45){trend='weak_bull';signal='BUY';}
+  else if(rsi>55){trend='weak_bear';signal='SELL';}
+  return{value:rsi,trend,signal};
 }
 
 function calculateMACD(data){
-  if(data.length < 26) return {macd: 0, signal: 0, histogram: 0, trend: 'neutral', signal: 'NEUTRAL'};
-  const closes = data.map(d => d.close);
-  const ema12 = calculateEMA(closes, 12);
-  const ema26 = calculateEMA(closes, 26);
-  const macdLine = ema12 - ema26;
-  
-  const macdHistory = [];
-  for(let i = 26; i < closes.length; i++){
-    const e12 = calculateEMA(closes.slice(0, i + 1), 12);
-    const e26 = calculateEMA(closes.slice(0, i + 1), 26);
-    macdHistory.push(e12 - e26);
-  }
-  const signalLine = calculateEMA(macdHistory, 9);
-  const histogram = macdLine - signalLine;
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(histogram > 0 && macdLine > signalLine) { trend = 'bullish'; signal = 'BUY'; }
-  else if(histogram < 0 && macdLine < signalLine) { trend = 'bearish'; signal = 'SELL'; }
-  else if(histogram > 0) { trend = 'weak_bull'; signal = 'BUY'; }
-  else { trend = 'weak_bear'; signal = 'SELL'; }
-  
-  return {macd: macdLine, signal: signalLine, histogram, trend, signal};
+  if(data.length<26)return{macd:0,signal:0,histogram:0,trend:'neutral',signal:'NEUTRAL'};
+  const closes=data.map(d=>d.close);
+  const ema12=calculateEMA(closes,12),ema26=calculateEMA(closes,26);
+  const macdLine=ema12-ema26;
+  const macdHistory=[];
+  for(let i=26;i<closes.length;i++)macdHistory.push(calculateEMA(closes.slice(0,i+1),12)-calculateEMA(closes.slice(0,i+1),26));
+  const signalLine=calculateEMA(macdHistory,9);
+  const histogram=macdLine-signalLine;
+  let trend='neutral',signal='NEUTRAL';
+  if(histogram>0&&macdLine>signalLine){trend='bullish';signal='BUY';}
+  else if(histogram<0&&macdLine<signalLine){trend='bearish';signal='SELL';}
+  else if(histogram>0){trend='weak_bull';signal='BUY';}
+  else{trend='weak_bear';signal='SELL';}
+  return{macd:macdLine,signal:signalLine,histogram,trend,signal};
 }
 
-function calculateBollinger(data, period=20, multiplier=2){
-  if(data.length < period) return {upper: 0, middle: 0, lower: 0, width: 0, position: 50, trend: 'neutral', signal: 'NEUTRAL'};
-  
-  const closes = data.slice(-period).map(d => d.close);
-  const sma = closes.reduce((a, b) => a + b, 0) / period;
-  const squaredDiffs = closes.map(c => Math.pow(c - sma, 2));
-  const variance = squaredDiffs.reduce((a, b) => a + b, 0) / period;
-  const stdDev = Math.sqrt(variance);
-  
-  const upper = sma + multiplier * stdDev;
-  const lower = sma - multiplier * stdDev;
-  const lastClose = data[data.length - 1].close;
-  const position = ((lastClose - lower) / (upper - lower)) * 100;
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(position < 10) { trend = 'oversold'; signal = 'BUY'; }
-  else if(position > 90) { trend = 'overbought'; signal = 'SELL'; }
-  else if(position < 30) { trend = 'weak_bull'; signal = 'BUY'; }
-  else if(position > 70) { trend = 'weak_bear'; signal = 'SELL'; }
-  
-  return {upper, middle: sma, lower, width: ((upper - lower) / sma) * 100, position: Math.max(0, Math.min(100, position)), trend, signal};
+function calculateBollinger(data,period=20,multiplier=2){
+  if(data.length<period)return{upper:0,middle:0,lower:0,width:0,position:50,trend:'neutral',signal:'NEUTRAL'};
+  const closes=data.slice(-period).map(d=>d.close);
+  const sma=closes.reduce((a,b)=>a+b,0)/period;
+  const stdDev=Math.sqrt(closes.map(c=>Math.pow(c-sma,2)).reduce((a,b)=>a+b,0)/period);
+  const upper=sma+multiplier*stdDev,lower=sma-multiplier*stdDev;
+  const lastClose=data[data.length-1].close;
+  const position=((lastClose-lower)/(upper-lower))*100;
+  let trend='neutral',signal='NEUTRAL';
+  if(position<10){trend='oversold';signal='BUY';}
+  else if(position>90){trend='overbought';signal='SELL';}
+  else if(position<30){trend='weak_bull';signal='BUY';}
+  else if(position>70){trend='weak_bear';signal='SELL';}
+  return{upper,middle:sma,lower,width:((upper-lower)/sma)*100,position:Math.max(0,Math.min(100,position)),trend,signal};
 }
 
-function calculateStochastic(data, kPeriod=14, dPeriod=3, smooth=3){
-  if(data.length < kPeriod + smooth) return {k: 50, d: 50, trend: 'neutral', signal: 'NEUTRAL'};
-  
-  const getK = (idx) => {
-    const slice = data.slice(idx - kPeriod + 1, idx + 1);
-    const lowest = Math.min(...slice.map(d => d.low));
-    const highest = Math.max(...slice.map(d => d.high));
-    const close = data[idx].close;
-    if(highest === lowest) return 50;
-    return ((close - lowest) / (highest - lowest)) * 100;
+function calculateStochastic(data,kPeriod=14,dPeriod=3,smooth=3){
+  if(data.length<kPeriod+smooth)return{k:50,d:50,trend:'neutral',signal:'NEUTRAL'};
+  const getK=(idx)=>{
+    const slice=data.slice(idx-kPeriod+1,idx+1);
+    const lowest=Math.min(...slice.map(d=>d.low));
+    const highest=Math.max(...slice.map(d=>d.high));
+    if(highest===lowest)return 50;
+    return((data[idx].close-lowest)/(highest-lowest))*100;
   };
-  
-  const kValues = [];
-  for(let i = kPeriod - 1; i < data.length; i++) kValues.push(getK(i));
-  
-  const smoothK = [];
-  for(let i = smooth - 1; i < kValues.length; i++){
-    smoothK.push(kValues.slice(i - smooth + 1, i + 1).reduce((a, b) => a + b, 0) / smooth);
-  }
-  
-  const dValues = [];
-  for(let i = dPeriod - 1; i < smoothK.length; i++){
-    dValues.push(smoothK.slice(i - dPeriod + 1, i + 1).reduce((a, b) => a + b, 0) / dPeriod);
-  }
-  
-  const k = smoothK[smoothK.length - 1];
-  const d = dValues[dValues.length - 1];
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(k < 20 && d < 20 && k > d) { trend = 'oversold'; signal = 'BUY'; }
-  else if(k > 80 && d > 80 && k < d) { trend = 'overbought'; signal = 'SELL'; }
-  else if(k < d && k < 50) { trend = 'weak_bull'; signal = 'BUY'; }
-  else if(k > d && k > 50) { trend = 'weak_bear'; signal = 'SELL'; }
-  
-  return {k, d, trend, signal};
+  const kValues=[];for(let i=kPeriod-1;i<data.length;i++)kValues.push(getK(i));
+  const smoothK=[];for(let i=smooth-1;i<kValues.length;i++)smoothK.push(kValues.slice(i-smooth+1,i+1).reduce((a,b)=>a+b,0)/smooth);
+  const dValues=[];for(let i=dPeriod-1;i<smoothK.length;i++)dValues.push(smoothK.slice(i-dPeriod+1,i+1).reduce((a,b)=>a+b,0)/dPeriod);
+  const k=smoothK[smoothK.length-1],d=dValues[dValues.length-1];
+  let trend='neutral',signal='NEUTRAL';
+  if(k<20&&d<20&&k>d){trend='oversold';signal='BUY';}
+  else if(k>80&&d>80&&k<d){trend='overbought';signal='SELL';}
+  else if(k<d&&k<50){trend='weak_bull';signal='BUY';}
+  else if(k>d&&k>50){trend='weak_bear';signal='SELL';}
+  return{k,d,trend,signal};
 }
 
-function calculateEMASignal(data, period=20){
-  if(data.length < period) return {value: 0, trend: 'neutral', signal: 'NEUTRAL'};
-  const closes = data.map(d => d.close);
-  const ema = calculateEMA(closes, period);
-  const lastClose = closes[closes.length - 1];
-  const prevClose = closes[closes.length - 2];
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(lastClose > ema && prevClose <= ema) { trend = 'bullish_cross'; signal = 'BUY'; }
-  else if(lastClose < ema && prevClose >= ema) { trend = 'bearish_cross'; signal = 'SELL'; }
-  else if(lastClose > ema) { trend = 'above_ema'; signal = 'BUY'; }
-  else if(lastClose < ema) { trend = 'below_ema'; signal = 'SELL'; }
-  
-  return {value: ema, trend, signal, distance: ((lastClose - ema) / ema) * 100};
+function calculateEMASignal(data,period=20){
+  if(data.length<period)return{value:0,trend:'neutral',signal:'NEUTRAL',distance:0};
+  const closes=data.map(d=>d.close);
+  const ema=calculateEMA(closes,period);
+  const lastClose=closes[closes.length-1],prevClose=closes[closes.length-2];
+  let trend='neutral',signal='NEUTRAL';
+  if(lastClose>ema&&prevClose<=ema){trend='bullish_cross';signal='BUY';}
+  else if(lastClose<ema&&prevClose>=ema){trend='bearish_cross';signal='SELL';}
+  else if(lastClose>ema){trend='above_ema';signal='BUY';}
+  else if(lastClose<ema){trend='below_ema';signal='SELL';}
+  return{value:ema,trend,signal,distance:((lastClose-ema)/ema)*100};
 }
 
 function calculateVWAP(data){
-  if(data.length < 10) return {value: 0, trend: 'neutral', signal: 'NEUTRAL'};
-  let cumulativeTPV = 0, cumulativeVolume = 0;
-  for(let i = 0; i < data.length; i++){
-    const tp = (data[i].high + data[i].low + data[i].close) / 3;
-    cumulativeTPV += tp * data[i].volume;
-    cumulativeVolume += data[i].volume;
+  if(data.length<10)return{value:0,trend:'neutral',signal:'NEUTRAL',distance:0};
+  let cumulativeTPV=0,cumulativeVolume=0;
+  for(let i=0;i<data.length;i++){
+    const tp=(data[i].high+data[i].low+data[i].close)/3;
+    cumulativeTPV+=tp*data[i].volume;cumulativeVolume+=data[i].volume;
   }
-  const vwap = cumulativeTPV / cumulativeVolume;
-  const lastClose = data[data.length - 1].close;
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(lastClose > vwap * 1.001) { trend = 'above_vwap'; signal = 'BUY'; }
-  else if(lastClose < vwap * 0.999) { trend = 'below_vwap'; signal = 'SELL'; }
-  
-  return {value: vwap, trend, signal, distance: ((lastClose - vwap) / vwap) * 100};
+  const vwap=cumulativeTPV/cumulativeVolume;
+  const lastClose=data[data.length-1].close;
+  let trend='neutral',signal='NEUTRAL';
+  if(lastClose>vwap*1.001){trend='above_vwap';signal='BUY';}
+  else if(lastClose<vwap*0.999){trend='below_vwap';signal='SELL';}
+  return{value:vwap,trend,signal,distance:((lastClose-vwap)/vwap)*100};
 }
 
-function calculateADX(data, period=14){
-  if(data.length < period * 2) return {value: 25, trend: 'neutral', signal: 'NEUTRAL', diPlus: 25, diMinus: 25};
-  
-  const tr = [];
-  const dmPlus = [];
-  const dmMinus = [];
-  
-  for(let i = 1; i < data.length; i++){
-    const highDiff = data[i].high - data[i - 1].high;
-    const lowDiff = data[i - 1].low - data[i].low;
-    tr.push(Math.max(data[i].high - data[i].low, Math.abs(data[i].high - data[i - 1].close), Math.abs(data[i].low - data[i - 1].close)));
-    dmPlus.push(highDiff > lowDiff && highDiff > 0 ? highDiff : 0);
-    dmMinus.push(lowDiff > highDiff && lowDiff > 0 ? lowDiff : 0);
+function calculateADX(data,period=14){
+  if(data.length<period*2)return{value:25,trend:'neutral',signal:'NEUTRAL',diPlus:25,diMinus:25};
+  const tr=[],dmPlus=[],dmMinus=[];
+  for(let i=1;i<data.length;i++){
+    tr.push(Math.max(data[i].high-data[i].low,Math.abs(data[i].high-data[i-1].close),Math.abs(data[i].low-data[i-1].close)));
+    const hd=data[i].high-data[i-1].high,ld=data[i-1].low-data[i].low;
+    dmPlus.push(hd>ld&&hd>0?hd:0);dmMinus.push(ld>hd&&ld>0?ld:0);
   }
-  
-  const atr = calculateSMA(tr.slice(-period), period);
-  const diPlus = (calculateSMA(dmPlus.slice(-period), period) / atr) * 100;
-  const diMinus = (calculateSMA(dmMinus.slice(-period), period) / atr) * 100;
-  const dx = Math.abs(diPlus - diMinus) / (diPlus + diMinus) * 100;
-  const adx = calculateSMA([dx], 1); // Simplified ADX
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(adx > 25 && diPlus > diMinus) { trend = 'strong_trend_up'; signal = 'BUY'; }
-  else if(adx > 25 && diMinus > diPlus) { trend = 'strong_trend_down'; signal = 'SELL'; }
-  else if(adx > 20 && diPlus > diMinus) { trend = 'trend_up'; signal = 'BUY'; }
-  else if(adx > 20 && diMinus > diPlus) { trend = 'trend_down'; signal = 'SELL'; }
-  
-  return {value: adx, trend, signal, diPlus, diMinus};
+  const atr=calculateSMA(tr.slice(-period),period);
+  const diPlus=(calculateSMA(dmPlus.slice(-period),period)/atr)*100;
+  const diMinus=(calculateSMA(dmMinus.slice(-period),period)/atr)*100;
+  const dx=Math.abs(diPlus-diMinus)/(diPlus+diMinus)*100;
+  let trend='neutral',signal='NEUTRAL';
+  if(dx>25&&diPlus>diMinus){trend='strong_trend_up';signal='BUY';}
+  else if(dx>25&&diMinus>diPlus){trend='strong_trend_down';signal='SELL';}
+  else if(dx>20&&diPlus>diMinus){trend='trend_up';signal='BUY';}
+  else if(dx>20&&diMinus>diPlus){trend='trend_down';signal='SELL';}
+  return{value:dx,trend,signal,diPlus,diMinus};
 }
 
-function calculateATR(data, period=14){
-  if(data.length < period + 1) return {value: 0, trend: 'neutral', signal: 'NEUTRAL'};
-  const tr = [];
-  for(let i = 1; i < data.length; i++){
-    tr.push(Math.max(data[i].high - data[i].low, Math.abs(data[i].high - data[i - 1].close), Math.abs(data[i].low - data[i - 1].close)));
-  }
-  const atr = calculateSMA(tr.slice(-period), period);
-  const lastClose = data[data.length - 1].close;
-  const atrPercent = (atr / lastClose) * 100;
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(atrPercent > 2) { trend = 'high_volatility'; signal = 'NEUTRAL'; }
-  else if(atrPercent < 0.5) { trend = 'low_volatility'; signal = 'NEUTRAL'; }
-  else { trend = 'normal'; signal = 'NEUTRAL'; }
-  
-  return {value: atr, atrPercent, trend, signal};
+function calculateATR(data,period=14){
+  if(data.length<period+1)return{value:0,trend:'neutral',signal:'NEUTRAL',atrPercent:0};
+  const tr=[];
+  for(let i=1;i<data.length;i++)tr.push(Math.max(data[i].high-data[i].low,Math.abs(data[i].high-data[i-1].close),Math.abs(data[i].low-data[i-1].close)));
+  const atr=calculateSMA(tr.slice(-period),period);
+  const lastClose=data[data.length-1].close;
+  const atrPercent=(atr/lastClose)*100;
+  let trend='normal',signal='NEUTRAL';
+  if(atrPercent>2){trend='high_volatility';}
+  else if(atrPercent<0.5){trend='low_volatility';}
+  return{value:atr,atrPercent,trend,signal};
 }
 
-function calculateSMASignal(data, period=50){
-  if(data.length < period) return {value: 0, trend: 'neutral', signal: 'NEUTRAL'};
-  const closes = data.map(d => d.close);
-  const sma = calculateSMA(closes, period);
-  const lastClose = closes[closes.length - 1];
-  const ema20 = calculateEMA(closes.slice(-25), 20);
-  
-  let trend = 'neutral', signal = 'NEUTRAL';
-  if(lastClose > sma && ema20 > sma) { trend = 'golden_setup'; signal = 'BUY'; }
-  else if(lastClose < sma && ema20 < sma) { trend = 'death_setup'; signal = 'SELL'; }
-  else if(lastClose > sma) { trend = 'above_sma'; signal = 'BUY'; }
-  else if(lastClose < sma) { trend = 'below_sma'; signal = 'SELL'; }
-  
-  return {value: sma, trend, signal};
+function calculateSMASignal(data,period=50){
+  if(data.length<period)return{value:0,trend:'neutral',signal:'NEUTRAL'};
+  const closes=data.map(d=>d.close);
+  const sma=calculateSMA(closes,period);
+  const lastClose=closes[closes.length-1];
+  const ema20=calculateEMA(closes.slice(-25),20);
+  let trend='neutral',signal='NEUTRAL';
+  if(lastClose>sma&&ema20>sma){trend='golden_setup';signal='BUY';}
+  else if(lastClose<sma&&ema20<sma){trend='death_setup';signal='SELL';}
+  else if(lastClose>sma){trend='above_sma';signal='BUY';}
+  else if(lastClose<sma){trend='below_sma';signal='SELL';}
+  return{value:sma,trend,signal};
 }
-part5 = '''
+
 // ========== TREND CONFIRMATION ==========
-function checkTrendConfirmation(data, signalType){
-  if(data.length < 20) return false;
-  const closes = data.map(d => d.close);
-  const ema20 = calculateEMA(closes, 20);
-  const sma50 = calculateSMA(closes, 50);
-  const momentum = closes[closes.length - 1] - closes[closes.length - 4];
-  const lastClose = closes[closes.length - 1];
-  
-  if(signalType === 'BUY'){
-    return lastClose > ema20 && ema20 > sma50 && momentum > 0;
-  } else if(signalType === 'SELL'){
-    return lastClose < ema20 && ema20 < sma50 && momentum < 0;
-  }
+function checkTrendConfirmation(data,signalType){
+  if(data.length<20)return false;
+  const closes=data.map(d=>d.close);
+  const ema20=calculateEMA(closes,20);
+  const sma50=calculateSMA(closes,50);
+  const momentum=closes[closes.length-1]-closes[closes.length-4];
+  const lastClose=closes[closes.length-1];
+  if(signalType==='BUY')return lastClose>ema20&&ema20>sma50&&momentum>0;
+  if(signalType==='SELL')return lastClose<ema20&&ema20<sma50&&momentum<0;
   return false;
 }
 
-// ========== MAIN ANALYSIS ENGINE ==========
-async function analyzeWithLiveData(){
-  let data;
-  let apiName = '';
-  
-  if(isCrypto && selectedAsset && selectedAsset.symbol){
-    document.getElementById('progressText').textContent = 'Fetching live candles from Binance...';
-    const klines = await fetchBinanceKlines(selectedAsset.symbol, '1m', 100);
-    if(klines && klines.length >= 50){
-      data = klines;
-      apiName = 'Binance Live';
-      document.getElementById('analyzingSub').textContent = 'Live Binance 1m data received';
-    } else {
-      data = generateSimulatedData(80);
-      apiName = 'Binance (Fallback)';
-      document.getElementById('analyzingSub').textContent = 'Using fallback data';
-    }
-  } else if(isForex && selectedAsset){
-    document.getElementById('progressText').textContent = 'Fetching live forex rates...';
-    const rateData = await fetchForexRate(selectedAsset.base, selectedAsset.target);
-    data = generateSimulatedData(80);
-    if(rateData){
-      data[data.length - 1].close = rateData.rate;
-      data[data.length - 1].high = rateData.rate * 1.002;
-      data[data.length - 1].low = rateData.rate * 0.998;
-      apiName = 'ExchangeRate.host';
-    } else {
-      apiName = 'Forex (Simulated)';
-    }
-    document.getElementById('analyzingSub').textContent = apiName + ' data loaded';
-  } else {
-    data = generateSimulatedData(80);
-    apiName = isPocket ? 'Pocket Option OTC' : 'Simulated';
-    document.getElementById('analyzingSub').textContent = apiName + ' data loaded';
-  }
-  
-  const lastClose = data[data.length - 1].close;
-  
-  // Calculate ALL 8 indicators
-  const rsi = calculateRSI(data);
-  const macd = calculateMACD(data);
-  const bb = calculateBollinger(data);
-  const stoch = calculateStochastic(data);
-  const ema = calculateEMASignal(data);
-  const adx = calculateADX(data);
-  const vwap = calculateVWAP(data);
-  const atr = calculateATR(data);
-  const sma = calculateSMASignal(data);
-  
-  // WEIGHTED SCORING SYSTEM (Total 100 points)
-  // RSI: 15 pts | MACD: 15 pts | BB: 12 pts | STOCH: 12 pts
-  // EMA: 12 pts | ADX: 12 pts | VWAP: 12 pts | SMA: 10 pts
-  let buyScore = 0;
-  let sellScore = 0;
-  let buyCount = 0;
-  let sellCount = 0;
-  let neutCount = 0;
-  
-  // RSI scoring
-  if(rsi.trend === 'oversold') { buyScore += 15; buyCount++; }
-  else if(rsi.trend === 'weak_bull') { buyScore += 8; buyCount++; }
-  else if(rsi.trend === 'overbought') { sellScore += 15; sellCount++; }
-  else if(rsi.trend === 'weak_bear') { sellScore += 8; sellCount++; }
-  else neutCount++;
-  
-  // MACD scoring
-  if(macd.trend === 'bullish') { buyScore += 15; buyCount++; }
-  else if(macd.trend === 'weak_bull') { buyScore += 8; buyCount++; }
-  else if(macd.trend === 'bearish') { sellScore += 15; sellCount++; }
-  else if(macd.trend === 'weak_bear') { sellScore += 8; sellCount++; }
-  else neutCount++;
-  
-  // Bollinger scoring
-  if(bb.trend === 'oversold') { buyScore += 12; buyCount++; }
-  else if(bb.trend === 'weak_bull') { buyScore += 6; buyCount++; }
-  else if(bb.trend === 'overbought') { sellScore += 12; sellCount++; }
-  else if(bb.trend === 'weak_bear') { sellScore += 6; sellCount++; }
-  else neutCount++;
-  
-  // Stochastic scoring
-  if(stoch.trend === 'oversold') { buyScore += 12; buyCount++; }
-  else if(stoch.trend === 'weak_bull') { buyScore += 6; buyCount++; }
-  else if(stoch.trend === 'overbought') { sellScore += 12; sellCount++; }
-  else if(stoch.trend === 'weak_bear') { sellScore += 6; sellCount++; }
-  else neutCount++;
-  
-  // EMA scoring
-  if(ema.trend === 'bullish_cross') { buyScore += 12; buyCount++; }
-  else if(ema.trend === 'above_ema') { buyScore += 6; buyCount++; }
-  else if(ema.trend === 'bearish_cross') { sellScore += 12; sellCount++; }
-  else if(ema.trend === 'below_ema') { sellScore += 6; sellCount++; }
-  else neutCount++;
-  
-  // ADX scoring
-  if(adx.trend === 'strong_trend_up') { buyScore += 12; buyCount++; }
-  else if(adx.trend === 'trend_up') { buyScore += 6; buyCount++; }
-  else if(adx.trend === 'strong_trend_down') { sellScore += 12; sellCount++; }
-  else if(adx.trend === 'trend_down') { sellScore += 6; sellCount++; }
-  else neutCount++;
-  
-  // VWAP scoring
-  if(vwap.trend === 'above_vwap') { buyScore += 12; buyCount++; }
-  else if(vwap.trend === 'below_vwap') { sellScore += 12; sellCount++; }
-  else neutCount++;
-  
-  // SMA scoring
-  if(sma.trend === 'golden_setup') { buyScore += 10; buyCount++; }
-  else if(sma.trend === 'above_sma') { buyScore += 5; buyCount++; }
-  else if(sma.trend === 'death_setup') { sellScore += 10; sellCount++; }
-  else if(sma.trend === 'below_sma') { sellScore += 5; sellCount++; }
-  else neutCount++;
-  
-  // Determine final signal
-  let finalSignal = 'NEUTRAL';
-  let confidence = 0;
-  let trendConfirmed = false;
-  const minConfidence = 75;
-  const minIndicators = 5;
-  
-  if(buyScore >= 60 && buyScore > sellScore + 20 && buyCount >= minIndicators){
-    trendConfirmed = checkTrendConfirmation(data, 'BUY');
-    if(trendConfirmed && buyScore >= 70){
-      finalSignal = 'STRONG_BUY';
-      confidence = Math.min(Math.round(buyScore * 1.1), 99);
-    } else {
-      finalSignal = 'BUY';
-      confidence = Math.min(Math.round(buyScore), 99);
-    }
-  } else if(sellScore >= 60 && sellScore > buyScore + 20 && sellCount >= minIndicators){
-    trendConfirmed = checkTrendConfirmation(data, 'SELL');
-    if(trendConfirmed && sellScore >= 70){
-      finalSignal = 'STRONG_SELL';
-      confidence = Math.min(Math.round(sellScore * 1.1), 99);
-    } else {
-      finalSignal = 'SELL';
-      confidence = Math.min(Math.round(sellScore), 99);
-    }
-  } else if(buyScore >= 45 && buyScore > sellScore + 10){
-    finalSignal = 'WEAK_BUY';
-    confidence = Math.min(Math.round(buyScore * 0.8), 74);
-  } else if(sellScore >= 45 && sellScore > buyScore + 10){
-    finalSignal = 'WEAK_SELL';
-    confidence = Math.min(Math.round(sellScore * 0.8), 74);
-  }
-  
-  const showSignal = confidence >= minConfidence && (buyCount >= minIndicators || sellCount >= minIndicators);
-  
-  return {
-    lastPrice: lastClose.toFixed(4),
-    livePrice: currentLivePrice,
-    rsi: {value: rsi.value.toFixed(1), signal: rsi.signal, trend: rsi.trend},
-    macd: {value: macd.histogram.toFixed(4), signal: macd.signal, trend: macd.trend, macdLine: macd.macd.toFixed(4), signalLine: macd.signal.toFixed(4)},
-    bb: {value: bb.position.toFixed(1), signal: bb.signal, trend: bb.trend, upper: bb.upper.toFixed(4), lower: bb.lower.toFixed(4)},
-    stoch: {value: stoch.k.toFixed(1), signal: stoch.signal, trend: stoch.trend, d: stoch.d.toFixed(1)},
-    ema: {value: ema.value.toFixed(4), signal: ema.signal, trend: ema.trend, distance: ema.distance?.toFixed(2) || '0'},
-    adx: {value: adx.value.toFixed(1), signal: adx.signal, trend: adx.trend, diPlus: adx.diPlus?.toFixed(1) || '0', diMinus: adx.diMinus?.toFixed(1) || '0'},
-    vwap: {value: vwap.value.toFixed(4), signal: vwap.signal, trend: vwap.trend, distance: vwap.distance?.toFixed(2) || '0'},
-    atr: {value: atr.value.toFixed(4), atrPercent: atr.atrPercent.toFixed(2), signal: atr.signal, trend: atr.trend},
-    sma: {value: sma.value.toFixed(4), signal: sma.signal, trend: sma.trend},
-    finalSignal,
-    confidence,
-    showSignal,
-    buyScore,
-    sellScore,
-    buyCount,
-    sellCount,
-    neutCount,
-    trendConfirmed,
-    isCrypto,
-    isForex,
-    isPocket,
-    asset: selectedAsset,
-    dataSource: apiName,
-    timeframe: selectedTimeframe
-  };
-}
-
-function generateSimulatedData(count = 80){
-  let price = 1.1000 + Math.random() * 0.5;
-  const data = [];
-  for(let i = 0; i < count; i++){
-    const change = (Math.random() - 0.5) * 0.008;
-    const open = price;
-    const close = open + change;
-    const high = Math.max(open, close) + Math.random() * 0.003;
-    const low = Math.min(open, close) - Math.random() * 0.003;
-    const volume = 1000 + Math.random() * 5000;
-    data.push({open, close, high, low, volume});
-    price = close;
+function generateSimulatedData(count=80){
+  let price=1.1000+Math.random()*0.5;
+  const data=[];
+  for(let i=0;i<count;i++){
+    const change=(Math.random()-0.5)*0.008;
+    const open=price;
+    const close=open+change;
+    const high=Math.max(open,close)+Math.random()*0.003;
+    const low=Math.min(open,close)-Math.random()*0.003;
+    const volume=1000+Math.random()*5000;
+    data.push({open,close,high,low,volume});
+    price=close;
   }
   return data;
 }
-part6 = '''
+js_part3 = '''
+// ========== MAIN ANALYSIS ENGINE ==========
+async function analyzeWithLiveData(){
+  let data,apiName='';
+  
+  if(isCrypto&&selectedAsset&&selectedAsset.symbol){
+    document.getElementById('progressText').textContent='Fetching live candles from Binance...';
+    const klines=await fetchBinanceKlines(selectedAsset.symbol,'1m',100);
+    if(klines&&klines.length>=50){data=klines;apiName='Binance Live';document.getElementById('analyzingSub').textContent='Live Binance 1m data received';}
+    else{data=generateSimulatedData(80);apiName='Binance (Fallback)';document.getElementById('analyzingSub').textContent='Using fallback data';}
+  }else if(isForex&&selectedAsset){
+    document.getElementById('progressText').textContent='Fetching live forex rates...';
+    const rateData=await fetchForexRate(selectedAsset.base,selectedAsset.target);
+    data=generateSimulatedData(80);
+    if(rateData){data[data.length-1].close=rateData.rate;data[data.length-1].high=rateData.rate*1.002;data[data.length-1].low=rateData.rate*0.998;apiName='ExchangeRate.host';}
+    else apiName='Forex (Simulated)';
+    document.getElementById('analyzingSub').textContent=apiName+' data loaded';
+  }else{
+    data=generateSimulatedData(80);
+    apiName=isPocket?'Pocket Option OTC':'Simulated';
+    document.getElementById('analyzingSub').textContent=apiName+' data loaded';
+  }
+  
+  const lastClose=data[data.length-1].close;
+  
+  // Calculate ALL 8 indicators
+  const rsi=calculateRSI(data);
+  const macd=calculateMACD(data);
+  const bb=calculateBollinger(data);
+  const stoch=calculateStochastic(data);
+  const ema=calculateEMASignal(data);
+  const adx=calculateADX(data);
+  const vwap=calculateVWAP(data);
+  const atr=calculateATR(data);
+  const sma=calculateSMASignal(data);
+  
+  // WEIGHTED SCORING (Total 100)
+  let buyScore=0,sellScore=0,buyCount=0,sellCount=0,neutCount=0;
+  
+  // RSI: 15 pts
+  if(rsi.trend==='oversold'){buyScore+=15;buyCount++;}else if(rsi.trend==='weak_bull'){buyScore+=8;buyCount++;}
+  else if(rsi.trend==='overbought'){sellScore+=15;sellCount++;}else if(rsi.trend==='weak_bear'){sellScore+=8;sellCount++;}else neutCount++;
+  
+  // MACD: 15 pts
+  if(macd.trend==='bullish'){buyScore+=15;buyCount++;}else if(macd.trend==='weak_bull'){buyScore+=8;buyCount++;}
+  else if(macd.trend==='bearish'){sellScore+=15;sellCount++;}else if(macd.trend==='weak_bear'){sellScore+=8;sellCount++;}else neutCount++;
+  
+  // BB: 12 pts
+  if(bb.trend==='oversold'){buyScore+=12;buyCount++;}else if(bb.trend==='weak_bull'){buyScore+=6;buyCount++;}
+  else if(bb.trend==='overbought'){sellScore+=12;sellCount++;}else if(bb.trend==='weak_bear'){sellScore+=6;sellCount++;}else neutCount++;
+  
+  // Stoch: 12 pts
+  if(stoch.trend==='oversold'){buyScore+=12;buyCount++;}else if(stoch.trend==='weak_bull'){buyScore+=6;buyCount++;}
+  else if(stoch.trend==='overbought'){sellScore+=12;sellCount++;}else if(stoch.trend==='weak_bear'){sellScore+=6;sellCount++;}else neutCount++;
+  
+  // EMA: 12 pts
+  if(ema.trend==='bullish_cross'){buyScore+=12;buyCount++;}else if(ema.trend==='above_ema'){buyScore+=6;buyCount++;}
+  else if(ema.trend==='bearish_cross'){sellScore+=12;sellCount++;}else if(ema.trend==='below_ema'){sellScore+=6;sellCount++;}else neutCount++;
+  
+  // ADX: 12 pts
+  if(adx.trend==='strong_trend_up'){buyScore+=12;buyCount++;}else if(adx.trend==='trend_up'){buyScore+=6;buyCount++;}
+  else if(adx.trend==='strong_trend_down'){sellScore+=12;sellCount++;}else if(adx.trend==='trend_down'){sellScore+=6;sellCount++;}else neutCount++;
+  
+  // VWAP: 12 pts
+  if(vwap.trend==='above_vwap'){buyScore+=12;buyCount++;}else if(vwap.trend==='below_vwap'){sellScore+=12;sellCount++;}else neutCount++;
+  
+  // SMA: 10 pts
+  if(sma.trend==='golden_setup'){buyScore+=10;buyCount++;}else if(sma.trend==='above_sma'){buyScore+=5;buyCount++;}
+  else if(sma.trend==='death_setup'){sellScore+=10;sellCount++;}else if(sma.trend==='below_sma'){sellScore+=5;sellCount++;}else neutCount++;
+  
+  // Determine signal
+  let finalSignal='NEUTRAL',confidence=0,trendConfirmed=false;
+  const minConfidence=75,minIndicators=5;
+  
+  if(buyScore>=60&&buyScore>sellScore+20&&buyCount>=minIndicators){
+    trendConfirmed=checkTrendConfirmation(data,'BUY');
+    if(trendConfirmed&&buyScore>=70){finalSignal='STRONG_BUY';confidence=Math.min(Math.round(buyScore*1.1),99);}
+    else{finalSignal='BUY';confidence=Math.min(Math.round(buyScore),99);}
+  }else if(sellScore>=60&&sellScore>buyScore+20&&sellCount>=minIndicators){
+    trendConfirmed=checkTrendConfirmation(data,'SELL');
+    if(trendConfirmed&&sellScore>=70){finalSignal='STRONG_SELL';confidence=Math.min(Math.round(sellScore*1.1),99);}
+    else{finalSignal='SELL';confidence=Math.min(Math.round(sellScore),99);}
+  }else if(buyScore>=45&&buyScore>sellScore+10){finalSignal='WEAK_BUY';confidence=Math.min(Math.round(buyScore*0.8),74);}
+  else if(sellScore>=45&&sellScore>buyScore+10){finalSignal='WEAK_SELL';confidence=Math.min(Math.round(sellScore*0.8),74);}
+  
+  const showSignal=confidence>=minConfidence&&(buyCount>=minIndicators||sellCount>=minIndicators);
+  
+  return{
+    lastPrice:lastClose.toFixed(4),livePrice:currentLivePrice,
+    rsi:{value:rsi.value.toFixed(1),signal:rsi.signal,trend:rsi.trend},
+    macd:{value:macd.histogram.toFixed(4),signal:macd.signal,trend:macd.trend,macdLine:macd.macd.toFixed(4),signalLine:macd.signal.toFixed(4)},
+    bb:{value:bb.position.toFixed(1),signal:bb.signal,trend:bb.trend,upper:bb.upper.toFixed(4),lower:bb.lower.toFixed(4)},
+    stoch:{value:stoch.k.toFixed(1),signal:stoch.signal,trend:stoch.trend,d:stoch.d.toFixed(1)},
+    ema:{value:ema.value.toFixed(4),signal:ema.signal,trend:ema.trend,distance:ema.distance?.toFixed(2)||'0'},
+    adx:{value:adx.value.toFixed(1),signal:adx.signal,trend:adx.trend,diPlus:adx.diPlus?.toFixed(1)||'0',diMinus:adx.diMinus?.toFixed(1)||'0'},
+    vwap:{value:vwap.value.toFixed(4),signal:vwap.signal,trend:vwap.trend,distance:vwap.distance?.toFixed(2)||'0'},
+    atr:{value:atr.value.toFixed(4),atrPercent:atr.atrPercent.toFixed(2),signal:atr.signal,trend:atr.trend},
+    sma:{value:sma.value.toFixed(4),signal:sma.signal,trend:sma.trend},
+    finalSignal,confidence,showSignal,buyScore,sellScore,buyCount,sellCount,neutCount,trendConfirmed,
+    isCrypto,isForex,isPocket,asset:selectedAsset,dataSource:apiName,timeframe:selectedTimeframe
+  };
+}
+js_part4 = '''
 // ========== ANALYSIS SCREEN ==========
 function startAnalysis(){
   showScreen('analyzingScreen');
+  const texts=['Connecting to APIs...','Fetching live market data...','Calculating RSI (14)...','Computing MACD Histogram...','Analyzing Bollinger Bands...','Processing Stochastic (14,3,3)...','Checking EMA Crossover...','Calculating ADX Strength...','Computing VWAP Position...','Analyzing ATR Volatility...','Checking SMA Golden/Death Cross...','Running weighted consensus...','Verifying trend confirmation...','Finalizing accurate signal...'];
+  let step=0;
+  const progressText=document.getElementById('progressText');
+  const interval=setInterval(()=>{step++;if(step<texts.length)progressText.textContent=texts[step];},350);
   
-  const texts = [
-    'Connecting to APIs...',
-    'Fetching live market data...',
-    'Calculating RSI (14)...',
-    'Computing MACD Histogram...',
-    'Analyzing Bollinger Bands...',
-    'Processing Stochastic (14,3,3)...',
-    'Checking EMA Crossover...',
-    'Calculating ADX Strength...',
-    'Computing VWAP Position...',
-    'Analyzing ATR Volatility...',
-    'Checking SMA Golden/Death Cross...',
-    'Running weighted consensus...',
-    'Verifying trend confirmation...',
-    'Finalizing accurate signal...'
-  ];
-  let step = 0;
-  const progressText = document.getElementById('progressText');
-  
-  const interval = setInterval(()=>{
-    step++;
-    if(step < texts.length) progressText.textContent = texts[step];
-  }, 350);
-  
-  setTimeout(async ()=>{
-    const analysis = await analyzeWithLiveData();
+  setTimeout(async()=>{
+    const analysis=await analyzeWithLiveData();
     clearInterval(interval);
-    currentAnalysis = analysis;
+    currentAnalysis=analysis;
     
-    // Update analyzing stats
-    document.getElementById('rsiStat').textContent = analysis.rsi.value;
-    document.getElementById('rsiStat').className = 'analyzing-stat-num ' + getStatClass(analysis.rsi.signal);
+    document.getElementById('rsiStat').textContent=analysis.rsi.value;
+    document.getElementById('rsiStat').className='analyzing-stat-num '+getStatClass(analysis.rsi.signal);
+    document.getElementById('macdStat').textContent=analysis.macd.value;
+    document.getElementById('macdStat').className='analyzing-stat-num '+getStatClass(analysis.macd.signal);
+    document.getElementById('bbStat').textContent=analysis.bb.value+'%';
+    document.getElementById('bbStat').className='analyzing-stat-num '+getStatClass(analysis.bb.signal);
+    document.getElementById('stochStat').textContent=analysis.stoch.value;
+    document.getElementById('stochStat').className='analyzing-stat-num '+getStatClass(analysis.stoch.signal);
+    document.getElementById('emaStat').textContent=analysis.ema.distance+'%';
+    document.getElementById('emaStat').className='analyzing-stat-num '+getStatClass(analysis.ema.signal);
+    document.getElementById('adxStat').textContent=analysis.adx.value;
+    document.getElementById('adxStat').className='analyzing-stat-num '+getStatClass(analysis.adx.signal);
+    document.getElementById('vwapStat').textContent=analysis.vwap.distance+'%';
+    document.getElementById('vwapStat').className='analyzing-stat-num '+getStatClass(analysis.vwap.signal);
+    document.getElementById('atrStat').textContent=analysis.atr.atrPercent+'%';
+    document.getElementById('atrStat').className='analyzing-stat-num '+getStatClass(analysis.atr.signal);
     
-    document.getElementById('macdStat').textContent = analysis.macd.value;
-    document.getElementById('macdStat').className = 'analyzing-stat-num ' + getStatClass(analysis.macd.signal);
-    
-    document.getElementById('bbStat').textContent = analysis.bb.value + '%';
-    document.getElementById('bbStat').className = 'analyzing-stat-num ' + getStatClass(analysis.bb.signal);
-    
-    document.getElementById('stochStat').textContent = analysis.stoch.value;
-    document.getElementById('stochStat').className = 'analyzing-stat-num ' + getStatClass(analysis.stoch.signal);
-    
-    document.getElementById('emaStat').textContent = analysis.ema.distance + '%';
-    document.getElementById('emaStat').className = 'analyzing-stat-num ' + getStatClass(analysis.ema.signal);
-    
-    document.getElementById('adxStat').textContent = analysis.adx.value;
-    document.getElementById('adxStat').className = 'analyzing-stat-num ' + getStatClass(analysis.adx.signal);
-    
-    document.getElementById('vwapStat').textContent = analysis.vwap.distance + '%';
-    document.getElementById('vwapStat').className = 'analyzing-stat-num ' + getStatClass(analysis.vwap.signal);
-    
-    document.getElementById('atrStat').textContent = analysis.atr.atrPercent + '%';
-    document.getElementById('atrStat').className = 'analyzing-stat-num ' + getStatClass(analysis.atr.signal);
-    
-    setTimeout(()=>showSignal(analysis), 800);
-  }, 5000);
+    setTimeout(()=>showSignal(analysis),800);
+  },5000);
 }
 
-function getStatClass(signal){
-  if(signal === 'BUY') return 'bull';
-  if(signal === 'SELL') return 'bear';
-  return 'neut';
-}
+function getStatClass(signal){if(signal==='BUY')return'bull';if(signal==='SELL')return'bear';return'neut';}
 
 // ========== SIGNAL SCREEN ==========
 function showSignal(analysis){
   showScreen('signalScreen');
-  lastSignalTime = Date.now();
+  lastSignalTime=Date.now();
   
-  const isBuy = analysis.finalSignal.includes('BUY');
-  const isSell = analysis.finalSignal.includes('SELL');
-  const isStrong = analysis.finalSignal.includes('STRONG');
-  const isNeutral = analysis.finalSignal === 'NEUTRAL';
-  const showSignal = analysis.showSignal;
+  const isBuy=analysis.finalSignal.includes('BUY');
+  const isSell=analysis.finalSignal.includes('SELL');
+  const isStrong=analysis.finalSignal.includes('STRONG');
+  const isNeutral=analysis.finalSignal==='NEUTRAL';
+  const showSignal=analysis.showSignal;
   
-  const circle = document.getElementById('signalCircle');
-  const arrow = document.getElementById('signalArrow');
-  const direction = document.getElementById('signalDirection');
-  const action = document.getElementById('signalAction');
-  const pair = document.getElementById('signalPair');
+  const circle=document.getElementById('signalCircle');
+  const arrow=document.getElementById('signalArrow');
+  const direction=document.getElementById('signalDirection');
+  const action=document.getElementById('signalAction');
+  const pair=document.getElementById('signalPair');
   
-  if(!showSignal || isNeutral){
-    circle.className = 'signal-circle neutral';
-    arrow.className = 'signal-arrow neutral';
-    arrow.textContent = '—';
-    direction.className = 'signal-direction neutral';
-    direction.textContent = 'NO CLEAR SIGNAL';
-    action.className = 'signal-action neutral';
-    action.textContent = 'WAIT';
-  } else {
-    circle.className = 'signal-circle ' + (isBuy ? 'buy' : 'sell');
-    arrow.className = 'signal-arrow ' + (isBuy ? 'buy' : 'sell');
-    arrow.textContent = isBuy ? '⬆' : '⬇';
-    direction.className = 'signal-direction ' + (isBuy ? 'buy' : 'sell');
-    direction.textContent = isStrong ? (isBuy ? 'STRONG BUY' : 'STRONG SELL') : (isBuy ? 'BUY' : 'SELL');
-    action.className = 'signal-action ' + (isBuy ? 'buy' : 'sell');
-    action.textContent = isBuy ? 'BUY' : 'SELL';
+  if(!showSignal||isNeutral){
+    circle.className='signal-circle neutral';
+    arrow.className='signal-arrow neutral';
+    arrow.textContent='—';
+    direction.className='signal-direction neutral';
+    direction.textContent='NO CLEAR SIGNAL';
+    action.className='signal-action neutral';
+    action.textContent='WAIT';
+  }else{
+    circle.className='signal-circle '+(isBuy?'buy':'sell');
+    arrow.className='signal-arrow '+(isBuy?'buy':'sell');
+    arrow.textContent=isBuy?'⬆':'⬇';
+    direction.className='signal-direction '+(isBuy?'buy':'sell');
+    direction.textContent=isStrong?(isBuy?'STRONG BUY':'STRONG SELL'):(isBuy?'BUY':'SELL');
+    action.className='signal-action '+(isBuy?'buy':'sell');
+    action.textContent=isBuy?'BUY':'SELL';
   }
   
-  const tfLabel = analysis.timeframe === 300 ? '5m' : (analysis.timeframe === 60 ? '1m' : analysis.timeframe + 's');
-  pair.textContent = selectedAsset.name + ' • ' + tfLabel;
+  const tfLabel=analysis.timeframe===300?'5m':(analysis.timeframe===60?'1m':analysis.timeframe+'s');
+  pair.textContent=selectedAsset.name+' • '+tfLabel;
   
-  const tfBadge = document.getElementById('tfBadge');
-  if(analysis.timeframe === 300){
-    tfBadge.className = 'tf-badge minute';
-    tfBadge.textContent = '5 MINUTE SIGNAL';
-  } else if(analysis.timeframe === 60){
-    tfBadge.className = 'tf-badge minute';
-    tfBadge.textContent = '1 MINUTE SIGNAL';
-  } else {
-    tfBadge.className = 'tf-badge seconds';
-    tfBadge.textContent = analysis.timeframe + ' SECOND SIGNAL';
-  }
+  const tfBadge=document.getElementById('tfBadge');
+  if(analysis.timeframe===300){tfBadge.className='tf-badge minute';tfBadge.textContent='5 MINUTE SIGNAL';}
+  else if(analysis.timeframe===60){tfBadge.className='tf-badge minute';tfBadge.textContent='1 MINUTE SIGNAL';}
+  else{tfBadge.className='tf-badge seconds';tfBadge.textContent=analysis.timeframe+' SECOND SIGNAL';}
   
   // Live price
-  if(analysis.livePrice > 0){
-    document.getElementById('signalLivePrice').textContent = formatPrice(analysis.livePrice);
-    document.getElementById('signalLiveChange').textContent = (priceChange24h >= 0 ? '+' : '') + priceChange24h.toFixed(2) + '%';
-    document.getElementById('signalLiveChange').className = 'signal-live-price-change ' + (priceChange24h >= 0 ? 'up' : 'down');
-  } else {
-    document.getElementById('signalLivePrice').textContent = analysis.lastPrice;
-    document.getElementById('signalLiveChange').textContent = analysis.dataSource;
-    document.getElementById('signalLiveChange').className = 'signal-live-price-change neut';
+  if(analysis.livePrice>0){
+    document.getElementById('signalLivePrice').textContent=formatPrice(analysis.livePrice);
+    document.getElementById('signalLiveChange').textContent=(priceChange24h>=0?'+':'')+priceChange24h.toFixed(2)+'%';
+    document.getElementById('signalLiveChange').className='signal-live-price-change '+(priceChange24h>=0?'up':'down');
+  }else{
+    document.getElementById('signalLivePrice').textContent=analysis.lastPrice;
+    document.getElementById('signalLiveChange').textContent=analysis.dataSource;
+    document.getElementById('signalLiveChange').className='signal-live-price-change neut';
   }
-  document.getElementById('priceLabel').textContent = analysis.isForex ? 'LIVE FOREX RATE' : (analysis.isPocket ? 'OTC PRICE' : 'LIVE BINANCE PRICE');
+  document.getElementById('priceLabel').textContent=analysis.isForex?'LIVE FOREX RATE':(analysis.isPocket?'OTC PRICE':'LIVE BINANCE PRICE');
   
   // AI Score
-  const scoreValue = document.getElementById('aiScoreValue');
-  const scoreFill = document.getElementById('aiScoreFill');
-  scoreValue.textContent = analysis.confidence + '%';
-  scoreFill.style.width = analysis.confidence + '%';
-  
-  if(analysis.confidence >= 75){
-    scoreValue.className = 'ai-score-value strong';
-    scoreFill.className = 'ai-score-fill strong';
-  } else if(analysis.confidence >= 50){
-    scoreValue.className = 'ai-score-value mod';
-    scoreFill.className = 'ai-score-fill mod';
-  } else {
-    scoreValue.className = 'ai-score-value weak';
-    scoreFill.className = 'ai-score-fill weak';
-  }
+  const scoreValue=document.getElementById('aiScoreValue');
+  const scoreFill=document.getElementById('aiScoreFill');
+  scoreValue.textContent=analysis.confidence+'%';
+  scoreFill.style.width=analysis.confidence+'%';
+  if(analysis.confidence>=75){scoreValue.className='ai-score-value strong';scoreFill.className='ai-score-fill strong';}
+  else if(analysis.confidence>=50){scoreValue.className='ai-score-value mod';scoreFill.className='ai-score-fill mod';}
+  else{scoreValue.className='ai-score-value weak';scoreFill.className='ai-score-fill weak';}
   
   // Build indicator grid
-  const grid = document.getElementById('indicatorGrid');
-  grid.innerHTML = '';
+  const grid=document.getElementById('indicatorGrid');
+  grid.innerHTML='';
   
-  const indicators = [
-    {name: 'RSI (14)', status: analysis.rsi.signal, value: analysis.rsi.value, desc: getRSIDesc(analysis.rsi.trend), span: 1},
-    {name: 'MACD', status: analysis.macd.signal, value: analysis.macd.value, desc: 'Hist: ' + analysis.macd.value + ' | MACD: ' + analysis.macd.macdLine, span: 1},
-    {name: 'Bollinger %B', status: analysis.bb.signal, value: analysis.bb.value + '%', desc: 'Pos: ' + analysis.bb.value + '% | Zone: ' + getBBDesc(analysis.bb.trend), span: 1},
-    {name: 'Stochastic', status: analysis.stoch.signal, value: analysis.stoch.value, desc: 'K: ' + analysis.stoch.value + ' | D: ' + analysis.stoch.d, span: 1},
-    {name: 'EMA (20)', status: analysis.ema.signal, value: analysis.ema.distance + '%', desc: 'Dist: ' + analysis.ema.distance + '% | ' + getEMADesc(analysis.ema.trend), span: 1},
-    {name: 'ADX (14)', status: analysis.adx.signal, value: analysis.adx.value, desc: 'DI+: ' + analysis.adx.diPlus + ' | DI-: ' + analysis.adx.diMinus, span: 1},
-    {name: 'VWAP', status: analysis.vwap.signal, value: analysis.vwap.distance + '%', desc: 'Dist: ' + analysis.vwap.distance + '% | ' + getVWAPDesc(analysis.vwap.trend), span: 1},
-    {name: 'ATR (14)', status: analysis.atr.signal, value: analysis.atr.atrPercent + '%', desc: 'Vol: ' + analysis.atr.atrPercent + '% | ' + getATRDesc(analysis.atr.trend), span: 1},
-    {name: 'SMA (50)', status: analysis.sma.signal, value: analysis.sma.value, desc: getSMADesc(analysis.sma.trend), span: 2},
+  const indicators=[
+    {name:'RSI (14)',status:analysis.rsi.signal,value:analysis.rsi.value,desc:getRSIDesc(analysis.rsi.trend),span:1},
+    {name:'MACD',status:analysis.macd.signal,value:analysis.macd.value,desc:'Hist: '+analysis.macd.value+' | MACD: '+analysis.macd.macdLine,span:1},
+    {name:'Bollinger %B',status:analysis.bb.signal,value:analysis.bb.value+'%',desc:'Pos: '+analysis.bb.value+'% | '+getBBDesc(analysis.bb.trend),span:1},
+    {name:'Stochastic',status:analysis.stoch.signal,value:analysis.stoch.value,desc:'K: '+analysis.stoch.value+' | D: '+analysis.stoch.d,span:1},
+    {name:'EMA (20)',status:analysis.ema.signal,value:analysis.ema.distance+'%',desc:'Dist: '+analysis.ema.distance+'% | '+getEMADesc(analysis.ema.trend),span:1},
+    {name:'ADX (14)',status:analysis.adx.signal,value:analysis.adx.value,desc:'DI+: '+analysis.adx.diPlus+' | DI-: '+analysis.adx.diMinus,span:1},
+    {name:'VWAP',status:analysis.vwap.signal,value:analysis.vwap.distance+'%',desc:'Dist: '+analysis.vwap.distance+'% | '+getVWAPDesc(analysis.vwap.trend),span:1},
+    {name:'ATR (14)',status:analysis.atr.signal,value:analysis.atr.atrPercent+'%',desc:'Vol: '+analysis.atr.atrPercent+'% | '+getATRDesc(analysis.atr.trend),span:1},
+    {name:'SMA (50)',status:analysis.sma.signal,value:analysis.sma.value,desc:getSMADesc(analysis.sma.trend),span:2},
   ];
   
-  indicators.forEach(ind => {
-    const card = document.createElement('div');
-    card.className = 'indicator-card';
-    if(ind.span === 2) card.style.gridColumn = 'span 2';
-    
-    const statusClass = ind.status === 'BUY' ? 'buy' : (ind.status === 'SELL' ? 'sell' : 'neut');
-    const valueClass = ind.status === 'BUY' ? 'buy' : (ind.status === 'SELL' ? 'sell' : 'neut');
-    
-    card.innerHTML = `
-      <div class="indicator-card-header">
-        <div class="indicator-name">${ind.name}</div>
-        <div class="indicator-status ${statusClass}">${ind.status}</div>
-      </div>
-      <div class="indicator-value ${valueClass}">${ind.value}</div>
-      <div class="indicator-desc">${ind.desc}</div>
-    `;
+  indicators.forEach(ind=>{
+    const card=document.createElement('div');
+    card.className='indicator-card';
+    if(ind.span===2)card.style.gridColumn='span 2';
+    const statusClass=ind.status==='BUY'?'buy':(ind.status==='SELL'?'sell':'neut');
+    const valueClass=ind.status==='BUY'?'buy':(ind.status==='SELL'?'sell':'neut');
+    card.innerHTML=`<div class="indicator-card-header"><div class="indicator-name">${ind.name}</div><div class="indicator-status ${statusClass}">${ind.status}</div></div><div class="indicator-value ${valueClass}">${ind.value}</div><div class="indicator-desc">${ind.desc}</div>`;
     grid.appendChild(card);
   });
   
   // No signal box
-  const noSignalBox = document.getElementById('noSignalBox');
-  if(!showSignal || isNeutral){
-    noSignalBox.style.display = 'block';
-    noSignalBox.querySelector('.no-signal-text').innerHTML = 
-      'Confidence is ' + analysis.confidence + '%. Only ' + 
-      (isBuy ? analysis.buyCount : analysis.sellCount) + '/8 indicators agree.<br>' +
-      'Minimum 75% confidence + 5/8 indicators required.';
-  } else {
-    noSignalBox.style.display = 'none';
-  }
+  const noSignalBox=document.getElementById('noSignalBox');
+  if(!showSignal||isNeutral){
+    noSignalBox.style.display='block';
+    noSignalBox.querySelector('.no-signal-text').innerHTML='Confidence is '+analysis.confidence+'%. Only '+(isBuy?analysis.buyCount:analysis.sellCount)+'/8 indicators agree.<br>Minimum 75% confidence + 5/8 indicators required.';
+  }else{noSignalBox.style.display='none';}
   
   // AI Text
-  document.getElementById('aiText').textContent = analysis.dataSource + ' + 8-Indicator Engine';
+  document.getElementById('aiText').textContent=analysis.dataSource+' + 8-Indicator Engine';
   
   // Timer
-  const timerFill = document.getElementById('timerFill');
-  const timerCount = document.getElementById('timerCount');
-  const timerText = document.getElementById('timerText');
+  const timerFill=document.getElementById('timerFill');
+  const timerCount=document.getElementById('timerCount');
+  const timerText=document.getElementById('timerText');
+  timerFill.className='trade-timer-fill '+(isBuy?'buy':(isSell?'sell':'neutral'));
+  timerFill.style.animationDuration=selectedTimeframe+'s';
+  timerCount.textContent=selectedTimeframe+'s';
   
-  timerFill.className = 'trade-timer-fill ' + (isBuy ? 'buy' : (isSell ? 'sell' : 'neutral'));
-  timerFill.style.animationDuration = selectedTimeframe + 's';
-  timerCount.textContent = selectedTimeframe + 's';
-  
-  if(showSignal && !isNeutral){
-    timerText.textContent = isStrong ? '✅ Strong signal - Execute trade' : '⚠️ Moderate signal - Use small position';
-    timerText.style.color = isBuy ? 'var(--buy)' : 'var(--sell)';
-  } else {
-    timerText.textContent = '⏳ Wait for stronger confirmation';
-    timerText.style.color = 'var(--neutral)';
+  if(showSignal&&!isNeutral){
+    timerText.textContent=isStrong?'✅ Strong signal - Execute trade':'⚠️ Moderate signal - Use small position';
+    timerText.style.color=isBuy?'#00ff88':'#ff4444';
+  }else{
+    timerText.textContent='⏳ Wait for stronger confirmation';
+    timerText.style.color='#ffd700';
   }
   
-  // Start signal update interval
-  if(signalUpdateInterval) clearInterval(signalUpdateInterval);
-  signalUpdateInterval = setInterval(()=>{
-    const elapsed = Math.floor((Date.now() - lastSignalTime) / 1000);
-    document.getElementById('lastUpdateText').textContent = 'Signal updated: ' + elapsed + 's ago';
-  }, 1000);
+  // Signal update interval
+  if(signalUpdateInterval)clearInterval(signalUpdateInterval);
+  signalUpdateInterval=setInterval(()=>{
+    const elapsed=Math.floor((Date.now()-lastSignalTime)/1000);
+    document.getElementById('lastUpdateText').textContent='Signal updated: '+elapsed+'s ago';
+  },1000);
 }
 
-// Helper functions for descriptions
-function getRSIDesc(trend){
-  const descs = {oversold: 'Oversold - Bullish reversal', overbought: 'Overbought - Bearish reversal', weak_bull: 'Weak bullish momentum', weak_bear: 'Weak bearish momentum', neutral: 'Neutral zone'};
-  return descs[trend] || 'Neutral';
-}
-function getBBDesc(trend){
-  const descs = {oversold: 'Lower band - Buy zone', overbought: 'Upper band - Sell zone', weak_bull: 'Below middle', weak_bear: 'Above middle', neutral: 'Middle zone'};
-  return descs[trend] || 'Middle';
-}
-function getEMADesc(trend){
-  const descs = {bullish_cross: 'Golden cross detected', bearish_cross: 'Death cross detected', above_ema: 'Price above EMA', below_ema: 'Price below EMA', neutral: 'Near EMA'};
-  return descs[trend] || 'Neutral';
-}
-function getVWAPDesc(trend){
-  const descs = {above_vwap: 'Bullish - Above VWAP', below_vwap: 'Bearish - Below VWAP', neutral: 'Near VWAP'};
-  return descs[trend] || 'Neutral';
-}
-function getATRDesc(trend){
-  const descs = {high_volatility: 'High volatility - Caution', low_volatility: 'Low volatility - Range bound', normal: 'Normal volatility'};
-  return descs[trend] || 'Normal';
-}
-function getSMADesc(trend){
-  const descs = {golden_setup: 'Golden setup - Strong buy', death_setup: 'Death setup - Strong sell', above_sma: 'Above SMA50', below_sma: 'Below SMA50', neutral: 'Near SMA50'};
-  return descs[trend] || 'Neutral';
-}
+// Helper descriptions
+function getRSIDesc(t){const d={oversold:'Oversold - Bullish reversal',overbought:'Overbought - Bearish reversal',weak_bull:'Weak bullish momentum',weak_bear:'Weak bearish momentum',neutral:'Neutral zone'};return d[t]||'Neutral';}
+function getBBDesc(t){const d={oversold:'Lower band - Buy zone',overbought:'Upper band - Sell zone',weak_bull:'Below middle',weak_bear:'Above middle',neutral:'Middle zone'};return d[t]||'Middle';}
+function getEMADesc(t){const d={bullish_cross:'Golden cross detected',bearish_cross:'Death cross detected',above_ema:'Price above EMA',below_ema:'Price below EMA',neutral:'Near EMA'};return d[t]||'Neutral';}
+function getVWAPDesc(t){const d={above_vwap:'Bullish - Above VWAP',below_vwap:'Bearish - Below VWAP',neutral:'Near VWAP'};return d[t]||'Neutral';}
+function getATRDesc(t){const d={high_volatility:'High volatility - Caution',low_volatility:'Low volatility - Range bound',normal:'Normal volatility'};return d[t]||'Normal';}
+function getSMADesc(t){const d={golden_setup:'Golden setup - Strong buy',death_setup:'Death setup - Strong sell',above_sma:'Above SMA50',below_sma:'Below SMA50',neutral:'Near SMA50'};return d[t]||'Neutral';}
 
-function generateNewSignal(){
-  startAnalysis();
-}
-
-function refreshLiveSignal(){
-  if(currentAnalysis){
-    showSignal(currentAnalysis);
-    updateTicker(isCrypto && selectedAsset ? selectedAsset.symbol : 'BTCUSDT');
-  }
-}
+function generateNewSignal(){startAnalysis();}
+function refreshLiveSignal(){if(currentAnalysis){showSignal(currentAnalysis);updateTicker(isCrypto&&selectedAsset?selectedAsset.symbol:'BTCUSDT');}}
 </script>
 </body>
 </html>
