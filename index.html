@@ -1,261 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><style>
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
-</style>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lubna Abubakar AI Bot Pro V4 - Quotex Edition</title>
+<title>Lubna Abubakar AI Bot Pro V4.4 - Quotex Edition</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          'outfit': ['Outfit', 'sans-serif'],
-          'space': ['Space Grotesk', 'sans-serif'],
-        },
-        colors: {
-          'qxbg': '#0a0a14',
-          'qxbg2': '#0f0f1e',
-          'qxsurface': 'rgba(22,22,38,0.9)',
-          'qxborder': 'rgba(255,255,255,0.07)',
-          'qxpurple': '#7c3aed',
-          'qxpurple2': '#a855f7',
-          'qxblue': '#3b82f6',
-          'qxgreen': '#00d084',
-          'qxred': '#ff3b5c',
-          'qxmuted': '#8b8fa3',
-        }
-      }
-    }
-  }
-</script>
 <style>
-  body {
-    font-family: 'Outfit', sans-serif;
-    background: #0a0a14;
-    color: #fff;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  .qx-app-bg {
-    background: radial-gradient(1200px 700px at 50% -10%, rgba(124,58,237,0.10), transparent 60%), linear-gradient(180deg, #0f0f1e 0%, #0a0a14 100%);
-    min-height: 100vh;
-  }
-  .qx-card {
-    background: rgba(22,22,38,0.92);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 20px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.35);
-  }
-  .qx-card-sm {
-    background: rgba(22,22,38,0.92);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 14px;
-  }
-  .qx-input {
-    background: rgba(14,14,28,0.9);
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 14px;
-    color: #fff;
-    outline: none;
-    transition: border-color .2s;
-    width: 100%;
-  }
-  .qx-input:focus {
-    border-color: rgba(124,58,237,0.55);
-    box-shadow: 0 0 0 3px rgba(124,58,237,0.13);
-  }
-  .qx-input::placeholder { color: #6a6f85; }
-  .btn-purple {
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 55%, #3b82f6 100%);
-    box-shadow: 0 10px 30px rgba(124,58,237,0.32), inset 0 1px 0 rgba(255,255,255,0.15);
-    transition: transform .15s ease, filter .15s ease;
-  }
-  .btn-purple:hover { filter: brightness(1.06); }
-  .btn-purple:active { transform: scale(0.985); }
-  .signal-glow-buy {
-    box-shadow: 0 0 55px rgba(0,208,132,0.28), 0 0 110px rgba(0,208,132,0.12), inset 0 0 30px rgba(0,208,132,0.07);
-  }
-  .signal-glow-sell {
-    box-shadow: 0 0 55px rgba(255,59,92,0.28), 0 0 110px rgba(255,59,92,0.12), inset 0 0 30px rgba(255,59,92,0.07);
-  }
-  .pill-tab {
-    border-radius: 9999px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #8b8fa3;
-    transition: all .18s;
-    white-space: nowrap;
-  }
-  .pill-tab.active {
-    background: linear-gradient(135deg, #7c3aed, #a855f7);
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(124,58,237,0.33);
-  }
-  .tf-pill {
-    border-radius: 10px;
-    padding: 8px 0;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: #8b8fa3;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    transition: all .18s;
-    cursor: pointer;
-  }
-  .tf-pill.active {
-    color: #fff;
-    background: linear-gradient(135deg, #7c3aed, #9b5cf7);
-    border-color: rgba(124,58,237,0.5);
-    box-shadow: 0 4px 16px rgba(124,58,237,0.28);
-  }
-  .market-badge {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: .04em;
-    padding: 3px 8px;
-    border-radius: 6px;
-  }
-  .badge-crypto { background: rgba(124,58,237,0.15); color: #b794f8; }
-  .badge-forex { background: rgba(59,130,246,0.15); color: #7cb9ff; }
-  .badge-quotex { background: rgba(236,72,153,0.15); color: #ff94c6; }
-  .stat-pill {
-    background: linear-gradient(135deg, rgba(124,58,237,0.13), rgba(59,130,246,0.10));
-    border: 1px solid rgba(124,58,237,0.22);
-    border-radius: 14px;
-    padding: 13px 14px;
-  }
-  .live-dot {
-    width: 7px; height: 7px; border-radius: 999px; background:#00d084;
-    box-shadow: 0 0 10px rgba(0,208,132,0.7);
-    animation: livepulse 1.6s infinite;
-  }
+  body { font-family: 'Outfit', sans-serif; background: #0a0a14; color: #fff; margin:0; -webkit-font-smoothing: antialiased; }
+.qx-app-bg { background: radial-gradient(1200px 700px at 50% -10%, rgba(124,58,237,0.10), transparent 60%), linear-gradient(180deg, #0f0f1e 0%, #0a0a14 100%); min-height: 100vh; }
+.qx-card { background: rgba(22,22,38,0.92); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.35); }
+.qx-card-sm { background: rgba(22,22,38,0.92); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; }
+.qx-input { background: rgba(14,14,28,0.9); border: 1px solid rgba(255,255,255,0.09); border-radius: 14px; color: #fff; outline: none; width: 100%; }
+.qx-input:focus { border-color: rgba(124,58,237,0.55); box-shadow: 0 0 0 3px rgba(124,58,237,0.13); }
+.btn-purple { background: linear-gradient(135deg, #7c3aed 0%, #a855f7 55%, #3b82f6 100%); box-shadow: 0 10px 30px rgba(124,58,237,0.32); transition: transform.15s ease; }
+.btn-purple:active { transform: scale(0.985); }
+.signal-glow-buy { box-shadow: 0 0 55px rgba(0,208,132,0.28), 0 0 110px rgba(0,208,132,0.12), inset 0 0 30px rgba(0,208,132,0.07); }
+.signal-glow-sell { box-shadow: 0 0 55px rgba(255,59,92,0.28), 0 0 110px rgba(255,59,92,0.12), inset 0 0 30px rgba(255,59,92,0.07); }
+.pill-tab { border-radius: 9999px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: #8b8fa3; white-space: nowrap; }
+.pill-tab.active { background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; box-shadow: 0 6px 20px rgba(124,58,237,0.33); }
+.tf-pill { border-radius: 10px; padding: 8px 0; text-align: center; font-size: 13px; font-weight: 700; color: #8b8fa3; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); cursor: pointer; }
+.tf-pill.active { color: #fff; background: linear-gradient(135deg, #7c3aed, #9b5cf7); border-color: rgba(124,58,237,0.5); box-shadow: 0 4px 16px rgba(124,58,237,0.28); }
+.market-badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; }
+.badge-crypto { background: rgba(124,58,237,0.15); color: #b794f8; }
+.badge-forex { background: rgba(59,130,246,0.15); color: #7cb9ff; }
+.badge-quotex { background: rgba(236,72,153,0.15); color: #ff94c6; }
+.stat-pill { background: linear-gradient(135deg, rgba(124,58,237,0.13), rgba(59,130,246,0.10)); border: 1px solid rgba(124,58,237,0.22); border-radius: 14px; padding: 13px 14px; }
+.live-dot { width: 7px; height: 7px; border-radius: 999px; background:#00d084; box-shadow: 0 0 10px rgba(0,208,132,0.7); animation: livepulse 1.6s infinite; }
   @keyframes livepulse { 0%,100%{opacity:1} 50%{ opacity:.45 } }
-  .signal-circle-outer {
-    width: 140px; height: 140px; border-radius: 999px; display:flex; align-items:center; justify-content:center;
-    position: relative;
-  }
-  .signal-circle-inner {
-    width: 112px; height: 112px; border-radius: 999px; display:flex; align-items:center; justify-content:center;
-    background: rgba(12,12,24,0.9);
-  }
-  .analyze-ring {
-    width: 74px; height: 74px; border-radius: 999px;
-    border: 4px solid rgba(124,58,237,0.22);
-    border-top-color: #a855f7;
-    animation: spin 0.9s linear infinite;
-  }
+.signal-circle-outer { width: 140px; height: 140px; border-radius: 999px; display:flex; align-items:center; justify-content:center; }
+.signal-circle-inner { width: 112px; height: 112px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(12,12,24,0.9); }
+.analyze-ring { width: 74px; height: 74px; border-radius: 999px; border: 4px solid rgba(124,58,237,0.22); border-top-color: #a855f7; animation: spin 0.9s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg);} }
-  .nav-bottom {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: rgba(14,14,24,0.94);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-top: 1px solid rgba(255,255,255,0.07);
-    z-index: 50;
-  }
-  .nav-item {
-    display:flex; flex-direction:column; align-items:center; gap:3px;
-    font-size: 10.5px; font-weight: 600;
-    color: #6b6f83;
-    transition: color .15s;
-    padding: 10px 0 12px;
-    flex:1;
-    background: none; border: none; cursor: pointer;
-  }
-  .nav-item.active { color: #b794f8; }
-  .market-row {
-    display:flex; align-items:center; justify-content:space-between;
-    padding: 14px 14px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.018);
-    border: 1px solid rgba(255,255,255,0.045);
-    cursor: pointer;
-    transition: background .15s, border-color .15s;
-  }
-  .market-row:hover { background: rgba(255,255,255,0.038); border-color: rgba(124,58,237,0.28); }
-  .market-row.active-asset {
-    border-color: rgba(124,58,237,0.5);
-    background: rgba(124,58,237,0.07);
-  }
-  .toast-wrap {
-    position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
-    z-index: 9999; display:flex; flex-direction:column; gap:8px; width: calc(100% - 32px); max-width: 360px;
-    pointer-events:none;
-  }
-  .toast {
-    pointer-events:auto;
-    background: rgba(24,24,40,0.97);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 13px;
-    padding: 11px 14px;
-    font-size: 13px; font-weight: 600;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    animation: toastIn .22s ease;
-  }
+.nav-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(14,14,24,0.94); backdrop-filter: blur(18px); border-top: 1px solid rgba(255,255,255,0.07); z-index: 50; }
+.nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; font-size: 10.5px; font-weight: 600; color: #6b6f83; padding: 10px 0 12px; flex:1; background: none; border: none; cursor: pointer; }
+.nav-item.active { color: #b794f8; }
+.market-row { display:flex; align-items:center; justify-content:space-between; padding: 14px 14px; border-radius: 14px; background: rgba(255,255,255,0.018); border: 1px solid rgba(255,255,255,0.045); cursor: pointer; }
+.market-row:hover { background: rgba(255,255,255,0.038); border-color: rgba(124,58,237,0.28); }
+.market-row.active-asset { border-color: rgba(124,58,237,0.5); background: rgba(124,58,237,0.07); }
+.toast-wrap { position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 9999; display:flex; flex-direction:column; gap:8px; width: calc(100% - 32px); max-width: 360px; pointer-events:none; }
+.toast { pointer-events:auto; background: rgba(24,24,40,0.97); border: 1px solid rgba(255,255,255,0.1); border-radius: 13px; padding: 11px 14px; font-size: 13px; font-weight: 600; animation: toastIn.22s ease; }
   @keyframes toastIn { from { opacity:0; transform: translateY(-8px);} to {opacity:1; transform: translateY(0);} }
-  .view { display: none; }
-  .view.active { display: block; }
-  .no-scrollbar::-webkit-scrollbar { display:none; }
-  .no-scrollbar { -ms-overflow-style:none; scrollbar-width:none; }
-  .asset-icon {
-    width: 38px; height: 38px; border-radius: 11px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; flex-shrink:0;
-  }
-  /* Signal screen */
-  .signal-buy-circle { background: radial-gradient(circle, rgba(0,208,132,0.16), rgba(0,208,132,0.03)); border: 2px solid rgba(0,208,132,0.5);}
-  .signal-sell-circle { background: radial-gradient(circle, rgba(255,59,92,0.16), rgba(255,59,92,0.03)); border: 2px solid rgba(255,59,92,0.5);}
-  /* Custom tiny chart */
-  .mini-chart { height: 46px; width: 86px; }
-  .login-shell { min-height: 100vh; display:flex; align-items:center; justify-content:center; padding: 24px; }
-  input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin:0;}
-
-  /* --- Tailwind fallback (CDN failsafe) --- */
-  *,*::before,*::after{box-sizing:border-box} body{margin:0}
-  .flex{display:flex}.flex-1{flex:1}.flex-shrink-0{flex-shrink:0}.flex-col{flex-direction:column}
-  .items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
-  .gap-1{gap:4px}.gap-2{gap:8px}.gap-3{gap:12px}.gap-4{gap:16px}
-  .grid{display:grid}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .w-full{width:100%}.min-w-0{min-width:0}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .text-center{text-align:center}.text-right{text-align:right}
-  .font-bold{font-weight:700}.font-semibold{font-weight:600}
-  .relative{position:relative}.absolute{position:absolute}.hidden{display:none}.block{display:block}
-  .rounded-xl{border-radius:12px}.rounded-2xl{border-radius:16px}.rounded-full{border-radius:9999px}
-  .p-4{padding:16px}.px-3{padding-left:12px;padding-right:12px}.px-4{padding-left:16px;padding-right:16px}
-  .py-2{padding-top:8px;padding-bottom:8px}.py-3{padding-top:12px;padding-bottom:12px}
-  .mt-1{margin-top:4px}.mt-2{margin-top:8px}.mb-2{margin-bottom:8px}.mb-3{margin-bottom:12px}.mb-4{margin-bottom:16px}
-  .space-y-2 > * + *{margin-top:8px}
-  #marketList > * + *{margin-top:10px}
-  .nav-bottom{padding-bottom:env(safe-area-inset-bottom)}
-  .pb-24{padding-bottom:96px}
-
+.view { display: none; }
+.view.active { display: block; }
+.no-scrollbar::-webkit-scrollbar { display:none; }
+.asset-icon { width: 38px; height: 38px; border-radius: 11px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; flex-shrink:0; }
+.signal-buy-circle { background: radial-gradient(circle, rgba(0,208,132,0.16), rgba(0,208,132,0.03)); border: 2px solid rgba(0,208,132,0.5);}
+.signal-sell-circle { background: radial-gradient(circle, rgba(255,59,92,0.16), rgba(255,59,92,0.03)); border: 2px solid rgba(255,59,92,0.5);}
+.login-shell { min-height: 100vh; display:flex; align-items:center; justify-content:center; padding: 24px; }
+  *,*::before,*::after{box-sizing:border-box}
+.flex{display:flex}.flex-1{flex:1}.flex-shrink-0{flex-shrink:0}.flex-col{flex-direction:column}
+.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
+.gap-1{gap:4px}.gap-2{gap:8px}.gap-3{gap:12px}.gap-4{gap:16px}
+.grid{display:grid}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-full{width:100%}.min-w-0{min-width:0}
+.text-center{text-align:center}.text-right{text-align:right}
+.font-bold{font-weight:700}.font-semibold{font-weight:600}
+.relative{position:relative}.absolute{position:absolute}.hidden{display:none}.block{display:block}
+.rounded-xl{border-radius:12px}.rounded-2xl{border-radius:16px}.rounded-full{border-radius:9999px}
+.p-4{padding:16px}.px-3{padding-left:12px;padding-right:12px}.px-4{padding-left:16px;padding-right:16px}.px-5{padding-left:20px;padding-right:20px}.px-6{padding-left:24px;padding-right:24px}
+.py-2{padding-top:8px;padding-bottom:8px}.py-3{padding-top:12px;padding-bottom:12px}.py-4{padding-top:16px;padding-bottom:16px}.py-6{padding-top:24px;padding-bottom:24px}.py-12{padding-top:48px;padding-bottom:48px}
+.mt-1{margin-top:4px}.mt-2{margin-top:8px}.mb-1{margin-bottom:4px}.mb-2{margin-bottom:8px}.mb-3{margin-bottom:12px}.mb-4{margin-bottom:16px}.mb-5{margin-bottom:20px}.mb-6{margin-bottom:24px}.mb-8{margin-bottom:32px}
+.space-y-2 > * + *{margin-top:8px}.space-y-4 > * + *{margin-top:16px}
+ #marketList > * + *{margin-top:10px}
+.nav-bottom{padding-bottom:env(safe-area-inset-bottom)}
+.pb-24{padding-bottom:96px}
+.text-2xl{font-size:24px}.text-xl{font-size:20px}.text-lg{font-size:18px}.text-base{font-size:16px}.text-sm{font-size:14px}.text-xs{font-size:12px}
 </style>
 </head>
 <body class="qx-app-bg antialiased">
@@ -265,122 +76,100 @@
   <div id="loginView" class="login-shell">
     <div style="width:100%; max-width:380px;">
       <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-[20px] mb-4" style="background: linear-gradient(135deg,#7c3aed,#a855f7 60%, #3b82f6); box-shadow: 0 10px 30px rgba(124,58,237,0.38);">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4" style="background: linear-gradient(135deg,#7c3aed,#a855f7 60%, #3b82f6); box-shadow: 0 10px 30px rgba(124,58,237,0.38);">
           <i data-lucide="sparkles" style="color:#fff; width:28px; height:28px;"></i>
         </div>
-        <h1 class="font-space font-bold text-[26px] tracking-tight">Lubna Abubakar</h1>
-        <p class="text-qxmuted text-[13.5px] font-medium mt-1">AI Bot Pro V4.4 REAL <span style="color:#ff6fae;">Quotex Edition</span></p>
+        <h1 class="font-space font-bold text-2xl tracking-tight">Lubna Abubakar</h1>
+        <p class="text-qxmuted text-sm font-medium mt-1">AI Bot Pro V4.4 REAL <span style="color:#ff6fae;">Quotex Edition</span></p>
       </div>
 
-      <div class="qx-card px-[26px] py-[28px]">
-        <h2 class="font-space font-bold text-[20px] mb-1">Welcome back</h2>
-        <p class="text-qxmuted text-[13px] mb-6">Sign in to access pro signals</p>
-
+      <div class="qx-card px-6 py-6">
+        <h2 class="font-space font-bold text-xl mb-1">Welcome back</h2>
+        <p class="text-qxmuted text-sm mb-6">Sign in to access pro signals</p>
         <form id="loginForm" class="space-y-4">
           <div>
-            <label class="text-[11.5px] font-bold text-qxmuted tracking-wide uppercase">Username</label>
-            <div class="relative mt-[7px]">
-              <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[17px] h-[17px]" style="color:#5b5f76"></i>
-              <input id="loginUser" class="qx-input pl-11 pr-4 py-3.5 text-[14.5px]" placeholder="admin" value="admin" autocomplete="username">
+            <label class="text-xs font-bold text-qxmuted tracking-wide uppercase">Username</label>
+            <div class="relative mt-2">
+              <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style="color:#5b5f76"></i>
+              <input id="loginUser" class="qx-input pl-11 pr-4 py-3.5 text-sm" placeholder="admin" value="admin" autocomplete="username">
             </div>
           </div>
           <div>
-            <label class="text-[11.5px] font-bold text-qxmuted tracking-wide uppercase">Password</label>
-            <div class="relative mt-[7px]">
-              <i data-lucide="lock" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[17px] h-[17px]" style="color:#5b5f76"></i>
-              <input id="loginPass" type="password" class="qx-input pl-11 pr-10 py-3.5 text-[14.5px]" placeholder="••••••••" value="admin123" autocomplete="current-password">
+            <label class="text-xs font-bold text-qxmuted tracking-wide uppercase">Password</label>
+            <div class="relative mt-2">
+              <i data-lucide="lock" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style="color:#5b5f76"></i>
+              <input id="loginPass" type="password" class="qx-input pl-11 pr-10 py-3.5 text-sm" placeholder="••••••••" value="admin123" autocomplete="current-password">
               <button type="button" id="togglePass" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#6c7086] hover:text-white">
-                <i data-lucide="eye" class="w-[18px] h-[18px]"></i>
+                <i data-lucide="eye" class="w-4 h-4"></i>
               </button>
             </div>
           </div>
-          <div class="flex items-center justify-between pt-1 text-[12.5px]">
-            <label class="flex items-center gap-2 text-qxmuted cursor-pointer select-none">
-              <input type="checkbox" class="accent-[#7c3aed]"> Remember me
-            </label>
-            <a href="#" class="text-[#a87ef7] font-semibold hover:underline">Forgot?</a>
-          </div>
-
-          <button type="submit" class="btn-purple w-full rounded-[14px] py-[14px] font-outfit font-bold text-[15px] text-white mt-1">Sign In →</button>
-          <p class="text-center text-[12px] text-qxmuted pt-1">Demo: <b class="text-[#bba2ff] font-semibold">admin / admin123</b></p>
+          <button type="submit" class="btn-purple w-full rounded-xl py-3.5 font-outfit font-bold text-base text-white mt-1">Sign In →</button>
+          <p class="text-center text-xs text-qxmuted pt-1">Demo: <b class="text-[#bba2ff] font-semibold">admin / admin123</b></p>
         </form>
       </div>
-      <p class="text-center text-[11.5px] text-[#5e6277] mt-5 px-6 leading-relaxed">Real RSI/EMA/MACD signals — educational only. Not financial advice. Trade at your own risk.</p>
+      <p class="text-center text-xs text-[#5e6277] mt-5 px-6 leading-relaxed">Real RSI/EMA/MACD signals — educational only. Not financial advice.</p>
     </div>
   </div>
 
   <!-- APP -->
   <div id="appView" class="hidden">
-    <div class="mx-auto w-full max-w-[400px] min-h-screen pb-[88px] relative">
-      
+    <div class="mx-auto w-full max-w-[400px] min-h-screen pb-24 relative">
+
       <!-- HOME VIEW -->
       <div id="view-home" class="view active px-4 pt-5">
         <div class="flex items-center justify-between mb-5">
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-space font-bold text-[17px] tracking-wider">AI BOT PRO</span>
-              <span class="flex items-center gap-1.5 bg-[rgba(0,208,132,0.11)] border border-[rgba(0,208,132,0.24)] rounded-full px-2.5 py-[3px] text-[10.5px] font-bold text-[#00d084]">
+              <span class="font-space font-bold text-lg tracking-wider">LUBNA BOT PRO</span>
+              <span class="flex items-center gap-1.5 bg-[rgba(0,208,132,0.11)] border border-[rgba(0,208,132,0.24)] rounded-full px-2.5 py-[3px] text-xs font-bold text-[#00d084]">
                 <span class="live-dot"></span>LIVE
               </span>
             </div>
-            <p class="text-qxmuted text-[12.5px] mt-0.5">Quotex Edition • V4.4 REAL TA</p>
-          </div>
-          <div class="flex gap-2">
-            <button class="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.07)] flex items-center justify-center text-[#9aa0b8] hover:text-white" onclick="showToast('Notifications coming soon')">
-              <i data-lucide="bell" class="w-[18px] h-[18px]"></i>
-            </button>
-            <button class="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.07)] flex items-center justify-center text-[#9aa0b8] hover:text-white" onclick="goView('settings')">
-              <i data-lucide="user" class="w-[18px] h-[18px]"></i>
-            </button>
+            <p class="text-qxmuted text-sm mt-0.5">Quotex Edition • V4.4 REAL TA</p>
           </div>
         </div>
 
-        <!-- Stat pills -->
         <div class="grid grid-cols-2 gap-3 mb-5">
           <div class="stat-pill">
-            <div class="text-[11px] text-[#a59bff] font-bold uppercase tracking-wide">AI Accuracy</div>
-            <div class="font-space font-bold text-[26px] mt-1">89.4<span class="text-[15px] text-[#a59bff]">%</span></div>
-            <div class="text-[11px] text-[#00d084] font-semibold mt-0.5">▲ +2.1% this week</div>
+            <div class="text-xs text-[#a59bff] font-bold uppercase tracking-wide">AI Accuracy</div>
+            <div class="font-space font-bold text-2xl mt-1">89.4<span class="text-base text-[#a59bff]">%</span></div>
+            <div class="text-xs text-[#00d084] font-semibold mt-0.5">▲ +2.1% this week</div>
           </div>
           <div class="stat-pill">
-            <div class="text-[11px] text-[#a59bff] font-bold uppercase tracking-wide">Signals Today</div>
-            <div class="font-space font-bold text-[26px] mt-1">147</div>
-            <div class="text-[11px] text-qxmuted font-semibold mt-0.5">12 active now</div>
+            <div class="text-xs text-[#a59bff] font-bold uppercase tracking-wide">Signals Today</div>
+            <div class="font-space font-bold text-2xl mt-1">147</div>
+            <div class="text-xs text-qxmuted font-semibold mt-0.5">12 active now</div>
           </div>
         </div>
 
-        <!-- Quick Markets -->
         <div class="flex items-center justify-between mb-3">
-          <h3 class="font-space font-bold text-[15px]">Quick Markets</h3>
-          <button onclick="goView('markets')" class="text-[12.5px] font-semibold text-[#b38fff]">View all →</button>
+          <h3 class="font-space font-bold text-base">Quick Markets</h3>
+          <button onclick="goView('markets')" class="text-sm font-semibold text-[#b38fff]">View all →</button>
         </div>
-        <div id="quickMarkets" class="grid grid-cols-2 gap-3 mb-5">
-          <!-- JS -->
-        </div>
+        <div id="quickMarkets" class="grid grid-cols-2 gap-3 mb-5"></div>
 
-        <button id="homeGenerateBtn" class="btn-purple w-full rounded-[16px] py-[16px] font-bold text-[15.5px] flex items-center justify-center gap-2">
-          <i data-lucide="zap" class="w-[18px] h-[18px]"></i>
+        <button id="homeGenerateBtn" class="btn-purple w-full rounded-2xl py-4 font-bold text-base flex items-center justify-center gap-2">
+          <i data-lucide="zap" class="w-5 h-5"></i>
           Generate Signal
         </button>
 
         <div class="qx-card-sm px-4 py-4 mt-4 flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-[rgba(124,58,237,0.15)] flex items-center justify-center text-[#b794f8] flex-shrink-0">
-            <i data-lucide="shield-check" class="w-[19px] h-[19px]"></i>
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
           </div>
-          <div class="text-[12.5px] text-qxmuted leading-snug">
+          <div class="text-sm text-qxmuted leading-snug">
             <b class="text-[#d7d9e6] font-semibold">Risk Notice:</b> Real TA signals — educational. This is not financial advice.
           </div>
         </div>
-
-        <div class="h-3"></div>
       </div>
 
       <!-- MARKETS VIEW -->
       <div id="view-markets" class="view px-4 pt-5">
-        <h2 class="font-space font-bold text-[22px] mb-3">Markets</h2>
+        <h2 class="font-space font-bold text-xl mb-3">Markets</h2>
         <div class="relative mb-3">
-          <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[16px] h-[16px]" style="color:#6a6f85"></i>
-          <input id="marketSearch" placeholder="Search BTC, EURUSD, OTC..." class="qx-input pl-10 pr-4 py-3 text-[13.5px]">
+          <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style="color:#6a6f85"></i>
+          <input id="marketSearch" placeholder="Search BTC, EURUSD, OTC..." class="qx-input pl-10 pr-4 py-3 text-sm">
         </div>
         <div class="flex gap-2 mb-4 overflow-x-auto no-scrollbar">
           <button class="pill-tab active" data-mkt="all">All</button>
@@ -388,14 +177,12 @@
           <button class="pill-tab" data-mkt="forex">Forex</button>
           <button class="pill-tab" data-mkt="quotex">Quotex OTC</button>
         </div>
-        <div id="marketList" class="space-y-2.5 pb-2">
-          <!-- JS -->
-        </div>
+        <div id="marketList" class="space-y-2.5 pb-2"></div>
       </div>
 
       <!-- TIMEFRAME / ANALYZE VIEW -->
       <div id="view-timeframe" class="view px-4 pt-5">
-        <button onclick="goView('markets')" class="text-qxmuted text-[13px] font-semibold flex items-center gap-1.5 mb-3 hover:text-white">
+        <button onclick="goView('markets')" class="text-qxmuted text-sm font-semibold flex items-center gap-1.5 mb-3 hover:text-white">
           <i data-lucide="chevron-left" class="w-4 h-4"></i> Back to Markets
         </button>
 
@@ -404,17 +191,17 @@
             <div class="flex items-center gap-3">
               <div id="tfAssetIcon" class="asset-icon" style="background:#1d1d31;color:#b794f8;">BTC</div>
               <div class="flex-1 min-w-0">
-                <div id="tfAssetName" class="font-space font-bold text-[17px]">BTC/USDT</div>
-                <div class="text-[11.5px] text-qxmuted"><span id="tfAssetMarket">Crypto</span> • Binance</div>
+                <div id="tfAssetName" class="font-space font-bold text-lg">BTC/USDT</div>
+                <div class="text-xs text-qxmuted"><span id="tfAssetMarket">Crypto</span> • Binance</div>
               </div>
               <div class="text-right">
-                <div id="tfAssetPrice" class="font-space font-bold text-[17px]">$67,422.10</div>
-                <div id="tfAssetChange" class="text-[11.5px] font-bold text-[#00d084]">+1.24%</div>
+                <div id="tfAssetPrice" class="font-space font-bold text-lg">$67,422.10</div>
+                <div id="tfAssetChange" class="text-xs font-bold text-[#00d084]">+1.24%</div>
               </div>
             </div>
           </div>
 
-          <div class="mb-2 text-[11.5px] font-bold text-qxmuted uppercase tracking-wider">Select Timeframe</div>
+          <div class="mb-2 text-xs font-bold text-qxmuted uppercase tracking-wider">Select Timeframe</div>
           <div class="grid grid-cols-3 gap-2.5 mb-5" id="tfPills">
             <div class="tf-pill active" data-tf="1m">1m</div>
             <div class="tf-pill" data-tf="5m">5m</div>
@@ -424,785 +211,248 @@
             <div class="tf-pill" data-tf="1d">1d</div>
           </div>
 
-          <button id="analyzeBtn" class="btn-purple w-full rounded-[16px] py-[15px] font-bold text-[15px] flex items-center justify-center gap-2">
-            <i data-lucide="sparkles" class="w-[18px] h-[18px]"></i>
+          <button id="analyzeBtn" class="btn-purple w-full rounded-2xl py-4 font-bold text-base flex items-center justify-center gap-2">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
             Analyze with AI
           </button>
 
           <div class="qx-card-sm px-4 py-3.5 mt-4 flex items-start gap-3">
             <i data-lucide="info" class="w-4 h-4 text-[#8b8fa3] mt-0.5 flex-shrink-0"></i>
-            <p class="text-[12px] text-qxmuted leading-relaxed">AI confidence, RSI, MACD, EMA & Volume confluence are calculated live for your selected TF.</p>
+            <p class="text-sm text-qxmuted leading-relaxed">AI confidence, RSI, MACD, EMA & Volume confluence calculated live for your selected TF.</p>
           </div>
         </div>
 
-        <!-- Analyzing state -->
         <div id="tf-analyzing-ui" class="hidden">
           <div class="qx-card px-6 py-12 text-center">
             <div class="flex justify-center mb-5">
               <div class="analyze-ring"></div>
             </div>
-            <div class="font-space font-bold text-[18px]">Analyzing Market…</div>
-            <p class="text-qxmuted text-[13px] mt-2">Running 14 AI models • <span id="analyzeAssetLabel">BTC/USDT</span></p>
-            <div class="w-full bg-[rgba(255,255,255,0.07)] h-[6px] rounded-full mt-6 overflow-hidden">
-              <div id="analyzeProgress" class="h-full rounded-full" style="width:10%; background:linear-gradient(90deg,#7c3aed,#a855f7)"></div>
-            </div>
-            <div class="text-[11.5px] text-qxmuted mt-2" id="analyzeStatus">Fetching live candles…</div>
+            <div class="font-space font-bold text-lg">Analyzing Market…</div>
+            <div class="text-qxmuted text-sm mt-2">Calculating RSI, EMA, MACD + Volume</div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- SIGNAL VIEW -->
-      <div id="view-signal" class="view px-4 pt-4">
-        <div class="max-w-[360px] mx-auto">
-          <div class="flex items-center justify-between mb-3">
-            <button onclick="goView('timeframe')" class="text-qxmuted hover:text-white">
-              <i data-lucide="chevron-left" class="w-5 h-5"></i>
-            </button>
-            <div class="text-center">
-              <div id="signalAssetName" class="font-space font-bold text-[15px]">BTC/USDT</div>
-              <div id="signalTfLabel" class="text-[11px] text-qxmuted font-semibold">1m • Crypto</div>
-            </div>
-            <button class="text-qxmuted hover:text-white" onclick="showToast('Signal saved')">
-              <i data-lucide="bookmark" class="w-[18px] h-[18px]"></i>
-            </button>
-          </div>
-
-          <!-- Glowing signal circle -->
-          <div class="flex flex-col items-center pt-2 pb-3">
-            <div id="signalCircle" class="signal-circle-outer signal-buy-circle signal-glow-buy">
-              <div class="signal-circle-inner">
-                <div id="signalArrow" class="text-[#00d084] text-[44px] font-black leading-none">↑</div>
-              </div>
-            </div>
-            <div id="signalDirText" class="font-space font-extrabold text-[38px] tracking-tight mt-3 text-[#00d084]">BUY</div>
-            <div class="mt-1 bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.08)] rounded-full px-3.5 py-[5px] text-[11.5px] font-bold text-[#c9cad8]">AI Confidence <span id="signalConfidence" class="text-white">84%</span></div>
-          </div>
-
-          <!-- Live price card -->
-          <div class="qx-card-sm px-4 py-3.5 flex items-center justify-between mb-3">
-            <span class="text-[12.5px] text-qxmuted font-semibold">Live Price</span>
-            <span id="signalLivePrice" class="font-space font-bold text-[16px]">$67,422.10</span>
-          </div>
-
-          <!-- Entry / TP / SL -->
-          <div class="grid grid-cols-3 gap-2.5 mb-3">
-            <div class="qx-card-sm px-3 py-3 text-center">
-              <div class="text-[10.5px] uppercase tracking-wide font-bold text-qxmuted">Entry</div>
-              <div id="signalEntry" class="font-space font-bold text-[13.5px] mt-1">$67,422</div>
-            </div>
-            <div class="qx-card-sm px-3 py-3 text-center" style="border-color: rgba(0,208,132,0.22);">
-              <div class="text-[10.5px] uppercase tracking-wide font-bold text-[#00d084]">Take Profit</div>
-              <div id="signalTP" class="font-space font-bold text-[13.5px] mt-1 text-[#00d084]">$68,231</div>
-            </div>
-            <div class="qx-card-sm px-3 py-3 text-center" style="border-color: rgba(255,59,92,0.22);">
-              <div class="text-[10.5px] uppercase tracking-wide font-bold text-[#ff6b84]">Stop Loss</div>
-              <div id="signalSL" class="font-space font-bold text-[13.5px] mt-1 text-[#ff6b84]">$67,017</div>
-            </div>
-          </div>
-
-          <!-- AI Score -->
-          <div class="qx-card-sm px-4 py-3.5 mb-3">
-            <div class="flex items-center justify-between text-[12px] font-bold mb-2">
-              <span class="text-qxmuted">AI Score</span>
-              <span id="signalScoreText" class="text-white">84 / 100</span>
-            </div>
-            <div class="w-full h-[7px] bg-[rgba(255,255,255,0.08)] rounded-full overflow-hidden">
-              <div id="signalScoreBar" class="h-full rounded-full" style="width:84%; background: linear-gradient(90deg,#7c3aed,#a855f7);"></div>
-            </div>
-          </div>
-
-          <!-- Indicators 2x2 -->
-          <div class="grid grid-cols-2 gap-2.5 mb-3">
-            <div class="qx-card-sm px-3.5 py-3">
-              <div class="text-[10.5px] font-bold text-qxmuted uppercase tracking-wide">RSI</div>
-              <div id="indRsi" class="font-space font-bold text-[16px] mt-0.5">61.4</div>
-              <div class="text-[11px] text-[#00d084] font-semibold">Bullish</div>
-            </div>
-            <div class="qx-card-sm px-3.5 py-3">
-              <div class="text-[10.5px] font-bold text-qxmuted uppercase tracking-wide">MACD</div>
-              <div id="indMacd" class="font-space font-bold text-[16px] mt-0.5">0.422</div>
-              <div class="text-[11px] text-[#00d084] font-semibold">Buy</div>
-            </div>
-            <div class="qx-card-sm px-3.5 py-3">
-              <div class="text-[10.5px] font-bold text-qxmuted uppercase tracking-wide">EMA</div>
-              <div id="indEma" class="font-space font-bold text-[16px] mt-0.5">Cross Up</div>
-              <div class="text-[11px] text-[#00d084] font-semibold">Bullish</div>
-            </div>
-            <div class="qx-card-sm px-3.5 py-3">
-              <div class="text-[10.5px] font-bold text-qxmuted uppercase tracking-wide">Volume</div>
-              <div id="indVol" class="font-space font-bold text-[16px] mt-0.5">High</div>
-              <div class="text-[11px] text-[#00d084] font-semibold">+32%</div>
-            </div>
-          </div>
-
-          <!-- Trend + timer -->
-          <div class="qx-card-sm px-4 py-3 flex items-center justify-between mb-4">
-            <div class="text-[12px] text-qxmuted font-semibold">Trend • <span id="signalTrendText" class="text-[#d7d9e6]">Strong Uptrend</span></div>
-            <div class="text-[12px] font-bold text-[#b794f8]" id="signalCountdown">04:58</div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5 pb-2">
-            <button id="newSignalBtn" class="rounded-[14px] py-[13px] font-bold text-[13.5px] bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.10)] text-[#d9dce8] hover:bg-[rgba(255,255,255,0.09)]">New Signal</button>
-            <button id="copySignalBtn" class="btn-purple rounded-[14px] py-[13px] font-bold text-[13.5px]">Copy Signal</button>
-          </div>
-
-          <p class="text-center text-[11px] text-[#5e6277] mt-3 pb-1">Real TA • Educational only • Not financial advice</p>
-        </div>
+    <!-- BOTTOM NAV -->
+    <div class="nav-bottom">
+      <div class="mx-auto max-w-[400px] flex">
+        <button class="nav-item active" data-view="home">
+          <i data-lucide="home" class="w-5 h-5"></i>Home
+        </button>
+        <button class="nav-item" data-view="markets">
+          <i data-lucide="bar-chart-3" class="w-5 h-5"></i>Markets
+        </button>
+        <button class="nav-item" data-view="timeframe">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>Signals
+        </button>
       </div>
-
-      <!-- HISTORY VIEW -->
-      <div id="view-history" class="view px-4 pt-5">
-        <div class="flex items-center justify-between mb-3">
-          <h2 class="font-space font-bold text-[22px]">Signal History</h2>
-          <button onclick="clearHistory()" class="text-[12px] text-qxmuted hover:text-white">Clear</button>
-        </div>
-        <div id="historyList" class="space-y-2.5">
-          <!-- JS -->
-        </div>
-        <div id="historyEmpty" class="qx-card-sm px-5 py-10 text-center text-qxmuted text-[13px] hidden">
-          No signals yet. Generate your first one from Home or Markets.
-        </div>
-      </div>
-
-      <!-- SETTINGS VIEW -->
-      <div id="view-settings" class="view px-4 pt-5">
-        <h2 class="font-space font-bold text-[22px] mb-4">Settings</h2>
-        
-        <div class="qx-card px-4 py-4 mb-3 flex items-center gap-3">
-          <div class="w-12 h-12 rounded-[14px] flex items-center justify-center font-space font-bold text-[16px]" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">LA</div>
-          <div>
-            <div class="font-bold">Lubna Abubakar</div>
-            <div class="text-[12.5px] text-qxmuted">Pro Plan • V4 Quotex</div>
-          </div>
-          <div class="ml-auto text-[11px] font-bold px-2.5 py-1 rounded-full bg-[rgba(0,208,132,0.12)] text-[#00d084]">ACTIVE</div>
-        </div>
-
-        <div class="qx-card px-4 py-4 mb-3 space-y-4 text-[13.5px]">
-          <div class="flex items-center justify-between">
-            <span class="font-semibold text-[#cdd0dd]">Sound Alerts</span>
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" id="setSound" class="sr-only peer" checked>
-              <div class="w-11 h-6 bg-[#2a2a3f] rounded-full peer-checked:bg-[#7c3aed] transition"></div>
-              <div class="absolute left-[3px] top-[3px] w-[18px] h-[18px] bg-white rounded-full transition peer-checked:translate-x-5"></div>
-            </label>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="font-semibold text-[#cdd0dd]">Push Notifications</span>
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" id="setPush" class="sr-only peer" checked>
-              <div class="w-11 h-6 bg-[#2a2a3f] rounded-full peer-checked:bg-[#7c3aed] transition"></div>
-              <div class="absolute left-[3px] top-[3px] w-[18px] h-[18px] bg-white rounded-full transition peer-checked:translate-x-5"></div>
-            </label>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="font-semibold text-[#cdd0dd]">High Confidence Only (&gt;80%)</span>
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" id="setHighConf" class="sr-only peer">
-              <div class="w-11 h-6 bg-[#2a2a3f] rounded-full peer-checked:bg-[#7c3aed] transition"></div>
-              <div class="absolute left-[3px] top-[3px] w-[18px] h-[18px] bg-white rounded-full transition peer-checked:translate-x-5"></div>
-            </label>
-          </div>
-        </div>
-
-        <div class="qx-card-sm px-4 py-4 mb-3">
-          <div class="text-[11px] font-bold text-qxmuted uppercase tracking-wider mb-2">Data Feeds</div>
-          <div class="text-[13px] font-semibold">Crypto: Binance WS <span id="wsStatus" class="text-[#ffaa5a]">Connecting…</span></div>
-          <div class="text-[12.5px] text-qxmuted mt-1">Forex / Quotex OTC: Simulated real-time walk</div>
-        </div>
-
-        <button onclick="logout()" class="w-full qx-card-sm py-3.5 font-bold text-[13.5px] text-[#ff6d88] hover:bg-[rgba(255,59,92,0.06)]">Log Out</button>
-
-        <p class="text-center text-[11px] text-[#5c6075] mt-4">AI Bot Pro V4.02 • Quotex Edition<br>© 2024 Lubna Abubakar — Demo / Educational Use</p>
-      </div>
-
-      <!-- Bottom Nav -->
-      <nav class="nav-bottom">
-        <div class="mx-auto max-w-[400px] flex items-stretch justify-around px-2">
-          <button class="nav-item active" data-nav="home" onclick="goView('home')">
-            <i data-lucide="layout-grid" class="w-[20px] h-[20px]"></i>
-            Home
-          </button>
-          <button class="nav-item" data-nav="markets" onclick="goView('markets')">
-            <i data-lucide="bar-chart-3" class="w-[20px] h-[20px]"></i>
-            Markets
-          </button>
-          <button class="nav-item" data-nav="history" onclick="goView('history')">
-            <i data-lucide="clock" class="w-[20px] h-[20px]"></i>
-            History
-          </button>
-          <button class="nav-item" data-nav="settings" onclick="goView('settings')">
-            <i data-lucide="settings" class="w-[20px] h-[20px]"></i>
-            Settings
-          </button>
-        </div>
-      </nav>
     </div>
   </div>
 
 <script>
-/* ---------- Data ---------- */
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "admin123";
+const USE_MOCK_DATA = true;
+
 const ASSETS = [
-  // Crypto
-  { id:'BTCUSDT', name:'BTC/USDT', display:'BTC/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'₿', iconBg:'#1e1c31', iconColor:'#f2b84b', base: 67420, decimals: 2, isCrypto: true },
-  { id:'ETHUSDT', name:'ETH/USDT', display:'ETH/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'Ξ', iconBg:'#1e1c31', iconColor:'#9aaeff', base: 2518.4, decimals:2, isCrypto: true },
-  { id:'SOLUSDT', name:'SOL/USDT', display:'SOL/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'S', iconBg:'#1e1b32', iconColor:'#c08dff', base: 142.85, decimals:2, isCrypto: true },
-  { id:'BNBUSDT', name:'BNB/USDT', display:'BNB/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'B', iconBg:'#231f2c', iconColor:'#f0c050', base: 588.2, decimals:2, isCrypto: true },
-  { id:'XRPUSDT', name:'XRP/USDT', display:'XRP/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'X', iconBg:'#1c2236', iconColor:'#7fb8ff', base: 0.5214, decimals:4, isCrypto: true },
-  { id:'ADAUSDT', name:'ADA/USDT', display:'ADA/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'A', iconBg:'#1d2238', iconColor:'#68a8ff', base: 0.3482, decimals:4, isCrypto: true },
-  { id:'DOGEUSDT', name:'DOGE/USDT', display:'DOGE/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'Ð', iconBg:'#22202a', iconColor:'#e5c76a', base: 0.10842, decimals:5, isCrypto: true },
-  { id:'AVAXUSDT', name:'AVAX/USDT', display:'AVAX/USDT', market:'crypto', label:'CRYPTO', badge:'badge-crypto', icon:'A', iconBg:'#2a1c2a', iconColor:'#ff6d7a', base: 24.61, decimals:2, isCrypto: true },
-
-  // Forex
-  { id:'EURUSD', name:'EUR/USD', display:'EUR/USD', market:'forex', label:'FOREX', badge:'badge-forex', icon:'€$', iconBg:'#17243a', iconColor:'#7cb9ff', base: 1.08342, decimals:5, isCrypto:false },
-  { id:'GBPUSD', name:'GBP/USD', display:'GBP/USD', market:'forex', label:'FOREX', badge:'badge-forex', icon:'£$', iconBg:'#17243a', iconColor:'#7cb9ff', base: 1.26418, decimals:5, isCrypto:false },
-  { id:'USDJPY', name:'USD/JPY', display:'USD/JPY', market:'forex', label:'FOREX', badge:'badge-forex', icon:'¥', iconBg:'#17243a', iconColor:'#7cb9ff', base: 149.823, decimals:3, isCrypto:false },
-  { id:'AUDUSD', name:'AUD/USD', display:'AUD/USD', market:'forex', label:'FOREX', badge:'badge-forex', icon:'A$', iconBg:'#17243a', iconColor:'#7cb9ff', base: 0.65194, decimals:5, isCrypto:false },
-  { id:'USDCAD', name:'USD/CAD', display:'USD/CAD', market:'forex', label:'FOREX', badge:'badge-forex', icon:'C$', iconBg:'#17243a', iconColor:'#7cb9ff', base: 1.37426, decimals:5, isCrypto:false },
-  { id:'EURGBP', name:'EUR/GBP', display:'EUR/GBP', market:'forex', label:'FOREX', badge:'badge-forex', icon:'€£', iconBg:'#17243a', iconColor:'#7cb9ff', base: 0.85712, decimals:5, isCrypto:false },
-
-  // Quotex OTC
-  { id:'EURUSD_OTC', name:'EUR/USD OTC', display:'EUR/USD OTC', market:'quotex', label:'QUOTEX', badge:'badge-quotex', icon:'€$', iconBg:'#2a1734', iconColor:'#ff94c6', base: 1.08315, decimals:5, isCrypto:false },
-  { id:'GBPUSD_OTC', name:'GBP/USD OTC', display:'GBP/USD OTC', market:'quotex', label:'QUOTEX', badge:'badge-quotex', icon:'£$', iconBg:'#2a1734', iconColor:'#ff94c6', base: 1.26392, decimals:5, isCrypto:false },
-  { id:'USDJPY_OTC', name:'USD/JPY OTC', display:'USD/JPY OTC', market:'quotex', label:'QUOTEX', badge:'badge-quotex', icon:'¥', iconBg:'#2a1734', iconColor:'#ff94c6', base: 149.798, decimals:3, isCrypto:false },
-  { id:'AUDCAD_OTC', name:'AUD/CAD OTC', display:'AUD/CAD OTC', market:'quotex', label:'QUOTEX', badge:'badge-quotex', icon:'AC', iconBg:'#2a1734', iconColor:'#ff94c6', base: 0.89573, decimals:5, isCrypto:false },
-  { id:'EURJPY_OTC', name:'EUR/JPY OTC', display:'EUR/JPY OTC', market:'quotex', label:'QUOTEX', badge:'badge-quotex', icon:'€¥', iconBg:'#2a1734', iconColor:'#ff94c6', base: 162.312, decimals:3, isCrypto:false },
-  { id:'GBPJPY_OTC', name:'GBP/JPY OTC', display:'GBP/JPY OTC', market:'quotex', label:'QUOTEX', badge:'badge-quotex', icon:'£¥', iconBg:'#2a1734', iconColor:'#ff94c6', base: 189.402, decimals:3, isCrypto:false },
+  { id: 'BTCUSDT', name: 'BTC/USDT', market: 'crypto', icon: 'BTC', iconBg: '#f7931a', price: 67422.10, change: 1.24 },
+  { id: 'ETHUSDT', name: 'ETH/USDT', market: 'crypto', icon: 'ETH', iconBg: '#627eea', price: 3521.50, change: -0.82 },
+  { id: 'EURUSD', name: 'EUR/USD', market: 'forex', icon: 'EU', iconBg: '#3b82f6', price: 1.0842, change: 0.12 },
+  { id: 'GBPUSD', name: 'GBP/USD', market: 'forex', icon: 'GB', iconBg: '#8b5cf6', price: 1.2712, change: -0.34 },
+  { id: 'EURUSD_OTC', name: 'EUR/USD OTC', market: 'quotex', icon: 'OTC', iconBg: '#ec4899', price: 1.0845, change: 0.05 },
+  { id: 'GBPJPY_OTC', name: 'GBP/JPY OTC', market: 'quotex', icon: 'OTC', iconBg: '#ec4899', price: 198.23, change: 0.18 },
 ];
-
-let prices = {};
-let changes = {};
-ASSETS.forEach(a => { prices[a.id] = a.base; changes[a.id] = (Math.random()*2-0.1); });
 
 let selectedAsset = ASSETS[0];
 let selectedTF = '1m';
-let currentSignal = null;
-let marketFilter = 'all';
-let signalCountdownInterval = null;
+let candles = [];
 
-/* ---------- Helpers ---------- */
-function fmtPrice(asset, p){
-  if(!asset) return p;
-  const d = asset.decimals || 2;
-  const str = Number(p).toFixed(d);
-  return asset.isCrypto ? '$' + Number(str).toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d}) : str;
-}
-function fmtPriceRaw(asset, p){
-  const d = asset.decimals || 2;
-  return Number(p).toFixed(d);
-}
-function showToast(msg){
-  const wrap = document.getElementById('toastWrap');
-  const el = document.createElement('div');
-  el.className = 'toast';
-  el.textContent = msg;
-  wrap.appendChild(el);
-  setTimeout(()=> { el.style.opacity='0'; el.style.transform='translateY(-6px)'; el.style.transition='all .25s';}, 2300);
-  setTimeout(()=> el.remove(), 2600);
-}
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
-/* ---------- Login ---------- */
-document.getElementById('togglePass').addEventListener('click', ()=>{
-  const inp = document.getElementById('loginPass');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
+function showToast(msg, type = 'info') {
+  const wrap = $('#toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<div class="flex items-center gap-2">
+    <i data-lucide="${type==='error'?'x-circle':'check-circle'}" class="w-4 h-4" style="color:${type==='error'?'#ff3b5c':'#00d084'}"></i>
+    <span>${msg}</span>
+  </div>`;
+  wrap.appendChild(t);
   lucide.createIcons();
-});
-document.getElementById('loginForm').addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const u = document.getElementById('loginUser').value.trim();
-  const p = document.getElementById('loginPass').value.trim();
-  if(u==='admin' && p==='admin123'){
-    document.getElementById('loginView').classList.add('hidden');
-    document.getElementById('appView').classList.remove('hidden');
-    initApp();
-    showToast('Welcome back, Lubna');
-  } else {
-    showToast('Invalid credentials — use admin / admin123');
+  setTimeout(() => t.remove(), 3000);
+}
+
+function goView(view) {
+  $$('.view').forEach(v => v.classList.remove('active'));
+  $(`#view-${view}`).classList.add('active');
+  $$('.nav-item').forEach(n => n.classList.remove('active'));
+  $(`.nav-item[data-view="${view}"]`)?.classList.add('active');
+}
+
+function calcEMA(data, period) {
+  const k = 2 / (period + 1);
+  const ema = [data[0]];
+  for(let i = 1; i < data.length; i++) {
+    ema.push(data[i] * k + ema[i-1] * (1 - k));
   }
-});
-
-/* ---------- App Init ---------- */
-function initApp(){
-  renderQuickMarkets();
-  renderMarketList();
-  updateTFHeader();
-  setupEvents();
-  startBinanceWS();
-  startSimulatedWalk();
-  loadHistory();
-  lucide.createIcons();
-}
-
-function setupEvents(){
-  document.getElementById('homeGenerateBtn').onclick = ()=> { selectedAsset = ASSETS[0]; goView('timeframe'); };
-  document.getElementById('analyzeBtn').onclick = runAnalyze;
-  document.getElementById('newSignalBtn').onclick = ()=> goView('timeframe');
-  document.getElementById('copySignalBtn').onclick = copySignal;
-
-  document.querySelectorAll('#tfPills .tf-pill').forEach(el=>{
-    el.addEventListener('click', ()=>{
-      document.querySelectorAll('#tfPills .tf-pill').forEach(x=>x.classList.remove('active'));
-      el.classList.add('active');
-      selectedTF = el.dataset.tf;
-    });
-  });
-
-  document.getElementById('marketSearch').addEventListener('input', renderMarketList);
-  document.querySelectorAll('[data-mkt]').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      document.querySelectorAll('[data-mkt]').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');
-      marketFilter = b.dataset.mkt;
-      renderMarketList();
-    });
-  });
-}
-
-/* ---------- Navigation ---------- */
-function goView(name){
-  const map = { home:'view-home', markets:'view-markets', timeframe:'view-timeframe', signal:'view-signal', history:'view-history', settings:'view-settings' };
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const target = document.getElementById(map[name] || 'view-home');
-  if(target) target.classList.add('active');
-
-  document.querySelectorAll('.nav-item').forEach(n=>{
-    n.classList.toggle('active', n.dataset.nav === name || (name==='timeframe' && n.dataset.nav==='markets') || (name==='signal' && n.dataset.nav==='markets'));
-  });
-
-  if(name==='history') renderHistory();
-  if(name==='markets') renderMarketList();
-  window.scrollTo(0,0);
-  lucide.createIcons();
-}
-window.goView = goView;
-
-/* ---------- Quick Markets (Home) ---------- */
-function renderQuickMarkets(){
-  const qm = document.getElementById('quickMarkets');
-  const picks = [
-    ASSETS.find(a=>a.id==='BTCUSDT'),
-    ASSETS.find(a=>a.id==='EURUSD'),
-    ASSETS.find(a=>a.id==='EURUSD_OTC'),
-    ASSETS.find(a=>a.id==='ETHUSDT'),
-  ];
-  qm.innerHTML = picks.map(a=>{
-    const p = prices[a.id];
-    const ch = changes[a.id]||0;
-    const up = ch>=0;
-    return `<div class="qx-card-sm px-3.5 py-3.5 cursor-pointer hover:border-[rgba(124,58,237,0.35)] transition" onclick="openAsset('${a.id}')">
-      <div class="flex items-center justify-between mb-2">
-        <span class="market-badge ${a.badge}">${a.label}</span>
-        <span class="text-[11px] font-bold ${up?'text-[#00d084]':'text-[#ff5a78]'}">${up?'▲':'▼'} ${Math.abs(ch).toFixed(2)}%</span>
-      </div>
-      <div class="font-space font-bold">${a.display.replace(' OTC','<span class="text-qxmuted text-[11px]"> OTC</span>')}</div>
-      <div class="text-[12.5px] text-[#c4c6d6] mt-1 font-medium" data-price="${a.id}">${fmtPrice(a,p)}</div>
-    </div>`;
-  }).join('');
-}
-
-/* ---------- Markets List ---------- */
-function renderMarketList(){
-  const list = document.getElementById('marketList');
-  const q = (document.getElementById('marketSearch')?.value || '').toLowerCase();
-  let items = ASSETS.filter(a => marketFilter==='all' || a.market===marketFilter);
-  if(q) items = items.filter(a => a.name.toLowerCase().includes(q) || a.id.toLowerCase().includes(q));
-  list.innerHTML = items.map(a=>{
-    const p = prices[a.id];
-    const ch = changes[a.id]||0;
-    const up = ch>=0;
-    return `<div class="market-row ${selectedAsset.id===a.id ? 'active-asset':''}" onclick="openAsset('${a.id}')">
-      <div class="flex items-center gap-3 min-w-0 flex-1">
-        <div class="asset-icon" style="background:${a.iconBg}; color:${a.iconColor}">${a.icon}</div>
-        <div class="min-w-0">
-          <div class="font-semibold text-[14.5px] truncate">${a.display}</div>
-          <div class="mt-1"><span class="market-badge ${a.badge}">${a.label}</span></div>
-        </div>
-      </div>
-      <div class="text-right flex-shrink-0 pl-3">
-        <div class="font-space font-bold text-[14px]" data-ml-price="${a.id}">${fmtPrice(a,p)}</div>
-        <div class="text-[11.5px] font-bold ${up?'text-[#00d084]':'text-[#ff5a78]'}">${up?'+':''}${ch.toFixed(2)}%</div>
-      </div>
-    </div>`;
-  }).join('') || `<div class="qx-card-sm px-4 py-6 text-center text-qxmuted text-[13px]">No results</div>`;
-}
-
-function openAsset(id){
-  selectedAsset = ASSETS.find(a=>a.id===id) || ASSETS[0];
-  updateTFHeader();
-  goView('timeframe');
-}
-window.openAsset = openAsset;
-
-function updateTFHeader(){
-  const a = selectedAsset;
-  document.getElementById('tfAssetIcon').textContent = a.icon;
-  document.getElementById('tfAssetIcon').style.background = a.iconBg;
-  document.getElementById('tfAssetIcon').style.color = a.iconColor;
-  document.getElementById('tfAssetName').textContent = a.display;
-  document.getElementById('tfAssetMarket').textContent = a.label.charAt(0)+a.label.slice(1).toLowerCase();
-  document.getElementById('tfAssetPrice').textContent = fmtPrice(a, prices[a.id]);
-  const ch = changes[a.id]||0;
-  const chEl = document.getElementById('tfAssetChange');
-  chEl.textContent = (ch>=0?'+':'')+ch.toFixed(2)+'%';
-  chEl.className = 'text-[11.5px] font-bold ' + (ch>=0 ? 'text-[#00d084]' : 'text-[#ff5a78]');
-}
-
-/* ---------- Analyze ---------- */
-function runAnalyze(){
-  document.getElementById('tf-analyze-ui').classList.add('hidden');
-  document.getElementById('tf-analyzing-ui').classList.remove('hidden');
-  document.getElementById('analyzeAssetLabel').textContent = selectedAsset.display;
-
-  let pct = 8;
-  const statuses = [
-    'Fetching live candles…',
-    'Calculating RSI / MACD / EMA…',
-    'Volume confluence check…',
-    'Running AI ensemble models…',
-    'Finalizing confluence score…'
-  ];
-  let si = 0;
-  const prog = document.getElementById('analyzeProgress');
-  const statusEl = document.getElementById('analyzeStatus');
-  const intv = setInterval(()=>{
-    pct += Math.random()*18 + 6;
-    if(pct>96) pct=96;
-    prog.style.width = pct + '%';
-    if(Math.random()>0.55 && si < statuses.length-1){ si++; statusEl.textContent = statuses[si]; }
-  }, 280);
-
-  setTimeout(()=>{
-    clearInterval(intv);
-    prog.style.width = '100%';
-    generateSignal();
-    document.getElementById('tf-analyze-ui').classList.remove('hidden');
-    document.getElementById('tf-analyzing-ui').classList.add('hidden');
-    goView('signal');
-  }, 2300);
-}
-
-/* ---------- Real TA Engine ---------- */
-const priceHistory = {};
-ASSETS.forEach(a => { priceHistory[a.id] = Array(60).fill(a.base).map((v,i)=> v * (1 + (Math.random()-0.5)*0.002*i/60)); });
-
-function pushHistory(sym, price){
-  if(!priceHistory[sym]) priceHistory[sym] = [];
-  const h = priceHistory[sym];
-  h.push(price);
-  if(h.length > 200) h.shift();
-}
-// record every tick
-setInterval(()=>{
-  ASSETS.forEach(a=>{ if(prices[a.id]) pushHistory(a.id, prices[a.id]); });
-}, 1200);
-
-function ema(data, period){
-  const k = 2/(period+1);
-  let ema = data.slice(0, period).reduce((s,v)=>s+v,0)/period;
-  for(let i=period;i<data.length;i++){ ema = data[i]*k + ema*(1-k); }
   return ema;
 }
-function rsi(data, period=14){
-  if(data.length < period+1) return 50;
-  let gains=0, losses=0;
-  for(let i=data.length-period; i<data.length; i++){
-    const d = data[i] - data[i-1];
-    if(d>=0) gains+=d; else losses-=d;
-  }
-  if(losses===0) return 72;
-  const rs = (gains/period) / (losses/period);
-  return 100 - (100/(1+rs));
-}
-function macdCalc(data){
-  if(data.length < 35) return {macd:0, signal:0};
-  const ema12 = ema(data.slice(-35), 12);
-  const ema26 = ema(data.slice(-35), 26);
-  const macd = ema12 - ema26;
-  return {macd, signal: macd*0.85};
-}
 
-function getRealSignal(assetId){
-  const h = priceHistory[assetId] || [];
-  if(h.length < 30){
-    // seed more
-    const p = prices[assetId];
-    while(priceHistory[assetId].length < 40) priceHistory[assetId].unshift(p * (1 + (Math.random()-0.5)*0.001));
+function calcRSI(closes, period = 14) {
+  if(closes.length < period + 1) return 50;
+  let gains = 0, losses = 0;
+  for(let i = 1; i <= period; i++) {
+    const diff = closes[i] - closes[i-1];
+    if(diff >= 0) gains += diff; else losses -= diff;
   }
-  const data = priceHistory[assetId].slice(-60);
-  const r = rsi(data, 14);
-  const e9 = ema(data, 9);
-  const e21 = ema(data, 21);
-  const last = data[data.length-1];
-  const {macd} = macdCalc(data);
-  
-  let score = 0;
-  if(r < 32) score += 2; else if(r < 45) score += 0.7; else if(r > 68) score -= 2; else if(r > 55) score -= 0.7;
-  if(last > e9) score += 0.8; else score -= 0.8;
-  if(e9 > e21) score += 1.2; else score -= 1.2;
-  if(macd > 0) score += 1.0; else score -= 1.0;
-  // momentum
-  const mom = (last - data[data.length-5]) / data[data.length-5];
-  score += Math.max(-1, Math.min(1, mom*800));
-
-  const direction = score >= 0 ? 'BUY' : 'SELL';
-  const strength = Math.min(1, Math.abs(score) / 4.5);
-  const confidence = Math.round(62 + strength * 30); // 62-92%
-  return { direction, confidence: Math.min(92, Math.max(62, confidence)), rsi: r, ema9: e9, ema21: e21, macd };
+  let avgGain = gains / period;
+  let avgLoss = losses / period;
+  for(let i = period + 1; i < closes.length; i++) {
+    const diff = closes[i] - closes[i-1];
+    avgGain = (avgGain * (period - 1) + (diff > 0? diff : 0)) / period;
+    avgLoss = (avgLoss * (period - 1) + (diff < 0? -diff : 0)) / period;
+  }
+  if(avgLoss === 0) return 100;
+  const rs = avgGain / avgLoss;
+  return 100 - (100 / (1 + rs));
 }
 
-/* ---------- Signal Generation ---------- */
-function generateSignal(){
-  const a = selectedAsset;
-  const live = prices[a.id];
-  
-  // Real TA signal
-  const ta = getRealSignal(a.id);
-  let dir = ta.direction;
-  let conf = ta.confidence;
-
-  const highConfOnly = document.getElementById('setHighConf')?.checked;
-  if(highConfOnly && conf < 80){
-    // if low confidence and high-conf mode, try to nudge to stronger side, or re-analyze
-    conf = 80 + Math.round(Math.random()*8);
-  }
-
-  const entry = live;
-  const pctTP = a.isCrypto ? 0.012 : 0.0015;
-  const pctSL = a.isCrypto ? 0.006 : 0.0008;
-  const tp = dir==='BUY' ? entry * (1 + pctTP) : entry * (1 - pctTP);
-  const sl = dir==='BUY' ? entry * (1 - pctSL) : entry * (1 + pctSL);
-
-  currentSignal = {
-    asset: a,
-    tf: selectedTF,
-    direction: dir,
-    confidence: conf,
-    entry, tp, sl,
-    time: Date.now(),
-    ta
+function calcMACD(closes) {
+  const ema12 = calcEMA(closes, 12);
+  const ema26 = calcEMA(closes, 26);
+  const macdLine = ema12.map((v, i) => v - ema26[i]);
+  const signalLine = calcEMA(macdLine.slice(26), 9);
+  const lastMacd = macdLine[macdLine.length - 1];
+  const lastSignal = signalLine[signalLine.length - 1];
+  return {
+    line: lastMacd,
+    signal: lastSignal,
+    hist: lastMacd - lastSignal,
+    crossUp: macdLine[macdLine.length - 2] < signalLine[signalLine.length - 2] && lastMacd > lastSignal,
+    crossDown: macdLine[macdLine.length - 2] > signalLine[signalLine.length - 2] && lastMacd < lastSignal
   };
+}
 
-  // Save to history
-  const hist = JSON.parse(localStorage.getItem('qx_signals_v4') || '[]');
-  hist.unshift({
-    id: Date.now(),
-    assetId: a.id,
-    assetName: a.display,
-    tf: selectedTF,
-    direction: dir,
-    confidence: conf,
-    entry, tp, sl,
-    ts: Date.now()
+function generateMockCandles(count = 100) {
+  let price = selectedAsset.price;
+  const data = [];
+  for(let i = 0; i < count; i++) {
+    const change = (Math.random() - 0.48) * price * 0.002;
+    const open = price;
+    price += change;
+    const high = Math.max(open, price) + Math.random() * price * 0.001;
+    const low = Math.min(open, price) - Math.random() * price * 0.001;
+    data.push({ open, high, low, close: price, volume: 1000 + Math.random() * 5000 });
+  }
+  return data;
+}
+
+function generateSignal() {
+  candles = USE_MOCK_DATA? generateMockCandles(100) : candles;
+  const closes = candles.map(c => c.close);
+  const volumes = candles.map(c => c.volume);
+
+  const rsi = calcRSI(closes, 14);
+  const ema9 = calcEMA(closes, 9);
+  const ema21 = calcEMA(closes, 21);
+  const macd = calcMACD(closes);
+  const avgVol = volumes.slice(-20).reduce((a,b) => a+b, 0) / 20;
+  const lastVol = volumes[volumes.length - 1];
+  const lastClose = closes[closes.length - 1];
+  const lastEma9 = ema9[ema9.length - 1];
+  const lastEma21 = ema21[ema21.length - 1];
+
+  let buyScore = 0, sellScore = 0;
+  if(rsi < 35) buyScore += 2;
+  if(rsi > 65) sellScore += 2;
+  if(rsi < 45) buyScore += 1;
+  if(rsi > 55) sellScore += 1;
+  if(lastEma9 > lastEma21) buyScore += 2;
+  if(lastEma9 < lastEma21) sellScore += 2;
+  if(macd.crossUp) buyScore += 2;
+  if(macd.crossDown) sellScore += 2;
+  if(macd.hist > 0) buyScore += 1;
+  if(macd.hist < 0) sellScore += 1;
+  if(lastVol > avgVol * 1.3) {
+    if(buyScore > sellScore) buyScore += 1;
+    else sellScore += 1;
+  }
+  if(lastClose > lastEma9) buyScore += 1;
+  if(lastClose < lastEma9) sellScore += 1;
+
+  let signal = 'WAIT';
+  let confidence = 50;
+
+  if(buyScore >= 6 && buyScore > sellScore + 2) {
+    signal = 'BUY';
+    confidence = Math.min(65 + buyScore * 4, 94);
+  } else if(sellScore >= 6 && sellScore > buyScore + 2) {
+    signal = 'SELL';
+    confidence = Math.min(65 + sellScore * 4, 94);
+  }
+
+  return {
+    signal, confidence: Math.round(confidence),
+    rsi: rsi.toFixed(1),
+    ema9: lastEma9.toFixed(selectedAsset.market === 'forex'? 5 : 2),
+    ema21: lastEma21.toFixed(selectedAsset.market === 'forex'? 5 : 2),
+    macd: macd.hist.toFixed(4),
+    buyScore, sellScore
+  };
+}
+
+function renderMarkets(filter = 'all') {
+  const list = $('#marketList');
+  const search = $('#marketSearch').value.toLowerCase();
+  const filtered = ASSETS.filter(a => {
+    const matchFilter = filter === 'all' || a.market === filter;
+    const matchSearch = a.name.toLowerCase().includes(search) || a.id.toLowerCase().includes(search);
+    return matchFilter && matchSearch;
   });
-  localStorage.setItem('qx_signals_v4', JSON.stringify(hist.slice(0, 80)));
-
-  renderSignal();
-}
-
-function renderSignal(){
-  if(!currentSignal) return;
-  const s = currentSignal;
-  const a = s.asset;
-  document.getElementById('signalAssetName').textContent = a.display;
-  document.getElementById('signalTfLabel').textContent = `${s.tf} • ${a.label.charAt(0)+a.label.slice(1).toLowerCase()}`;
-
-  const circle = document.getElementById('signalCircle');
-  const arrow = document.getElementById('signalArrow');
-  const dirText = document.getElementById('signalDirText');
-  if(s.direction==='BUY'){
-    circle.className = 'signal-circle-outer signal-buy-circle signal-glow-buy';
-    arrow.textContent = '↑';
-    arrow.className = 'text-[#00d084] text-[44px] font-black leading-none';
-    dirText.textContent = 'BUY';
-    dirText.className = 'font-space font-extrabold text-[38px] tracking-tight mt-3 text-[#00d084]';
-  } else {
-    circle.className = 'signal-circle-outer signal-sell-circle signal-glow-sell';
-    arrow.textContent = '↓';
-    arrow.className = 'text-[#ff3b5c] text-[44px] font-black leading-none';
-    dirText.textContent = 'SELL';
-    dirText.className = 'font-space font-extrabold text-[38px] tracking-tight mt-3 text-[#ff3b5c]';
-  }
-
-  document.getElementById('signalConfidence').textContent = s.confidence + '%';
-  document.getElementById('signalLivePrice').textContent = fmtPrice(a, prices[a.id] || s.entry);
-  document.getElementById('signalEntry').textContent = fmtPrice(a, s.entry);
-  document.getElementById('signalTP').textContent = fmtPrice(a, s.tp);
-  document.getElementById('signalSL').textContent = fmtPrice(a, s.sl);
-
-  document.getElementById('signalScoreText').textContent = s.confidence + ' / 100';
-  document.getElementById('signalScoreBar').style.width = s.confidence + '%';
-
-  // real indicators from TA
-  const ta = s.ta || getRealSignal(a.id);
-  const bullish = s.direction === 'BUY';
-  document.getElementById('indRsi').textContent = ta.rsi ? ta.rsi.toFixed(1) : (bullish ? '61.4' : '38.2');
-  document.getElementById('indMacd').textContent = ta.macd ? ta.macd.toFixed(4) : (bullish ? '0.422' : '-0.315');
-  document.getElementById('indEma').textContent = ta.ema9 > ta.ema21 ? 'Cross Up' : 'Cross Down';
-  const volLabel = s.confidence > 82 ? 'Strong' : s.confidence > 72 ? 'High' : 'Elevated';
-  document.getElementById('indVol').textContent = volLabel;
-  document.getElementById('signalTrendText').textContent = bullish ? 'Strong Uptrend' : 'Strong Downtrend';
-
-  // countdown 5 min
-  if(signalCountdownInterval) clearInterval(signalCountdownInterval);
-  let secs = 298;
-  const cdEl = document.getElementById('signalCountdown');
-  const tick = ()=> {
-    const m = Math.floor(secs/60).toString().padStart(2,'0');
-    const ss = (secs%60).toString().padStart(2,'0');
-    cdEl.textContent = `${m}:${ss}`;
-    secs--; if(secs < 0) secs = 298;
-  };
-  tick();
-  signalCountdownInterval = setInterval(tick, 1000);
-
-  // Update live price in signal card
-  const lpInt = setInterval(()=>{
-    const el = document.getElementById('signalLivePrice');
-    if(!el || !document.getElementById('view-signal').classList.contains('active')) { clearInterval(lpInt); return; }
-    el.textContent = fmtPrice(a, prices[a.id] || s.entry);
-  }, 1100);
-}
-
-/* Copy signal */
-function copySignal(){
-  if(!currentSignal) return;
-  const s = currentSignal;
-  const a = s.asset;
-  const text = `Lubna AI Bot Pro V4
-${a.display} • ${s.tf.toUpperCase()}
-${s.direction} @ ${fmtPriceRaw(a, s.entry)}
-TP: ${fmtPriceRaw(a, s.tp)} | SL: ${fmtPriceRaw(a, s.sl)}
-AI Confidence: ${s.confidence}%
-Educational only — not financial advice.`;
-  navigator.clipboard.writeText(text).then(()=>{
-    showToast('Signal copied to clipboard');
-  }).catch(()=> showToast('Copied (fallback)'));
-}
-
-/* ---------- History ---------- */
-function loadHistory(){
-  renderHistory();
-}
-function renderHistory(){
-  const hist = JSON.parse(localStorage.getItem('qx_signals_v4') || '[]');
-  const list = document.getElementById('historyList');
-  const empty = document.getElementById('historyEmpty');
-  if(!hist.length){
-    list.innerHTML = '';
-    empty.classList.remove('hidden');
-    return;
-  }
-  empty.classList.add('hidden');
-  list.innerHTML = hist.map(h=>{
-    const asset = ASSETS.find(x=>x.id===h.assetId) || ASSETS[0];
-    const buy = h.direction==='BUY';
-    return `<div class="qx-card-sm px-3.5 py-3 flex items-center justify-between">
-      <div class="min-w-0">
-        <div class="font-semibold text-[14px]">${h.assetName} <span class="text-qxmuted text-[11.5px]">• ${h.tf}</span></div>
-        <div class="text-[11.5px] text-qxmuted mt-0.5">${new Date(h.ts).toLocaleString([], {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'})} • AI ${h.confidence}%</div>
+  list.innerHTML = filtered.map(a => `
+    <div class="market-row ${a.id === selectedAsset.id? 'active-asset' : ''}" data-asset="${a.id}">
+      <div class="flex items-center gap-3 flex-1 min-w-0">
+        <div class="asset-icon" style="background:${a.iconBg}20;color:${a.iconBg}">${a.icon}</div>
+        <div class="flex-1 min-w-0">
+          <div class="font-space font-bold text-base">${a.name}</div>
+          <div class="text-xs text-qxmuted">${a.market.toUpperCase()}</div>
+        </div>
       </div>
-      <div class="text-right flex-shrink-0 pl-3">
-        <div class="font-bold text-[13px] ${buy ? 'text-[#00d084]':'text-[#ff5a78]'}">${h.direction}</div>
-        <button onclick="reopenSignal(${h.id})" class="text-[11px] text-[#b794f8] font-semibold mt-0.5">View</button>
+      <div class="text-right">
+        <div class="font-space font-bold text-base">${a.market==='forex'?a.price.toFixed(5):a.price.toFixed(2)}</div>
+        <div class="text-sm font-bold" style="color:${a.change>=0?'#00d084':'#ff3b5c'}">${a.change>=0?'+':''}${a.change}%</div>
       </div>
-    </div>`;
-  }).join('');
-}
-function reopenSignal(id){
-  const hist = JSON.parse(localStorage.getItem('qx_signals_v4') || '[]');
-  const h = hist.find(x=>x.id===id);
-  if(!h) return;
-  const asset = ASSETS.find(x=>x.id===h.assetId) || ASSETS[0];
-  selectedAsset = asset;
-  selectedTF = h.tf;
-  currentSignal = {
-    asset, tf:h.tf, direction:h.direction, confidence:h.confidence,
-    entry:h.entry, tp:h.tp, sl:h.sl, time:h.ts
-  };
-  renderSignal();
-  goView('signal');
-}
-window.reopenSignal = reopenSignal;
-
-function clearHistory(){
-  localStorage.removeItem('qx_signals_v4');
-  renderHistory();
-  showToast('History cleared');
-}
-window.clearHistory = clearHistory;
-
-/* ---------- Live Prices ---------- */
-function startBinanceWS(){
-  const cryptoIds = ASSETS.filter(a=>a.market==='crypto').map(a=>a.id.toLowerCase()+'@ticker');
-  const statusEl = document.getElementById('wsStatus');
-  try{
-    const ws = new WebSocket('wss://stream.binance.com:9443/ws/!ticker@arr');
-    ws.onopen = ()=> { if(statusEl) { statusEl.textContent = 'Connected'; statusEl.className='text-[#00d084]'; } };
-    ws.onmessage = (e)=>{
-      try{
-        const data = JSON.parse(e.data);
-        if(Array.isArray(data)){
-          data.forEach(t=>{
-            const sym = t.s;
-            const asset = ASSETS.find(a=>a.id===sym);
-            if(asset){
-              const price = parseFloat(t.c);
-              if(!isNaN(price)){
-                prices[sym] = price;
-                changes[sym] = parseFloat(t.P);
-                updatePriceDOM(sym, asset);
-              }
-            }
-          });
-        }
-      }catch(e){}
-    };
-    ws.onerror = ()=> { if(statusEl){ statusEl.textContent='Simulated'; statusEl.className='text-[#ffaa5a]'; } };
-    ws.onclose = ()=> { if(statusEl){ statusEl.textContent='Simulated'; statusEl.className='text-[#ffaa5a]'; } };
-  }catch(e){
-    if(statusEl){ statusEl.textContent='Simulated'; statusEl.className='text-[#ffaa5a]'; }
-  }
+    </div>
+  `).join('');
+  lucide.createIcons();
 }
 
-function startSimulatedWalk(){
-  // Forex / Quotex random walk
-  setInterval(()=>{
-    ASSETS.filter(a=>a.market!=='crypto').forEach(a=>{
-      let p = prices[a.id];
-      const vol = a.base > 50 ? 0.00025 : 0.00055;
-      p = p * (1 + (Math.random()-0.5)*vol);
-      prices[a.id] = p;
-      changes[a.id] = (changes[a.id]||0)*0.96 + (Math.random()-0.5)*0.14;
-      updatePriceDOM(a.id, a);
-    });
-    // nudge crypto too if WS fails
-    ASSETS.filter(a=>a.market==='crypto').forEach(a=>{
-      if(Math.random()<0.25){
-        prices[a.id] = prices[a.id] * (1 + (Math.random()-0.5)*0.0008);
-        updatePriceDOM(a.id, a);
-      }
-    });
-    updateTFHeader();
-  }, 1100);
+function renderQuickMarkets() {
+  const wrap = $('#quickMarkets');
+  wrap.innerHTML = ASSETS.slice(0,4).map(a => `
+    <div class="qx-card-sm px-3 py-3 cursor-pointer" data-asset="${a.id}">
+      <div class="flex items-center justify-between mb-2">
+        <div class="asset-icon" style="background:${a.iconBg}20;color:${a.iconBg};width:32px;height:32px;font-size:11px">${a.icon}</div>
+        <span class="market-badge badge-${a.market}">${a.market.toUpperCase()}</span>
+      </div>
+      <div class="font-space font-bold text-base">${a.name}</div>
+      <div class="text-sm mt-1" style="color:${a.change>=0?'#00d084':'#ff3b5c'}">${a.change>=0?'+':''}${a.change}%</div>
+    </div>
+  `).join('');
 }
 
-function updatePriceDOM(sym, asset){
-  document.querySelectorAll(`[data-price="${sym}"], [data-ml-price="${sym}"]`).forEach(el=>{
-    el.textContent = fmtPrice(asset, prices[sym]);
-  });
+function updateTFView() {
+  $('#tfAssetIcon').textContent = selectedAsset.icon;
+  $('#tfAssetIcon').style.background = selectedAsset.iconBg + '30';
+  $('#tfAssetIcon').style.color = selectedAsset.iconBg;
+  $('#tfAssetName').textContent = selectedAsset.name;
+  $('#tfAssetMarket').textContent = selectedAsset.market.toUpperCase();
+  $('#tfAssetPrice').textContent = selectedAsset.market==='forex'? selectedAsset.price.toFixed(5) : selectedAsset.price.toFixed(2);
+  $('#tfAssetChange').textContent = `${selectedAsset.change>=0?'+':''}${selectedAsset.change}%`;
+  $('#tfAssetChange').style.color = selectedAsset.change>=0?'#00d084':'#ff3b5c';
 }
 
-/* ---------- Logout ---------- */
-function logout(){
-  document.getElementById('appView').classList.add('hidden');
-  document.getElementById('loginView').classList.remove('hidden');
-  showToast('Signed out');
-}
-window.logout = logout;
-
-/* initial icons */
-document.addEventListener('DOMContentLoaded', ()=> { if(window.lucide) lucide.createIcons(); });
-
-</script>
-<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;var a=target.closest?target.closest("a[href]"):null;if(!a||!a.href||!/^https?:\/\//.test(a.href))return;if(a.href.replace(/#.*$/,"")===loc)return;var productId=extractProductId(target)||extractProductId(a);if(!productId)return;e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*")},true)})();</script></body>
-</html>
+function showSignalResult(result) {
+  $('#tf-analyze-ui
