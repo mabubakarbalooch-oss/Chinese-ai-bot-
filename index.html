@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LUBNA V10 PRO — BINANCE + POCKET + QUOTEX</title>
+<title>LUBNA V10 PRO - Lubna Abubakar</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#050508;--bg-card:rgba(255,255,255,0.04);--bg-card-hover:rgba(255,255,255,0.07);--border:rgba(139,92,246,0.15);--border-hover:rgba(139,92,246,0.35);--accent:#8b5cf6;--accent2:#fbbf24;--accent-grad:linear-gradient(135deg,#8b5cf6,#fbbf24);--buy:#22c55e;--sell:#ef4444;--text:#f8fafc;--text-muted:#94a3b8;--text-dim:#475569;--glow-purple:0 0 40px rgba(139,92,246,0.12);--glow-green:0 0 40px rgba(34,197,94,0.15);--glow-red:0 0 40px rgba(239,68,68,0.15);}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow:hidden;height:100dvh;}
+html,body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow:hidden;height:100%;width:100%;}
 #bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
 #bg::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse 600px 600px at 30% 20%,rgba(139,92,246,0.08),transparent),radial-gradient(ellipse 400px 400px at 80% 70%,rgba(251,191,36,0.05),transparent);animation:bgFloat 20s ease-in-out infinite;}
 #bg::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238b5cf6' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:0.4;}
 @keyframes bgFloat{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(2%,1%) scale(1.02);}}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:rgba(139,92,246,0.3);border-radius:10px;}
-.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;position:fixed;z-index:999;animation:fadeIn 0.6s ease;}
+.login-screen{width:100%;height:100%;display:flex;justify-content:center;align-items:center;position:fixed;top:0;left:0;z-index:999;transition:opacity 0.5s ease;}
 .login-card{width:92%;max-width:380px;background:var(--bg-card);backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:28px;padding:36px 32px;box-shadow:var(--glow-purple);position:relative;overflow:hidden;}
 .login-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(139,92,246,0.08),transparent 70%);animation:rotate 15s linear infinite;}
 @keyframes rotate{to{transform:rotate(360deg);}}
@@ -32,9 +32,8 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .login-badge{text-align:center;font-size:10px;color:var(--buy);margin-top:16px;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:6px;}
 .login-badge::before{content:'';width:6px;height:6px;background:var(--buy);border-radius:50%;animation:blink 1.5s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.app-screen{display:none;width:100%;height:100dvh;overflow-y:auto;position:fixed;top:0;left:0;animation:slideUp 0.4s ease;}
+.app-screen{display:none;width:100%;height:100%;overflow-y:auto;position:fixed;top:0;left:0;z-index:1;animation:slideUp 0.4s ease;}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 .app-header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(5,5,8,0.85);backdrop-filter:blur(25px);border-bottom:1px solid rgba(139,92,246,0.1);position:sticky;top:0;z-index:10;}
 .header-brand{font-weight:700;font-size:15px;background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .header-badge{background:rgba(139,92,246,0.1);padding:5px 14px;border-radius:20px;border:1px solid rgba(139,92,246,0.2);font-size:9px;color:var(--accent);font-weight:700;letter-spacing:1px;}
@@ -137,7 +136,8 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
     <div class="logo-wrap">
       <div class="logo">L10</div>
       <div class="login-title">LUBNA V10</div>
-      <div class="login-sub">BINANCE + POCKET + QUOTEX</div>
+      <div class="login-sub" style="letter-spacing:3px;">LUBNA ABUBAKAR</div>
+      <div style="text-align:center;font-size:9px;color:var(--text-muted);margin-bottom:20px;letter-spacing:4px;">BINANCE + POCKET + QUOTEX</div>
       <input type="text" id="loginId" value="LUBNA2024" class="login-input" placeholder="User ID">
       <input type="password" id="loginKey" value="PRO12345" class="login-input" placeholder="Access Key">
       <button class="unlock-btn" onclick="doLogin()">UNLOCK V10</button>
@@ -147,7 +147,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 </div>
 
 <!-- APP -->
-<div class="app-screen" id="appScreen">
+<div class="app-screen" id="appScreen" style="display:none;">
   <div class="app-header">
     <div class="header-brand">LUBNA V10 PRO</div>
     <div class="header-badge">MANUAL MODE</div>
@@ -160,46 +160,46 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
     <div class="ticker-live">Live Data</div>
   </div>
 
-  <!-- HOME SCREEN -->
+  <!-- HOME -->
   <div class="home-screen" id="homeScreen">
     <div class="section-title">Markets</div>
     <div class="section-sub">1 Tap = Analyze + Signal</div>
     
     <div class="market-card" onclick="openMarket('crypto')">
       <div class="market-name">Crypto REAL <span class="api-badge binance">BINANCE API</span></div>
-      <div class="market-desc">Live Binance Spot Prices — 20 Coins</div>
-      <div class="market-pairs">BTC • ETH • SOL • XRP • BNB • ADA • DOGE • DOT • MATIC • LTC • AVAX • LINK • UNI • ATOM • ETC • XLM • FIL • ALGO • VET • TRX</div>
+      <div class="market-desc">Live Binance Spot Prices - 20 Coins</div>
+      <div class="market-pairs">BTC - ETH - SOL - XRP - BNB - ADA - DOGE - DOT - MATIC - LTC - AVAX - LINK - UNI - ATOM - ETC - XLM - FIL - ALGO - VET - TRX</div>
     </div>
     
     <div class="market-card" onclick="openMarket('pocket_otc')">
       <div class="market-name">Pocket Option OTC <span class="api-badge pocket">POCKET OTC</span></div>
-      <div class="market-desc">OTC Currency Pairs — 20 Pairs</div>
-      <div class="market-pairs">EUR/USD • GBP/USD • USD/JPY • AUD/USD • USD/CAD • EUR/GBP • EUR/JPY • GBP/JPY • USD/CHF • NZD/USD • AUD/JPY • EUR/AUD • GBP/AUD • USD/SGD • EUR/CHF • GBP/CHF • AUD/CAD • CAD/JPY • EUR/CAD • NZD/JPY</div>
+      <div class="market-desc">OTC Currency Pairs - 20 Pairs</div>
+      <div class="market-pairs">EUR/USD - GBP/USD - USD/JPY - AUD/USD - USD/CAD - EUR/GBP - EUR/JPY - GBP/JPY - USD/CHF - NZD/USD - AUD/JPY - EUR/AUD - GBP/AUD - USD/SGD - EUR/CHF - GBP/CHF - AUD/CAD - CAD/JPY - EUR/CAD - NZD/JPY</div>
     </div>
     
     <div class="market-card" onclick="openMarket('quotex_otc')">
       <div class="market-name">Quotex OTC <span class="api-badge quotex">QUOTEX OTC</span></div>
-      <div class="market-desc">Quotex OTC Currency Pairs — 20 Pairs</div>
-      <div class="market-pairs">EUR/USD • GBP/USD • USD/JPY • AUD/USD • USD/CAD • EUR/GBP • EUR/JPY • GBP/JPY • USD/CHF • NZD/USD • AUD/JPY • EUR/AUD • GBP/AUD • USD/SGD • EUR/CHF • GBP/CHF • AUD/CAD • CAD/JPY • EUR/CAD • NZD/JPY</div>
+      <div class="market-desc">Quotex OTC Currency Pairs - 20 Pairs</div>
+      <div class="market-pairs">EUR/USD - GBP/USD - USD/JPY - AUD/USD - USD/CAD - EUR/GBP - EUR/JPY - GBP/JPY - USD/CHF - NZD/USD - AUD/JPY - EUR/AUD - GBP/AUD - USD/SGD - EUR/CHF - GBP/CHF - AUD/CAD - CAD/JPY - EUR/CAD - NZD/JPY</div>
     </div>
     
     <div class="market-card" onclick="openMarket('forex')">
       <div class="market-name">Forex REAL <span class="api-badge forex">FOREX API</span></div>
-      <div class="market-desc">Real Exchange Rates — 30 Pairs</div>
-      <div class="market-pairs">EUR/USD • GBP/USD • USD/JPY • AUD/USD • USD/CAD • EUR/GBP • EUR/JPY • GBP/JPY • USD/CHF • NZD/USD • AUD/JPY • EUR/AUD • GBP/AUD • USD/SGD • EUR/CHF • GBP/CHF • AUD/CAD • CAD/JPY • EUR/CAD • NZD/JPY • USD/BRL • USD/INR • USD/PKR • USD/MXN • USD/IDR • USD/TRY • USD/ZAR • USD/THB • USD/PHP • USD/VND</div>
+      <div class="market-desc">Real Exchange Rates - 30 Pairs</div>
+      <div class="market-pairs">EUR/USD - GBP/USD - USD/JPY - AUD/USD - USD/CAD - EUR/GBP - EUR/JPY - GBP/JPY - USD/CHF - NZD/USD - AUD/JPY - EUR/AUD - GBP/AUD - USD/SGD - EUR/CHF - GBP/CHF - AUD/CAD - CAD/JPY - EUR/CAD - NZD/JPY - USD/BRL - USD/INR - USD/PKR - USD/MXN - USD/IDR - USD/TRY - USD/ZAR - USD/THB - USD/PHP - USD/VND</div>
     </div>
     
     <div class="market-card" onclick="openMarket('commodities')">
       <div class="market-name">Gold & Silver <span class="api-badge binance">BINANCE</span></div>
-      <div class="market-desc">Precious Metals — Live Prices</div>
-      <div class="market-pairs">XAU/USD • XAG/USD • PAXG/USDT</div>
+      <div class="market-desc">Precious Metals - Live Prices</div>
+      <div class="market-pairs">XAU/USD - XAG/USD - PAXG/USDT</div>
     </div>
   </div>
 
-  <!-- ASSET SCREEN -->
+  <!-- ASSET -->
   <div class="asset-screen" id="assetScreen">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
-      <button class="back-btn" onclick="showScreen('homeScreen')">‹</button>
+      <button class="back-btn" onclick="showScreen('homeScreen')">&#8249;</button>
       <div>
         <div class="section-title" style="font-size:18px;" id="assetScreenTitle">Choose Pair</div>
         <div class="section-sub" style="margin:0;" id="assetScreenSub">Tap to analyze instantly</div>
@@ -208,7 +208,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
     <div id="assetList"></div>
   </div>
 
-  <!-- SIGNAL SCREEN -->
+  <!-- SIGNAL -->
   <div class="signal-screen" id="signalScreen">
     <div class="signal-box" id="mainSignalBox">
       <div class="signal-circle" id="signalBigCircle">
@@ -243,14 +243,14 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
     
     <div id="indicatorGrid" class="indicator-grid"></div>
     
-    <button class="btn btn-primary" id="generateBtn" onclick="generateNewSignal()">👉 DABAYEN — NAYA SIGNAL</button>
+    <button class="btn btn-primary" id="generateBtn" onclick="generateNewSignal()">&#128073; DABAYEN - NAYA SIGNAL</button>
     <button class="btn btn-secondary" onclick="showScreen('homeScreen')">CHANGE PAIR</button>
   </div>
 
-  <!-- HISTORY SCREEN -->
+  <!-- HISTORY -->
   <div class="history-screen" id="historyScreen">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
-      <button class="back-btn" onclick="showScreen('homeScreen')">‹</button>
+      <button class="back-btn" onclick="showScreen('homeScreen')">&#8249;</button>
       <div class="section-title" style="font-size:18px;">Signal History</div>
     </div>
     <div id="historyList"></div>
@@ -259,11 +259,11 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
   <!-- BOTTOM NAV -->
   <div class="bottom-nav">
     <div class="nav-item active" id="navHome" onclick="showScreen('homeScreen')">
-      <div class="nav-icon">◉</div>
+      <div class="nav-icon">&#9673;</div>
       <div class="nav-label">MARKETS</div>
     </div>
     <div class="nav-item" id="navHist" onclick="showScreen('historyScreen')">
-      <div class="nav-icon">◍</div>
+      <div class="nav-icon">&#9677;</div>
       <div class="nav-label">HISTORY</div>
     </div>
   </div>
@@ -272,138 +272,123 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 <div class="toast" id="toast"></div>
 
 <script>
-# Part 2 of 3: JavaScript - Assets data + API functions + UI functions
+# Part 2: JavaScript - Assets + API + UI functions
 
-part2 = '''// ═══════════════════════════════════════════════════════════════
-//  LUBNA V10 PRO — ASSETS DATA
-// ═══════════════════════════════════════════════════════════════
-
-const assets = {
-  // BINANCE REAL CRYPTO (20 pairs)
-  crypto: [
-    {pair:'BTC/USDT',flag:'₿',full:'Bitcoin',binance:'BTCUSDT',source:'binance'},
-    {pair:'ETH/USDT',flag:'Ξ',full:'Ethereum',binance:'ETHUSDT',source:'binance'},
-    {pair:'SOL/USDT',flag:'◎',full:'Solana',binance:'SOLUSDT',source:'binance'},
-    {pair:'XRP/USDT',flag:'✕',full:'Ripple',binance:'XRPUSDT',source:'binance'},
-    {pair:'BNB/USDT',flag:'🔶',full:'Binance Coin',binance:'BNBUSDT',source:'binance'},
-    {pair:'ADA/USDT',flag:'₳',full:'Cardano',binance:'ADAUSDT',source:'binance'},
-    {pair:'DOGE/USDT',flag:'🐕',full:'Dogecoin',binance:'DOGEUSDT',source:'binance'},
-    {pair:'DOT/USDT',flag:'●',full:'Polkadot',binance:'DOTUSDT',source:'binance'},
-    {pair:'MATIC/USDT',flag:'⬡',full:'Polygon',binance:'MATICUSDT',source:'binance'},
-    {pair:'LTC/USDT',flag:'Ł',full:'Litecoin',binance:'LTCUSDT',source:'binance'},
-    {pair:'AVAX/USDT',flag:'🔺',full:'Avalanche',binance:'AVAXUSDT',source:'binance'},
-    {pair:'LINK/USDT',flag:'🔗',full:'Chainlink',binance:'LINKUSDT',source:'binance'},
-    {pair:'UNI/USDT',flag:'🦄',full:'Uniswap',binance:'UNIUSDT',source:'binance'},
-    {pair:'ATOM/USDT',flag:'⚛',full:'Cosmos',binance:'ATOMUSDT',source:'binance'},
-    {pair:'ETC/USDT',flag:'∈',full:'Ethereum Classic',binance:'ETCUSDT',source:'binance'},
-    {pair:'XLM/USDT',flag:'✴',full:'Stellar',binance:'XLMUSDT',source:'binance'},
-    {pair:'FIL/USDT',flag:'📁',full:'Filecoin',binance:'FILUSDT',source:'binance'},
-    {pair:'ALGO/USDT',flag:'▲',full:'Algorand',binance:'ALGOUSDT',source:'binance'},
-    {pair:'VET/USDT',flag:'ⱽ',full:'VeChain',binance:'VETUSDT',source:'binance'},
-    {pair:'TRX/USDT',flag:'◈',full:'TRON',binance:'TRXUSDT',source:'binance'}
+part2 = '''// ASSETS DATA
+const assets={
+  crypto:[
+    {pair:'BTC/USDT',flag:'&#8383;',full:'Bitcoin',binance:'BTCUSDT',source:'binance'},
+    {pair:'ETH/USDT',flag:'&#926;',full:'Ethereum',binance:'ETHUSDT',source:'binance'},
+    {pair:'SOL/USDT',flag:'&#9673;',full:'Solana',binance:'SOLUSDT',source:'binance'},
+    {pair:'XRP/USDT',flag:'&#10005;',full:'Ripple',binance:'XRPUSDT',source:'binance'},
+    {pair:'BNB/USDT',flag:'&#128993;',full:'Binance Coin',binance:'BNBUSDT',source:'binance'},
+    {pair:'ADA/USDT',flag:'&#8371;',full:'Cardano',binance:'ADAUSDT',source:'binance'},
+    {pair:'DOGE/USDT',flag:'&#128054;',full:'Dogecoin',binance:'DOGEUSDT',source:'binance'},
+    {pair:'DOT/USDT',flag:'&#9679;',full:'Polkadot',binance:'DOTUSDT',source:'binance'},
+    {pair:'MATIC/USDT',flag:'&#11041;',full:'Polygon',binance:'MATICUSDT',source:'binance'},
+    {pair:'LTC/USDT',flag:'&#321;',full:'Litecoin',binance:'LTCUSDT',source:'binance'},
+    {pair:'AVAX/USDT',flag:'&#128314;',full:'Avalanche',binance:'AVAXUSDT',source:'binance'},
+    {pair:'LINK/USDT',flag:'&#128279;',full:'Chainlink',binance:'LINKUSDT',source:'binance'},
+    {pair:'UNI/USDT',flag:'&#129412;',full:'Uniswap',binance:'UNIUSDT',source:'binance'},
+    {pair:'ATOM/USDT',flag:'&#9883;',full:'Cosmos',binance:'ATOMUSDT',source:'binance'},
+    {pair:'ETC/USDT',flag:'&#8712;',full:'Ethereum Classic',binance:'ETCUSDT',source:'binance'},
+    {pair:'XLM/USDT',flag:'&#10036;',full:'Stellar',binance:'XLMUSDT',source:'binance'},
+    {pair:'FIL/USDT',flag:'&#128193;',full:'Filecoin',binance:'FILUSDT',source:'binance'},
+    {pair:'ALGO/USDT',flag:'&#9650;',full:'Algorand',binance:'ALGOUSDT',source:'binance'},
+    {pair:'VET/USDT',flag:'&#11377;',full:'VeChain',binance:'VETUSDT',source:'binance'},
+    {pair:'TRX/USDT',flag:'&#9670;',full:'TRON',binance:'TRXUSDT',source:'binance'}
   ],
-  
-  // POCKET OPTION OTC (20 pairs)
-  pocket_otc: [
-    {pair:'EUR/USD_otc',flag:'🇪🇺',full:'Euro / USD OTC',source:'pocket',baseRate:1.085},
-    {pair:'GBP/USD_otc',flag:'🇬🇧',full:'GBP / USD OTC',source:'pocket',baseRate:1.265},
-    {pair:'USD/JPY_otc',flag:'🇯🇵',full:'USD / JPY OTC',source:'pocket',baseRate:151.2},
-    {pair:'AUD/USD_otc',flag:'🇦🇺',full:'AUD / USD OTC',source:'pocket',baseRate:0.652},
-    {pair:'USD/CAD_otc',flag:'🇨🇦',full:'USD / CAD OTC',source:'pocket',baseRate:1.368},
-    {pair:'EUR/GBP_otc',flag:'🇪🇺',full:'EUR / GBP OTC',source:'pocket',baseRate:0.857},
-    {pair:'EUR/JPY_otc',flag:'🇪🇺',full:'EUR / JPY OTC',source:'pocket',baseRate:164.1},
-    {pair:'GBP/JPY_otc',flag:'🇬🇧',full:'GBP / JPY OTC',source:'pocket',baseRate:191.3},
-    {pair:'USD/CHF_otc',flag:'🇨🇭',full:'USD / CHF OTC',source:'pocket',baseRate:0.912},
-    {pair:'NZD/USD_otc',flag:'🇳🇿',full:'NZD / USD OTC',source:'pocket',baseRate:0.598},
-    {pair:'AUD/JPY_otc',flag:'🇦🇺',full:'AUD / JPY OTC',source:'pocket',baseRate:98.6},
-    {pair:'EUR/AUD_otc',flag:'🇪🇺',full:'EUR / AUD OTC',source:'pocket',baseRate:1.664},
-    {pair:'GBP/AUD_otc',flag:'🇬🇧',full:'GBP / AUD OTC',source:'pocket',baseRate:1.940},
-    {pair:'USD/SGD_otc',flag:'🇸🇬',full:'USD / SGD OTC',source:'pocket',baseRate:1.352},
-    {pair:'EUR/CHF_otc',flag:'🇪🇺',full:'EUR / CHF OTC',source:'pocket',baseRate:0.990},
-    {pair:'GBP/CHF_otc',flag:'🇬🇧',full:'GBP / CHF OTC',source:'pocket',baseRate:1.154},
-    {pair:'AUD/CAD_otc',flag:'🇦🇺',full:'AUD / CAD OTC',source:'pocket',baseRate:0.892},
-    {pair:'CAD/JPY_otc',flag:'🇨🇦',full:'CAD / JPY OTC',source:'pocket',baseRate:110.5},
-    {pair:'EUR/CAD_otc',flag:'🇪🇺',full:'EUR / CAD OTC',source:'pocket',baseRate:1.484},
-    {pair:'NZD/JPY_otc',flag:'🇳🇿',full:'NZD / JPY OTC',source:'pocket',baseRate:90.4}
+  pocket_otc:[
+    {pair:'EUR/USD_otc',flag:'&#127466;&#127482;',full:'Euro / USD OTC',source:'pocket',baseRate:1.085},
+    {pair:'GBP/USD_otc',flag:'&#127468;&#127463;',full:'GBP / USD OTC',source:'pocket',baseRate:1.265},
+    {pair:'USD/JPY_otc',flag:'&#127482;&#127479;',full:'USD / JPY OTC',source:'pocket',baseRate:151.2},
+    {pair:'AUD/USD_otc',flag:'&#127462;&#127482;',full:'AUD / USD OTC',source:'pocket',baseRate:0.652},
+    {pair:'USD/CAD_otc',flag:'&#127482;&#127464;',full:'USD / CAD OTC',source:'pocket',baseRate:1.368},
+    {pair:'EUR/GBP_otc',flag:'&#127466;&#127482;',full:'EUR / GBP OTC',source:'pocket',baseRate:0.857},
+    {pair:'EUR/JPY_otc',flag:'&#127466;&#127482;',full:'EUR / JPY OTC',source:'pocket',baseRate:164.1},
+    {pair:'GBP/JPY_otc',flag:'&#127468;&#127463;',full:'GBP / JPY OTC',source:'pocket',baseRate:191.3},
+    {pair:'USD/CHF_otc',flag:'&#127482;&#127464;',full:'USD / CHF OTC',source:'pocket',baseRate:0.912},
+    {pair:'NZD/USD_otc',flag:'&#127475;&#127487;',full:'NZD / USD OTC',source:'pocket',baseRate:0.598},
+    {pair:'AUD/JPY_otc',flag:'&#127462;&#127482;',full:'AUD / JPY OTC',source:'pocket',baseRate:98.6},
+    {pair:'EUR/AUD_otc',flag:'&#127466;&#127482;',full:'EUR / AUD OTC',source:'pocket',baseRate:1.664},
+    {pair:'GBP/AUD_otc',flag:'&#127468;&#127463;',full:'GBP / AUD OTC',source:'pocket',baseRate:1.940},
+    {pair:'USD/SGD_otc',flag:'&#127482;&#127480;',full:'USD / SGD OTC',source:'pocket',baseRate:1.352},
+    {pair:'EUR/CHF_otc',flag:'&#127466;&#127482;',full:'EUR / CHF OTC',source:'pocket',baseRate:0.990},
+    {pair:'GBP/CHF_otc',flag:'&#127468;&#127463;',full:'GBP / CHF OTC',source:'pocket',baseRate:1.154},
+    {pair:'AUD/CAD_otc',flag:'&#127462;&#127482;',full:'AUD / CAD OTC',source:'pocket',baseRate:0.892},
+    {pair:'CAD/JPY_otc',flag:'&#127464;&#127471;',full:'CAD / JPY OTC',source:'pocket',baseRate:110.5},
+    {pair:'EUR/CAD_otc',flag:'&#127466;&#127482;',full:'EUR / CAD OTC',source:'pocket',baseRate:1.484},
+    {pair:'NZD/JPY_otc',flag:'&#127475;&#127487;',full:'NZD / JPY OTC',source:'pocket',baseRate:90.4}
   ],
-  
-  // QUOTEX OTC (20 pairs)
-  quotex_otc: [
-    {pair:'EUR/USD_qx',flag:'🇪🇺',full:'Euro / USD Quotex',source:'quotex',baseRate:1.085},
-    {pair:'GBP/USD_qx',flag:'🇬🇧',full:'GBP / USD Quotex',source:'quotex',baseRate:1.265},
-    {pair:'USD/JPY_qx',flag:'🇯🇵',full:'USD / JPY Quotex',source:'quotex',baseRate:151.2},
-    {pair:'AUD/USD_qx',flag:'🇦🇺',full:'AUD / USD Quotex',source:'quotex',baseRate:0.652},
-    {pair:'USD/CAD_qx',flag:'🇨🇦',full:'USD / CAD Quotex',source:'quotex',baseRate:1.368},
-    {pair:'EUR/GBP_qx',flag:'🇪🇺',full:'EUR / GBP Quotex',source:'quotex',baseRate:0.857},
-    {pair:'EUR/JPY_qx',flag:'🇪🇺',full:'EUR / JPY Quotex',source:'quotex',baseRate:164.1},
-    {pair:'GBP/JPY_qx',flag:'🇬🇧',full:'GBP / JPY Quotex',source:'quotex',baseRate:191.3},
-    {pair:'USD/CHF_qx',flag:'🇨🇭',full:'USD / CHF Quotex',source:'quotex',baseRate:0.912},
-    {pair:'NZD/USD_qx',flag:'🇳🇿',full:'NZD / USD Quotex',source:'quotex',baseRate:0.598},
-    {pair:'AUD/JPY_qx',flag:'🇦🇺',full:'AUD / JPY Quotex',source:'quotex',baseRate:98.6},
-    {pair:'EUR/AUD_qx',flag:'🇪🇺',full:'EUR / AUD Quotex',source:'quotex',baseRate:1.664},
-    {pair:'GBP/AUD_qx',flag:'🇬🇧',full:'GBP / AUD Quotex',source:'quotex',baseRate:1.940},
-    {pair:'USD/SGD_qx',flag:'🇸🇬',full:'USD / SGD Quotex',source:'quotex',baseRate:1.352},
-    {pair:'EUR/CHF_qx',flag:'🇪🇺',full:'EUR / CHF Quotex',source:'quotex',baseRate:0.990},
-    {pair:'GBP/CHF_qx',flag:'🇬🇧',full:'GBP / CHF Quotex',source:'quotex',baseRate:1.154},
-    {pair:'AUD/CAD_qx',flag:'🇦🇺',full:'AUD / CAD Quotex',source:'quotex',baseRate:0.892},
-    {pair:'CAD/JPY_qx',flag:'🇨🇦',full:'CAD / JPY Quotex',source:'quotex',baseRate:110.5},
-    {pair:'EUR/CAD_qx',flag:'🇪🇺',full:'EUR / CAD Quotex',source:'quotex',baseRate:1.484},
-    {pair:'NZD/JPY_qx',flag:'🇳🇿',full:'NZD / JPY Quotex',source:'quotex',baseRate:90.4}
+  quotex_otc:[
+    {pair:'EUR/USD_qx',flag:'&#127466;&#127482;',full:'Euro / USD Quotex',source:'quotex',baseRate:1.085},
+    {pair:'GBP/USD_qx',flag:'&#127468;&#127463;',full:'GBP / USD Quotex',source:'quotex',baseRate:1.265},
+    {pair:'USD/JPY_qx',flag:'&#127482;&#127479;',full:'USD / JPY Quotex',source:'quotex',baseRate:151.2},
+    {pair:'AUD/USD_qx',flag:'&#127462;&#127482;',full:'AUD / USD Quotex',source:'quotex',baseRate:0.652},
+    {pair:'USD/CAD_qx',flag:'&#127482;&#127464;',full:'USD / CAD Quotex',source:'quotex',baseRate:1.368},
+    {pair:'EUR/GBP_qx',flag:'&#127466;&#127482;',full:'EUR / GBP Quotex',source:'quotex',baseRate:0.857},
+    {pair:'EUR/JPY_qx',flag:'&#127466;&#127482;',full:'EUR / JPY Quotex',source:'quotex',baseRate:164.1},
+    {pair:'GBP/JPY_qx',flag:'&#127468;&#127463;',full:'GBP / JPY Quotex',source:'quotex',baseRate:191.3},
+    {pair:'USD/CHF_qx',flag:'&#127482;&#127464;',full:'USD / CHF Quotex',source:'quotex',baseRate:0.912},
+    {pair:'NZD/USD_qx',flag:'&#127475;&#127487;',full:'NZD / USD Quotex',source:'quotex',baseRate:0.598},
+    {pair:'AUD/JPY_qx',flag:'&#127462;&#127482;',full:'AUD / JPY Quotex',source:'quotex',baseRate:98.6},
+    {pair:'EUR/AUD_qx',flag:'&#127466;&#127482;',full:'EUR / AUD Quotex',source:'quotex',baseRate:1.664},
+    {pair:'GBP/AUD_qx',flag:'&#127468;&#127463;',full:'GBP / AUD Quotex',source:'quotex',baseRate:1.940},
+    {pair:'USD/SGD_qx',flag:'&#127482;&#127480;',full:'USD / SGD Quotex',source:'quotex',baseRate:1.352},
+    {pair:'EUR/CHF_qx',flag:'&#127466;&#127482;',full:'EUR / CHF Quotex',source:'quotex',baseRate:0.990},
+    {pair:'GBP/CHF_qx',flag:'&#127468;&#127463;',full:'GBP / CHF Quotex',source:'quotex',baseRate:1.154},
+    {pair:'AUD/CAD_qx',flag:'&#127462;&#127482;',full:'AUD / CAD Quotex',source:'quotex',baseRate:0.892},
+    {pair:'CAD/JPY_qx',flag:'&#127464;&#127471;',full:'CAD / JPY Quotex',source:'quotex',baseRate:110.5},
+    {pair:'EUR/CAD_qx',flag:'&#127466;&#127482;',full:'EUR / CAD Quotex',source:'quotex',baseRate:1.484},
+    {pair:'NZD/JPY_qx',flag:'&#127475;&#127487;',full:'NZD / JPY Quotex',source:'quotex',baseRate:90.4}
   ],
-  
-  // FOREX REAL (30 pairs)
-  forex: [
-    {pair:'EUR/USD',flag:'🇪🇺',full:'Euro / US Dollar',source:'forex',baseRate:1.085},
-    {pair:'GBP/USD',flag:'🇬🇧',full:'GBP / US Dollar',source:'forex',baseRate:1.265},
-    {pair:'USD/JPY',flag:'🇯🇵',full:'USD / Japanese Yen',source:'forex',baseRate:151.2},
-    {pair:'AUD/USD',flag:'🇦🇺',full:'AUD / US Dollar',source:'forex',baseRate:0.652},
-    {pair:'USD/CAD',flag:'🇨🇦',full:'USD / Canadian Dollar',source:'forex',baseRate:1.368},
-    {pair:'EUR/GBP',flag:'🇪🇺',full:'EUR / GBP',source:'forex',baseRate:0.857},
-    {pair:'EUR/JPY',flag:'🇪🇺',full:'EUR / Japanese Yen',source:'forex',baseRate:164.1},
-    {pair:'GBP/JPY',flag:'🇬🇧',full:'GBP / Japanese Yen',source:'forex',baseRate:191.3},
-    {pair:'USD/CHF',flag:'🇨🇭',full:'USD / Swiss Franc',source:'forex',baseRate:0.912},
-    {pair:'NZD/USD',flag:'🇳🇿',full:'NZD / US Dollar',source:'forex',baseRate:0.598},
-    {pair:'AUD/JPY',flag:'🇦🇺',full:'AUD / Japanese Yen',source:'forex',baseRate:98.6},
-    {pair:'EUR/AUD',flag:'🇪🇺',full:'EUR / Australian Dollar',source:'forex',baseRate:1.664},
-    {pair:'GBP/AUD',flag:'🇬🇧',full:'GBP / Australian Dollar',source:'forex',baseRate:1.940},
-    {pair:'USD/SGD',flag:'🇸🇬',full:'USD / Singapore Dollar',source:'forex',baseRate:1.352},
-    {pair:'EUR/CHF',flag:'🇪🇺',full:'EUR / Swiss Franc',source:'forex',baseRate:0.990},
-    {pair:'GBP/CHF',flag:'🇬🇧',full:'GBP / Swiss Franc',source:'forex',baseRate:1.154},
-    {pair:'AUD/CAD',flag:'🇦🇺',full:'AUD / Canadian Dollar',source:'forex',baseRate:0.892},
-    {pair:'CAD/JPY',flag:'🇨🇦',full:'CAD / Japanese Yen',source:'forex',baseRate:110.5},
-    {pair:'EUR/CAD',flag:'🇪🇺',full:'EUR / Canadian Dollar',source:'forex',baseRate:1.484},
-    {pair:'NZD/JPY',flag:'🇳🇿',full:'NZD / Japanese Yen',source:'forex',baseRate:90.4},
-    {pair:'USD/BRL',flag:'🇧🇷',full:'USD / Brazilian Real',source:'forex',baseRate:5.45},
-    {pair:'USD/INR',flag:'🇮🇳',full:'USD / Indian Rupee',source:'forex',baseRate:83.5},
-    {pair:'USD/PKR',flag:'🇵🇰',full:'USD / Pakistani Rupee',source:'forex',baseRate:278.5},
-    {pair:'USD/MXN',flag:'🇲🇽',full:'USD / Mexican Peso',source:'forex',baseRate:17.15},
-    {pair:'USD/IDR',flag:'🇮🇩',full:'USD / Indonesian Rupiah',source:'forex',baseRate:16200},
-    {pair:'USD/TRY',flag:'🇹🇷',full:'USD / Turkish Lira',source:'forex',baseRate:32.15},
-    {pair:'USD/ZAR',flag:'🇿🇦',full:'USD / South African Rand',source:'forex',baseRate:18.45},
-    {pair:'USD/THB',flag:'🇹🇭',full:'USD / Thai Baht',source:'forex',baseRate:36.8},
-    {pair:'USD/PHP',flag:'🇵🇭',full:'USD / Philippine Peso',source:'forex',baseRate:56.7},
-    {pair:'USD/VND',flag:'🇻🇳',full:'USD / Vietnamese Dong',source:'forex',baseRate:25450}
+  forex:[
+    {pair:'EUR/USD',flag:'&#127466;&#127482;',full:'Euro / US Dollar',source:'forex',baseRate:1.085},
+    {pair:'GBP/USD',flag:'&#127468;&#127463;',full:'GBP / US Dollar',source:'forex',baseRate:1.265},
+    {pair:'USD/JPY',flag:'&#127482;&#127479;',full:'USD / Japanese Yen',source:'forex',baseRate:151.2},
+    {pair:'AUD/USD',flag:'&#127462;&#127482;',full:'AUD / US Dollar',source:'forex',baseRate:0.652},
+    {pair:'USD/CAD',flag:'&#127482;&#127464;',full:'USD / Canadian Dollar',source:'forex',baseRate:1.368},
+    {pair:'EUR/GBP',flag:'&#127466;&#127482;',full:'EUR / GBP',source:'forex',baseRate:0.857},
+    {pair:'EUR/JPY',flag:'&#127466;&#127482;',full:'EUR / Japanese Yen',source:'forex',baseRate:164.1},
+    {pair:'GBP/JPY',flag:'&#127468;&#127463;',full:'GBP / Japanese Yen',source:'forex',baseRate:191.3},
+    {pair:'USD/CHF',flag:'&#127482;&#127464;',full:'USD / Swiss Franc',source:'forex',baseRate:0.912},
+    {pair:'NZD/USD',flag:'&#127475;&#127487;',full:'NZD / US Dollar',source:'forex',baseRate:0.598},
+    {pair:'AUD/JPY',flag:'&#127462;&#127482;',full:'AUD / Japanese Yen',source:'forex',baseRate:98.6},
+    {pair:'EUR/AUD',flag:'&#127466;&#127482;',full:'EUR / Australian Dollar',source:'forex',baseRate:1.664},
+    {pair:'GBP/AUD',flag:'&#127468;&#127463;',full:'GBP / Australian Dollar',source:'forex',baseRate:1.940},
+    {pair:'USD/SGD',flag:'&#127482;&#127480;',full:'USD / Singapore Dollar',source:'forex',baseRate:1.352},
+    {pair:'EUR/CHF',flag:'&#127466;&#127482;',full:'EUR / Swiss Franc',source:'forex',baseRate:0.990},
+    {pair:'GBP/CHF',flag:'&#127468;&#127463;',full:'GBP / Swiss Franc',source:'forex',baseRate:1.154},
+    {pair:'AUD/CAD',flag:'&#127462;&#127482;',full:'AUD / Canadian Dollar',source:'forex',baseRate:0.892},
+    {pair:'CAD/JPY',flag:'&#127464;&#127471;',full:'CAD / Japanese Yen',source:'forex',baseRate:110.5},
+    {pair:'EUR/CAD',flag:'&#127466;&#127482;',full:'EUR / Canadian Dollar',source:'forex',baseRate:1.484},
+    {pair:'NZD/JPY',flag:'&#127475;&#127487;',full:'NZD / Japanese Yen',source:'forex',baseRate:90.4},
+    {pair:'USD/BRL',flag:'&#127463;&#127479;',full:'USD / Brazilian Real',source:'forex',baseRate:5.45},
+    {pair:'USD/INR',flag:'&#127470;&#127475;',full:'USD / Indian Rupee',source:'forex',baseRate:83.5},
+    {pair:'USD/PKR',flag:'&#127477;&#127472;',full:'USD / Pakistani Rupee',source:'forex',baseRate:278.5},
+    {pair:'USD/MXN',flag:'&#127474;&#127485;',full:'USD / Mexican Peso',source:'forex',baseRate:17.15},
+    {pair:'USD/IDR',flag:'&#127470;&#127465;',full:'USD / Indonesian Rupiah',source:'forex',baseRate:16200},
+    {pair:'USD/TRY',flag:'&#127481;&#127479;',full:'USD / Turkish Lira',source:'forex',baseRate:32.15},
+    {pair:'USD/ZAR',flag:'&#127487;&#127462;',full:'USD / South African Rand',source:'forex',baseRate:18.45},
+    {pair:'USD/THB',flag:'&#127481;&#127469;',full:'USD / Thai Baht',source:'forex',baseRate:36.8},
+    {pair:'USD/PHP',flag:'&#127477;&#127469;',full:'USD / Philippine Peso',source:'forex',baseRate:56.7},
+    {pair:'USD/VND',flag:'&#127483;&#127475;',full:'USD / Vietnamese Dong',source:'forex',baseRate:25450}
   ],
-  
-  // COMMODITIES
-  commodities: [
-    {pair:'XAU/USD',flag:'🥇',full:'Gold Spot',source:'commodity',baseRate:2350},
-    {pair:'XAG/USD',flag:'🥈',full:'Silver Spot',source:'commodity',baseRate:27.5},
-    {pair:'PAXG/USDT',flag:'🥇',full:'Paxos Gold',binance:'PAXGUSDT',source:'binance'}
+  commodities:[
+    {pair:'XAU/USD',flag:'&#129351;',full:'Gold Spot',source:'commodity',baseRate:2350},
+    {pair:'XAG/USD',flag:'&#129352;',full:'Silver Spot',source:'commodity',baseRate:27.5},
+    {pair:'PAXG/USDT',flag:'&#129351;',full:'Paxos Gold',binance:'PAXGUSDT',source:'binance'}
   ]
 };
 
-let selectedPair='',selectedSource='',selectedBinanceSymbol='',selectedBaseRate=0;
-let priceHistory=[],signalHistory=[],marketCache={};
+var selectedPair='',selectedSource='',selectedBinanceSymbol='',selectedBaseRate=0;
+var priceHistory=[],signalHistory=[],marketCache={};
 
-// ═══════════════════════════════════════════════════════════════
-//  API FUNCTIONS — REAL DATA
-// ═══════════════════════════════════════════════════════════════
-
+// API FUNCTIONS
 async function fetchBinanceLive(symbol){
   try{
-    let res=await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
-    let data=await res.json();
+    var res=await fetch('https://api.binance.com/api/v3/ticker/price?symbol='+symbol);
+    var data=await res.json();
     marketCache[symbol]=parseFloat(data.price);
     return parseFloat(data.price);
   }catch(e){
@@ -412,49 +397,49 @@ async function fetchBinanceLive(symbol){
   }
 }
 
-async function fetchBinanceHistory(symbol,limit=100){
+async function fetchBinanceHistory(symbol,limit){
   try{
-    let res=await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1m&limit=${limit}`);
-    let data=await res.json();
-    return data.map(c=>parseFloat(c[4]));
+    var res=await fetch('https://api.binance.com/api/v3/klines?symbol='+symbol+'&interval=1m&limit='+limit);
+    var data=await res.json();
+    return data.map(function(c){return parseFloat(c[4]);});
   }catch(e){
-    let base=marketCache[symbol]||67000;
-    let hist=[],price=base;
-    for(let i=0;i<limit;i++){price+=(Math.random()-0.5)*base*0.0015;hist.push(price);}
+    var base=marketCache[symbol]||67000;
+    var hist=[],price=base;
+    for(var i=0;i<limit;i++){price+=(Math.random()-0.5)*base*0.0015;hist.push(price);}
     return hist;
   }
 }
 
 async function fetchForexLive(pair,baseRate){
   try{
-    let quote=pair.split('/')[1];
-    let res=await fetch(`https://open.er-api.com/v6/latest/USD`);
-    let data=await res.json();
+    var quote=pair.split('/')[1];
+    var res=await fetch('https://open.er-api.com/v6/latest/USD');
+    var data=await res.json();
     if(data&&data.rates&&data.rates[quote]){
       marketCache[pair]=data.rates[quote];
       return data.rates[quote];
     }
   }catch(e){}
-  let last=marketCache[pair]||baseRate;
+  var last=marketCache[pair]||baseRate;
   return last*(1+(Math.random()-0.5)*0.0015);
 }
 
-async function fetchForexHistory(baseRate,limit=100){
-  let hist=[],price=marketCache[selectedPair]||baseRate;
-  for(let i=0;i<limit;i++){price+=(Math.random()-0.5)*baseRate*0.001;hist.push(price);}
+async function fetchForexHistory(baseRate,limit){
+  var hist=[],price=marketCache[selectedPair]||baseRate;
+  for(var i=0;i<limit;i++){price+=(Math.random()-0.5)*baseRate*0.001;hist.push(price);}
   return hist;
 }
 
 async function fetchOTCLive(pair,baseRate){
-  let last=marketCache[pair]||baseRate;
-  let newPrice=last*(1+(Math.random()-0.5)*0.003);
+  var last=marketCache[pair]||baseRate;
+  var newPrice=last*(1+(Math.random()-0.5)*0.003);
   marketCache[pair]=newPrice;
   return newPrice;
 }
 
-async function fetchOTCHistory(baseRate,limit=100){
-  let hist=[],price=marketCache[selectedPair]||baseRate;
-  for(let i=0;i<limit;i++){price+=(Math.random()-0.5)*baseRate*0.002;hist.push(price);}
+async function fetchOTCHistory(baseRate,limit){
+  var hist=[],price=marketCache[selectedPair]||baseRate;
+  for(var i=0;i<limit;i++){price+=(Math.random()-0.5)*baseRate*0.002;hist.push(price);}
   return hist;
 }
 
@@ -462,88 +447,99 @@ async function fetchCommodityLive(pair,baseRate){
   try{
     if(pair==='PAXG/USDT') return await fetchBinanceLive('PAXGUSDT');
   }catch(e){}
-  let last=marketCache[pair]||baseRate;
+  var last=marketCache[pair]||baseRate;
   return last*(1+(Math.random()-0.5)*0.002);
 }
 
-async function fetchCommodityHistory(baseRate,limit=100){
-  let hist=[],price=marketCache[selectedPair]||baseRate;
-  for(let i=0;i<limit;i++){price+=(Math.random()-0.5)*baseRate*0.0015;hist.push(price);}
+async function fetchCommodityHistory(baseRate,limit){
+  var hist=[],price=marketCache[selectedPair]||baseRate;
+  for(var i=0;i<limit;i++){price+=(Math.random()-0.5)*baseRate*0.0015;hist.push(price);}
   return hist;
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  UI FUNCTIONS
-// ═══════════════════════════════════════════════════════════════
-
+// UI FUNCTIONS
 function showToast(msg){
-  const t=document.getElementById('toast');
+  var t=document.getElementById('toast');
   t.textContent=msg;
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+  setTimeout(function(){t.classList.remove('show');},2500);
 }
 
 function doLogin(){
-  const screen=document.getElementById('loginScreen');
-  screen.style.opacity='0';
-  setTimeout(()=>{screen.style.display='none';document.getElementById('appScreen').style.display='block';showScreen('homeScreen');},500);
+  var loginScreen=document.getElementById('loginScreen');
+  var appScreen=document.getElementById('appScreen');
+  loginScreen.style.opacity='0';
+  setTimeout(function(){
+    loginScreen.style.display='none';
+    appScreen.style.display='block';
+    showScreen('homeScreen');
+  },500);
 }
 
 function showScreen(id){
-  ['homeScreen','assetScreen','signalScreen','historyScreen'].forEach(s=>document.getElementById(s).style.display='none');
+  var screens=['homeScreen','assetScreen','signalScreen','historyScreen'];
+  for(var i=0;i<screens.length;i++){
+    document.getElementById(screens[i]).style.display='none';
+  }
   document.getElementById(id).style.display='block';
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  if(id==='homeScreen')document.getElementById('navHome').classList.add('active');
-  if(id==='historyScreen'){document.getElementById('navHist').classList.add('active');updateHistory();}
+  
+  var navItems=document.querySelectorAll('.nav-item');
+  for(var i=0;i<navItems.length;i++){
+    navItems[i].classList.remove('active');
+  }
+  if(id==='homeScreen') document.getElementById('navHome').classList.add('active');
+  if(id==='historyScreen'){
+    document.getElementById('navHist').classList.add('active');
+    updateHistory();
+  }
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  MARKET & ASSET SCREENS
-// ═══════════════════════════════════════════════════════════════
-
+// MARKET & ASSET
 async function openMarket(market){
-  const list=document.getElementById('assetList');
-  const title=document.getElementById('assetScreenTitle');
-  const sub=document.getElementById('assetScreenSub');
+  var list=document.getElementById('assetList');
+  var title=document.getElementById('assetScreenTitle');
+  var sub=document.getElementById('assetScreenSub');
   
-  const marketNames={
-    crypto:'Crypto — Binance API',
+  var marketNames={
+    crypto:'Crypto - Binance API',
     pocket_otc:'Pocket Option OTC',
     quotex_otc:'Quotex OTC',
-    forex:'Forex — Real Rates',
+    forex:'Forex - Real Rates',
     commodities:'Gold & Silver'
   };
   title.textContent=marketNames[market]||'Choose Pair';
   sub.textContent='Fetching live prices...';
   
-  list.innerHTML='<div class="empty-state"><div class="empty-state-icon">⏳</div>Loading pairs...</div>';
+  list.innerHTML='<div class="empty-state"><div class="empty-state-icon">&#9203;</div>Loading pairs...</div>';
   showScreen('assetScreen');
   
-  let html='';
-  for(let asset of assets[market]){
-    let price=0;
+  var html='';
+  for(var i=0;i<assets[market].length;i++){
+    var asset=assets[market][i];
+    var price=0;
+    
     if(asset.source==='binance') price=await fetchBinanceLive(asset.binance);
     else if(asset.source==='forex') price=await fetchForexLive(asset.pair,asset.baseRate);
     else if(asset.source==='pocket'||asset.source==='quotex') price=await fetchOTCLive(asset.pair,asset.baseRate);
     else if(asset.source==='commodity') price=await fetchCommodityLive(asset.pair,asset.baseRate);
     
-    let formatted=formatPrice(price);
-    let sourceBadge='';
+    var formatted=formatPrice(price);
+    var sourceBadge='';
     if(asset.source==='binance') sourceBadge='<span class="api-badge binance">BINANCE</span>';
     else if(asset.source==='pocket') sourceBadge='<span class="api-badge pocket">POCKET</span>';
     else if(asset.source==='quotex') sourceBadge='<span class="api-badge quotex">QUOTEX</span>';
     else if(asset.source==='forex') sourceBadge='<span class="api-badge forex">FOREX</span>';
     
-    html+=`<div class="asset-item" onclick="directSignal('${asset.pair}','${asset.source}','${asset.binance||''}',${asset.baseRate||0})">
-      <div style="display:flex;align-items:center;gap:14px;">
-        <div class="asset-flag">${asset.flag}</div>
-        <div class="asset-info">
-          <div class="asset-pair">${asset.pair} ${sourceBadge}</div>
-          <div class="asset-tag">Tap for Signal</div>
-        </div>
-      </div>
-      <div class="asset-price">${formatted}</div>
-    </div>`;
+    html+='<div class="asset-item" onclick="directSignal(\''+asset.pair+'\',\''+asset.source+'\',\''+(asset.binance||'')+'\','+(asset.baseRate||0)+')">'+
+      '<div style="display:flex;align-items:center;gap:14px;">'+
+        '<div class="asset-flag">'+asset.flag+'</div>'+
+        '<div class="asset-info">'+
+          '<div class="asset-pair">'+asset.pair+' '+sourceBadge+'</div>'+
+          '<div class="asset-tag">Tap for Signal</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="asset-price">'+formatted+'</div>'+
+    '</div>';
   }
   list.innerHTML=html;
 }
@@ -558,34 +554,36 @@ function formatPrice(p){
 }
 
 async function directSignal(pair,source,binanceSym,baseRate){
-  selectedPair=pair;selectedSource=source;
-  selectedBinanceSymbol=binanceSym;selectedBaseRate=baseRate;
+  selectedPair=pair;
+  selectedSource=source;
+  selectedBinanceSymbol=binanceSym;
+  selectedBaseRate=baseRate;
   document.getElementById('tickerLabel').textContent=pair;
   showScreen('signalScreen');
   await startAnalysisWithAnimation();
 }
 
 async function startAnalysisWithAnimation(){
-  const btn=document.getElementById('generateBtn');
-  const box=document.getElementById('mainSignalBox');
-  const circle=document.getElementById('signalBigCircle');
-  const bigText=document.getElementById('signalBigText');
-  const sub=document.getElementById('signalSub');
-  const pairName=document.getElementById('signalPairName');
-  const progress=document.getElementById('progressAnalyze');
-  const progressFill=document.getElementById('progressAnalyzeFill');
-  const status=document.getElementById('analyzingStatus');
+  var btn=document.getElementById('generateBtn');
+  var box=document.getElementById('mainSignalBox');
+  var circle=document.getElementById('signalBigCircle');
+  var bigText=document.getElementById('signalBigText');
+  var sub=document.getElementById('signalSub');
+  var pairName=document.getElementById('signalPairName');
+  var progress=document.getElementById('progressAnalyze');
+  var progressFill=document.getElementById('progressAnalyzeFill');
+  var status=document.getElementById('analyzingStatus');
 
   btn.disabled=true;
-  btn.textContent='⏳ ANALYZING MARKET...';
+  btn.textContent='ANALYZING MARKET...';
   box.className='signal-box analyzing';
   circle.className='signal-circle analyzing';
-  bigText.textContent='⌛';
+  bigText.textContent='&#9203;';
   bigText.style.fontSize='42px';
   sub.textContent='ANALYZING REAL MARKET DATA';
   sub.style.color='var(--accent)';
   sub.style.animation='pulse 0.6s infinite';
-  pairName.textContent=selectedPair+' • Fetching Live Price...';
+  pairName.textContent=selectedPair+' - Fetching Live Price...';
   document.getElementById('aiScoreValue').textContent='...';
   document.getElementById('aiScoreFill').style.width='0%';
   document.getElementById('signalReason').textContent='';
@@ -594,7 +592,7 @@ async function startAnalysisWithAnimation(){
   progress.style.display='block';
   progressFill.style.width='15%';
 
-  await new Promise(r=>setTimeout(r,500));
+  await new Promise(function(r){setTimeout(r,500);});
   progressFill.style.width='40%';
   status.textContent='Calculating RSI(14), MACD, EMA 9/21/50...';
 
@@ -602,15 +600,18 @@ async function startAnalysisWithAnimation(){
   else if(selectedSource==='forex'||selectedSource==='commodity') priceHistory=await fetchForexHistory(selectedBaseRate,100);
   else if(selectedSource==='pocket'||selectedSource==='quotex') priceHistory=await fetchOTCHistory(selectedBaseRate,100);
 
+  await new Promise(function(r){setTimeout(r,600);});
   progressFill.style.width='70%';
   status.textContent='Comparing 6 indicators with AI model...';
-  await new Promise(r=>setTimeout(r,600));
+  
+  await new Promise(function(r){setTimeout(r,400);});
   progressFill.style.width='90%';
   status.textContent='Finalizing signal with confidence score...';
-  await new Promise(r=>setTimeout(r,400));
+  
+  await new Promise(function(r){setTimeout(r,300);});
   progressFill.style.width='100%';
-
-  await new Promise(r=>setTimeout(r,300));
+  
+  await new Promise(function(r){setTimeout(r,300);});
   generateSignal();
 
   progress.style.display='none';
@@ -618,96 +619,102 @@ async function startAnalysisWithAnimation(){
   sub.style.animation='none';
   bigText.style.fontSize='';
   btn.disabled=false;
-  btn.textContent='👉 DABAYEN — NAYA SIGNAL';
+  btn.textContent='DABAYEN - NAYA SIGNAL';
 }
-# Part 3 of 3: Technical Indicators + Signal Engine + Chart + History + closing tags
+# Part 3: Technical Indicators + Signal Engine + Chart + History + closing
 
-part3 = '''// ═══════════════════════════════════════════════════════════════
-//  TECHNICAL INDICATORS — 6 REAL INDICATORS
-// ═══════════════════════════════════════════════════════════════
+part3 = '''// TECHNICAL INDICATORS
+function SMA(d,p){
+  if(d.length<p) return d[d.length-1];
+  var s=0;
+  for(var i=d.length-p;i<d.length;i++) s+=d[i];
+  return s/p;
+}
 
-function SMA(d,p){if(d.length<p)return d[d.length-1];let s=0;for(let i=d.length-p;i<d.length;i++)s+=d[i];return s/p;}
+function EMA(d,p){
+  if(d.length<p) return d[d.length-1];
+  var m=2/(p+1);
+  var e=d[d.length-p];
+  for(var i=d.length-p+1;i<d.length;i++) e=(d[i]-e)*m+e;
+  return e;
+}
 
-function EMA(d,p){if(d.length<p)return d[d.length-1];const m=2/(p+1);let e=d[d.length-p];for(let i=d.length-p+1;i<d.length;i++)e=(d[i]-e)*m+e;return e;}
-
-function RSI(d,p=14){
-  if(d.length<p+1)return 50;
-  let g=0,l=0;
-  for(let i=d.length-p;i<d.length;i++){
-    let diff=d[i]-d[i-1];
-    if(diff>0)g+=diff;else l+=Math.abs(diff);
+function RSI(d,p){
+  if(d.length<p+1) return 50;
+  var g=0,l=0;
+  for(var i=d.length-p;i<d.length;i++){
+    var diff=d[i]-d[i-1];
+    if(diff>0) g+=diff; else l+=Math.abs(diff);
   }
-  let avgG=g/p,avgL=l/p;
-  if(avgL===0)return 100;
+  var avgG=g/p,avgL=l/p;
+  if(avgL===0) return 100;
   return 100-(100/(1+avgG/avgL));
 }
 
 function MACD(d){
-  let e12=EMA(d.slice(-26),12),e26=EMA(d.slice(-26),26);
-  if(!e12||!e26)return{histogram:0,macd:0,signal:0};
-  let macd=e12-e26;
-  let sig=EMA([...d.slice(-10),macd],9);
-  return{histogram:macd-sig,macd:macd,signal:sig};
+  var e12=EMA(d.slice(-26),12),e26=EMA(d.slice(-26),26);
+  if(!e12||!e26) return {histogram:0,macd:0,signal:0};
+  var macd=e12-e26;
+  var sigArr=[];
+  for(var i=0;i<d.slice(-10).length;i++) sigArr.push(d.slice(-10)[i]);
+  sigArr.push(macd);
+  var sig=EMA(sigArr,9);
+  return {histogram:macd-sig,macd:macd,signal:sig};
 }
 
-function Stochastic(d,p=14){
-  if(d.length<p)return 50;
-  let highs=d.slice(-p),lows=d.slice(-p);
-  let highest=Math.max(...highs),lowest=Math.min(...lows);
-  let current=d[d.length-1];
-  if(highest===lowest)return 50;
-  return((current-lowest)/(highest-lowest))*100;
+function Stochastic(d,p){
+  if(d.length<p) return 50;
+  var highs=d.slice(-p),lows=d.slice(-p);
+  var highest=Math.max.apply(null,highs),lowest=Math.min.apply(null,lows);
+  var current=d[d.length-1];
+  if(highest===lowest) return 50;
+  return ((current-lowest)/(highest-lowest))*100;
 }
 
-function Bollinger(d,p=20,m=2){
-  let sma=SMA(d,p);
-  let sum=0;
-  for(let i=d.length-p;i<d.length;i++)sum+=Math.pow(d[i]-sma,2);
-  let std=Math.sqrt(sum/p);
-  return{upper:sma+m*std,lower:sma-m*std,middle:sma};
+function Bollinger(d,p,m){
+  var sma=SMA(d,p);
+  var sum=0;
+  for(var i=d.length-p;i<d.length;i++) sum+=Math.pow(d[i]-sma,2);
+  var std=Math.sqrt(sum/p);
+  return {upper:sma+m*std,lower:sma-m*std,middle:sma};
 }
 
-function ADX(d,p=14){
-  let dmPlus=0,dmMinus=0,tr=0;
-  for(let i=d.length-p;i<d.length;i++){
-    let up=d[i]-d[i-1],down=d[i-1]-d[i];
+function ADX(d,p){
+  var dmPlus=0,dmMinus=0,tr=0;
+  for(var i=d.length-p;i<d.length;i++){
+    var up=d[i]-d[i-1],down=d[i-1]-d[i];
     dmPlus+=(up>down&&up>0)?up:0;
     dmMinus+=(down>up&&down>0)?down:0;
     tr+=Math.max(Math.abs(d[i]-d[i-1]),0.001);
   }
-  let diPlus=(dmPlus/tr)*100,diMinus=(dmMinus/tr)*100;
-  let dx=Math.abs(diPlus-diMinus)/(diPlus+diMinus+0.001)*100;
+  var diPlus=(dmPlus/tr)*100,diMinus=(dmMinus/tr)*100;
+  var dx=Math.abs(diPlus-diMinus)/(diPlus+diMinus+0.001)*100;
   return dx;
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  SIGNAL GENERATION — NOT RANDOM, REAL INDICATOR-BASED
-// ═══════════════════════════════════════════════════════════════
-
+// SIGNAL GENERATION
 function generateSignal(){
-  const currentPrice=priceHistory[priceHistory.length-1];
-  const prevPrice=priceHistory[priceHistory.length-2];
-  const rsi=RSI(priceHistory,14);
-  const macd=MACD(priceHistory);
-  const ema9=EMA(priceHistory.slice(-15),9);
-  const ema21=EMA(priceHistory.slice(-25),21);
-  const ema50=EMA(priceHistory.slice(-55),50);
-  const sma20=SMA(priceHistory,20);
-  const sma50=SMA(priceHistory,50);
-  const stoch=Stochastic(priceHistory,14);
-  const bb=Bollinger(priceHistory,20,2);
-  const adx=ADX(priceHistory,14);
+  var currentPrice=priceHistory[priceHistory.length-1];
+  var prevPrice=priceHistory[priceHistory.length-2];
+  var rsi=RSI(priceHistory,14);
+  var macd=MACD(priceHistory);
+  var ema9=EMA(priceHistory.slice(-15),9);
+  var ema21=EMA(priceHistory.slice(-25),21);
+  var ema50=EMA(priceHistory.slice(-55),50);
+  var sma20=SMA(priceHistory,20);
+  var sma50=SMA(priceHistory,50);
+  var stoch=Stochastic(priceHistory,14);
+  var bb=Bollinger(priceHistory,20,2);
+  var adx=ADX(priceHistory,14);
 
-  let buy=0,sell=0,reasons=[];
+  var buy=0,sell=0,reasons=[];
 
-  // RSI
   if(rsi<30){buy+=3;reasons.push('RSI Oversold (<30)');}
   else if(rsi<40){buy+=2;reasons.push('RSI Low (<40)');}
   else if(rsi>70){sell+=3;reasons.push('RSI Overbought (>70)');}
   else if(rsi>60){sell+=2;reasons.push('RSI High (>60)');}
   else if(rsi<50){buy+=1;}else{sell+=1;}
 
-  // MACD
   if(macd.histogram>0&&macd.histogram>Math.abs(macd.macd)*0.001){
     buy+=2;reasons.push('MACD Bullish Cross');
   }else if(macd.histogram>0){
@@ -718,7 +725,6 @@ function generateSignal(){
     sell+=1;reasons.push('MACD Negative');
   }
 
-  // EMA
   if(ema9>ema21&&ema21>ema50){buy+=3;reasons.push('EMA Golden Cross');}
   else if(ema9>ema21){buy+=2;reasons.push('EMA Bullish');}
   else if(ema21>ema50){buy+=1;}
@@ -726,30 +732,24 @@ function generateSignal(){
   else if(ema9<ema21){sell+=2;reasons.push('EMA Bearish');}
   else{sell+=1;}
 
-  // SMA
   if(currentPrice>sma20&&sma20>sma50){buy+=2;reasons.push('Price > SMA 20/50');}
   else if(currentPrice>sma20){buy+=1;}
   else if(currentPrice<sma20&&sma20<sma50){sell+=2;reasons.push('Price < SMA 20/50');}
   else if(currentPrice<sma20){sell+=1;}
 
-  // Stochastic
   if(stoch<20){buy+=2;reasons.push('Stoch Oversold');}
   else if(stoch>80){sell+=2;reasons.push('Stoch Overbought');}
   else if(stoch<50){buy+=1;}else{sell+=1;}
 
-  // Bollinger
   if(currentPrice<bb.lower){buy+=2;reasons.push('Price Below BB Lower');}
   else if(currentPrice>bb.upper){sell+=2;reasons.push('Price Above BB Upper');}
 
-  // ADX
   if(adx>25){if(buy>sell)buy+=1;else if(sell>buy)sell+=1;}
 
-  // Momentum
-  let momentum=((currentPrice-prevPrice)/prevPrice)*100;
+  var momentum=((currentPrice-prevPrice)/prevPrice)*100;
   if(momentum>0.5){buy+=1;}else if(momentum<-0.5){sell+=1;}
 
-  // DECISION
-  let final='buy',conf=55;
+  var final='buy',conf=55;
   if(buy>sell){
     final='buy';
     conf=58+(buy-sell)*5+Math.random()*3;
@@ -762,92 +762,95 @@ function generateSignal(){
   }
   conf=Math.min(96,Math.max(55,conf));
 
-  const signal={
+  var signal={
     pair:selectedPair,
     signal:final,
     confidence:Math.round(conf),
     price:currentPrice,
     rsi:rsi.toFixed(1),
     macd:macd.histogram.toFixed(5),
-    ema:`${ema9.toFixed(2)} / ${ema21.toFixed(2)}`,
+    ema:ema9.toFixed(2)+' / '+ema21.toFixed(2),
     stoch:stoch.toFixed(1),
-    bb:`${bb.lower.toFixed(2)} - ${bb.upper.toFixed(2)}`,
+    bb:bb.lower.toFixed(2)+' - '+bb.upper.toFixed(2),
     adx:adx.toFixed(1),
     momentum:momentum.toFixed(3),
     timestamp:new Date().toLocaleTimeString(),
-    reason:reasons.join(' • ')
+    reason:reasons.join(' - ')
   };
   signalHistory.unshift(signal);
   showSignalReal(signal);
-  showToast(`${final.toUpperCase()} Signal — ${Math.round(conf)}% Confidence`);
+  showToast(final.toUpperCase()+' Signal - '+Math.round(conf)+'% Confidence');
 }
 
 function showSignalReal(s){
-  const box=document.getElementById('mainSignalBox');
+  var box=document.getElementById('mainSignalBox');
   box.className='signal-box '+s.signal;
   document.getElementById('signalBigCircle').className='signal-circle '+s.signal;
   document.getElementById('signalBigText').textContent=s.signal.toUpperCase();
-  document.getElementById('signalSub').textContent=s.signal==='buy'?'BUY NOW • MANUAL CONFIRMED':'SELL NOW • MANUAL CONFIRMED';
+  document.getElementById('signalSub').textContent=s.signal==='buy'?'BUY NOW - MANUAL CONFIRMED':'SELL NOW - MANUAL CONFIRMED';
   document.getElementById('signalSub').style.color=s.signal==='buy'?'var(--buy)':'var(--sell)';
-  document.getElementById('signalPairName').textContent=s.pair+' • Manual • '+s.timestamp;
+  document.getElementById('signalPairName').textContent=s.pair+' - Manual - '+s.timestamp;
   document.getElementById('signalLivePrice').textContent=formatPrice(s.price);
   document.getElementById('aiScoreValue').textContent=s.confidence+'%';
   document.getElementById('aiScoreValue').style.color=s.signal==='buy'?'var(--buy)':'var(--sell)';
   document.getElementById('aiScoreFill').style.width=s.confidence+'%';
   document.getElementById('aiScoreFill').style.background=s.signal==='buy'?'var(--buy)':'var(--sell)';
   document.getElementById('signalReason').textContent='Reason: '+s.reason;
-  document.getElementById('indicatorGrid').innerHTML=`
-    <div class="indicator-card">
-      <div class="indicator-label">RSI (14)</div>
-      <div class="indicator-value" style="color:${parseFloat(s.rsi)<30?'var(--buy)':parseFloat(s.rsi)>70?'var(--sell)':'var(--text)'}">${s.rsi}</div>
-      <div class="indicator-sub">${parseFloat(s.rsi)<30?'Oversold':parseFloat(s.rsi)>70?'Overbought':'Neutral'}</div>
-    </div>
-    <div class="indicator-card">
-      <div class="indicator-label">MACD</div>
-      <div class="indicator-value" style="font-size:13px;color:${parseFloat(s.macd)>0?'var(--buy)':'var(--sell)'}">${s.macd}</div>
-      <div class="indicator-sub">${parseFloat(s.macd)>0?'Bullish':'Bearish'}</div>
-    </div>
-    <div class="indicator-card">
-      <div class="indicator-label">EMA 9/21</div>
-      <div class="indicator-value" style="font-size:11px;">${s.ema}</div>
-      <div class="indicator-sub">Trend Direction</div>
-    </div>
-    <div class="indicator-card">
-      <div class="indicator-label">STOCH (14)</div>
-      <div class="indicator-value" style="color:${parseFloat(s.stoch)<20?'var(--buy)':parseFloat(s.stoch)>80?'var(--sell)':'var(--text)'}">${s.stoch}</div>
-      <div class="indicator-sub">${parseFloat(s.stoch)<20?'Oversold':parseFloat(s.stoch)>80?'Overbought':'Neutral'}</div>
-    </div>
-    <div class="indicator-card">
-      <div class="indicator-label">BOLLINGER</div>
-      <div class="indicator-value" style="font-size:10px;">${s.bb}</div>
-      <div class="indicator-sub">Band Range</div>
-    </div>
-    <div class="indicator-card">
-      <div class="indicator-label">ADX</div>
-      <div class="indicator-value" style="color:${parseFloat(s.adx)>25?'var(--accent2)':'var(--text-muted)'}">${s.adx}</div>
-      <div class="indicator-sub">${parseFloat(s.adx)>25?'Strong Trend':'Weak Trend'}</div>
-    </div>`;
+  
+  var rsiColor=parseFloat(s.rsi)<30?'var(--buy)':parseFloat(s.rsi)>70?'var(--sell)':'var(--text)';
+  var macdColor=parseFloat(s.macd)>0?'var(--buy)':'var(--sell)';
+  var stochColor=parseFloat(s.stoch)<20?'var(--buy)':parseFloat(s.stoch)>80?'var(--sell)':'var(--text)';
+  var adxColor=parseFloat(s.adx)>25?'var(--accent2)':'var(--text-muted)';
+  
+  document.getElementById('indicatorGrid').innerHTML=
+    '<div class="indicator-card">'+
+      '<div class="indicator-label">RSI (14)</div>'+
+      '<div class="indicator-value" style="color:'+rsiColor+'">'+s.rsi+'</div>'+
+      '<div class="indicator-sub">'+(parseFloat(s.rsi)<30?'Oversold':parseFloat(s.rsi)>70?'Overbought':'Neutral')+'</div>'+
+    '</div>'+
+    '<div class="indicator-card">'+
+      '<div class="indicator-label">MACD</div>'+
+      '<div class="indicator-value" style="font-size:13px;color:'+macdColor+'">'+s.macd+'</div>'+
+      '<div class="indicator-sub">'+(parseFloat(s.macd)>0?'Bullish':'Bearish')+'</div>'+
+    '</div>'+
+    '<div class="indicator-card">'+
+      '<div class="indicator-label">EMA 9/21</div>'+
+      '<div class="indicator-value" style="font-size:11px;">'+s.ema+'</div>'+
+      '<div class="indicator-sub">Trend Direction</div>'+
+    '</div>'+
+    '<div class="indicator-card">'+
+      '<div class="indicator-label">STOCH (14)</div>'+
+      '<div class="indicator-value" style="color:'+stochColor+'">'+s.stoch+'</div>'+
+      '<div class="indicator-sub">'+(parseFloat(s.stoch)<20?'Oversold':parseFloat(s.stoch)>80?'Overbought':'Neutral')+'</div>'+
+    '</div>'+
+    '<div class="indicator-card">'+
+      '<div class="indicator-label">BOLLINGER</div>'+
+      '<div class="indicator-value" style="font-size:10px;">'+s.bb+'</div>'+
+      '<div class="indicator-sub">Band Range</div>'+
+    '</div>'+
+    '<div class="indicator-card">'+
+      '<div class="indicator-label">ADX</div>'+
+      '<div class="indicator-value" style="color:'+adxColor+'">'+s.adx+'</div>'+
+      '<div class="indicator-sub">'+(parseFloat(s.adx)>25?'Strong Trend':'Weak Trend')+'</div>'+
+    '</div>';
   drawChart(s);
   document.getElementById('tickerPrice').textContent=formatPrice(s.price);
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  CHART DRAWING
-// ═══════════════════════════════════════════════════════════════
-
+// CHART
 function drawChart(s){
-  const canvas=document.getElementById('miniChart');
-  const ctx=canvas.getContext('2d');
+  var canvas=document.getElementById('miniChart');
+  var ctx=canvas.getContext('2d');
   canvas.width=400;canvas.height=150;
   ctx.clearRect(0,0,400,150);
-  const prices=priceHistory.slice(-60);
-  const min=Math.min(...prices),max=Math.max(...prices),range=max-min||1;
+  var prices=priceHistory.slice(-60);
+  var min=Math.min.apply(null,prices),max=Math.max.apply(null,prices),range=max-min||1;
 
   // Grid
   ctx.strokeStyle='rgba(255,255,255,0.03)';
   ctx.lineWidth=1;
-  for(let i=1;i<5;i++){
-    let y=150-(i/5)*130;
+  for(var i=1;i<5;i++){
+    var y=150-(i/5)*130;
     ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(400,y);ctx.stroke();
   }
 
@@ -855,22 +858,22 @@ function drawChart(s){
   ctx.strokeStyle=s.signal==='buy'?'#22c55e':'#ef4444';
   ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.beginPath();
-  prices.forEach((p,i)=>{
-    let x=(i/(prices.length-1))*400;
-    let y=150-((p-min)/range)*110-20;
+  for(var i=0;i<prices.length;i++){
+    var x=(i/(prices.length-1))*400;
+    var y=150-((prices[i]-min)/range)*110-20;
     if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  });
+  }
   ctx.stroke();
 
   // Fill
-  let grad=ctx.createLinearGradient(0,0,0,150);
+  var grad=ctx.createLinearGradient(0,0,0,150);
   grad.addColorStop(0,s.signal==='buy'?'rgba(34,197,94,0.2)':'rgba(239,68,68,0.2)');
   grad.addColorStop(1,'transparent');
   ctx.fillStyle=grad;
   ctx.lineTo(400,150);ctx.lineTo(0,150);ctx.closePath();ctx.fill();
 
   // Dot
-  let lastX=400,lastY=150-((prices[prices.length-1]-min)/range)*110-20;
+  var lastX=400,lastY=150-((prices[prices.length-1]-min)/range)*110-20;
   ctx.fillStyle=s.signal==='buy'?'#22c55e':'#ef4444';
   ctx.shadowColor=s.signal==='buy'?'rgba(34,197,94,0.5)':'rgba(239,68,68,0.5)';
   ctx.shadowBlur=10;
@@ -880,30 +883,28 @@ function drawChart(s){
 
 function generateNewSignal(){startAnalysisWithAnimation();}
 
-// ═══════════════════════════════════════════════════════════════
-//  HISTORY
-// ═══════════════════════════════════════════════════════════════
-
+// HISTORY
 function updateHistory(){
-  const list=document.getElementById('historyList');
+  var list=document.getElementById('historyList');
   if(signalHistory.length===0){
-    list.innerHTML='<div class="empty-state"><div class="empty-state-icon">📊</div>No signals yet<br>Tap any pair to generate</div>';
+    list.innerHTML='<div class="empty-state"><div class="empty-state-icon">&#128202;</div>No signals yet<br>Tap any pair to generate</div>';
     return;
   }
-  let html='';
-  signalHistory.forEach(sig=>{
-    html+=`<div class="history-item">
-      <div>
-        <div class="history-pair">${sig.pair}</div>
-        <div class="history-reason">${sig.reason}</div>
-        <div class="history-time">${sig.timestamp}</div>
-      </div>
-      <div style="text-align:right;">
-        <div class="history-signal" style="color:${sig.signal==='buy'?'var(--buy)':'var(--sell)'}">${sig.signal.toUpperCase()}</div>
-        <div class="history-conf">${sig.confidence}% Confidence</div>
-      </div>
-    </div>`;
-  });
+  var html='';
+  for(var i=0;i<signalHistory.length;i++){
+    var sig=signalHistory[i];
+    html+='<div class="history-item">'+
+      '<div>'+
+        '<div class="history-pair">'+sig.pair+'</div>'+
+        '<div class="history-reason">'+sig.reason+'</div>'+
+        '<div class="history-time">'+sig.timestamp+'</div>'+
+      '</div>'+
+      '<div style="text-align:right;">'+
+        '<div class="history-signal" style="color:'+(sig.signal==='buy'?'var(--buy)':'var(--sell)')+'">'+sig.signal.toUpperCase()+'</div>'+
+        '<div class="history-conf">'+sig.confidence+'% Confidence</div>'+
+      '</div>'+
+    '</div>';
+  }
   list.innerHTML=html;
 }
 </script>
