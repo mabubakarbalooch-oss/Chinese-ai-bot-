@@ -40,9 +40,12 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 .signal-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .detail-box{background:#0a1628;padding:8px;border-radius:8px;border:1px solid rgba(255,215,0,0.2)}
 .detail-label{font-size:8px;color:#888;text-transform:uppercase;letter-spacing:1px}.detail-value{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:800;color:var(--yellow)}
-.chart-container{height:140px;background:#0a1628;border-radius:10px;margin-top:10px;border:1px solid rgba(255,215,0,0.2);position:relative;overflow:hidden}
+.chart-container{height:190px;background:#0a1628;border-radius:10px;margin-top:10px;border:1px solid rgba(255,215,0,0.2);position:relative;overflow:hidden}
 .elite-box{margin-top:10px;padding:10px;background:rgba(0,212,255,0.08);border:1px dashed var(--accent);border-radius:10px;text-align:center}
 .elite-title{font-size:8px;color:var(--accent);font-weight:800;letter-spacing:2px}.elite-signal{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;margin-top:4px}
+.legend{display:flex;justify-content:center;gap:10px;margin-top:6px;font-size:7px;color:#999;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:3px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 </style>
 </head>
 <body>
@@ -57,94 +60,186 @@ select{width:100%;padding:12px;background:#0a1628;border:1.5px solid rgba(255,21
 </div>
 
 <div class="main-wrapper" id="mainScreen">
-  <div class="header"><h1>LUBNA ABUBAKAR AI v70</h1><p>7 INDICATORS + ELITE ALGO ARROW SYSTEM</p></div>
+  <div class="header"><h1>LUBNA ABUBAKAR AI v70</h1><p>6 INDICATORS + VIDEO WALA 1 INDICATOR SYSTEM</p></div>
   <div class="card">
     <div class="live-status" id="liveStatus"></div>
     <label class="label">🎯 Market</label><select id="marketType" onchange="changeMarket()"><option value="binance">₿ Binance</option><option value="forex">💱 Forex Live</option><option value="quotex">🎯 Quotex OTC</option></select>
     <label class="label">💱 Asset</label><select id="asset"><option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option></select>
     <label class="label">⏱ Timeframe</label><select id="timeframe"><option value="1m">1 Minute</option><option value="5m">5 Minutes</option></select>
     <button class="analyze-btn" id="analyzeBtn" onclick="generateSignal()">⚡ NEXT CANDLE SCAN</button>
-    <div class="analyzing" id="analyzingBox"><div style="font-size:11px;color:var(--yellow);font-weight:600">📡 Elite Algo + 6 Indicators Calculating...</div><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
+    <div class="analyzing" id="analyzingBox"><div style="font-size:11px;color:var(--yellow);font-weight:600">📡 1 Indicator System + 6 Indicators Calculating...</div><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
 
     <div class="indicators-grid" id="indicatorsGrid" style="display:none">
       <div class="ind-box" id="boxRSI"><div class="ind-label">RSI 14</div><div class="ind-value" id="rsiValue">--</div><div class="ind-vote" id="rsiVote">--</div></div>
       <div class="ind-box" id="boxMACD"><div class="ind-label">MACD HIST</div><div class="ind-value" id="macdValue">--</div><div class="ind-vote" id="macdVote">--</div></div>
       <div class="ind-box" id="boxBB"><div class="ind-label">BB POSITION</div><div class="ind-value" id="bbValue">--</div><div class="ind-vote" id="bbVote">--</div></div>
-      <div class="ind-box" id="boxEMA"><div class="ind-label">EMA 10/30/50</div><div class="ind-value" id="emaValue">--</div><div class="ind-vote" id="emaVote">--</div></div>
+      <div class="ind-box" id="boxEMA"><div class="ind-label">EMA 10/30</div><div class="ind-value" id="emaValue">--</div><div class="ind-vote" id="emaVote">--</div></div>
       <div class="ind-box" id="boxSTOCH"><div class="ind-label">STOCHASTIC</div><div class="ind-value" id="stochValue">--</div><div class="ind-vote" id="stochVote">--</div></div>
-      <div class="ind-box" id="boxELITE"><div class="ind-label">ELITE ALGO (VIDEO WALA)</div><div class="ind-value" id="eliteValue">--</div><div class="ind-vote" id="eliteVote">--</div></div>
+      <div class="ind-box" id="boxELITE"><div class="ind-label">1 INDICATOR (VIDEO WALA)</div><div class="ind-value" id="eliteValue">--</div><div class="ind-vote" id="eliteVote">--</div></div>
     </div>
 
     <div class="signal-result" id="signalResult">
       <div class="signal-type" id="signalType">WAIT</div>
       <div style="font-size:9px" id="nextCandleMsg">Next candle:...</div>
-      <div class="elite-box"><div class="elite-title">ELITE ALGO - NEXT CANDLE PREDICTION</div><div class="elite-signal" id="eliteSignal">--</div></div>
+      <div class="elite-box"><div class="elite-title">1 INDICATOR SYSTEM - NEXT CANDLE PREDICTION</div><div class="elite-signal" id="eliteSignal">--</div></div>
       <div class="signal-details">
         <div class="detail-box"><div class="detail-label">Market</div><div class="detail-value" id="resMarket">--</div></div>
         <div class="detail-box"><div class="detail-label">Asset</div><div class="detail-value" id="resAsset">--</div></div>
         <div class="detail-box"><div class="detail-label">Votes</div><div class="detail-value" id="resScore">--</div></div>
-        <div class="detail-box"><div class="detail-label">Accuracy</div><div class="detail-value" id="resAcc">79%</div></div>
+        <div class="detail-box"><div class="detail-label">Strength</div><div class="detail-value" id="resAcc">79%</div></div>
       </div>
       <div class="chart-container" id="chartPreview"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#ffd700"></span>▼ SELL ARROW</span>
+        <span><span class="dot" style="background:#2196f3"></span>▲ BUY ARROW</span>
+        <span><span class="dot" style="background:#e040fb"></span>SELL DOT</span>
+        <span><span class="dot" style="background:#76ff03"></span>BUY DOT</span>
+        <span style="color:#00d4ff">— FAST</span>
+        <span style="color:#ff9800">— SLOW</span>
+      </div>
     </div>
   </div>
+  <div style="text-align:center;font-size:7px;color:#666;padding:6px">⚠️ Educational tool only — trading involves risk, apna risk management use karein</div>
 </div>
 
 <script>
 const finnhubKey = 'd8lo9ohr01qnkjl7rfmgd8lo9ohr01qnkjl7rfn0';
 function doLogin(){let u=document.getElementById('username').value.trim(),p=document.getElementById('password').value.trim();if(u==='Lubna'&&p==='pro123'){document.getElementById('loginScreen').style.display='none';document.getElementById('mainScreen').style.display='flex';}else alert('Username: Lubna\nPassword: pro123');}
 function changeMarket(){let m=document.getElementById('marketType').value,a=document.getElementById('asset');if(m==='binance')a.innerHTML=`<option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option>`;else if(m==='forex')a.innerHTML=`<option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="USDJPY">USD/JPY</option><option value="AUDUSD">AUD/USD</option>`;else a.innerHTML=`<option value="USDBRL">USD/BRL OTC</option><option value="USDMXN">USD/MXN OTC</option><option value="USDINR">USD/INR OTC</option>`;}
-async function fetchBinanceKlines(s,i,l=60){try{let r=await fetch(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=${i}&limit=${l}`);if(!r.ok)throw'';let d=await r.json();return d.map(k=>({o:parseFloat(k[1]),h:parseFloat(k[2]),l:parseFloat(k[3]),c:parseFloat(k[4])}));}catch(e){return null;}}
-async function fetchForexKlines(p,i){try{let res=await fetch(`https://finnhub.io/api/v1/forex/candle?symbol=OANDA:${p}&resolution=${i==='1m'?'1':'5'}&from=${Math.floor(Date.now()/1000)-7200}&to=${Math.floor(Date.now()/1000)}&token=${finnhubKey}`);let d=await res.json();if(d.s==='ok'&&d.c.length>30){let c=[];for(let j=0;j<d.c.length;j++)c.push({o:d.o[j],h:d.h[j],l:d.l[j],c:d.c[j]});return c;}return null;}catch(e){return null;}}
-function generateDemoCandles(){let c=[],b=100+Math.random()*10;for(let i=0;i<60;i++){let ch=(Math.random()-0.49)*0.6;let o=b,cc=b+ch,h=Math.max(o,cc)+Math.random()*0.3,l=Math.min(o,cc)-Math.random()*0.3;c.push({o,h,l,c:cc});b=cc;}return c;}
+async function fetchBinanceKlines(s,i,l=80){try{let r=await fetch(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=${i}&limit=${l}`);if(!r.ok)throw'';let d=await r.json();return d.map(k=>({o:parseFloat(k[1]),h:parseFloat(k[2]),l:parseFloat(k[3]),c:parseFloat(k[4])}));}catch(e){return null;}}
+async function fetchForexKlines(p,i){try{let res=await fetch(`https://finnhub.io/api/v1/forex/candle?symbol=OANDA:${p}&resolution=${i==='1m'?'1':'5'}&from=${Math.floor(Date.now()/1000)-14400}&to=${Math.floor(Date.now()/1000)}&token=${finnhubKey}`);let d=await res.json();if(d.s==='ok'&&d.c.length>30){let c=[];for(let j=0;j<d.c.length;j++)c.push({o:d.o[j],h:d.h[j],l:d.l[j],c:d.c[j]});return c;}return null;}catch(e){return null;}}
+function generateDemoCandles(){let c=[],b=100+Math.random()*10;for(let i=0;i<80;i++){let ch=(Math.random()-0.49)*0.6;let o=b,cc=b+ch,h=Math.max(o,cc)+Math.random()*0.3,l=Math.min(o,cc)-Math.random()*0.3;c.push({o,h,l,c:cc});b=cc;}return c;}
 function emaCalc(prices,period){let k=2/(period+1),e=prices[0];for(let i=1;i<prices.length;i++)e=prices[i]*k+e*(1-k);return e;}
 function calculateRSI(candles,p=14){if(candles.length<p+1)return 50;let g=0,l=0;for(let i=candles.length-p;i<candles.length;i++){let d=candles[i].c-candles[i-1].c;if(d>0)g+=d;else l+=Math.abs(d);}let ag=g/p,al=l/p;if(al===0)return 100;let rs=ag/al;return 100-(100/(1+rs));}
 function calculateMACD(candles){let cl=candles.map(x=>x.c),e12=emaCalc(cl.slice(-20),12),e26=emaCalc(cl.slice(-30),26),ml=e12-e26;let ha=[];for(let i=26;i<cl.length;i++){let s=cl.slice(i-26,i+1);ha.push(emaCalc(s.slice(-12),12)-emaCalc(s,26));}let sig=emaCalc(ha.slice(-9),9);return{hist:ml-sig,line:ml};}
 function calculateBollinger(candles,p=20){let cl=candles.map(x=>x.c),sum=0;for(let i=cl.length-p;i<cl.length;i++)sum+=cl[i];let sma=sum/p,v=0;for(let i=cl.length-p;i<cl.length;i++)v+=Math.pow(cl[i]-sma,2);let std=Math.sqrt(v/p);return{upper:sma+2*std,lower:sma-2*std,price:cl[cl.length-1]};}
 function calculateStoch(candles,p=14){let sl=candles.slice(-p),low=Math.min(...sl.map(x=>x.l)),high=Math.max(...sl.map(x=>x.h)),close=candles[candles.length-1].c;return((close-low)/(high-low||1))*100;}
-// VIDEO WALA ELITE ALGO LOGIC
+
+// ============================================================
+// VIDEO WALA "1 INDICATOR SYSTEM" (Elite Algo Traders style)
+// Cyan FAST line + Orange SLOW line oscillator
+// Purple DOT = top peak (SELL) | Green DOT = bottom trough (BUY)
+// Yellow DOWN arrow candle ke upar | Blue UP arrow candle ke neeche
+// ============================================================
+function smoothArr(a,p){let r=[];for(let i=0;i<a.length;i++){let s=0,n=0;for(let j=Math.max(0,i-p+1);j<=i;j++){s+=a[j];n++;}r.push(s/n);}return r;}
+
 function calculateEliteAlgo(candles){
-  let cl=candles.map(x=>x.c);
-  let ema10=emaCalc(cl.slice(-20),10), ema30=emaCalc(cl.slice(-40),30), ema50=emaCalc(cl.slice(-60),50);
-  let rsi=calculateRSI(candles);
-  let stoch=calculateStoch(candles);
-  let last=candles[candles.length-1], prev=candles[candles.length-2];
+  const kP=8, sm=3, dP=3, OB=68, OS=32; // overbought / oversold zones
+  // --- Oscillator values (raw stochastic %K per candle) ---
+  let kArr=[];
+  for(let i=0;i<candles.length;i++){
+    let a=Math.max(0,i-kP+1), sl=candles.slice(a,i+1);
+    let low=Math.min(...sl.map(x=>x.l)), high=Math.max(...sl.map(x=>x.h));
+    kArr.push(((candles[i].c-low)/(high-low||1))*100);
+  }
+  let kS=smoothArr(kArr,sm);   // CYAN fast line
+  let dS=smoothArr(kS,dP);     // ORANGE slow line
 
-  // Video me jo 3 lines hain wo EMA ribbon hai
-  let trendUp = ema10 > ema30 && ema30 > ema50;
-  let trendDown = ema10 < ema30 && ema30 < ema50;
+  // --- Peak / Trough dots (jaise video me purple/green dots) ---
+  let sigPoints=[];
+  for(let i=2;i<kS.length-2;i++){
+    let peak  = kS[i]>=kS[i-1]&&kS[i]>=kS[i-2]&&kS[i]>kS[i+1]&&kS[i]>kS[i+2]&&kS[i]>OB;
+    let trough= kS[i]<=kS[i-1]&&kS[i]<=kS[i-2]&&kS[i]<kS[i+1]&&kS[i]<kS[i+2]&&kS[i]<OS;
+    if(peak)  sigPoints.push({ci:i,type:'SELL'});
+    else if(trough) sigPoints.push({ci:i,type:'BUY'});
+  }
 
-  // Arrow logic jaise video me hai
-  let buyCond = trendUp && last.c > last.o && rsi > 45 && rsi < 70 && stoch < 80 && prev.c < prev.o;
-  let sellCond = trendDown && last.c < last.o && rsi < 55 && rsi > 30 && stoch > 20 && prev.c > prev.o;
-
-  // Extra: Candle pattern
-  let strongBull = last.c > last.o && (last.c-last.o) > (last.h-last.l)*0.6;
-  let strongBear = last.c < last.o && (last.o-last.c) > (last.h-last.l)*0.6;
-
-  if(buyCond || (trendUp && strongBull)) return {signal:'BUY', ema10, ema30, ema50, strength: trendUp? 85 : 60};
-  if(sellCond || (trendDown && strongBear)) return {signal:'SELL', ema10, ema30, ema50, strength: trendDown? 85 : 60};
-  return {signal:'NEUTRAL', ema10, ema30, ema50, strength: 40};
+  // --- Current signal: latest dot + line direction confirm ---
+  let n=kS.length, signal='NEUTRAL', strength=40;
+  let recent=sigPoints.filter(s=>s.ci>=n-4);
+  let r=recent[recent.length-1];
+  if(r){
+    if(r.type==='SELL'&&kS[n-1]<kS[r.ci]){
+      signal='SELL';
+      strength=Math.min(88,60+Math.round(kS[r.ci]-kS[n-1])+(kS[n-1]<dS[n-1]?8:0));
+    }
+    if(r.type==='BUY'&&kS[n-1]>kS[r.ci]){
+      signal='BUY';
+      strength=Math.min(88,60+Math.round(kS[n-1]-kS[r.ci])+(kS[n-1]>dS[n-1]?8:0));
+    }
+  }
+  // --- Forming signal (dot abhi confirm nahi hua lekin zone + turn + cross) ---
+  if(signal==='NEUTRAL'&&n>2){
+    if(kS[n-1]>OB&&kS[n-1]<kS[n-2]&&kS[n-1]<dS[n-1]){signal='SELL';strength=62;}
+    else if(kS[n-1]<OS&&kS[n-1]>kS[n-2]&&kS[n-1]>dS[n-1]){signal='BUY';strength=62;}
+  }
+  return {signal,strength,kS,dS,sigPoints,kNow:kS[n-1],dNow:dS[n-1]};
 }
+
+// ---------- Canvas chart: candles + video wale arrows + oscillator panel ----------
+function drawLine(ctx,pts,col,lw){if(pts.length<2)return;ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();}
+function drawDownArrow(ctx,x,tipY,col){ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(x-3.5,tipY-9);ctx.lineTo(x+3.5,tipY-9);ctx.lineTo(x+3.5,tipY-4);ctx.lineTo(x+6,tipY-4);ctx.lineTo(x,tipY);ctx.lineTo(x-6,tipY-4);ctx.lineTo(x-3.5,tipY-4);ctx.closePath();ctx.fill();}
+function drawUpArrow(ctx,x,tipY,col){ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(x-3.5,tipY+9);ctx.lineTo(x+3.5,tipY+9);ctx.lineTo(x+3.5,tipY+4);ctx.lineTo(x+6,tipY+4);ctx.lineTo(x,tipY);ctx.lineTo(x-6,tipY+4);ctx.lineTo(x-3.5,tipY+4);ctx.closePath();ctx.fill();}
+
 function drawChartPreview(candles, elite){
   const con=document.getElementById('chartPreview'); con.innerHTML='';
-  let min=Infinity,max=-Infinity; let slice=candles.slice(-25);
-  slice.forEach(c=>{if(c.l<min)min=c.l;if(c.h>max)max=c.h;});
-  let range=max-min||1, w=con.clientWidth, h=con.clientHeight;
-  slice.forEach((c,i)=>{
-    let x=i*(w/slice.length), yH=h-((c.h-min)/range)*(h-30)-20, yL=h-((c.l-min)/range)*(h-30)-20, yO=h-((c.o-min)/range)*(h-30)-20, yC=h-((c.c-min)/range)*(h-30)-20;
-    let col=c.c>=c.o?'#00ff88':'#ff4757';
-    let wick=document.createElement('div'); wick.style.cssText=`position:absolute;left:${x+4}px;top:${yH}px;width:1px;height:${yL-yH}px;background:${col};`; con.appendChild(wick);
-    let body=document.createElement('div'); let top=Math.min(yO,yC), bh=Math.abs(yC-yO)||2; body.style.cssText=`position:absolute;left:${x}px;top:${top}px;width:8px;height:${bh}px;background:${col};border-radius:1px;`; con.appendChild(body);
-    // Elite Arrow like video
-    if(i===slice.length-1 && elite.signal!=='NEUTRAL'){
-      let arrow=document.createElement('div'); arrow.style.cssText=`position:absolute;left:${x}px;top:${elite.signal==='BUY'?yL+5+'px':yH-15+'px'};font-size:12px;`;
-      arrow.innerText=elite.signal==='BUY'?'🔵⬆️':'🔴⬇️'; con.appendChild(arrow);
-    }
+  const w=con.clientWidth, h=con.clientHeight;
+  const cv=document.createElement('canvas');
+  cv.width=w*2; cv.height=h*2; cv.style.width=w+'px'; cv.style.height=h+'px';
+  con.appendChild(cv);
+  const ctx=cv.getContext('2d'); ctx.scale(2,2);
+
+  const N=30, off=candles.length-Math.min(N,candles.length);
+  const data=candles.slice(-N);
+  const oscH=Math.floor(h*0.34), chH=h-oscH-8;
+  const bw=w/data.length;
+
+  // price range
+  let min=Infinity,max=-Infinity;
+  data.forEach(c=>{if(c.l<min)min=c.l;if(c.h>max)max=c.h;});
+  const range=max-min||1;
+  const yP=p=>chH-((p-min)/range)*(chH-26)-8;
+
+  // dotted grid jaise video me
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.setLineDash([2,3]);
+  for(let g=0;g<=4;g++){let y=8+(chH-26)*g/4;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+  for(let i=0;i<data.length;i+=5){let x=i*bw+bw/2;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  ctx.setLineDash([]);
+
+  // candles
+  data.forEach((c,i)=>{
+    const x=i*bw+bw/2;
+    const col=c.c>=c.o?'#00ff88':'#ff4757';
+    ctx.strokeStyle=col; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x,yP(c.h)); ctx.lineTo(x,yP(c.l)); ctx.stroke();
+    ctx.fillStyle=col;
+    const t=Math.min(yP(c.o),yP(c.c)), bh=Math.max(2,Math.abs(yP(c.c)-yP(c.o)));
+    ctx.fillRect(x-Math.max(2,bw*0.32),t,Math.max(4,bw*0.64),bh);
   });
-  // EMA lines like video
-  let emaLine10=document.createElement('div'); emaLine10.style.cssText=`position:absolute;bottom:10px;left:10px;font-size:7px;color:#00d4ff;`; emaLine10.innerText=`EMA10:${elite.ema10.toFixed(2)} EMA30:${elite.ema30.toFixed(2)} EMA50:${elite.ema50.toFixed(2)}`; con.appendChild(emaLine10);
+
+  // VIDEO WALE ARROWS: yellow down (sell) candle ke upar, blue up (buy) candle ke neeche
+  elite.sigPoints.forEach(s=>{
+    if(s.ci<off||s.ci>=candles.length) return;
+    const i=s.ci-off, x=i*bw+bw/2;
+    if(s.type==='SELL') drawDownArrow(ctx,x,yP(data[i].h)-3,'#ffd700');
+    else drawUpArrow(ctx,x,yP(data[i].l)+3,'#2196f3');
+  });
+
+  // divider line (chart vs oscillator)
+  ctx.strokeStyle='rgba(255,215,0,0.3)';ctx.beginPath();ctx.moveTo(0,chH+4);ctx.lineTo(w,chH+4);ctx.stroke();
+
+  // ---- oscillator panel (cyan/orange lines + dots) ----
+  const oy=chH+10, oh=oscH-10;
+  const kS=elite.kS.slice(-N), dS=elite.dS.slice(-N);
+  const yV=v=>oy+(1-v/100)*oh;
+  ctx.strokeStyle='rgba(255,255,255,0.14)';ctx.setLineDash([2,3]);
+  [32,50,68].forEach(l=>{ctx.beginPath();ctx.moveTo(0,yV(l));ctx.lineTo(w,yV(l));ctx.stroke();});
+  ctx.setLineDash([]);
+  drawLine(ctx,dS.map((v,i)=>[i*bw+bw/2,yV(v)]),'#ff9800',1.3); // orange slow
+  drawLine(ctx,kS.map((v,i)=>[i*bw+bw/2,yV(v)]),'#00d4ff',1.3); // cyan fast
+  elite.sigPoints.forEach(s=>{
+    if(s.ci<off||s.ci>=candles.length) return;
+    const i=s.ci-off; if(i<0||i>=kS.length) return;
+    ctx.fillStyle=s.type==='SELL'?'#e040fb':'#76ff03'; // purple / green dot
+    ctx.beginPath();ctx.arc(i*bw+bw/2,yV(kS[i]),3,0,7);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.5)';ctx.lineWidth=0.7;ctx.stroke();
+  });
+  // current value labels
+  ctx.font='7px Orbitron, monospace';ctx.fillStyle='#00d4ff';
+  ctx.fillText('FAST '+elite.kNow.toFixed(0),4,oy+8);
+  ctx.fillStyle='#ff9800';ctx.fillText('SLOW '+elite.dNow.toFixed(0),4,oy+17);
 }
+
 function setBox(id,vote){let el=document.getElementById(id);el.classList.remove('buy','sell');if(vote==='BUY')el.classList.add('buy');if(vote==='SELL')el.classList.add('sell');}
 async function generateSignal(){
   let btn=document.getElementById('analyzeBtn'), box=document.getElementById('analyzingBox'), fill=document.getElementById('progressFill'), res=document.getElementById('signalResult'), grid=document.getElementById('indicatorsGrid'), live=document.getElementById('liveStatus');
@@ -152,11 +247,13 @@ async function generateSignal(){
   setTimeout(async()=>{
     box.style.display='none';
     let market=document.getElementById('marketType').value, asset=document.getElementById('asset').value, tf=document.getElementById('timeframe').value;
-    let candles=market==='binance'?await fetchBinanceKlines(asset,tf,60):market==='forex'?await fetchForexKlines(asset,tf):null;
-    if(!candles||candles.length<30){candles=generateDemoCandles(); live.textContent='📊 DEMO MODE'; live.style.background='rgba(255,165,0,0.1)'; live.style.color='orange'; live.style.border='1px solid orange'; live.style.display='block';}else{live.textContent='📡 LIVE DATA - ELITE ALGO ACTIVE ✅'; live.style.background='rgba(0,255,136,0.1)'; live.style.color='#00ff88'; live.style.border='1px solid #00ff88'; live.style.display='block';}
+    let candles=market==='binance'?await fetchBinanceKlines(asset,tf,80):market==='forex'?await fetchForexKlines(asset,tf):null;
+    if(!candles||candles.length<30){candles=generateDemoCandles(); live.textContent='📊 DEMO MODE'; live.style.background='rgba(255,165,0,0.1)'; live.style.color='orange'; live.style.border='1px solid orange'; live.style.display='block';}else{live.textContent='📡 LIVE DATA - 1 INDICATOR ACTIVE ✅'; live.style.background='rgba(0,255,136,0.1)'; live.style.color='#00ff88'; live.style.border='1px solid #00ff88'; live.style.display='block';}
 
     let rsi=calculateRSI(candles), macd=calculateMACD(candles), bb=calculateBollinger(candles), stoch=calculateStoch(candles), elite=calculateEliteAlgo(candles);
-    let emaTrend = elite.ema10 > elite.ema30? 'BUY' : 'SELL';
+    let cl=candles.map(x=>x.c);
+    let ema10=emaCalc(cl.slice(-20),10), ema30=emaCalc(cl.slice(-40),30);
+    let emaTrend = ema10 > ema30 ? 'BUY' : 'SELL';
 
     let votes={buy:0,sell:0};
     let rsiV=rsi<30?'BUY':rsi>70?'SELL':'NEUTRAL'; if(rsiV==='BUY')votes.buy++; if(rsiV==='SELL')votes.sell++;
@@ -169,9 +266,10 @@ async function generateSignal(){
     document.getElementById('rsiValue').innerText=rsi.toFixed(1); document.getElementById('rsiVote').innerText=rsiV; setBox('boxRSI',rsiV);
     document.getElementById('macdValue').innerText=macd.hist.toFixed(4); document.getElementById('macdVote').innerText=macdV; setBox('boxMACD',macdV);
     document.getElementById('bbValue').innerText=bbP.toFixed(0)+'%'; document.getElementById('bbVote').innerText=bbV; setBox('boxBB',bbV);
-    document.getElementById('emaValue').innerText=(elite.ema10-elite.ema30).toFixed(2); document.getElementById('emaVote').innerText=emaV; setBox('boxEMA',emaV);
+    document.getElementById('emaValue').innerText=(ema10-ema30).toFixed(2); document.getElementById('emaVote').innerText=emaV; setBox('boxEMA',emaV);
     document.getElementById('stochValue').innerText=stoch.toFixed(0); document.getElementById('stochVote').innerText=stochV; setBox('boxSTOCH',stochV);
-    document.getElementById('eliteValue').innerText=elite.signal; document.getElementById('eliteVote').innerText=elite.strength+'% '+eliteV; document.getElementById('eliteVote').style.color=eliteV==='BUY'?'#00ff88':eliteV==='SELL'?'#ff4757':'#aaa'; setBox('boxELITE',eliteV);
+    document.getElementById('eliteValue').innerText='F'+elite.kNow.toFixed(0)+'/S'+elite.dNow.toFixed(0);
+    document.getElementById('eliteVote').innerText=elite.strength+'% '+eliteV; document.getElementById('eliteVote').style.color=eliteV==='BUY'?'#00ff88':eliteV==='SELL'?'#ff4757':'#aaa'; setBox('boxELITE',eliteV);
 
     grid.style.display='grid';
 
