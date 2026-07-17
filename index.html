@@ -9,61 +9,76 @@
 :root{--yellow:#ffd700;--accent:#00d4ff;--green:#00ff88;--red:#ff4757}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#070a1f;color:#e0e0e0;font-family:'Poppins',sans-serif;overflow:hidden;height:100vh}
+/* LOGIN 3D */
 .login-wrap{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at top, #1a2338 0%, #0a0e27 60%, #050714 100%);display:flex;align-items:center;justify-content:center;padding:20px}
 .login-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 30%, rgba(255,215,0,0.15), transparent 50%), radial-gradient(circle at 80% 70%, rgba(0,212,255,0.15), transparent 50%)}
-.login-card{width:100%;max-width:380px;background:linear-gradient(145deg, rgba(15,23,41,0.9), rgba(26,35,56,0.9));backdrop-filter:blur(20px);border:1px solid rgba(255,215,0,0.3);border-radius:24px;padding:32px 26px;box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.1) inset, 0 0 40px rgba(255,215,0,0.15);position:relative}
-.logo-3d{width:84px;height:84px;margin:0 auto 18px;background:radial-gradient(circle at 30% 30%, #ffeb3b, #ffaa00, #ff6a00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Orbitron';font-weight:900;font-size:34px;color:#000}
-.login-card h1{font-family:'Orbitron';font-size:20px;color:var(--yellow);text-align:center;letter-spacing:3px}
+.login-card{width:100%;max-width:380px;background:linear-gradient(145deg, rgba(15,23,41,0.9), rgba(26,35,56,0.9));backdrop-filter:blur(20px);border:1px solid rgba(255,215,0,0.3);border-radius:24px;padding:32px 26px;box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.1) inset, 0 0 40px rgba(255,215,0,0.15);position:relative;transform:rotateX(5deg);animation:floatCard 4s ease-in-out infinite}
+@keyframes floatCard{0%,100%{transform:rotateX(5deg) translateY(0)}50%{transform:rotateX(2deg) translateY(-8px)}}
+.logo-3d{width:84px;height:84px;margin:0 auto 18px;background:radial-gradient(circle at 30% 30%, #ffeb3b, #ffaa00, #ff6a00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Orbitron';font-weight:900;font-size:34px;color:#000;box-shadow:0 15px 35px rgba(255,215,0,0.5), inset 0 -5px 10px rgba(0,0,0,0.3), inset 0 5px 10px rgba(255,255,255,0.5)}
+.login-card h1{font-family:'Orbitron';font-size:20px;color:var(--yellow);text-align:center;letter-spacing:3px;text-shadow:0 0 15px rgba(255,215,0,0.5)}
 .login-card p{text-align:center;font-size:9px;color:var(--accent);letter-spacing:3px;margin:6px 0 22px;font-weight:800}
 .inp{margin-bottom:14px}
-.inp label{font-size:8px;color:#aaa;letter-spacing:2px;font-weight:700;margin-bottom:6px;display:block}
-.inp input{width:100%;padding:14px;background:linear-gradient(145deg, #0a1628, #0f1e38);border:1px solid rgba(255,215,0,0.25);border-radius:12px;color:#e0e0e0;font-size:14px;font-weight:600;outline:none}
-.btn-login{width:100%;padding:15px;background:linear-gradient(145deg, #ffd700, #ff9500);border:none;border-radius:12px;font-family:'Orbitron';font-weight:900;font-size:13px;color:#000;letter-spacing:3px;cursor:pointer;margin-top:8px}
-.app-wrap{max-width:430px;margin:0 auto;height:100vh;background:radial-gradient(ellipse at top, #1a2338 0%, #0a0e27 60%, #050714 100%);position:relative;display:none;flex-direction:column;overflow:hidden}
+.inp label{font-size:8px;color:#aaa;letter-spacing:2px;font-weight:700;margin-bottom:6px;display:block;text-transform:uppercase}
+.inp input{width:100%;padding:14px;background:linear-gradient(145deg, #0a1628, #0f1e38);border:1px solid rgba(255,215,0,0.25);border-radius:12px;color:#e0e0e0;font-size:14px;font-weight:600;outline:none;box-shadow:inset 0 2px 8px rgba(0,0,0,0.6)}
+.inp input:focus{border-color:var(--yellow);box-shadow:inset 0 2px 8px rgba(0,0,0,0.6), 0 0 15px rgba(255,215,0,0.3)}
+.btn-login{width:100%;padding:15px;background:linear-gradient(145deg, #ffd700, #ff9500);border:none;border-radius:12px;font-family:'Orbitron';font-weight:900;font-size:13px;color:#000;letter-spacing:3px;cursor:pointer;margin-top:8px;box-shadow:0 10px 25px rgba(255,215,0,0.4), inset 0 2px 0 rgba(255,255,255,0.6)}
+.btn-login:active{transform:scale(0.97)}
+/* APP */
+.app-wrap{max-width:430px;margin:0 auto;height:100vh;background:radial-gradient(ellipse at top, #1a2338 0%, #0a0e27 60%, #050714 100%);position:relative;display:none;flex-direction:column;box-shadow:0 0 60px rgba(0,0,0,0.8);overflow:hidden}
 .ticker-wrap{height:32px;background:linear-gradient(90deg, #0f1729, #1a2338);border-bottom:1px solid rgba(255,215,0,0.2);display:flex;align-items:center;overflow:hidden;white-space:nowrap}
 .live-dot{width:8px;height:8px;background:#00ff88;border-radius:50%;margin:0 8px;box-shadow:0 0 10px #00ff88;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 .ticker{animation:marq 30s linear infinite;display:flex;gap:20px}
 @keyframes marq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .ticker span{font-size:10px;font-family:'Orbitron';font-weight:700}
-.header{padding:12px 14px;background:linear-gradient(145deg, rgba(15,23,41,0.9), rgba(26,35,56,0.9));border-bottom:1px solid rgba(255,215,0,0.15);display:flex;align-items:center;justify-content:space-between}
+.header{padding:12px 14px;background:linear-gradient(145deg, rgba(15,23,41,0.9), rgba(26,35,56,0.9));backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);display:flex;align-items:center;justify-content:space-between}
 .logo{width:38px;height:38px;background:radial-gradient(circle at 30% 30%, #ffeb3b, #ffaa00, #ff6a00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Orbitron';font-weight:900;font-size:16px;color:#000}
+.header h1{font-family:'Orbitron';font-size:11px;color:var(--yellow);letter-spacing:1px}.header p{font-size:6px;color:var(--accent);letter-spacing:1.5px;font-weight:800}
 .main{flex:1;overflow-y:auto;padding:12px;padding-bottom:90px}
-.card{background:linear-gradient(145deg, rgba(15,23,41,0.85), rgba(26,35,56,0.85));border:1px solid rgba(255,215,0,0.2);border-radius:18px;padding:14px;margin-bottom:10px}
+.card{background:linear-gradient(145deg, rgba(15,23,41,0.85), rgba(26,35,56,0.85));backdrop-filter:blur(16px);border:1px solid rgba(255,215,0,0.2);border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
 .label{font-size:8px;color:var(--yellow);font-weight:800;letter-spacing:1.5px;margin:10px 0 5px;display:block;text-transform:uppercase}
-select{width:100%;padding:12px;background:linear-gradient(145deg, #0a1628, #111f3a);border:1px solid rgba(255,215,0,0.2);border-radius:12px;color:#e0e0e0;font-size:13px;font-weight:600;outline:none}
-.btn3d{width:100%;padding:14px;background:linear-gradient(145deg, #ffd700, #ff9500);border:none;border-radius:14px;font-family:'Orbitron';font-weight:900;font-size:12px;color:#000;letter-spacing:2px;cursor:pointer;margin-top:12px}
+select{width:100%;padding:12px;background:linear-gradient(145deg, #0a1628, #111f3a);border:1px solid rgba(255,215,0,0.2);border-radius:12px;color:#e0e0e0;font-size:13px;font-weight:600;outline:none;box-shadow:inset 0 2px 6px rgba(0,0,0,0.5)}
+.btn3d{width:100%;padding:14px;background:linear-gradient(145deg, #ffd700, #ff9500);border:none;border-radius:14px;font-family:'Orbitron';font-weight:900;font-size:12px;color:#000;letter-spacing:2px;cursor:pointer;margin-top:12px;box-shadow:0 10px 25px rgba(255,215,0,0.4), inset 0 2px 0 rgba(255,255,255,0.6)}
+.btn3d:active{transform:scale(0.97)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
 .box{background:linear-gradient(145deg, #0a1628, #0f1e38);border:1px solid rgba(0,212,255,0.2);border-radius:12px;padding:9px;text-align:center}
-.box.buy{border-color:var(--green)}.box.sell{border-color:var(--red)}
-.b-label{font-size:6px;color:#888}.b-val{font-family:'Orbitron';font-size:11px;font-weight:800;color:var(--accent)}.b-vote{font-size:7px}
-.result{display:none;margin-top:12px;padding:16px;border-radius:18px;border:2px solid;text-align:center}
-.result.buy{border-color:var(--green)}.result.sell{border-color:var(--red)}.result.wait{border-color:var(--accent)}
-.s-type{font-family:'Orbitron';font-size:24px;font-weight:900}
+.box.buy{border-color:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.2)}.box.sell{border-color:var(--red);box-shadow:0 0 12px rgba(255,71,87,0.2)}
+.b-label{font-size:6px;color:#888;letter-spacing:1px;font-weight:700}.b-val{font-family:'Orbitron';font-size:11px;font-weight:800;color:var(--accent);margin-top:2px}.b-vote{font-size:7px;font-weight:700;margin-top:2px}
+.result{display:none;margin-top:12px;padding:16px;border-radius:18px;border:2px solid;text-align:center;animation:pop 0.5s ease}
+@keyframes pop{0%{transform:scale(0.8)}100%{transform:scale(1)}}
+.result.buy{border-color:var(--green);background:radial-gradient(circle at top, rgba(0,255,136,0.18), rgba(0,255,136,0.04))}.result.sell{border-color:var(--red);background:radial-gradient(circle at top, rgba(255,71,87,0.18), rgba(255,71,87,0.04))}.result.wait{border-color:var(--accent);background:radial-gradient(circle at top, rgba(0,212,255,0.12), rgba(0,212,255,0.03))}
+.s-type{font-family:'Orbitron';font-size:24px;font-weight:900;letter-spacing:3px}
 .chart-box{margin-top:10px;background:linear-gradient(145deg, #080e1e, #0c1428);border-radius:14px;border:1px solid rgba(255,215,0,0.15);padding:10px}
 .chart-top{height:110px;position:relative;overflow:hidden;border-bottom:1px dashed rgba(255,215,0,0.2)}.chart-bot{height:70px;position:relative;overflow:hidden;margin-top:8px}
+.legend{display:flex;gap:6px;justify-content:center;font-size:6px;margin-top:8px;flex-wrap:wrap;opacity:0.8}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 .nav{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:6px}
-.nav-inner{background:linear-gradient(180deg, rgba(20,24,62,0.95), rgba(10,14,39,0.98));border:1px solid rgba(255,255,255,0.1);border-radius:18px;display:flex;justify-content:space-around;padding:6px}
+.nav-inner{background:linear-gradient(180deg, rgba(20,24,62,0.95), rgba(10,14,39,0.98));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:18px;display:flex;justify-content:space-around;padding:6px;box-shadow:0 10px 25px rgba(0,0,0,0.6)}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px;border-radius:12px;border:none;background:transparent;color:rgba(255,255,255,0.4);font-size:9px;font-weight:700;cursor:pointer}
 .nav-btn.active{background:var(--yellow);color:#000}
 .progress{height:6px;background:#0a1628;border-radius:10px;overflow:hidden;margin-top:8px}.fill{height:100%;width:0%;background:linear-gradient(90deg, #ffd700, #00d4ff, #00ff88);transition:width 0.3s}
 </style>
 </head>
 <body>
+
 <div class="login-wrap" id="loginScreen">
   <div class="login-card">
     <div class="logo-3d">LA</div>
     <h1>LUBNA ABUBAKAR</h1>
     <p>🔒 PRIVATE LOGIN • 3D SECURE</p>
-    <div class="inp"><label>Username</label><input type="text" id="username" placeholder="Lubna"></div>
-    <div class="inp"><label>Password</label><input type="password" id="password" placeholder="0786"></div>
+    <div class="inp"><label>Username</label><input type="text" id="username" placeholder="Enter username"></div>
+    <div class="inp"><label>Password</label><input type="password" id="password" placeholder="Enter password"></div>
     <button class="btn-login" onclick="doLogin()">🔓 UNLOCK MY BOT</button>
-    <div style="text-align:center;margin-top:14px;font-size:8px;color:#666">Only Owner Can Access • v73 Private</div>
+    <div style="text-align:center;margin-top:14px;font-size:8px;color:#666;letter-spacing:1px">Only Owner Can Access • v73 Private</div>
   </div>
 </div>
+
 <div class="app-wrap" id="mainScreen">
-  <div class="ticker-wrap"><div class="live-dot"></div><div class="ticker"><span>₿ BTC $67,432</span><span>🇪🇺 EUR/USD 1.0842</span><span>🇵🇰 USD/PKR 278.12</span><span>🇮🇳 USD/INR 83.45</span><span>🇸🇦 USD/SAR 3.75</span></div></div>
-  <div class="header"><div style="display:flex;align-items:center;gap:10px"><div class="logo">LA</div><div><h1 style="font-family:Orbitron;font-size:11px;color:#ffd700">LUBNA ABUBAKAR AI v73 PRIVATE</h1><p style="font-size:6px;color:#00d4ff">🔒 OWNER ONLY</p></div></div><div onclick="doLogout()">🔒</div></div>
+  <div class="ticker-wrap"><div class="live-dot"></div><div class="ticker"><span>₿ BTC $67,432 <b style="color:#00ff88">+2.34%</b></span><span>🇪🇺 EUR/USD 1.0842 <b style="color:#00ff88">+0.12%</b></span><span>🇵🇰 USD/PKR 278.12</span><span>🇮🇳 USD/INR 83.45</span><span>🇸🇦 USD/SAR 3.75</span><span>₿ BTC $67,432</span></div></div>
+  <div class="header">
+    <div style="display:flex;align-items:center;gap:10px"><div class="logo">LA</div><div><h1>LUBNA ABUBAKAR AI v73 PRIVATE</h1><p>🔒 OWNER ONLY • 8 IND + FAST/SLOW</p></div></div>
+    <div style="font-size:14px" onclick="doLogout()" title="Logout">🔒</div>
+  </div>
   <div class="main">
     <div class="card">
       <div id="liveStatus" style="display:none;padding:7px;border-radius:10px;font-size:9px;font-weight:800;text-align:center;margin-bottom:8px"></div>
@@ -71,7 +86,7 @@ select{width:100%;padding:12px;background:linear-gradient(145deg, #0a1628, #111f
       <label class="label">💱 Asset With Flag</label><select id="asset"></select>
       <label class="label">⏱ Timeframe</label><select id="timeframe"><option value="1m">1m</option><option value="5m">5m</option></select>
       <button class="btn3d" id="scanBtn" onclick="doScan()">⚡ 3D SCAN - NEXT CANDLE</button>
-      <div id="analyzing" style="display:none;margin-top:12px;padding:12px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.25);border-radius:12px;text-align:center"><div style="font-size:10px;color:#ffd700;font-weight:800">🔮 Analyzing...</div><div class="progress"><div class="fill" id="fill"></div></div></div>
+      <div id="analyzing" style="display:none;margin-top:12px;padding:12px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.25);border-radius:12px;text-align:center"><div style="font-size:10px;color:var(--yellow);font-weight:800">🔮 Analyzing 8 Indicators + FAST/SLOW...</div><div class="progress"><div class="fill" id="fill"></div></div></div>
       <div class="grid" id="grid" style="display:none">
         <div class="box" id="bRSI"><div class="b-label">RSI 14</div><div class="b-val" id="vRSI">--</div><div class="b-vote" id="tRSI">--</div></div>
         <div class="box" id="bMACD"><div class="b-label">MACD</div><div class="b-val" id="vMACD">--</div><div class="b-vote" id="tMACD">--</div></div>
@@ -84,20 +99,46 @@ select{width:100%;padding:12px;background:linear-gradient(145deg, #0a1628, #111f
       </div>
       <div class="result" id="result"><div class="s-type" id="sType">WAIT</div><div style="font-size:9px;margin-top:4px" id="sMsg">--</div>
         <div class="chart-box"><div class="chart-top" id="cTop"></div><div class="chart-bot" id="cBot"></div>
+          <div class="legend"><span><span class="dot" style="background:#ffd700"></span> SELL ▼</span><span><span class="dot" style="background:#00d4ff"></span> BUY ▲</span><span><span class="dot" style="background:#ff55ff"></span> SELL DOT</span><span><span class="dot" style="background:#55ff55"></span> BUY DOT</span></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px">
-            <div style="background:#0a1628;padding:7px;border-radius:8px"><div style="font-size:7px;color:#888">VOTES</div><div style="font-family:Orbitron;font-size:10px;color:#ffd700" id="rScore">--</div></div>
-            <div style="background:#0a1628;padding:7px;border-radius:8px"><div style="font-size:7px;color:#888">FAST/SLOW</div><div style="font-family:Orbitron;font-size:10px;color:#ffd700" id="rFS">--</div></div>
+            <div style="background:#0a1628;padding:7px;border-radius:8px"><div style="font-size:7px;color:#888">VOTES</div><div style="font-family:Orbitron;font-size:10px;color:var(--yellow)" id="rScore">--</div></div>
+            <div style="background:#0a1628;padding:7px;border-radius:8px"><div style="font-size:7px;color:#888">FAST/SLOW</div><div style="font-family:Orbitron;font-size:10px;color:var(--yellow)" id="rFS">--</div></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="nav"><div class="nav-inner"><button class="nav-btn active">◰<span>Home</span></button><button class="nav-btn">◈<span>Signals</span></button><button class="nav-btn">◎<span>Markets</span></button><button class="nav-btn" onclick="doLogout()">⚙<span>Logout</span></button></div></div>
+  <div class="nav"><div class="nav-inner">
+    <button class="nav-btn active">◰<span>Home</span></button>
+    <button class="nav-btn">◈<span>Signals</span></button>
+    <button class="nav-btn">◎<span>Markets</span></button>
+    <button class="nav-btn" onclick="doLogout()">⚙<span>Logout</span></button>
+  </div></div>
 </div>
+
 <script>
-function doLogin(){let u=document.getElementById('username').value.trim();let p=document.getElementById('password').value.trim();if(u==='Lubna'&&p==='0786'){document.getElementById('loginScreen').style.display='none';document.getElementById('mainScreen').style.display='flex';changeMarket();}else alert('❌ Galat Login!\n\nUsername: Lubna\nPassword: 0786');}
-function doLogout(){document.getElementById('mainScreen').style.display='none';document.getElementById('loginScreen').style.display='flex';document.getElementById('username').value='';document.getElementById('password').value='';}
-function changeMarket(){let m=document.getElementById('marketType').value,a=document.getElementById('asset');if(m==='binance'){a.innerHTML=`<option value="BTCUSDT">₿ BTC/USDT</option><option value="ETHUSDT">Ξ ETH/USDT</option><option value="BNBUSDT">🔶 BNB/USDT</option><option value="SOLUSDT">◎ SOL/USDT</option>`;}else if(m==='forex'){a.innerHTML=`<option value="EURUSD">🇪🇺 EUR/USD</option><option value="GBPUSD">🇬🇧 GBP/USD</option><option value="USDJPY">🇯🇵 USD/JPY</option><option value="AUDUSD">🇦🇺 AUD/USD</option><option value="USDBRL">🇧🇷 USD/BRL</option><option value="USDINR">🇮🇳 USD/INR</option><option value="USDPKR">🇵🇰 USD/PKR</option><option value="USDZAR">🇿🇦 USD/ZAR</option><option value="USDSAR">🇸🇦 USD/SAR</option>`;}else{a.innerHTML=`<option value="EURUSD">🇪🇺 EUR/USD OTC</option><option value="USDBRL">🇧🇷 USD/BRL OTC</option><option value="USDPKR">🇵🇰 USD/PKR OTC</option>`;}}
+function doLogin(){
+  let u=document.getElementById('username').value.trim();
+  let p=document.getElementById('password').value.trim();
+  if(u==='Lubna' && p==='pro123'){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('mainScreen').style.display='flex';
+    changeMarket();
+  } else {
+    alert('❌ Galat Login!\\n\\nUsername: Lubna\\nPassword: pro123\\n\\nYe bot sirf owner ke liye hai!');
+  }
+}
+function doLogout(){
+  document.getElementById('mainScreen').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('username').value=''; document.getElementById('password').value='';
+}
+function changeMarket(){
+  let m=document.getElementById('marketType').value, a=document.getElementById('asset');
+  if(m==='binance'){a.innerHTML=`<option value="BTCUSDT">₿ BTC/USDT</option><option value="ETHUSDT">Ξ ETH/USDT</option><option value="BNBUSDT">🔶 BNB/USDT</option><option value="SOLUSDT">◎ SOL/USDT</option>`;}
+  else if(m==='forex'){a.innerHTML=`<option value="EURUSD">🇪🇺 EUR/USD</option><option value="GBPUSD">🇬🇧 GBP/USD</option><option value="USDJPY">🇯🇵 USD/JPY</option><option value="AUDUSD">🇦🇺 AUD/USD</option><option value="USDBRL">🇧🇷 USD/BRL</option><option value="USDINR">🇮🇳 USD/INR</option><option value="USDPKR">🇵🇰 USD/PKR</option><option value="USDZAR">🇿🇦 USD/ZAR</option><option value="USDSAR">🇸🇦 USD/SAR</option>`;}
+  else{a.innerHTML=`<option value="EURUSD">🇪🇺 EUR/USD OTC</option><option value="USDBRL">🇧🇷 USD/BRL OTC</option><option value="USDPKR">🇵🇰 USD/PKR OTC</option>`;}
+}
 function ema(pr,l){let k=2/(l+1),e=pr[0];for(let i=1;i<pr.length;i++)e=pr[i]*k+e*(1-k);return e;}
 function genCandles(b=100,n=70){let c=[],price=b;for(let i=0;i<n;i++){let ch=(Math.random()-0.49)*0.8;let o=price,cc=price+ch,h=Math.max(o,cc)+Math.random()*0.4,l=Math.min(o,cc)-Math.random()*0.4;c.push({o,h,l,c:cc});price=cc;}return c;}
 function calcRSI(c,p=14){if(c.length<p+1)return 50;let g=0,l=0;for(let i=c.length-p;i<c.length;i++){let d=c[i].c-c[i-1].c;if(d>0)g+=d;else l+=Math.abs(d);}let ag=g/p,al=l/p;if(al===0)return 100;return 100-(100/(1+ag/al));}
@@ -107,9 +148,69 @@ function calcFAST(c,p=14){let sl=c.slice(-p),low=Math.min(...sl.map(x=>x.l)),hig
 function calcCCI(c,p=20){let s=c.slice(-p);let tp=s.map(x=>(x.h+x.l+x.c)/3);let sma=tp.reduce((a,b)=>a+b,0)/p;let md=tp.reduce((a,b)=>a+Math.abs(b-sma),0)/p;let last=(c[c.length-1].h+c[c.length-1].l+c[c.length-1].c)/3;return (last-sma)/(0.015*md||1);}
 function calcADX(c,p=14){if(c.length<p+2)return{adx:20,pDI:0,mDI:0};let trS=0,pDMS=0,mDMS=0;for(let i=c.length-p;i<c.length;i++){let cc=c[i],pp=c[i-1];let tr=Math.max(cc.h-cc.l,Math.abs(cc.h-pp.c),Math.abs(cc.l-pp.c));let pDM=(cc.h-pp.h>pp.l-cc.l&&cc.h-pp.h>0)?cc.h-pp.h:0;let mDM=(pp.l-cc.l>cc.h-pp.h&&pp.l-cc.l>0)?pp.l-cc.l:0;trS+=tr;pDMS+=pDM;mDMS+=mDM;}let pDI=(pDMS/trS)*100,mDI=(mDMS/trS)*100;return{adx:Math.abs(pDI-mDI)/(pDI+mDI||1)*100,pDI,mDI};}
 function calcElite(c){let cl=c.map(x=>x.c),e10=ema(cl.slice(-20),10),e30=ema(cl.slice(-40),30),e50=ema(cl.slice(-60),50);let rsi=calcRSI(c),last=c[c.length-1],prev=c[c.length-2];let up=e10>e30&&e30>e50,down=e10<e30&&e30<e50;let buy=up&&last.c>last.o&&rsi>45&&rsi<70&&prev.c<prev.o;let sell=down&&last.c<last.o&&rsi<55&&rsi>30&&prev.c>prev.o;if(buy)return{signal:'BUY',e10,e30,e50,str:85};if(sell)return{signal:'SELL',e10,e30,e50,str:85};return{signal:'NEUTRAL',e10,e30,e50,str:45};}
-function draw(candles,fs,elite){let top=document.getElementById('cTop'),bot=document.getElementById('cBot');top.innerHTML='';bot.innerHTML='';let slice=candles.slice(-25),min=Infinity,max=-Infinity;slice.forEach(x=>{if(x.l<min)min=x.l;if(x.h>max)max=x.h;});let range=max-min||1,w=top.clientWidth;slice.forEach((c,i)=>{let x=i*(w/slice.length),yH=100-((c.h-min)/range)*90,yL=100-((c.l-min)/range)*90,yO=100-((c.o-min)/range)*90,yC=100-((c.c-min)/range)*90;let col=c.c>=c.o?'#00ff88':'#ff4757';let wick=document.createElement('div');wick.style.cssText=`position:absolute;left:${x+4}px;top:${yH}px;width:1px;height:${yL-yH}px;background:${col};`;top.appendChild(wick);let body=document.createElement('div');let t=Math.min(yO,yC),bh=Math.abs(yC-yO)||2;body.style.cssText=`position:absolute;left:${x}px;top:${t}px;width:8px;height:${bh}px;background:${col};border-radius:2px;box-shadow:0 0 8px ${col};`;top.appendChild(body);});let fH=[],sH=[];for(let j=20;j<candles.length;j++){let f=calcFAST(candles.slice(0,j+1));fH.push(f.fast);sH.push(f.slow);}let fS=fH.slice(-25),sS=sH.slice(-25);for(let i=1;i<fS.length;i++){let x1=(i-1)*(w/fS.length),x2=i*(w/fS.length),y1=60-(fS[i-1]/100)*50,y2=60-(fS[i]/100)*50;let len=Math.sqrt((x2-x1)**2+(y2-y1)**2),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;let l=document.createElement('div');l.style.cssText=`position:absolute;left:${x1}px;top:${y1}px;width:${len}px;height:2px;background:#00d4ff;transform-origin:0 0;transform:rotate(${ang}deg)`;bot.appendChild(l);}for(let i=1;i<sS.length;i++){let x1=(i-1)*(w/sS.length),x2=i*(w/sS.length),y1=60-(sS[i-1]/100)*50,y2=60-(sS[i]/100)*50;let len=Math.sqrt((x2-x1)**2+(y2-y1)**2),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;let l=document.createElement('div');l.style.cssText=`position:absolute;left:${x1}px;top:${y1}px;width:${len}px;height:2px;background:#ffaa00;transform-origin:0 0;transform:rotate(${ang}deg)`;bot.appendChild(l);}}
+function draw(candles,fs,elite){
+  let top=document.getElementById('cTop'), bot=document.getElementById('cBot');top.innerHTML='';bot.innerHTML='';
+  let slice=candles.slice(-25),min=Infinity,max=-Infinity;slice.forEach(x=>{if(x.l<min)min=x.l;if(x.h>max)max=x.h;});let range=max-min||1,w=top.clientWidth;
+  slice.forEach((c,i)=>{
+    let x=i*(w/slice.length),yH=100-((c.h-min)/range)*90,yL=100-((c.l-min)/range)*90,yO=100-((c.o-min)/range)*90,yC=100-((c.c-min)/range)*90;
+    let col=c.c>=c.o?'#00ff88':'#ff4757';
+    let wick=document.createElement('div');wick.style.cssText=`position:absolute;left:${x+4}px;top:${yH}px;width:1px;height:${yL-yH}px;background:${col};`;top.appendChild(wick);
+    let body=document.createElement('div');let t=Math.min(yO,yC),bh=Math.abs(yC-yO)||2;body.style.cssText=`position:absolute;left:${x}px;top:${t}px;width:8px;height:${bh}px;background:${col};border-radius:2px;box-shadow:0 0 8px ${col};`;top.appendChild(body);
+    if(i===slice.length-2&&fs.crossUp){let d=document.createElement('div');d.style.cssText=`position:absolute;left:${x}px;top:${yL+6}px;width:9px;height:9px;background:#55ff55;border-radius:50%;box-shadow:0 0 10px #55ff55;border:1px solid #fff;`;top.appendChild(d);}
+    if(i===slice.length-2&&fs.crossDown){let d=document.createElement('div');d.style.cssText=`position:absolute;left:${x}px;top:${yH-10}px;width:9px;height:9px;background:#ff55ff;border-radius:50%;box-shadow:0 0 10px #ff55ff;border:1px solid #fff;`;top.appendChild(d);}
+    if(i===slice.length-1&&elite.signal==='BUY'){let a=document.createElement('div');a.style.cssText=`position:absolute;left:${x-4}px;top:${yL+12}px;color:#00d4ff;font-size:16px;text-shadow:0 0 10px #00d4ff;`;a.innerText='▲';top.appendChild(a);}
+    if(i===slice.length-1&&elite.signal==='SELL'){let a=document.createElement('div');a.style.cssText=`position:absolute;left:${x-4}px;top:${yH-20}px;color:#ffd700;font-size:16px;text-shadow:0 0 10px #ffd700;`;a.innerText='▼';top.appendChild(a);}
+  });
+  let fH=[],sH=[];for(let j=20;j<candles.length;j++){let f=calcFAST(candles.slice(0,j+1));fH.push(f.fast);sH.push(f.slow);}
+  let fS=fH.slice(-25),sS=sH.slice(-25);
+  for(let i=1;i<fS.length;i++){let x1=(i-1)*(w/fS.length),x2=i*(w/fS.length),y1=60-(fS[i-1]/100)*50,y2=60-(fS[i]/100)*50;let len=Math.sqrt((x2-x1)**2+(y2-y1)**2),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;let l=document.createElement('div');l.style.cssText=`position:absolute;left:${x1}px;top:${y1}px;width:${len}px;height:2px;background:#00d4ff;transform-origin:0 0;transform:rotate(${ang}deg);box-shadow:0 0 6px #00d4ff;`;bot.appendChild(l);}
+  for(let i=1;i<sS.length;i++){let x1=(i-1)*(w/sS.length),x2=i*(w/sS.length),y1=60-(sS[i-1]/100)*50,y2=60-(sS[i]/100)*50;let len=Math.sqrt((x2-x1)**2+(y2-y1)**2),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;let l=document.createElement('div');l.style.cssText=`position:absolute;left:${x1}px;top:${y1}px;width:${len}px;height:2px;background:#ffaa00;transform-origin:0 0;transform:rotate(${ang}deg);box-shadow:0 0 6px #ffaa00;`;bot.appendChild(l);}
+}
 function setBox(id,v){let el=document.getElementById(id);el.classList.remove('buy','sell');if(v==='BUY')el.classList.add('buy');if(v==='SELL')el.classList.add('sell');}
-async function doScan(){let btn=document.getElementById('scanBtn'),an=document.getElementById('analyzing'),fill=document.getElementById('fill'),res=document.getElementById('result'),grid=document.getElementById('grid'),live=document.getElementById('liveStatus');btn.disabled=true;an.style.display='block';res.style.display='none';grid.style.display='none';fill.style.width='0%';let p=0;let iv=setInterval(()=>{p+=Math.random()*20+5;if(p>100)p=100;fill.style.width=p+'%';if(p>=100){clearInterval(iv);run();}},180);function run(){an.style.display='none';let candles=genCandles(100+Math.random()*20,70);let rsi=calcRSI(candles),macd=calcMACD(candles),bb=calcBB(candles),cci=calcCCI(candles),adx=calcADX(candles),fs=calcFAST(candles),elite=calcElite(candles);let votes={buy:0,sell:0};let rsiV=rsi<30?'BUY':rsi>70?'SELL':'NEUTRAL';if(rsiV==='BUY')votes.buy++;if(rsiV==='SELL')votes.sell++;let macdV=macd.hist>0?'BUY':'SELL';if(macdV==='BUY')votes.buy++;else votes.sell++;let bbP=((bb.price-bb.lower)/(bb.upper-bb.lower||1))*100;let bbV=bb.price<=bb.lower?'BUY':bb.price>=bb.upper?'SELL':'NEUTRAL';if(bbV==='BUY')votes.buy++;if(bbV==='SELL')votes.sell++;let emaV=elite.e10>elite.e30?'BUY':'SELL';if(emaV==='BUY')votes.buy++;else votes.sell++;let fV=fs.fast<20&&fs.fast>fs.slow?'BUY':fs.fast>80&&fs.fast<fs.slow?'SELL':fs.crossUp?'BUY':fs.crossDown?'SELL':'NEUTRAL';if(fV==='BUY')votes.buy++;if(fV==='SELL')votes.sell++;let cciV=cci<-100?'BUY':cci>100?'SELL':'NEUTRAL';if(cciV==='BUY')votes.buy++;if(cciV==='SELL')votes.sell++;let adxV=adx.adx>20?(adx.pDI>adx.mDI?'BUY':'SELL'):'NEUTRAL';if(adxV==='BUY')votes.buy++;if(adxV==='SELL')votes.sell++;let elV=elite.signal;if(elV==='BUY')votes.buy++;if(elV==='SELL')votes.sell++;document.getElementById('vRSI').innerText=rsi.toFixed(1);document.getElementById('tRSI').innerText=rsiV;setBox('bRSI',rsiV);document.getElementById('vMACD').innerText=macd.hist.toFixed(4);document.getElementById('tMACD').innerText=macdV;setBox('bMACD',macdV);document.getElementById('vBB').innerText=bbP.toFixed(0)+'%';document.getElementById('tBB').innerText=bbV;setBox('bBB',bbV);document.getElementById('vEMA').innerText=(elite.e10-elite.e30).toFixed(2);document.getElementById('tEMA').innerText=emaV;setBox('bEMA',emaV);document.getElementById('vFAST').innerText=`${fs.fast.toFixed(0)}/${fs.slow.toFixed(0)}`;document.getElementById('tFAST').innerText=fV;setBox('bFAST',fV);document.getElementById('vCCI').innerText=cci.toFixed(0);document.getElementById('tCCI').innerText=cciV;setBox('bCCI',cciV);document.getElementById('vADX').innerText=adx.adx.toFixed(0);document.getElementById('tADX').innerText=adxV;setBox('bADX',adxV);document.getElementById('vELITE').innerText=elV;document.getElementById('tELITE').innerText=elite.str+'% '+elV;setBox('bELITE',elV);grid.style.display='grid';let finalType='WAIT',cls='wait';if(fV!=='NEUTRAL'&&elV===fV&&(fV==='BUY'?votes.buy>=4:votes.sell>=4)){finalType=fV;cls=fV==='BUY'?'buy':'sell';}else if(votes.buy>=5){finalType='BUY';cls='buy';}else if(votes.sell>=5){finalType='SELL';cls='sell';}res.className='result '+cls;document.getElementById('sType').innerText=finalType;document.getElementById('sType').style.color=finalType==='BUY'?'#00ff88':finalType==='SELL'?'#ff4757':'#00d4ff';document.getElementById('sMsg').innerText=finalType==='WAIT'?`WAIT - ${votes.buy}B vs ${votes.sell}S`:`NEXT: ${finalType} - Agli ${finalType==='BUY'?'UP':'DOWN'} | 3D CONFIRMED`;document.getElementById('rScore').innerText=`${votes.buy}B / ${votes.sell}S`;document.getElementById('rFS').innerText=`F:${fs.fast.toFixed(0)} S:${fs.slow.toFixed(0)}`;res.style.display='block';live.style.display='block';live.textContent='📡 LIVE 3D - PRIVATE MODE';live.style.background='rgba(0,255,136,0.12)';live.style.color='#00ff88';draw(candles,fs,elite);btn.disabled=false;}}
+async function doScan(){
+  let btn=document.getElementById('scanBtn'), an=document.getElementById('analyzing'), fill=document.getElementById('fill'), res=document.getElementById('result'), grid=document.getElementById('grid'), live=document.getElementById('liveStatus');
+  btn.disabled=true; an.style.display='block'; res.style.display='none'; grid.style.display='none'; fill.style.width='0%';
+  let p=0; let iv=setInterval(()=>{p+=Math.random()*20+5; if(p>100)p=100; fill.style.width=p+'%'; if(p>=100){clearInterval(iv); run();}},180);
+  function run(){
+    an.style.display='none';
+    let candles=genCandles(100+Math.random()*20,70);
+    let rsi=calcRSI(candles), macd=calcMACD(candles), bb=calcBB(candles), cci=calcCCI(candles), adx=calcADX(candles), fs=calcFAST(candles), elite=calcElite(candles);
+    let votes={buy:0,sell:0};
+    let rsiV=rsi<30?'BUY':rsi>70?'SELL':'NEUTRAL'; if(rsiV==='BUY')votes.buy++; if(rsiV==='SELL')votes.sell++;
+    let macdV=macd.hist>0?'BUY':'SELL'; if(macdV==='BUY')votes.buy++; else votes.sell++;
+    let bbP=((bb.price-bb.lower)/(bb.upper-bb.lower||1))*100; let bbV=bb.price<=bb.lower?'BUY':bb.price>=bb.upper?'SELL':'NEUTRAL'; if(bbV==='BUY')votes.buy++; if(bbV==='SELL')votes.sell++;
+    let emaV=elite.e10>elite.e30?'BUY':'SELL'; if(emaV==='BUY')votes.buy++; else votes.sell++;
+    let fV=fs.fast<20&&fs.fast>fs.slow?'BUY':fs.fast>80&&fs.fast<fs.slow?'SELL':fs.crossUp?'BUY':fs.crossDown?'SELL':'NEUTRAL'; if(fV==='BUY')votes.buy++; if(fV==='SELL')votes.sell++;
+    let cciV=cci<-100?'BUY':cci>100?'SELL':'NEUTRAL'; if(cciV==='BUY')votes.buy++; if(cciV==='SELL')votes.sell++;
+    let adxV=adx.adx>20?(adx.pDI>adx.mDI?'BUY':'SELL'):'NEUTRAL'; if(adxV==='BUY')votes.buy++; if(adxV==='SELL')votes.sell++;
+    let elV=elite.signal; if(elV==='BUY')votes.buy++; if(elV==='SELL')votes.sell++;
+
+    document.getElementById('vRSI').innerText=rsi.toFixed(1); document.getElementById('tRSI').innerText=rsiV; setBox('bRSI',rsiV);
+    document.getElementById('vMACD').innerText=macd.hist.toFixed(4); document.getElementById('tMACD').innerText=macdV; setBox('bMACD',macdV);
+    document.getElementById('vBB').innerText=bbP.toFixed(0)+'%'; document.getElementById('tBB').innerText=bbV; setBox('bBB',bbV);
+    document.getElementById('vEMA').innerText=(elite.e10-elite.e30).toFixed(2); document.getElementById('tEMA').innerText=emaV; setBox('bEMA',emaV);
+    document.getElementById('vFAST').innerText=`${fs.fast.toFixed(0)}/${fs.slow.toFixed(0)}`; document.getElementById('tFAST').innerText=fV; setBox('bFAST',fV);
+    document.getElementById('vCCI').innerText=cci.toFixed(0); document.getElementById('tCCI').innerText=cciV; setBox('bCCI',cciV);
+    document.getElementById('vADX').innerText=adx.adx.toFixed(0); document.getElementById('tADX').innerText=adxV; setBox('bADX',adxV);
+    document.getElementById('vELITE').innerText=elV; document.getElementById('tELITE').innerText=elite.str+'% '+elV; setBox('bELITE',elV);
+    grid.style.display='grid';
+
+    let finalType='WAIT', cls='wait';
+    if(fV!=='NEUTRAL' && elV===fV && (fV==='BUY'?votes.buy>=4:votes.sell>=4)){finalType=fV; cls=fV==='BUY'?'buy':'sell';}
+    else if(votes.buy>=5){finalType='BUY'; cls='buy';} else if(votes.sell>=5){finalType='SELL'; cls='sell';}
+
+    res.className='result '+cls;
+    document.getElementById('sType').innerText=finalType;
+    document.getElementById('sType').style.color=finalType==='BUY'?'#00ff88':finalType==='SELL'?'#ff4757':'#00d4ff';
+    document.getElementById('sMsg').innerText=finalType==='WAIT'?`WAIT - ${votes.buy}B vs ${votes.sell}S | FAST ${fs.fast.toFixed(0)} SLOW ${fs.slow.toFixed(0)}`:`NEXT CANDLE: ${finalType} - Agli ${finalType==='BUY'?'UP ⬆️':'DOWN ⬇️'} | 3D CONFIRMED`;
+    document.getElementById('rScore').innerText=`${votes.buy}B / ${votes.sell}S`;
+    document.getElementById('rFS').innerText=`F:${fs.fast.toFixed(0)} S:${fs.slow.toFixed(0)}`;
+    res.style.display='block';
+    live.style.display='block'; live.textContent='📡 LIVE 3D - 8 IND + FAST/SLOW ✅ - PRIVATE MODE'; live.style.background='rgba(0,255,136,0.12)'; live.style.color='#00ff88'; live.style.border='1px solid rgba(0,255,136,0.3)';
+    draw(candles,fs,elite);
+    btn.disabled=false;
+  }
+}
 </script>
 </body>
 </html>
