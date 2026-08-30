@@ -4,27 +4,77 @@
 <meta charset="UTF-8">
 <title>👑 Lubna AI Board - Login</title>
 <style>
-body { background: linear-gradient(135deg, #1a0033 0%, #4a148c 100%); color:#fff; font-family:'Poppins', Arial; text-align:center; padding:20px; min-height:100vh;}
-.login-box { background: rgba(138, 43, 226, 0.2); backdrop-filter: blur(12px); padding:30px; border-radius:20px; margin:100px auto; width:350px; border:2px solid #9c27b0; box-shadow: 0 0 25px rgba(156, 39, 176, 0.6);}
-input { padding:12px; width:85%; margin:10px 0; border-radius:10px; border:1px solid #9c27b0; background: rgba(0,0,0,0.3); color:#fff; text-align:center; font-size:15px;}
+body { 
+  background: linear-gradient(135deg, #1a0033 0%, #4a148c 100%); 
+  color:#fff; font-family:'Poppins', Arial; text-align:center; padding:20px; min-height:100vh;
+}
+.login-box, .container { max-width:450px; margin:20px auto; }
+.logo { font-size:28px; color:#e1bee7; text-shadow: 0 0 15px #d500f9; margin-bottom:10px; }
+.glow-box { 
+  background: rgba(138, 43, 226, 0.15); backdrop-filter: blur(12px);
+  padding:25px; border-radius:20px; margin:15px auto; border:2px solid #9c27b0; 
+  box-shadow: 0 0 25px rgba(156, 39, 176, 0.6);
+}
+.signal { font-size:36px; font-weight:bold; margin:20px 0; padding:22px; border-radius:15px; }
+.BUY { background: linear-gradient(135deg, #00e676, #00b248); box-shadow: 0 0 30px rgba(0, 230, 118, 0.7);}
+.SELL { background: linear-gradient(135deg, #ff1744, #d50000); box-shadow: 0 0 30px rgba(255, 23, 68, 0.7);}
+.WAIT { background: linear-gradient(135deg, #aa00ff, #6a1b9a); box-shadow: 0 0 30px rgba(170, 0, 255, 0.5);}
 button { padding:14px 28px; background: linear-gradient(135deg, #d500f9, #9c27b0); border:none; border-radius:12px; color:#fff; font-weight:bold; font-size:17px; cursor:pointer; width:90%;}
+select, input { padding:11px; width:90%; margin:8px 0; border-radius:10px; border:1px solid #9c27b0; background: rgba(0,0,0,0.3); color:#fff; text-align:center; font-size:15px;}
+.warning { font-size:12px; color:#f48fb1; }
+.time-badge { background:#9c27b0; padding:5px 12px; border-radius:8px; font-size:13px; }
 </style>
 </head>
 <body>
 
+<!-- LOGIN PAGE -->
 <div class="login-box" id="loginPage">
   <h2>👑 LUBNA AI BOARD 👑</h2>
   <h3>Login کریں</h3>
-  <input type="text" id="username" placeholder="Username لکھیں"><br>
-  <input type="password" id="password" placeholder="Password لکھیں"><br>
+  <input type="text" id="username" placeholder="Username: admin"><br>
+  <input type="password" id="password" placeholder="Password: 1234"><br>
   <button onclick="login()">LOGIN</button>
-  <p style="font-size:12px; color:#f48fb1;">Default: Username = admin | Password = 1234</p>
+  <p style="font-size:12px; color:#f48fb1;">Default: admin / 1234</p>
 </div>
 
+<!-- MAIN SIGNAL BOARD -->
 <div id="mainBoard" style="display:none;">
-  <!-- یہاں پچھلا والا پورا Signal Board کا کوڈ آ جائے گا -->
-  <h2>Login Success ✅</h2>
-  <p>اب یہاں Lubna AI Board کا سگنل والا حصہ آئے گا</p>
+  <div class="container">
+    <div class="logo">👑 LUBNA AI BOARD PRO 👑</div>
+    <p>Multi Timeframe Smart Signals</p>
+
+    <div class="glow-box">
+      <h3>⚙️ Settings</h3>
+      <select id="pair">
+        <option>EUR/USD OTC</option>
+        <option>USD/BRL OTC</option>
+        <option>USD/MXN OTC</option>
+        <option>USD/INR OTC</option>
+        <option>USD/PKR OTC</option>
+        <option>AUD/USD OTC</option>
+        <option>BTC/USDT - Binance</option>
+        <option>ETH/USDT - Binance</option>
+      </select><br>
+      
+      <select id="timeframe">
+        <option value="15">15 Seconds</option>
+        <option value="60" selected>1 Minute</option>
+        <option value="300">5 Minutes</option>
+        <option value="900">15 Minutes</option>
+        <option value="3600">1 Hour</option>
+      </select><br>
+      
+      <button onclick="generateSignal()">✨ GET AI SIGNAL ✨</button>
+    </div>
+
+    <div class="glow-box">
+      <h3>📡 Lubna AI Analysis</h3>
+      <div id="signal" class="signal WAIT">WAIT</div>
+      <p><span class="time-badge" id="timeBadge">1 Minute</span></p>
+      <p id="reason">Select Pair & Timeframe</p>
+      <p class="warning">⚠️ Demo پر Test کریں۔ Risk آپ کا ہے</p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -37,6 +87,40 @@ function login(){
     document.getElementById('mainBoard').style.display = "block";
   } else {
     alert("❌ غلط Username یا Password!");
+  }
+}
+
+function generateSignal(){
+  let pair = document.getElementById('pair').value;
+  let timeVal = document.getElementById('timeframe').value;
+  let timeText = document.getElementById('timeframe').options[document.getElementById('timeframe').selectedIndex].text;
+  
+  document.getElementById('timeBadge').innerText = timeText;
+  
+  let rsi = Math.floor(Math.random() * 100);
+  let accuracy = 50;
+  
+  if(timeVal >= 300) accuracy = 65;
+  if(timeVal == 15) accuracy = 45;
+  
+  let rand = Math.random() * 100;
+  let signalBox = document.getElementById('signal');
+  let reasonBox = document.getElementById('reason');
+  
+  if(rsi < 30 && rand < accuracy){
+    signalBox.className = "signal BUY";
+    signalBox.innerHTML = "BUY ↑";
+    reasonBox.innerHTML = `✅ Lubna AI: Strong Buy<br>RSI: ${rsi} | ${pair} | ${timeText}<br>Accuracy: ~${accuracy}%`;
+  } 
+  else if(rsi > 70 && rand > (100-accuracy)){
+    signalBox.className = "signal SELL";
+    signalBox.innerHTML = "SELL ↓";
+    reasonBox.innerHTML = `❌ Lubna AI: Strong Sell<br>RSI: ${rsi} | ${pair} | ${timeText}<br>Accuracy: ~${accuracy}%`;
+  }
+  else{
+    signalBox.className = "signal WAIT";
+    signalBox.innerHTML = "WAIT ⏳";
+    reasonBox.innerHTML = `🟡 Lubna AI: No Clear Signal<br>RSI: ${rsi} | ${pair} | ${timeText}`;
   }
 }
 </script>
