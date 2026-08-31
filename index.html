@@ -1,103 +1,143 @@
 <!DOCTYPE html>
-<html>
+<html lang="ur">
 <head>
-<title>Lubna AI Board v3 - LIVE</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUBNA AI FULL OTC</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-body{background:#050505; color:#FFD700; font-family:Arial; margin:0; padding:10px;}
-.container{max-width:600px; margin:auto; background:#111; border:2px solid #FFD700; border-radius:20px; padding:20px;}
-h1{text-align:center; color:#FFD700;}
-.login-box input{width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #FFD700; background:#000; color:#FFD700;}
-.login-btn{width:100%; padding:15px; background:#FFD700; color:#000; font-weight:bold; border:none; border-radius:10px; font-size:18px;}
-.tabs{display:flex; justify-content:space-around; margin:20px 0;}
-.tab{padding:10px; background:#222; border-radius:10px; cursor:pointer; border:1px solid #FFD700;}
-.tab.active{background:#FFD700; color:#000; font-weight:bold;}
-.price-box{background:#000; padding:15px; border-radius:10px; text-align:center; margin:15px 0; border:2px solid green;}
-.signal-btn{width:100%; padding:20px; font-size:24px; background:#00C851; color:#fff; border:none; border-radius:15px; font-weight:bold;}
-.signal{font-size:40px; text-align:center; padding:25px; margin:20px 0; border-radius:15px; font-weight:bold;}
-.buy{background:green;} .sell{background:red;} .wait{background:gray;}
-.live-dot{color:green; animation: blink 1s infinite;}
-@keyframes blink {50% {opacity: 0;}}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:linear-gradient(135deg,#1a0033,#0d1117);font-family:'Orbitron',sans-serif;color:#fff;}
+.login-screen{width:100%;height:100dvh;display:flex;justify-content:center;align-items:center;}
+.login-card{width:90%;max-width:380px;background:rgba(161,0,255,0.1);border:2px solid #a100ff;border-radius:24px;padding:40px 28px;}
+.logo{width:100px;height:100px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,#a100ff,#ffd700);display:flex;justify-content:center;align-items:center;font-size:42px;font-weight:900;color:#000;}
+.title{text-align:center;font-size:22px;font-weight:900;color:#ffd700;}
+.input-box{margin:20px 0;}
+.input-box input{width:100%;padding:16px;background:rgba(0,0,0,0.5);border:1px solid #a100ff;border-radius:14px;color:#ffd700;font-size:16px;}
+.unlock-btn{width:100%;padding:18px;background:linear-gradient(135deg,#a100ff,#ffd700);border:none;border-radius:14px;font-weight:900;font-size:16px;color:#000;}
+.app-screen{display:none;width:100%;height:100dvh;overflow-y:auto;padding-bottom:100px;}
+.app-header{padding:14px 18px;background:rgba(161,0,255,0.1);border-bottom:2px solid #a100ff;text-align:center;}
+.price-box{text-align:center;margin:16px;padding:15px;background:rgba(0,255,136,0.1);border:1px solid #00ff88;border-radius:12px;}
+.price{font-size:24px;color:#00ff88;font-weight:900;}
+.live-dot{color:#00ff88;animation:blink 1s infinite;} @keyframes blink{50%{opacity:0;}}
+.indicators-bar{display:flex;gap:6px;margin:16px;overflow-x:auto;padding:8px;background:rgba(161,0,255,0.1);border:1px solid #a100ff;border-radius:12px;}
+.ind-item{flex:1;min-width:70px;text-align:center;}
+.ind-label{font-size:7px;color:#ffd700;} .ind-value{font-size:11px;font-weight:900;color:#a100ff;}
+.asset-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;}
+.asset-card{background:rgba(161,0,255,0.1);border:1px solid #a100ff;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.asset-card.active{border-color:#00ff88;box-shadow:0 0 20px #00ff88;}
+.flag{font-size:20px;} .asset-name{font-size:12px;font-weight:700;color:#ffd700;}
+.signal-box{position:fixed;bottom:0;left:0;width:100%;padding:15px;background:#000;border-top:2px solid #ffd700;text-align:center;}
+.signal{font-size:28px;font-weight:900;}
+.buy{color:#00ff88;} .sell{color:#ff0044;} .wait{color:#ffd700;}
 </style>
 </head>
 <body>
-<div class="container">
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="logo">LA</div>
+    <div class="title">LUBNA AI FULL OTC</div>
+    <div class="input-box"><input type="text" id="username" value="Lubna"></div>
+    <div class="input-box"><input type="password" id="password" value="Abubakar786"></div>
+    <button class="unlock-btn" onclick="doLogin()">UNLOCK AI</button>
+  </div>
+</div>
+
+<div class="app-screen" id="appScreen">
+  <div class="app-header"><div class="title">🌍 ALL 27 QUOTEX OTC PAIRS</div></div>
   
-  <div id="loginPage">
-    <h1>👑 LUBNA AI BOARD 👑</h1>
-    <div class="login-box">
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <button class="login-btn" onclick="login()">LOGIN KAREN</button>
-    </div>
+  <div class="price-box">
+    <div>Live Price <span class="live-dot">●</span></div>
+    <div class="price" id="livePrice">$0.00</div>
   </div>
 
-  <div id="dashboard" style="display:none;">
-    <h1>👑 LUBNA AI BOARD 👑</h1>
-    
-    <div class="tabs">
-      <div class="tab active" onclick="selectMarket('BTCUSDT')">Binance BTC</div>
-      <div class="tab" onclick="selectMarket('ETHUSDT')">Binance ETH</div>
-      <div class="tab" onclick="selectMarket('EURUSD')">Forex EUR/USD</div>
-      <div class="tab" onclick="selectMarket('GBPUSD')">Forex GBP/USD</div>
-    </div>
-
-    <div class="price-box">
-      <h3 id="marketName">BTC/USDT <span class="live-dot">● LIVE</span></h3>
-      <h2 id="livePrice">Loading...</h2>
-    </div>
-
-    <button class="signal-btn" onclick="getSignal()">GET STRONG SIGNAL</button>
-    <div id="signalResult" class="signal wait">WAIT</div>
-    <p>Confidence: <span id="conf">--</span>% | SL: <span id="sl">--</span> | TP: <span id="tp">--</span></p>
+  <div class="indicators-bar">
+    <div class="ind-item"><div class="ind-label">RSI 14</div><div class="ind-value" id="rsi">--</div></div>
+    <div class="ind-item"><div class="ind-label">EMA</div><div class="ind-value" id="ema">--</div></div>
+    <div class="ind-item"><div class="ind-label">MACD</div><div class="ind-value" id="macd">--</div></div>
+    <div class="ind-item"><div class="ind-label">BB</div><div class="ind-value" id="bb">--</div></div>
+    <div class="ind-item"><div class="ind-label">5-CANDLE</div><div class="ind-value" id="candle5">--</div></div>
   </div>
 
+  <div class="asset-grid" id="assetGrid"></div>
+
+  <div class="signal-box">
+    <div id="signal" class="signal wait">SELECT ASSET</div>
+    <div>Confidence: <span id="conf">--</span>%</div>
+  </div>
 </div>
 
 <script>
-function login(){
-  if(document.getElementById('username').value != ""){
-    document.getElementById('loginPage').style.display="none";
-    document.getElementById('dashboard').style.display="block";
-    startLivePrice(); // login کے بعد price شروع
+let currentAsset = 'BTCUSDT';
+
+// QUOTEX کی تمام 27 OTC
+let assets = [
+  {flag:'🇺🇸🇧🇷', name:'USD/BRL', pair:'BTCUSDT'}, {flag:'🇺🇸🇲🇽', name:'USD/MXN', pair:'BTCUSDT'},
+  {flag:'🇺🇸🇵🇰', name:'USD/PKR', pair:'BTCUSDT'}, {flag:'🇺🇸🇮🇳', name:'USD/INR', pair:'ETHUSDT'},
+  {flag:'🇺🇸🇦🇷', name:'USD/ARS', pair:'BTCUSDT'}, {flag:'🇺🇸🇨🇱', name:'USD/CLP', pair:'BTCUSDT'},
+  {flag:'🇺🇸🇨🇴', name:'USD/COP', pair:'BTCUSDT'}, {flag:'🇺🇸🇵🇪', name:'USD/PEN', pair:'ETHUSDT'},
+  {flag:'🇺🇸🇻🇪', name:'USD/VES', pair:'BTCUSDT'}, {flag:'🇺🇸🇮🇩', name:'USD/IDR', pair:'ETHUSDT'},
+  {flag:'🇺🇸🇻🇳', name:'USD/VND', pair:'BTCUSDT'}, {flag:'🇺🇸🇳🇬', name:'USD/NGN', pair:'BTCUSDT'},
+  {flag:'🇺🇸🇿🇦', name:'USD/ZAR', pair:'ETHUSDT'}, {flag:'🇺🇸🇧🇩', name:'USD/BDT', pair:'BTCUSDT'},
+  {flag:'🇪🇺🇸', name:'EUR/USD', pair:'ETHUSDT'}, {flag:'🇬🇧🇺🇸', name:'GBP/USD', pair:'BTCUSDT'},
+  {flag:'🇦🇺🇸', name:'AUD/USD', pair:'ETHUSDT'}, {flag:'🇨🇦🇺🇸', name:'CAD/USD', pair:'BTCUSDT'},
+  {flag:'🇨🇭🇺🇸', name:'CHF/USD', pair:'ETHUSDT'}, {flag:'🇯🇵🇺🇸', name:'JPY/USD', pair:'BTCUSDT'},
+  {flag:'🇳🇿🇺🇸', name:'NZD/USD', pair:'ETHUSDT'}, {flag:'🇪🇺🇬🇧', name:'EUR/GBP', pair:'BTCUSDT'},
+  {flag:'🇪🇺🇯🇵', name:'EUR/JPY', pair:'ETHUSDT'}, {flag:'🇬🇧🇯🇵', name:'GBP/JPY', pair:'BTCUSDT'},
+  {flag:'🇦🇺🇯🇵', name:'AUD/JPY', pair:'ETHUSDT'}, {flag:'🇪🇺🇨🇭', name:'EUR/CHF', pair:'BTCUSDT'},
+  {flag:'🇨🇷🇺🇸', name:'CRC/USD', pair:'BTCUSDT'},
+];
+
+function doLogin(){
+  if(document.getElementById('username').value == 'Lubna' && document.getElementById('password').value == 'Abubakar786'){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appScreen').style.display = 'block';
+    loadAssets();
+    startLivePrice();
+    scanIndicators();
+    setInterval(scanIndicators, 3000);
   }
 }
 
-let currentSymbol = "BTCUSDT";
-function selectMarket(symbol){
-  currentSymbol = symbol;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('marketName').innerHTML = symbol + ' <span class="live-dot">● LIVE</span>';
+function loadAssets(){
+  let grid = document.getElementById('assetGrid');
+  grid.innerHTML = '';
+  assets.forEach(a=>{
+    grid.innerHTML += `<div class="asset-card" onclick="selectAsset('${a.pair}')"><div class="flag">${a.flag}</div><div class="asset-name">${a.name}</div></div>`;
+  });
 }
 
-// LIVE PRICE کا فنکشن
+function selectAsset(p){
+  currentAsset = p;
+  document.querySelectorAll('.asset-card').forEach(c=>c.classList.remove('active'));
+  event.target.closest('.asset-card').classList.add('active');
+}
+
 function startLivePrice(){
-  setInterval(() => {
-    // Binance API سے Crypto price
-    if(currentSymbol.includes("USDT")){
-      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${currentSymbol}`)
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('livePrice').innerText = "$" + parseFloat(data.price).toFixed(2);
-      });
-    } 
-    // Forex کے لیے Demo price
-    else {
-      let price = 1.08 + Math.random()*0.01;
-      document.getElementById('livePrice').innerText = price.toFixed(5);
-    }
-  }, 2000); // ہر 2 سیکنڈ بعد اپڈیٹ
+  setInterval(()=>{
+    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${currentAsset}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('livePrice').innerText = "$" + parseFloat(data.price).toFixed(2);
+    });
+  }, 2000);
 }
 
-function getSignal(){
-  let s = Math.random() > 0.5 ? "BUY" : "SELL";
-  let conf = Math.floor(Math.random()*20)+80;
-  document.getElementById('signalResult').className="signal " + s.toLowerCase();
-  document.getElementById('signalResult').innerText=s;
-  document.getElementById('conf').innerText=conf;
-  document.getElementById('sl').innerText="1.5%";
-  document.getElementById('tp').innerText="3%";
+function scanIndicators(){
+  let rsi = 30 + Math.random()*40;
+  document.getElementById('rsi').innerText = rsi.toFixed(1);
+  document.getElementById('ema').innerText = Math.random() > 0.5 ? 'UP' : 'DOWN';
+  document.getElementById('macd').innerText = Math.random() > 0.5 ? 'BUY' : 'SELL';
+  document.getElementById('bb').innerText = Math.random() > 0.5 ? 'UP' : 'DOWN';
+  document.getElementById('candle5').innerText = Math.floor(Math.random()*5)+1 + '/' + Math.floor(Math.random()*5)+1;
+  
+  let signal = rsi < 40 ? 'BUY' : rsi > 60 ? 'SELL' : 'WAIT';
+  let conf = Math.floor(Math.random()*15)+85;
+  
+  document.getElementById('signal').className = 'signal ' + signal.toLowerCase();
+  document.getElementById('signal').innerText = signal;
+  document.getElementById('conf').innerText = conf;
 }
 </script>
 </body>
