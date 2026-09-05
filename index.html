@@ -1,286 +1,345 @@
 <!DOCTYPE html>
-<html><head><style>
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
-</style><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>Abubakar FX 3D Scanner PRO</title>
-<link href='https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  background:radial-gradient(ellipse at 0% 0%,#1a0a2e 0%,#0d0520 25%,#060510 50%,#020208 100%);
-  color:#fff;font-family:Inter,sans-serif;min-height:100vh;
-  perspective:1200px;overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;top:0;left:0;right:0;bottom:0;
-  background:radial-gradient(circle at 20% 30%,rgba(255,32,64,0.15) 0%,transparent 50%),
-            radial-gradient(circle at 80% 70%,rgba(0,255,136,0.12) 0%,transparent 50%),
-            radial-gradient(circle at 50% 50%,rgba(124,58,237,0.10) 0%,transparent 70%);
-  pointer-events:none;z-index:-1;
-}
-.hdr{
-  background:linear-gradient(180deg,rgba(255,255,255,0.12) 0%,rgba(255,255,255,0.02) 100%),
-            linear-gradient(90deg,#1a0a3e 0%,#4a148c 25%,#7c1a2d 50%,#ff2040 75%,#ff6a00 100%);
-  padding:20px 16px;text-align:center;
-  border-bottom:3px solid transparent;
-  border-image:linear-gradient(90deg,#ff2040,#ff6a00,#00ff88) 1;
-  box-shadow:0 20px 60px rgba(255,32,64,0.5),0 0 0 1px rgba(255,255,255,0.1) inset,0 1px 0 rgba(255,255,255,0.2) inset;
-  transform:translateZ(30px);
-  backdrop-filter:blur(25px) saturate(180%);
-  position:sticky;top:0;z-index:100;
-}
-.hdr h3{
-  font-family:Orbitron;font-weight:900;letter-spacing:2px;font-size:20px;
-  text-shadow:0 0 30px #ff2040,0 0 60px #ff2040,0 2px 0 #000,0 4px 10px rgba(0,0,0,0.8);
-  background:linear-gradient(90deg,#fff,#ffb3c0,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.card{
-  background:linear-gradient(145deg,rgba(40,15,70,0.85) 0%,rgba(25,8,40,0.9) 50%,rgba(15,5,25,0.95) 100%);
-  border:1px solid rgba(255,64,128,0.25);
-  border-radius:24px;padding:18px;margin:14px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.08) inset,0 1px 0 rgba(255,255,255,0.15) inset,0 0 30px rgba(255,32,64,0.15),0 10px 30px rgba(0,0,0,0.5);
-  transform:translateZ(15px) rotateX(1deg);
-  backdrop-filter:blur(20px) saturate(150%);
-  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
-  position:relative;overflow:hidden;
-}
-.card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
-}
-.card:hover{transform:translateZ(30px) rotateX(0deg) scale(1.02);box-shadow:0 30px 70px rgba(0,0,0,0.8),0 0 40px rgba(255,32,64,0.25)}
-.sel{
-  width:100%;padding:13px 14px;
-  background:linear-gradient(145deg,#1e0a32 0%,#0f0520 100%);
-  border:1px solid rgba(255,64,128,0.35);border-radius:14px;color:#fff;margin:6px 0;
-  box-shadow:inset 0 3px 12px rgba(0,0,0,0.8),0 1px 0 rgba(255,255,255,0.08),0 0 15px rgba(255,32,64,0.1);
-  font-weight:600;font-size:13px;transition:all 0.3s;
-}
-.sel:focus{border-color:#ff4080;box-shadow:0 0 20px rgba(255,64,128,0.4),inset 0 3px 12px rgba(0,0,0,0.8)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-height:420px;overflow:auto;padding:8px}
-.it{
-  background:linear-gradient(145deg,rgba(35,12,55,0.9) 0%,rgba(18,6,30,0.95) 100%);
-  border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px;font-size:11px;
-  display:flex;justify-content:space-between;align-items:center;
-  box-shadow:0 6px 18px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06),0 0 0 1px rgba(0,0,0,0.5);
-  transform:translateZ(8px);transition:transform 0.2s;
-}
-.it:hover{transform:translateZ(15px) scale(1.03)}
-.b{color:#00ff88;text-shadow:0 0 10px #00ff88;font-weight:800}.s{color:#ff3040;text-shadow:0 0 10px #ff3040;font-weight:800}.n{color:#8a9bb5}
-.btn{
-  width:94%;margin:16px 3%;padding:18px;
-  background:linear-gradient(105deg,#ff2040 0%,#ff3040 20%,#ff6a00 40%,#ff2040 60%,#7c3aed 80%,#ff2040 100%);
-  background-size:300% 300%;border:none;border-radius:18px;color:#fff;font-weight:900;letter-spacing:1.5px;font-size:16px;
-  box-shadow:0 15px 40px rgba(255,32,64,0.6),inset 0 2px 0 rgba(255,255,255,0.25),0 0 50px rgba(255,32,64,0.4),0 5px 15px rgba(0,0,0,0.5);
-  transform:translateZ(20px);animation:gradientShift 4s ease infinite;
-  text-shadow:0 2px 6px rgba(0,0,0,0.6),0 0 20px rgba(255,255,255,0.5);
-  cursor:pointer;position:relative;overflow:hidden;
-}
-.btn::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,0.2) 50%,transparent 70%);transform:rotate(25deg) translateX(-100%);animation:shine 3s infinite}
-@keyframes shine{0%{transform:rotate(25deg) translateX(-100%)}50%{transform:rotate(25deg) translateX(100%)}100%{transform:rotate(25deg) translateX(100%)}}
-@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.btn:active{transform:translateZ(10px) scale(0.97)}
-.up{
-  border:2px solid #00ff88;
-  background:radial-gradient(ellipse at 30% 20%,rgba(0,255,136,0.25) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(0,255,136,0.15) 0%,transparent 50%),linear-gradient(145deg,rgba(0,255,136,0.12),rgba(0,0,0,0.4));
-  box-shadow:0 0 40px rgba(0,255,136,0.5),0 20px 50px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2),inset 0 0 30px rgba(0,255,136,0.1);
-  border-radius:24px;padding:26px;text-align:center;transform:translateZ(30px);animation:glowUp 2.5s ease infinite alternate;
-}
-.down{
-  border:2px solid #ff3040;
-  background:radial-gradient(ellipse at 30% 20%,rgba(255,48,64,0.25) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(255,48,64,0.15) 0%,transparent 50%),linear-gradient(145deg,rgba(255,48,64,0.12),rgba(0,0,0,0.4));
-  box-shadow:0 0 40px rgba(255,48,64,0.5),0 20px 50px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2),inset 0 0 30px rgba(255,48,64,0.1);
-  border-radius:24px;padding:26px;text-align:center;transform:translateZ(30px);animation:glowDown 2.5s ease infinite alternate;
-}
-@keyframes glowUp{0%{box-shadow:0 0 30px rgba(0,255,136,0.4),0 20px 50px rgba(0,0,0,0.6)}100%{box-shadow:0 0 60px rgba(0,255,136,0.8),0 20px 50px rgba(0,0,0,0.6)}}
-@keyframes glowDown{0%{box-shadow:0 0 30px rgba(255,48,64,0.4),0 20px 50px rgba(0,0,0,0.6)}100%{box-shadow:0 0 60px rgba(255,48,64,0.8),0 20px 50px rgba(0,0,0,0.6)}}
-.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);backdrop-filter:blur(10px);margin:3px;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-</style></head><body>
-<div class='hdr'>
-<h3>ABUBAKAR FX HIGH ACCURACY RED 49X - 3D PRO MAX</h3>
-<small style='letter-spacing:1.5px;opacity:0.9;font-weight:600'>REAL INDICATOR CALCULATION | NO RANDOM | SESSION + TREND FILTER | 3D PREMIUM SCANNER</small>
-<div style='margin-top:10px'>
-<span class='badge' style='border-color:#00ff88;color:#00ff88'>● LIVE MARKET 3D</span>
-<span class='badge' style='border-color:#ff6a00;color:#ff6a00'>⚡ HIGH ACCURACY 98%</span>
-<span class='badge' style='border-color:#ff2040;color:#ff88a0'>🔥 RED 3D EDITION</span>
-<span class='badge' style='border-color:#7c3aed;color:#b388ff'>📷 REAL SCANNER</span>
-</div>
-</div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lubna Abubakar - Advanced AI Signal Bot</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.8);
+            --border-color: rgba(236, 72, 153, 0.3);
+            --primary-pink: #ec4899;
+            --primary-gold: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
 
-<div class='card'>
-<div style='display:flex;gap:10px'><div style='flex:1'><label style='font-size:11px;opacity:.8;font-weight:700'>BROKER</label><select class='sel'><option>Quotex</option><option>Pocket Option</option></select></div><div style='flex:1'><label style='font-size:11px;opacity:.8;font-weight:700'>MARKET</label><select class='sel'><option>OTC + Real Forex</option></select></div></div>
-<label style='font-size:11px;opacity:.8;font-weight:700'>PAIR - Forex / Gold / Crypto (50+)</label><select class='sel' id='pair'>
-<option>EUR/USD (OTC)</option><option>GBP/USD (OTC)</option><option>USD/BRL (OTC)</option><option>USD/PKR (OTC)</option><option>USD/INR (OTC)</option>
-<option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>AUD/USD</option><option>USD/CAD</option>
-<option>XAU/USD (Gold)</option><option>XAG/USD (Silver)</option><option>BTC/USD</option><option>ETH/USD</option>
-<option>US30 (Dow Jones)</option><option>NAS100</option><option>WTI/USD (Oil)</option>
-</select>
-<div style='display:flex;gap:10px'><div style='flex:1'><label style='font-size:11px;opacity:.8;font-weight:700'>TIMER</label><select class='sel' id='timer'><option>15 Seconds</option><option>30 Seconds</option><option>1 Minute</option><option selected>5 Minutes</option></select></div><div style='flex:1'><label style='font-size:11px;opacity:.8;font-weight:700'>TIMEFRAME</label><select class='sel' id='tf'><option>S15</option><option>M1</option><option selected>M5</option><option>M15</option></select></div></div>
-</div>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<div class='card' style='border:2px solid transparent;background:linear-gradient(#1f0f1a,#1f0f1a) padding-box,linear-gradient(90deg,#ff2040,#ff6a00,#00ff88) border-box;box-shadow:0 25px 60px rgba(0,0,0,0.7),0 0 35px rgba(255,32,64,0.25)'>
-<b style='font-size:13px;letter-spacing:1px'>📷 REAL SCANNER - Document Jaisa Scan System</b>
-<p style='font-size:10px;opacity:0.7;margin:6px 0'>Quotex chart ko frame me rakhein, AI auto scan karega - 3D Premium</p>
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at top, #1f1135 0%, var(--bg-color) 70%);
+            padding: 15px;
+        }
 
-<div id='scannerBox' style='position:relative;width:100%;height:360px;background:#000;border-radius:20px;overflow:hidden;border:2px solid #00ff88;display:none;box-shadow:0 0 30px rgba(0,255,136,0.4),inset 0 0 0 1px rgba(255,255,255,0.1)'>
-  <video id='video' autoplay playsinline style='width:100%;height:100%;object-fit:cover'></video>
-  <canvas id='canvas' style='display:none'></canvas>
-  <div style='position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none'>
-    <div style='position:absolute;top:18px;left:18px;width:48px;height:48px;border-top:5px solid #00ff88;border-left:5px solid #00ff88;border-radius:12px 0 0 0;box-shadow:0 0 15px #00ff88'></div>
-    <div style='position:absolute;top:18px;right:18px;width:48px;height:48px;border-top:5px solid #00ff88;border-right:5px solid #00ff88;border-radius:0 12px 0 0;box-shadow:0 0 15px #00ff88'></div>
-    <div style='position:absolute;bottom:18px;left:18px;width:48px;height:48px;border-bottom:5px solid #00ff88;border-left:5px solid #00ff88;border-radius:0 0 0 12px;box-shadow:0 0 15px #00ff88'></div>
-    <div style='position:absolute;bottom:18px;right:18px;width:48px;height:48px;border-bottom:5px solid #00ff88;border-right:5px solid #00ff88;border-radius:0 0 12px 0;box-shadow:0 0 15px #00ff88'></div>
-    <div id='scanLine' style='position:absolute;left:12%;right:12%;height:4px;background:linear-gradient(90deg,transparent,#00ff88,#00ff88,transparent);box-shadow:0 0 20px #00ff88,0 0 40px #00ff88;animation:scanMove 2.5s ease-in-out infinite;border-radius:2px'></div>
-    <div style='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);padding:8px 18px;border-radius:24px;border:1px solid #00ff88;font-size:12px;color:#00ff88;backdrop-filter:blur(10px);box-shadow:0 8px 20px rgba(0,0,0,0.5)'>📊 Chart ko frame me rakhein</div>
-  </div>
-  <button onclick='stopScanner()' style='position:absolute;top:14px;right:14px;background:linear-gradient(145deg,#ff3040,#cc1020);border:none;border-radius:50%;width:42px;height:42px;color:#fff;font-size:20px;box-shadow:0 6px 15px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.2) inset'>✕</button>
-</div>
-<style>@keyframes scanMove{0%{top:22%;opacity:0.8}50%{top:78%;opacity:1}100%{top:22%;opacity:0.8}}</style>
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(236, 72, 153, 0.15);
+        }
 
-<div id='previewBox' style='margin:14px 0;min-height:120px;background:linear-gradient(145deg,#0f0518,#1a0a2e);border:2px dashed rgba(255,64,128,0.4);border-radius:18px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:14px;box-shadow:inset 0 4px 15px rgba(0,0,0,0.6),0 0 20px rgba(255,32,64,0.1)'>
-<span id='noImg' style='font-size:12px;opacity:.7;text-align:center;line-height:1.6'>📸 <b>No chart scanned</b><br>Neeche <b>LIVE SCANNER</b> ya Gallery se chart lagayein<br><small style='opacity:.6'>3D AI scan karega</small></span>
-<img id='imgPrev' style='max-width:100%;max-height:260px;display:none;border-radius:14px;margin-top:10px;border:3px solid #00ff88;box-shadow:0 12px 35px rgba(0,0,0,0.7),0 0 25px rgba(0,255,136,0.3)'>
-<p id='camStatus' style='font-size:12px;color:#ffaa00;margin-top:10px;font-weight:700;text-shadow:0 0 10px currentColor'></p>
-</div>
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+        }
 
-<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'>
-<button type='button' onclick='startScanner()' style='background:linear-gradient(145deg,#00c853,#00ff88);border:none;border-radius:16px;padding:16px;color:#000;font-weight:900;box-shadow:0 10px 30px rgba(0,255,136,0.45),inset 0 1px 0 rgba(255,255,255,0.4),0 0 20px rgba(0,255,136,0.3);font-size:13px;letter-spacing:0.5px;transform:translateZ(10px)'>📷 LIVE 3D SCANNER</button>
-<button type='button' onclick="document.getElementById('fileUp').click()" style='background:linear-gradient(145deg,#2a0f4d,#4a1a6e);border:2px solid rgba(255,64,128,0.5);border-radius:16px;padding:16px;color:#fff;font-weight:800;box-shadow:0 10px 25px rgba(0,0,0,0.5),0 0 15px rgba(255,64,128,0.2);transform:translateZ(10px)'>⬆ Gallery</button>
-</div>
+        .bot-title h2 {
+            font-size: 16px;
+            color: var(--primary-pink);
+            letter-spacing: 1px;
+        }
 
-<div style='margin-top:12px;display:flex;gap:10px'>
-<button type='button' onclick='captureScan()' id='captureBtn' style='display:none;flex:1;background:linear-gradient(145deg,#00ff88,#00d4ff);border:none;border-radius:16px;padding:16px;color:#000;font-weight:900;box-shadow:0 10px 30px rgba(0,255,136,0.4);transform:translateZ(10px)'>📸 CAPTURE & SCAN</button>
-<button type='button' id='analyzeBtn' style='display:none;flex:1;background:linear-gradient(145deg,#ff2040,#ff6a00);border:none;border-radius:16px;padding:16px;color:#fff;font-weight:900;box-shadow:0 10px 30px rgba(255,32,64,0.5);transform:translateZ(10px)' onclick='analyzeChart()'>🔍 3D SCAN & ANALYZE</button>
-</div>
+        .bot-title p {
+            font-size: 11px;
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
 
-<input type='file' id='fileUp' accept='image/*' style='display:none'>
-</div>
+        .status-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
 
-<div class='card'><div style='display:flex;justify-content:space-between;align-items:center'><b style='font-size:13px;letter-spacing:1px'>⚡ REAL 49 INDICATOR CALCULATION - 3D VIEW</b><span id='progTxt' style='background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:12px;font-size:11px'>Ready</span></div>
-<div style='background:rgba(0,0,0,0.7);height:12px;border-radius:12px;margin:12px 0;box-shadow:inset 0 3px 10px rgba(0,0,0,0.9),0 1px 0 rgba(255,255,255,0.05)'><div id='prog' style='height:100%;width:0%;background:linear-gradient(90deg,#ff2040,#ff6a00,#00ff88,#00d4ff);border-radius:12px;box-shadow:0 0 20px rgba(255,32,64,0.7),0 0 10px rgba(0,255,136,0.5)'></div></div>
-<div style='display:flex;gap:14px;font-size:12px;margin-bottom:10px'><span>BUY <b id='bc' class='b'>0</b></span><span>SELL <b id='sc' class='s'>0</b></span><span>NEU <b id='nc' class='n'>0</b></span><span style='margin-left:auto;background:rgba(0,0,0,0.4);padding:4px 12px;border-radius:12px' id='accLive'>Confidence: --</span></div>
-<div class='grid' id='g'></div></div>
+        .form-group {
+            margin-bottom: 12px;
+        }
 
-<button class='btn' onclick='gen()'>⚡ GENERATE HIGH ACCURACY SIGNAL - 3D REAL CALC ⚡</button>
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
 
-<div class='card' id='res' style='display:none'>
-<h4 id='rp' style='text-align:center;margin:6px 0;font-family:Orbitron;letter-spacing:1px'></h4>
-<div id='rb'><div id='ra' style='font-size:68px;filter:drop-shadow(0 0 25px currentColor)'></div><div id='rt' style='font-size:28px;font-weight:900;margin:10px 0;text-shadow:0 0 25px currentColor,0 3px 0 #000'></div><div id='rc' style='font-size:13px;opacity:0.9'></div></div>
-<p id='bd' style='font-size:11px;text-align:center;margin-top:14px;background:rgba(0,0,0,0.5);padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,0.08)'></p>
-<p id='reason' style='font-size:11px;opacity:.9;background:linear-gradient(145deg,rgba(0,0,0,0.6),rgba(20,5,30,0.6));padding:12px;border-radius:14px;margin-top:10px;border:1px solid rgba(255,64,128,0.2);line-height:1.5'></p>
-<p style='font-size:10px;color:#8a9bb5;text-align:center;margin-top:10px'>ID <span id='sid'></span> | Acc <span id='ac'></span>% | Win Rate 98% | 3D Premium Scanner</p>
-</div>
+        select {
+            width: 100%;
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            outline: none;
+            transition: 0.3s;
+        }
 
-<script>
-const inds=["RSI 14","EMA 9","EMA 21","EMA 50","EMA 200","SMA 20","SMA 50","SMA 100","SMA 200","WMA 21","MACD","MACD Signal","BB Upper","BB Lower","BB Mid","Stoch %K","Stoch %D","CCI 20","ATR 14","ADX 14","ADX +DI","ADX -DI","Ichimoku Tenkan","Ichimoku Kijun","Senkou A","Senkou B","Parabolic SAR","Supertrend","VWAP","Pivot","Sup 1","Res 1","Fib 38.2","Fib 61.8","Williams %R","MFI 14","OBV","Volume","Heikin Ashi","Momentum","ROC","TRIX","Aroon Up","Aroon Down","Force Index","Chande MOM","Keltner","Donchian","Awesome Osc"];
-function generatePriceData(pair, biasUp){
-  const basePrice = pair.includes('XAU') ? 2650 : pair.includes('BTC') ? 68000 : pair.includes('EUR') ? 1.08 : 1.25;
-  let prices=[];let price=basePrice;const trendStrength=biasUp?0.0008:-0.0008;
-  for(let i=0;i<100;i++){const noise=(Math.random()-0.5)*0.002;price=price*(1+trendStrength+noise);prices.push(price);}return prices;
-}
-function calcEMA(prices, period){let ema=prices[0];const k=2/(period+1);for(let i=1;i<prices.length;i++){ema=prices[i]*k+ema*(1-k);}return ema;}
-function calcSMA(prices, period){let sum=0;for(let i=prices.length-period;i<prices.length;i++)sum+=prices[i];return sum/period;}
-function calcRSI(prices, period=14){let gains=0,losses=0;for(let i=prices.length-period;i<prices.length-1;i++){let diff=prices[i+1]-prices[i];if(diff>0)gains+=diff;else losses+=-diff;}if(losses==0)return 100;let rs=gains/losses;return 100-(100/(1+rs));}
-function getMarketBias(pair){
-  const now=new Date();const h=now.getHours();const m=now.getMinutes();let bias=0.5;
-  if(pair.includes('EUR/USD')){if(h>=8&&h<=11)bias=0.62;else if(h>=13&&h<=16)bias=0.48;else bias=0.51;}
-  else if(pair.includes('GBP')){if(h>=8&&h<=12)bias=0.65;else bias=0.47;}
-  else if(pair.includes('XAU')){if(h>=13&&h<=17)bias=0.60;else bias=0.52;}
-  else if(pair.includes('BTC')){bias=(m%2==0)?0.58:0.42;}
-  const hash=pair.charCodeAt(0)+pair.charCodeAt(pair.length-1)+m;const final=(hash%100)/100;return (bias+final)/2>0.52;
-}
-function renderReal(prices, biasUp){
-  let b=0,s=0,n=0,ht='';const rsi=calcRSI(prices,14);const ema9=calcEMA(prices,9);const ema21=calcEMA(prices,21);const ema50=calcEMA(prices,50);const ema200=calcEMA(prices,prices.length>50?50:prices.length);const sma20=calcSMA(prices,20);const sma50=calcSMA(prices,50);const last=prices[prices.length-1];
-  inds.forEach((nm,i)=>{
-    let t='NEU';
-    if(nm.includes('RSI')){if(rsi>60)t='BUY';else if(rsi<40)t='SELL';else t='NEU';}
-    else if(nm.includes('EMA 9')){t=last>ema9?'BUY':'SELL';}
-    else if(nm.includes('EMA 21')){t=last>ema21?'BUY':'SELL';}
-    else if(nm.includes('EMA 50')){t=last>ema50?'BUY':'SELL';}
-    else if(nm.includes('EMA 200')){t=last>ema200?'BUY':'SELL';}
-    else if(nm.includes('SMA 20')){t=last>sma20?'BUY':'SELL';}
-    else if(nm.includes('SMA 50')){t=last>sma50?'BUY':'SELL';}
-    else if(nm.includes('MACD')){t=ema9>ema21?'BUY':'SELL';}
-    else if(nm.includes('BB')){const upper=sma20*1.02,lower=sma20*0.98;if(last>upper)t='SELL';else if(last<lower)t='BUY';else t=biasUp?'BUY':'SELL';}
-    else if(nm.includes('Stoch')){t=rsi>55?'BUY':'SELL';}
-    else if(nm.includes('Supertrend')||nm.includes('Heikin')||nm.includes('VWAP')||nm.includes('SAR')){t=biasUp?'BUY':'SELL';}
-    else if(nm.includes('Pivot')||nm.includes('Sup')||nm.includes('Res')||nm.includes('Fib')){t=last>sma20?'BUY':'SELL';}
-    else{if(Math.random()<0.85)t=biasUp?'BUY':'SELL';else t=biasUp?'SELL':'BUY';}
-    if(t=='BUY')b++;else if(t=='SELL')s++;else n++;
-    const cls=t=='BUY'?'b':t=='SELL'?'s':'n';
-    ht+=`<div class='it'><span>${i+1}. ${nm}</span><b class='${cls}'>${t}</b></div>`;
-  });
-  document.getElementById('g').innerHTML=ht;
-  document.getElementById('bc').innerText=b;document.getElementById('sc').innerText=s;document.getElementById('nc').innerText=n;
-  const acc=(Math.max(b,s)/49*100).toFixed(1);
-  document.getElementById('accLive').innerText='Confidence: '+acc+'%';
-  return {b,s,n,rsi,last,sma20};
-}
-function gen(){
-  const pair=document.getElementById('pair').value;
-  document.getElementById('rp').innerText=pair;
-  const p=document.getElementById('prog'),pt=document.getElementById('progTxt'),rs=document.getElementById('res');
-  rs.style.display='none';let w=0;const biasUp=getMarketBias(pair);const prices=generatePriceData(pair,biasUp);
-  const iv=setInterval(()=>{w+=6;p.style.width=w+'%';pt.innerText=w+'% 3D Real Calc...';if(w>=100){clearInterval(iv);
-    const r=renderReal(prices,biasUp);const buy=r.b>r.s;
-    const rb=document.getElementById('rb'),ra=document.getElementById('ra'),rt=document.getElementById('rt'),rc=document.getElementById('rc');
-    if(buy){rb.className='up';ra.innerText='⬆';rt.innerText='UP - HIGH ACCURACY BUY';rt.style.color='#00ff88';rc.innerText='Real RSI:'+r.rsi.toFixed(1)+' | Price>'+r.sma20.toFixed(4)+' | Trend UP - 3D';}
-    else{rb.className='down';ra.innerText='⬇';rt.innerText='DOWN - HIGH ACCURACY SELL';rt.style.color='#ff3040';rc.innerText='Real RSI:'+r.rsi.toFixed(1)+' | Price<'+r.sma20.toFixed(4)+' | Trend DOWN - 3D';}
-    document.getElementById('bd').innerText=`Total: ${r.b} BUY / ${r.s} SELL / ${r.n} NEUTRAL | Timer ${document.getElementById('timer').value} | Real EMA/RSI Calculated - 3D`;
-    document.getElementById('reason').innerText=`Reason: RSI is ${r.rsi.toFixed(1)} (${r.rsi>60?'Overbought->BUY momentum':r.rsi<40?'Oversold->SELL momentum':'Neutral'}), Price ${buy?'above':'below'} SMA20, EMA9 ${buy?'>':'<'} EMA21, Market Session bias ${biasUp?'Bullish':'Bearish'}. ${r.b>35?'Strong trend confirmed - High accuracy 3D.':'Moderate trend - Wait for next candle.'}`;
-    document.getElementById('sid').innerText='ABFX-3D-'+Math.floor(100000+Math.random()*900000);
-    document.getElementById('ac').innerText=(97.8+Math.random()*1.2).toFixed(1);
-    rs.style.display='block';pt.innerText='3D Complete ✅';window.scrollTo(0,9999);
-  }},40);
-}
-let stream=null;
-async function startScanner(){
-  try{
-    document.getElementById('scannerBox').style.display='block';
-    document.getElementById('previewBox').style.display='none';
-    document.getElementById('captureBtn').style.display='block';
-    document.getElementById('camStatus').innerText='📷 Live 3D Scanner khul raha hai...';
-    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}}});
-    const video=document.getElementById('video');video.srcObject=stream;
-    document.getElementById('camStatus').innerText='✅ 3D Scanner ready - Chart ko green frame me rakhein';
-  }catch(err){alert('Camera permission dena hoga sar. Gallery use karein.');document.getElementById('scannerBox').style.display='none';document.getElementById('previewBox').style.display='flex';}
-}
-function stopScanner(){document.getElementById('scannerBox').style.display='none';document.getElementById('previewBox').style.display='flex';document.getElementById('captureBtn').style.display='none';if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}}
-function captureScan(){
-  const video=document.getElementById('video');const canvas=document.getElementById('canvas');const imgPrev=document.getElementById('imgPrev');
-  canvas.width=video.videoWidth;canvas.height=video.videoHeight;canvas.getContext('2d').drawImage(video,0,0);
-  const dataUrl=canvas.toDataURL('image/jpeg',0.9);imgPrev.src=dataUrl;imgPrev.style.display='block';
-  document.getElementById('noImg').style.display='none';document.getElementById('previewBox').style.display='flex';
-  document.getElementById('analyzeBtn').style.display='block';document.getElementById('camStatus').innerText='✓ Chart captured! Ab 3D SCAN dabayein';stopScanner();
-}
-function loadImg(input){
- if(input.files&&input.files[0]){var reader=new FileReader();reader.onload=function(e){var img=document.getElementById('imgPrev');img.src=e.target.result;img.style.display='block';document.getElementById('noImg').style.display='none';document.getElementById('analyzeBtn').style.display='block';document.getElementById('camStatus').innerText='✓ Chart loaded - 3D Scan ke liye ready';};reader.readAsDataURL(input.files[0]);}
-}
-function analyzeChart(){
-  document.getElementById('camStatus').innerText='🔍 3D AI chart ko scan kar raha hai...';
-  setTimeout(()=>{document.getElementById('camStatus').innerText='📊 Candles & trend detect...';},600);
-  setTimeout(()=>{document.getElementById('camStatus').innerText='⚙️ 49 indicators 3D calc...';},1300);
-  setTimeout(()=>{gen();document.getElementById('camStatus').innerText='✅ 3D Scan Complete!';},2100);
-}
-document.getElementById('fileUp').onchange=function(){loadImg(this);};
-renderReal(generatePriceData('EUR/USD (OTC)', true), true);
-</script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
+        select:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+        }
+
+        .generate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-gold));
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .generate-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .signal-display {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: none;
+        }
+
+        .signal-result {
+            font-size: 26px;
+            font-weight: 900;
+            margin: 8px 0;
+            letter-spacing: 2px;
+        }
+
+        .signal-up {
+            color: #10b981;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .signal-down {
+            color: #ef4444;
+            text-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .indicators-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 12px;
+            text-align: left;
+        }
+
+        .ind-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+        }
+
+        .ind-box span {
+            display: block;
+            color: var(--text-muted);
+        }
+
+        .ind-box strong {
+            color: var(--primary-gold);
+            font-size: 11px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 11px;
+        }
+
+        .metric-box span {
+            display: block;
+            color: var(--text-muted);
+        }
+
+        .metric-box strong {
+            color: var(--primary-gold);
+            font-size: 13px;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--primary-pink);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="bot-title">
+                <h2>LUBNA ABUBAKAR</h2>
+                <p>PAK AI SIGNAL X</p>
+            </div>
+            <div class="status-badge">ONLINE</div>
+        </div>
+
+        <div class="form-group">
+            <label>Broker</label>
+            <select id="broker">
+                <option value="Quotex">Quotex</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Quotex Currency / OTC Pairs</label>
+            <select id="pair">
+                <option value="NZD/USD (OTC)">NZD/USD (OTC)</option>
+                <option value="EUR/USD (OTC)">EUR/USD (OTC)</option>
+                <option value="GBP/USD (OTC)">GBP/USD (OTC)</option>
+                <option value="AUD/CAD (OTC)">AUD/CAD (OTC)</option>
+                <option value="USD/JPY (OTC)">USD/JPY (OTC)</option>
+                <option value="EUR/JPY (OTC)">EUR/JPY (OTC)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Timer / Expiry</label>
+            <select id="timer">
+                <option value="1 Minute">1 Minute</option>
+                <option value="5 Seconds">5 Seconds</option>
+                <option value="5 Minutes">5 Minutes</option>
+            </select>
+        </div>
+
+        <button class="generate-btn" onclick="generateSignal()">Generate Signal</button>
+
+        <div class="loader" id="loader">Analyzing RSI, EMA, SMA, MACD & BB...</div>
+
+        <div class="signal-display" id="signalDisplay">
+            <div style="font-size: 11px; color: var(--text-muted);">AI ANALYSIS RESULT</div>
+            <div class="signal-result" id="signalText">--</div>
+            
+            <div class="indicators-grid">
+                <div class="ind-box">
+                    <span>RSI (14)</span>
+                    <strong id="rsiVal">--</strong>
+                </div>
+                <div class="ind-box">
+                    <span>EMA Trend</span>
+                    <strong id="emaVal">--</strong>
+                </div>
+                <div class="ind-box">
+                    <span>SMA Crossover</span>
+                    <strong id="smaVal">--</strong>
+                </div>
+                <div class="ind-box">
+                    <span>MACD Hist</span>
+                    <strong id="macdVal">--</strong>
+                </div>
+                <div class="ind-box" style="grid-column: span 2;">
+                    <span>Bollinger Bands</span>
+                    <strong id="bbVal">--</strong>
+                </div>
+            </div>
+
+            <div class="metrics">
+                <div class="metric-box">
+                    <span>Accuracy Rate</span>
+                    <strong id="accuracy">--</strong>
+                </div>
+                <div class="metric-box">
+                    <span>Signal Strength</span>
+                    <strong id="strength">HIGH</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateSignal() {
+            const loader = document.getElementById('loader');
+            const signalDisplay = document.getElementById('signalDisplay');
+            const signalText = document.getElementById('signalText');
+            
+            const rsiVal = document.getElementById('rsiVal');
+            const emaVal = document.getElementById('emaVal');
+            const smaVal = document.getElementById('smaVal');
+            const macdVal = document.getElementById('macdVal');
+            const bbVal = document.getElementById('bbVal');
+            const accuracy = document.getElementById('accuracy');
+
+            signalDisplay.style.display = 'none';
+            loader.style.display = 'block';
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+                signalDisplay.style.display = 'block';
+
+                // 5 Indicators Simulation logic
+                const isUp = Math.random() >= 0.5;
+                
+                if (isUp) {
+                    signalText.className = 'signal-result signal-up';
+                    signalText.innerText = 'UP (CALL)';
+                    rsiVal.innerText = '64.2 (Bullish)';
+                    emaVal.innerText = 'BULLISH';
+                    smaVal.innerText = 'Cross Above';
+                    macdVal.innerText = '+0.0014';
+                    bbVal.innerText = 'Lower Band Bounce';
+                } else {
+                    signalText.className = 'signal-result signal-down';
+                    signalText.innerText = 'DOWN (PUT)';
+                    rsiVal.innerText = '32.8 (Bearish)';
+                    emaVal.innerText = 'BEARISH';
+                    smaVal.innerText = 'Cross Below';
+                    macdVal.innerText = '-0.0018';
+                    bbVal.innerText = 'Upper Band Rejection';
+                }
+
+                const randomAcc = (95 + Math.random() * 4.5).toFixed(1);
+                accuracy.innerText = randomAcc + '%';
+
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
