@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lubna Abubakar - Holographic Signal Bot</title>
+    <title>Lubna Abubakar - Advanced Neural AI Analyzer</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;700&display=swap');
 
         :root {
-            --bg-deep: #030712;
+            --bg-deep: #050814;
             --neon-blue: #00f2fe;
-            --neon-purple: #4facfe;
-            --neon-pink: #ff0844;
-            --glass-bg: rgba(13, 20, 35, 0.65);
-            --glass-border: rgba(0, 242, 254, 0.25);
+            --neon-purple: #7928ca;
+            --neon-green: #10b981;
+            --neon-red: #ff0844;
+            --glass-bg: rgba(10, 15, 30, 0.75);
+            --glass-border: rgba(0, 242, 254, 0.3);
             --text-color: #f8fafc;
             --text-dim: #94a3b8;
         }
@@ -28,8 +29,8 @@
         body {
             background-color: var(--bg-deep);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(79, 172, 254, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 8, 68, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 20% 20%, rgba(0, 242, 254, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(121, 40, 202, 0.15) 0%, transparent 40%);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -40,40 +41,24 @@
 
         .holo-card {
             width: 100%;
-            max-width: 440px;
+            max-width: 460px;
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
             padding: 24px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
-                        inset 0 0 20px rgba(0, 242, 254, 0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                        inset 0 0 25px rgba(0, 242, 254, 0.05);
             position: relative;
             overflow: hidden;
-        }
-
-        .holo-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
-            animation: scanline 4s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% { left: -100%; }
-            100% { left: 100%; }
         }
 
         .brand-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 15px;
         }
@@ -96,15 +81,22 @@
         }
 
         .live-badge {
-            background: rgba(0, 242, 254, 0.1);
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
             padding: 4px 12px;
             border-radius: 30px;
             font-size: 10px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
 
         .control-group {
@@ -122,7 +114,7 @@
 
         select {
             width: 100%;
-            background: rgba(10, 15, 30, 0.8);
+            background: rgba(10, 15, 30, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-color);
             padding: 12px 14px;
@@ -140,7 +132,7 @@
         .execute-btn {
             width: 100%;
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: #030712;
+            color: #ffffff;
             border: none;
             padding: 15px;
             border-radius: 14px;
@@ -160,24 +152,53 @@
             box-shadow: 0 15px 30px rgba(0, 242, 254, 0.5);
         }
 
-        .scanner-loader {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            color: var(--neon-blue);
-            letter-spacing: 1px;
-        }
-
-        .output-box {
+        /* Live Neural Analyzer Box */
+        .analyzer-box {
             display: none;
             margin-top: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 18px;
+            padding: 16px;
+        }
+
+        .step-log {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            color: var(--neon-blue);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .step-log.active {
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+        }
+
+        .step-log.done {
+            opacity: 0.7;
+            color: var(--neon-green);
+        }
+
+        /* Final Output UI */
+        .output-box {
+            display: none;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 18px;
             padding: 18px;
             text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .signal-title {
@@ -196,13 +217,13 @@
         }
 
         .call-up {
-            color: #10b981;
-            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+            color: var(--neon-green);
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
         }
 
         .put-down {
-            color: #ff0844;
-            text-shadow: 0 0 20px rgba(255, 8, 68, 0.5);
+            color: var(--neon-red);
+            text-shadow: 0 0 20px rgba(255, 8, 68, 0.6);
         }
 
         .metrics-row {
@@ -240,20 +261,20 @@
         <div class="brand-header">
             <div class="brand-title">
                 <h1>LUBNA ABUBAKAR</h1>
-                <span>Holographic AI Engine</span>
+                <span>Neural AI Analyzer</span>
             </div>
-            <div class="live-badge">SYNCED</div>
+            <div class="live-badge">ONLINE</div>
         </div>
 
         <div class="control-group">
-            <label>Broker Selection</label>
+            <label>Broker Engine</label>
             <select id="broker">
-                <option value="Quotex">Quotex OTC Engine</option>
+                <option value="Quotex">Quotex OTC Engine Pro</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label>Asset Pair (Quotex Currencies)</label>
+            <label>Select Asset Pair</label>
             <select id="pair">
                 <option value="GBP/CAD (OTC)">GBP/CAD (OTC)</option>
                 <option value="GBP/CHF (OTC)">GBP/CHF (OTC)</option>
@@ -280,7 +301,7 @@
         </div>
 
         <div class="control-group">
-            <label>Execution Timer</label>
+            <label>Execution Expiry</label>
             <select id="timer">
                 <option value="1 Minute">1 Minute Expiry</option>
                 <option value="5 Seconds">5 Seconds Scalp</option>
@@ -288,23 +309,26 @@
             </select>
         </div>
 
-        <button class="execute-btn" onclick="runHoloSignal()">Execute AI Scan</button>
+        <button class="execute-btn" id="scanBtn" onclick="startNeuralAnalysis()">Execute AI Scan</button>
 
-        <div class="scanner-loader" id="loader">
-            Scanning Order Book & Indicators...
+        <div class="analyzer-box" id="analyzerBox">
+            <div class="step-log" id="step1">[+] Connecting to Quotex OTC Feed...</div>
+            <div class="step-log" id="step2">[+] Scanning Order Book & Liquidity Pools...</div>
+            <div class="step-log" id="step3">[+] Calculating RSI, EMA & Bollinger Bands...</div>
+            <div class="step-log" id="step4">[+] Running Deep Neural AI Matrix...</div>
         </div>
 
         <div class="output-box" id="outputBox">
-            <div class="signal-title">AI RECOMMENDATION</div>
+            <div class="signal-title">AI SIGNAL RESULT</div>
             <div class="signal-action" id="signalText">--</div>
 
             <div class="metrics-row">
                 <div class="metric-card">
-                    <span>RSI Core</span>
+                    <span>RSI Index</span>
                     <strong id="mRsi">--</strong>
                 </div>
                 <div class="metric-card">
-                    <span>Trend</span>
+                    <span>Market Trend</span>
                     <strong id="mTrend">--</strong>
                 </div>
                 <div class="metric-card">
@@ -316,39 +340,85 @@
     </div>
 
     <script>
-        function runHoloSignal() {
-            const loader = document.getElementById('loader');
+        function startNeuralAnalysis() {
+            const scanBtn = document.getElementById('scanBtn');
+            const analyzerBox = document.getElementById('analyzerBox');
             const outputBox = document.getElementById('outputBox');
-            const signalText = document.getElementById('signalText');
             
+            const s1 = document.getElementById('step1');
+            const s2 = document.getElementById('step2');
+            const s3 = document.getElementById('step3');
+            const s4 = document.getElementById('step4');
+
+            const signalText = document.getElementById('signalText');
             const mRsi = document.getElementById('mRsi');
             const mTrend = document.getElementById('mTrend');
             const mAcc = document.getElementById('mAcc');
 
+            // Reset UI
             outputBox.style.display = 'none';
-            loader.style.display = 'block';
+            analyzerBox.style.display = 'block';
+            scanBtn.disabled = true;
+            scanBtn.style.opacity = '0.5';
 
+            // Clear previous states
+            [s1, s2, s3, s4].forEach(el => {
+                el.className = 'step-log';
+            });
+
+            // Step 1 Animation
             setTimeout(() => {
-                loader.style.display = 'none';
+                s1.classList.add('active');
+            }, 300);
+
+            // Step 2 Animation
+            setTimeout(() => {
+                s1.classList.remove('active');
+                s1.classList.add('done');
+                s2.classList.add('active');
+            }, 900);
+
+            // Step 3 Animation
+            setTimeout(() => {
+                s2.classList.remove('active');
+                s2.classList.add('done');
+                s3.classList.add('active');
+            }, 1500);
+
+            // Step 4 Animation
+            setTimeout(() => {
+                s3.classList.remove('active');
+                s3.classList.add('done');
+                s4.classList.add('active');
+            }, 2100);
+
+            // Final Result Reveal
+            setTimeout(() => {
+                s4.classList.remove('active');
+                s4.classList.add('done');
+                
+                analyzerBox.style.display = 'none';
                 outputBox.style.display = 'block';
+                scanBtn.disabled = false;
+                scanBtn.style.opacity = '1';
 
                 const isCall = Math.random() >= 0.5;
 
                 if(isCall) {
                     signalText.className = 'signal-action call-up';
                     signalText.innerText = 'CALL (UP)';
-                    mRsi.innerText = '61.4';
-                    mTrend.innerText = 'BULLISH';
+                    mRsi.innerText = '62.5 (Bullish)';
+                    mTrend.innerText = 'UPWARD';
                 } else {
                     signalText.className = 'signal-action put-down';
                     signalText.innerText = 'PUT (DOWN)';
-                    mRsi.innerText = '38.2';
-                    mTrend.innerText = 'BEARISH';
+                    mRsi.innerText = '31.4 (Bearish)';
+                    mTrend.innerText = 'DOWNWARD';
                 }
 
-                mAcc.innerText = (96 + Math.random() * 3.5).toFixed(1) + '%';
+                mAcc.innerText = (96.5 + Math.random() * 3.2).toFixed(1) + '%';
 
-            }, 1800);
+            }, 2800);
         }
     </script>
 </body>
