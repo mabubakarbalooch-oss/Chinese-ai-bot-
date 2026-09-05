@@ -3,342 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lubna Abubakar - Advanced AI Signal Bot</title>
+    <title>Lubna Abubakar - Holographic Signal Bot</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;700&display=swap');
+
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(17, 24, 39, 0.8);
-            --border-color: rgba(236, 72, 153, 0.3);
-            --primary-pink: #ec4899;
-            --primary-gold: #f59e0b;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --bg-deep: #030712;
+            --neon-blue: #00f2fe;
+            --neon-purple: #4facfe;
+            --neon-pink: #ff0844;
+            --glass-bg: rgba(13, 20, 35, 0.65);
+            --glass-border: rgba(0, 242, 254, 0.25);
+            --text-color: #f8fafc;
+            --text-dim: #94a3b8;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(79, 172, 254, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 8, 68, 0.1) 0%, transparent 40%);
+            color: var(--text-color);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: radial-gradient(circle at top, #1f1135 0%, var(--bg-color) 70%);
             padding: 15px;
         }
 
-        .container {
+        .holo-card {
             width: 100%;
-            max-width: 480px;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(236, 72, 153, 0.15);
+            max-width: 440px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
+                        inset 0 0 20px rgba(0, 242, 254, 0.05);
+            position: relative;
+            overflow: hidden;
         }
 
-        .header {
+        .holo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            animation: scanline 4s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .brand-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 12px;
+            align-items: center;
+            margin-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 15px;
         }
 
-        .bot-title h2 {
-            font-size: 16px;
-            color: var(--primary-pink);
+        .brand-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .brand-title span {
+            font-size: 10px;
+            color: var(--text-dim);
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .bot-title p {
-            font-size: 11px;
-            color: var(--primary-gold);
-            font-weight: bold;
+        .live-badge {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
         }
 
-        .status-badge {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid #10b981;
-            color: #10b981;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
+        .control-group {
+            margin-bottom: 14px;
         }
 
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
+        .control-group label {
             display: block;
             font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
         }
 
         select {
             width: 100%;
-            background: rgba(31, 41, 55, 0.8);
+            background: rgba(10, 15, 30, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 12px;
+            color: var(--text-color);
+            padding: 12px 14px;
+            border-radius: 14px;
             font-size: 13px;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
         select:focus {
-            border-color: var(--primary-pink);
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
         }
 
-        .generate-btn {
+        .execute-btn {
             width: 100%;
-            background: linear-gradient(135deg, var(--primary-pink), var(--primary-gold));
-            color: white;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: #030712;
             border: none;
-            padding: 13px;
+            padding: 15px;
             border-radius: 14px;
-            font-size: 15px;
-            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 8px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+            letter-spacing: 1.5px;
+            margin-top: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.3);
         }
 
-        .generate-btn:hover {
-            opacity: 0.9;
+        .execute-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.5);
         }
 
-        .signal-display {
+        .scanner-loader {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: var(--neon-blue);
+            letter-spacing: 1px;
+        }
+
+        .output-box {
+            display: none;
             margin-top: 20px;
             background: rgba(0, 0, 0, 0.4);
-            border-radius: 16px;
-            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 18px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: none;
         }
 
-        .signal-result {
-            font-size: 26px;
+        .signal-title {
+            font-size: 10px;
+            color: var(--text-dim);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .signal-action {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
             font-weight: 900;
             margin: 8px 0;
             letter-spacing: 2px;
         }
 
-        .signal-up {
+        .call-up {
             color: #10b981;
-            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
         }
 
-        .signal-down {
-            color: #ef4444;
-            text-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+        .put-down {
+            color: #ff0844;
+            text-shadow: 0 0 20px rgba(255, 8, 68, 0.5);
         }
 
-        .indicators-grid {
+        .metrics-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin-top: 12px;
-            text-align: left;
-        }
-
-        .ind-box {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 6px 8px;
-            border-radius: 8px;
-            font-size: 10px;
-        }
-
-        .ind-box span {
-            display: block;
-            color: var(--text-muted);
-        }
-
-        .ind-box strong {
-            color: var(--primary-gold);
-            font-size: 11px;
-        }
-
-        .metrics {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 8px;
-            margin-top: 10px;
-        }
-
-        .metric-box {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 11px;
-        }
-
-        .metric-box span {
-            display: block;
-            color: var(--text-muted);
-        }
-
-        .metric-box strong {
-            color: var(--primary-gold);
-            font-size: 13px;
-        }
-
-        .loader {
-            display: none;
-            text-align: center;
             margin-top: 15px;
-            color: var(--primary-pink);
-            font-size: 13px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 8px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-card span {
+            display: block;
+            font-size: 9px;
+            color: var(--text-dim);
+            margin-bottom: 2px;
+        }
+
+        .metric-card strong {
+            font-size: 11px;
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <div class="bot-title">
-                <h2>LUBNA ABUBAKAR</h2>
-                <p>PAK AI SIGNAL X</p>
+    <div class="holo-card">
+        <div class="brand-header">
+            <div class="brand-title">
+                <h1>LUBNA ABUBAKAR</h1>
+                <span>Holographic AI Engine</span>
             </div>
-            <div class="status-badge">ONLINE</div>
+            <div class="live-badge">SYNCED</div>
         </div>
 
-        <div class="form-group">
-            <label>Broker</label>
+        <div class="control-group">
+            <label>Broker Selection</label>
             <select id="broker">
-                <option value="Quotex">Quotex</option>
+                <option value="Quotex">Quotex OTC Engine</option>
             </select>
         </div>
 
-        <div class="form-group">
-            <label>Quotex Currency / OTC Pairs</label>
+        <div class="control-group">
+            <label>Asset Pair (Quotex Currencies)</label>
             <select id="pair">
-                <option value="NZD/USD (OTC)">NZD/USD (OTC)</option>
-                <option value="EUR/USD (OTC)">EUR/USD (OTC)</option>
-                <option value="GBP/USD (OTC)">GBP/USD (OTC)</option>
-                <option value="AUD/CAD (OTC)">AUD/CAD (OTC)</option>
+                <option value="GBP/CAD (OTC)">GBP/CAD (OTC)</option>
+                <option value="GBP/CHF (OTC)">GBP/CHF (OTC)</option>
+                <option value="USD/EGP (OTC)">USD/EGP (OTC)</option>
                 <option value="USD/JPY (OTC)">USD/JPY (OTC)</option>
-                <option value="EUR/JPY (OTC)">EUR/JPY (OTC)</option>
+                <option value="NZD/CAD (OTC)">NZD/CAD (OTC)</option>
+                <option value="USD/ARS (OTC)">USD/ARS (OTC)</option>
+                <option value="AUD/CHF (OTC)">AUD/CHF (OTC)</option>
+                <option value="CAD/CHF (OTC)">CAD/CHF (OTC)</option>
+                <option value="NZD/CHF (OTC)">NZD/CHF (OTC)</option>
+                <option value="AUD/NZD (OTC)">AUD/NZD (OTC)</option>
+                <option value="USD/DZD (OTC)">USD/DZD (OTC)</option>
+                <option value="AUD/CAD (OTC)">AUD/CAD (OTC)</option>
+                <option value="USD/ZAR (OTC)">USD/ZAR (OTC)</option>
+                <option value="USD/PHP (OTC)">USD/PHP (OTC)</option>
+                <option value="EUR/NZD (OTC)">EUR/NZD (OTC)</option>
+                <option value="USD/BDT (OTC)">USD/BDT (OTC)</option>
+                <option value="USD/CHF (OTC)">USD/CHF (OTC)</option>
+                <option value="USD/CAD (OTC)">USD/CAD (OTC)</option>
+                <option value="USD/IDR (OTC)">USD/IDR (OTC)</option>
+                <option value="USD/BRL (OTC)">USD/BRL (OTC)</option>
+                <option value="EUR/AUD (OTC)">EUR/AUD (OTC)</option>
             </select>
         </div>
 
-        <div class="form-group">
-            <label>Timer / Expiry</label>
+        <div class="control-group">
+            <label>Execution Timer</label>
             <select id="timer">
-                <option value="1 Minute">1 Minute</option>
-                <option value="5 Seconds">5 Seconds</option>
-                <option value="5 Minutes">5 Minutes</option>
+                <option value="1 Minute">1 Minute Expiry</option>
+                <option value="5 Seconds">5 Seconds Scalp</option>
+                <option value="5 Minutes">5 Minutes Standard</option>
             </select>
         </div>
 
-        <button class="generate-btn" onclick="generateSignal()">Generate Signal</button>
+        <button class="execute-btn" onclick="runHoloSignal()">Execute AI Scan</button>
 
-        <div class="loader" id="loader">Analyzing RSI, EMA, SMA, MACD & BB...</div>
+        <div class="scanner-loader" id="loader">
+            Scanning Order Book & Indicators...
+        </div>
 
-        <div class="signal-display" id="signalDisplay">
-            <div style="font-size: 11px; color: var(--text-muted);">AI ANALYSIS RESULT</div>
-            <div class="signal-result" id="signalText">--</div>
-            
-            <div class="indicators-grid">
-                <div class="ind-box">
-                    <span>RSI (14)</span>
-                    <strong id="rsiVal">--</strong>
-                </div>
-                <div class="ind-box">
-                    <span>EMA Trend</span>
-                    <strong id="emaVal">--</strong>
-                </div>
-                <div class="ind-box">
-                    <span>SMA Crossover</span>
-                    <strong id="smaVal">--</strong>
-                </div>
-                <div class="ind-box">
-                    <span>MACD Hist</span>
-                    <strong id="macdVal">--</strong>
-                </div>
-                <div class="ind-box" style="grid-column: span 2;">
-                    <span>Bollinger Bands</span>
-                    <strong id="bbVal">--</strong>
-                </div>
-            </div>
+        <div class="output-box" id="outputBox">
+            <div class="signal-title">AI RECOMMENDATION</div>
+            <div class="signal-action" id="signalText">--</div>
 
-            <div class="metrics">
-                <div class="metric-box">
-                    <span>Accuracy Rate</span>
-                    <strong id="accuracy">--</strong>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <span>RSI Core</span>
+                    <strong id="mRsi">--</strong>
                 </div>
-                <div class="metric-box">
-                    <span>Signal Strength</span>
-                    <strong id="strength">HIGH</strong>
+                <div class="metric-card">
+                    <span>Trend</span>
+                    <strong id="mTrend">--</strong>
+                </div>
+                <div class="metric-card">
+                    <span>Accuracy</span>
+                    <strong id="mAcc">--</strong>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function generateSignal() {
+        function runHoloSignal() {
             const loader = document.getElementById('loader');
-            const signalDisplay = document.getElementById('signalDisplay');
+            const outputBox = document.getElementById('outputBox');
             const signalText = document.getElementById('signalText');
             
-            const rsiVal = document.getElementById('rsiVal');
-            const emaVal = document.getElementById('emaVal');
-            const smaVal = document.getElementById('smaVal');
-            const macdVal = document.getElementById('macdVal');
-            const bbVal = document.getElementById('bbVal');
-            const accuracy = document.getElementById('accuracy');
+            const mRsi = document.getElementById('mRsi');
+            const mTrend = document.getElementById('mTrend');
+            const mAcc = document.getElementById('mAcc');
 
-            signalDisplay.style.display = 'none';
+            outputBox.style.display = 'none';
             loader.style.display = 'block';
 
             setTimeout(() => {
                 loader.style.display = 'none';
-                signalDisplay.style.display = 'block';
+                outputBox.style.display = 'block';
 
-                // 5 Indicators Simulation logic
-                const isUp = Math.random() >= 0.5;
-                
-                if (isUp) {
-                    signalText.className = 'signal-result signal-up';
-                    signalText.innerText = 'UP (CALL)';
-                    rsiVal.innerText = '64.2 (Bullish)';
-                    emaVal.innerText = 'BULLISH';
-                    smaVal.innerText = 'Cross Above';
-                    macdVal.innerText = '+0.0014';
-                    bbVal.innerText = 'Lower Band Bounce';
+                const isCall = Math.random() >= 0.5;
+
+                if(isCall) {
+                    signalText.className = 'signal-action call-up';
+                    signalText.innerText = 'CALL (UP)';
+                    mRsi.innerText = '61.4';
+                    mTrend.innerText = 'BULLISH';
                 } else {
-                    signalText.className = 'signal-result signal-down';
-                    signalText.innerText = 'DOWN (PUT)';
-                    rsiVal.innerText = '32.8 (Bearish)';
-                    emaVal.innerText = 'BEARISH';
-                    smaVal.innerText = 'Cross Below';
-                    macdVal.innerText = '-0.0018';
-                    bbVal.innerText = 'Upper Band Rejection';
+                    signalText.className = 'signal-action put-down';
+                    signalText.innerText = 'PUT (DOWN)';
+                    mRsi.innerText = '38.2';
+                    mTrend.innerText = 'BEARISH';
                 }
 
-                const randomAcc = (95 + Math.random() * 4.5).toFixed(1);
-                accuracy.innerText = randomAcc + '%';
+                mAcc.innerText = (96 + Math.random() * 3.5).toFixed(1) + '%';
 
-            }, 2000);
+            }, 1800);
         }
     </script>
 </body>
