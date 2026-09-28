@@ -5,27 +5,47 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LUBNA ABUBAKAR SIGNAL PRO</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#070b0a;color:#eafff3;font-family:Arial,sans-serif}
-.app{max-width:980px;margin:auto;padding:14px}.head,.card,.signal{background:#0b120f;border:1px solid #145c34;border-radius:16px;box-shadow:0 0 18px #00ff7820}
-.head{padding:16px}h1{margin:0;color:#00ff78;font-size:23px}.sub,.label,small{color:#8ca596;font-size:11px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-.card{padding:12px;margin-top:12px}select,input,button{width:100%;padding:11px;border-radius:9px;border:1px solid #245e3b;background:#101b16;color:#fff;margin-top:5px}
-button{background:#08783f;font-weight:bold;cursor:pointer}.signal{text-align:center;padding:18px;margin-top:12px}
-.signalText{font-size:35px;font-weight:900;margin:8px}.buy{color:#00ff78}.sell{color:#ff4d4d}.wait{color:#ffd84d}
-.big{font-size:20px}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.metric{background:#101914;border-radius:10px;padding:10px}
-.metric b{display:block;margin-top:4px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px;border-bottom:1px solid #183325;text-align:left}.ok{color:#00ff78}.bad{color:#ff4d4d}.warn{color:#ffd84d}
-.footer{text-align:center;color:#60756a;font-size:11px;margin:15px}
-@media(max-width:650px){.grid,.row{grid-template-columns:1fr}h1{font-size:20px}}
+*{box-sizing:border-box;margin:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,#0e3d24 0%,#060a09 45%,#05080a 100%);color:#eafff3;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh}
+.app{max-width:980px;margin:auto;padding:16px}
+.head{padding:22px;background:linear-gradient(145deg,rgba(0,255,120,.08),rgba(0,0,0,0) 60%),#0b1210e6;border:1px solid #1e7a4a;border-radius:20px;box-shadow:0 0 30px #00ff7815,0 8px 24px #0008;backdrop-filter:blur(6px)}
+h1{background:linear-gradient(90deg,#00ff78,#7dffc4);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:26px;letter-spacing:.5px}
+.sub,.label,small{color:#7fa38d;font-size:11px;letter-spacing:.4px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.card,.signal{background:#0c1511e6;border:1px solid #17563a;border-radius:18px;box-shadow:0 0 22px #00ff7812;padding:14px;margin-top:12px}
+select,input,button{width:100%;padding:12px;border-radius:12px;border:1px solid #1f6b42;background:#0f1d16;color:#eafff3;margin-top:6px;outline:none;transition:.2s}
+select:focus,input:focus{border-color:#00ff78;box-shadow:0 0 0 3px #00ff7825}
+button{background:linear-gradient(135deg,#0aa24f,#08783f);font-weight:800;letter-spacing:1px;font-size:14px;border:none;cursor:pointer;box-shadow:0 4px 18px #00ff7840;transition:.2s}
+button:hover{transform:translateY(-2px);box-shadow:0 6px 24px #00ff7860}
+button:disabled{opacity:.6;cursor:wait;transform:none}
+.signal{text-align:center;padding:24px 14px;position:relative;overflow:hidden}
+.signal::before{content:"";position:absolute;inset:-40%;background:radial-gradient(circle,#00ff7810 0%,transparent 60%);pointer-events:none}
+.signalText{font-size:42px;font-weight:900;margin:10px;letter-spacing:3px;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{text-shadow:0 0 18px currentColor}50%{text-shadow:0 0 42px currentColor}}
+.buy{color:#00ff78}.sell{color:#ff4d6d}.wait{color:#ffd84d}
+.big{font-size:20px;font-family:Consolas,monospace}
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.metric{background:#101f17;border-radius:12px;padding:12px;border:1px solid #1a4030}
+.metric b{display:block;margin-top:5px;font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:9px;border-bottom:1px solid #163526;text-align:left}
+th{color:#00c96a;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.ok{color:#00ff78}.bad{color:#ff4d6d}.warn{color:#ffd84d}
+.footer{text-align:center;color:#5f7a6c;font-size:11px;margin:18px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.b-buy{background:#00ff7818;color:#00ff78}.b-sell{background:#ff4d6d18;color:#ff4d6d}.b-wait{background:#ffd84d18;color:#ffd84d}
+@media(max-width:650px){.grid,.row{grid-template-columns:1fr}h1{font-size:21px}.signalText{font-size:34px}}
 </style>
 </head>
 <body>
 <div class="app">
 <div class="head">
-<h1>LUBNA ABUBAKAR SIGNAL PRO</h1>
+<h1>⚡ LUBNA ABUBAKAR SIGNAL PRO</h1>
 <div class="sub">Multi-Indicator Forex Signal Bot • Support / Resistance • Breakout • SL / TP</div>
 <div class="grid">
 <div><div class="label">CURRENCY</div><select id="pair">
 <option>USD/BRL</option><option>USD/INR</option><option>USD/PKR</option><option>USD/MXN</option>
+<option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>AUD/USD</option>
 </select></div>
 <div><div class="label">TIMEFRAME</div><select id="tf">
 <option value="1">1 Minute</option><option value="5">5 Minutes</option><option value="15">15 Minutes</option>
@@ -33,27 +53,27 @@ button{background:#08783f;font-weight:bold;cursor:pointer}.signal{text-align:cen
 <div><div class="label">TWELVE DATA API KEY</div><input id="api" placeholder="Paste your API key"></div>
 <div><div class="label">DATA MODE</div><select id="mode"><option value="demo">Local test data</option><option value="live">Live Twelve Data</option></select></div>
 </div>
-<button onclick="scan()">SCAN FOR SIGNAL</button>
+<button id="btn" onclick="scan()">SCAN FOR SIGNAL</button>
 </div>
 
 <div class="signal">
 <div class="label">CURRENT SIGNAL</div>
 <div id="signal" class="signalText wait">WAIT</div>
 <div id="confidence" class="big">Confidence: --%</div>
-<div id="reason">Press SCAN FOR SIGNAL</div>
+<div id="reason" class="sub" style="margin-top:8px">Press SCAN FOR SIGNAL</div>
 </div>
 
 <div class="grid">
 <div class="card"><div class="label">PRICE</div><div id="price" class="big">--</div></div>
 <div class="card"><div class="label">TREND</div><div id="trend" class="big">--</div></div>
-<div class="card"><div class="label">SUPPORT</div><div id="support" class="big">--</div></div>
-<div class="card"><div class="label">RESISTANCE</div><div id="resistance" class="big">--</div></div>
+<div class="card"><div class="label">SUPPORT</div><div id="support" class="big ok">--</div></div>
+<div class="card"><div class="label">RESISTANCE</div><div id="resistance" class="big bad">--</div></div>
 </div>
 
 <div class="card"><div class="label">TRADE PLAN</div><div class="row">
-<div class="metric">STOP LOSS <b id="sl">--</b></div>
-<div class="metric">TAKE PROFIT 1 <b id="tp1">--</b></div>
-<div class="metric">TAKE PROFIT 2 <b id="tp2">--</b></div>
+<div class="metric">STOP LOSS <b id="sl" class="bad">--</b></div>
+<div class="metric">TAKE PROFIT 1 <b id="tp1" class="ok">--</b></div>
+<div class="metric">TAKE PROFIT 2 <b id="tp2" class="ok">--</b></div>
 <div class="metric">RISK / REWARD <b id="rr">--</b></div>
 </div></div>
 
@@ -71,30 +91,31 @@ button{background:#08783f;font-weight:bold;cursor:pointer}.signal{text-align:cen
 const $=x=>document.getElementById(x);let history=[];
 function ema(a,n){let k=2/(n+1),e=a[0];for(let i=1;i<a.length;i++)e=a[i]*k+e*(1-k);return e}
 function avg(a,n){let x=a.slice(-n);return x.reduce((s,v)=>s+v,0)/x.length}
-function sd(a,n){let x=a.slice(-n),m=avg(x,n);return Math.sqrt(x.reduce((s,v)=>s+(v-m)**2,0)/x.length)}
-function rsi(a,n=14){let g=0,l=0;for(let i=a.length-n;i<a.length;i++){let d=a[i]-a[i-1];d>0?g+=d:l-=d}return l?100-100/(1+g/l):100}
-function base(pair){return {"USD/BRL":5.45,"USD/INR":88.2,"USD/PKR":283.5,"USD/MXN":17.25}[pair]}
+function sd(a,n){let x=a.slice(-n),m=x.reduce((s,v)=>s+v,0)/x.length;return Math.sqrt(x.reduce((s,v)=>s+(v-m)**2,0)/x.length)}
+function rsi(a,n=14){let g=0,l=0;for(let i=a.length-n;i<a.length;i++){let d=a[i]-a[i-1];if(d>0)g+=d;else l-=d}return l?100-100/(1+g/l):100}
+function base(pair){return {"USD/BRL":5.45,"USD/INR":88.2,"USD/PKR":283.5,"USD/MXN":17.25,"EUR/USD":1.17,"GBP/USD":1.34,"USD/JPY":148.5,"AUD/USD":0.66}[pair]}
 function testData(pair){let a=[base(pair)];for(let i=1;i<150;i++)a.push(Math.max(.0001,a[i-1]*(1+(Math.random()-.49)*.003)));return a}
-function fmt(x,p){let d=(p==="USD/PKR"||p==="USD/INR")?4:5;return Number(x).toFixed(d)}
+function fmt(x,p){let d=(p==="USD/PKR"||p==="USD/INR"||p==="USD/JPY")?3:5;return Number(x).toFixed(d)}
 async function liveData(pair){
 let key=$("api").value.trim();if(!key)throw Error("API key is empty");
 let interval=$("tf").value==="1"?"1min":$("tf").value==="5"?"5min":"15min";
 let symbol=pair.replace("/","");
 let u=`https://api.twelvedata.com/time_series?symbol=${symbol}&interval=${interval}&outputsize=150&apikey=${encodeURIComponent(key)}`;
-let j=await (await fetch(u)).json();if(!j.values)throw Error(j.message||"Live data unavailable");
+let r=await fetch(u);let j=await r.json();if(!j.values)throw Error(j.message||"Live data unavailable");
 return j.values.reverse().map(x=>Number(x.close))
 }
 async function scan(){
+$("btn").disabled=true;$("btn").textContent="SCANNING...";
 let pair=$("pair").value,data;
 try{data=$("mode").value==="live"?await liveData(pair):testData(pair)}
-catch(e){$("reason").textContent=e.message;return}
+catch(e){$("reason").textContent=e.message;$("btn").disabled=false;$("btn").textContent="SCAN FOR SIGNAL";return}
 let p=data.at(-1),e10=ema(data,10),e30=ema(data,30),R=rsi(data),m=ema(data,12)-ema(data,26),mid=avg(data,20),s=sd(data,20),up=mid+2*s,lo=mid-2*s;
-let last=data.slice(-30),sup=Math.min(...last),res=Math.max(...last),score=0,why=[];
+let last=data.slice(-31,-1),sup=Math.min(...last),res=Math.max(...last),score=0,why=[];
 if(e10>e30){score++;why.push("EMA bullish")}else{score--;why.push("EMA bearish")}
 if(R>55){score++;why.push("RSI bullish")}else if(R<45){score--;why.push("RSI bearish")}
 if(m>0){score++;why.push("MACD positive")}else{score--;why.push("MACD negative")}
 if(p>mid){score++;why.push("above BB mid")}else{score--;why.push("below BB mid")}
-let breakout=p>res*0.9995,breakdown=p<sup*1.0005;
+let breakout=p>res,breakdown=p<sup;
 if(breakout){score+=2;why.push("Resistance breakout")}
 if(breakdown){score-=2;why.push("Support breakdown")}
 let sig=score>=3?"BUY":score<=-3?"SELL":"WAIT",conf=Math.min(96,Math.max(52,55+Math.abs(score)*7));
@@ -102,16 +123,19 @@ let range=Math.max(p*.002,(res-sup)*.25),sl=sig==="BUY"?p-range:sig==="SELL"?p+r
 $("signal").textContent=sig;$("signal").className="signalText "+sig.toLowerCase();$("confidence").textContent=`Confidence: ${conf}%`;$("reason").textContent=why.join(" • ");
 $("price").textContent=fmt(p,pair);$("trend").textContent=e10>e30?"UPTREND":"DOWNTREND";$("trend").className="big "+(e10>e30?"ok":"bad");$("support").textContent=fmt(sup,pair);$("resistance").textContent=fmt(res,pair);
 $("sl").textContent=fmt(sl,pair);$("tp1").textContent=fmt(tp1,pair);$("tp2").textContent=fmt(tp2,pair);$("rr").textContent=sig==="WAIT"?"--":"1 : 1.5 / 2.5";
+let st=(v,cls)=>`<span class="badge ${cls}">${v}</span>`;
 let rows=[
-["EMA 10 / 30",fmt(e10,pair)+" / "+fmt(e30,pair),e10>e30?"Bullish":"Bearish"],
-["RSI 14",R.toFixed(2),R>55?"Bullish":R<45?"Bearish":"Neutral"],
-["MACD",m.toFixed(6),m>0?"Positive":"Negative"],
-["Bollinger",fmt(lo,pair)+" — "+fmt(up,pair),p>up?"Above":p<lo?"Below":"Inside"],
-["Breakout",breakout?"YES":breakdown?"BREAKDOWN":"NO",breakout?"Bullish":breakdown?"Bearish":"None"],
-["Support / Resistance",fmt(sup,pair)+" / "+fmt(res,pair),p>mid?"Upper half":"Lower half"]];
+["EMA 10 / 30",fmt(e10,pair)+" / "+fmt(e30,pair),st(e10>e30?"Bullish":"Bearish",e10>e30?"b-buy":"b-sell")],
+["RSI 14",R.toFixed(2),st(R>55?"Bullish":R<45?"Bearish":"Neutral",R>55?"b-buy":R<45?"b-sell":"b-wait")],
+["MACD",m.toFixed(6),st(m>0?"Positive":"Negative",m>0?"b-buy":"b-sell")],
+["Bollinger",fmt(lo,pair)+" — "+fmt(up,pair),st(p>up?"Above":p<lo?"Below":"Inside",p>up?"b-buy":p<lo?"b-sell":"b-wait")],
+["Breakout",breakout?"YES":breakdown?"BREAKDOWN":"NO",st(breakout?"Bullish":breakdown?"Bearish":"None",breakout?"b-buy":breakdown?"b-sell":"b-wait")],
+["Support / Resistance",fmt(sup,pair)+" / "+fmt(res,pair),st(p>mid?"Upper half":"Lower half",p>mid?"b-buy":"b-sell")]];
 $("ind").innerHTML=rows.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("");
 history.unshift({t:new Date().toLocaleTimeString(),p:pair,s:sig,c:conf});history=history.slice(0,10);
-$("hist").innerHTML=history.map(x=>`<tr><td>${x.t}</td><td>${x.p}</td><td class="${x.s==="BUY"?"ok":x.s==="SELL"?"bad":"warn"}">${x.s}</td><td>${x.c}%</td></tr>`).join("")
+$("hist").innerHTML=history.map(x=>`<tr><td>${x.t}</td><td>${x.p}</td><td><span class="badge ${x.s==="BUY"?"b-buy":x.s==="SELL"?"b-sell":"b-wait"}">${x.s}</span></td><td>${x.c}%</td></tr>`).join("");
+$("btn").disabled=false;$("btn").textContent="SCAN FOR SIGNAL";
 }
 </script>
-</body></html>
+</body>
+</html>
