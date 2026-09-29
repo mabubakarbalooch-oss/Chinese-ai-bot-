@@ -1,121 +1,265 @@
-html = '''<!DOCTYPE html>
-<html lang="ur">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quotex OTC Signal Bot — Breakout + SL/TP</title>
+<title>Trading Analysis Demo — Educational Only</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
-  body{background:#0d1117;color:#e6edf3;min-height:100vh;padding:20px}
-  .wrap{max-width:900px;margin:auto}
-  h1{text-align:center;font-size:22px;color:#58a6ff;margin-bottom:4px}
-  .sub{text-align:center;color:#8b949e;font-size:13px;margin-bottom:20px}
-  .card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:18px;margin-bottom:16px}
-  label{display:block;font-size:13px;color:#8b949e;margin:10px 0 4px}
-  select,textarea{width:100%;background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:8px;padding:10px;font-size:14px}
-  textarea{height:150px;font-family:Consolas,monospace;font-size:12px}
-  button{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:12px}
-  .btn-scan{background:#238636;color:#fff}.btn-scan:hover{background:#2ea043}
-  .settings{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-  .sig{border-radius:12px;padding:16px;margin-top:14px;font-weight:bold}
-  .buy{background:rgba(46,160,67,.15);border:1px solid #2ea043;color:#3fb950}
-  .sell{background:rgba(248,81,73,.15);border:1px solid #f85149;color:#f85149}
-  .wait{background:rgba(187,128,9,.12);border:1px solid #d29922;color:#d29922}
-  .row{display:flex;justify-content:space-between;margin-top:8px;font-size:15px}
-  .info{font-size:12px;color:#8b949e;margin-top:10px;line-height:1.7}
-  .ind{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#c9d1d9;margin-top:10px}
-  .ind span{background:#21262d;padding:4px 10px;border-radius:6px}
+:root{--bg:#0a0f14;--card:rgba(13,20,28,0.95);--green:#00ff78;--red:#ff4d4d;--amber:#ffaa00;--blue:#00d4ff;--text:#e8f0ea;--muted:#8fb8a3;--border:rgba(0,255,120,0.14);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:radial-gradient(circle at top right,#12301f 0%,var(--bg) 60%);min-height:100vh;display:flex;justify-content:center;padding:18px;color:var(--text);}
+.container{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:26px;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,0.6);}
+.disclaimer{background:rgba(255,170,0,0.10);border:1px solid rgba(255,170,0,0.35);color:#ffd27a;border-radius:14px;padding:12px 14px;font-size:11.5px;line-height:1.55;margin-bottom:18px;}
+.disclaimer b{color:#ffaa00;}
+.header h1{font-family:'Orbitron',sans-serif;font-size:16px;}
+.header p{font-size:11px;color:var(--muted);margin-top:3px;}
+.badge{display:inline-block;margin-top:6px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+.badge.on{background:rgba(0,255,120,0.12);border:1px solid rgba(0,255,120,0.3);color:var(--green);}
+.badge.off{background:rgba(255,77,77,0.12);border:1px solid rgba(255,77,77,0.3);color:var(--red);}
+label{display:block;margin:14px 0 6px;font-size:11px;color:#9fffc7;font-weight:600;}
+select,input{width:100%;padding:14px;border-radius:14px;border:1px solid #1d4a30;background:#0d1f15;color:#fff;outline:none;font-size:14px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.price{margin-top:16px;padding:16px;border-radius:16px;background:#0d1f15;border:1px solid #1d4a30;text-align:center;}
+.price .v{font-size:26px;font-weight:900;font-family:'Orbitron',sans-serif;color:var(--green);}
+.price .c{font-size:12px;margin-top:4px;font-weight:600;}
+.btn{width:100%;margin-top:16px;padding:16px;border:none;border-radius:18px;background:linear-gradient(135deg,var(--green),#00cc66);font-family:'Orbitron',sans-serif;font-weight:800;font-size:14px;color:#04140a;cursor:pointer;}
+.btn:hover{transform:scale(1.01);}
+.btn:disabled{opacity:0.5;cursor:not-allowed;}
+.panel{margin-top:18px;padding:18px;border-radius:18px;background:#0d1f15;border:1px solid #1d4a30;display:none;}
+.panel h2{font-size:12px;color:var(--muted);margin-bottom:12px;font-family:'Orbitron',sans-serif;letter-spacing:1px;}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.stat{background:#102117;border:1px solid #1d4a30;border-radius:14px;padding:12px;}
+.stat h3{font-size:10px;color:var(--muted);margin-bottom:5px;}
+.stat p{font-size:15px;font-weight:700;}
+.bias{margin-top:14px;padding:16px;border-radius:16px;text-align:center;font-family:'Orbitron',sans-serif;font-weight:900;font-size:20px;display:none;}
+.bias.up{background:rgba(0,255,120,0.08);border:1px solid rgba(0,255,120,0.4);color:var(--green);}
+.bias.down{background:rgba(255,77,77,0.08);border:1px solid rgba(255,77,77,0.4);color:var(--red);}
+.bias.flat{background:rgba(255,170,0,0.08);border:1px solid rgba(255,170,0,0.4);color:var(--amber);}
+.notes{margin-top:12px;font-size:11.5px;color:var(--muted);line-height:1.7;}
+.notes li{list-style:none;padding-left:14px;position:relative;}
+.notes li::before{content:'•';position:absolute;left:0;color:var(--green);}
+.slbox{margin-top:12px;padding:12px;border-radius:12px;background:#102117;border:1px dashed #2a5c3c;font-size:12px;line-height:1.7;}
+.slbox b{color:var(--blue);}
+/* paper trading */
+.paper{margin-top:18px;padding:18px;border-radius:18px;background:#0d1f15;border:1px solid #1d4a30;display:none;}
+.paper h2{font-size:12px;color:var(--muted);margin-bottom:12px;font-family:'Orbitron',sans-serif;letter-spacing:1px;}
+.bal{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;}
+.bal b{font-family:'Orbitron',sans-serif;}
+.pos{background:#102117;border:1px solid #1d4a30;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;}
+.pos .top{display:flex;justify-content:space-between;font-weight:700;margin-bottom:6px;}
+.pos button{margin-top:8px;width:100%;padding:8px;border:none;border-radius:10px;background:#1d4a30;color:var(--green);font-weight:700;cursor:pointer;}
+.pos .win{color:var(--green);} .pos .loss{color:var(--red);}
+.empty{font-size:12px;color:var(--muted);text-align:center;padding:10px 0;}
+.api-note{margin-top:14px;font-size:10.5px;color:#5f8a72;line-height:1.6;}
+.footer{margin-top:16px;text-align:center;font-size:10.5px;color:#4f7a62;line-height:1.6;}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>📊 Quotex OTC Signal Bot</h1>
-  <div class="sub">Breakout Strategy + RSI + EMA + MACD + ATR Stop Loss / Take Profit</div>
+<div class="container">
 
-  <div class="card">
-    <label>🔹 Currency Pair chunein</label>
-    <select id="pair">
-      <option>USD/BRL OTC</option><option>USD/INR OTC</option>
-      <option>USD/PKR OTC</option><option>USD/MXN OTC</option>
-      <option>EUR/USD OTC</option><option>GBP/USD OTC</option>
-      <option>USD/JPY OTC</option><option>USD/CHF OTC</option>
-      <option>USD/CAD OTC</option><option>AUD/USD OTC</option>
-      <option>NZD/USD OTC</option><option>AUD/CAD OTC</option>
-      <option>EUR/GBP OTC</option><option>GBP/JPY OTC</option>
-      <option>EUR/JPY OTC</option><option>AUD/JPY OTC</option>
-    </select>
+<div class="disclaimer"><b>EDUCATIONAL DEMO ONLY.</b> Yeh tool real-market data par analysis dikhata hai seekhne ke liye. Koi bhi signal ya bias yahan future ki guarantee nahi deta. Short-term / binary-options trading mein zyada tar retail traders paisa haarte hain. Real paisa lagane se pehle ye baat yaad rakhein.</div>
 
-    <div class="settings">
-      <div><label>Timeframe</label>
-        <select id="tf"><option>1 min</option><option selected>5 min</option><option>15 min</option></select></div>
-      <div><label>Stop Loss (ATR x)</label>
-        <select id="slm"><option>1.0</option><option selected>1.5</option><option>2.0</option></select></div>
-      <div><label>Take Profit (ATR x)</label>
-        <select id="tpm"><option>2.0</option><option selected>3.0</option><option>4.0</option></select></div>
-    </div>
+<div class="header">
+<h1>TRADING ANALYSIS DEMO</h1>
+<p>Real Binance data · Indicators · Breakout · Paper trading</p>
+<span class="badge off" id="apiBadge">API OFFLINE</span>
+</div>
 
-    <label>🔹 Candles data paste karein (har line: time,open,high,low,close) — kam az kam 60 lines</label>
-    <textarea id="data" placeholder="09:00,5.4123,5.4150,5.4101,5.4138&#10;09:01,5.4138,5.4172,5.4129,5.4165&#10;09:02,5.4165,5.4180,5.4144,5.4151&#10;... (Quotex chart se candles copy karein)"></textarea>
+<div class="row2">
+<div>
+<label>ASSET (Binance spot)</label>
+<select id="asset">
+<option value="BTCUSDT">BTC/USDT</option>
+<option value="ETHUSDT">ETH/USDT</option>
+<option value="BNBUSDT">BNB/USDT</option>
+<option value="SOLUSDT">SOL/USDT</option>
+<option value="XRPUSDT">XRP/USDT</option>
+<option value="DOGEUSDT">DOGE/USDT</option>
+<option value="ADAUSDT">ADA/USDT</option>
+<option value="LTCUSDT">LTC/USDT</option>
+<option value="LINKUSDT">LINK/USDT</option>
+</select>
+</div>
+<div>
+<label>TIMEFRAME</label>
+<select id="tf">
+<option value="1m">1 minute</option>
+<option value="5m" selected>5 minute</option>
+<option value="15m">15 minute</option>
+</select>
+</div>
+</div>
 
-    <button class="btn-scan" onclick="scan()">⚡ SIGNAL GENERATE KAREIN</button>
-    <div id="out"></div>
-  </div>
+<div class="price">
+<div style="font-size:10px;color:var(--muted)">LAST PRICE</div>
+<div class="v" id="px">—</div>
+<div class="c" id="pxChg">—</div>
+</div>
 
-  <div class="card info">
-    <b>📖 Kaise use karein:</b><br>
-    1. Quotex par apna pair aur timeframe kholein<br>
-    2. Chart ke recent candles ko note karein: time,open,high,low,close — upar box mein paste karein (60+ candles)<br>
-    3. "Signal Generate" dabayen — bot RSI, EMA 20/50, MACD aur ATR calculate karega<br>
-    4. Signal aane par Entry, Stop Loss aur Take Profit dekh kar trade karein<br><br>
-    ⚠️ <b>Risk Warning:</b> OTC pairs par spread bohat high hota hai. Har trade par risk sirf 1-2% rakhein. Signal guarantee nahi, probability hai.
-  </div>
+<button class="btn" id="analyzeBtn" onclick="runAnalysis()">RUN ANALYSIS</button>
+
+<div class="panel" id="panel">
+<h2>INDICATOR SNAPSHOT</h2>
+<div class="grid">
+<div class="stat"><h3>RSI (14)</h3><p id="sRsi">—</p></div>
+<div class="stat"><h3>TREND (EMA)</h3><p id="sTrend">—</p></div>
+<div class="stat"><h3>MACD</h3><p id="sMacd">—</p></div>
+<div class="stat"><h3>VOL vs AVG</h3><p id="sVol">—</p></div>
+</div>
+<div class="bias" id="bias"></div>
+<div class="slbox" id="slbox"></div>
+<ul class="notes" id="notes"></ul>
+</div>
+
+<div class="paper" id="paper">
+<h2>PAPER TRADING (VIRTUAL $1000)</h2>
+<div class="bal"><span>Balance: <b id="bal">$1000.00</b></span><span>Open: <b id="openCnt">0</b></span></div>
+<button class="btn" style="margin-top:6px;padding:12px;font-size:12px;" onclick="openDemoPosition()">OPEN DEMO POSITION (uses analysis)</button>
+<div id="posList"><div class="empty">Koi position nahi. Analysis run karke demo position kholen.</div></div>
+</div>
+
+<div class="api-note">Note: Quotex/Pocket Option ke OTC assets ka data kisi public API par available nahi hota — wo broker ke internal prices hain. Isliye yahan sirf real exchange (Binance spot) pairs hain.</div>
+
+<div class="footer">No signal system can predict the market. Yeh tool indicators samajhne ke liye hai — paisa banane ka wada nahi.</div>
 </div>
 
 <script>
-function ema(a,n){const k=2/(n+1);let e=a[0];const out=[e];for(let i=1;i<a.length;i++){e=a[i]*k+e*(1-k);out.push(e)}return out}
-function rsi(c,n=14){let g=0,l=0;const out=[50];for(let i=1;i<c.length;i++){const d=c[i]-c[i-1],up=Math.max(d,0),dn=Math.max(-d,0);g=(g*(n-1)+up)/n;l=(l*(n-1)+dn)/n;out.push(l===0?100:100-100/(1+g/l))}return out}
-function atrArr(h,l,c,n=14){const tr=[h[0]-l[0]];for(let i=1;i<h.length;i++){tr.push(Math.max(h[i]-l[i],Math.abs(h[i]-c[i-1]),Math.abs(l[i]-c[i-1])))}let a=tr[0];const out=[a];for(let i=1;i<tr.length;i++){a=(a*(n-1)+tr[i])/n;out.push(a)}return out}
+const API='https://data-api.binance.vision/api/v3';
+let pair='BTCUSDT', tf='5m', price=0, chg=0, lastAnalysis=null;
+let balance=1000, positions=[], posId=0;
 
-function scan(){
-  const raw=document.getElementById('data').value.trim();
-  const pair=document.getElementById('pair').value;
-  const slM=parseFloat(document.getElementById('slm').value);
-  const tpM=parseFloat(document.getElementById('tpm').value);
-  const out=document.getElementById('out');
-  const lines=raw.split('\\n').map(x=>x.trim()).filter(x=>x);
-  if(lines.length<60){out.innerHTML='<div class="sig wait">⚠️ Kam az kam 60 candles paste karein (abhi '+lines.length+' hain)</div>';return}
-  const o=[],h=[],l=[],c=[];
-  for(const ln of lines){const p=ln.split(',').map(s=>parseFloat(s.trim()));
-    if(p.length>=5&&!p.slice(1,5).some(isNaN)){o.push(p[1]);h.push(p[2]);l.push(p[3]);c.push(p[4])}}
-  if(c.length<60){out.innerHTML='<div class="sig wait">⚠️ Data format ghalat hai. Format: time,open,high,low,close</div>';return}
+document.getElementById('asset').onchange=e=>{pair=e.target.value;pollPrice();};
+document.getElementById('tf').onchange=e=>{tf=e.target.value;};
 
-  const E20=ema(c,20),E50=ema(c,50),R=rsi(c),A=atrArr(h,l,c);
-  const mF=ema(c,12),mS=ema(c,26),macd=[],macds=[];
-  for(let i=0;i<c.length;i++)macd.push(mF[i]-mS[i]);
-  const ms=ema(macd,9);for(let i=0;i<c.length;i++)macds.push(ms[i]);
-
-  const i=c.length-1,N=20;
-  let hi=-1e18,lo=1e18;
-  for(let j=i-N;j<i;j++){hi=Math.max(hi,h[j]);lo=Math.min(lo,l[j])}
-  const close=c[i],atr=A[i];
-  const bull=close>hi&&close>E50[i]&&R[i]>50&&macd[i]>macds[i];
-  const bear=close<lo&&close<E50[i]&&R[i]<50&&macd[i]<macds[i];
-
-  const inds='<div class="ind"><span>RSI(14): '+R[i].toFixed(1)+'</span><span>EMA20: '+E20[i].toFixed(5)+'</span><span>EMA50: '+E50[i].toFixed(5)+'</span><span>MACD: '+(macd[i]>macds[i]?'▲ Bullish':'▼ Bearish')+'</span><span>ATR: '+atr.toFixed(5)+'</span></div>';
-
-  let html='';
-  if(bull){
-    const sl=close-slM*atr,tp=close+tpM*atr;
-    html='<div class="sig buy">🟢 '+pair+' — BUY SIGNAL<div class="row"><span>Entry</span><b>'+close.toFixed(5)+'</b></div><div class="row"><span>🛑 Stop Loss</span><b>'+sl.toFixed(5)+'</b></div><div class="row"><span>🎯 Take Profit</span><b>'+tp.toFixed(5)+'</b></div>'+inds+'</div>';
-  }else if(bear){
-    const sl=close+slM*atr,tp=close-tpM*atr;
-    html='<div class="sig sell">🔴 '+pair+' — SELL SIGNAL<div class="row"><span>Entry</span><b>'+close.toFixed(5)+'</b></div><div class="row"><span>🛑 Stop Loss</span><b>'+sl.toFixed(5)+'</b></div><div class="row"><span>🎯 Take Profit</span><b>'+tp.toFixed(5)+'</b></div>'+inds+'</div>';
-  }else{
-    const side=close>E50[i]?'Trend UP — BUY ke liye wait':'Trend DOWN — SELL ke liye wait';
-    html='<div class="sig wait">⏳ '+pair+' — Abhi SIGNAL NAHI hai<br><span style="font-weight:normal;font-size:13px">'+side+' (Breakout + RSI + MACD confirm hone ka intezaar karein)</span>'+inds+'</div>';
-  }
-  out.innerHTML=html;
+async function pollPrice(){
+  try{
+    const r=await fetch(`${API}/ticker/24hr?symbol=${pair}`);
+    const d=await r.json();
+    price=parseFloat(d.lastPrice); chg=parseFloat(d.priceChangePercent);
+    document.getElementById('px').textContent=fmt(price);
+    const c=document.getElementById('pxChg');
+    c.textContent=(chg>=0?'+':'')+chg.toFixed(2)+'%';
+    c.style.color=chg>=0?'#00ff78':'#ff4d4d';
+    setBadge(true);
+  }catch(e){setBadge(false);}
 }
+function setBadge(on){
+  const b=document.getElementById('apiBadge');
+  b.className='badge '+(on?'on':'off');
+  b.textContent=on?'BINANCE DATA LIVE':'API OFFLINE';
+}
+setInterval(pollPrice,10000); pollPrice();
+
+function fmt(v){return v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>1000?2:5});}
+
+async function getKlines(){
+  const r=await fetch(`${API}/klines?symbol=${pair}&interval=${tf}&limit=200`);
+  const d=await r.json();
+  return d.map(k=>({open:+k[1],high:+k[2],low:+k[3],close:+k[4],vol:+k[5]}));
+}
+function ema(arr,p){const k=2/(p+1);let e=[arr[0]];for(let i=1;i<arr.length;i++)e.push(arr[i]*k+e[i-1]*(1-k));return e;}
+function rsi(cl,p=14){if(cl.length<p+1)return 50;let g=0,l=0;for(let i=cl.length-p;i<cl.length;i++){const df=cl[i]-cl[i-1];df>=0?g+=df:l+=Math.abs(df);}const ag=g/p,al=l/p;if(al===0)return 100;return 100-100/(1+ag/al);}
+function macdCalc(cl){const a=ema(cl,12),b=ema(cl,26),m=a.map((v,i)=>v-b[i]),s=ema(m,9);return{m:m[m.length-1],s:s[s.length-1],h:m[m.length-1]-s[s.length-1]};}
+function atr(cs,p=14){if(cs.length<p+1)return 0;let s=0;for(let i=cs.length-p;i<cs.length;i++){const tr=Math.max(cs[i].high-cs[i].low,Math.abs(cs[i].high-cs[i-1].close),Math.abs(cs[i].low-cs[i-1].close));s+=tr;}return s/p;}
+
+async function runAnalysis(){
+  const btn=document.getElementById('analyzeBtn');
+  btn.disabled=true;btn.textContent='ANALYZING...';
+  try{
+    const cs=await getKlines();
+    const cl=cs.map(c=>c.close);
+    const last=cl[cl.length-1];
+    const r=rsi(cl), mc=macdCalc(cl);
+    const e20=ema(cl,20),e50=ema(cl,50),e200=ema(cl,200);
+    const a=atr(cs);
+    // support/resistance: recent 60 candles excluding last 5
+    const body=cs.slice(-65,-5);
+    const sup=Math.min(...body.map(c=>c.low));
+    const res=Math.max(...body.map(c=>c.high));
+    const avgVol=cs.slice(-21,-1).reduce((s,c)=>s+c.vol,0)/20;
+    const lastVol=cs[cs.length-1].vol;
+    const volRatio=avgVol?lastVol/avgVol:1;
+    // breakout detection
+    const brokeUp=last>res && volRatio>1.3;
+    const brokeDown=last<sup && volRatio>1.3;
+    const nearRes=last>res*0.997, nearSup=last<sup*1.003;
+
+    // Bias scoring (clearly labeled as bias, not prediction)
+    let up=0,down=0;const notes=[];
+    if(r<30){up+=2;notes.push('RSI oversold ('+r.toFixed(1)+') — bounce possible, not guaranteed');}
+    else if(r>70){down+=2;notes.push('RSI overbought ('+r.toFixed(1)+') — pullback possible, not guaranteed');}
+    if(e50[e50.length-1]>e200[e200.length-1]){up+=2;notes.push('EMA trend: higher-timeframe structure bullish');}
+    else{down+=2;notes.push('EMA trend: higher-timeframe structure bearish');}
+    if(mc.h>0){up+=1;notes.push('MACD histogram positive');}else{down+=1;notes.push('MACD histogram negative');}
+    if(brokeUp){up+=3;notes.push('BREAKOUT: price closed above resistance '+fmt(res)+' with above-average volume');}
+    if(brokeDown){down+=3;notes.push('BREAKDOWN: price closed below support '+fmt(sup)+' with above-average volume');}
+    if(nearRes&&!brokeUp)notes.push('Price near resistance '+fmt(res)+' — breakout ya rejection dono possible');
+    if(nearSup&&!brokeDown)notes.push('Price near support '+fmt(sup)+' — bounce ya breakdown dono possible');
+
+    let biasTxt='NEUTRAL / NO EDGE',cls='flat';
+    if(up>=down+3){biasTxt='BIAS: UP (weak edge)';cls='up';}
+    else if(down>=up+3){biasTxt='BIAS: DOWN (weak edge)';cls='down';}
+
+    // ATR-based stop / target demo levels
+    const slLong=(last-1.5*a), tpLong=(last+2.25*a);
+    const slShort=(last+1.5*a), tpShort=(last-2.25*a);
+
+    document.getElementById('sRsi').textContent=r.toFixed(1)+(r>70?' (OB)':r<30?' (OS)':'');
+    document.getElementById('sRsi').style.color=r>70?'#ff4d4d':r<30?'#00ff78':'#e8f0ea';
+    document.getElementById('sTrend').textContent=e50[e50.length-1]>e200[e200.length-1]?'UP':'DOWN';
+    document.getElementById('sMacd').textContent=mc.h>0?'+H':'-H';
+    document.getElementById('sVol').textContent=volRatio.toFixed(2)+'x';
+    document.getElementById('sVol').style.color=volRatio>1.3?'#00d4ff':'#e8f0ea';
+
+    const biasEl=document.getElementById('bias');
+    biasEl.className='bias '+cls;biasEl.style.display='block';biasEl.textContent=biasTxt;
+
+    document.getElementById('slbox').innerHTML=
+      'Demo risk levels (ATR-based, 1.5x SL / 2.25x TP — sirf seekhne ke liye):<br>'+
+      '<b>Long:</b> entry ~'+fmt(last)+' · SL '+fmt(slLong)+' · TP '+fmt(tpLong)+'<br>'+
+      '<b>Short:</b> entry ~'+fmt(last)+' · SL '+fmt(slShort)+' · TP '+fmt(tpShort);
+
+    document.getElementById('notes').innerHTML=notes.map(n=>'<li>'+n+'</li>').join('');
+    document.getElementById('panel').style.display='block';
+    document.getElementById('paper').style.display='block';
+
+    lastAnalysis={bias:cls,entry:last,slL:slLong,tpL:tpLong,slS:slShort,tpS:tpShort};
+    document.getElementById('panel').scrollIntoView({behavior:'smooth'});
+  }catch(e){
+    alert('Data fetch failed. Internet/API check karein.');
+  }
+  btn.disabled=false;btn.textContent='RUN ANALYSIS';
+}
+
+function openDemoPosition(){
+  if(!lastAnalysis){alert('Pehle RUN ANALYSIS karein.');return;}
+  if(lastAnalysis.bias==='flat'){alert('Abhi koi clear bias nahi — demo mein bhi wait karna hi seekhne wali baat hai.');return;}
+  const side=lastAnalysis.bias==='up'?'LONG':'SHORT';
+  positions.push({id:++posId,side,entry:lastAnalysis.entry,
+    sl:side==='LONG'?lastAnalysis.slL:lastAnalysis.slS,
+    tp:side==='LONG'?lastAnalysis.tpL:lastAnalysis.tpS,open:true});
+  renderPositions();
+}
+function pnl(p){if(!price)return 0;return p.side==='LONG'?(price-p.entry):(p.entry-price);}
+function renderPositions(){
+  document.getElementById('openCnt').textContent=positions.filter(p=>p.open).length;
+  document.getElementById('bal').textContent='$'+balance.toFixed(2);
+  const list=document.getElementById('posList');
+  if(!positions.length){list.innerHTML='<div class="empty">Koi position nahi.</div>';return;}
+  list.innerHTML=positions.map(p=>{
+    const pl=p.open?pnl(p):p.finalPl;
+    const col=pl>=0?'#00ff78':'#ff4d4d';
+    return '<div class="pos"><div class="top"><span style="color:'+(p.side==='LONG'?'#00ff78':'#ff4d4d')+'">'+p.side+'</span>'+
+    '<span style="color:'+col+'">'+(pl>=0?'+':'')+'$'+pl.toFixed(2)+'</span></div>'+
+    'Entry '+fmt(p.entry)+' · SL '+fmt(p.sl)+' · TP '+fmt(p.tp)+(p.open?'<button onclick="closePos('+p.id+')">CLOSE DEMO POSITION</button>':'<div style="margin-top:6px;color:'+col+';font-weight:700;">CLOSED</div>')+'</div>';
+  }).join('');
+}
+function closePos(id){
+  const p=positions.find(x=>x.id===id);if(!p||!p.open)return;
+  p.open=false;p.finalPl=pnl(p);balance+=p.finalPl;renderPositions();
+}
+setInterval(()=>{if(positions.some(p=>p.open))renderPositions();},10000);
 </script>
 </body>
-</html>'''
+</html>
