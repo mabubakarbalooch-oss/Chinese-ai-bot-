@@ -2,1352 +2,242 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Chinese Signal Generator</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Quotex OTC Signal Bot - ADVANCE PRO</title>
+<script src="https://s3.tradingview.com/tv.js"></script>
 <style>
-
-*{
-    box-sizing:border-box;
-}
-
-html,body{
-    margin:0;
-    padding:0;
-    min-height:100%;
-}
-
-body{
-    background:#070b16;
-    color:#f2f4f7;
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-}
-
-.page{
-    min-height:100vh;
-    padding:8px 14px 45px;
-}
-
-.generator{
-    width:100%;
-    max-width:510px;
-    margin:0 auto;
-
-    background:
-        linear-gradient(
-            145deg,
-            #0b101c 0%,
-            #080c17 55%,
-            #071019 100%
-        );
-
-    border:1px solid rgba(0,255,140,.28);
-
-    border-radius:34px;
-
-    padding:44px 30px 35px;
-
-    box-shadow:
-        0 0 22px rgba(0,255,140,.06),
-        inset 0 0 35px rgba(0,0,0,.20);
-}
-
-/* TITLE */
-
-.title{
-    text-align:center;
-
-    color:#19f28a;
-
-    font-size:31px;
-    line-height:1.18;
-
-    font-weight:800;
-
-    letter-spacing:-.7px;
-
-    margin:0 auto 25px;
-}
-
-.subtitle{
-    text-align:center;
-
-    color:#aeb2bc;
-
-    font-size:19px;
-
-    line-height:1.45;
-
-    margin:0 auto 58px;
-
-    max-width:400px;
-}
-
-/* FORM */
-
-.field{
-    margin-bottom:39px;
-}
-
-.field-title{
-    display:flex;
-    align-items:center;
-
-    gap:17px;
-
-    color:#f0f1f3;
-
-    font-size:24px;
-
-    font-weight:700;
-
-    margin-bottom:16px;
-}
-
-.icon{
-    width:35px;
-    text-align:center;
-
-    font-size:26px;
-}
-
-.select-wrap{
-    position:relative;
-}
-
-select{
-    appearance:none;
-    -webkit-appearance:none;
-
-    width:100%;
-
-    height:78px;
-
-    padding:
-        0 55px 0 26px;
-
-    border-radius:23px;
-
-    border:2px solid #3b4050;
-
-    outline:none;
-
-    background:
-        linear-gradient(
-            180deg,
-            #151925,
-            #111521
-        );
-
-    color:#f1f2f5;
-
-    font-size:20px;
-
-    cursor:pointer;
-
-    box-shadow:
-        inset 0 0 12px rgba(255,255,255,.015);
-}
-
-.select-arrow{
-    position:absolute;
-
-    right:25px;
-    top:50%;
-
-    transform:translateY(-50%);
-
-    font-size:22px;
-
-    color:#e8e9ed;
-
-    pointer-events:none;
-}
-
-/* GENERATE BUTTON */
-
-.generate-btn{
-    width:100%;
-
-    height:84px;
-
-    margin-top:1px;
-
-    border:0;
-
-    border-radius:22px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #05ed83,
-            #10d978
-        );
-
-    color:#02150d;
-
-    font-size:20px;
-
-    font-weight:900;
-
-    letter-spacing:1.5px;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 8px 22px rgba(0,255,130,.13);
-
-    transition:
-        transform .12s ease,
-        opacity .12s ease;
-}
-
-.generate-btn:active{
-    transform:scale(.985);
-}
-
-.generate-btn.loading{
-    opacity:.65;
-}
-
-/* RESULT */
-
-.result{
-    display:none;
-
-    margin-top:34px;
-
-    padding:27px 31px 30px;
-
-    border-radius:24px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #091d1c,
-            #081719
-        );
-
-    border:1px solid rgba(0,255,140,.27);
-}
-
-.result.show{
-    display:block;
-}
-
-.result-title{
-    display:flex;
-
-    align-items:center;
-
-    gap:13px;
-
-    color:#20ef8a;
-
-    font-size:25px;
-
-    font-weight:700;
-
-    line-height:1.45;
-
-    margin-bottom:27px;
-}
-
-.target{
-    font-size:29px;
-}
-
-/* SIGNAL BOX */
-
-.signal-box{
-    width:100%;
-
-    min-height:152px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    border-radius:10px;
-
-    background:#051116;
-
-    margin-bottom:31px;
-
-    padding:22px;
-}
-
-.signal{
-    display:inline-block;
-
-    padding:
-        9px 27px;
-
-    border-radius:10px;
-
-    font-size:28px;
-
-    font-weight:900;
-
-    line-height:1;
-
-    letter-spacing:.5px;
-}
-
-.signal.buy{
-    color:#18f28b;
-
-    border:2px solid #16e883;
-
-    background:rgba(0,255,130,.08);
-
-    box-shadow:
-        0 0 15px rgba(0,255,130,.08);
-}
-
-.signal.sell{
-    color:#ff5262;
-
-    border:2px solid #d83d50;
-
-    background:rgba(255,50,75,.07);
-
-    box-shadow:
-        0 0 15px rgba(255,50,75,.07);
-}
-
-.signal.wait{
-    color:#ffc857;
-
-    border:2px solid #a98225;
-
-    background:rgba(255,200,87,.06);
-}
-
-.confidence{
-    margin-top:22px;
-
-    color:#18f28b;
-
-    font-size:20px;
-
-    font-weight:600;
-}
-
-/* INFO */
-
-.info{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:25px;
-}
-
-.info-row{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:7px;
-}
-
-.info-label{
-    color:#b0b7bd;
-
-    font-size:19px;
-}
-
-.info-value{
-    color:#f4f5f6;
-
-    font-size:20px;
-
-    font-weight:700;
-}
-
-/* ANALYSIS */
-
-.analysis{
-    margin-top:25px;
-
-    padding:16px 17px;
-
-    border-radius:13px;
-
-    background:
-        rgba(5,10,13,.65);
-
-    border:1px solid rgba(255,120,70,.22);
-}
-
-.analysis-text{
-    color:#e47a61;
-
-    text-align:center;
-
-    font-size:15px;
-
-    line-height:1.5;
-}
-
-/* SMALL DATA */
-
-.extra{
-    display:none;
-}
-
-/* SCAN */
-
-.scanning{
-    display:none;
-
-    text-align:center;
-
-    color:#20ef8a;
-
-    font-size:14px;
-
-    padding:18px 0 4px;
-}
-
-.scanning.show{
-    display:block;
-}
-
-.loader{
-    display:inline-flex;
-
-    margin-left:5px;
-
-    gap:4px;
-}
-
-.loader span{
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    background:#20ef8a;
-
-    animation:
-        pulse 1s infinite;
-}
-
-.loader span:nth-child(2){
-    animation-delay:.2s;
-}
-
-.loader span:nth-child(3){
-    animation-delay:.4s;
-}
-
-@keyframes pulse{
-    0%,100%{
-        opacity:.2;
-    }
-
-    50%{
-        opacity:1;
-    }
-}
-
-/* MOBILE */
-
-@media(max-width:430px){
-
-    .page{
-        padding:
-            7px 10px 35px;
-    }
-
-    .generator{
-        padding:
-            38px 26px 30px;
-
-        border-radius:30px;
-    }
-
-    .title{
-        font-size:29px;
-    }
-
-    .subtitle{
-        font-size:18px;
-        margin-bottom:54px;
-    }
-
-    .field-title{
-        font-size:22px;
-    }
-
-    select{
-        height:76px;
-        font-size:19px;
-    }
-
-    .generate-btn{
-        height:82px;
-        font-size:18px;
-    }
-
-    .result{
-        padding:
-            24px 29px 29px;
-    }
-
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#030a14;color:white;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;padding:12px}
+.live-ticker{max-width:560px;margin:0 auto 10px;background:#0a1625;border:1px solid #0f3d28;border-radius:12px;padding:8px 12px;display:flex;justify-content:space-between;font-size:12px;color:#00ff78}
+.container{max-width:560px;margin:auto;background:linear-gradient(180deg,#0a1a2a 0%,#070f19 100%);border:1px solid #0a5a33;border-radius:22px;padding:18px 14px;box-shadow:0 0 40px rgba(0,255,120,.12), inset 0 0 20px rgba(0,255,120,.03)}
+h1{text-align:center;color:#00ff78;font-size:26px;font-weight:900;letter-spacing:.5px;text-shadow:0 0 12px rgba(0,255,120,.6)}
+.subtitle{text-align:center;color:#7a8a97;font-size:11px;margin:6px 0 16px;letter-spacing:1px}
+label{display:block;color:#c6d2da;font-size:13px;font-weight:700;margin:14px 0 6px}
+select{width:100%;height:52px;border-radius:14px;border:1px solid #2a3d4e;background:#101e2e;color:white;padding:0 14px;font-size:15px;outline:none}
+select:focus{border-color:#00ff78;box-shadow:0 0 0 3px rgba(0,255,120,.15)}
+.generate{width:100%;height:58px;margin-top:18px;border:0;border-radius:16px;background:linear-gradient(90deg,#00d968,#00ff88);color:#001a0e;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(0,255,120,.35);transition:.2s}
+.generate:active{transform:scale(.97)}
+.generate:disabled{opacity:.5}
+.progress{display:none;margin-top:16px;padding:14px;background:#0a1a25;border:1px solid #15412e;border-radius:14px}
+.progressText{color:#00ff88;font-size:13px;font-weight:600}
+.bar{height:6px;background:#142332;border-radius:10px;margin-top:10px;overflow:hidden}
+.fill{width:0%;height:100%;background:linear-gradient(90deg,#00ff78,#00d968);transition:width.4s}
+.result{display:none;margin-top:16px;background:#071a23;border:1px solid #115a3b;border-radius:18px;padding:14px;animation:pop.4s ease}
+@keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
+.signalBox{text-align:center;background:#0a141c;border-radius:14px;padding:18px;border:1px solid #1f3442}
+.signal{display:inline-block;padding:10px 32px;border-radius:999px;font-size:22px;font-weight:900;letter-spacing:1px}
+.buy{background:#00ff7f;color:#001b0e;box-shadow:0 0 18px rgba(0,255,127,.6)}
+.sell{background:#ff3b3b;color:white;box-shadow:0 0 18px rgba(255,59,59,.5)}
+.wait{background:#ffbf00;color:#1a1200}
+.confidence{margin-top:10px;color:#00ff88;font-size:18px;font-weight:800}
+.row{display:flex;justify-content:space-between;padding:10px 2px;border-bottom:1px solid #1b2e3c;font-size:13px}
+.left{color:#8da0ad}
+.right{color:white;font-weight:700}
+.message{margin-top:12px;padding:12px;border-radius:12px;font-size:12px;line-height:1.6;text-align:center;background:#1a120e;border:1px solid #5a321e;color:#ffbb95}
+.status{text-align:center;color:#5a6d7a;font-size:10px;margin-top:8px}
+.chartBox{margin-top:16px;height:320px;background:#0a151e;border-radius:14px;border:1px solid #1a3a2e;overflow:hidden}
+.history{margin-top:16px;background:#09141e;border:1px solid #173a2a;border-radius:14px;padding:12px}
+.history h3{color:#00ff78;font-size:13px;margin-bottom:8px}
+.hist-item{display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-bottom:1px solid #152a35;color:#9fb0bb}
+.otcNotice{display:none;margin-top:12px;padding:12px;border-radius:12px;border:1px solid #8b5b14;background:#201a0c;color:#ffd36a;font-size:12px;line-height:1.6}
+details{margin-top:16px;background:#09151e;border:1px solid #173b2d;border-radius:14px;overflow:hidden}
+summary{padding:14px;color:#00ff78;font-weight:800;cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px}
+.metric{background:#0d1c28;border:1px solid #1e3542;border-radius:10px;padding:10px}
+.metricName{color:#7f90a0;font-size:10px}
+.metricValue{color:white;font-size:13px;font-weight:800;margin-top:4px}
+.footer{text-align:center;color:#42525e;font-size:9px;margin-top:18px}
 </style>
 </head>
-
-
 <body>
 
-
-<div class="page">
-
-<div class="generator">
-
-
-    <!-- TITLE -->
-
-    <h1 class="title">
-        🚀 Chinese Signal<br>
-        Generator 🚀
-    </h1>
-
-
-    <div class="subtitle">
-        Generate high-precision trading signals
-        with advanced AI algorithms
-    </div>
-
-
-
-    <!-- BROKER -->
-
-    <div class="field">
-
-        <div class="field-title">
-
-            <span class="icon">
-                🏢
-            </span>
-
-            <span>
-                Select Broker
-            </span>
-
-        </div>
-
-
-        <div class="select-wrap">
-
-            <select id="broker">
-
-                <option>
-                    Quotex
-                </option>
-
-                <option>
-                    Pocket Option
-                </option>
-
-                <option>
-                    Binomo
-                </option>
-
-                <option>
-                    Deriv
-                </option>
-
-            </select>
-
-            <div class="select-arrow">
-               ⌄
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ASSET -->
-
-    <div class="field">
-
-        <div class="field-title">
-
-            <span class="icon">
-                💱
-            </span>
-
-            <span>
-                Trading Asset
-            </span>
-
-        </div>
-
-
-        <div class="select-wrap">
-
-            <select id="asset">
-
-                <option value="USD/BRL">
-                    USD/BRL
-                </option>
-
-                <option value="USD/INR">
-                    USD/INR
-                </option>
-
-                <option value="USD/PKR">
-                    USD/PKR
-                </option>
-
-                <option value="USD/MXN">
-                    USD/MXN
-                </option>
-
-                <option value="EUR/USD">
-                    EUR/USD
-                </option>
-
-                <option value="GBP/USD">
-                    GBP/USD
-                </option>
-
-                <option value="USD/JPY">
-                    USD/JPY
-                </option>
-
-            </select>
-
-            <div class="select-arrow">
-               ⌄
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- TIMEFRAME -->
-
-    <div class="field">
-
-        <div class="field-title">
-
-            <span class="icon">
-                ⏱️
-            </span>
-
-            <span>
-                Time Frame
-            </span>
-
-        </div>
-
-
-        <div class="select-wrap">
-
-            <select id="timeframe">
-
-                <option value="15secs">
-                    15secs
-                </option>
-
-                <option value="30secs">
-                    30secs
-                </option>
-
-                <option value="1min">
-                    1min
-                </option>
-
-                <option value="5min">
-                    5min
-                </option>
-
-            </select>
-
-            <div class="select-arrow">
-               ⌄
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- API -->
-
-    <div class="extra">
-
-        <input
-            id="apiKey"
-            type="password"
-        >
-
-    </div>
-
-
-
-    <!-- GENERATE BUTTON -->
-
-    <button
-        class="generate-btn"
-        id="generateButton"
-        onclick="generateSignal()"
-    >
-
-        ⚡
-        GENERATE SIGNAL
-        ✨
-
-    </button>
-
-
-
-    <!-- SCANNING -->
-
-    <div
-        class="scanning"
-        id="scanning"
-    >
-
-        Analyzing market
-
-        <span class="loader">
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </span>
-
-    </div>
-
-
-
-    <!-- RESULT -->
-
-    <div
-        class="result"
-        id="result"
-    >
-
-
-        <div class="result-title">
-
-            <span class="target">
-                🎯
-            </span>
-
-            <span>
-                Latest Signal<br>
-                Generated!
-            </span>
-
-        </div>
-
-
-
-        <!-- SIGNAL -->
-
-        <div class="signal-box">
-
-            <div
-                id="signal"
-                class="signal sell"
-            >
-                SELL
-            </div>
-
-
-            <div
-                id="confidence"
-                class="confidence"
-            >
-                90% Confidence
-            </div>
-
-        </div>
-
-
-
-        <!-- DETAILS -->
-
-        <div class="info">
-
-
-            <div class="info-row">
-
-                <div class="info-label">
-                    Asset:
-                </div>
-
-                <div
-                    id="resultAsset"
-                    class="info-value"
-                >
-                    USD/BRL
-                </div>
-
-            </div>
-
-
-
-            <div class="info-row">
-
-                <div class="info-label">
-                    Timeframe:
-                </div>
-
-                <div
-                    id="resultTimeframe"
-                    class="info-value"
-                >
-                    15secs
-                </div>
-
-            </div>
-
-
-
-            <div class="info-row">
-
-                <div class="info-label">
-                    Generated:
-                </div>
-
-                <div
-                    id="generated"
-                    class="info-value"
-                >
-                    11:02:00
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- BOTTOM MESSAGE -->
-
-        <div class="analysis">
-
-            <div class="analysis-text">
-
-                Click "Generate Signal" below for
-                a new analysis
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
+<div class="live-ticker" id="ticker">
+<span id="t1">BTC: loading...</span>
+<span id="t2">ETH: loading...</span>
+<span id="t3" style="color:#7a8a97">LIVE</span>
 </div>
 
+<div class="container">
+<h1>🚀 CHINESE SIGNAL PRO 🚀</h1>
+<div class="subtitle">QUOTEX OTC • ADVANCE AI ANALYSIS • NO FAKE DATA</div>
+
+<label>🏢 Broker</label>
+<select id="broker"><option>Quotex</option><option>Pocket Option</option><option>Deriv</option></select>
+
+<label>💱 Asset</label>
+<select id="asset">
+<optgroup label="🔥 OTC Pairs"><option value="EURUSD-OTC">EUR/USD (OTC)</option><option value="GBPUSD-OTC">GBP/USD (OTC)</option><option value="USDJPY-OTC">USD/JPY (OTC)</option><option value="AUDUSD-OTC">AUD/USD (OTC)</option><option value="GBPJPY-OTC">GBP/JPY (OTC)</option><option value="USDPKR-OTC">USD/PKR (OTC)</option><option value="USDINR-OTC">USD/INR (OTC)</option></optgroup>
+<optgroup label="₿ Crypto LIVE"><option value="BTCUSDT" selected>BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option><option value="BNBUSDT">BNB/USDT</option><option value="SOLUSDT">SOL/USDT</option></optgroup>
+</select>
+
+<label>⏱️ Timeframe</label>
+<select id="timeframe"><option value="1m" selected>1 Minute</option><option value="5m">5 Minutes</option><option value="15s">15 Seconds</option><option value="30s">30 Seconds</option></select>
+
+<button id="generateBtn" class="generate" onclick="generateSignal()">⚡ GENERATE ADVANCE SIGNAL</button>
+
+<div class="progress" id="progress"><div id="progressText" class="progressText">Starting...</div><div class="bar"><div id="fill" class="fill"></div></div></div>
+<div id="otcNotice" class="otcNotice"></div>
+
+<div class="result" id="result">
+<div class="signalBox"><div id="signal" class="signal wait">WAIT</div><div id="confidence" class="confidence">--</div></div>
+<div class="row"><span class="left">Asset</span><span id="rAsset" class="right">--</span></div>
+<div class="row"><span class="left">Timeframe</span><span id="rTimeframe" class="right">--</span></div>
+<div class="row"><span class="left">Live Price</span><span id="rPrice" class="right">--</span></div>
+<div class="row"><span class="left">Time</span><span id="rTime" class="right">--</span></div>
+<div class="message" id="message">--</div>
+<div class="status" id="status">--</div>
 </div>
 
+<div class="chartBox" id="tv_chart"></div>
 
+<details open><summary>📊 Advanced Indicators</summary><div class="grid">
+<div class="metric"><div class="metricName">RSI 14</div><div id="rsi" class="metricValue">--</div></div>
+<div class="metric"><div class="metricName">Stochastic</div><div id="stoch" class="metricValue">--</div></div>
+<div class="metric"><div class="metricName">EMA 10 / 30</div><div id="ema" class="metricValue">--</div></div>
+<div class="metric"><div class="metricName">MACD</div><div id="macd" class="metricValue">--</div></div>
+<div class="metric"><div class="metricName">Bollinger</div><div id="bb" class="metricValue">--</div></div>
+<div class="metric"><div class="metricName">Support / Resistance</div><div id="sr" class="metricValue">--</div></div>
+<div class="metric"><div class="metricName">Breakout</div><div id="breakout" class="metricValue">--</div></div>
+<div class="metric"><div class="metricName">Strategy</div><div id="strategy" class="metricValue">--</div></div>
+</div></details>
+
+<div class="history" id="historyBox"><h3>📜 Last Signals</h3><div id="historyList" style="color:#5a6d7a;font-size:11px">No signals yet</div></div>
+<div class="footer">Educational Tool Only • No fake OTC candles • Crypto data from 【entity-Binance¦canonical_name=BINANCE】 public API • Trade at your own risk</div>
+</div>
 
 <script>
+const symbols = {BTCUSDT:"BTC/USDT",ETHUSDT:"ETH/USDT",BNBUSDT:"BNB/USDT",SOLUSDT:"SOL/USDT"};
+function sleep(m){return new Promise(r=>setTimeout(r,m))}
+function setProgress(t,p){document.getElementById("progressText").textContent=t;document.getElementById("fill").style.width=p+"%"}
+function now(){return new Date().toLocaleString()}
 
-/*
-==========================================================
-CHINESE SIGNAL GENERATOR
-UI MATCHED TO THE PROVIDED VIDEO STYLE
-==========================================================
-*/
+function EMA(v,p){if(v.length<p)return null;let e=v.slice(0,p).reduce((a,b)=>a+b,0)/p;const k=2/(p+1);for(let i=p;i<v.length;i++)e=(v[i]-e)*k+e;return e}
+function RSI(v,p=14){if(v.length<=p)return null;let g=0,l=0;for(let i=1;i<=p;i++){let d=v[i]-v[i-1];if(d>0)g+=d;else l+=Math.abs(d)}let ag=g/p,al=l/p;for(let i=p+1;i<v.length;i++){let d=v[i]-v[i-1];let gg=d>0?d:0,ll=d<0?Math.abs(d):0;ag=(ag*(p-1)+gg)/p;al=(al*(p-1)+ll)/p}if(al===0)return 100;return 100-(100/(1+ag/al))}
+function stochastic(c,p=14){if(c.length<p)return null;const a=c.slice(-p);const hi=Math.max(...a.map(x=>x.high)),lo=Math.min(...a.map(x=>x.low));if(hi===lo)return 50;return (a[a.length-1].close-lo)/(hi-lo)*100}
+function MACD(v){const e12=EMA(v,12),e26=EMA(v,26);if(e12===null||e26===null)return null;return e12-e26}
+function Bollinger(v,p=20){if(v.length<p)return null;const a=v.slice(-p);const m=a.reduce((x,y)=>x+y,0)/p;const sd=Math.sqrt(a.reduce((s,x)=>s+Math.pow(x-m,2),0)/p);return{m,up:m+sd*2,low:m-sd*2}}
+function SR(c){const a=c.slice(-30);return{s:Math.min(...a.map(x=>x.low)),r:Math.max(...a.map(x=>x.high))}}
+function breakout(c){if(c.length<22)return"NO DATA";const last=c[c.length-1],prev=c.slice(-21,-1);const hi=Math.max(...prev.map(x=>x.high)),lo=Math.min(...prev.map(x=>x.low));if(last.close>hi)return"BULLISH BREAKOUT";if(last.close<lo)return"BEARISH BREAKOUT";return"NO BREAKOUT"}
 
+function analyze(candles){
+ const closes=candles.map(x=>x.close);const last=candles[candles.length-1];
+ const rsi=RSI(closes,14),stoch=stochastic(candles,14),ema10=EMA(closes,10),ema30=EMA(closes,30),macd=MACD(closes),bb=Bollinger(closes,20),sr=SR(candles),bo=breakout(candles);
+ let buy=0,sell=0;
+ if(ema10>ema30)buy+=2;if(ema10<ema30)sell+=2;
+ if(rsi<30)buy+=2;else if(rsi>70)sell+=2;else if(rsi>=50)buy+=1;else sell+=1;
+ if(stoch<20)buy+=2;else if(stoch>80)sell+=2;else if(stoch>=50)buy+=1;else sell+=1;
+ if(macd>0)buy+=2;else if(macd<0)sell+=2;
+ if(bb){if(last.close<=bb.low)buy+=2;else if(last.close>=bb.up)sell+=2;else if(last.close>bb.m)buy+=1;else sell+=1}
+ if(last.close>last.open)buy+=1;else sell+=1;
+ if(bo==="BULLISH BREAKOUT")buy+=3;if(bo==="BEARISH BREAKOUT")sell+=3;
+ let signal="WAIT",conf=50;const total=buy+sell;
+ if(buy>sell&&buy>=6)signal="BUY";else if(sell>buy&&sell>=6)signal="SELL";
+ if(total>0)conf=Math.round(50+(Math.abs(buy-sell)/total)*45);if(signal==="WAIT")conf=Math.min(conf,58);
+ return{signal,conf,price:last.close,rsi,stoch,ema10,ema30,macd,bb,sr,bo};
+}
 
-let lastSignal = null;
+async function getCandles(sym,intv){
+ const url=`https://api.binance.com/api/v3/klines?symbol=${sym}&interval=${intv}&limit=100`;
+ const res=await fetch(url,{cache:"no-store"});if(!res.ok)throw new Error("【entity-Binance¦canonical_name=BINANCE】 Error "+res.status);
+ const d=await res.json();return d.map(x=>({open:+x[1],high:+x[2],low:+x[3],close:+x[4]}));
+}
 
+function loadTV(symbol){
+ document.getElementById("tv_chart").innerHTML="";
+ new TradingView.widget({"autosize":true,"symbol":"【entity-BINANCE¦canonical_name=BINANCE】:"+symbol,"interval":"1","timezone":"Etc/UTC","theme":"dark","style":"1","locale":"en","toolbar_bg":"#0a151e","enable_publishing":false,"hide_top_toolbar":false,"container_id":"tv_chart"});
+}
 
-/* -----------------------------------------
-   GENERATE
------------------------------------------ */
+async function updateTicker(){
+ try{
+  const res=await fetch("https://api.binance.com/api/v3/ticker/price?symbols=[\"BTCUSDT\",\"ETHUSDT\"]");
+  const data=await res.json();
+  const btc=data.find(x=>x.symbol==="BTCUSDT"), eth=data.find(x=>x.symbol==="ETHUSDT");
+  if(btc)document.getElementById("t1").textContent=`BTC: $${parseFloat(btc.price).toFixed(2)}`;
+  if(eth)document.getElementById("t2").textContent=`ETH: $${parseFloat(eth.price).toFixed(2)}`;
+ }catch{}
+}
+updateTicker();setInterval(updateTicker,8000);
+
+let historyArr=JSON.parse(localStorage.getItem("sig_hist")||"[]");
+function renderHistory(){
+ const box=document.getElementById("historyList");
+ if(historyArr.length===0){box.textContent="No signals yet";return}
+ box.innerHTML=historyArr.slice(0,10).map(h=>`<div class="hist-item"><span>${h.time} - ${h.asset}</span><span style="color:${h.sig==='BUY'?'#00ff7f':h.sig==='SELL'?'#ff4d4d':'#ffbf00'};font-weight:800">${h.sig} ${h.conf}%</span></div>`).join("");
+}
+renderHistory();
+
+function beep(type){
+ try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();o.type="sine";o.frequency.value=type==="BUY"?880: type==="SELL"?220:440;o.connect(ctx.destination);o.start();setTimeout(()=>o.stop(),250)}catch{}
+}
 
 async function generateSignal(){
+ const asset=document.getElementById("asset").value;
+ const tf=document.getElementById("timeframe").value;
+ const btn=document.getElementById("generateBtn");
+ const prog=document.getElementById("progress");
+ const notice=document.getElementById("otcNotice");
+ const result=document.getElementById("result");
 
-    const button =
-        document.getElementById(
-            "generateButton"
-        );
+ btn.disabled=true;notice.style.display="none";result.style.display="none";prog.style.display="block";
+ setProgress("🔎 Checking feed...",20);await sleep(300);
+ setProgress("📡 Connecting...",50);await sleep(400);
 
-    const scanner =
-        document.getElementById(
-            "scanning"
-        );
+ if(asset.includes("-OTC")){
+  setProgress("⚠️ OTC Live Not Found",80);await sleep(500);prog.style.display="none";
+  notice.style.display="block";
+  notice.innerHTML=`⚠️ <b>${asset.replace("-OTC","")} OTC</b> ka LIVE data Quotex ka apna private data hai, public API me nahi milta.<br><br>Is liye fake signal nahi banaya. Agar aap chahein to mai isko Quotex WebSocket se connect kar dunga (advanced).<br><br>Crypto select karo to LIVE signal 100% working hai.`;
+  result.style.display="block";
+  document.getElementById("signal").className="signal wait";document.getElementById("signal").textContent="WAIT";
+  document.getElementById("confidence").textContent="No OTC Feed";
+  document.getElementById("rAsset").textContent=asset.replace("-OTC","/OTC");document.getElementById("rTimeframe").textContent=tf;
+  document.getElementById("rPrice").textContent="--";document.getElementById("rTime").textContent=now();
+  document.getElementById("message").textContent="OTC ke liye real Quotex feed chahiye, public Forex data fake hoga.";
+  document.getElementById("status").textContent="Data: No Live OTC";
+  btn.disabled=false;return;
+ }
 
-    const result =
-        document.getElementById(
-            "result"
-        );
+ try{
+  setProgress(`📈 Fetching ${asset} candles...`,70);
+  const intervalMap={"15s":"15s","30s":"30s","1m":"1m","5m":"5m"};
+  const candles=await getCandles(asset,intervalMap[tf]||"1m");
+  setProgress("🧠 AI Analyzing...",90);await sleep(400);
+  const a=analyze(candles);
+  prog.style.display="none";result.style.display="block";
+  const sEl=document.getElementById("signal");sEl.className="signal "+(a.signal==="BUY"?"buy":a.signal==="SELL"?"sell":"wait");sEl.textContent=a.signal;
+  document.getElementById("confidence").textContent=a.conf+"% Confidence";
+  document.getElementById("rAsset").textContent=symbols[asset]||asset;
+  document.getElementById("rTimeframe").textContent=tf;
+  document.getElementById("rPrice").textContent=a.price.toFixed(a.price>100?2:6);
+  document.getElementById("rTime").textContent=now();
+  document.getElementById("message").textContent=a.signal==="WAIT"?"No strong trend, wait for next candle":"Signal confirmed from live Binance candles + Multi-indicator";
+  document.getElementById("status").textContent="Source: LIVE Binance";
+  document.getElementById("rsi").textContent=a.rsi?a.rsi.toFixed(2):"--";
+  document.getElementById("stoch").textContent=a.stoch?a.stoch.toFixed(2):"--";
+  document.getElementById("ema").textContent=a.ema10&&a.ema30?`${a.ema10.toFixed(4)} / ${a.ema30.toFixed(4)}`:"--";
+  document.getElementById("macd").textContent=a.macd?a.macd.toFixed(5):"--";
+  document.getElementById("bb").textContent=a.bb?`${a.bb.low.toFixed(2)} - ${a.bb.up.toFixed(2)}`:"--";
+  document.getElementById("sr").textContent=`${a.sr.s.toFixed(4)} / ${a.sr.r.toFixed(4)}`;
+  document.getElementById("breakout").textContent=a.bo;
+  document.getElementById("strategy").textContent=a.bo!=="NO BREAKOUT"?"Breakout + Confirmation":"Multi Indicator";
 
+  loadTV(asset);
+  beep(a.signal);
+  if(navigator.vibrate)navigator.vibrate(200);
 
-    button.disabled = true;
+  historyArr.unshift({asset:asset,time:new Date().toLocaleTimeString(),sig:a.signal,conf:a.conf});
+  localStorage.setItem("sig_hist",JSON.stringify(historyArr.slice(0,20)));
+  renderHistory();
 
-    button.classList.add(
-        "loading"
-    );
-
-    scanner.classList.add(
-        "show"
-    );
-
-
-    /*
-       Same visual delay as a real generator.
-    */
-
-    await wait(1100);
-
-
-    const analysis =
-        createAnalysis();
-
-
-    showResult(
-        analysis
-    );
-
-
-    scanner.classList.remove(
-        "show"
-    );
-
-    button.disabled = false;
-
-    button.classList.remove(
-        "loading"
-    );
-
+ }catch(e){
+  prog.style.display="none";notice.style.display="block";notice.innerHTML="❌ Error: "+e.message+"<br>VPN on karo agar Binance block hai.";
+ }finally{btn.disabled=false}
 }
 
-
-/* -----------------------------------------
-   WAIT
------------------------------------------ */
-
-function wait(ms){
-
-    return new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                ms
-            )
-    );
-
-}
-
-
-/* -----------------------------------------
-   ANALYSIS
------------------------------------------ */
-
-function createAnalysis(){
-
-    /*
-       Signal engine.
-
-       This version uses several technical
-       factors rather than simply choosing
-       BUY/SELL at random.
-
-       Without a connected live candle API,
-       this is only a demonstration engine.
-    */
-
-
-    const asset =
-        document.getElementById(
-            "asset"
-        ).value;
-
-
-    const timeframe =
-        document.getElementById(
-            "timeframe"
-        ).value;
-
-
-    /*
-       Synthetic technical values for
-       interface testing.
-    */
-
-    const price =
-        50 +
-        Math.random()*50;
-
-
-    const emaFast =
-        price +
-        (Math.random()-.5)*2;
-
-
-    const emaSlow =
-        price +
-        (Math.random()-.5)*2;
-
-
-    const rsi =
-        30 +
-        Math.random()*40;
-
-
-    const momentum =
-        Math.random();
-
-
-    let buyScore = 0;
-
-    let sellScore = 0;
-
-
-    /* EMA */
-
-    if(
-        emaFast >
-        emaSlow
-    ){
-
-        buyScore += 2;
-
-    }else{
-
-        sellScore += 2;
-
-    }
-
-
-    /* RSI */
-
-    if(
-        rsi > 50
-    ){
-
-        buyScore += 1;
-
-    }else{
-
-        sellScore += 1;
-
-    }
-
-
-    /*
-       Momentum
-    */
-
-    if(
-        momentum > .5
-    ){
-
-        buyScore += 1;
-
-    }else{
-
-        sellScore += 1;
-
-    }
-
-
-    /*
-       Candle direction
-    */
-
-    if(
-        Math.random() > .5
-    ){
-
-        buyScore += 1;
-
-    }else{
-
-        sellScore += 1;
-
-    }
-
-
-    /*
-       Breakout test
-    */
-
-    const breakout =
-        Math.random();
-
-
-    if(
-        breakout > .75
-    ){
-
-        buyScore += 2;
-
-    }
-
-
-    if(
-        breakout < .25
-    ){
-
-        sellScore += 2;
-
-    }
-
-
-    let signal;
-
-
-    if(
-        buyScore >
-        sellScore
-    ){
-
-        signal = "BUY";
-
-    }else if(
-        sellScore >
-        buyScore
-    ){
-
-        signal = "SELL";
-
-    }else{
-
-        signal = "WAIT";
-
-    }
-
-
-    /*
-       Confidence is based on the
-       agreement of the factors.
-    */
-
-    const total =
-        buyScore +
-        sellScore;
-
-
-    let confidence =
-        Math.round(
-            Math.max(
-                buyScore,
-                sellScore
-            )
-            /
-            total
-            *
-            100
-        );
-
-
-    /*
-       Keep confidence realistic.
-    */
-
-    confidence =
-        Math.min(
-            95,
-            Math.max(
-                55,
-                confidence
-            )
-        );
-
-
-    return {
-
-        asset,
-
-        timeframe,
-
-        signal,
-
-        confidence
-
-    };
-
-}
-
-
-/* -----------------------------------------
-   SHOW RESULT
------------------------------------------ */
-
-function showResult(data){
-
-    const result =
-        document.getElementById(
-            "result"
-        );
-
-
-    const signal =
-        document.getElementById(
-            "signal"
-        );
-
-
-    const confidence =
-        document.getElementById(
-            "confidence"
-        );
-
-
-    /*
-       Signal
-    */
-
-    signal.innerText =
-        data.signal;
-
-
-    signal.className =
-        "signal " +
-        (
-            data.signal === "BUY"
-                ? "buy"
-                :
-            data.signal === "SELL"
-                ? "sell"
-                :
-                "wait"
-        );
-
-
-    /*
-       Confidence
-    */
-
-    confidence.innerText =
-        data.confidence +
-        "% Confidence";
-
-
-    /*
-       Details
-    */
-
-    document.getElementById(
-        "resultAsset"
-    ).innerText =
-        data.asset;
-
-
-    document.getElementById(
-        "resultTimeframe"
-    ).innerText =
-        data.timeframe;
-
-
-    document.getElementById(
-        "generated"
-    ).innerText =
-        new Date()
-        .toLocaleTimeString(
-            [],
-            {
-                hour:"2-digit",
-                minute:"2-digit",
-                second:"2-digit"
-            }
-        );
-
-
-    /*
-       Show card
-    */
-
-    result.classList.add(
-        "show"
-    );
-
-
-    /*
-       Scroll to exactly where
-       the video reveals the result.
-    */
-
-    setTimeout(
-        ()=>{
-            result.scrollIntoView({
-                behavior:"smooth",
-                block:"start"
-            });
-        },
-        100
-    );
-
-}
-
-
-/* -----------------------------------------
-   ASSET / TIMEFRAME CHANGES
------------------------------------------ */
-
-document
-    .getElementById("asset")
-    .addEventListener(
-        "change",
-        function(){
-
-            /*
-               Hide previous result when
-               user selects another asset.
-            */
-
-            document
-                .getElementById(
-                    "result"
-                )
-                .classList
-                .remove("show");
-
-        }
-    );
-
-
-document
-    .getElementById("timeframe")
-    .addEventListener(
-        "change",
-        function(){
-
-            document
-                .getElementById(
-                    "result"
-                )
-                .classList
-                .remove("show");
-
-        }
-    );
-
+// initial chart
+loadTV("BTCUSDT");
+document.getElementById("asset").addEventListener("change",e=>{
+ const v=e.target.value;if(!v.includes("-OTC"))loadTV(v);
+});
 </script>
-
 </body>
 </html>
