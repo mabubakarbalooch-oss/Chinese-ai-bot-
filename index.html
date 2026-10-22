@@ -1,182 +1,551 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head><style>
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
-</style>
+<html lang="ur">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gen-Z Bot - Premium Orb</title>
+<meta name="theme-color" content="#07110c">
+<title>Buzdaar FX Voice AI</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
-body{margin:0;background:radial-gradient(ellipse at top,#0E1A3A,#050814 60%);color:white;font-family:'Space Grotesk',system-ui;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:15px;overflow-x:hidden}
-.card{width:100%;max-width:420px;background:rgba(16,22,45,0.8);backdrop-filter:blur(20px);border:1px solid rgba(0,212,255,0.2);border-radius:28px;padding:22px;box-shadow:0 0 60px rgba(0,212,255,0.15), inset 0 1px 0 rgba(255,255,255,0.1);text-align:center;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(0,212,255,0.1),transparent);animation:rotate 8s linear infinite;pointer-events:none}
-@keyframes rotate{to{transform:rotate(360deg)}}
-.orbWrap{position:relative;width:180px;height:180px;margin:18px auto}
-.orbCore{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;background:radial-gradient(circle at 30% 30%,#fff,#00D4FF 20%,#0066FF 60%,#000AFF);border-radius:50%;box-shadow:0 0 40px #00D4FF, 0 0 80px #0066FF, inset -10px -10px 20px rgba(0,0,0,0.5);animation:corePulse 2s ease-in-out infinite;z-index:3}
-@keyframes corePulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
-.ring{position:absolute;top:50%;left:50%;border:1px solid rgba(0,212,255,0.3);border-radius:50%;transform:translate(-50%,-50%)}
-.ring1{width:120px;height:120px;animation:ringRot 4s linear infinite;border-top-color:#00D4FF}
-.ring2{width:150px;height:150px;animation:ringRot 6s linear infinite reverse;border-right-color:#A000FF}
-.ring3{width:180px;height:180px;animation:ringRot 10s linear infinite;border-bottom-color:rgba(0,212,255,0.5);border-style:dashed}
-@keyframes ringRot{to{transform:translate(-50%,-50%) rotate(360deg)}}
-.particle{position:absolute;width:4px;height:4px;background:#00D4FF;border-radius:50%;box-shadow:0 0 6px #00D4FF}
-#canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.8}
-.content{position:relative;z-index:5}
-select,input{width:100%;padding:12px;margin:6px 0;border-radius:14px;border:1px solid rgba(0,212,255,0.3);background:rgba(14,21,43,0.9);color:white;font-size:14px;box-sizing:border-box}
-button{width:100%;padding:14px;margin-top:8px;border:none;border-radius:14px;background:linear-gradient(90deg,#00D4FF,#7A00FF);color:white;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 0 25px rgba(0,212,255,0.4);position:relative;overflow:hidden;transition:0.3s}
-button:active{transform:scale(0.97)}
-.signalBox{margin-top:14px;padding:16px;border-radius:16px;display:none;position:relative;z-index:5;animation:pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
-@keyframes pop{0%{transform:scale(0.8);opacity:0}100%{transform:scale(1);opacity:1}}
-.signalBUY{background:linear-gradient(135deg,#0A2A1A,#00FF66);border:2px solid #00FF66;color:#001A0A;box-shadow:0 0 30px #00FF66}
-.signalSELL{background:linear-gradient(135deg,#2A0A0A,#FF2040);border:2px solid #FF2040;color:white;box-shadow:0 0 30px #FF2040}
-.big{font-size:36px;font-weight:900;letter-spacing:2px}
+:root{--bg:#07110c;--panel:#101e17;--line:#244b35;--green:#00f58a;--red:#ff5266;--gold:#ffd166;--muted:#9bb5a5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#effff5;font-family:Arial,sans-serif}
+header{padding:22px 16px;text-align:center;background:linear-gradient(135deg,#102f20,#07110c);border-bottom:1px solid var(--line)}
+h1{font-size:25px;color:var(--green);margin:0 0 8px}
+.sub{color:var(--muted);font-size:13px}
+main{max-width:760px;margin:auto;padding:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px}
+h2{font-size:16px;color:var(--green);margin:0 0 13px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+select,button{font-size:15px;border-radius:10px;padding:12px;border:1px solid var(--line);width:100%;background:#09150e;color:white}
+select{margin-bottom:12px}
+button{cursor:pointer;font-weight:bold}
+button:disabled{opacity:.5}
+.primary{background:var(--green);color:#03150b;border:0}
+.voice{background:#153a27;border-color:var(--green);font-size:17px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{padding:12px;background:#09150e;border:1px solid var(--line);border-radius:10px;min-width:0}
+.metric small{display:block;color:var(--muted);margin-bottom:8px}
+.metric strong{font-size:17px;overflow-wrap:anywhere}
+#signal{font-size:29px;font-weight:bold;text-align:center;padding:14px 0}
+.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+#status{font-size:13px;line-height:1.8;color:var(--muted);overflow-wrap:anywhere}
+#log{font-size:13px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.hint{font-size:12px;line-height:1.8;color:var(--muted)}
+canvas{width:100%;height:190px;display:block}
+.row{display:flex;gap:8px;margin-top:9px}
+.row button{flex:1}
+footer{text-align:center;padding:16px;color:var(--muted);font-size:12px}
 </style>
 </head>
 <body>
-<div class="card">
-<div class="content">
-<div style="font-size:10px;letter-spacing:4px;color:#6B8AFF">YOUR PERSONAL • AI v2.0</div>
-<h1 style="margin:6px 0;font-size:28px;letter-spacing:1px">Gen-Z Bot</h1>
-<div style="font-size:10px;letter-spacing:3px;color:#00D4FF">NEURAL ORB • QUOTEX OTC</div>
+<header>
+<h1>BUZDAAR FX</h1>
+<div style="color:white;font-weight:bold">VOICE AI SIGNAL BOT</div>
+<div class="sub" style="margin-top:8px">اردو وائس کمانڈ • حقیقی مارکیٹ ڈیٹا • کینڈل تجزیہ</div>
+</header>
 
-<div class="orbWrap" id="orbWrap">
-<canvas id="canvas"></canvas>
-<div class="ring ring1"></div>
-<div class="ring ring2"></div>
-<div class="ring ring3"></div>
-<div class="orbCore" id="orbCore"></div>
-</div>
-
-<div style="font-size:10px;color:#00D4FF;border:1px solid rgba(0,212,255,0.3);display:inline-block;padding:4px 12px;border-radius:20px;background:rgba(0,212,255,0.1)">● PREMIUM NEURAL ENGINE ACTIVE</div>
-
-<select id="pair">
-<option value="">-- Select OTC Pair --</option>
-<option value="USD/PKR">USD/PKR (OTC) 🇵🇰</option>
-<option value="USD/INR">USD/INR (OTC) 🇮🇳</option>
-<option value="USD/BRL">USD/BRL (OTC) 🇧🇷</option>
-<option value="USD/MXN">USD/MXN (OTC) 🇲🇽</option>
-<option value="EUR/USD">EUR/USD (OTC)</option>
-<option value="GBP/USD">GBP/USD (OTC)</option>
-<option value="BTC/USD">BTC/USD (OTC) ₿</option>
+<main>
+<section class="panel">
+<h2>⚙️ مارکیٹ سیٹنگ</h2>
+<label for="platform">ٹریڈنگ پلیٹ فارم</label>
+<select id="platform">
+<option>Quotex</option>
+<option>Pocket Option</option>
 </select>
-
-<button onclick="generate()">✨ GENERATE PREMIUM SIGNAL</button>
-
-<div id="box" class="signalBox">
-<div id="big" class="big"></div>
-<div id="sub" style="font-size:13px;margin-top:6px;font-weight:700"></div>
-<div id="meta" style="font-size:10px;margin-top:6px;opacity:0.8"></div>
+<label for="symbol">مارکیٹ / کرنسی</label>
+<select id="symbol">
+<option value="EURUSD">EUR/USD</option>
+<option value="GBPUSD">GBP/USD</option>
+<option value="USDJPY">USD/JPY</option>
+<option value="AUDUSD">AUD/USD</option>
+<option value="USDCAD">USD/CAD</option>
+<option value="USDCHF">USD/CHF</option>
+<option value="NZDUSD">NZD/USD</option>
+<option value="EURJPY">EUR/JPY</option>
+<option value="GBPJPY">GBP/JPY</option>
+<option value="BTCUSD">BTC/USD</option>
+<option value="ETHUSD">ETH/USD</option>
+<option value="XAUUSD">Gold / XAUUSD</option>
+</select>
+<label for="tf">کینڈل ٹائم فریم</label>
+<select id="tf">
+<option value="1m">1 منٹ</option>
+<option value="5m">5 منٹ</option>
+<option value="15m">15 منٹ</option>
+<option value="30m">30 منٹ</option>
+<option value="1h">1 گھنٹہ</option>
+</select>
+<button class="primary" id="analyze">📊 ابھی سگنل چیک کریں</button>
+<div class="row">
+<button class="voice" id="listen">🎙️ بول کر پوچھیں</button>
+<button id="speak">🔊 نتیجہ سنیں</button>
 </div>
-
-<div id="detail" style="margin-top:12px;padding:12px;background:rgba(14,21,43,0.9);border-radius:12px;text-align:left;font-size:11px;line-height:1.6;white-space:pre-wrap;border:1px solid rgba(255,255,255,0.05)">Sar, ye raha aapka premium gol anda!
-
-Ab is me:
-• 3 ghoomne wale rings
-• Beech me 3D core jo saans leta hai
-• Charo taraf particles
-• Canvas pe energy waves
-
-Pair select karo aur button dabao - dekho orb kaise react karta hai!</div>
+<div class="hint" style="margin-top:12px">
+مثال: "یورو ڈالر ایک منٹ سگنل چیک کرو"،
+"بٹ کوائن کا سگنل"، "پانچ منٹ"، یا "نتیجہ سناؤ"۔
 </div>
+</section>
+
+<section class="panel">
+<h2>📡 ڈیٹا کی حالت</h2>
+<div id="status">ابھی ڈیٹا چیک نہیں کیا گیا۔</div>
+<div class="hint">ڈیٹا فیڈ: biquote.io — آزاد مارکیٹ فیڈ، بغیر API key۔ یہ Quotex/Pocket Option کا اپنا فیڈ نہیں ہے۔</div>
+</section>
+
+<section class="panel">
+<h2>🤖 AI سگنل</h2>
+<div id="signal" class="gold">WAIT</div>
+<div id="reason" class="hint" style="text-align:center">اصل ڈیٹا آنے کے بعد تجزیہ ہوگا۔</div>
+<div class="grid" style="margin-top:15px">
+<div class="metric"><small>آخری قیمت</small><strong id="price">—</strong></div>
+<div class="metric"><small>RSI (14)</small><strong id="rsi">—</strong></div>
+<div class="metric"><small>EMA (9 / 21)</small><strong id="ema">—</strong></div>
+<div class="metric"><small>رجحان</small><strong id="trend">—</strong></div>
+<div class="metric"><small>سپورٹ</small><strong id="support">—</strong></div>
+<div class="metric"><small>ریزسٹنس</small><strong id="resistance">—</strong></div>
 </div>
+</section>
+
+<section class="panel">
+<h2>🕯️ حالیہ کینڈلز</h2>
+<canvas id="chart" width="700" height="220"></canvas>
+<div class="hint">یہ آخری بند کینڈلز کا سادہ چارٹ ہے۔ سبز کینڈل اوپر اور سرخ کینڈل نیچے بند ہونے کو ظاہر کرتی ہے۔</div>
+</section>
+
+<section class="panel">
+<h2>🧠 تجزیے کی تفصیل</h2>
+<div id="log">تجزیہ شروع کرنے کے لیے بٹن دبائیں یا مائیکروفون سے کمانڈ دیں۔</div>
+</section>
+
+<section class="panel">
+<h2>⚠️ ضروری وضاحت</h2>
+<div class="hint">
+یہ تکنیکی انڈیکیٹرز پر مبنی تجزیاتی ٹول ہے، کوئی ضمانت دینے والا AI یا مالی مشیر نہیں۔ یہ بروکر پر آرڈر نہیں لگاتا۔ OTC چارٹس کے لیے الگ مستند ڈیٹا درکار ہے۔ اگر مارکیٹ ڈیٹا ناکام، پرانا یا ناکافی ہو تو بوٹ سگنل دینے کے بجائے مسئلہ بتائے گا۔ پہلے ڈیمو اکاؤنٹ میں جانچیں۔
+</div>
+</section>
+</main>
+
+<footer>BUZDAAR FX • Trade responsibly</footer>
 
 <script>
-const canvas=document.getElementById('canvas');
-const ctx=canvas.getContext('2d');
-const wrap=document.getElementById('orbWrap');
-function resize(){canvas.width=wrap.clientWidth;canvas.height=wrap.clientHeight}
-resize();
-let particles=[];
-for(let i=0;i<30;i++){
- particles.push({a:Math.random()*Math.PI*2,r:60+Math.random()*40,s:0.01+Math.random()*0.03,sz:Math.random()*2+1})
+"use strict";
+
+const $ = id => document.getElementById(id);
+let lastReport = "ابھی کوئی سگنل تیار نہیں ہوا۔";
+let busy = false;
+let lastBars = [];
+let requestNumber = 0;
+
+const API = "https://biquote.io/api/";
+
+function say(text) {
+  lastReport = text;
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ur-PK";
+  u.rate = 0.9;
+  const voices = window.speechSynthesis.getVoices();
+  const ur = voices.find(v => /ur/i.test(v.lang));
+  if (ur) u.voice = ur;
+  window.speechSynthesis.speak(u);
 }
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- const cx=canvas.width/2, cy=canvas.height/2;
- particles.forEach(p=>{
-   p.a+=p.s;
-   const x=cx+Math.cos(p.a)*p.r;
-   const y=cy+Math.sin(p.a)*p.r;
-   ctx.beginPath(); ctx.arc(x,y,p.sz,0,Math.PI*2);
-   ctx.fillStyle='rgba(0,212,255,0.8)'; ctx.shadowBlur=10; ctx.shadowColor='#00D4FF'; ctx.fill();
-   // line to center
-   ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y);
-   ctx.strokeStyle='rgba(0,212,255,0.08)'; ctx.stroke();
- });
- requestAnimationFrame(draw);
+
+function setStatus(text) {
+  $("status").textContent = text;
 }
-draw();
 
-const pair=document.getElementById('pair');
-const box=document.getElementById('box');
-const big=document.getElementById('big');
-const sub=document.getElementById('sub');
-const meta=document.getElementById('meta');
-const detail=document.getElementById('detail');
-const core=document.getElementById('orbCore');
-
-function generate(){
- const p=pair.value;
- if(!p){detail.textContent='Sar pehle pair select karo!'; return;}
- detail.textContent='Neural Orb scanning '+p+' ... Live RSI + Price Action...';
- core.style.transform='translate(-50%,-50%) scale(1.5)';
- core.style.boxShadow='0 0 80px #00D4FF, 0 0 120px #A000FF';
- box.style.display='none';
- setTimeout(()=>{
-   const isBuy=Math.random()>0.5;
-   const conf=Math.floor(Math.random()*12+66);
-   const rsi=isBuy?Math.floor(Math.random()*15+25):Math.floor(Math.random()*15+70);
-   box.className='signalBox '+(isBuy?'signalBUY':'signalSELL');
-   box.style.display='block';
-   big.textContent=isBuy?'🟢 BUY':'🔴 SELL';
-   sub.textContent=`${p} | Confidence ${conf}%`;
-   meta.textContent=`RSI: ${rsi} | Orb Power: 98% | Volatility: High (OTC)`;
-   detail.textContent=`${p} - PREMIUM NEURAL ANALYSIS
-
-Signal: ${isBuy?'BUY (UP)':'SELL (DOWN)'}
-RSI(14): ${rsi} ${rsi<30?'(Oversold)':rsi>70?'(Overbought)':'(Neutral)'}
-Live Price: ${(Math.random()*5+270).toFixed(4)} (Mock Live)
-
-Orb Status:
-• Core Temperature: Normal
-• Neural Rings: 3/3 Active
-• Particles: 30 Connected
-
-Entry Plan Sar:
-${isBuy?'Green candle close pe BUY':'Red candle close pe SELL'}
-Expiry: 1 min (Quotex OTC)
-Money: 1% only
-
-Ye premium orb ab sirf random nahi, ye RSI + Price Action dekhta hai.
-Phir bhi 100% nahi - OTC me hamesha risk hai.`;
-   core.style.transform='translate(-50%,-50%) scale(1)';
-   core.style.boxShadow=isBuy?'0 0 60px #00FF66, 0 0 100px #00FF66':'0 0 60px #FF2040, 0 0 100px #FF2040';
-   if('speechSynthesis' in window){
-     const u=new SpeechSynthesisUtterance(`${p} ka premium signal ${isBuy?'Buy':'Sell'} hai`);
-     u.lang='ur-PK'; speechSynthesis.speak(u);
-   }
- },1300);
+function fmt(n) {
+  if (!Number.isFinite(n)) return "—";
+  return n.toLocaleString("en-US", {
+    maximumFractionDigits: 6
+  });
 }
+
+async function fetchCandles(symbol, interval) {
+  const url = API + encodeURIComponent(symbol) +
+    "/ohlc?interval=" + encodeURIComponent(interval) +
+    "&limit=100";
+
+  const response = await fetch(url, {cache:"no-store"});
+  if (!response.ok) {
+    throw new Error("ڈیٹا سرور نے HTTP " + response.status +
+      " جواب دیا۔");
+  }
+
+  const data = await response.json();
+
+  if (!data || !Array.isArray(data.bars)) {
+    throw new Error("ڈیٹا فیڈ سے درست کینڈلز موصول نہیں ہوئیں۔");
+  }
+
+  const bars = data.bars
+    .filter(b => !b.isOpen)
+    .map(b => ({
+      time: b.openTime,
+      open: Number(b.open),
+      high: Number(b.high),
+      low: Number(b.low),
+      close: Number(b.close)
+    }))
+    .filter(b =>
+      Number.isFinite(b.open) &&
+      Number.isFinite(b.high) &&
+      Number.isFinite(b.low) &&
+      Number.isFinite(b.close) &&
+      b.high >= b.low &&
+      b.high >= Math.max(b.open,b.close) &&
+      b.low <= Math.min(b.open,b.close)
+    )
+    .sort((a,b) => new Date(a.time)-new Date(b.time));
+
+  if (bars.length < 30) {
+    throw new Error("کم از کم 30 بند کینڈلز دستیاب نہیں۔ سگنل نہیں دیا گیا۔");
+  }
+
+  const latest = bars[bars.length - 1];
+  const age = Date.now() - new Date(latest.time).getTime();
+  const allowedAge = Math.max(10 * 60 * 1000,
+    interval === "1m" ? 5 * 60 * 1000 :
+    interval === "5m" ? 20 * 60 * 1000 :
+    interval === "15m" ? 45 * 60 * 1000 :
+    interval === "30m" ? 90 * 60 * 1000 :
+    3 * 60 * 60 * 1000);
+
+  if (!Number.isFinite(age) || age < -60000 || age > allowedAge) {
+    throw new Error("تازہ کینڈل دستیاب نہیں۔ مارکیٹ بند یا ڈیٹا پرانا ہو سکتا ہے۔");
+  }
+
+  return bars;
+}
+
+function ema(values, period) {
+  if (values.length < period) return null;
+  const k = 2 / (period + 1);
+  let result = values.slice(0,period)
+    .reduce((a,b)=>a+b,0) / period;
+
+  for (let i=period;i<values.length;i++) {
+    result = values[i]*k + result*(1-k);
+  }
+  return result;
+}
+
+function rsi(values, period=14) {
+  if (values.length <= period) return null;
+  let gains=0, losses=0;
+
+  for (let i=1;i<=period;i++) {
+    const d=values[i]-values[i-1];
+    if(d>0) gains+=d;
+    else losses-=d;
+  }
+
+  let avgGain=gains/period;
+  let avgLoss=losses/period;
+
+  for(let i=period+1;i<values.length;i++){
+    const d=values[i]-values[i-1];
+    avgGain=(avgGain*(period-1)+Math.max(0,d))/period;
+    avgLoss=(avgLoss*(period-1)+Math.max(0,-d))/period;
+  }
+
+  if(avgLoss===0) return avgGain===0 ? 50 : 100;
+  return 100-(100/(1+avgGain/avgLoss));
+}
+
+function drawChart(bars) {
+  const c=$("chart");
+  const ctx=c.getContext("2d");
+  const w=c.width, h=c.height;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle="#244b35";
+  ctx.lineWidth=1;
+
+  for(let i=1;i<5;i++){
+    ctx.beginPath();
+    ctx.moveTo(0,h*i/5);
+    ctx.lineTo(w,h*i/5);
+    ctx.stroke();
+  }
+
+  const arr=bars.slice(-25);
+  if(!arr.length) return;
+
+  const lo=Math.min(...arr.map(b=>b.low));
+  const hi=Math.max(...arr.map(b=>b.high));
+  const pad=(hi-lo)*0.08 || Math.abs(hi)*0.001 || 1;
+  const min=lo-pad, max=hi+pad;
+  const y=p=>h-((p-min)/(max-min))*h;
+  const step=w/arr.length;
+  const body=Math.max(3,step*0.52);
+
+  arr.forEach((b,i)=>{
+    const x=i*step+step/2;
+    const up=b.close>=b.open;
+    const color=up?"#00f58a":"#ff5266";
+    ctx.strokeStyle=color;
+    ctx.fillStyle=color;
+    ctx.beginPath();
+    ctx.moveTo(x,y(b.high));
+    ctx.lineTo(x,y(b.low));
+    ctx.stroke();
+
+    const top=y(Math.max(b.open,b.close));
+    const bottom=y(Math.min(b.open,b.close));
+    ctx.fillRect(x-body/2,top,body,
+      Math.max(1,bottom-top));
+  });
+}
+
+function analyze(bars) {
+  const closes=bars.map(b=>b.close);
+  const last=bars[bars.length-1];
+  const previous=bars[bars.length-2];
+  const r=rsi(closes,14);
+  const e9=ema(closes,9);
+  const e21=ema(closes,21);
+
+  const recent=bars.slice(-21,-1);
+  const support=Math.min(...recent.map(b=>b.low));
+  const resistance=Math.max(...recent.map(b=>b.high));
+
+  const bullish=last.close>last.open;
+  const bearish=last.close<last.open;
+  const body=Math.abs(last.close-last.open);
+  const range=Math.max(last.high-last.low,Number.EPSILON);
+  const bodyRatio=body/range;
+
+  const higherClose=last.close>previous.close;
+  const lowerClose=last.close<previous.close;
+
+  let up=0, down=0, reasons=[];
+
+  if(e9>e21){up++;reasons.push("EMA 9، EMA 21 سے اوپر ہے");}
+  else if(e9<e21){down++;reasons.push("EMA 9، EMA 21 سے نیچے ہے");}
+
+  if(r>=52 && r<70){up++;reasons.push("RSI میں مثبت رفتار ہے");}
+  else if(r<=48 && r>30){down++;reasons.push("RSI میں منفی رفتار ہے");}
+  else if(r>=70){reasons.push("RSI زیادہ خریدا ہوا دکھا رہا ہے");}
+  else if(r<=30){reasons.push("RSI زیادہ فروخت شدہ دکھا رہا ہے");}
+
+  if(bullish && bodyRatio>=0.55 && higherClose){
+    up++; reasons.push("آخری کینڈل میں خریداری کی طاقت ہے");
+  }
+  if(bearish && bodyRatio>=0.55 && lowerClose){
+    down++; reasons.push("آخری کینڈل میں فروخت کی طاقت ہے");
+  }
+
+  const nearResistance =
+    (resistance-last.close)/Math.max(Math.abs(last.close),1e-10)<0.001;
+  const nearSupport =
+    (last.close-support)/Math.max(Math.abs(last.close),1e-10)<0.001;
+
+  if(last.close>resistance && bullish){
+    up++; reasons.push("قیمت حالیہ ریزسٹنس سے اوپر نکلی ہے");
+  }
+  if(last.close<support && bearish){
+    down++; reasons.push("قیمت حالیہ سپورٹ سے نیچے نکلی ہے");
+  }
+
+  let signal="WAIT";
+  let detail="اشارے ایک دوسرے کی تصدیق نہیں کر رہے؛ انتظار بہتر ہے۔";
+
+  if(up>=3 && up-down>=2 && r<70 && !nearResistance){
+    signal="BUY";
+    detail="کئی تکنیکی اشارے اوپر کی سمت کی تائید کر رہے ہیں۔";
+  } else if(down>=3 && down-up>=2 && r>30 && !nearSupport){
+    signal="SELL";
+    detail="کئی تکنیکی اشارے نیچے کی سمت کی تائید کر رہے ہیں۔";
+  }
+
+  return {
+    signal, detail, reasons, r, e9, e21, last,
+    support,resistance,
+    trend:e9>e21?"اوپر":e9<e21?"نیچے":"غیر واضح",
+    up,down
+  };
+}
+
+function renderResult(a,bars,symbol,interval,platform){
+  const signal=$("signal");
+  signal.textContent=a.signal;
+  signal.className=a.signal==="BUY"?"green":
+    a.signal==="SELL"?"red":"gold";
+
+  $("reason").textContent=a.detail;
+  $("price").textContent=fmt(a.last.close);
+  $("rsi").textContent=fmt(a.r);
+  $("ema").textContent=fmt(a.e9)+" / "+fmt(a.e21);
+  $("trend").textContent=a.trend;
+  $("support").textContent=fmt(a.support);
+  $("resistance").textContent=fmt(a.resistance);
+
+  drawChart(bars);
+
+  const reasons=a.reasons.length
+    ? a.reasons.map((s,i)=>(i+1)+". "+s).join("\n")
+    : "واضح تکنیکی اشارہ نہیں ملا۔";
+
+  const timestamp=new Date(a.last.time).toLocaleString();
+
+  $("log").textContent=
+    "پلیٹ فارم: "+platform+
+    "\nمارکیٹ: "+symbol+
+    "\nٹائم فریم: "+interval+
+    "\nآخری بند کینڈل: "+timestamp+
+    "\nقیمت: "+fmt(a.last.close)+
+    "\nRSI: "+fmt(a.r)+
+    "\nEMA 9: "+fmt(a.e9)+
+    "\nEMA 21: "+fmt(a.e21)+
+    "\nرجحان: "+a.trend+
+    "\n\nتکنیکی وجوہات:\n"+reasons+
+    "\n\nفیصلہ: "+a.signal+
+    "\nیہ امکانات پر مبنی تجزیہ ہے، جیت کی ضمانت نہیں۔";
+
+  lastReport="پلیٹ فارم "+platform+
+    "، مارکیٹ "+symbol+"، ٹائم فریم "+interval+
+    "۔ سگنل "+(a.signal==="BUY"?"بائے":a.signal==="SELL"?"سیل":"ویٹ")+
+    "۔ "+a.detail+
+    " RSI "+fmt(a.r)+
+    "۔ رجحان "+a.trend+
+    "۔ یہ یقینی پیش گوئی نہیں ہے۔";
+}
+
+async function runAnalysis(voice=false) {
+  if(busy) return;
+  busy=true;
+  const id=++requestNumber;
+  $("analyze").disabled=true;
+  setStatus("اصل مارکیٹ ڈیٹا حاصل کیا جا رہا ہے…");
+
+  try {
+    const symbol=$("symbol").value;
+    const interval=$("tf").value;
+    const platform=$("platform").value;
+
+    const bars=await fetchCandles(symbol,interval);
+    if(id!==requestNumber) return;
+
+    lastBars=bars;
+    const result=analyze(bars);
+    renderResult(result,bars,symbol,interval,platform);
+
+    setStatus("ڈیٹا موصول ہوا۔ آخری بند کینڈل: "+
+      new Date(bars[bars.length-1].time).toLocaleString()+
+      "۔ یہ بروکر کے OTC چارٹ کی تصدیق نہیں ہے۔");
+
+    if(voice) say(lastReport);
+  } catch(err) {
+    $("signal").textContent="WAIT";
+    $("signal").className="gold";
+    $("reason").textContent="معتبر سگنل دستیاب نہیں۔";
+    setStatus("مسئلہ: "+(err.message||"ڈیٹا دستیاب نہیں"));
+    $("log").textContent=
+      "کوئی BUY/SELL سگنل جاری نہیں کیا گیا۔\n"+
+      (err.message||"ڈیٹا دستیاب نہیں")+
+      "\nانٹرنیٹ، ڈیٹا فیڈ اور مارکیٹ کی حالت چیک کریں۔";
+    lastReport="معتبر مارکیٹ ڈیٹا دستیاب نہیں۔ کوئی سگنل جاری نہیں کیا گیا۔";
+    if(voice) say(lastReport);
+  } finally {
+    busy=false;
+    $("analyze").disabled=false;
+  }
+}
+
+$("analyze").addEventListener("click",()=>runAnalysis(false));
+$("speak").addEventListener("click",()=>say(lastReport));
+
+function parseVoice(raw){
+  const s=raw.toLowerCase();
+  const clean=s.replace(/[،,.!?؟]/g," ");
+
+  const symbols=[
+    ["EURUSD",["eurusd","euro dollar","یورو ڈالر","یورو","eur"]],
+    ["GBPUSD",["gbpusd","pound dollar","پاؤنڈ ڈالر","پاؤنڈ","gbp"]],
+    ["USDJPY",["usdjpy","dollar yen","ڈالر ین","ین","jpy"]],
+    ["AUDUSD",["audusd","australian dollar","آسٹریلین ڈالر"]],
+    ["USDCAD",["usdcad","ڈالر کینیڈین"]],
+    ["USDCHF",["usdchf","ڈالر فرانک"]],
+    ["NZDUSD",["nzdusd","نیوزی لینڈ ڈالر"]],
+    ["EURJPY",["eurjpy","یورو ین"]],
+    ["GBPJPY",["gbpjpy","پاؤنڈ ین"]],
+    ["BTCUSD",["btcusd","bitcoin","بٹ کوائن","بٹ کوئن"]],
+    ["ETHUSD",["ethusd","ethereum","ایتھیریم","ایتھر"]],
+    ["XAUUSD",["xauusd","gold","گولڈ","سونا"]]
+  ];
+
+  for(const [sym,words] of symbols){
+    if(words.some(w=>clean.includes(w))) $("symbol").value=sym;
+  }
+
+  if(/5m|5 min|five minute|پانچ منٹ|5 منٹ/.test(clean)) $("tf").value="5m";
+  else if(/15m|15 min|پندرہ منٹ/.test(clean)) $("tf").value="15m";
+  else if(/30m|30 min|تیس منٹ/.test(clean)) $("tf").value="30m";
+  else if(/1h|one hour|ایک گھنٹہ/.test(clean)) $("tf").value="1h";
+  else if(/1m|1 min|ایک منٹ/.test(clean)) $("tf").value="1m";
+
+  if(/pocket/.test(clean)) $("platform").value="Pocket Option";
+  if(/quotex|کوٹیکس/.test(clean)) $("platform").value="Quotex";
+
+  if(/سناؤ|سناو|بول|آواز|speak|repeat/.test(clean) &&
+     !/سگنل|signal|چیک|check|تجزیہ/.test(clean)){
+    say(lastReport);
+    return;
+  }
+
+  if(/سگنل|signal|چیک|check|تجزیہ|analy[sz]e|buy|sell|بائے|سیل/.test(clean)){
+    runAnalysis(true);
+  } else {
+    say("کمانڈ سمجھ نہیں آئی۔ مارکیٹ کا نام اور ٹائم فریم بولیں، پھر سگنل چیک کرو کہیں۔");
+  }
+}
+
+$("listen").addEventListener("click",()=>{
+  const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+  if(!Recognition){
+    say("آپ کے براؤزر میں آواز پہچاننے کی سہولت موجود نہیں۔ گوگل کروم میں ویب سائٹ کھول کر کوشش کریں۔");
+    setStatus("اس براؤزر میں Speech Recognition دستیاب نہیں۔");
+    return;
+  }
+
+  const recognition=new Recognition();
+  recognition.lang="ur-PK";
+  recognition.continuous=false;
+  recognition.interimResults=false;
+  recognition.maxAlternatives=3;
+
+  setStatus("مائیکروفون آن ہے۔ اب اپنا سوال بولیں۔");
+  $("listen").disabled=true;
+
+  recognition.onresult=e=>{
+    const alternatives=Array.from(e.results[0]);
+    const transcript=alternatives[0].transcript;
+    setStatus("آپ نے کہا: "+transcript);
+    parseVoice(transcript);
+  };
+
+  recognition.onerror=e=>{
+    setStatus("آواز کی خرابی: "+e.error+
+      "۔ مائیکروفون کی اجازت اور انٹرنیٹ چیک کریں۔");
+  };
+
+  recognition.onend=()=>{$("listen").disabled=false;};
+
+  try{recognition.start();}
+  catch(e){
+    $("listen").disabled=false;
+    setStatus("مائیکروفون شروع نہیں ہو سکا۔ دوبارہ کوشش کریں۔");
+  }
+});
+
+if("speechSynthesis" in window){
+  window.speechSynthesis.getVoices();
+}
+
+setStatus("تیار۔ مارکیٹ منتخب کریں اور سگنل چیک کریں۔");
 </script>
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</body>
 </html>
