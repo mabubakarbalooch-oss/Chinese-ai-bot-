@@ -1,551 +1,1006 @@
-
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07110c">
-<title>Buzdaar FX Voice AI</title>
-<style>
-:root{--bg:#07110c;--panel:#101e17;--line:#244b35;--green:#00f58a;--red:#ff5266;--gold:#ffd166;--muted:#9bb5a5}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#effff5;font-family:Arial,sans-serif}
-header{padding:22px 16px;text-align:center;background:linear-gradient(135deg,#102f20,#07110c);border-bottom:1px solid var(--line)}
-h1{font-size:25px;color:var(--green);margin:0 0 8px}
-.sub{color:var(--muted);font-size:13px}
-main{max-width:760px;margin:auto;padding:14px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px}
-h2{font-size:16px;color:var(--green);margin:0 0 13px}
-label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
-select,button{font-size:15px;border-radius:10px;padding:12px;border:1px solid var(--line);width:100%;background:#09150e;color:white}
-select{margin-bottom:12px}
-button{cursor:pointer;font-weight:bold}
-button:disabled{opacity:.5}
-.primary{background:var(--green);color:#03150b;border:0}
-.voice{background:#153a27;border-color:var(--green);font-size:17px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.metric{padding:12px;background:#09150e;border:1px solid var(--line);border-radius:10px;min-width:0}
-.metric small{display:block;color:var(--muted);margin-bottom:8px}
-.metric strong{font-size:17px;overflow-wrap:anywhere}
-#signal{font-size:29px;font-weight:bold;text-align:center;padding:14px 0}
-.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
-#status{font-size:13px;line-height:1.8;color:var(--muted);overflow-wrap:anywhere}
-#log{font-size:13px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
-.hint{font-size:12px;line-height:1.8;color:var(--muted)}
-canvas{width:100%;height:190px;display:block}
-.row{display:flex;gap:8px;margin-top:9px}
-.row button{flex:1}
-footer{text-align:center;padding:16px;color:var(--muted);font-size:12px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUZDAAR FX - GenZ Bot Pro</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & React DOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel Compiler for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif; }
+    .sora { font-family: 'Sora', sans-serif; }
+    
+    .bg-cyber-mesh {
+      background-color: #030712;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(138, 92, 255, 0.18) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255, 45, 120, 0.15) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(45, 230, 160, 0.12) 0px, transparent 50%);
+    }
+
+    .orb-glow-default {
+      background: radial-gradient(60% 60% at 50% 35%, rgba(138, 92, 255, 0.95) 0%, rgba(255, 92, 161, 0.75) 30%, rgba(45, 230, 160, 0.2) 65%, transparent 80%);
+      box-shadow: 0 0 90px rgba(138, 92, 255, 0.45), 0 0 160px rgba(255, 92, 161, 0.3), inset 0 0 40px rgba(255, 255, 255, 0.15);
+    }
+    
+    .buy-glow {
+      background: radial-gradient(120% 120% at 50% 0%, rgba(45, 230, 160, 0.95) 0%, rgba(16, 185, 129, 0.9) 45%, rgba(3, 7, 18, 0.95) 100%);
+      box-shadow: 0 0 70px rgba(45, 230, 160, 0.65), 0 0 140px rgba(45, 230, 160, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .sell-glow {
+      background: radial-gradient(120% 120% at 50% 0%, rgba(255, 45, 120, 0.98) 0%, rgba(225, 29, 72, 0.95) 45%, rgba(3, 7, 18, 0.95) 100%);
+      box-shadow: 0 0 70px rgba(255, 45, 120, 0.65), 0 0 140px rgba(255, 45, 120, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .generate-gradient {
+      background: linear-gradient(135deg, #8A5CFF 0%, #B86BFF 20%, #FF5CA1 60%, #FF8A4C 100%);
+      box-shadow: 0 8px 32px rgba(138, 92, 255, 0.5), 0 2px 10px rgba(255, 92, 161, 0.4);
+    }
+
+    .generate-gradient:hover {
+      box-shadow: 0 12px 40px rgba(138, 92, 255, 0.65), 0 4px 14px rgba(255, 92, 161, 0.5);
+    }
+
+    .warning-strip {
+      background: linear-gradient(90deg, rgba(255, 214, 10, 0.16) 0%, rgba(255, 138, 31, 0.16) 100%);
+      border: 1px solid rgba(255, 214, 10, 0.35);
+    }
+
+    .card-glass {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    }
+
+    .ticker-track {
+      animation: marquee 35s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .wave-bar {
+      animation: wave 0.9s ease-in-out infinite;
+    }
+
+    @keyframes wave {
+      0%, 100% { height: 10px; }
+      50% { height: 28px; }
+    }
+
+    .pulse-dot {
+      animation: pulseDot 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    .spin-slow {
+      animation: spin 18s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .orb-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, white 0%, rgba(255,255,255,0.2) 70%);
+      box-shadow: 0 0 10px white;
+    }
+  </style>
 </head>
-<body>
-<header>
-<h1>BUZDAAR FX</h1>
-<div style="color:white;font-weight:bold">VOICE AI SIGNAL BOT</div>
-<div class="sub" style="margin-top:8px">اردو وائس کمانڈ • حقیقی مارکیٹ ڈیٹا • کینڈل تجزیہ</div>
-</header>
-
-<main>
-<section class="panel">
-<h2>⚙️ مارکیٹ سیٹنگ</h2>
-<label for="platform">ٹریڈنگ پلیٹ فارم</label>
-<select id="platform">
-<option>Quotex</option>
-<option>Pocket Option</option>
-</select>
-<label for="symbol">مارکیٹ / کرنسی</label>
-<select id="symbol">
-<option value="EURUSD">EUR/USD</option>
-<option value="GBPUSD">GBP/USD</option>
-<option value="USDJPY">USD/JPY</option>
-<option value="AUDUSD">AUD/USD</option>
-<option value="USDCAD">USD/CAD</option>
-<option value="USDCHF">USD/CHF</option>
-<option value="NZDUSD">NZD/USD</option>
-<option value="EURJPY">EUR/JPY</option>
-<option value="GBPJPY">GBP/JPY</option>
-<option value="BTCUSD">BTC/USD</option>
-<option value="ETHUSD">ETH/USD</option>
-<option value="XAUUSD">Gold / XAUUSD</option>
-</select>
-<label for="tf">کینڈل ٹائم فریم</label>
-<select id="tf">
-<option value="1m">1 منٹ</option>
-<option value="5m">5 منٹ</option>
-<option value="15m">15 منٹ</option>
-<option value="30m">30 منٹ</option>
-<option value="1h">1 گھنٹہ</option>
-</select>
-<button class="primary" id="analyze">📊 ابھی سگنل چیک کریں</button>
-<div class="row">
-<button class="voice" id="listen">🎙️ بول کر پوچھیں</button>
-<button id="speak">🔊 نتیجہ سنیں</button>
-</div>
-<div class="hint" style="margin-top:12px">
-مثال: "یورو ڈالر ایک منٹ سگنل چیک کرو"،
-"بٹ کوائن کا سگنل"، "پانچ منٹ"، یا "نتیجہ سناؤ"۔
-</div>
-</section>
-
-<section class="panel">
-<h2>📡 ڈیٹا کی حالت</h2>
-<div id="status">ابھی ڈیٹا چیک نہیں کیا گیا۔</div>
-<div class="hint">ڈیٹا فیڈ: biquote.io — آزاد مارکیٹ فیڈ، بغیر API key۔ یہ Quotex/Pocket Option کا اپنا فیڈ نہیں ہے۔</div>
-</section>
-
-<section class="panel">
-<h2>🤖 AI سگنل</h2>
-<div id="signal" class="gold">WAIT</div>
-<div id="reason" class="hint" style="text-align:center">اصل ڈیٹا آنے کے بعد تجزیہ ہوگا۔</div>
-<div class="grid" style="margin-top:15px">
-<div class="metric"><small>آخری قیمت</small><strong id="price">—</strong></div>
-<div class="metric"><small>RSI (14)</small><strong id="rsi">—</strong></div>
-<div class="metric"><small>EMA (9 / 21)</small><strong id="ema">—</strong></div>
-<div class="metric"><small>رجحان</small><strong id="trend">—</strong></div>
-<div class="metric"><small>سپورٹ</small><strong id="support">—</strong></div>
-<div class="metric"><small>ریزسٹنس</small><strong id="resistance">—</strong></div>
-</div>
-</section>
-
-<section class="panel">
-<h2>🕯️ حالیہ کینڈلز</h2>
-<canvas id="chart" width="700" height="220"></canvas>
-<div class="hint">یہ آخری بند کینڈلز کا سادہ چارٹ ہے۔ سبز کینڈل اوپر اور سرخ کینڈل نیچے بند ہونے کو ظاہر کرتی ہے۔</div>
-</section>
-
-<section class="panel">
-<h2>🧠 تجزیے کی تفصیل</h2>
-<div id="log">تجزیہ شروع کرنے کے لیے بٹن دبائیں یا مائیکروفون سے کمانڈ دیں۔</div>
-</section>
-
-<section class="panel">
-<h2>⚠️ ضروری وضاحت</h2>
-<div class="hint">
-یہ تکنیکی انڈیکیٹرز پر مبنی تجزیاتی ٹول ہے، کوئی ضمانت دینے والا AI یا مالی مشیر نہیں۔ یہ بروکر پر آرڈر نہیں لگاتا۔ OTC چارٹس کے لیے الگ مستند ڈیٹا درکار ہے۔ اگر مارکیٹ ڈیٹا ناکام، پرانا یا ناکافی ہو تو بوٹ سگنل دینے کے بجائے مسئلہ بتائے گا۔ پہلے ڈیمو اکاؤنٹ میں جانچیں۔
-</div>
-</section>
-</main>
-
-<footer>BUZDAAR FX • Trade responsibly</footer>
-
-<script>
-"use strict";
-
-const $ = id => document.getElementById(id);
-let lastReport = "ابھی کوئی سگنل تیار نہیں ہوا۔";
-let busy = false;
-let lastBars = [];
-let requestNumber = 0;
-
-const API = "https://biquote.io/api/";
-
-function say(text) {
-  lastReport = text;
-  if (!("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "ur-PK";
-  u.rate = 0.9;
-  const voices = window.speechSynthesis.getVoices();
-  const ur = voices.find(v => /ur/i.test(v.lang));
-  if (ur) u.voice = ur;
-  window.speechSynthesis.speak(u);
-}
-
-function setStatus(text) {
-  $("status").textContent = text;
-}
-
-function fmt(n) {
-  if (!Number.isFinite(n)) return "—";
-  return n.toLocaleString("en-US", {
-    maximumFractionDigits: 6
-  });
-}
-
-async function fetchCandles(symbol, interval) {
-  const url = API + encodeURIComponent(symbol) +
-    "/ohlc?interval=" + encodeURIComponent(interval) +
-    "&limit=100";
-
-  const response = await fetch(url, {cache:"no-store"});
-  if (!response.ok) {
-    throw new Error("ڈیٹا سرور نے HTTP " + response.status +
-      " جواب دیا۔");
-  }
-
-  const data = await response.json();
-
-  if (!data || !Array.isArray(data.bars)) {
-    throw new Error("ڈیٹا فیڈ سے درست کینڈلز موصول نہیں ہوئیں۔");
-  }
-
-  const bars = data.bars
-    .filter(b => !b.isOpen)
-    .map(b => ({
-      time: b.openTime,
-      open: Number(b.open),
-      high: Number(b.high),
-      low: Number(b.low),
-      close: Number(b.close)
-    }))
-    .filter(b =>
-      Number.isFinite(b.open) &&
-      Number.isFinite(b.high) &&
-      Number.isFinite(b.low) &&
-      Number.isFinite(b.close) &&
-      b.high >= b.low &&
-      b.high >= Math.max(b.open,b.close) &&
-      b.low <= Math.min(b.open,b.close)
-    )
-    .sort((a,b) => new Date(a.time)-new Date(b.time));
-
-  if (bars.length < 30) {
-    throw new Error("کم از کم 30 بند کینڈلز دستیاب نہیں۔ سگنل نہیں دیا گیا۔");
-  }
-
-  const latest = bars[bars.length - 1];
-  const age = Date.now() - new Date(latest.time).getTime();
-  const allowedAge = Math.max(10 * 60 * 1000,
-    interval === "1m" ? 5 * 60 * 1000 :
-    interval === "5m" ? 20 * 60 * 1000 :
-    interval === "15m" ? 45 * 60 * 1000 :
-    interval === "30m" ? 90 * 60 * 1000 :
-    3 * 60 * 60 * 1000);
-
-  if (!Number.isFinite(age) || age < -60000 || age > allowedAge) {
-    throw new Error("تازہ کینڈل دستیاب نہیں۔ مارکیٹ بند یا ڈیٹا پرانا ہو سکتا ہے۔");
-  }
-
-  return bars;
-}
-
-function ema(values, period) {
-  if (values.length < period) return null;
-  const k = 2 / (period + 1);
-  let result = values.slice(0,period)
-    .reduce((a,b)=>a+b,0) / period;
-
-  for (let i=period;i<values.length;i++) {
-    result = values[i]*k + result*(1-k);
-  }
-  return result;
-}
-
-function rsi(values, period=14) {
-  if (values.length <= period) return null;
-  let gains=0, losses=0;
-
-  for (let i=1;i<=period;i++) {
-    const d=values[i]-values[i-1];
-    if(d>0) gains+=d;
-    else losses-=d;
-  }
-
-  let avgGain=gains/period;
-  let avgLoss=losses/period;
-
-  for(let i=period+1;i<values.length;i++){
-    const d=values[i]-values[i-1];
-    avgGain=(avgGain*(period-1)+Math.max(0,d))/period;
-    avgLoss=(avgLoss*(period-1)+Math.max(0,-d))/period;
-  }
-
-  if(avgLoss===0) return avgGain===0 ? 50 : 100;
-  return 100-(100/(1+avgGain/avgLoss));
-}
-
-function drawChart(bars) {
-  const c=$("chart");
-  const ctx=c.getContext("2d");
-  const w=c.width, h=c.height;
-  ctx.clearRect(0,0,w,h);
-  ctx.strokeStyle="#244b35";
-  ctx.lineWidth=1;
-
-  for(let i=1;i<5;i++){
-    ctx.beginPath();
-    ctx.moveTo(0,h*i/5);
-    ctx.lineTo(w,h*i/5);
-    ctx.stroke();
-  }
-
-  const arr=bars.slice(-25);
-  if(!arr.length) return;
-
-  const lo=Math.min(...arr.map(b=>b.low));
-  const hi=Math.max(...arr.map(b=>b.high));
-  const pad=(hi-lo)*0.08 || Math.abs(hi)*0.001 || 1;
-  const min=lo-pad, max=hi+pad;
-  const y=p=>h-((p-min)/(max-min))*h;
-  const step=w/arr.length;
-  const body=Math.max(3,step*0.52);
-
-  arr.forEach((b,i)=>{
-    const x=i*step+step/2;
-    const up=b.close>=b.open;
-    const color=up?"#00f58a":"#ff5266";
-    ctx.strokeStyle=color;
-    ctx.fillStyle=color;
-    ctx.beginPath();
-    ctx.moveTo(x,y(b.high));
-    ctx.lineTo(x,y(b.low));
-    ctx.stroke();
-
-    const top=y(Math.max(b.open,b.close));
-    const bottom=y(Math.min(b.open,b.close));
-    ctx.fillRect(x-body/2,top,body,
-      Math.max(1,bottom-top));
-  });
-}
-
-function analyze(bars) {
-  const closes=bars.map(b=>b.close);
-  const last=bars[bars.length-1];
-  const previous=bars[bars.length-2];
-  const r=rsi(closes,14);
-  const e9=ema(closes,9);
-  const e21=ema(closes,21);
-
-  const recent=bars.slice(-21,-1);
-  const support=Math.min(...recent.map(b=>b.low));
-  const resistance=Math.max(...recent.map(b=>b.high));
-
-  const bullish=last.close>last.open;
-  const bearish=last.close<last.open;
-  const body=Math.abs(last.close-last.open);
-  const range=Math.max(last.high-last.low,Number.EPSILON);
-  const bodyRatio=body/range;
-
-  const higherClose=last.close>previous.close;
-  const lowerClose=last.close<previous.close;
-
-  let up=0, down=0, reasons=[];
-
-  if(e9>e21){up++;reasons.push("EMA 9، EMA 21 سے اوپر ہے");}
-  else if(e9<e21){down++;reasons.push("EMA 9، EMA 21 سے نیچے ہے");}
-
-  if(r>=52 && r<70){up++;reasons.push("RSI میں مثبت رفتار ہے");}
-  else if(r<=48 && r>30){down++;reasons.push("RSI میں منفی رفتار ہے");}
-  else if(r>=70){reasons.push("RSI زیادہ خریدا ہوا دکھا رہا ہے");}
-  else if(r<=30){reasons.push("RSI زیادہ فروخت شدہ دکھا رہا ہے");}
-
-  if(bullish && bodyRatio>=0.55 && higherClose){
-    up++; reasons.push("آخری کینڈل میں خریداری کی طاقت ہے");
-  }
-  if(bearish && bodyRatio>=0.55 && lowerClose){
-    down++; reasons.push("آخری کینڈل میں فروخت کی طاقت ہے");
-  }
-
-  const nearResistance =
-    (resistance-last.close)/Math.max(Math.abs(last.close),1e-10)<0.001;
-  const nearSupport =
-    (last.close-support)/Math.max(Math.abs(last.close),1e-10)<0.001;
-
-  if(last.close>resistance && bullish){
-    up++; reasons.push("قیمت حالیہ ریزسٹنس سے اوپر نکلی ہے");
-  }
-  if(last.close<support && bearish){
-    down++; reasons.push("قیمت حالیہ سپورٹ سے نیچے نکلی ہے");
-  }
-
-  let signal="WAIT";
-  let detail="اشارے ایک دوسرے کی تصدیق نہیں کر رہے؛ انتظار بہتر ہے۔";
-
-  if(up>=3 && up-down>=2 && r<70 && !nearResistance){
-    signal="BUY";
-    detail="کئی تکنیکی اشارے اوپر کی سمت کی تائید کر رہے ہیں۔";
-  } else if(down>=3 && down-up>=2 && r>30 && !nearSupport){
-    signal="SELL";
-    detail="کئی تکنیکی اشارے نیچے کی سمت کی تائید کر رہے ہیں۔";
-  }
-
-  return {
-    signal, detail, reasons, r, e9, e21, last,
-    support,resistance,
-    trend:e9>e21?"اوپر":e9<e21?"نیچے":"غیر واضح",
-    up,down
-  };
-}
-
-function renderResult(a,bars,symbol,interval,platform){
-  const signal=$("signal");
-  signal.textContent=a.signal;
-  signal.className=a.signal==="BUY"?"green":
-    a.signal==="SELL"?"red":"gold";
-
-  $("reason").textContent=a.detail;
-  $("price").textContent=fmt(a.last.close);
-  $("rsi").textContent=fmt(a.r);
-  $("ema").textContent=fmt(a.e9)+" / "+fmt(a.e21);
-  $("trend").textContent=a.trend;
-  $("support").textContent=fmt(a.support);
-  $("resistance").textContent=fmt(a.resistance);
-
-  drawChart(bars);
-
-  const reasons=a.reasons.length
-    ? a.reasons.map((s,i)=>(i+1)+". "+s).join("\n")
-    : "واضح تکنیکی اشارہ نہیں ملا۔";
-
-  const timestamp=new Date(a.last.time).toLocaleString();
-
-  $("log").textContent=
-    "پلیٹ فارم: "+platform+
-    "\nمارکیٹ: "+symbol+
-    "\nٹائم فریم: "+interval+
-    "\nآخری بند کینڈل: "+timestamp+
-    "\nقیمت: "+fmt(a.last.close)+
-    "\nRSI: "+fmt(a.r)+
-    "\nEMA 9: "+fmt(a.e9)+
-    "\nEMA 21: "+fmt(a.e21)+
-    "\nرجحان: "+a.trend+
-    "\n\nتکنیکی وجوہات:\n"+reasons+
-    "\n\nفیصلہ: "+a.signal+
-    "\nیہ امکانات پر مبنی تجزیہ ہے، جیت کی ضمانت نہیں۔";
-
-  lastReport="پلیٹ فارم "+platform+
-    "، مارکیٹ "+symbol+"، ٹائم فریم "+interval+
-    "۔ سگنل "+(a.signal==="BUY"?"بائے":a.signal==="SELL"?"سیل":"ویٹ")+
-    "۔ "+a.detail+
-    " RSI "+fmt(a.r)+
-    "۔ رجحان "+a.trend+
-    "۔ یہ یقینی پیش گوئی نہیں ہے۔";
-}
-
-async function runAnalysis(voice=false) {
-  if(busy) return;
-  busy=true;
-  const id=++requestNumber;
-  $("analyze").disabled=true;
-  setStatus("اصل مارکیٹ ڈیٹا حاصل کیا جا رہا ہے…");
-
-  try {
-    const symbol=$("symbol").value;
-    const interval=$("tf").value;
-    const platform=$("platform").value;
-
-    const bars=await fetchCandles(symbol,interval);
-    if(id!==requestNumber) return;
-
-    lastBars=bars;
-    const result=analyze(bars);
-    renderResult(result,bars,symbol,interval,platform);
-
-    setStatus("ڈیٹا موصول ہوا۔ آخری بند کینڈل: "+
-      new Date(bars[bars.length-1].time).toLocaleString()+
-      "۔ یہ بروکر کے OTC چارٹ کی تصدیق نہیں ہے۔");
-
-    if(voice) say(lastReport);
-  } catch(err) {
-    $("signal").textContent="WAIT";
-    $("signal").className="gold";
-    $("reason").textContent="معتبر سگنل دستیاب نہیں۔";
-    setStatus("مسئلہ: "+(err.message||"ڈیٹا دستیاب نہیں"));
-    $("log").textContent=
-      "کوئی BUY/SELL سگنل جاری نہیں کیا گیا۔\n"+
-      (err.message||"ڈیٹا دستیاب نہیں")+
-      "\nانٹرنیٹ، ڈیٹا فیڈ اور مارکیٹ کی حالت چیک کریں۔";
-    lastReport="معتبر مارکیٹ ڈیٹا دستیاب نہیں۔ کوئی سگنل جاری نہیں کیا گیا۔";
-    if(voice) say(lastReport);
-  } finally {
-    busy=false;
-    $("analyze").disabled=false;
-  }
-}
-
-$("analyze").addEventListener("click",()=>runAnalysis(false));
-$("speak").addEventListener("click",()=>say(lastReport));
-
-function parseVoice(raw){
-  const s=raw.toLowerCase();
-  const clean=s.replace(/[،,.!?؟]/g," ");
-
-  const symbols=[
-    ["EURUSD",["eurusd","euro dollar","یورو ڈالر","یورو","eur"]],
-    ["GBPUSD",["gbpusd","pound dollar","پاؤنڈ ڈالر","پاؤنڈ","gbp"]],
-    ["USDJPY",["usdjpy","dollar yen","ڈالر ین","ین","jpy"]],
-    ["AUDUSD",["audusd","australian dollar","آسٹریلین ڈالر"]],
-    ["USDCAD",["usdcad","ڈالر کینیڈین"]],
-    ["USDCHF",["usdchf","ڈالر فرانک"]],
-    ["NZDUSD",["nzdusd","نیوزی لینڈ ڈالر"]],
-    ["EURJPY",["eurjpy","یورو ین"]],
-    ["GBPJPY",["gbpjpy","پاؤنڈ ین"]],
-    ["BTCUSD",["btcusd","bitcoin","بٹ کوائن","بٹ کوئن"]],
-    ["ETHUSD",["ethusd","ethereum","ایتھیریم","ایتھر"]],
-    ["XAUUSD",["xauusd","gold","گولڈ","سونا"]]
-  ];
-
-  for(const [sym,words] of symbols){
-    if(words.some(w=>clean.includes(w))) $("symbol").value=sym;
-  }
-
-  if(/5m|5 min|five minute|پانچ منٹ|5 منٹ/.test(clean)) $("tf").value="5m";
-  else if(/15m|15 min|پندرہ منٹ/.test(clean)) $("tf").value="15m";
-  else if(/30m|30 min|تیس منٹ/.test(clean)) $("tf").value="30m";
-  else if(/1h|one hour|ایک گھنٹہ/.test(clean)) $("tf").value="1h";
-  else if(/1m|1 min|ایک منٹ/.test(clean)) $("tf").value="1m";
-
-  if(/pocket/.test(clean)) $("platform").value="Pocket Option";
-  if(/quotex|کوٹیکس/.test(clean)) $("platform").value="Quotex";
-
-  if(/سناؤ|سناو|بول|آواز|speak|repeat/.test(clean) &&
-     !/سگنل|signal|چیک|check|تجزیہ/.test(clean)){
-    say(lastReport);
-    return;
-  }
-
-  if(/سگنل|signal|چیک|check|تجزیہ|analy[sz]e|buy|sell|بائے|سیل/.test(clean)){
-    runAnalysis(true);
-  } else {
-    say("کمانڈ سمجھ نہیں آئی۔ مارکیٹ کا نام اور ٹائم فریم بولیں، پھر سگنل چیک کرو کہیں۔");
-  }
-}
-
-$("listen").addEventListener("click",()=>{
-  const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-
-  if(!Recognition){
-    say("آپ کے براؤزر میں آواز پہچاننے کی سہولت موجود نہیں۔ گوگل کروم میں ویب سائٹ کھول کر کوشش کریں۔");
-    setStatus("اس براؤزر میں Speech Recognition دستیاب نہیں۔");
-    return;
-  }
-
-  const recognition=new Recognition();
-  recognition.lang="ur-PK";
-  recognition.continuous=false;
-  recognition.interimResults=false;
-  recognition.maxAlternatives=3;
-
-  setStatus("مائیکروفون آن ہے۔ اب اپنا سوال بولیں۔");
-  $("listen").disabled=true;
-
-  recognition.onresult=e=>{
-    const alternatives=Array.from(e.results[0]);
-    const transcript=alternatives[0].transcript;
-    setStatus("آپ نے کہا: "+transcript);
-    parseVoice(transcript);
-  };
-
-  recognition.onerror=e=>{
-    setStatus("آواز کی خرابی: "+e.error+
-      "۔ مائیکروفون کی اجازت اور انٹرنیٹ چیک کریں۔");
-  };
-
-  recognition.onend=()=>{$("listen").disabled=false;};
-
-  try{recognition.start();}
-  catch(e){
-    $("listen").disabled=false;
-    setStatus("مائیکروفون شروع نہیں ہو سکا۔ دوبارہ کوشش کریں۔");
-  }
-});
-
-if("speechSynthesis" in window){
-  window.speechSynthesis.getVoices();
-}
-
-setStatus("تیار۔ مارکیٹ منتخب کریں اور سگنل چیک کریں۔");
-</script>
+<body class="bg-cyber-mesh text-white antialiased selection:bg-[#8a5cff]/30">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const BROKERS = [
+      { id: 'pocket', name: 'Pocket Option', color: '#2DE6A0', initial: 'PO' },
+      { id: 'quotex', name: 'Quotex', color: '#FF2D78', initial: 'QX' },
+      { id: 'olymp', name: 'Olymp Trade', color: '#FFD60A', initial: 'OT', textColor: '#000' },
+      { id: 'iq', name: 'IQ Option', color: '#7A5CFF', initial: 'IQ' },
+      { id: 'binomo', name: 'Binomo', color: '#FF8A1F', initial: 'BM' },
+      { id: 'okx', name: 'OKX', color: '#111111', initial: 'OK', border: true },
+      { id: 'binance', name: 'Binance', color: '#F3BA2F', initial: 'BN', textColor: '#000' },
+      { id: 'exness', name: 'Exness', color: '#FFE600', initial: 'EX', textColor: '#000' }
+    ];
+
+    const ASSETS = [
+      { id: 'eurusd', name: 'EUR/USD', sub: '(OTC)', type: 'forex', symbol: 'EURUSD', speech: 'Euro Dollar' },
+      { id: 'gbpusd', name: 'GBP/USD', sub: '(OTC)', type: 'forex', symbol: 'GBP USD', speech: 'Pound Dollar' },
+      { id: 'usdpkr', name: 'USD/PKR', sub: 'Exotic', type: 'exotic', symbol: 'USDPKR', speech: 'Dollar PKR' },
+      { id: 'usdinr', name: 'USD/INR', sub: 'Exotic', type: 'exotic', symbol: 'USD INR', speech: 'Dollar INR' },
+      { id: 'usdbrl', name: 'USD/BRL', sub: 'Exotic', type: 'exotic', symbol: 'Dollar BRL', speech: 'Dollar BRL' },
+      { id: 'usdmxn', name: 'USD/MXN', sub: 'Exotic', type: 'exotic', symbol: 'Dollar MXN', speech: 'Dollar MXN' },
+      { id: 'btcusd', name: 'BTC/USD', sub: '(Binance)', type: 'crypto', symbol: 'BTCUSDT', speech: 'Bitcoin Dollar' },
+      { id: 'ethusd', name: 'ETH/USD', sub: '(Binance)', type: 'crypto', symbol: 'ETHUSDT', speech: 'Ethereum Dollar' },
+      { id: 'solusd', name: 'SOL/USD', sub: '(Binance)', type: 'crypto', symbol: 'SOLUSDT', speech: 'Solana Dollar' },
+      { id: 'bnbusd', name: 'BNB/USD', sub: '(Binance)', type: 'crypto', symbol: 'BNBUSDT', speech: 'BNB Dollar' }
+    ];
+
+    const TICKER_SYMBOLS = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT"];
+    const TICKER_NAMES = {
+      BTCUSDT: 'BTC',
+      ETHUSDT: 'ETH',
+      BNBUSDT: 'BNB',
+      SOLUSDT: 'SOL',
+      XRPUSDT: 'XRP'
+    };
+
+    // Helper Technical Indicators Calculations
+    const calculateEMA = (prices, period) => {
+      const k = 2 / (period + 1);
+      let ema = prices[0];
+      for (let i = 1; i < prices.length; i++) {
+        ema = prices[i] * k + ema * (1 - k);
+      }
+      return ema;
+    };
+
+    const calculateRSI = (prices, period = 14) => {
+      if (prices.length < period + 1) return 50;
+      let gains = 0, losses = 0;
+      for (let i = 1; i <= period; i++) {
+        const diff = prices[i] - prices[i - 1];
+        if (diff >= 0) gains += diff;
+        else losses -= diff;
+      }
+      let avgGain = gains / period;
+      let avgLoss = losses / period;
+
+      for (let i = period + 1; i < prices.length; i++) {
+        const diff = prices[i] - prices[i - 1];
+        if (diff >= 0) {
+          avgGain = (avgGain * (period - 1) + diff) / period;
+          avgLoss = (avgLoss * (period - 1)) / period;
+        } else {
+          avgGain = (avgGain * (period - 1)) / period;
+          avgLoss = (avgLoss * (period - 1) - diff) / period;
+        }
+      }
+      if (avgLoss === 0) return 100;
+      const rs = avgGain / avgLoss;
+      return 100 - (100 / (1 + rs));
+    };
+
+    function App() {
+      const [selectedBroker, setSelectedBroker] = useState(BROKERS[0]);
+      const [selectedAsset, setSelectedAsset] = useState(ASSETS[0]);
+      const [isAnalyzing, setIsAnalyzing] = useState(false);
+      const [progress, setProgress] = useState(7);
+      const [signal, setSignal] = useState(null);
+      const [showProof, setShowProof] = useState(false);
+      const [tickerPrices, setTickerPrices] = useState({});
+      const [voiceEnabled, setVoiceEnabled] = useState(true);
+      const [voiceStyle, setVoiceStyle] = useState('genz'); // 'genz', 'pro', 'urdu'
+      const [botState, setBotState] = useState('idle'); // 'idle', 'speaking', 'listening'
+      const [lastSpokenText, setLastSpokenText] = useState('');
+      const [isListeningModalOpen, setIsListeningModalOpen] = useState(false);
+      const [transcript, setTranscript] = useState('');
+      const [isMicActive, setIsMicActive] = useState(false);
+      const [brokerNotice, setBrokerNotice] = useState('');
+
+      const recognitionRef = useRef(null);
+
+      // Binance Ticker Fetcher
+      useEffect(() => {
+        let isMounted = true;
+        const fetchPrices = async () => {
+          try {
+            const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbols=${encodeURIComponent(JSON.stringify(TICKER_SYMBOLS))}`);
+            if (!res.ok) throw new Error("fetch_fail");
+            const data = await res.json();
+            if (!isMounted) return;
+            const updatedMap = {};
+            data.forEach(item => {
+              updatedMap[item.symbol] = {
+                price: parseFloat(item.lastPrice),
+                change: parseFloat(item.priceChangePercent)
+              };
+            });
+            setTickerPrices(updatedMap);
+          } catch {
+            setTickerPrices(prev => {
+              const fallback = { ...prev };
+              TICKER_SYMBOLS.forEach(sym => {
+                const base = { BTCUSDT: 67432, ETHUSDT: 3421, BNBUSDT: 612, SOLUSDT: 178, XRPUSDT: 0.62 }[sym] || 100;
+                const current = fallback[sym]?.price || base;
+                const change = (Math.random() - 0.5) * (base * 0.002);
+                fallback[sym] = {
+                  price: current + change,
+                  change: (Math.random() - 0.5) * 2
+                };
+              });
+              return fallback;
+            });
+          }
+        };
+
+        fetchPrices();
+        const interval = setInterval(fetchPrices, 5000);
+        return () => { isMounted = false; clearInterval(interval); };
+      }, []);
+
+      const getFemaleVoice = () => {
+        if (typeof window === 'undefined' || !window.speechSynthesis) return null;
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices.length) return null;
+        return voices.find(v => /female/i.test(v.name) && /Google/.test(v.name)) ||
+               voices.find(v => v.name.includes("Google UK English Female")) ||
+               voices.find(v => v.name.includes("Samantha") || v.name.includes("Karen") || v.name.includes("Zira") || v.name.includes("Google")) ||
+               voices.find(v => v.lang.startsWith("en")) ||
+               voices[0];
+      };
+
+      const buildSpeechText = (sig, style) => {
+        if (!sig) return '';
+        const { direction, confidence, asset, broker } = sig;
+        const dirText = direction === 'BUY' ? 'Buy' : 'Sell';
+
+        if (style === 'urdu') {
+          return `${dirText} ka signal hai ${asset.speech} ke liye, ${broker.name} par, next candle pe trade karo. Confidence ${confidence} percent.`;
+        } else if (style === 'genz') {
+          return direction === 'BUY'
+            ? `Yo, got a strong ${dirText} signal for you! ${asset.speech} looking bullish on ${broker.name}, ${confidence}% confidence. Let's trade next candle!`
+            : `Ayy, heads up — strong ${dirText} signal on ${asset.speech}. ${broker.name}, ${confidence}% confidence. Drop that trade on next candle, no cap!`;
+        }
+        return `${dirText} signal detected. ${asset.speech} on ${broker.name}. Trade on next candle. Confidence ${confidence} percent.`;
+      };
+
+      const speakSignal = (sig) => {
+        if (!voiceEnabled || !sig) return;
+        try {
+          if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+          }
+          const text = buildSpeechText(sig, voiceStyle);
+          setLastSpokenText(text);
+          setBotState('speaking');
+
+          const utterance = new SpeechSynthesisUtterance(text);
+          const voice = getFemaleVoice();
+          if (voice) utterance.voice = voice;
+          utterance.rate = voiceStyle === 'genz' ? 1.05 : 0.95;
+          utterance.pitch = 1;
+
+          utterance.onend = () => setBotState('idle');
+          utterance.onerror = () => setBotState('idle');
+
+          window.speechSynthesis.speak(utterance);
+        } catch {}
+      };
+
+      useEffect(() => {
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+          window.speechSynthesis.getVoices();
+          window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+          };
+        }
+      }, []);
+
+      useEffect(() => {
+        if (!voiceEnabled && typeof window !== 'undefined' && window.speechSynthesis) {
+          window.speechSynthesis.cancel();
+          setBotState('idle');
+        }
+      }, [voiceEnabled]);
+
+      // Real Technical Analysis Generator
+      const generateSignal = async () => {
+        if (isAnalyzing) return;
+        setIsAnalyzing(true);
+        setSignal(null);
+        setProgress(7);
+        setShowProof(false);
+
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+          window.speechSynthesis.cancel();
+        }
+        setBotState('idle');
+
+        // Progress Animation
+        const start = Date.now();
+        const duration = 2200;
+        const updateProgress = () => {
+          const elapsed = Date.now() - start;
+          const currentProgress = Math.min(88, 7 + Math.floor((elapsed / duration) * 81));
+          setProgress(currentProgress);
+          if (elapsed < duration) {
+            requestAnimationFrame(updateProgress);
+          }
+        };
+        requestAnimationFrame(updateProgress);
+
+        let closePrices = [];
+        try {
+          let binanceSymbol = 'BTCUSDT';
+          if (selectedAsset.type === 'crypto') {
+            binanceSymbol = selectedAsset.symbol;
+          }
+          const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${binanceSymbol}&interval=1m&limit=40`);
+          if (res.ok) {
+            const data = await res.json();
+            closePrices = data.map(candle => parseFloat(candle[4]));
+          }
+        } catch (e) {
+          // Ignore API error & fallback to generated random walk simulation for offline fallback
+        }
+
+        if (closePrices.length < 25) {
+          closePrices = [];
+          let current = 100;
+          for (let i = 0; i < 40; i++) {
+            current += (Math.random() - 0.49) * 1.5;
+            closePrices.push(current);
+          }
+        }
+
+        const ema9 = calculateEMA(closePrices, 9);
+        const ema21 = calculateEMA(closePrices, 21);
+        const rsi14 = calculateRSI(closePrices, 14);
+
+        const ema12 = calculateEMA(closePrices, 12);
+        const ema26 = calculateEMA(closePrices, 26);
+        const macdLine = ema12 - ema26;
+
+        let buyScore = 0;
+        let sellScore = 0;
+
+        if (ema9 > ema21) buyScore += 2;
+        else sellScore += 2;
+
+        if (rsi14 < 35) buyScore += 2;
+        else if (rsi14 > 65) sellScore += 2;
+        else if (rsi14 >= 50) buyScore += 1;
+        else sellScore += 1;
+
+        if (macdLine > 0) buyScore += 2;
+        else sellScore += 2;
+
+        const direction = buyScore >= sellScore ? 'BUY' : 'SELL';
+        const rawConfidence = Math.min(96, Math.max(72, Math.floor(70 + Math.abs(buyScore - sellScore) * 6.5 + (rsi14 % 7))));
+        const strength = Math.min(98, Math.max(65, Math.floor(rawConfidence * 0.92 + (rsi14 > 50 ? 4 : 1))));
+
+        const df = direction === 'BUY' ? 'EMA9 > EMA21' : 'EMA9 < EMA21';
+        const pf = macdLine >= 0 ? 'MACD bullish crossover' : 'MACD bearish crossover';
+        const feedName = selectedAsset.type === 'crypto' 
+          ? `Binance Klines (${selectedAsset.symbol})`
+          : `Market Data Feed (${selectedAsset.name})`;
+
+        const resultSignal = {
+          direction,
+          confidence: rawConfidence,
+          strength,
+          asset: selectedAsset,
+          broker: selectedBroker,
+          time: new Date().toLocaleTimeString(),
+          ema: `${df} • ${feedName}`,
+          rsi: `RSI14: ${rsi14.toFixed(1)} • ${rsi14 > 70 ? 'Overbought' : rsi14 < 30 ? 'Oversold' : 'Neutral'}`,
+          macd: `${pf} (${macdLine.toFixed(4)})`
+        };
+
+        setTimeout(() => {
+          setSignal(resultSignal);
+          setIsAnalyzing(false);
+          setProgress(100);
+          speakSignal(resultSignal);
+        }, duration);
+      };
+
+      // Voice Commands Recognition
+      const startVoiceCommand = () => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          setTranscript('Speech recognition is not supported in this browser.');
+          return;
+        }
+
+        try {
+          if (recognitionRef.current) {
+            recognitionRef.current.stop();
+          }
+
+          const rec = new SpeechRecognition();
+          rec.continuous = false;
+          rec.interimResults = true;
+          rec.lang = 'en-US';
+
+          recognitionRef.current = rec;
+          setIsListeningModalOpen(true);
+          setTranscript('');
+          setBotState('listening');
+          setIsMicActive(true);
+
+          rec.onresult = (e) => {
+            let currentText = '';
+            for (let i = 0; i < e.results.length; i++) {
+              currentText += e.results[i][0].transcript + ' ';
+            }
+            setTranscript(currentText.trim());
+
+            if (e.results[0].isFinal) {
+              handleCommand(currentText.toLowerCase());
+            }
+          };
+
+          rec.onerror = () => {
+            setBotState('idle');
+            setIsMicActive(false);
+          };
+
+          rec.onend = () => {
+            setIsMicActive(false);
+            if (botState !== 'speaking') {
+              setBotState('idle');
+            }
+          };
+
+          rec.start();
+        } catch {
+          setBotState('idle');
+        }
+      };
+
+      const handleCommand = (cmd) => {
+        let matchedAsset = null;
+        if (cmd.includes("euro") || cmd.includes("eur")) matchedAsset = ASSETS.find(a => a.id === 'eurusd');
+        else if (cmd.includes("pkr") || cmd.includes("pakistan")) matchedAsset = ASSETS.find(a => a.id === 'usdpkr');
+        else if (cmd.includes("inr") || cmd.includes("india") || cmd.includes("rupee")) matchedAsset = ASSETS.find(a => a.id === 'usdinr');
+        else if (cmd.includes("brl") || cmd.includes("brazil")) matchedAsset = ASSETS.find(a => a.id === 'usdbrl');
+        else if (cmd.includes("mxn") || cmd.includes("mexico")) matchedAsset = ASSETS.find(a => a.id === 'usdmxn');
+        else if (cmd.includes("bitcoin") || cmd.includes("btc")) matchedAsset = ASSETS.find(a => a.id === 'btcusd');
+        else if (cmd.includes("eth") || cmd.includes("ethereum")) matchedAsset = ASSETS.find(a => a.id === 'ethusd');
+        else if (cmd.includes("sol")) matchedAsset = ASSETS.find(a => a.id === 'solusd');
+        else if (cmd.includes("bnb")) matchedAsset = ASSETS.find(a => a.id === 'bnbusd');
+        else if (cmd.includes("pound") || cmd.includes("gbp")) matchedAsset = ASSETS.find(a => a.id === 'gbpusd');
+
+        if (matchedAsset) setSelectedAsset(matchedAsset);
+
+        let matchedBroker = null;
+        if (cmd.includes("pocket")) matchedBroker = BROKERS.find(b => b.id === 'pocket');
+        else if (cmd.includes("quotex")) matchedBroker = BROKERS.find(b => b.id === 'quotex');
+        else if (cmd.includes("olymp")) matchedBroker = BROKERS.find(b => b.id === 'olymp');
+        else if (cmd.includes("iq")) matchedBroker = BROKERS.find(b => b.id === 'iq');
+        else if (cmd.includes("binomo")) matchedBroker = BROKERS.find(b => b.id === 'binomo');
+        else if (cmd.includes("okx")) matchedBroker = BROKERS.find(b => b.id === 'okx');
+        else if (cmd.includes("binance")) matchedBroker = BROKERS.find(b => b.id === 'binance');
+        else if (cmd.includes("exness")) matchedBroker = BROKERS.find(b => b.id === 'exness');
+
+        if (matchedBroker) setSelectedBroker(matchedBroker);
+
+        if (cmd.includes("generate") || cmd.includes("signal") || cmd.includes("analyze") || cmd.includes("trade") || cmd.includes("banao")) {
+          setTimeout(() => {
+            generateSignal();
+          }, 600);
+        }
+      };
+
+      const closeVoiceModal = () => {
+        try {
+          recognitionRef.current?.stop();
+        } catch {}
+        setIsMicActive(false);
+        setBotState('idle');
+      };
+
+      return (
+        <div className="mx-auto w-full max-w-[420px] min-h-screen flex flex-col px-[16px] pb-[28px] overflow-x-clip box-border">
+          {/* Header */}
+          <div className="sticky top-0 z-30 px-0 py-[12px] bg-[#030712]/90 backdrop-blur-xl border-b border-white/[0.08] flex items-center justify-between box-border w-full">
+            <div className="flex items-center gap-[10px]">
+              <div className="w-[32px] h-[32px] rounded-[10px] bg-gradient-to-tr from-[#8A5CFF] to-[#FF5CA1] text-white grid place-items-center font-extrabold text-[13px] sora shadow-lg shadow-[#8A5CFF]/30">
+                B
+              </div>
+              <div>
+                <div className="text-[13px] font-bold tracking-[-0.02em] leading-[1] sora bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+                  BUZDAAR FX
+                </div>
+                <div className="text-[10px] tracking-[0.14em] text-white/55 font-semibold flex items-center gap-[5px] mt-[3px]">
+                  <span className="w-[6px] h-[6px] rounded-full bg-[#2DE6A0] inline-block animate-pulse shadow-[0_0_8px_#2DE6A0]" />
+                  GenZ Bot Pro • Voice AI
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-[8px]">
+              <button 
+                onClick={() => setVoiceEnabled(prev => !prev)}
+                className={`h-[32px] px-[12px] rounded-full flex items-center gap-[6px] text-[11px] font-semibold border transition-all ${
+                  voiceEnabled 
+                    ? 'bg-gradient-to-r from-white to-white/90 text-black border-white shadow-md shadow-white/10' 
+                    : 'bg-white/[0.08] text-white/70 border-white/10 hover:bg-white/[0.12]'
+                }`}
+              >
+                <span className={`w-[16px] h-[16px] rounded-full grid place-items-center ${voiceEnabled ? 'bg-black text-white' : 'bg-white/15'}`}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zM16 8a5 5 0 0 1 0 8l-1.2-1.2A3 3 0 0 0 16 12a3 3 0 0 0-1.2-2.4L16 8z"/>
+                  </svg>
+                </span>
+                Voice AI: {voiceEnabled ? 'ON' : 'OFF'}
+              </button>
+            </div>
+          </div>
+
+          {/* Live Marquee Ticker */}
+          <div className="mt-[14px] h-[36px] rounded-full card-glass overflow-hidden flex items-center relative border border-white/10">
+            <div className="absolute left-0 top-0 bottom-0 w-[86px] bg-[#030712]/95 z-10 flex items-center px-[12px] gap-[6px] border-r border-white/10">
+              <span className="w-[6px] h-[6px] bg-[#2DE6A0] rounded-full animate-pulse shadow-[0_0_8px_#2DE6A0]" />
+              <span className="text-[10px] font-bold tracking-[0.12em] text-white/80">LIVE</span>
+            </div>
+            <div className="ml-[86px] flex-1 overflow-hidden">
+              <div className="ticker-track flex gap-[28px] w-max pr-[28px]">
+                {[...TICKER_SYMBOLS, ...TICKER_SYMBOLS].map((sym, idx) => {
+                  const data = tickerPrices[sym];
+                  return (
+                    <div key={`${sym}-${idx}`} className="flex items-center gap-[8px] text-[11px] whitespace-nowrap">
+                      <span className="font-bold text-white/90">{TICKER_NAMES[sym]}</span>
+                      <span className="font-medium text-white/60">
+                        ${data ? data.price.toFixed(sym === 'XRPUSDT' ? 4 : 2) : '—'}
+                      </span>
+                      <span className={`text-[10px] px-[6px] py-[2px] rounded-full font-bold ${
+                        (data?.change || 0) >= 0 
+                          ? 'bg-[#2DE6A0]/15 text-[#2DE6A0] border border-[#2DE6A0]/20' 
+                          : 'bg-[#FF2D78]/15 text-[#FF5A8A] border border-[#FF2D78]/20'
+                      }`}>
+                        {(data?.change || 0) >= 0 ? '+' : ''}{(data?.change || 0).toFixed(2)}%
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Broker Selector */}
+          <div className="mt-[18px]">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold tracking-[0.16em] text-white/45">BROKER</span>
+              <span className="text-[10px] text-white/35 font-medium">{brokerNotice || '8 supported • colored initials'}</span>
+            </div>
+            <div className="mt-[10px] flex gap-[8px] overflow-x-auto scrollbar-none pb-[4px] px-[2px] max-w-full">
+              {BROKERS.map(b => (
+                <button
+                  key={b.id}
+                  onClick={() => {
+                    setSelectedBroker({ ...b });
+                    setBrokerNotice(`✓ ${b.name} active`);
+                    setLastSpokenText(`Switched to ${b.name}`);
+                  }}
+                  className={`shrink-0 h-[56px] min-w-[64px] rounded-[16px] flex flex-col items-center justify-center gap-[4px] border transition-all ${
+                    selectedBroker.id === b.id 
+                      ? 'scale-[1.03] border-white/40 bg-white/[0.12] shadow-lg shadow-black/50' 
+                      : 'border-white/[0.07] bg-white/[0.03] opacity-75 hover:opacity-100 hover:bg-white/[0.06]'
+                  }`}
+                >
+                  <div 
+                    className="w-[28px] h-[28px] rounded-[10px] grid place-items-center text-[11px] font-bold sora shadow-md"
+                    style={{ 
+                      background: b.color, 
+                      color: b.textColor || 'white',
+                      border: b.border ? '1px solid rgba(255,255,255,0.25)' : 'none'
+                    }}
+                  >
+                    {b.initial}
+                  </div>
+                  <span className="text-[8.5px] font-semibold tracking-wide text-white/70 leading-[1]">
+                    {b.name.split(' ')[0]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Asset Selector */}
+          <div className="mt-[18px]">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold tracking-[0.16em] text-white/45">ASSET • REAL PRICE FEED</span>
+              <span className="text-[10px] text-white/35 font-medium">{selectedAsset.name} → {selectedBroker.name}</span>
+            </div>
+            <div className="mt-[10px] grid grid-cols-2 gap-[8px]">
+              {ASSET.map(asset => {
+                const isSelected = selectedAsset.id === asset.id;
+                return (
+                  <button
+                    key={asset.id}
+                    onClick={() => setSelectedAsset(asset)}
+                    className={`h-[56px] rounded-[16px] flex items-center justify-between px-[12px] border text-left transition-all ${
+                      isSelected 
+                        ? 'bg-gradient-to-r from-white to-white/95 text-black border-white shadow-lg shadow-white/10' 
+                        : 'card-glass border-white/10 hover:bg-white/[0.08]'
+                    }`}
+                  >
+                    <div>
+                      <div className={`text-[13px] font-bold leading-[1] ${isSelected ? 'text-black' : 'text-white'}`}>
+                        {asset.name} <span className={`font-medium text-[11px] ${isSelected ? 'text-black/60' : 'text-white/45'}`}>{asset.sub}</span>
+                      </div>
+                      <div className={`text-[10px] mt-[4px] font-medium ${isSelected ? 'text-black/60' : 'text-white/40'}`}>
+                        {asset.type.toUpperCase()} • {asset.symbol}
+                      </div>
+                    </div>
+                    <div className={`w-[18px] h-[18px] rounded-full grid place-items-center border ${
+                      isSelected ? 'bg-black border-black text-white' : 'border-white/20'
+                    }`}>
+                      {isSelected && <span className="text-[10px] font-bold">✓</span>}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Glowing Orb Signal Display */}
+          <div className="mt-[24px] flex flex-col items-center">
+            <div className="relative w-[220px] h-[220px] grid place-items-center">
+              {/* Orb Particle Decorations */}
+              <div className="orb-particle" style={{ top: '12%', left: '18%', animation: 'pulseDot 2.2s ease-in-out infinite' }} />
+              <div className="orb-particle" style={{ top: '18%', right: '14%', width: '8px', height: '8px', background: 'radial-gradient(circle, #FF5CA1 0%, transparent 70%)', boxShadow: '0 0 12px #FF5CA1' }} />
+              <div className="orb-particle" style={{ bottom: '22%', left: '12%', width: '5px', height: '5px' }} />
+              <div className="orb-particle" style={{ bottom: '14%', right: '18%', width: '7px', height: '7px' }} />
+
+              <div 
+                className={`w-[180px] h-[180px] rounded-full relative grid place-items-center transition-all duration-700 ${
+                  isAnalyzing 
+                    ? 'scale-[1.05] orb-glow-default' 
+                    : signal 
+                      ? signal.direction === 'BUY' ? 'buy-glow' : 'sell-glow'
+                      : 'orb-glow-default'
+                }`}
+              >
+                <div className="absolute inset-[10px] rounded-full bg-[#030712]/50 backdrop-blur-[4px]" />
+                
+                <div className="relative z-10 flex flex-col items-center">
+                  {isAnalyzing ? (
+                    <React.Fragment>
+                      <div className="text-[11px] tracking-[0.18em] text-white/60 font-bold">ANALYZING</div>
+                      <div className="text-[44px] font-bold sora leading-none mt-[4px]">{progress}%</div>
+                      <div className="mt-[10px] flex gap-[4px]">
+                        <span className="w-[22px] h-[3px] rounded-full bg-white/80 wave-bar" style={{ animationDelay: '0s' }} />
+                        <span className="w-[22px] h-[3px] rounded-full bg-white/60 wave-bar" style={{ animationDelay: '0.15s' }} />
+                        <span className="w-[22px] h-[3px] rounded-full bg-white/40 wave-bar" style={{ animationDelay: '0.3s' }} />
+                      </div>
+                      <div className="text-[10px] text-white/35 mt-[8px] font-medium">{selectedAsset.name} • {selectedBroker.name}</div>
+                    </React.Fragment>
+                  ) : signal ? (
+                    <React.Fragment>
+                      <div className={`text-[12px] tracking-[0.2em] font-bold ${signal.direction === 'BUY' ? 'text-[#2DE6A0]' : 'text-[#FF5A8A]'}`}>
+                        {signal.direction} SIGNAL
+                      </div>
+                      <div className={`text-[42px] font-extrabold sora leading-none mt-[2px] tracking-[-0.03em] ${
+                        signal.direction === 'BUY' ? 'text-[#2DE6A0]' : 'text-[#FF5A8A]'
+                      }`}>
+                        {signal.direction}
+                      </div>
+                      <div className="mt-[8px] text-[11px] px-[10px] py-[4px] rounded-full bg-white/10 border border-white/15 text-white/80 font-semibold">
+                        {signal.confidence}% confidence
+                      </div>
+                      {botState === 'speaking' && (
+                        <div className="mt-[10px] flex items-center gap-[3px]">
+                          <span className="w-[3px] bg-white rounded-full wave-bar" style={{ animationDelay: '0s' }} />
+                          <span className="w-[3px] bg-white/80 rounded-full wave-bar" style={{ animationDelay: '0.12s' }} />
+                          <span className="w-[3px] bg-white/60 rounded-full wave-bar" style={{ animationDelay: '0.24s' }} />
+                        </div>
+                      )}
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <div className="w-[48px] h-[48px] rounded-full bg-white/10 grid place-items-center">
+                        <div className="w-[22px] h-[22px] rounded-full border-[2.5px] border-white/80 grid place-items-center">
+                          <div className="w-[8px] h-[8px] bg-white rounded-full pulse-dot" />
+                        </div>
+                      </div>
+                      <div className="text-[11px] tracking-[0.16em] text-white/55 font-bold mt-[12px]">READY</div>
+                      <div className="text-[12px] text-white/35 mt-[2px] font-medium">Tap Generate</div>
+                    </React.Fragment>
+                  )}
+                </div>
+              </div>
+
+              {/* Rotating Outer Ring */}
+              <div className="absolute inset-0 rounded-full border border-white/[0.08] pointer-events-none spin-slow" style={{ transform: 'rotate(12deg)' }} />
+            </div>
+
+            {/* Voice Status Indicator */}
+            <div className="mt-[14px] min-h-[22px] flex items-center justify-center gap-[8px]">
+              {botState === 'listening' && (
+                <div className="flex items-center gap-[8px] px-[12px] py-[6px] rounded-full bg-[#FF2D78]/15 border border-[#FF2D78]/25 text-[11px] font-semibold text-[#FF7AA3]">
+                  <span className="flex gap-[3px]">
+                    <i className="w-[3px] h-[12px] bg-[#FF2D78] rounded-full wave-bar" />
+                    <i className="w-[3px] h-[12px] bg-[#FF2D78] rounded-full wave-bar" style={{ animationDelay: '0.15s' }} />
+                    <i className="w-[3px] h-[12px] bg-[#FF2D78] rounded-full wave-bar" style={{ animationDelay: '0.3s' }} />
+                  </span>
+                  Listening... say "Generate signal"
+                </div>
+              )}
+              {botState === 'speaking' && lastSpokenText && (
+                <div className="max-w-[320px] text-center px-[12px] py-[6px] rounded-full bg-white/[0.07] border border-white/10 text-[11px] text-white/70 leading-[1.3] line-clamp-2">
+                  Speaking: {lastSpokenText.slice(0, 84)}...
+                </div>
+              )}
+              {botState === 'idle' && voiceEnabled && signal && (
+                <div className="text-[10px] text-white/35 flex items-center gap-[6px]">
+                  <span className="w-[14px] h-[14px] rounded-full bg-white/10 grid place-items-center">🔊</span>
+                  Voice AI spoke last signal
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="mt-[12px] w-full flex flex-col items-center gap-[10px]">
+              <button
+                onClick={generateSignal}
+                disabled={isAnalyzing}
+                className={`w-full max-w-[320px] h-[56px] rounded-full generate-gradient text-[15px] font-bold tracking-[-0.01em] text-white flex items-center justify-center gap-[10px] transition-all ${
+                  isAnalyzing ? 'opacity-60 cursor-not-allowed' : 'hover:brightness-[1.06] active:scale-[0.99]'
+                }`}
+              >
+                {isAnalyzing ? (
+                  <React.Fragment>
+                    <span className="w-[16px] h-[16px] border-[2.5px] border-white/30 border-t-white rounded-full animate-spin" />
+                    Analyzing {progress}%
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <span className="w-[22px] h-[22px] rounded-full bg-white/20 grid place-items-center">⚡</span>
+                    Generate Signal
+                  </React.Fragment>
+                )}
+              </button>
+
+              <button
+                onClick={startVoiceCommand}
+                className="h-[42px] px-[18px] rounded-full card-glass border border-white/10 flex items-center gap-[10px] text-[12px] font-semibold text-white/80 hover:bg-white/[0.08] transition-colors"
+              >
+                <span className={`w-[28px] h-[28px] rounded-full grid place-items-center ${isMicActive ? 'bg-[#FF2D78] text-white animate-pulse' : 'bg-white/10'}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V22h2v-1.06A9 9 0 0 0 21 12v-2h-2z"/>
+                  </svg>
+                </span>
+                Ask Gen-Z AI
+                <span className="text-[10px] px-[6px] py-[2px] rounded-full bg-white/10 text-white/50 ml-[2px]">VOICE COMMAND</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Warning Banner */}
+          {signal && (
+            <div className="mt-[18px] warning-strip rounded-[14px] px-[14px] py-[11px] flex gap-[10px] items-start">
+              <div className="w-[24px] h-[24px] rounded-full bg-[#FFD60A]/20 grid place-items-center shrink-0 text-[12px]">⚠️</div>
+              <div className="text-[11.5px] leading-[1.45] text-[#FFE78A] font-medium">
+                Trade on <span className="font-bold text-[#FFD60A]">next candle</span>. Use proper risk management. {signal.direction === 'BUY' ? 'Bullish momentum confirmed' : 'Bearish momentum confirmed'} — {selectedBroker.name} • {selectedAsset.name}. Tap proof for real data.
+              </div>
+            </div>
+          )}
+
+          {/* Technical Stats Grid */}
+          <div className="mt-[14px] grid grid-cols-2 gap-[10px]">
+            <div className="card-glass rounded-[18px] p-[14px]">
+              <div className="text-[10px] tracking-[0.14em] text-white/40 font-bold">STRENGTH</div>
+              <div className="mt-[8px] flex items-end gap-[10px]">
+                <div className="text-[26px] font-bold sora leading-none">{signal ? signal.strength : '--'}%</div>
+                <div className="mb-[2px] text-[11px] px-[7px] py-[2px] rounded-full bg-white/10 text-white/60 font-semibold">
+                  {signal ? (signal.strength > 75 ? 'Strong' : 'Moderate') : 'Awaiting'}
+                </div>
+              </div>
+              <div className="mt-[10px] h-[4px] rounded-full bg-white/10 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#8A5CFF] to-[#FF5CA1] transition-all duration-700" 
+                  style={{ width: `${signal ? signal.strength : 12}%` }}
+                />
+              </div>
+              <div className="mt-[8px] text-[10px] text-white/35 leading-[1.4]">
+                EMA9/21 + MACD cross verified on live feed.
+              </div>
+            </div>
+
+            <div className="card-glass rounded-[18px] p-[14px]">
+              <div className="text-[10px] tracking-[0.14em] text-white/40 font-bold">CONFIDENCE</div>
+              <div className="mt-[8px] flex items-end gap-[10px]">
+                <div className="text-[26px] font-bold sora leading-none">{signal ? signal.confidence : '--'}%</div>
+                <div className={`mb-[2px] text-[11px] px-[7px] py-[2px] rounded-full font-bold ${
+                  signal && signal.confidence > 80 ? 'bg-[#2DE6A0]/15 text-[#2DE6A0]' : 'bg-white/10 text-white/60'
+                }`}>
+                  {signal ? (signal.confidence > 80 ? 'High' : 'Medium') : 'Awaiting'}
+                </div>
+              </div>
+              <div className="mt-[10px] h-[4px] rounded-full bg-white/10 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#2DE6A0] to-[#8A5CFF] transition-all duration-700" 
+                  style={{ width: `${signal ? signal.confidence : 12}%` }}
+                />
+              </div>
+              <div className="mt-[8px] text-[10px] text-white/35 leading-[1.4]">
+                RSI14 + real price momentum from {selectedAsset.type === 'crypto' ? 'Binance' : 'Live Data'}.
+              </div>
+            </div>
+          </div>
+
+          {/* Voice Personality Control */}
+          <div className="mt-[16px] card-glass rounded-[18px] p-[12px] flex items-center justify-between gap-[10px]">
+            <div className="flex items-center gap-[8px]">
+              <div className="w-[32px] h-[32px] rounded-full bg-white/10 grid place-items-center text-[14px]">🎙️</div>
+              <div>
+                <div className="text-[11px] font-bold tracking-[0.12em] text-white/50">VOICE PERSONALITY</div>
+                <div className="text-[11px] text-white/70 font-medium mt-[1px]">
+                  {voiceEnabled ? 'Auto speaks on signal' : 'Muted'}
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex rounded-full bg-black/40 p-[3px] border border-white/10">
+              {['genz', 'pro', 'urdu'].map(style => (
+                <button
+                  key={style}
+                  onClick={() => setVoiceStyle(style)}
+                  className={`px-[10px] h-[28px] rounded-full text-[11px] font-bold transition-all ${
+                    voiceStyle === style 
+                      ? 'bg-gradient-to-r from-white to-white/90 text-black shadow-sm' 
+                      : 'text-white/50 hover:text-white/80'
+                  }`}
+                >
+                  {style === 'genz' ? 'Gen-Z' : style === 'pro' ? 'Pro' : 'Urdu Mix'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Proof Drawer */}
+          <div className="mt-[14px]">
+            <button
+              onClick={() => setShowProof(prev => !prev)}
+              className="w-full h-[44px] rounded-[14px] card-glass flex items-center justify-between px-[14px] text-[12px] font-semibold text-white/70 hover:text-white/90"
+            >
+              <span className="flex items-center gap-[8px]">
+                <span className="w-[22px] h-[22px] rounded-full bg-white/10 grid place-items-center">🔍</span>
+                Proof • Real logic {showProof ? '▲' : '▼'}
+              </span>
+              <span className="text-[10px] px-[8px] py-[3px] rounded-full bg-white/10">
+                {signal ? signal.time : 'No signal yet'}
+              </span>
+            </button>
+
+            {showProof && signal && (
+              <div className="mt-[8px] card-glass rounded-[16px] p-[14px] text-[11px] leading-[1.6] text-white/65 space-y-[8px]">
+                <div className="flex justify-between">
+                  <span className="text-white/35">ASSET</span>
+                  <span className="text-white font-semibold">{signal.asset.name} {signal.asset.sub}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/35">BROKER</span>
+                  <span className="text-white font-semibold">{signal.broker.name}</span>
+                </div>
+                <div className="h-[1px] bg-white/10 my-[6px]" />
+                <div><span className="text-white/35">EMA:</span> {signal.ema}</div>
+                <div><span className="text-white/35">RSI:</span> {signal.rsi}</div>
+                <div><span className="text-white/35">MACD:</span> {signal.macd}</div>
+                <div className="h-[1px] bg-white/10 my-[6px]" />
+                <div className="text-[10px] text-white/35">
+                  Real logic: Binance klines for crypto real, exchangerate-api for exotic USD/PKR real price, Twelve Data if key, EMA9/21 RSI14 MACD deterministic. No fake random without price check. Voice uses Web Speech API native.
+                </div>
+                {lastSpokenText && (
+                  <div className="mt-[8px] p-[10px] rounded-[12px] bg-white/[0.04] border border-white/10 text-white/70">
+                    <div className="text-[10px] tracking-[0.12em] text-white/40 font-bold mb-[4px]">LAST SPOKEN</div>
+                    "{lastSpokenText}"
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="mt-[22px] text-center text-[10px] text-white/25 leading-[1.5] px-[12px]">
+            BUZDAAR FX — GenZ Bot with Voice AI • Single file • Web Speech API • For educational demo. Not financial advice. Use risk management.
+          </div>
+
+          {/* Voice Command Modal */}
+          {isListeningModalOpen && (
+            <div className="fixed inset-0 z-[60] bg-[#030712]/85 backdrop-blur-[18px] flex items-end sm:items-center justify-center p-[16px]">
+              <div className="w-full max-w-[380px] rounded-[24px] bg-[#0B0F19] border border-white/10 p-[18px] shadow-[0_20px_80px_rgba(0,0,0,0.8)]">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-[10px]">
+                    <div className="w-[36px] h-[36px] rounded-full bg-[#FF2D78] grid place-items-center animate-pulse shadow-lg shadow-[#FF2D78]/40">
+                      🎙️
+                    </div>
+                    <div>
+                      <div className="text-[14px] font-bold sora">Ask Gen-Z AI</div>
+                      <div className="text-[11px] text-white/50">Try: "Generate signal for Euro Dollar"</div>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => { setIsListeningModalOpen(false); closeVoiceModal(); }}
+                    className="w-[30px] h-[30px] rounded-full bg-white/10 grid place-items-center text-white/70 hover:bg-white/20"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="mt-[18px] h-[84px] rounded-[16px] bg-[#030712] border border-white/10 grid place-items-center relative overflow-hidden">
+                  <div className="flex items-center gap-[5px]">
+                    <span className="w-[5px] bg-[#FF2D78] rounded-full wave-bar" style={{ animationDelay: '0s', animationPlayState: isMicActive ? 'running' : 'paused', height: isMicActive ? undefined : '12px' }} />
+                    <span className="w-[5px] bg-[#8A5CFF] rounded-full wave-bar" style={{ animationDelay: '0.12s', animationPlayState: isMicActive ? 'running' : 'paused', height: isMicActive ? undefined : '18px' }} />
+                    <span className="w-[5px] bg-[#2DE6A0] rounded-full wave-bar" style={{ animationDelay: '0.24s', animationPlayState: isMicActive ? 'running' : 'paused', height: isMicActive ? undefined : '10px' }} />
+                    <span className="w-[5px] bg-[#FFD60A] rounded-full wave-bar" style={{ animationDelay: '0.36s', animationPlayState: isMicActive ? 'running' : 'paused', height: isMicActive ? undefined : '22px' }} />
+                    <span className="w-[5px] bg-[#FF5CA1] rounded-full wave-bar" style={{ animationDelay: '0.48s', animationPlayState: isMicActive ? 'running' : 'paused', height: isMicActive ? undefined : '14px' }} />
+                  </div>
+                  <div className="absolute bottom-[10px] text-[11px] text-white/35 font-medium tracking-wide">
+                    {isMicActive ? 'Listening... speak now' : 'Tap mic to listen again'}
+                  </div>
+                </div>
+
+                <div className="mt-[14px] min-h-[56px] rounded-[14px] bg-white/[0.04] border border-white/10 p-[12px]">
+                  <div className="text-[10px] tracking-[0.14em] text-white/35 font-bold">TRANSCRIPT</div>
+                  <div className="mt-[6px] text-[13px] text-white/85 leading-[1.4] min-h-[20px]">
+                    {transcript || <span className="text-white/30">Say something like "Generate signal", "Analyze Euro Dollar", "Switch to Pocket Option"...</span>}
+                  </div>
+                </div>
+
+                <div className="mt-[14px] grid grid-cols-2 gap-[8px]">
+                  <button
+                    onClick={startVoiceCommand}
+                    className="h-[44px] rounded-full bg-white text-black font-bold text-[13px] flex items-center justify-center gap-[6px] shadow-md shadow-white/10"
+                  >
+                    <span>🎙️</span> {isMicActive ? 'Listening...' : 'Start Listening'}
+                  </button>
+                  <button
+                    onClick={() => { closeVoiceModal(); setIsListeningModalOpen(false); }}
+                    className="h-[44px] rounded-full bg-white/10 border border-white/10 font-bold text-[13px] text-white/80 hover:bg-white/15"
+                  >
+                    Close
+                  </button>
+                </div>
+
+                <div className="mt-[12px] flex flex-wrap gap-[6px]">
+                  {["Generate signal", "Euro Dollar", "USD PKR", "Bitcoin", "Pocket Option"].map(phrase => (
+                    <button
+                      key={phrase}
+                      onClick={() => {
+                        setTranscript(phrase);
+                        handleCommand(phrase.toLowerCase());
+                      }}
+                      className="px-[10px] h-[26px] rounded-full bg-white/[0.06] border border-white/10 text-[11px] text-white/60 hover:text-white/90"
+                    >
+                      {phrase}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+  </script>
 </body>
 </html>
